@@ -1,0 +1,28 @@
+<div id="page">
+<div class="topic_content">
+
+<% @title = "Search for #{params[:q]}" %>
+<hgroup>
+  <h1>Results for <em style="color:#4c4074"><%=h params[:q] %></em>:</h1>
+</hgroup>
+
+<article>
+<div id="results">
+  <% search['results'].each do |result| %>
+    <div class="result">
+      <h2><a href="/articles/<%= result['docid'] %>"><%=h result['title'] %></a></h2>
+	  <p><%= result['snippet_text'] %> <% if result['snippet_text'] %>...<% end %></p>
+    </div>
+  <% end %>
+</div>
+</article>
+<% if next_page %>
+  <div id="next_section"><a href="/search?q=<%= query %>&page=<%= next_page %>">Next Page &rarr;</a></div>
+<% end %>
+
+<% if prev_page %>
+  <div id="prev_section"><a href="/search?q=<%= query %>&page=<%= prev_page %>">&larr; Prev Page</a></div>
+<% end %>
+
+</div><!-- /#topic_content -->
+</div><!-- /#page -->

@@ -1,0 +1,175 @@
+/*
+  title: media css
+  author: maximilian schoening (@mschoening)
+*/
+
+/* =narrow
+---------------------------------------------- */
+@media only screen and (max-width: 983px) {
+  .wrapper {
+    width: 734px;
+  }
+  
+  /* =layout
+  /* ------------------------------------------- */
+  #main {
+    width: 506px;
+  }
+  /* ------------------------------------------- */
+
+  /* =article
+  /* ------------------------------------------- */
+    /* =article
+    ---------------------------------------------- */
+    #article article {
+      padding: 18px;
+    }   
+
+      /* =callouts
+      ---------------------------------------------- */
+      #article article .callout {
+        border: 1px solid #d0dbe6;
+        margin: 0 0 22px 0;
+        position: static;
+        width: 444px;
+      }
+
+      #article article .callout:after {
+        display: none;
+      }
+      /* ------------------------------------------- */
+    /* ------------------------------------------- */
+  /* ------------------------------------------- */
+
+  /* =home-page
+  /* ------------------------------------------- */
+    /* =intro
+    /* ------------------------------------------- */
+    #home-page #intro > h2 {
+      width: 720px;
+    }
+
+    #home-page #intro #cycle .pane {
+      width: 734px;
+    }
+
+    #home-page #intro #cycle .pane .content .description {
+      width: 303px;
+    }
+
+    #home-page #intro #cycle .pane .content .description h1 {
+      font-size: 18px;
+    }
+
+    #home-page #intro #cycle .pane .content .description p {
+      font-size: 12px;
+    }
+
+    #home-page #intro #cycle .pane .content .image {
+      width: 303px;
+    }
+
+    #home-page #intro #cycle .pane .content .image img {
+      max-height: 152px;
+      max-width: 303px;
+    }
+    /* ------------------------------------------- */
+  /* ------------------------------------------- */
+}
+/* ------------------------------------------- */
+
+/* =skinny
+---------------------------------------------- */
+@media only screen and (max-width: 757px) {
+  .wrapper {
+    width: 506px;
+  }
+  
+  /* =layout
+  ---------------------------------------------- */
+    /* =sheet
+    ---------------------------------------------- */
+      /* =sidebar
+      ---------------------------------------------- */
+      #sidebar {
+       float: none;
+       margin: 0;
+       width: 506px;
+      } 
+
+        /* =search
+        ---------------------------------------------- */
+        #search form p input[type='text'] {
+          width: 462px;
+        }
+
+        #search form p input[type='text']:focus:valid {
+          width: 441px;
+        }
+        /* ------------------------------------------- */
+
+        /* =quicknav
+        ---------------------------------------------- */
+        #quicknav {
+          background: transparent;
+          border: 1px solid #aeb3b8;
+          display: block;
+          font-size: 16px;
+          margin: 0 0 18px 0;
+          width: 100%;
+        } 
+        /* ------------------------------------------- */
+
+        /* =nav
+        ---------------------------------------------- */
+        #nav {
+          display: none;
+        } 
+        /* ------------------------------------------- */
+      /* ------------------------------------------- */
+
+      /* =main
+      ---------------------------------------------- */
+      #main {
+       float: none;
+      } 
+      /* ------------------------------------------- */
+    /* ------------------------------------------- */
+  /* ------------------------------------------- */
+
+  /* =home-page
+  ---------------------------------------------- */
+    /* =intro
+    ---------------------------------------------- */
+    #home-page #intro > h2 {
+      width: 492px;
+    }
+
+    #home-page #intro #cycle .pane {
+      width: 506px;
+    }
+
+    #home-page #intro #cycle .pane .content .description {
+      width: 506px;
+    }
+
+    #home-page #intro #cycle .pane .content .description h1 {
+      font-size: 18px;
+    }
+
+    #home-page #intro #cycle .pane .content .description p {
+      font-size: 12px;
+    }
+
+    #home-page #intro #cycle .pane .content .image {
+      display: none;
+    }
+
+    #home-page #intro #cycle .pane .content .image img {
+      max-height: 152px;
+      max-width: 303px;
+    }
+    /* ------------------------------------------- */
+  /* ------------------------------------------- */
+}
+/* ------------------------------------------- */

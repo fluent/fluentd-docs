@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <%= ::NewRelic::Agent.browser_timing_header rescue "" %>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8">
+  <title><%=h @title %> | Fluentd</title>
+  <meta name="keywords" content="<%= find_keywords(params[:article], params[:category]).join(',') %>">
+  <meta name="description" content="<%= @desc %>">
+  <link rel="canonical" href="http://docs.fluentd.org<%= request.fullpath %>" />
+  <link href="http://docs.fluentd.org/favicon.ico" rel="icon" type="image/x-icon">
+  <link href="http://docs.fluentd.org/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <%= css :application, :media => 'screen' %>
+  <link type="text/css" rel="stylesheet" href="http://www.treasure-data.com/stylesheets/dropdown_menu.css" media="screen" />
+  <%= js  :app %>
+  <script type="text/javascript">
+    $("#stack-compare tr").click(function(){
+      window.location=$(this).find("a").attr("href");
+      return false;
+    });
+    var activeNav = false;
+  </script>
+  <!-- start Mixpanel -->
+  <script type="text/javascript">
+    (function(d,c){var a,b,g,e;a=d.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===d.location.protocol?"https:":"http:")+'//api.mixpanel.com/site_media/js/api/mixpanel.2.js';b=d.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b);c._i=[];c.init=function(a,d,f){var b=c;"undefined"!==typeof f?b=c[f]=[]:f="mixpanel";g="disable track track_pageview track_links track_forms register register_once unregister identify name_tag set_config".split(" ");
+    for(e=0;e<g.length;e++)(function(a){b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,0)))}})(g[e]);c._i.push([a,d,f])};window.mixpanel=c})(document,[]);
+    mixpanel.init("a71e7fcd0b07e91e9c89cbcc1e528c79");
+  </script>
+  <!-- end Mixpanel -->
+  <!-- Google Webmaster -->
+  <meta name="google-site-verification" content="yr7VYaA0N_rwCtUEdFHTmuip4W_bNPTc4XOGkMyj6Do" />
+  <!-- Bing Webmaster -->
+  <meta name="msvalidate.01" content="FA8C6A3FF6ADEE726950F238947D5295" />
+</head>
+<body>
+  <div id="header" style="padding-left: 15%; padding-bottom: 30px;">
+  <div id="td-header-inner">
+    <h1 id="td-logo"><a href="http://www.treasure-data.com/">Fluentd</a></h1>
+    <ul id="td-nav" style="margin-right: 80px;">
+      <li>
+        <a href="http://www.treasure-data.com/signup/" class="td-signup" style="margin-right: 50px; margin-bottom: 10px;">Sign Up!</a>
+      </li>
+      <li>
+        <ul class="dropdown">
+          <li>
+            <a href="#">Service</a>
+            <ul>
+              <li><a href="http://www.treasure-data.com/how/">How it Works</a></li>
+              <li><a href="http://www.treasure-data.com/pricing/">Pricing</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">Business</a>
+            <ul>
+              <li><a href="http://www.treasure-data.com/whitepapers/">White Papers</a></li>
+              <li><a href="http://docs.treasure-data.com/categories/success-stories">Success Stories</a></li>
+              <li><a href="http://www.treasure-data.com/quotes/">Customer Quotes</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">Developers</a>
+            <ul>
+              <li><a href="http://docs.treasure-data.com/">Documentation</a></li>
+              <li class="offset-1"><a href="http://help.treasure-data.com/discussions">Support</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">Company</a>
+            <ul>
+              <li><a href="http://www.treasure-data.com/about-us/">About Us</a></li>
+              <li><a href="http://www.treasure-data.com/partners/">Partners</a></li>
+              <li><a href="http://blog.treasure-data.com/">Blog</a></li>
+              <li><a href="http://www.treasure-data.com/contact/">Contact Us</a></li>
+              <li><a href="http://www.treasure-data.com/careers/">Careers</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">News</a>
+            <ul>
+              <li><a href="http://www.treasure-data.com/press-release/">Press Releases</a></li>
+              <li><a href="http://www.treasure-data.com/in-the-news/">In the News</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="http://console.treasure-data.com/">Log In</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  </div>
+
+  <div id="sheet">
+	<div class="wrapper">
+	  <div class="pie-clearfix" id=<% if params.include?("category")%>"<%='category'%>"<% else %>"<%='article'%>"<% end %>>
+		<aside id="sidebar">
+		  <section class="pie-clearfix pie-clearfix-ie" id="search">
+			<div id="search">
+			  <form action="/search">
+				<p>
+				  <input id="q" name="q" placeholder="search" required="required" type="text" style="background-color: white; color: black;" value="<%=h params[:q] || '' %>" />
+				</p>
+			  </form>
+			</div>
+		  </section>
+		  <select id="quicknav">
+			<option value="/">Home</option>
+			<% sections.each do |slug, title, categories| %>
+			<optgroup label="<%=title %>">
+			  <% categories.each do |slug, title, _| %>
+			  <option value="/categories/<%= slug %>"><%=h title %></option>
+			  <% end %>
+			</optgroup>
+			<% end %>
+		  </select>
+		  <ul id="nav">
+			<% sections.each do |slug, title, categories| %>
+			<li class="category-group">
+			  <a class="category" href="#"><%= title %></a>
+			  <ul class="tags">
+				<% categories.each do |slug, title, _| %>
+				<% if (params[:category] == slug) || (find_category(params[:article]) == slug) %>
+				<li class="active"><a href="/categories/<%= slug %>"><%=h title %></a></li>
+				<% else %>
+				<li><a href="/categories/<%= slug %>"><%=h title %></a></li>
+				<% end %>
+				<% end %>
+			  </ul>
+			</li>
+			<% end %>
+		  </ul>
+		  <section id="search">
+                    <div id="livechat">
+                      <a href="javascript:olark('api.box.expand');">
+                        <img src="/images/livechat.png" height="16px">Live Chat
+                      </a>
+                    </div>
+                  </section>
+		</aside><!-- /#sidebar -->
+		<section id="main">
+			  <%= yield %>
+		</section><!-- /#main -->
+		<script type="text/javascript">
+		  // specify active tabindex
+		  $("#nav .category-group").each(function(i){
+										 if( 0 < $(this).children("ul.tags").children("li.active").length ){
+											 activeNav = i;
+										 };
+									 });
+		</script>
+	  </div><!-- /#category -->
+	</div><!-- /.wrapper -->
+  </div><!-- /#sheet -->
+
+  <!-- Google Analytics -->
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-24890265-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+  
+  <!-- MixPanel -->
+  <script type="text/javascript">
+    (function(event_type, landing_page_type) {
+      var query_string_pairs = location.search.substr(1).split('&');
+      for (var i = 0; i < query_string_pairs.length; ++i) {
+        if (query_string_pairs[i].substr(0, 7) == 'source=') {
+          mixpanel.register_once({ source: query_string_pairs[i].substr(7) });
+          break;
+        }
+      }
+      if (landing_page_type) {
+        mixpanel.register_once({landing: landing_page_type});
+      }
+      mixpanel.track(event_type);
+    })('ViewDoc', 'docs');
+  </script>
+
+  <!-- Inspectlet -->
+  <script type="text/javascript" id="inspectletjs">
+    var __insp = __insp || [];
+    (function() {
+    var a = window.onload;
+    function __ldinsp(){var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://www.inspectlet.com/inspect/2575155255.js'; document.getElementsByTagName("head")[0].appendChild(insp); }
+    window.onload = (typeof window.onload != 'function') ? __ldinsp() : function() { a(); __ldinsp(); };
+    })();
+  </script>
+
+  <!-- Google Code for TD website visitors Remarketing List -->
+  <script type="text/javascript">
+  /* <![CDATA[ */
+  var google_conversion_id = 1009909590;
+  var google_conversion_language = "en";
+  var google_conversion_format = "3";
+  var google_conversion_color = "ffffff";
+  var google_conversion_label = "8VZbCLqr0QIQ1v7H4QM";
+  var google_conversion_value = 0;
+  /* ]]> */
+  </script>
+  <script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion.js">
+  </script>
+  <noscript>
+  <div style="display:inline;">
+  <img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/1009909590/?value=0&amp;label=8VZbCLqr0QIQ1v7H4QM&amp;guid=ON&amp;script=0"/>
+  </div>
+  </noscript>
+
+  <!-- begin olark code -->
+  <script data-cfasync="false" type='text/javascript'>/*{literal}<![CDATA[*/
+  window.olark||(function(c){var f=window,d=document,l=f.location.protocol=="https:"?"https:":"http:",z=c.name,r="load";var nt=function(){f[z]=function(){(a.s=a.s||[]).push(arguments)};var a=f[z]._={},q=c.methods.length;while(q--){(function(n){f[z][n]=function(){f[z]("call",n,arguments)}})(c.methods[q])}a.l=c.loader;a.i=nt;a.p={0:+new Date};a.P=function(u){a.p[u]=new Date-a.p[0]};function s(){a.P(r);f[z](r)}f.addEventListener?f.addEventListener(r,s,false):f.attachEvent("on"+r,s);var ld=function(){function p(hd){hd="head";return["<",hd,"></",hd,"><",i,' onl' + 'oad="var d=',g,";d.getElementsByTagName('head')[0].",j,"(d.",h,"('script')).",k,"='",l,"//",a.l,"'",'"',"></",i,">"].join("")}var i="body",m=d[i];if(!m){return setTimeout(ld,100)}a.P(1);var j="appendChild",h="createElement",k="src",n=d[h]("div"),v=n[j](d[h](z)),b=d[h]("iframe"),g="document",e="domain",o;n.style.display="none";m.insertBefore(n,m.firstChild).id=z;b.frameBorder="0";b.id=z+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){b.src="javascript:false"}b.allowTransparency="true";v[j](b);try{b.contentWindow[g].open()}catch(w){c[e]=d[e];o="javascript:var d="+g+".open();d.domain='"+d.domain+"';";b[k]=o+"void(0);"}try{var t=b.contentWindow[g];t.write(p());t.close()}catch(x){b[k]=o+'d.write("'+p().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};ld()};nt()})({loader: "static.olark.com/jsclient/loader0.js",name:"olark",methods:["configure","extend","declare","identify"]});
+  /* custom configuration goes here (www.olark.com/documentation) */
+  olark.identify('7580-888-10-8664');/*]]>{/literal}*/
+  </script>
+  <noscript><a href="https://www.olark.com/site/7580-888-10-8664/contact" title="Contact us" target="_blank">Questions? Feedback?</a> powered by <a href="http://www.olark.com?welcome" title="Olark live chat software">Olark live chat software</a></noscript>
+  <!-- end olark code -->
+
+  <%= ::NewRelic::Agent.browser_timing_footer rescue "" %>
+  <!-- Dropdown for older browsers -->
+  <script type="text/javascript" language="javascript" src="http://www.treasure-data.com/javascripts/jquery.dropdown.js"></script>
+</body>
+</html>

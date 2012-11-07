@@ -1,0 +1,33 @@
+Quickstart Guide
+================
+
+Let's get started with Fluentd! Fluentd is a log collector daemon written in Ruby. Fluentd receives log as JSON streams, buffers them, and storeds or forwards to other systems like MongoDB, or even other instances of Fluentd.
+
+## Step1: Install
+
+Please follow the installation/quickstart guides below which matches your environment.
+
+* [Installation by rpm Package](install-by-rpm)
+* [Installation by deb Package](install-by-deb)
+* [Installation by gem Package](install-by-gem)
+
+## Step2: Use
+
+The list below are the typical usecases of Fluentd. You might want to pick the one from them.
+
+  * Server Logs
+    * Store Apache Log into Amazon S3
+    * Store Apache Log into MongoDB
+  * Application Logging
+    * Java, Ruby or Rails, Python, PHP, Perl, Node.js, Scala
+
+## Step3: Learn More
+
+Learn more about Fluentd.
+
+  * Architecture Overview
+  * High Availability Configuration
+  * Plugin Overview
+    * Input Plugins
+    * Output Plugins
+  * Plugin Development

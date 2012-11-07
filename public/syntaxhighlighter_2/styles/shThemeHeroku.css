@@ -1,0 +1,125 @@
+/**
+ * SyntaxHighlighter
+ * http://alexgorbatchev.com/
+ *
+ * SyntaxHighlighter is donationware. If you are using it, please donate.
+ * http://alexgorbatchev.com/wiki/SyntaxHighlighter:Donate
+ *
+ * @version
+ * 2.0.320 (May 03 2009)
+ * 
+ * @copyright
+ * Copyright (C) 2004-2009 Alex Gorbatchev.
+ *
+ * @license
+ * This file is part of SyntaxHighlighter.
+ * 
+ * SyntaxHighlighter is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * SyntaxHighlighter is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with SyntaxHighlighter.  If not, see <http://www.gnu.org/copyleft/lesser.html>.
+ */
+/**
+ * Midnight SyntaxHighlighter theme based on theme by J.D. Myers
+ * http://webdesign.lsnjd.com/
+ */
+
+/************************************
+ * Interface elements.
+ ************************************/
+
+.syntaxhighlighter
+{
+	width: auto !important;
+	padding: 10px !important;
+	background-color: #302F39 !important;
+	font-family: Monaco, monospace !important;
+	font-size: 12px !important;
+}
+
+.syntaxhighlighter .line .content .block
+{
+	background: url(wrapping.png) 0 1.1em no-repeat !important;
+}
+
+/************************************
+ * Actual syntax highlighter colors.
+ ************************************/
+.syntaxhighlighter .plain,
+.syntaxhighlighter .plain a
+{ 
+	color: #FFF !important;
+}
+
+.syntaxhighlighter .comments,
+.syntaxhighlighter .comments a
+{ 
+	color: #777 !important;
+}
+
+.syntaxhighlighter .string,
+.syntaxhighlighter .string a
+{
+	color: #AC9363 !important; 
+}
+
+.syntaxhighlighter .keyword
+{ 
+	color: #a3a1fd !important; 
+}
+
+.syntaxhighlighter .preprocessor 
+{ 
+	color: #FFF !important; 
+}
+
+.syntaxhighlighter .variable 
+{ 
+	color: #BFC149 !important; 
+}
+
+.syntaxhighlighter .value
+{ 
+	color: #F7E741 !important; 
+}
+
+.syntaxhighlighter .functions
+{ 
+	color: #FFAA3E !important; 
+}
+
+.syntaxhighlighter .constants
+{ 
+	color: #BFC149 !important; 
+}
+
+.syntaxhighlighter .script
+{ 
+	background-color: #404040 !important;
+}
+
+.syntaxhighlighter .color1,
+.syntaxhighlighter .color1 a
+{ 
+	color: #FFF !important; 
+}
+
+.syntaxhighlighter .color2,
+.syntaxhighlighter .color2 a
+{ 
+	color: #FFFFFF !important; 
+}
+
+.syntaxhighlighter .color3,
+.syntaxhighlighter .color3 a
+{ 
+	color: #FFAA3E !important; 
+}

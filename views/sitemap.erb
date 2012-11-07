@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.google.com/schemas/sitemap/0.84">
+  <url>
+    <loc>http://docs.fluentd.org/</loc>
+    <lastmod><%= Time.now.strftime("%Y-%m-%d") %></lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <% @articles.each do |article| %>
+    <% if File.exist?("#{options.root}/docs/#{article}.txt") %>
+      <url>
+        <loc>http://docs.fluentd.org/articles/<%= article %></loc>
+        <lastmod><%= File::mtime("#{options.root}/docs/#{article}.txt").strftime("%Y-%m-%d") %></lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.8</priority>
+      </url>
+    <% end %>
+  <% end %>
+</urlset>

@@ -1,0 +1,120 @@
+/*
+  title: library css
+  author: maximilian schoening (@mschoening)
+*/
+
+/* =floating
+---------------------------------------------- */
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+/* ------------------------------------------- */
+
+/* =clearing
+---------------------------------------------- */
+.clear {
+  clear: both;
+}
+
+.clearfix {
+  overflow: hidden;
+}
+
+.pie-clearfix:after {
+  clear: both;
+  content: ".";
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+
+.pie-clearfix-ie {
+  display: block;
+  zoom: 1;
+}
+/* ------------------------------------------- */
+
+/* =spacing
+---------------------------------------------- */
+.no_border {
+  border: 0 !important;
+}
+
+.no_bottom {
+  margin-bottom: 0 !important;
+}
+
+.no_left {
+  margin-left: 0 !important;
+}
+
+.no_right {
+  margin-right: 0 !important;
+}
+
+.no_top {
+  margin-top: 0 !important;
+}
+
+.reset {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.reset_all {
+  border: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.reset_margin {
+  margin: 0 !important;
+}
+
+.reset_padding {
+  padding: 0 !important;
+}
+/* ------------------------------------------- */
+
+/* =alignment
+---------------------------------------------- */
+.align_center {
+  text-align: center !important;
+}
+
+.align_justify {
+  text-align: justify !important;
+}
+
+.align_left {
+  text-align: left !important;
+}
+
+.align_right {
+  text-align: right !important;
+}
+/* ------------------------------------------- */
+
+/* =visibility
+---------------------------------------------- */
+.block {
+  display: block !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+.hide-offset {
+  position: absolute;
+  top: -99999px;
+}
+
+.inline {
+  display: inline !important;
+}
+/* ------------------------------------------- */

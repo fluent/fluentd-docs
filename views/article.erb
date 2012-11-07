@@ -1,0 +1,41 @@
+<div id="page">
+<div class="topic_content">
+
+<article>
+  <hgroup>
+    <h1><%= @title %></h1>
+  </hgroup>
+  <% if @congrats %>
+    <p><b><font color="green">Congratulations! Your account was created!<br />...And let's start with a <font color="red">5-min</font> quick start below!</font></b></p>
+  <% end %>
+  <%= @intro %>
+  <% if @toc.size > 0 %>
+    <section id="table-of-contents"><h3>Table of Contents</h3>
+      <ul id="toc">
+        <% @toc.each do |section| %>
+          <li><a href="#<%= slugify(section) %>"><%= section %></a></li>
+        <% end %>
+      </ul>
+    </section>
+  <% end %>
+  <%= @body %>
+  <hr size="1" style="margin-top: 10px; margin-bottom: 18px; color: rgba(0, 0, 0, .15);">
+  <p>
+    If this article is incorrect or outdated, or omits critical information, please <a href="http://treasure-data.com/contact/">let us know</a>. For all other issues, please see our <a href="/articles/support-channels">support channels</a>. <a href="javascript:olark('api.box.expand');">Live chat</a> with our staffs also work well.
+  </p>
+</article>
+
+<% if @article.topic == 'quickstart' %>
+  <img src="https://crm.treasure-data.com/lead/view_quickstart_document" />
+<% end %>
+
+<% if ['java','ruby','python','php','perl','nodejs','scala','analyzing-apache-logs','analyzing-twitter-data','td-agent-tail','heroku-ruby','heroku-rails','heroku-java','heroku-rest','engine-yard-ruby','engine-yard-rails'].include?(@article.topic) %>
+  <script type="text/javascript">mixpanel.register_once({app_lang: "<%= @article.topic %>"});</script>
+  <script type="text/javascript">mixpanel.track("ViewLang");</script>
+  <img src="https://crm.treasure-data.com/lead/view_application_language?lang=<%= @article.topic %>" />
+<% end %>
+
+<script type="text/javascript">mixpanel.track("ViewArticle_<%= @article.topic %>");</script>
+
+</div><!-- /#topic_content -->
+</div><!-- /#page -->

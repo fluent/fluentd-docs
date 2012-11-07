@@ -1,0 +1,9 @@
+.cookies.lwp
+.DS_Store
+/tmp
+*.pid
+.bundle
+bin
+vendor/cache
+vendor/bundle
+*~

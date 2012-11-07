@@ -1,0 +1,55 @@
+/*
+  title: reset css
+  author: maximilian schoening (@mschoening)
+*/
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+a, b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, dialog, figure, footer,
+header, hgroup, menu, nav, section,
+time, mark, audio, video {
+  background: transparent;
+  border: 0;
+  font-size: 100%;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  vertical-align: baseline;
+}
+
+article, aside, dialog, figure, footer, header, hgroup, nav, section {
+  display : block;
+}
+
+body {
+  line-height: 1;
+}
+
+blockquote, q {
+  quotes: '' '';
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0
+}
+
+table, th, td {
+  vertical-align: middle;
+}
+
+th, td {
+  font-weight: normal;
+  text-align: left;
+}

@@ -1,0 +1,55 @@
+# Fluentd rpm Installation
+
+This article describes how to install td-agent rpm package, the stable distribution package of fluentd maintained by [Treasure Data, Inc](http://treasure-data.com/).
+
+## What is td-agent?
+
+Fluentd is written in Ruby for the flexibility, but the installation and the operation of Ruby daemon have some difficulties for the casual users. That's why Treasure Data, Inc. is providing the stable distribution of Fluentd. The detailed difference between fluentd and td-agent can be found [here](http://community.fluentd.org/a/what-is-the-difference-with-td-agent-and-fluentd/).
+
+## Step1: Add the rpm Repository
+
+This article shows how to install td-agent for CentOS, RHEL 5.0+. At first, please create `/etc/yum.repos.d/td.repo` with the following contents.
+
+    :::term
+    [treasuredata]
+    name=TreasureData
+    baseurl=http://packages.treasure-data.com/redhat/$basearch
+    gpgcheck=0
+
+## Step2: Install and Launch
+
+Then, you can install via `yum` command.
+
+    :::term
+    $ yum update
+    $ yum install td-agent
+    $ /etc/init.d/td-agent start
+
+`/etc/init.d/td-agent` script is also provided to start, stop, or restart the agent.
+
+    :::term
+    $ /etc/init.d/td-agent start
+    $ /etc/init.d/td-agent stop
+    $ /etc/init.d/td-agent restart
+
+## Step3: Put Sample Logs via HTTP
+
+By default, `/etc/td-agent/td-agent.conf` is configured to take logs from HTTP and routes them to stdout (`/var/log/td-agent/td-agent.log`). You can post the sample log records by curl command.
+
+    :::term
+    $ curl -X POST -d 'json={"json":"message"}' http://localhost:8888/debug.test
+
+## Next Step
+
+Now you're ready to collect your real logs by Fluentd. See the following tutorials to learn how to collect your data from various data sources.
+
+  * Server Logs
+    * Store Apache Log into Amazon S3
+    * Store Apache Log into MongoDB
+  * Application Logging
+    * Java, Ruby or Rails, Python, PHP, Perl, Node.js, Scala
+
+Please look at those resources for further steps.
+
+* [ChangeLog of td-agent](http://help.treasure-data.com/kb/installing-td-agent-daemon/changelog-of-td-agent)
+* [Chef Cookbook](https://github.com/treasure-data/chef-td-agent)

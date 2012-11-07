@@ -1,0 +1,106 @@
+.CodeRay {
+  color: #f8f8f8;
+  font-family: Monaco, monospace;
+  font-size: 11px;
+}
+
+span.CodeRay              { white-space: pre; border: 0px; padding: 2px }
+.CodeRay pre              { margin: 0px }
+table.CodeRay             { border-collapse: collapse; width: 100%; padding: 2px }
+table.CodeRay td          { padding: 2px 4px; vertical-align: top }
+
+.CodeRay .no              { padding: 0px 4px }
+.CodeRay .code            { width: 100% }
+
+ol.CodeRay                { font-size: 10pt }
+ol.CodeRay li             { white-space: pre }
+
+.CodeRay .code pre        { overflow: auto }
+
+.CodeRay .attribute-name              { color: #fbde2d; } /* attribute_name */
+.CodeRay .annotation              { } /* annotation */
+.CodeRay .attribute-value              { } /* attribute_value */
+.CodeRay .binary              { color: #d8fa3c; } /* bin */
+.CodeRay .comment               { color: #aeaeae; } /* comment */
+
+.CodeRay .char              { color: #d8fa3c; } /* char */
+.CodeRay .char .content           { color: #d8fa3c; }
+.CodeRay .char .delimiter          { color: #d8fa3c; }
+
+.CodeRay .class              { } /* class */
+.CodeRay .imaginary              { color: #d8fa3c; } /* imaginary */
+.CodeRay .constant              { color: #d8fa3c; } /* constant */
+.CodeRay .color              { } /* color */
+.CodeRay .class-variable              { } /* class_variable */
+.CodeRay .decorator              { } /* decorator */
+.CodeRay .definition              { } /* definition */
+.CodeRay .directive              { } /* directive */
+.CodeRay .delimiter              { } /* delimiter */
+.CodeRay .doc              { } /* doc */
+.CodeRay .doctype             { } /* doctype */
+.CodeRay .doc-string              { } /* doc_string */
+.CodeRay .escape               { } /* (don't know) */
+.CodeRay .entity              { color: #ff6400; } /* entity */
+.CodeRay .error              { } /* error */
+.CodeRay .exception              { } /* exception */
+.CodeRay .float              { color: #d8fa3c; } /* float */
+.CodeRay .function              { } /* method */
+.CodeRay .global-variable              { } /* global_variable */
+.CodeRay .hex              { color: #d8fa3c; } /* hex */
+.CodeRay .integer               { color: #d8fa3c; } /* integer */
+.CodeRay .include              { } /* include */
+
+.CodeRay .inline              { } /* inline */
+.CodeRay .inline .inline          { }
+.CodeRay .inline .inline .inline      { }
+.CodeRay .inline .inline-delimiter         { } /* inline_delimiter */
+.CodeRay .inline-delimiter            { } /* inline_delimiter */
+
+.CodeRay .instance-variable              { } /* instance_variable */
+.CodeRay .label              { } /* label */
+.CodeRay .local-variable              { } /* local_variable */
+.CodeRay .octal              { color: #d8fa3c; } /* oct */
+.coderay .operator              { color: #fbde2d; } /* operator */
+.CodeRay .predefined              { } /* predefined */
+.CodeRay .preprocessor              { } /* preprocessor */
+.CodeRay .pseudo-class              { } /* pseudo_class */
+.CodeRay .reserved, .keyword          { color: #fbde2d; } /* keywords, ? */
+
+.CodeRay .key              { color: #d8fa3c; } /* key */
+.CodeRay .key .delimiter          { color: #d8fa3c; }
+.CodeRay .key .char          { color: #d8fa3c; }
+.CodeRay .value              { } /* value */
+
+.CodeRay .regexp              { } /* regexp */
+.CodeRay .regexp .content           { }
+.CodeRay .regexp .delimiter          { }
+.CodeRay .regexp .modifier         { }
+.CodeRay .regexp .function          { }
+
+.CodeRay .string               { color: #adc6ee; } /* string */
+.CodeRay .string .string            { }
+.CodeRay .string .string .string         { }
+.CodeRay .string .content            { }
+.CodeRay .string .char           { }
+.CodeRay .string .delimiter           { } /* quotes */
+
+.CodeRay .shell              { } /* shell */
+.CodeRay .shell .content           { }
+.CodeRay .shell .delimiter          { }
+
+.CodeRay .symbol              { color: #d8fa3c; } /* symbol */
+.CodeRay .symbol .content            { color: #d8fa3c; }
+.CodeRay .symbol .delimiter          { color: #d8fa3c; }
+
+.CodeRay .tag              { } /* tag */
+.CodeRay .type              { } /* type */
+.CodeRay .variable               { } /* variable */
+
+.CodeRay .insert             { } /* insert */
+.CodeRay .insert .insert        { }
+.CodeRay .delete             { } /* delete */
+.CodeRay .delete .delete         { }
+.CodeRay .change          { } /* change */
+.CodeRay .change .change        { }
+.CodeRay .head            { } /* head */
+.CodeRay .head .head      { }
