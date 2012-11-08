@@ -17,9 +17,9 @@ Fluentd solves this problem by **SIMPLICITY** of providing the following feature
 
 ## Easy Installation
 
-**Fluentd** is provided as rpm/deb packages, with built-in Ruby interpreter. Virtually no dependency on your system.
+**Fluentd** is provided as [rpm](install-by-rpm)/[deb](install-by-deb) packages, with built-in Ruby interpreter. Virtually no dependency on your system.
 
-It's also provides as Ruby gem, and can be installed with a single command.
+It's also provides as [Ruby gem](install-by-gem), and can be installed with a single command.
 
 ## Small Footprint
 

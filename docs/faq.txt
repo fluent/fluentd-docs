@@ -1,0 +1,57 @@
+# FAQ
+
+## What is the difference with td-agent and Fluentd?
+
+In one word, td-agent is a stable package distribution of Fluentd. There're following differences.
+
+* td-agent is distributed as [deb](install-by-deb)/[rpm](install-by-rpm) package, while Fluentd is distributed by [Ruby gem](install-by-gem).
+* td-agent contains Ruby interpreter itself in the package, while Fluentd not.
+* td-agent contains /etc/init.d/ script, while Fluentd not.
+* td-agent contains stable version of Fluentd, with some plugins compatible with that version.
+* td-agent contains [jemalloc](http://www.canonware.com/jemalloc/), to prevent memory fragmentations on heavy loaded sites.
+
+## What is 'tag'?
+
+The message inside Fluentd consists of the three entities.
+
+* time
+* tag
+* message
+
+Every time you post the log, you need to specify the tag. The tag are used to route the message with in Fluentd. In the configuration file, you have 'match' section to specify which tags are routed to that configuration.
+
+Let's look at the example. This configuration tails /var/log/combine.log, and generates the log with tag 'test-tag.'
+
+    :::term
+    <source>
+      type tail
+      format /^(?<wholemsg>.*)$/
+      path /var/log/combined.log 
+      tag test-tag
+    </source> 
+
+Then if you add these lines to the document, the logs are printed to stdout.
+
+    :::term
+    <match test-tag> 
+      type stdout
+    </match>
+
+On the other hand, this doesn't show nothing, because match section doesn't match the tag.
+
+    :::term
+    <match some-other-tag>
+      type stdout
+    </match>
+
+In conclusion, you can have a control of how to process the data by using tags.
+
+## How to estimate Fluentd's resource usage?
+
+Fluentd consumes more resources, when you throw more logs. From our observation, CPU is a major bottleneck for heavy loaded Fluentd systems. To utilize multiple CPU cores, Fluentd also supports multi-process mode. The normal PC box could handle around 18,000 msgs/second.
+
+## How about Fluentd's performance?
+
+The most of performance sensitive parts are carefully written as Ruby's C extensions. In addition to that, Fluentd supports multi process mode, to leverage multiple CPU cores.
+
+From our experiment, normal PC box could deliver 18,000 messages / second. If you need more higher, please consider using multiple Fluentd servers. If you need 100x performance, you should look at another or your own solution.

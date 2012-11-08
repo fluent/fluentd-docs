@@ -8,7 +8,7 @@ Please install Ruby >= 1.9.2 on your local environment.
 
 ## Step2: Install fluentd gem
 
-Fetch the source code from github. Official repository is located [here](http://github.com/fluent/fluentd/).
+Fetch and install the  `fluetnd` Ruby gem by `gem` command. Official ruby gem page is [here](https://rubygems.org/gems/fluentd).
 
     :::term
     $ gem install fluentd --no-ri --no-rdoc
