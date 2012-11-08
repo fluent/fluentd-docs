@@ -1,0 +1,41 @@
+# out_exec_filter Output Plugin
+
+The `out_exec_filter` buffered output plugin executes an external program, using events as input and reading new events from the program output. It passes tab-separated values (TSV) to stdin and reads TSV from stdout.
+
+### Example Config
+
+    :::text
+    <match pattern>
+      type exec_filter
+      command cmd arg arg
+      in_keys k1,k2,k3
+      out_keys k1,k2,k3,k4
+      tag_key k1
+      time_key k2
+      time_format %Y-%m-%d %H:%M:%S
+    </match>
+
+NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+
+### Parameters
+
+#### type (required)
+The value must be `exec_filter`.
+
+#### command (required)
+A command to execute. The exec plugin passes a path of TSV file to the last argument.
+
+#### in_keys (required)
+Comma-separated keys to use from the incoming event for the TSV input to the command.
+
+#### out_keys (required)
+Comma-separated keys to use in processing the TSV output from the program.
+
+#### tag_key
+Name of the key to use as the event tag instead of the value in the event record.
+
+#### time_key
+Name of the key to use as the event time instead of the value in the event record.
+
+#### time_format
+Format of the event time used when the `time_key` parameter is specified. Default is UNIX time (integer).

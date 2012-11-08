@@ -1,0 +1,102 @@
+# Data Import from Node.js Applications
+
+'[fluent-logger-node](https://github.com/yssk22/fluent-logger-node)', a 3rd party library, is used to post records from Node.js applications to Fluentd. This article explains how to use the fluent-logger-node library.
+
+## Prerequisites
+
+  * Basic knowledge of Node.js and NPM.
+  * Basic knowledge of Fluentd
+  * Node.js 0.6 or higher (for local testing).
+
+## Installing Fluentd
+
+Please refer the following documents to install fluentd.
+
+* [Install Fluentd by RPM](install-by-rpm) (td-agent)
+* [Install Fluentd by Deb](install-by-deb) (td-agent)
+* [Install Fluentd by Gem](install-by-gem)
+
+## Modifying Config File
+
+Next, please ensure to have `forward` source within your configuration file.
+
+    :::text
+    # Treasure Data Input and Output
+    <source>
+      type forward
+      port 24224
+    </source>
+    <match fluentd.test>
+      type stdout
+    </match>
+
+Please restart your agent once these lines are in place.
+
+    :::term
+    $ sudo /etc/init.d/td-agent restart # for rpm/deb only
+
+## Using fluent-logger-node
+
+### Obtaining the Most Recent Version
+
+The most recent version of fluent-logger-node can be found from [here](http://search.npmjs.org/#/fluent-logger).
+
+### A Sample Application
+
+A sample [Express](http://expressjs.com/) app using fluent-logger-node is shown below.
+
+#### package.json
+
+    :::js
+    {
+      "name": "node-example",
+      "version": "0.0.1",
+      "dependencies": {
+        "express": "2.5.9",
+        "fluent-logger": "0.1.0"
+      }
+    }
+
+Now use *npm* to install your dependencies locally:
+
+    :::term
+    $ npm install
+    fluent-logger@0.1.0 ./node_modules/fluent-logger
+    express@2.5.9 ./node_modules/express
+    |-- qs@0.4.2
+    |-- mime@1.2.4
+    |-- mkdirp@0.3.0
+    |-- connect@1.8.6 (formidable@1.0.9)
+
+#### web.js
+
+This is the simplest web app.
+
+    :::js
+    var express = require('express');
+    var app = express.createServer(express.logger());
+
+    var logger = require('fluent-logger');
+    logger.configure('fluentd.test', {host: 'localhost', port: 24224});
+
+    app.get('/', function(request, response) {
+      logger.emit('follow', {from: 'userA', to: 'userB'});
+      response.send('Hello World!');
+    });
+    var port = process.env.PORT || 3000;
+    app.listen(port, function() {
+      console.log("Listening on " + port);
+    });
+
+Execute the app and go to `http://localhost:3000/` in your browser. That will fire the logs into Fluentd.
+
+    :::term
+    $ node web.js
+
+## Production Deployments
+
+### High-Availablability Configurations of Fluentd
+
+For high-traffic websites (more than 5 application nodes), we recommend using a high availability configuration of td-agent. This will improve data transfer reliability and query performance.
+
+* [High-Availability Configurations of Fluentd](high-availability)

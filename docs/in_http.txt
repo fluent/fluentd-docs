@@ -1,0 +1,41 @@
+# in_http Input Plugin
+
+The `in_http` input plugin enables Fluentd to retrieve records from HTTP POST. The URL path is regarded as `tag` of the Fluentd event log, and the POSTed body element is regarded as the record itself.
+
+### Example Config
+
+    :::text
+    <source>
+      type http
+      port 8888
+      bind 0.0.0.0
+      body_size_limit 32m
+      keepalive_timeout 10s
+    </source>
+
+NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+
+#### Example Usage
+
+The example below posts a record by `curl` command.
+
+    :::term
+    $ curl -X POST -d 'json={"action":"login","user":2}'
+      http://localhost:8888/test.tag.here;
+
+### Parameters
+
+#### type (required)
+The value must be `http`.
+
+#### port
+The port to listen on. Default Value = 9880
+
+#### bind
+The bind address to listen on. Default Value = 0.0.0.0 (all addresses)
+
+#### body_size_limit
+The limit of the body size. Default Value = 32MB.
+
+#### keepalive_timeout
+The timeout limit for keeping the connection alive. Default Value = 10 seconds

@@ -44,6 +44,8 @@ To upgrade the existing agent, run the following command:
     $ /etc/init.d/td-agent stop
     $ /etc/init.d/td-agent restart
 
+Please make sure **your configuration file** is located at `/etc/td-agent/td-agent.conf`.
+
 ## Step3: Put Sample Logs via HTTP
 
 By default, `/etc/td-agent/td-agent.conf` is configured to take logs from HTTP and routes them to stdout (`/var/log/td-agent/td-agent.log`). You can post the sample log records by curl command.

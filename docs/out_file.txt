@@ -1,0 +1,53 @@
+# out_file Output Plugin
+
+The `out_file` buffered output plugin writes events to files. By default, it writes into the file in daily basis (almost around 00:10). Before that, no files are created. If you want to output the logs hourly or minutely, please modify `time_slice_format` value.
+
+### Example Config
+
+    :::text
+    <match pattern>
+      type file
+      path /var/log/fluent/myapp
+      time_slice_format %Y%m%d
+      time_slice_wait 10m
+      time_format %Y%m%dT%H%M%S%z
+      compress gzip
+      utc
+    </match>
+
+NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+
+### Parameters
+
+#### type (required)
+The value must be `file`.
+
+#### path (required)
+Path of the file. Actual path becomes path + time + ”.log”. See also time_slice_format parameter descried below.
+
+#### time_slice_format
+
+Format of the time in the file path. Following characters are replaced with values:
+
+* %Y: month of the year (01..12)
+* %d: Day of the month (01..31)
+* %H: Hour of the day, 24-hour clock (00..23)
+* %M: Minute of the hour (00..59)
+* %S: Second of the minute (00..60)
+
+Default is `%Y%m%d` which splits files every day. Use `%Y%m%d%H` to split files every hour.
+
+#### time_slice_wait
+Wait time before flushing the buffer. Default is 10 minutes.
+
+#### time_format
+Format of the time written in files. Default is ISO-8601.
+
+#### utc
+Uses UTC for path formatting. Default is localtime.
+
+#### compress
+Compress flushed files. Supported algorithm is `gzip`. Default is no-compression.
+
+### Buffer
+This output plugin uses [file buffer](buf_file) by default. You can use other buffer plugins as well.

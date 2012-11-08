@@ -1,0 +1,68 @@
+# out_forward Output Plugin
+
+The `out_forward` buffered output plugin forwards events to other fluentd servers. This plugin supports load-balancing and automatic fail-over (a.k.a. active-active backup). If you want replication, use copy plugin described below.
+
+It detects fault of a server using “φ accrual failure detector” algorithm. You can customize parameter of the algorithm. When a fault server recovers, the plugin makes it available automatically after several seconds.
+
+### Example Config
+
+    :::text
+    <match pattern>
+      type forward
+      send_timeout 60s
+      recover_wait 10s
+      heartbeat_interval 1s
+      phi_threshold 8
+      hard_timeout 60s
+      
+      <server>
+        name myserver1
+        host 192.168.1.3
+        port 24224
+        weight 60
+      </server>
+      <server>
+        name myserver2
+        host 192.168.1.4
+        port 24224
+        weight 60
+      </server>
+      ...
+      
+      <secondary>
+        type file
+        path /var/log/fluent/forward-failed
+      </secondary>
+    </match>
+
+NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+
+### Parameters
+
+#### type (required)
+The value must be `forward`.
+
+#### &lt;server&gt; (required at least one)
+Destination servers. Each server must have following information.
+
+* *name*: Name of the server. This parameter is used in error messages.
+* *host* (required): IP address or host name of the server. This parameters is required.
+* *port*: Port number of the host. Default is 24224. Note that both TCP packets (event stream) and UDP packets (heartbeat message) are sent to this port.
+* *weight*: Weight of load balancing. For example, weight of a server is 20 and weight of the other server is 30, events are sent in 2:3 raito. Default is 60.
+
+#### &lt;secondary&gt;
+Backup destination which is used when all servers are not available. This parameter is optional.
+
+#### send_timeout
+Timeout time to send event logs. Default is 60 seconds.
+
+#### recover_wait
+Wait time before accepting recovery of a fault server. Default is 10 seconds.
+
+#### heartbeat_interval
+Interval of heartbeat packer. Default is 1 second.
+phi_threshold
+Threshold parameter to detect fault of a server. Default is 8.
+
+#### hard_timeout
+Hard timeout to detect failure of a server. Default is same as the send_timeout parameter.

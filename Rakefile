@@ -9,10 +9,10 @@ require 'indextank'
 desc 'start a development server'
 task :server do
   if which('shotgun')
-    exec 'shotgun -O app.rb'
+    exec 'shotgun -O app.rb -p 9395'
   else
     warn 'warn: shotgun not installed; reloading is disabled.'
-      exec 'ruby -rubygems app.rb -p 9393'
+      exec 'ruby -rubygems app.rb -p 9395'
   end
 end
 def which(command)

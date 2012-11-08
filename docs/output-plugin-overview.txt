@@ -1,0 +1,26 @@
+# Output Plugin Overview
+
+Fluentd has 3 types of plugins: Input, Output, and Buffer plugin. This article describes the overview of Output plugin.
+
+## Overview
+
+An output plugin is typically 'buffered'. A buffered output plugin instructs Fluentd to accumulate event logs in a buffer before writing chunks of data out to a file or network.
+
+The buffer’s behavior is defined by a separate [buffer plugin](buffer-plugin-overview). Different buffer plugins can be chosen for each output plugin. Some output plugins are fully customized and do not use buffers.
+
+## List of Buffered Output Plugins
+
+* [out_file](out_file)
+* [out_forward](out_forward)
+* [out_exec](out_exec)
+* [out_exec_filter](out_exec_filter)
+* [out_s3](out_s3)
+* [out_mongo](out_mongo)
+* [out_webhdfs](out_webhdfs)
+
+## List of Non-Buffered Output Plugins
+
+* [out_copy](out_copy)
+* [out_roundrobin](out_roundrobin)
+* [out_stdout](out_stdout)
+* [out_null](out_null)

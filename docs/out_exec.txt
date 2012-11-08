@@ -1,0 +1,37 @@
+# out_exec Output Plugin
+
+The `out_exec` buffered output plugin passes events to an external program as a tab-separated value (TSV) file. The command is passed the location of a TSV file containing incoming events as its last argument.
+
+### Example Config
+
+    :::text
+    <match pattern>
+      type exec
+      command cmd arg arg
+      keys k1,k2,k3
+      tag_key k1
+      time_key k2
+      time_format %Y-%m-%d %H:%M:%S
+    </match>
+
+NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+
+### Parameters
+
+#### type (required)
+The value must be `exec`.
+
+#### command (required)
+A command to execute. The exec plugin passes the path of a TSV file as the last argument.
+
+#### keys (required)
+Comma-separated keys to use in the TSV file.
+
+#### tag_key
+Name of the key to use as the event tag instead of the value in the event record.
+
+#### time_key
+Name of the key to use as the event time instead of the value in the event record.
+
+#### time_format
+Format for event time used when the `time_key` parameter is specified. Default is UNIX time (integer).
