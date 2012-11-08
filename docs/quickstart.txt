@@ -16,7 +16,7 @@ Please follow the installation/quickstart guides below which matches your enviro
 The list below are the typical usecases of Fluentd. You might want to pick the one from them.
 
   * Application Logs
-    * Java, Ruby or Rails, Python, PHP, Perl, Node.js, Scala
+    * [Java](java), [Ruby](ruby) or [Rails](rails), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
   * Server Logs
     * Store Apache Log into MongoDB
     * Store Apache Log into Amazon S3
@@ -25,9 +25,9 @@ The list below are the typical usecases of Fluentd. You might want to pick the o
 
 Learn more about Fluentd.
 
-  * Architecture Overview
-  * High Availability Configuration
+  * [Architecture Overview](architecture)
   * Plugin Overview
-    * Input Plugins
-    * Output Plugins
-  * Plugin Development
+    * [Input Plugins](input-plugin-overview)
+    * [Output Plugins](output-plugin-overview)
+    * [Buffer Plugins](buffer-plugin-overview)
+  * [High Availability Configuration](high-availability)
