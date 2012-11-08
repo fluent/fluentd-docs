@@ -49,11 +49,11 @@ section 'plugin', 'Input Plugins' do
   category 'input-plugin-overview', 'Overview' do
     article 'input-plugin-overview', 'Input Plugin Overview'
   end
-  category 'in_http', 'in_http' do
-    article 'in_http', 'in_http'
-  end
   category 'in_forward', 'in_forward' do
     article 'in_forward', 'in_forward'
+  end
+  category 'in_http', 'in_http' do
+    article 'in_http', 'in_http'
   end
   category 'in_tail', 'in_tail' do
     article 'in_tail', 'in_tail'

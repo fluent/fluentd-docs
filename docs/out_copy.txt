@@ -1,0 +1,28 @@
+# copy Output Plugin
+
+The `copy` output plugin copies events to multiple outputs.
+
+### Example Config
+
+    :::text
+    <match pattern>
+      type copy
+      <store>
+        type file
+        path /var/log/fluent/myapp1
+        ...
+      </store>
+      <store>
+        ...
+      </store>
+      <store>
+        ...
+      </store>
+    </match>
+
+NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+
+### Parameters
+
+#### &lt;store&gt; (required at least one)
+Specify destinations. The format is same as &lt;match&gt; directive.

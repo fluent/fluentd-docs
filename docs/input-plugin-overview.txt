@@ -4,9 +4,7 @@ Fluentd has 3 types of plugins: Input, Output, and Buffer plugin. This article d
 
 ## Overview
 
-Input plugin extends Fluentd to retrieve and pull the events from external sources.
-
-An input plugin typically creates a thread and a listen socket. It can also be written to periodically pull data from data sources. Please note that Fluentd does not restrict the user from creating input plugins with alternative implementations.
+Input plugin extends Fluentd to retrieve and pull the events from external sources. An input plugin typically creates a thread and a listen socket. It can also be written to periodically pull data from data sources.
 
 ## List of Input Plugins
 
@@ -14,4 +12,3 @@ An input plugin typically creates a thread and a listen socket. It can also be w
 * [in_http](in_http)
 * [in_tail](in_tail)
 * [in_exec](in_exec)
-

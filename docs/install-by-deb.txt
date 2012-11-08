@@ -1,6 +1,6 @@
 # Fluentd deb Installation
 
-This article describes how to install td-agent deb package, the stable distribution package of fluentd maintained by [Treasure Data, Inc](http://treasure-data.com/).
+This article describes how to install td-agent deb package, the stable distribution package of fluentd maintained by [Treasure Data, Inc](http://www.treasure-data.com/).
 
 ## What is td-agent?
 
