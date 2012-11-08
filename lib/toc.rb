@@ -23,7 +23,7 @@ section 'tutorial', 'Tutorial' do
     article 'store-apache-logs-into-s3', 'Store Apache Logs into Amazon S3'
     article 'store-apache-logs-into-mongodb', 'Store Apache Logs into MongoDB'
   end
-  category 'languages', 'Languages' do
+  category 'application-languages', 'Application Languages' do
     article 'ruby',   'Import Logs from Ruby Applications'
     article 'rails',  'Import Logs from Rails Applications'
     article 'python', 'Import Logs from Python Applications'

@@ -1,0 +1,91 @@
+# out_mongo Output Plugin
+
+The `out_mongo` is a buffered output plugin to write records into [MongoDB](http://mongodb.org/), the emerging document-oriented database system.
+
+NOTE: If you're using ReplicaSet, please refer <a href="out_mongo_replset">out_mongo_replset</a>.
+
+### Why Fluentd with MongoDB?
+
+Compared to directly insert records from apps to MongoDB, Fluentd enables your application to insert records asynchronously with batch-insertion.
+
+It has 1) less impact on application performance, and 2) more MongoDB insert throughput, while maintaining JSON record structure.
+
+### Install
+
+td-agent includes MongoDB plugin by default. For Fluentd users, you need to install fluent-plugin-mongo gem by the following command.
+
+    :::term
+    $ fluent-gem install fluent-plugin-mongo
+
+### Example Config
+
+    # Single MongoDB
+    <match mongo.**>
+      type mongo
+      host fluentd
+      port 27017
+      database fluentd
+      collection test
+
+      # for capped collection
+      capped
+      capped_size 1024m
+
+      # authentication
+      user michael
+      password jordan
+    </match>
+
+NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+
+### Parameters
+
+#### type (required)
+The value must be `mongo`.
+
+#### host (required)
+MongoDB hostname,
+
+#### port (required)
+MongoDB port.
+
+#### database (required)
+The database name.
+
+#### collection (required, if not tag_mapped)
+The collection name.
+
+#### capped
+Put this option if you want to use capped collection. This is always recommended because MongoDB is not suitable for storing large amount of historical data.
+
+#### capped_size
+Set capped collection size.
+
+#### user
+The username for authentication.
+
+#### password
+The password for authentication.
+
+#### tag_mapped
+If you put this option, mongo output plugin uses Fluentd's tag to determine the destination collection.
+
+For example, if you generate records 'mongo.foo', the records will be inserted into `foo` collection within `fluentd` database.
+
+    :::text
+    <match mongo.*>
+      type mongo
+      host fluentd
+      port 27017
+      database fluentd
+
+      # Set 'tag_mapped' if you want to use tag mapped mode.
+      tag_mapped
+
+      # If tag is "mongo.foo", then prefix "mongo." is removed.
+      # Collection name to insert is "foo".
+      remove_tag_prefix mongo.
+
+      # This configuration is used if tag not found. Default is 'untagged'.
+      collection misc
+    </match>
