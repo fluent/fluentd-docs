@@ -24,5 +24,8 @@ NOTE: See <a href="config-file">Config File</a> for the basic structure and synt
 
 ### Parameters
 
+#### type (required)
+The value must be `copy`.
+
 #### &lt;store&gt; (required at least one)
 Specify destinations. The format is same as &lt;match&gt; directive.

@@ -1,0 +1,21 @@
+# file Buffer Plugin
+
+The `file` buffer plugin provides persistent buffer implementation. It uses file to store buffer chunks.
+
+### Example Config
+
+    :::text
+    <match pattern>
+      buffer_type file
+      buffer_path /var/log/fluent/myapp.*.buffer
+    </match>
+
+NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+
+### Parameters
+
+#### buffer_type (required)
+The value must be `file`.
+
+#### buffer_path (required)
+Path to store buffer chunks. ‘*’ is replaced with random characters. This parameter is required.

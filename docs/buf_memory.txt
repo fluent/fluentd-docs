@@ -1,0 +1,17 @@
+# memory Buffer Plugin
+
+The `memory` buffer plugin provides fast buffer implementation. It uses memory to store buffer chunks. Buffered events which can’t be written soon are deleted when fluentd is shut down.
+
+### Example Config
+
+    :::text
+    <match pattern>
+      buffer_type memory
+    </match>
+
+NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+
+### Parameters
+
+#### buffer_type (required)
+The value must be `memory`.

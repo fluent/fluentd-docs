@@ -1,0 +1,14 @@
+# Buffer Plugin Overview
+
+Fluentd has 3 types of plugins: Input, Output, and Buffer plugin. This article describes the overview of Input plugin.
+
+## Overview
+
+Buffer plugin is used by buffered output plugins, such as `out_file`, `out_forward`, etc. The user cant choose the appropriate buffer plugin for the desired combination of performance and reliability.
+
+## List of Buffer Plugins
+
+* [buf_memory](buf_memory)
+* [buf_file](buf_file)
+
+

@@ -10,3 +10,8 @@ The `null` output plugin just throw away events.
     </match>
 
 NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+
+### Parameters
+
+#### type (required)
+The value must be `stdout`.
