@@ -1,3 +1,6 @@
 # Source Code
 
 Source Code is managed by github. The project organization is located [here](https://github.com/fluent/).
+
+* [github.com/fluent/](http://github.com/fluent/)
+* [github.com/fluent/fluentd](http://github.com/fluent/fluentd)
