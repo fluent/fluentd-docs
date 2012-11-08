@@ -18,7 +18,7 @@ Please refer the following documents to install fluentd.
 
 ## Modifying Config File
 
-Next, please ensure to have `forward` source within your configuration file.
+Next, please ensure to have [in_forward](in_forward) source within your configuration file.
 
     :::text
     # Treasure Data Input and Output
@@ -33,7 +33,8 @@ Next, please ensure to have `forward` source within your configuration file.
 Please restart your agent once these lines are in place.
 
     :::term
-    $ sudo /etc/init.d/td-agent restart # for rpm/deb only
+    # for rpm/deb only
+    $ sudo /etc/init.d/td-agent restart
 
 ## Using fluent-logger-node
 
@@ -93,10 +94,19 @@ Execute the app and go to `http://localhost:3000/` in your browser. That will fi
     :::term
     $ node web.js
 
+The logs should be emitted to `/var/log/td-agent/td-agent.log` or stdout of Fluentd process, via [out_stdout](out_stdout).
+
 ## Production Deployments
 
-### High-Availablability Configurations of Fluentd
+### Output Plugins
+Various [output plugins](output-plugin-overview) are available to write records into many systems.
 
+### High-Availablability Configurations of Fluentd
 For high-traffic websites (more than 5 application nodes), we recommend using a high availability configuration of td-agent. This will improve data transfer reliability and query performance.
 
 * [High-Availability Configurations of Fluentd](high-availability)
+
+### Monitoring
+Monitoring Fluentd itself is also important. Please refer this document about general monitoring methods for td-agent.
+
+* [Monitoring fluentd](monitoring)
