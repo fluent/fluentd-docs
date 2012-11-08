@@ -1,0 +1,19 @@
+# Fluentd Logos
+
+Feel free to use these logos on your slides!
+
+## Pattern 1
+
+<center>
+<a href="https://raw.github.com/fluent/website/master/logos/fluentd.png">
+  <img src="https://raw.github.com/fluent/website/master/logos/fluentd.png" width=200px target="_blank" />
+</a>
+</center>
+
+## Pattern 2
+
+<center>
+<a href="https://raw.github.com/fluent/website/master/logos/fluentd.png">
+  <img src="https://raw.github.com/fluent/website/master/logos/fluentd2.png" width=400px target="_blank" />
+</a>
+</center>
