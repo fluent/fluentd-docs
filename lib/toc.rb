@@ -89,6 +89,12 @@ section 'output-plugins', 'Output Plugins' do
   category 'out_null', 'out_null' do
     article 'out_null', 'out_null'
   end
+  category 'out_mongo', 'out_mongo' do
+    article 'out_mongo', 'out_mongo'
+  end
+  category 'out_mongo_repl', 'out_mongo_repl' do
+    article 'out_mongo_repl', 'out_mongo_repl'
+  end
 end
 section 'buffer-plugins', 'Buffer Plugins' do
   category 'buffer-plugin-overview', 'Overview' do
