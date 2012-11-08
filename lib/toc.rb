@@ -10,7 +10,6 @@ section 'overview', 'Overview' do
     article 'install-by-deb', 'Fluentd Deb Installation'
     article 'install-by-gem', 'Fluentd Gem Installation'
     article 'install-from-source', 'Fluentd Source Installation'
-    article 'install-on-heroku', 'Fluentd Installation on Heroku'
   end
   category 'changelog', 'ChangeLog' do
     article 'changelog', 'ChangeLog'
