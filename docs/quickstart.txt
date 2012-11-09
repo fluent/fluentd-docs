@@ -17,9 +17,9 @@ The list below are the typical usecases of Fluentd. You might want to pick the o
 
   * Application Logs
     * [Java](java), [Ruby](ruby) or [Rails](rails), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
-  * Server Logs
-    * [Store Apache Log into MongoDB](apache-to-mongodb)
+  * Examples
     * [Store Apache Log into Amazon S3](apache-to-s3)
+    * [Store Apache Log into MongoDB](apache-to-mongodb)
     * [Data Collection into HDFS](http-to-hdfs)
 
 ## Step3: Learn More

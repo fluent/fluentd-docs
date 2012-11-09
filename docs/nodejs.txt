@@ -101,11 +101,16 @@ The logs should be emitted to `/var/log/td-agent/td-agent.log` or stdout of Flue
 ### Output Plugins
 Various [output plugins](output-plugin-overview) are available to write records into other places:
 
-* [Another Fluentd](out_forward)
-* [MongoDB](out_mongo) or [MongoDB ReplicaSet](out_mongo_replset)
-* [Hadoop](out_webhdfs)
-* [File](out_file)
-* [etc...](http://fluentd.org/plugin/)
+* Examples
+  * [Store Apache Log into Amazon S3](apache-to-s3)
+  * [Store Apache Log into MongoDB](apache-to-mongodb)
+  * [Data Collection into HDFS](http-to-hdfs)
+* List of Plugin References
+  * [Another Fluentd](out_forward)
+  * [MongoDB](out_mongo) or [MongoDB ReplicaSet](out_mongo_replset)
+  * [Hadoop](out_webhdfs)
+  * [File](out_file)
+  * [etc...](http://fluentd.org/plugin/)
 
 ### High-Availablability Configurations of Fluentd
 For high-traffic websites (more than 5 application nodes), we recommend using a high availability configuration of td-agent. This will improve data transfer reliability and query performance.
