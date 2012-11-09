@@ -20,6 +20,7 @@ The list below are the typical usecases of Fluentd. You might want to pick the o
   * Server Logs
     * [Store Apache Log into MongoDB](apache-to-mongodb)
     * [Store Apache Log into Amazon S3](apache-to-s3)
+    * [Data Collection into HDFS](http-to-hdfs)
 
 ## Step3: Learn More
 

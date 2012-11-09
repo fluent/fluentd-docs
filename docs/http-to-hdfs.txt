@@ -14,7 +14,7 @@ This post shows how to receive the data from HTTP, and streamingly put it into H
 
 For simplicity, this post shows the one-node configuration. You should have the following software installed on the same node.
 
-* [Fluentd](http://fluentd.org/) with [WebHDFS Plugin](https://github.com/fluent/fluent-plugin-webhdfs/)
+* [Fluentd](http://fluentd.org/) with [WebHDFS Plugin](https://github.com/fluent/fluent-plugin-webhdfs/) ([out_webhdfs](out_webhdfs))
 * HDFS (Apache 1.0.0, CDH3u5 or CDH4 or later)
 
 Fluentd’s most recent version of deb/rpm package (v1.1.10 or later) includes the WebHDFS plugin. If you want to use Ruby Gems to install the plugin, `gem install fluent-plugin-webhdfs` does the job.
