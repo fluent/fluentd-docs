@@ -20,8 +20,8 @@ section 'overview', 'Overview' do
 end
 section 'tutorial', 'Tutorial' do
   category 'usecases', 'Usecases' do
-    article 'store-apache-logs-into-s3', 'Store Apache Logs into Amazon S3'
-    article 'store-apache-logs-into-mongodb', 'Store Apache Logs into MongoDB'
+    article 'apache-to-s3', 'Store Apache Logs into Amazon S3'
+    article 'apache-to-mongodb', 'Store Apache Logs into MongoDB'
   end
   category 'application-languages', 'Application Languages' do
     article 'ruby',   'Import Logs from Ruby Applications'
