@@ -1,6 +1,6 @@
 # Store Apache Logs into MongoDB
 
-This article shows how to use [Fluentd](http://fluentd.org/)'s MongoDB plugin to aggregate semi-structured logs in real-time.
+This article shows how to use [Fluentd](http://fluentd.org/)'s MongoDB plugin ([out_mongo](out_mongo)) to aggregate semi-structured logs in real-time.
 
 ## Background
 

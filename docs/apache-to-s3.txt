@@ -1,6 +1,6 @@
 # Store Apache Logs into Amazon S3
 
-This article shows how to use [Fluentd](http://fluentd.org/)'s Amazon S3 plugin to aggregate semi-structured logs in real-time.
+This article shows how to use [Fluentd](http://fluentd.org/)'s Amazon S3 plugin ([out_s3](out_s3)) to aggregate semi-structured logs in real-time.
 
 ## Background
 

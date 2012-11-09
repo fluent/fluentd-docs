@@ -19,11 +19,7 @@ section 'overview', 'Overview' do
   end
 end
 section 'tutorial', 'Tutorial' do
-  category 'usecases', 'Usecases' do
-    article 'apache-to-s3', 'Store Apache Logs into Amazon S3'
-    article 'apache-to-mongodb', 'Store Apache Logs into MongoDB'
-  end
-  category 'application-languages', 'Application Languages' do
+  category 'application-log-collection', 'Application Log Collection' do
     article 'ruby',   'Import Logs from Ruby Applications'
     article 'rails',  'Import Logs from Rails Applications'
     article 'python', 'Import Logs from Python Applications'
@@ -31,6 +27,15 @@ section 'tutorial', 'Tutorial' do
     article 'perl',   'Import Logs from Perl Applications'
     article 'nodejs', 'Import Logs from Node.js Applications'
     article 'java',   'Import Logs from Java Applications'
+  end
+  category 'apache-to-s3', 'Data Archiving to S3' do
+    article 'apache-to-s3', 'Store Apache Logs into Amazon S3'
+  end
+  category 'apache-to-mongo', 'Data Collection to Mongo' do
+    article 'apache-to-mongodb', 'Store Apache Logs into MongoDB'
+  end
+  category 'http-to-hdfs', 'Data Collection to HDFS' do
+    article 'http-to-hdfs', 'Data Collection to HDFS'
   end
 end
 section 'configuration', 'Configuration' do
