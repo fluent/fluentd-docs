@@ -9,7 +9,7 @@ gem 'json'
 gem 'coderay'
 gem 'rack-codehighlighter'
 gem 'sanitize'
-gem 'je', '~> 0.1.3'
+gem 'jemalloc', '~> 0.1.6'
 
 # Webserver
 gem 'unicorn', '~> 4.2.1'

@@ -21,7 +21,7 @@ GEM
     indextank (1.0.12)
       faraday-stack
       yajl-ruby (>= 0.7.7)
-    je (0.1.3)
+    jemalloc (0.1.6)
     jsmin (1.0.1)
     json (1.6.6)
     kgio (2.7.4)
@@ -73,7 +73,7 @@ DEPENDENCIES
   dalli (~> 2.1.0)
   haml (= 2.2.17)
   indextank (~> 1.0.12)
-  je (~> 0.1.3)
+  jemalloc (~> 0.1.6)
   json
   newrelic_rpm (~> 3.4.1)
   rack-cache (~> 1.2)
