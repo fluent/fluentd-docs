@@ -11,6 +11,8 @@ td-agent includes S3 plugin by default. For Fluentd users, you need to install f
 
 ### Example Config
 
+See [Store Apache Logs into Amazon S3](apache-to-s3) for more real-world example.
+
     :::text
     <match pattern>
       type s3

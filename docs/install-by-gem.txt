@@ -32,7 +32,7 @@ The last command sends Fluentd a message ‘{“json”:”message”}’ with a
 Now you're ready to collect your real logs by Fluentd. See the following tutorials to learn how to collect your data from various data sources.
 
   * Application Logs
-    * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
+    * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs)
   * Examples
     * [Store Apache Log into Amazon S3](apache-to-s3)
     * [Store Apache Log into MongoDB](apache-to-mongodb)

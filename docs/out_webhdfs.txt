@@ -11,6 +11,8 @@ td-agent includes WebHDFS plugin by default (v1.1.10 or later). For Fluentd user
 
 ### Example Config
 
+See [Fluentd + HDFS: Instant Big Data Collection](http-to-hdfs) for more real-world example.
+
     :::text
     <match access.**>
       type webhdfs
