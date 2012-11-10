@@ -91,7 +91,7 @@ Then, let’s access HDFS and see the stored data.
 
 ## Conclusion
 
-Fluentd + WebHDFS make real-time log collection simple, easy, robust and scalable! [@tagomoris](http://github.com/tagomoris) already uses this plugin to collect 100,000 msgs/sec without no major problem for couple of months.
+Fluentd + WebHDFS make real-time log collection simple, easy, robust and scalable! [@tagomoris](http://github.com/tagomoris) already uses this plugin to collect 20,000 msgs/sec, 1.5 TB/day without no major problem for couple of months.
 
 ## Further Readings
 
