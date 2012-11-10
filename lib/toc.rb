@@ -103,6 +103,9 @@ section 'output-plugins', 'Output Plugins' do
   category 'out_null', 'out_null' do
     article 'out_null', 'out_null'
   end
+  category 'out_s3', 'out_s3' do
+    article 'out_s3', 'out_s3'
+  end
   category 'out_mongo', 'out_mongo' do
     article 'out_mongo', 'out_mongo'
   end
