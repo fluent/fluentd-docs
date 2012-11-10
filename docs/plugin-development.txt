@@ -279,3 +279,7 @@ Fluentd provides unit test frameworks for plugins:
       Test driver for non-buffered output plugins.
 
 See fluentd's source code for details.
+
+## Further Readings
+
+* [Slide: Dive into Fluentd Plugin](http://www.slideshare.net/repeatedly/fluentd-meetup-dive-into-fluent-plugin)
