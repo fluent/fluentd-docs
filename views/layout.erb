@@ -38,62 +38,60 @@
       </div>
     </header>
   </div>
-
   <div id="sheet">
-	<div class="wrapper">
-	  <div class="pie-clearfix" id=<% if params.include?("category")%>"<%='category'%>"<% else %>"<%='article'%>"<% end %>>
-		<aside id="sidebar">
-		  <section class="pie-clearfix pie-clearfix-ie" id="search">
-			<div id="search">
-			  <form action="/search">
-				<p>
-				  <input id="q" name="q" placeholder="search" required="required" type="text" style="background-color: white; color: black;" value="<%=h params[:q] || '' %>" />
-				</p>
-			  </form>
-			</div>
-		  </section>
-		  <select id="quicknav">
-			<option value="/">Home</option>
-			<% sections.each do |slug, title, categories| %>
-			<optgroup label="<%=title %>">
-			  <% categories.each do |slug, title, _| %>
-			  <option value="/categories/<%= slug %>"><%=h title %></option>
-			  <% end %>
-			</optgroup>
-			<% end %>
-		  </select>
-		  <ul id="nav">
-			<% sections.each do |slug, title, categories| %>
-			<li class="category-group">
-			  <a class="category" href="#"><%= title %></a>
-			  <ul class="tags">
-				<% categories.each do |slug, title, _| %>
-				<% if (params[:category] == slug) || (find_category(params[:article]) == slug) %>
-				<li class="active"><a href="/categories/<%= slug %>"><%=h title %></a></li>
-				<% else %>
-				<li><a href="/categories/<%= slug %>"><%=h title %></a></li>
-				<% end %>
-				<% end %>
-			  </ul>
-			</li>
-			<% end %>
-		  </ul>
-		</aside><!-- /#sidebar -->
-		<section id="main">
-			  <%= yield %>
-		</section><!-- /#main -->
-		<script type="text/javascript">
-		  // specify active tabindex
-		  $("#nav .category-group").each(function(i){
-										 if( 0 < $(this).children("ul.tags").children("li.active").length ){
-											 activeNav = i;
-										 };
-									 });
-		</script>
-	  </div><!-- /#category -->
-	</div><!-- /.wrapper -->
+    <div class="wrapper">
+      <div class="pie-clearfix" id=<% if params.include?("category")%>"<%='category'%>"<% else %>"<%='article'%>"<% end %>>
+        <aside id="sidebar">
+          <section class="pie-clearfix pie-clearfix-ie" id="search">
+            <div id="search">
+              <form action="/search">
+                <p>
+                  <input id="q" name="q" placeholder="search" required="required" type="text" style="background-color: white; color: black;" value="<%=h params[:q] || '' %>" />
+                </p>
+              </form>
+            </div>
+          </section>
+          <select id="quicknav">
+            <option value="/">Home</option>
+            <% sections.each do |slug, title, categories| %>
+            <optgroup label="<%=title %>">
+              <% categories.each do |slug, title, _| %>
+              <option value="/categories/<%= slug %>"><%=h title %></option>
+              <% end %>
+            </optgroup>
+            <% end %>
+          </select>
+          <ul id="nav">
+            <% sections.each do |slug, title, categories| %>
+            <li class="category-group">
+              <a class="category" href="#"><%= title %></a>
+              <ul class="tags">
+                <% categories.each do |slug, title, _| %>
+                <% if (params[:category] == slug) || (find_category(params[:article]) == slug) %>
+                <li class="active"><a href="/categories/<%= slug %>"><%=h title %></a></li>
+                <% else %>
+                <li><a href="/categories/<%= slug %>"><%=h title %></a></li>
+                <% end %>
+                <% end %>
+              </ul>
+            </li>
+            <% end %>
+          </ul>
+        </aside><!-- /#sidebar -->
+        <section id="main">
+          <%= yield %>
+        </section><!-- /#main -->
+        <script type="text/javascript">
+          // specify active tabindex
+          $("#nav .category-group").each(function(i){
+            if( 0 < $(this).children("ul.tags").children("li.active").length ){
+              activeNav = i;
+            };
+          });
+        </script>
+      </div><!-- /#category -->
+    </div><!-- /.wrapper -->
   </div><!-- /#sheet -->
-
   <%= ::NewRelic::Agent.browser_timing_footer rescue "" %>
 </body>
 </html>
