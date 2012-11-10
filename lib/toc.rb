@@ -19,14 +19,6 @@ section 'overview', 'Overview' do
   end
 end
 section 'tutorial', 'Tutorial' do
-  category 'languages', 'Programing Languages' do
-    article 'ruby',   'Import Logs from Ruby Applications'
-    article 'python', 'Import Logs from Python Applications'
-    article 'php',    'Import Logs from PHP Applications'
-    article 'perl',   'Import Logs from Perl Applications'
-    article 'nodejs', 'Import Logs from Node.js Applications'
-    article 'java',   'Import Logs from Java Applications'
-  end
   category 'apache-to-s3', 'Data Archiving to S3' do
     article 'apache-to-s3', 'Store Apache Logs into Amazon S3'
   end
@@ -35,6 +27,24 @@ section 'tutorial', 'Tutorial' do
   end
   category 'http-to-hdfs', 'Data Collection to HDFS' do
     article 'http-to-hdfs', 'Data Collection to HDFS'
+  end
+  category 'ruby', 'Logging from Ruby' do
+    article 'ruby',   'Import Logs from Ruby Applications'
+  end
+  category 'python', 'Logging from Python' do
+    article 'python', 'Import Logs from Python Applications'
+  end
+  category 'php', 'Logging from PHP' do
+    article 'php',    'Import Logs from PHP Applications'
+  end
+  category 'perl', 'Logging from Perl' do
+    article 'perl',   'Import Logs from Perl Applications'
+  end
+  category 'nodejs', 'Logging from Node.js' do
+    article 'nodejs', 'Import Logs from Node.js Applications'
+  end
+  category 'java', 'Logging from Java' do
+    article 'java',   'Import Logs from Java Applications'
   end
 end
 section 'configuration', 'Configuration' do
