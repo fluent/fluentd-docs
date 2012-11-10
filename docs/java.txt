@@ -1,12 +1,12 @@
-# Data Import from Node.js Applications
+# Data Import from Java Applications
 
-'[fluent-logger-node](https://github.com/yssk22/fluent-logger-node)', is a library to post records from Node.js applications to Fluentd. This article explains how to use the fluent-logger-node library.
+'[fluent-logger-java](http://github.com/fluent/fluent-logger-java)', is a library to post records from Java applications to Fluentd. This article explains how to use the fluent-logger-java library.
 
 ## Prerequisites
 
-  * Basic knowledge of Node.js and NPM
+  * Basic knowledge of Java
   * Basic knowledge of Fluentd
-  * Node.js 0.6 or higher
+  * Java 6 or higher
 
 ## Installing Fluentd
 
@@ -35,63 +35,53 @@ Please restart your agent once these lines are in place.
     # for rpm/deb only
     $ sudo /etc/init.d/td-agent restart
 
-## Using fluent-logger-node
+## Using fluent-logger-java
 
-### Obtaining the Most Recent Version
+First, please add the following lines to pom.xml. The logger's revision information can be found in [CHANGES.txt](https://github.com/fluent/fluent-logger-java/blob/master/CHANGES.txt).
 
-The most recent version of fluent-logger-node can be found from [here](http://search.npmjs.org/#/fluent-logger).
+    :::xml
+    <dependencies>
+      ...
+      <dependency>
+        <groupId>org.fluentd</groupId>
+        <artifactId>fluent-logger</artifactId>
+        <version>${logger.version}</version>
+      </dependency>
+      ...
+    </dependencies>
+    
+    <repositories>
+      <repository>
+        <id>fluentd.org</id>
+        <name>Fluentd's Maven2 Repository</name>
+        <url>http://fluentd.org/maven2</url>
+      </repository>
+    </repositories>
 
-### A Sample Application
+Finally, please insert the following lines into your application. Further information regarding the API can be found [here](https://github.com/fluent/fluent-logger-java).
 
-A sample [Express](http://expressjs.com/) app using fluent-logger-node is shown below.
-
-#### package.json
-
-    :::js
-    {
-      "name": "node-example",
-      "version": "0.0.1",
-      "dependencies": {
-        "express": "2.5.9",
-        "fluent-logger": "0.1.0"
-      }
+    :::java
+    import java.util.HashMap;
+    import java.util.Map;
+    import org.fluentd.logger.FluentLogger;
+    
+    public class Main {
+        private static FluentLogger LOG = FluentLogger.getLogger("fluentd.test");
+    
+        public void doApplicationLogic() {
+            // ...
+            Map<String, String> data = new HashMap<String, String>();
+            data.put("from", "userA");
+            data.put("to", "userB");
+            LOG.log("follow", data);
+            // ...
+        }
     }
 
-Now use *npm* to install your dependencies locally:
+Execute the script, and that will fire the logs into Fluentd.
 
     :::term
-    $ npm install
-    fluent-logger@0.1.0 ./node_modules/fluent-logger
-    express@2.5.9 ./node_modules/express
-    |-- qs@0.4.2
-    |-- mime@1.2.4
-    |-- mkdirp@0.3.0
-    |-- connect@1.8.6 (formidable@1.0.9)
-
-#### web.js
-
-This is the simplest web app.
-
-    :::js
-    var express = require('express');
-    var app = express.createServer(express.logger());
-
-    var logger = require('fluent-logger');
-    logger.configure('fluentd.test', {host: 'localhost', port: 24224});
-
-    app.get('/', function(request, response) {
-      logger.emit('follow', {from: 'userA', to: 'userB'});
-      response.send('Hello World!');
-    });
-    var port = process.env.PORT || 3000;
-    app.listen(port, function() {
-      console.log("Listening on " + port);
-    });
-
-Execute the app and go to `http://localhost:3000/` in your browser. That will fire the logs into Fluentd.
-
-    :::term
-    $ node web.js
+    $ java -jar test.jar
 
 The logs should be emitted to `/var/log/td-agent/td-agent.log` or stdout of Fluentd process, via [out_stdout](out_stdout).
 

@@ -19,9 +19,8 @@ section 'overview', 'Overview' do
   end
 end
 section 'tutorial', 'Tutorial' do
-  category 'application-log-collection', 'Application Log Collection' do
+  category 'languages', 'Programing Languages' do
     article 'ruby',   'Import Logs from Ruby Applications'
-    article 'rails',  'Import Logs from Rails Applications'
     article 'python', 'Import Logs from Python Applications'
     article 'php',    'Import Logs from PHP Applications'
     article 'perl',   'Import Logs from Perl Applications'

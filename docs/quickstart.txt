@@ -10,13 +10,14 @@ Please follow the installation/quickstart guides below which matches your enviro
 * [Installation by rpm Package](install-by-rpm)
 * [Installation by deb Package](install-by-deb)
 * [Installation by gem Package](install-by-gem)
+* [Installation from source](install-from-source)
 
 ## Step2: Use
 
 The list below are the typical usecases of Fluentd. You might want to pick the one from them.
 
   * Application Logs
-    * [Java](java), [Ruby](ruby) or [Rails](rails), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
+    * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
   * Examples
     * [Store Apache Log into Amazon S3](apache-to-s3)
     * [Store Apache Log into MongoDB](apache-to-mongodb)
