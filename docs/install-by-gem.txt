@@ -26,3 +26,14 @@ The last command sends Fluentd a message ‘{“json”:”message”}’ with a
 
     :::term
     2011-07-10 16:49:50 +0900 debug.test: {"json":"message"}
+
+## Next Step
+
+Now you're ready to collect your real logs by Fluentd. See the following tutorials to learn how to collect your data from various data sources.
+
+  * Application Logs
+    * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
+  * Examples
+    * [Store Apache Log into Amazon S3](apache-to-s3)
+    * [Store Apache Log into MongoDB](apache-to-mongodb)
+    * [Data Collection into HDFS](http-to-hdfs)

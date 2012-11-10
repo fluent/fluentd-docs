@@ -1,4 +1,4 @@
-# Fluentd rpm Installation
+]# Fluentd rpm Installation
 
 This article describes how to install td-agent rpm package, the stable distribution package of fluentd maintained by [Treasure Data, Inc](http://www.treasure-data.com/).
 
@@ -45,11 +45,12 @@ By default, `/etc/td-agent/td-agent.conf` is configured to take logs from HTTP a
 
 Now you're ready to collect your real logs by Fluentd. See the following tutorials to learn how to collect your data from various data sources.
 
-  * Server Logs
-    * Store Apache Log into Amazon S3
-    * Store Apache Log into MongoDB
-  * Application Logging
-    * Java, Ruby or Rails, Python, PHP, Perl, Node.js, Scala
+  * Application Logs
+    * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
+  * Examples
+    * [Store Apache Log into Amazon S3](apache-to-s3)
+    * [Store Apache Log into MongoDB](apache-to-mongodb)
+    * [Data Collection into HDFS](http-to-hdfs)
 
 Please look at those resources for further steps.
 
