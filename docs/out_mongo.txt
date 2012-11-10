@@ -89,3 +89,6 @@ For example, if you generate records 'mongo.foo', the records will be inserted i
       # This configuration is used if tag not found. Default is 'untagged'.
       collection misc
     </match>
+
+### Futher Readings
+- [fluent-plugin-mongo repository](https://github.com/fluent/fluent-plugin-mongo)

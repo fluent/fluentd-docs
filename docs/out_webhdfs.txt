@@ -1,0 +1,60 @@
+# out_webhdfs Output Plugin
+
+The `out_webhdfs` is a buffered output plugin to write records into HDFS (Hadoop Distributed File System).
+
+### Install
+
+td-agent includes WebHDFS plugin by default (v1.1.10 or later). For Fluentd users, you need to install fluent-plugin-webhdfs gem by the following command.
+
+    :::term
+    $ fluent-gem install fluent-plugin-webhdfs
+
+### Example Config
+
+    :::text
+    <match access.**>
+      type webhdfs
+      host namenode.your.cluster.local
+      port 50070
+      path /path/on/hdfs/access.log.%Y%m%d_%H.${hostname}.log
+    </match>
+
+NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+
+NOTE: The file won't be created after importing the first record. It's created hourly (depending on `time_slice_format`). Please be patient for the first time.
+
+### Parameters
+
+#### type (required)
+The value must be `webhfds`.
+
+#### host (required)
+The namenode hostname.
+
+#### port (required)
+The namenode port number.
+
+#### path (required)
+The path on HDFS. Make sure you have ${hostname} within your path, to avoid writing into the same HDFS file from multiple Fluentd instances. This conflict could result into the data loss.
+
+### HDFS Configuration
+
+Append operations is not enabled by default on CDH. Please put these configurations into your hdfs-site.xml, and restart the whole cluster.
+
+    <property>
+      <name>dfs.webhdfs.enabled</name>
+      <value>true</value>
+    </property>
+    
+    <property>
+      <name>dfs.support.append</name>
+      <value>true</value>
+    </property>
+    
+    <property>
+      <name>dfs.support.broken.append</name>
+      <value>true</value>
+    </property>
+
+### Futher Readings
+- [fluent-plugin-webhdfs repository](https://github.com/fluent/fluent-plugin-webhdfs)

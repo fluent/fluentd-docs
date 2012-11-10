@@ -78,17 +78,20 @@ For example, if you generate records 'mongo.foo', the records will be inserted i
       collection misc
     </match>
 
-### name
+#### name
 The ReplicaSet name.
 
-### read
+#### read
 The ReplicaSet read preference (e.g. secondary, etc).
 
-### refresh_mode
+#### refresh_mode
 The ReplicaSet refresh mode (e.g. sync, etc).
 
-### refresh_interval
+#### refresh_interval
 The ReplicaSet refresh interval.
 
-### num_retries
+#### num_retries
 The num_retries is threshold at ReplicaSet failover, default is 60. If retry count reached this threshold, the plugin raises an exception.
+
+### Futher Readings
+- [fluent-plugin-webhdfs mongo](https://github.com/fluent/fluent-plugin-mongo)

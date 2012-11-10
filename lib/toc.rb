@@ -112,6 +112,9 @@ section 'output-plugins', 'Output Plugins' do
   category 'out_mongo_replset', 'out_mongo_replset' do
     article 'out_mongo_replset', 'out_mongo_replset'
   end
+  category 'out_webhdfs', 'out_webhdfs' do
+    article 'out_webhdfs', 'out_webhdfs'
+  end
 end
 section 'buffer-plugins', 'Buffer Plugins' do
   category 'buffer-plugin-overview', 'Overview' do

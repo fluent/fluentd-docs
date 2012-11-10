@@ -31,6 +31,8 @@ NOTE: See <a href="config-file">Config File</a> for the basic structure and synt
 
 NOTE: The file won't be created after importing the first record. It's created hourly (depending on `time_slice_format`). Please be patient for the first time.
 
+NOTE: Make sure you have <b>ENOUGH spaces on buffer_path</b> directory. People often run shoft of its space and have problems.
+
 ### Parameters
 
 #### type (required)
@@ -72,3 +74,6 @@ NOTE: The actual path on S3 will be: “{path}{time_slice_format}_{sequential_nu
 
 #### utc
 Use UTC instead of local time.
+
+### Futher Readings
+- [fluent-plugin-webhdfs repository](https://github.com/fluent/fluent-plugin-webhdfs)
