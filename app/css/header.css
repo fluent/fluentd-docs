@@ -1,6 +1,3 @@
-ol, ul { 
-list-style: none;
-}
 #wrapper{
 	width:985px;
 	margin:0 auto;
@@ -54,9 +51,11 @@ list-style: none;
 .top-holder ul {
   float:right;
   width:100%;
+  list-style: none;
 }
 .top-holder li{
   float:left;
   margin:0 0 0 40px;
   text-decoration: underline;
+  list-style: none;
 }
