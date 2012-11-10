@@ -60,3 +60,4 @@ Append operations is not enabled by default on CDH. Please put these configurati
 
 ### Futher Readings
 - [fluent-plugin-webhdfs repository](https://github.com/fluent/fluent-plugin-webhdfs)
+- [Slide: Fluentd and WebHDFS](http://www.slideshare.net/tagomoris/fluentd-and-webhdfs)
