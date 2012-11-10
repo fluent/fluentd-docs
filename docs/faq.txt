@@ -55,3 +55,9 @@ Fluentd consumes more resources, when you throw more logs. From our observation,
 The most of performance sensitive parts are carefully written as Ruby's C extensions. In addition to that, Fluentd supports multi process mode, to leverage multiple CPU cores.
 
 From our experiment, normal PC box could deliver 18,000 messages / second. If you need more higher, please consider using multiple Fluentd servers. If you need 100x performance, you should look at another or your own solution.
+
+## What is the difference with Splunk?
+
+Splunk is a log collection + search engine for unstrucuted, text-based log. If has a nice UI and indexing engine, to search the term fron the text log files.
+
+Fluentd is a log collector daemon, for semi-structured JSON-based log. It deals with machine-readable logs, while Splunk handles text-based log. Also Fluentd is a mechanism of just receive, buffer, and forward the data into another place. No search engine functionality.
