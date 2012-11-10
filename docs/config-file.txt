@@ -65,7 +65,7 @@ Time is the UNIX time when the event occurs. Record is a JSON object. In the abo
 
 #### Plugin
 
-The user can expand Fluentd's input sources beyond those provided initially by writing their own plugins. For further information regarding Fluentd's input sources, please refer to :ref:`input_plugin`.
+The user can expand Fluentd's input sources beyond those provided initially by writing their own plugins. For further information regarding Fluentd's input sources, please refer to [Input Plugin Overview](input-plugin-overview).
 
 
 ## (2) Match Directive
@@ -91,7 +91,7 @@ Each **match** directive must include a match pattern and a ``type`` parameter. 
 
 For example, the user can send all matches to the pattern ``myapp.accesslog.**`` to ``file`` in a specified directory.
 
-The user can expand Fluentd's output sources beyond those provided initially by writing their own plugins. For further information regarding Fluentd's output destinations, please refer to :ref:`output_plugin`
+The user can expand Fluentd's output sources beyond those provided initially by writing their own plugins. For further information regarding Fluentd's output destinations, please refer to [Output Plugin Overview](output-plugin-overview).
 
 ### Match Pattern
 
