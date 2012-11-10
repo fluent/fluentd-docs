@@ -92,6 +92,30 @@
       </div><!-- /#category -->
     </div><!-- /.wrapper -->
   </div><!-- /#sheet -->
+
+  <!-- start mixpanel -->
+  <script type="text/javascript">
+    (function(d,c){var a,b,g,e;a=d.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===d.location.protocol?"https:":"http:")+'//api.mixpanel.com/site_media/js/api/mixpanel.2.js';b=d.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b);c._i=[];c.init=function(a,d,f){var b=c;"undefined"!==typeof f?b=c[f]=[]:f="mixpanel";g="disable track track_pageview track_links track_forms register register_once unregister identify name_tag set_config".split(" ");for(e=0;e<g.length;e++)(function(a){b[a]=function(){b.push([a].concat(Array.prototype.slice.call(arguments,0)))}})(g[e]);c._i.push([a,d,f])};window.mixpanel=c})(document,[]);mixpanel.init("fcc682ea19e6d9f21250083a377de6f4");mixpanel.track("ViewDoc");mixpanel.track("ViewDoc:" + window.location.pathname);
+  </script>
+
+  <!-- google code for fluentd -->
+  <script type="text/javascript">
+    /* <![CDATA[ */
+    var google_conversion_id = 1009909590;
+    var google_conversion_language = "en";
+    var google_conversion_format = "3";
+    var google_conversion_color = "ffffff";
+    var google_conversion_label = "5gEjCPL88wIQ1v7H4QM";
+    var google_conversion_value = 0;
+    /* ]]> */
+  </script>
+  <script type="text/javascript" src="http://www.googleadservices.com/pagead/conversion.js" />
+  <noscript>
+    <div style="display:inline;">
+      <img height="1" width="1" style="border-style:none;" alt="" src="http://www.googleadservices.com/pagead/conversion/1009909590/?value=0&amp;label=5gEjCPL88wIQ1v7H4QM&amp;guid=ON&amp;script=0"/>
+    </div>
+  </noscript>
+
   <%= ::NewRelic::Agent.browser_timing_footer rescue "" %>
 </body>
 </html>
