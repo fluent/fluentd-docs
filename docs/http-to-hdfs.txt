@@ -96,5 +96,6 @@ Fluentd + WebHDFS make real-time log collection simple, easy, robust and scalabl
 ## Further Readings
 
 * [out_webhdfs](out_webhdfs)
+* [Slide: Fluentd and WebHDFS](http://www.slideshare.net/tagomoris/fluentd-and-webhdfs)
 * [Fluentd Plugins List](http://fluentd.org/plugin/)
 * [Fluentd Source Code](http://github.com/fluent/fluentd/)
