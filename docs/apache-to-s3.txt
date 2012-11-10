@@ -26,8 +26,9 @@ For simplicity, this post shows the one-node configuration. You should have the 
 
 Fluentd’s most recent version of deb/rpm package includes the Amazon S3 plugin. If you want to use Ruby Gems to install the plugin, `gem install fluent-plugin-s3` does the job.
 
-* [Debian Package](http://help.treasure-data.com/kb/installing-td-agent-daemon/installing-td-agent-for-debian-and-ubuntu)
-* [RPM Package](http://help.treasure-data.com/kb/installing-td-agent-daemon/installing-td-agent-for-redhat-and-centos)
+* [Debian Package](install-by-deb)
+* [RPM Package](install-by-rpm)
+* [Ruby gem](install-by-gem)
 
 ## Configuration
 

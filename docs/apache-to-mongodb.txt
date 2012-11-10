@@ -36,6 +36,7 @@ Fluentd’s most recent version of deb/rpm package includes the MongoDB plugin. 
 
 * [Debian Package](install-by-deb)
 * [RPM Package](install-by-rpm)
+* [Ruby gem](install-by-gem)
 
 For MongoDB, please refer to the downloads page.
 
