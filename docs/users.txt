@@ -8,7 +8,7 @@ These are the some of Fluentd users.
 <center><img src="http://fluentd.org/images/user_logo/ContextLogic.png" height="80px" /></center>
 </p>
 
-We started using Fluentd from early on to collect user event data for <a href="http://www.wishwall.me/">Wishwall.me</a>. Its reliability and ease of use from application code (Python for us) make it easy for us to keep track of the key metrics. - Danny Zhang, co-founder
+At <a href="http://www.wishwall.me/">wishwall.me</a>, we started using Fluentd from early on to collect user event data. Its reliability and ease of use from application code (Python for us) make it easy for us to keep track of the key metrics. - Danny Zhang, co-founder
 
 ## GREE, Inc.
 
