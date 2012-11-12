@@ -11,6 +11,9 @@ section 'overview', 'Overview' do
     article 'install-by-gem', 'Fluentd Gem Installation'
     article 'install-from-source', 'Fluentd Source Installation'
   end
+  category 'users', 'Users' do
+    article 'users', 'Users'
+  end
   category 'changelog', 'ChangeLog' do
     article 'changelog', 'ChangeLog'
   end

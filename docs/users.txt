@@ -1,0 +1,39 @@
+# Fluentd Users
+
+These are the some of Fluentd users.
+
+## ContextLogic, Inc.
+
+<p>
+<center><img src="http://fluentd.org/images/user_logo/ContextLogic.png" height="80px" /></center>
+</p>
+
+We started using Fluentd from early on to collect user event data for <a href="http://www.wishwall.me/">Wishwall.me</a>. Its reliability and ease of use from application code (Python for us) make it easy for us to keep track of the key metrics. - Danny Zhang, co-founder
+
+## PPLive, Inc.
+
+<p>
+<center><img src="/images/logo-PPTV.png" height="80px" /></center>
+</p><br />
+
+<a href="http://www.pptv.com/">PPTV.com</a> is one of the largest Chinese online TV provider, which has 35 million active users. PPTV clients can be installed on multi-platforms.(Windows,Mac,Android,IOS,WP,etc).
+
+We(PPTV site operation team) tried to find a solution to do realtime log-collection and analyse based on the massive logfiles.Finally, we found that Fluentd is the perfect solution to do real-time log collection.Log can be JSON-structured to MongoDB cluster.
+
+Realtime monitoring/reporting/charting can be generated from MongoDB data, which is helpful to our operation work. Fluentd is a great tool! - Xinyi Zhou
+
+## SlideShare, Inc.
+
+<p>
+<center><img src="http://fluentd.org/images/user_logo/Slideshare.png" height="80px" /></center>
+</p><br />
+
+<a href="http://www.slideshare.net/">SlideShare</a> uses Fluentd to stream logs and events in the cloud. We were looking for a versatile yet lightweight logger in Ruby, and Fluentd fit the bill perfectly. - Sylvain Kalache, Operations Engineer
+
+## Viki, Inc.
+
+<p>
+<center><img src="http://fluentd.org/images/user_logo/Viki.png" height="80px" /></center>
+</p><br />
+
+At <a href="http://www.viki.com/">Viki</a>, we use Fluentd deployed on Heroku to collect analytics events from various apps which then go into Treasure Data and in-house Hadoop Cluster for analysis. Fluentd integrates seamlessly with Heroku, and we've been impressed with its versatility and reliability. - Abhishek Parolkar, BigData Infrastructure Manager
