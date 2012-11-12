@@ -10,6 +10,16 @@ These are the some of Fluentd users.
 
 We started using Fluentd from early on to collect user event data for <a href="http://www.wishwall.me/">Wishwall.me</a>. Its reliability and ease of use from application code (Python for us) make it easy for us to keep track of the key metrics. - Danny Zhang, co-founder
 
+## GREE, Inc.
+
+<p>
+<center><img src="/images/logo-GREE.png" height="80px" /></center>
+</p><br />
+
+Data Science is at the core of <a href="http://gree-corp.com/">GREE</a>'s business, and it starts with logging user events and Advertisement related data. We currently deploy Fluentd for a number of our games and ad services to federate user event data, and use that data to inform our product decisions.
+
+So far, we've been pleased with Fluentd's robustness and performance: it has held up strongly against our massive data, allowing us to focus on data analytics instead of logging. - Masaki Fujimoto, CTO
+
 ## PPLive, Inc.
 
 <p>
