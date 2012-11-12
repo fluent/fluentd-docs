@@ -28,7 +28,7 @@ So far, we've been pleased with Fluentd's robustness and performance: it has hel
 
 <a href="http://www.pptv.com/">PPTV.com</a> is one of the largest Chinese online TV provider, which has 35 million active users. PPTV clients can be installed on multi-platforms (Windows, Mac, Android, iOS, WP, etc).
 
-We (PPTV site operation team) tried to find a solution to do realtime log-collection and analyse based on the massive logfiles.Finally, we found that Fluentd is the perfect solution to do real-time log collection.Log can be JSON-structured to MongoDB cluster.
+We (PPTV site operation team) tried to find a solution to do realtime log-collection and analyse based on the massive logfiles. Finally, we found that Fluentd is the perfect solution to do real-time log collection. Log can be JSON-structured to MongoDB cluster.
 
 Realtime monitoring/reporting/charting can be generated from MongoDB data, which is helpful to our operation work. Fluentd is a great tool! - Xinyi Zhou
 
