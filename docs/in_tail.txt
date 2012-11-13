@@ -9,10 +9,16 @@ The `in_tail` input plugin allows Fluentd to read events from the tail of text f
       type tail
       path /var/log/httpd-access.log
       tag apache.access
-      format apache
+      format apache2
     </source>
 
 NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+
+### How it Works
+
+* For newly added configuration, Fluentd starts reading from the **tail** of that log not the beggining.
+* Once the log is rotated, Fluentd starts reading the new file from the beggining. It keeps tracking the change of inode number.
+* If `td-agent` restarts, it starts reading from the last position td-agent read before the restart. The position is recorded to the file, which is called position file.
 
 ### Parameters
 
@@ -32,7 +38,7 @@ Regexp must have at least one named captures (?&gt;NAME&lt;PATTERN). If the rege
 
 Following templates are supported:
 
-* `apache`
+* `apache2`
 
 Reads apache’s log file host, user, time, method, path, code, size, referer and agent fields. This template is same as following configuration:
 
@@ -48,8 +54,37 @@ Reads syslog’s output file (e.g. /var/log/syslog) time, host, ident, message f
     format /^(?<time>[^ ]* [^ ]* [^ ]*) (?<host>[^ ]*) (?<ident>[a-zA-Z0-9_\/\.\-]*)(?:\[(?<pid>[0-9]+)\])?[^\:]*\: *(?<message>.*)$/
     time_format %b %d %H:%M:%S
 
+* `tsv` or `csv`
+
+If you use tsv or csv format, please also specify `keys` parameter.
+
+    :::text
+    format tsv
+    keys key1, key2, key3
+    time_key key2
+
+If you specify `time_key` parameter, that key is used to identify the timestamp of the record. By default, the timestamp when Fluentd reads that record is used.
+
+    :::text
+    format csv
+    keys key1, key2, key3
+    time_key key3
+
+* `json`
+
+Most straight forward :) One JSON map, per line.
+
+    :::text
+    format json
+
+`time_key` parameter can also be specified.
+
+    :::text
+    format json
+    time_key key3
+
 #### time_format
-Format of the time field. This parameter is required only if the format includes ‘time’ capture and it can’t be parsed automatically. See [Time#strptime](TODO).
+Format of the time field. This parameter is required only if the format includes ‘time’ capture and it can’t be parsed automatically. See [Time#strftime](http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime).
 
 #### rotate_wait
 in_tail does a bit more than `tail -F`. When one is rotating a file, there is a possibility that some data might still need to be written to the old file as opposed to the new one.
@@ -58,3 +93,9 @@ in_tail takes care of this by keeping a reference to the old file (even after it
 
 The rotate_wait parameter accepts a single integer which represents the number of seconds you want to set this time interval to.
 
+### pos_file
+
+This parameter is highly recommended to have it added. If you have this parameter, Fluentd records the position into the file where it already read.
+
+    :::text
+    pos_file /var/log/td-agent/tmp/access.log.pos
