@@ -33,7 +33,7 @@ For input, let's setup Fluentd to accept the record from HTTP. This is what the 
 
     <source>
       type http
-      port 8080
+      port 8888
     </source>
 
 ### WebHDFS Output
@@ -82,7 +82,7 @@ Also, please be careful that *path* specified at WebHDFS output is configured to
 To test the configuration, just post the JSON to Fluentd. This example users curl command to do so.
 
     $ curl -X POST -d 'json={"action":"login","user":2}' \
-      http://localhost:8080/hdfs.access.test
+      http://localhost:8888/hdfs.access.test
 
 Then, let’s access HDFS and see the stored data.
 
