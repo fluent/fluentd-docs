@@ -8,6 +8,7 @@ The `in_tail` input plugin allows Fluentd to read events from the tail of text f
     <source>
       type tail
       path /var/log/httpd-access.log
+      pos_file /var/log/td-agent/httpd-access.log.pos
       tag apache.access
       format apache2
     </source>
@@ -83,6 +84,12 @@ Most straight forward :) One JSON map, per line.
     format json
     time_key key3
 
+### pos_file (highly recommended)
+This parameter is highly recommended to have it added. If you have this parameter, Fluentd records the position into the file where it already read.
+
+    :::text
+    pos_file /var/log/td-agent/tmp/access.log.pos
+
 #### time_format
 Format of the time field. This parameter is required only if the format includes ‘time’ capture and it can’t be parsed automatically. See [Time#strftime](http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime).
 
@@ -92,10 +99,3 @@ in_tail does a bit more than `tail -F`. When one is rotating a file, there is a 
 in_tail takes care of this by keeping a reference to the old file (even after it’s been rotated) for some time before transitioning to the new file entirely (so that the data designated for the old file don’t get lost). By default, this time interval is 5 seconds.
 
 The rotate_wait parameter accepts a single integer which represents the number of seconds you want to set this time interval to.
-
-### pos_file
-
-This parameter is highly recommended to have it added. If you have this parameter, Fluentd records the position into the file where it already read.
-
-    :::text
-    pos_file /var/log/td-agent/tmp/access.log.pos

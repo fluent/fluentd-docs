@@ -55,6 +55,7 @@ For input, let's set up Fluentd to track the recent Apache logs (usually at /var
       type tail
       format apache2
       path /var/log/apache2/access_log
+      pos_file /var/log/td-agent/apache2.access_log.pos
       tag mongo.apache.access
     </source>
 
