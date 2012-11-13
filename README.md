@@ -13,7 +13,7 @@ If you'd like to propose an edit to the Fluentd docs, fork this repo, then send 
 
 # Build Search Index
 
-    $ bundle exec rake indexing
+    $ heroku run rake index
 
 # Deploy
 

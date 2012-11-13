@@ -9,6 +9,7 @@ section 'overview', 'Overview' do
     article 'install-by-rpm', 'Fluentd RPM Installation'
     article 'install-by-deb', 'Fluentd Deb Installation'
     article 'install-by-gem', 'Fluentd Gem Installation'
+    article 'install-by-chef', 'Fluentd Chef Installation'
     article 'install-from-source', 'Fluentd Source Installation'
   end
   category 'users', 'Users' do
