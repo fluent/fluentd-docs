@@ -40,7 +40,7 @@ For input, let's setup Fluentd to accept the record from HTTP. This is what the 
 
 The output configuration should look like this:
 
-    <match hdfs.access.**>
+    <match hdfs.*.*>
       type webhdfs
       host namenode.your.cluster.local
       port 50070

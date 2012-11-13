@@ -55,7 +55,7 @@ For input, let's set up Fluentd to track the recent Apache logs (usually at /var
       type tail
       format apache
       path /var/log/apache2/access_log
-      tag mongo.apache
+      tag mongo.apache.access
     </source>
 
 Let’s go through the configuration line by line.
@@ -72,7 +72,7 @@ That’s it. You should be able to output a JSON-formatted data stream for Mongo
 The output configuration should look like this:
 
     :::text
-    <match mongo.**>
+    <match mongo.*.*>
       # plugin type
       type mongo
 
