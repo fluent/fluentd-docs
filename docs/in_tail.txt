@@ -40,6 +40,7 @@ Regexp must have at least one named captures (?&gt;NAME&lt;PATTERN). If the rege
 Following templates are supported:
 
 * regexp
+
 You can specify the regexp for format parameter. [Fluentular](http://fluentular.herokuapp.com/) is a great website to test your regexp for Fluentd configuration.
 
 * `apache2`
