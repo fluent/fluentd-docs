@@ -10,6 +10,14 @@ HDFS (Hadoop) is a natural alternative for storing and processing huge amount of
 
 This post shows how to receive the data from HTTP, and streamingly put it into HDFS through WebHDFS interface with [Fluentd](http://fluentd.org/), with a little configuration.
 
+## Architecture
+
+The figure below shows the high-level architecture.
+
+<center>
+<img src="/images/http-to-hdfs.png" />
+</center>
+
 ## Install
 
 For simplicity, this post shows the one-node configuration. You should have the following software installed on the same node.
