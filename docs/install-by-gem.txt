@@ -27,6 +27,8 @@ The last command sends Fluentd a message ‘{“json”:”message”}’ with a
     :::term
     2011-07-10 16:49:50 +0900 debug.test: {"json":"message"}
 
+NOTE: For the large deployment, it's highly recommended to use <a href="http://www.canonware.com/jemalloc/">jemalloc</a> to avoid memory fragmentations. <a href="install-by-rpm">rpm</a> / <a href="install-by-deb">deb</a> packages already include it.
+
 ## Next Step
 
 Now you're ready to collect your real logs by Fluentd. See the following tutorials to learn how to collect your data from various data sources.
