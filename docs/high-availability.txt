@@ -109,3 +109,8 @@ That being said, possible message loss scenarios do exist:
 
 * The process dies immediately after receiving the events, but before writing them into the buffer.
 * The aggregator's disk is broken, and the file buffer is lost.
+
+## Trouble Shooting
+
+### "no nodes are available"
+Please check you can communicate with port 24224 by **not only TCP, but also UDP**. There exists one [known issue](http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=2019944) that VMware sometimes losts small UDP packages which are used for heartbeat.
