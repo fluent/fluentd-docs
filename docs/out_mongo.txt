@@ -36,6 +36,9 @@ See [Store Apache Logs into MongoDB](apache-to-montodb) for more real-world exam
       # authentication
       user michael
       password jordan
+
+      # flush
+      flush_interval 10s
     </match>
 
 NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
@@ -91,6 +94,9 @@ For example, if you generate records 'mongo.foo', the records will be inserted i
       # This configuration is used if tag not found. Default is 'untagged'.
       collection misc
     </match>
+
+#### flush_interval
+The interval time between the dataflush from fluentd to MongoDB. Default is 60 sec.
 
 ### Futher Readings
 - [fluent-plugin-mongo repository](https://github.com/fluent/fluent-plugin-mongo)

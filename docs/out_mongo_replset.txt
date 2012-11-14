@@ -25,6 +25,9 @@ See [Store Apache Logs into MongoDB](apache-to-montodb) for more real-world exam
       database fluentd
       collection test
       nodes localhost:27017,localhost:27018,localhost:27019
+
+      # flush
+      flush_interval 10s
     </match>
 
 NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
@@ -94,6 +97,9 @@ The ReplicaSet refresh interval.
 
 #### num_retries
 The num_retries is threshold at ReplicaSet failover, default is 60. If retry count reached this threshold, the plugin raises an exception.
+
+#### flush_interval
+The interval time between the dataflush from fluentd to MongoDB. Default is 60 sec.
 
 ### Futher Readings
 - [fluent-plugin-webhdfs mongo](https://github.com/fluent/fluent-plugin-mongo)
