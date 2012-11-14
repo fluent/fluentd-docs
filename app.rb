@@ -175,7 +175,7 @@ helpers do
   end
 
   def find_keywords(article, category)
-    default = ['Fluentd', 'log collection', 'log collector']
+    default = ['Fluentd', 'log collection', 'logging']
     sections.each { |_, _, categories|
       categories.each { |category_name, _, articles|
         return default + [category_name] if category_name == category
