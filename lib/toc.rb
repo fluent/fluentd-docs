@@ -15,8 +15,8 @@ section 'overview', 'Overview' do
   category 'users', 'Users' do
     article 'users', 'Users'
   end
-  category 'changelog', 'ChangeLog' do
-    article 'changelog', 'ChangeLog'
+  category 'slides', 'Slides' do
+    article 'slides', 'Slides'
   end
   category 'faq', 'FAQ' do
     article 'faq', 'FAQ'
@@ -143,6 +143,9 @@ section 'developer', 'Developer' do
   end
   category 'bug-tracking', 'Bug Tracking' do
     article 'bug-tracking', 'Bug Tracking'
+  end
+  category 'changelog', 'ChangeLog' do
+    article 'changelog', 'ChangeLog'
   end
   category 'logo', 'Logo' do
     article 'logo', 'Logo'
