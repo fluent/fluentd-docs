@@ -30,12 +30,12 @@ Then, please update your apt repositories and install td-agent package:
 
     :::term
     $ apt-get update
-    $ apt-get install td-agent
+    $ apt-get install -f --force-yes td-agent
 
 To upgrade the existing agent, run the following command:
 
     :::term
-    $ apt-get update && apt-get install td-agent
+    $ apt-get update && apt-get install -f --force-yes td-agent
 
 `/etc/init.d/td-agent` script is also provided to start, stop, or restart the agent.
 
