@@ -24,13 +24,13 @@ section 'overview', 'Overview' do
 end
 section 'tutorial', 'Tutorial' do
   category 'apache-to-s3', 'Data Archiving to S3' do
-    article 'apache-to-s3', 'Store Apache Logs into Amazon S3'
+    article 'apache-to-s3', 'Store Apache Logs into Amazon S3', ['Amazon S3']
   end
   category 'apache-to-mongo', 'Data Collection to Mongo' do
-    article 'apache-to-mongodb', 'Store Apache Logs into MongoDB'
+    article 'apache-to-mongodb', 'Store Apache Logs into MongoDB', ['MongoDB']
   end
   category 'http-to-hdfs', 'Data Collection to HDFS' do
-    article 'http-to-hdfs', 'Data Collection to HDFS'
+    article 'http-to-hdfs', 'Data Collection to HDFS', ['Hadoop', 'HDFS']
   end
   category 'ruby', 'Logging from Ruby' do
     article 'ruby',   'Import Logs from Ruby Applications'
@@ -108,16 +108,16 @@ section 'output-plugins', 'Output Plugins' do
     article 'out_null', 'out_null'
   end
   category 'out_s3', 'out_s3' do
-    article 'out_s3', 'out_s3'
+    article 'out_s3', 'out_s3', ['Amazon S3']
   end
   category 'out_mongo', 'out_mongo' do
-    article 'out_mongo', 'out_mongo'
+    article 'out_mongo', 'out_mongo', ['MongoDB']
   end
   category 'out_mongo_replset', 'out_mongo_replset' do
-    article 'out_mongo_replset', 'out_mongo_replset'
+    article 'out_mongo_replset', 'out_mongo_replset', ['MongoDB']
   end
   category 'out_webhdfs', 'out_webhdfs' do
-    article 'out_webhdfs', 'out_webhdfs'
+    article 'out_webhdfs', 'out_webhdfs', ['Hadoop', 'HDFS']
   end
 end
 section 'buffer-plugins', 'Buffer Plugins' do
