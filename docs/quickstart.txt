@@ -1,7 +1,7 @@
 Quickstart Guide
 ================
 
-Let's get started with Fluentd! Fluentd is a log collector daemon. Fluentd receives log as JSON streams, buffers them, and storeds or forwards to other systems like MongoDB and Hadoop, or even other instances of Fluentd.
+Let's get started with Fluentd! Fluentd is a log collector daemon which instantly enables you to have '**Log Everything**' architecture. Fluentd treats logs as JSON, well-known machine-readable format.
 
 ## Step1: Install
 
