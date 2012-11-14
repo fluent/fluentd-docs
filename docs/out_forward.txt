@@ -66,3 +66,14 @@ Threshold parameter to detect fault of a server. Default is 8.
 
 #### hard_timeout
 Hard timeout to detect failure of a server. Default is same as the send_timeout parameter.
+
+## Trouble Shooting
+
+### "no nodes are available"
+Please check you can communicate with port 24224 by **not only TCP, but also UDP**. These commands will be useful for checking the network configuration.
+
+    :::term
+    $ telnet host 24224
+    $ nmap -p 24224 -sU host
+
+There exists one [known issue](http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=2019944) that VMware sometimes losts small UDP packages which are used for heartbeat.
