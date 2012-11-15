@@ -8,7 +8,14 @@ Fluentd is written in Ruby for the flexibility, but the installation and the ope
 
 ## Step1: Add the Apt Repository
 
-Currently, only "Ubuntu 10.04 LTS / Lucid" and "Debian Lenny" are supported.
+Currently, "Ubuntu 12.04 LTS / Precise", "Ubuntu 10.04 LTS / Lucid" and "Debian Lenny" are supported.
+
+#### Ubuntu Precise
+
+Please add the Treasure Data apt repository to your sources list. This command will set it up for you:
+
+    :::term
+    $ sudo apt-add-repository 'deb http://packages.treasure-data.com/debian/ precise contrib'
 
 #### Ubuntu Lucid
 
