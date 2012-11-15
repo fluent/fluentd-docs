@@ -8,7 +8,7 @@ Fluentd is written in Ruby for the flexibility, but the installation and the ope
 
 ## Step1: Install from Apt Repository
 
-Currently, "Ubuntu 12.04 LTS / Precise", "Ubuntu 10.04 LTS / Lucid" and "Debian Lenny" are supported.
+Currently, "Ubuntu 12.04 LTS / Precise" and "Ubuntu 10.04 LTS / Lucid" are supported.
 
 #### Ubuntu Precise
 Executing [install-ubuntu-precise.sh](http://toolbelt.treasure-data.com/sh/install-ubuntu-precise.sh) will automaticallly install td-agent on your machine.
