@@ -6,54 +6,23 @@ This article describes how to install td-agent deb package, the stable distribut
 
 Fluentd is written in Ruby for the flexibility, but the installation and the operation of Ruby daemon have some difficulties for the casual users. That's why Treasure Data, Inc. is providing the stable distribution of Fluentd, called `td-agent`. The detailed difference between fluentd and td-agent can be found [here](faq#what-is-the-difference-with-td-agent-and-fluentd).
 
-## Step1: Add the Apt Repository
+## Step1: Install from Apt Repository
 
 Currently, "Ubuntu 12.04 LTS / Precise", "Ubuntu 10.04 LTS / Lucid" and "Debian Lenny" are supported.
 
 #### Ubuntu Precise
-
-Please add the Treasure Data apt repository to your sources list. This command will set it up for you:
+Executing [install-ubuntu-precise.sh](http://toolbelt.treasure-data.com/sh/install-ubuntu-precise.sh) will automaticallly install td-agent on your machine.
 
     :::term
-    $ sudo apt-add-repository 'deb http://packages.treasure-data.com/debian/ precise contrib'
+    $ wget -qO- http://toolbelt.treasure-data.com/sh/install-ubuntu-precise.sh | sh
 
 #### Ubuntu Lucid
-
-Please add the Treasure Data apt repository to your sources list. This command will set it up for you:
-
-    :::term
-    $ sudo apt-add-repository 'deb http://packages.treasure-data.com/debian/ lucid contrib'
-
-#### Debian Lenny
-
-Please add this line to your `/etc/apt/sources.list`.
+Executing [install-ubuntu-lucid.sh](http://toolbelt.treasure-data.com/sh/install-ubuntu-lucid.sh) will automaticallly install td-agent on your machine.
 
     :::term
-    deb http://packages.treasure-data.com/lenny/ lenny contrib
+    $ wget -qO- http://toolbelt.treasure-data.com/sh/install-ubuntu-lucid.sh | sh
 
-## Step2: Install and Launch
-
-Then, please update your apt repositories and install td-agent package:
-
-    :::term
-    $ apt-get update
-    $ apt-get install -f --force-yes td-agent
-
-To upgrade the existing agent, run the following command:
-
-    :::term
-    $ apt-get update && apt-get install -f --force-yes td-agent
-
-`/etc/init.d/td-agent` script is also provided to start, stop, or restart the agent.
-
-    :::term
-    $ /etc/init.d/td-agent start
-    $ /etc/init.d/td-agent stop
-    $ /etc/init.d/td-agent restart
-
-Please make sure **your configuration file** is located at `/etc/td-agent/td-agent.conf`.
-
-## Step3: Put Sample Logs via HTTP
+## Step2: Put Sample Logs via HTTP
 
 By default, `/etc/td-agent/td-agent.conf` is configured to take logs from HTTP and routes them to stdout (`/var/log/td-agent/td-agent.log`). You can post the sample log records by curl command.
 
