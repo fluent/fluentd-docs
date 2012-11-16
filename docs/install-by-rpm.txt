@@ -12,6 +12,8 @@ Executing [install-redhat.sh](http://toolbelt.treasure-data.com/sh/install-redha
 
     $ wget -qO- http://toolbelt.treasure-data.com/sh/install-redhat.sh | sh
 
+NOTE: It's HIGHLY recommended to setup <b>ntpd</b> on the node. Otherwise your logs could contain invalid timestamps.
+
 ## Step2: Launch Daemon
 
 `/etc/init.d/td-agent` script is provided to start, stop, or restart the agent.
