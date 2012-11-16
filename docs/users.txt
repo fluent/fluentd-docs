@@ -20,6 +20,16 @@ Data Science is at the core of <a href="http://gree-corp.com/">GREE</a>'s busine
 
 So far, we've been pleased with Fluentd's robustness and performance: it has held up strongly against our massive data, allowing us to focus on data analytics instead of logging. - Masaki Fujimoto, CTO
 
+## NHN Japan Corporation.
+
+<br /><p>
+<center><img src="/images/logo-NHN.jpg" height="50px" /></center>
+</p><br />
+
+NHN Japan, based in Tokyo, is web services company. Log collection and analysis is one the most important missions in our day-to-day operations. As such we have spent quite a long time to search for the right tool that can process and collect data from various sources with great flexibility and high throughput -- and we came up with Fluentd.
+
+We utilize Fluentd to collect a very large amount of logs. The logs are written into Hadoop HDFS clusters, and are also used to analyze various service statuses in realtime. We also use many plugins from rubygems.org to further enhance this mechanism. - Satoshi Tagomori
+
 ## PPLive, Inc.
 
 <p>
