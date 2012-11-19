@@ -12,7 +12,7 @@ It has 1) less impact on application performance, and 2) more MongoDB insert thr
 
 ### Install
 
-td-agent includes MongoDB plugin by default. For Fluentd users, you need to install fluent-plugin-mongo gem by the following command.
+td-agent includes MongoDB plugin by default. For Fluentd gem users, you need to install fluent-plugin-mongo gem by the following command.
 
     :::term
     $ fluent-gem install fluent-plugin-mongo

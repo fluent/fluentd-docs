@@ -78,6 +78,9 @@ section 'plugin', 'Input Plugins' do
   category 'in_exec', 'in_exec' do
     article 'in_exec', 'in_exec'
   end
+  category 'in_scribe', 'in_scribe' do
+    article 'in_scribe', 'in_scribe'
+  end
 end
 section 'output-plugins', 'Output Plugins' do
   category 'output-plugin-overview', 'Overview' do
