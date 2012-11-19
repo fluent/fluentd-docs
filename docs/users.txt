@@ -2,6 +2,8 @@
 
 These are the some of Fluentd users.
 
+NOTE: Are you using Fluentd? Please give us your testimonials to expand the community :) Please send a mail to <a href="mailto:kazuki.ohta@gmail.com">me</a> with your testimonial, name, title, and company's logo!
+
 ## ContextLogic, Inc.
 
 <p>
