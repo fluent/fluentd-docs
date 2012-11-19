@@ -59,6 +59,8 @@ For input, let's set up Fluentd to track the recent Apache logs (usually at /var
       tag mongo.apache.access
     </source>
 
+NOTE: Please make sure Apache outputs default 'combined' format. `format apache2` cannot parse custom log format. Please check <a href="in_tail">in_tail</a> document.
+
 Let’s go through the configuration line by line.
 
 1. `type tail`: The tail plugin continuously tracks the log file. This handy plugin is part of Fluentd’s core plugins.
