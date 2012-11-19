@@ -67,7 +67,7 @@ Amazon S3 endpoint name. Please select from here. Please make sure your bucket i
 Format of the time used as the file name. Default is `%Y%m%d`. Use `%Y%m%d%H` to split files hourly.
 
 #### time_slice_wait
-The time to wait old logs. Default is 10 minutes. Specify larger value if old logs may reache.
+The time to wait old logs. Default is 10 minutes ('10m'). Specify larger value if old logs may reache.
 
 #### path
 path prefix of the files on S3. Default is “” (no prefix).

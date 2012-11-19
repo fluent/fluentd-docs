@@ -38,7 +38,7 @@ Format of the time in the file path. Following characters are replaced with valu
 Default is `%Y%m%d` which splits files every day. Use `%Y%m%d%H` to split files every hour.
 
 #### time_slice_wait
-Wait time before flushing the buffer. Default is 10 minutes.
+The time to wait old logs. Default is 10 minutes ('10m'). Specify larger value if old logs may reache.
 
 #### time_format
 Format of the time written in files. Default is ISO-8601.
