@@ -78,4 +78,4 @@ NOTE: The actual path on S3 will be: “{path}{time_slice_format}_{sequential_nu
 Use UTC instead of local time.
 
 ### Futher Readings
-- [fluent-plugin-webhdfs repository](https://github.com/fluent/fluent-plugin-webhdfs)
+- [fluent-plugin-s3 repository](https://github.com/fluent/fluent-plugin-s3)
