@@ -1,0 +1,28 @@
+# Failure Scenarios
+
+Here's a list of Fluentd's failure scenarios. We assume you have [High Availability Configuration](high-availability): Each app node has its local *forwarders* and all logs are aggregated into multiple *aggregators*.
+
+## Apps Cannot Post Records to Forwarder
+Application sometimes fails to post records to local Fluentd, when using various language logger libraries. Although depends on the maturigy of each language logger, they implement some clever mechanisms to prevent data loss.
+
+#### 1) Memory Buffering (available for [Ruby](ruby), [Java](java), [Python](python), [Perl](perl))
+If the destination Fluentd dies, some implementations use extra memory to hold incoming logs. If Fluentd gets back, it automatically sends out the buffered logs to Fluentd again. Most implementation currently writes out into the file or throws away the logs once it reaches the maximum buffer memory size.
+
+#### 2) Exponential Backoff (available for [Ruby](ruby), [Java](java))
+Other than keep retry sending the logs to the local forwarder, some implementations used exponential backoff to avoid too much re-connection.
+
+## Forwarder or Aggregator Fluentd Goes Down
+If fluentd process dies for some reason, what happens? Depending on your buffer configuration.
+
+#### buf_memory
+If you're using [buf_memory](buf_memory), the buffered data is completely lost. But it provides more performance. Lowering the flush_interval will lower the possibility of data lost, but increase the number of transfer between forwarders and aggregators.
+
+#### buf_file
+If you're using [buf_file](buf_file), the buffered data is persisted into the disk. After Fluentd gets recovered, it tries to send the buffered data to the destination again.
+
+But if buffer file is broken by I/O errors, the data would be lost. Also if buffer disk space got full, the data would be lost because we can't persist the data.
+
+## Destination Storage Goes Down
+If destination storage like Amazon S3, MongoDB, or HDFS went down, Fluentd keep retry sending the buffered data. The retry logic is depending on the plugin implementation.
+
+If you're using [buf_memory](buf_memory), aggregators stop accepting new logs once it exceeds the buffer limit. If you're using [buf_file](buf_file), it tries to accept logs until it consumes disk space.
