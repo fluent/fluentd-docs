@@ -4,6 +4,8 @@ The `out_file` buffered output plugin writes events to files. By default, it wri
 
 ### Example Config
 
+`out_file` is included within Fluentd core. No extra installation process is required.
+
     :::text
     <match pattern>
       type file

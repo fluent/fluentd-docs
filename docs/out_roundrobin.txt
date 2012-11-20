@@ -4,6 +4,8 @@ The `roundrobin` output plugin distributes events to multiple outputs using roun
 
 ### Example Config
 
+`out_roundrobin` is included within Fluentd core. No extra installation process is required.
+
     :::text
     <match pattern>
       type roundrobin

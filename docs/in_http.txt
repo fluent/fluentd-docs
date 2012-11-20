@@ -4,6 +4,8 @@ The `in_http` input plugin enables Fluentd to retrieve records from HTTP POST. T
 
 ### Example Config
 
+`in_http` is included within Fluentd core. No extra installation process is required.
+
     :::text
     <source>
       type http

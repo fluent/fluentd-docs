@@ -6,6 +6,8 @@ It detects fault of a server using “φ accrual failure detector” algorithm. 
 
 ### Example Config
 
+`out_forward` is included within Fluentd core. No extra installation process is required.
+
     :::text
     <match pattern>
       type forward

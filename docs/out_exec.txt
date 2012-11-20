@@ -4,6 +4,8 @@ The `out_exec` buffered output plugin passes events to an external program as a 
 
 ### Example Config
 
+`out_exec` is included within Fluentd core. No extra installation process is required.
+
     :::text
     <match pattern>
       type exec

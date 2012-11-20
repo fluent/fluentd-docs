@@ -81,11 +81,11 @@ section 'plugin', 'Input Plugins' do
   category 'in_exec', 'in_exec' do
     article 'in_exec', 'in_exec'
   end
-  category 'in_scribe', 'in_scribe' do
-    article 'in_scribe', 'in_scribe', ['Scribe', 'Facebook']
-  end
   category 'in_syslog', 'in_syslog' do
     article 'in_syslog', 'in_syslog', ['Syslog']
+  end
+  category 'in_scribe', 'in_scribe' do
+    article 'in_scribe', 'in_scribe', ['Scribe', 'Facebook']
   end
   category 'in_others', 'Others' do
     article 'in_others', 'Ohters'

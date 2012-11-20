@@ -4,6 +4,8 @@ The `in_syslog` input plugin enables Fluentd to retrieve records via syslog prot
 
 ### Example Config
 
+`in_syslog` is included within Fluentd core. No extra installation process is required.
+
     :::text
     <source>
       type syslog

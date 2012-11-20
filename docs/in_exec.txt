@@ -6,6 +6,8 @@ You can run the program periodically or permanently. To run periodically, use ru
 
 ### Example Config
 
+`in_exec` is included within Fluentd core. No extra installation process is required.
+
     :::text
     <source>
       type exec

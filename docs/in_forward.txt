@@ -6,6 +6,8 @@ This plugin is mainly used to receive event logs from other fluentd, fluent-cat 
 
 ### Example Config
 
+`in_forward` is included within Fluentd core. No extra installation process is required.
+
     :::text
     <source>
       type forward

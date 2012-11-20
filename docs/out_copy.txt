@@ -4,6 +4,8 @@ The `copy` output plugin copies events to multiple outputs.
 
 ### Example Config
 
+`out_copy` is included within Fluentd core. No extra installation process is required.
+
     :::text
     <match pattern>
       type copy

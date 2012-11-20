@@ -4,6 +4,8 @@ The `stdout` output plugin prints events to the stdout (or logs if launched with
 
 ### Example Config
 
+`out_stdout` is included within Fluentd core. No extra installation process is required.
+
     :::text
     <match pattern>
       type stdout

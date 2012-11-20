@@ -4,6 +4,8 @@ The `null` output plugin just throw away events.
 
 ### Example Config
 
+`out_null` is included within Fluentd core. No extra installation process is required.
+
     :::text
     <match pattern>
       type null

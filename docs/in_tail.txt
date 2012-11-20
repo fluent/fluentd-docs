@@ -4,6 +4,8 @@ The `in_tail` input plugin allows Fluentd to read events from the tail of text f
 
 ### Example Config
 
+`in_tail` is included within Fluentd core. No extra installation process is required.
+
     :::text
     <source>
       type tail

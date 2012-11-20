@@ -4,6 +4,8 @@ The `out_exec_filter` buffered output plugin executes an external program, using
 
 ### Example Config
 
+`out_exec_filter` is included within Fluentd core. No extra installation process is required.
+
     :::text
     <match pattern>
       type exec_filter
