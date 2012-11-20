@@ -12,6 +12,7 @@ Input plugin extends Fluentd to retrieve and pull the events from external sourc
 * [in_http](in_http)
 * [in_tail](in_tail)
 * [in_exec](in_exec)
+* [in_syslog](in_syslog)
 * [in_scribe](in_scribe)
 
 ## Other Plugins
