@@ -24,3 +24,6 @@ The buffer’s behavior is defined by a separate [buffer plugin](buffer-plugin-o
 * [out_roundrobin](out_roundrobin)
 * [out_stdout](out_stdout)
 * [out_null](out_null)
+
+## Other Plugins
+* [others](http://fluentd.org/plugin/)
