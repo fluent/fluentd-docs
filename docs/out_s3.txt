@@ -1,17 +1,15 @@
 # out_s3 Output Plugin
 
-The `out_s3` is a buffered output plugin to write records into Amazon S3, the cloud object storage provided by Amazon.
+The `out_s3` plugin is a buffered output plugin used to write records into the Amazon S3 cloud object storage service.
 
-### Install
+### Installation
 
-td-agent includes S3 plugin by default. For Fluentd users, you need to install fluent-plugin-s3 gem by the following command.
+td-agent includes the S3 plugin by default. Fluentd users will need to install the fluent-plugin-s3 gem using the following command:
 
     :::term
     $ fluent-gem install fluent-plugin-s3
 
-### Example Config
-
-See [Store Apache Logs into Amazon S3](apache-to-s3) for more real-world example.
+### Example Configuration
 
     :::text
     <match pattern>
@@ -29,11 +27,13 @@ See [Store Apache Logs into Amazon S3](apache-to-s3) for more real-world example
       utc
     </match>
 
-NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+Please refer to the [Store Apache Logs into Amazon S3](apache-to-s3) article for real-world use cases.
 
-NOTE: The file won't be created after importing the first record. It's created hourly (depending on `time_slice_format`). Please be patient for the first time.
+NOTE: Please refer to the <a href="config-file">Config File</a> article for more information on the basic structure and syntax of the configuration file.
 
-NOTE: Make sure you have <b>ENOUGH spaces on buffer_path</b> directory. People often run shoft of its space and have problems.
+NOTE: Files are created on an hourly basis (depending on `time_slice_format`). This means that when you first import records using the plugin, no file is created immediately. The file will be created when the `time_slice_format` condition has been met.
+
+NOTE: Make sure you have <b>enough space in the buffer_path directory</b>. Running out of space is a frequent problem reported by users.
 
 ### Parameters
 
@@ -50,10 +50,10 @@ AWS secret key.
 Amazon S3 bucket name.
 
 #### buffer_path (required)
-path prefix of the files to buffer logs.
+Path prefix of the log buffer files.
 
 #### s3_endpoint
-Amazon S3 endpoint name. Please select from here. Please make sure your bucket is created on corresponding region.
+Amazon S3 endpoint name. Please select the appropriate endpoint name from the list below and confirm that your bucket has been created in the correct region.
 
 * s3.amazonaws.com
 * s3-us-west-1.amazonaws.com
@@ -64,18 +64,18 @@ Amazon S3 endpoint name. Please select from here. Please make sure your bucket i
 * s3-ap-northeast-1.amazonaws.com
 
 #### time_slice_format
-Format of the time used as the file name. Default is `%Y%m%d`. Use `%Y%m%d%H` to split files hourly.
+The time format used as the file name. The default is `%Y%m%d`. Use `%Y%m%d%H` to split files on an hourly basis.
 
 #### time_slice_wait
-The time to wait old logs. Default is 10 minutes ('10m'). Specify larger value if old logs may reache.
+The time to wait old logs. The default is 10 minutes ('10m'). Specify larger value if old logs may reache.
 
 #### path
-path prefix of the files on S3. Default is “” (no prefix).
+Path prefix of the files on S3. The default is “” (no prefix).
 
 NOTE: The actual path on S3 will be: “{path}{time_slice_format}_{sequential_number}.gz”
 
 #### utc
 Use UTC instead of local time.
 
-### Futher Readings
+### Futher Reading
 - [fluent-plugin-s3 repository](https://github.com/fluent/fluent-plugin-s3)
