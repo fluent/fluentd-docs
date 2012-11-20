@@ -79,7 +79,10 @@ section 'plugin', 'Input Plugins' do
     article 'in_exec', 'in_exec'
   end
   category 'in_scribe', 'in_scribe' do
-    article 'in_scribe', 'in_scribe'
+    article 'in_scribe', 'in_scribe', ['Scribe', 'Facebook']
+  end
+  category 'in_others', 'Others' do
+    article 'in_others', 'Ohters'
   end
 end
 section 'output-plugins', 'Output Plugins' do
@@ -111,16 +114,19 @@ section 'output-plugins', 'Output Plugins' do
     article 'out_null', 'out_null'
   end
   category 'out_s3', 'out_s3' do
-    article 'out_s3', 'out_s3', ['Amazon S3']
+    article 'out_s3', 'out_s3', ['Amazon S3', 'AWS', 'Simple Storage Service']
   end
   category 'out_mongo', 'out_mongo' do
     article 'out_mongo', 'out_mongo', ['MongoDB']
   end
   category 'out_mongo_replset', 'out_mongo_replset' do
-    article 'out_mongo_replset', 'out_mongo_replset', ['MongoDB']
+    article 'out_mongo_replset', 'out_mongo_replset', ['MongoDB', 'Mongo']
   end
   category 'out_webhdfs', 'out_webhdfs' do
     article 'out_webhdfs', 'out_webhdfs', ['Hadoop', 'HDFS']
+  end
+  category 'out_others', 'Others' do
+    article 'out_others', 'Ohters'
   end
 end
 section 'buffer-plugins', 'Buffer Plugins' do
