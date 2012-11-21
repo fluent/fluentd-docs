@@ -19,7 +19,7 @@ td-agent includes MongoDB plugin by default. For Fluentd gem users, you need to 
 
 ### Example Config
 
-See [Store Apache Logs into MongoDB](apache-to-montodb) for more real-world example.
+See [Store Apache Logs into MongoDB](apache-to-mongodb) for more real-world example.
 
     # Single MongoDB
     <match mongo.**>
