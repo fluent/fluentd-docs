@@ -40,7 +40,7 @@ Format of the time in the file path. Following characters are replaced with valu
 Default is `%Y%m%d` which splits files every day. Use `%Y%m%d%H` to split files every hour.
 
 #### time_slice_wait
-The time to wait old logs. Default is 10 minutes ('10m'). Specify larger value if old logs may reache.
+The amount of time to wait for old logs. This is used to account for delays in logs arriving to your Fluentd node. The default is 10 minutes ('10m'), meaning that Fluentd will wait until 10 minutes past the hour for any logs that occured during the past hour (e.g. a log recorded at 1:59 but arriving at the Fluentd node after 2:00 but before 2:10 will be uploaded together with all the other logs from 1:00 to 1:59 in one transaction, avoiding extra overhead). Larger values can be set as needed.
 
 #### time_format
 Format of the time written in files. Default is ISO-8601.
