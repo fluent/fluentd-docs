@@ -67,7 +67,7 @@ Amazon S3 endpoint name. Please select the appropriate endpoint name from the li
 The time format used as the file name. The default is `%Y%m%d`. Use `%Y%m%d%H` to split files on an hourly basis.
 
 #### time_slice_wait
-The time to wait old logs. The default is 10 minutes ('10m'). Specify larger value if old logs may reache.
+The amount of time to wait for old logs. This is used to account for delays in logs arriving to your Fluentd node. The default is 10 minutes ('10m'), meaning that Fluentd will wait until 10 minutes past the hour for any logs that occured during the past hour (e.g. a log recorded at 1:59 but arriving at the Fluentd node after 2:00 but before 2:10 will be uploaded together with all the other logs from 1:00 to 1:59 in one transaction, avoiding extra overhead). Larger values can be set as needed.
 
 #### path
 Path prefix of the files on S3. The default is “” (no prefix).
