@@ -17,9 +17,26 @@
   <% end %>
   <%= @body %>
   <hr size="1" style="margin-top: 10px; margin-bottom: 18px; color: rgba(0, 0, 0, .15);">
+
   <p>
-    If this article is incorrect or outdated, or omits critical information, please <a href="http://github.com/fluent/fluentd-docs/">let us know</a>. Fluentd Project is sponsored by <a href="http://treasure-data.com/?source=fl">Treasure Data, Inc </a><iframe src="http://treasure-data.com/icons/square_icon?event=ViewFluentdDoc&prop=VisitFluentd&size=20" scrolling="no" width="22px" height="22px" frameborder="0" marginwidth="0" marginheight="0"></iframe>
+    If this article is incorrect or outdated, or omits critical information, please <a href="http://github.com/fluent/fluentd-docs/">let us know</a> or comment below. Fluentd Project is sponsored by <a href="http://treasure-data.com/?source=fl">Treasure Data, Inc </a><iframe src="http://treasure-data.com/icons/square_icon?event=ViewFluentdDoc&prop=VisitFluentd&size=20" scrolling="no" width="22px" height="22px" frameborder="0" marginwidth="0" marginheight="0"></iframe>
   </p>
+
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'fluentd-docs'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  
 </article>
 
 </div><!-- /#topic_content -->
