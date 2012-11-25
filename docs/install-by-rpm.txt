@@ -10,9 +10,9 @@ That's why Treasure Data, Inc. is providing **the stable distribution of Fluentd
 
 ## Step1: Install from rpm Repository
 
-Executing [install-redhat.sh](http://toolbelt.treasure-data.com/sh/install-redhat.sh) will install td-agent on your machine. Currently, CentOS, RHEL 5.0+ are supported.
+Executing [install-redhat.sh](http://toolbelt.treasure-data.com/sh/install-redhat.sh) will install td-agent on your machine. This shell script registers new rpm repository at `/etc/yum.repos.d/td.repo`, and installs `td-agent` rpm package.  Currently, CentOS, RHEL 5.0+ are supported.
 
-    $ wget -qO- http://toolbelt.treasure-data.com/sh/install-redhat.sh | sh
+    $ curl -L http://toolbelt.treasure-data.com/sh/install-redhat.sh | sh
 
 NOTE: It's HIGHLY recommended to setup <b>ntpd</b> on the node. Otherwise your logs could contain invalid timestamps.
 

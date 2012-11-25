@@ -13,16 +13,16 @@ That's why Treasure Data, Inc. is providing **the stable distribution of Fluentd
 Currently, "Ubuntu 12.04 LTS / Precise" and "Ubuntu 10.04 LTS / Lucid" are supported.
 
 #### Ubuntu Precise
-Executing [install-ubuntu-precise.sh](http://toolbelt.treasure-data.com/sh/install-ubuntu-precise.sh) will automaticallly install td-agent on your machine.
+Executing [install-ubuntu-precise.sh](http://toolbelt.treasure-data.com/sh/install-ubuntu-precise.sh) will automaticallly install td-agent on your machine. This shell script registers new apt repository at `/etc/apt/sources.list.d/treasure-data.list`, and installs `td-agent` deb package.
 
     :::term
-    $ wget -qO- http://toolbelt.treasure-data.com/sh/install-ubuntu-precise.sh | sh
+    $ curl -L http://toolbelt.treasure-data.com/sh/install-ubuntu-precise.sh | sh
 
 #### Ubuntu Lucid
-Executing [install-ubuntu-lucid.sh](http://toolbelt.treasure-data.com/sh/install-ubuntu-lucid.sh) will automaticallly install td-agent on your machine.
+Executing [install-ubuntu-lucid.sh](http://toolbelt.treasure-data.com/sh/install-ubuntu-lucid.sh) will automaticallly install td-agent on your machine. This shell script registers new apt repository at `/etc/apt/sources.list.d/treasure-data.list`, and installs `td-agent` deb package.
 
     :::term
-    $ wget -qO- http://toolbelt.treasure-data.com/sh/install-ubuntu-lucid.sh | sh
+    $ curl -L http://toolbelt.treasure-data.com/sh/install-ubuntu-lucid.sh | sh
 
 NOTE: It's HIGHLY recommended to setup <b>ntpd</b> on the node. Otherwise your logs could contain invalid timestamps.
 
