@@ -1,0 +1,16 @@
+# Signal Handling
+This article covers how `fluentd` handles UNIX signals.
+
+## Process Model
+When you launch Fluentd, it creates two processes: supervisor and worker process. The supervisor process controls the life cycle of the worker process. Please make sure you'll send the signals to the supervisor process.
+
+## Signals
+
+### SIGINT or SIGTERM
+Stop the daemon gracefully. The memory buffer is tried to be flushed at once, but no retry in case of failure. The file buffer is not flushed, but the logs are persisted on the disk.
+
+### SIGUSR1
+Force flushing the buffered logs, and reopening fluentd's log. All buffers including memory and file will be flushed.
+
+### SIGHUP
+Reloading the configuration file, by gracefully restarting the worker process. The memory buffer is tried to be flushed. The file buffer is not flushed, but the logs are persisted on the disk.

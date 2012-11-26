@@ -18,6 +18,10 @@ In one word, td-agent is a stable package distribution of Fluentd. There're foll
 * td-agent contains stable version of Fluentd, with some plugins compatible with that version.
 * td-agent contains [jemalloc](http://www.canonware.com/jemalloc/), to prevent memory fragmentations on heavy loaded sites.
 
+## Should I use td-agent or fluentd gem?
+
+td-agent takes its importance on stability over new features. If you want to control the features and new changes by yourself, using fluentd gem is recommended. If you use Fluentd for the first time or use it at the large scale environment, using td-agent is recommended. td-agent is released every 2 or 3 months.
+
 ## What is 'tag'?
 
 The message inside Fluentd consists of the three entities.

@@ -62,7 +62,10 @@ section 'configuration', 'Configuration' do
     article 'failure-scenarios', 'Failure Scenarios'
   end
   category 'monitoring', 'Monitoring' do
-    article 'monitoring', 'Fluentd Monitoring'
+    article 'monitoring', 'Monitoring'
+  end
+  category 'signals', 'Signals' do
+    article 'signals', 'Signals'
   end
 end
 section 'plugin', 'Input Plugins' do
