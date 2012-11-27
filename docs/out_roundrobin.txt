@@ -2,7 +2,7 @@
 
 The `roundrobin` output plugin distributes events to multiple outputs using round-robin algorithm.
 
-### Example Config
+## Example Config
 
 `out_roundrobin` is included within Fluentd core. No extra installation process is required.
 
@@ -25,10 +25,10 @@ The `roundrobin` output plugin distributes events to multiple outputs using roun
 
 NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
 
-### Parameters
+## Parameters
 
-#### type (required)
+### type (required)
 The value must be `roundrobin`.
 
-#### &lt;store&gt; (required at least one)
+### &lt;store&gt; (required at least one)
 Specify destinations. The format is same as &lt;match&gt; directive.

@@ -2,14 +2,14 @@
 
 The `out_s3` plugin is a buffered output plugin used to write records into the Amazon S3 cloud object storage service.
 
-### Installation
+## Installation
 
 td-agent includes the S3 plugin by default. Fluentd users will need to install the fluent-plugin-s3 gem using the following command:
 
     :::term
     $ fluent-gem install fluent-plugin-s3
 
-### Example Configuration
+## Example Configuration
 
     :::text
     <match pattern>
@@ -35,24 +35,24 @@ NOTE: Files are created on an hourly basis (depending on `time_slice_format`). T
 
 NOTE: Make sure you have <b>enough space in the buffer_path directory</b>. Running out of space is a frequent problem reported by users.
 
-### Parameters
+## Parameters
 
-#### type (required)
+### type (required)
 The value must be `s3`.
 
-#### aws_key_id (required)
+### aws_key_id (required)
 AWS access key id.
 
-#### aws_sec_key (required)
+### aws_sec_key (required)
 AWS secret key.
 
-#### s3_bucket (required)
+### s3_bucket (required)
 Amazon S3 bucket name.
 
-#### buffer_path (required)
+### buffer_path (required)
 Path prefix of the log buffer files.
 
-#### s3_endpoint
+### s3_endpoint
 Amazon S3 endpoint name. Please select the appropriate endpoint name from the list below and confirm that your bucket has been created in the correct region.
 
 * s3.amazonaws.com
@@ -63,19 +63,33 @@ Amazon S3 endpoint name. Please select the appropriate endpoint name from the li
 * s3-ap-southeast-1.amazonaws.com
 * s3-ap-northeast-1.amazonaws.com
 
-#### time_slice_format
+### time_slice_format
 The time format used as the file name. The default is `%Y%m%d`. Use `%Y%m%d%H` to split files on an hourly basis.
 
-#### time_slice_wait
-The amount of time to wait for old logs. This is used to account for delays in logs arriving to your Fluentd node. The default is 10 minutes ('10m'), meaning that Fluentd will wait until 10 minutes past the hour for any logs that occured during the past hour (e.g. a log recorded at 1:59 but arriving at the Fluentd node after 2:00 but before 2:10 will be uploaded together with all the other logs from 1:00 to 1:59 in one transaction, avoiding extra overhead). Larger values can be set as needed.
+### time_slice_wait
+The amount of time to wait for old logs. This is used to account for delays in logs arriving to your Fluentd node. The default is 10 minutes ('10m'), meaning that Fluentd will wait until 10 minutes past the hour for any logs that occured during the past hour.
 
-#### path
+For example, a log recorded at 1:59 but arriving at the Fluentd node after 2:00 but before 2:10 will be uploaded together with all the other logs from 1:00 to 1:59 in one transaction, avoiding extra overhead). Larger values can be set as needed.
+
+### path
 Path prefix of the files on S3. The default is “” (no prefix).
 
 NOTE: The actual path on S3 will be: “{path}{time_slice_format}_{sequential_number}.gz”
 
-#### utc
+### utc
 Use UTC instead of local time.
 
-### Futher Reading
+## Buffer Parameters
+For advanced usage, you can tune Fluentd's internal buffering mechanism by these parameters.
+
+### buffer_type
+`file` by default ([buf_file](buf_file)). You can use `memory` ([buf_memory](buf_memory)) as well. Please specify `buffer_path` when you use `file` buffer.
+
+### buffer_queue_limit, buffer_chunk_limit
+The length of the chunk queue, and the size of each chunk. See [Buffer Plugin Overview](buffer-plugin-overview) for the basic buffer structure. Default is 256 and 8m. Suffixes “k” (KB), “m” (MB), “g” (GB) can be used.
+
+### retry_wait and retry_limit
+The interval between retries, and the number of retries. Default is 1.0 and 17. `retry_wait` gets doubled between each retry (e.g. the last retry waits for 131072 sec).
+
+## Futher Reading
 - [fluent-plugin-s3 repository](https://github.com/fluent/fluent-plugin-s3)

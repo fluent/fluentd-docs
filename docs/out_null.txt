@@ -2,7 +2,7 @@
 
 The `null` output plugin just throw away events.
 
-### Example Config
+## Example Config
 
 `out_null` is included within Fluentd core. No extra installation process is required.
 
@@ -13,7 +13,7 @@ The `null` output plugin just throw away events.
 
 NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
 
-### Parameters
+## Parameters
 
-#### type (required)
+### type (required)
 The value must be `stdout`.

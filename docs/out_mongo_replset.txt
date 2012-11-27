@@ -2,20 +2,20 @@
 
 The `out_mongo_replset` is a buffered output plugin to write records into [MongoDB](http://mongodb.org/), the emerging document-oriented database system.
 
-### Why Fluentd with MongoDB?
+## Why Fluentd with MongoDB?
 
 Compared to directly insert records from apps to MongoDB, Fluentd enables your application to insert records asynchronously with batch-insertion.
 
 It has 1) less impact on application performance, and 2) more MongoDB insert throughput, while maintaining JSON record structure.
 
-### Install
+## Install
 
 td-agent includes MongoDB plugin by default. For Fluentd gem users, you need to install fluent-plugin-mongo gem by the following command.
 
     :::term
     $ fluent-gem install fluent-plugin-mongo
 
-### Example Config
+## Example Config
 
 See [Store Apache Logs into MongoDB](apache-to-mongodb) for more real-world example.
 
@@ -32,36 +32,36 @@ See [Store Apache Logs into MongoDB](apache-to-mongodb) for more real-world exam
 
 NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
 
-### Parameters
+## Parameters
 
-#### type (required)
+### type (required)
 The value must be `mongo`.
 
-#### host (required)
+### host (required)
 MongoDB hostname,
 
-#### port (required)
+### port (required)
 MongoDB port.
 
-#### database (required)
+### database (required)
 The database name.
 
-#### collection (required if not tag_mapped)
+### collection (required if not tag_mapped)
 The collection name.
 
-#### capped
+### capped
 Put this option if you want to use capped collection. This is always recommended because MongoDB is not suitable for storing large amount of historical data.
 
-#### capped_size
+### capped_size
 Set capped collection size.
 
-#### user
+### user
 The username for authentication.
 
-#### password
+### password
 The password for authentication.
 
-#### tag_mapped
+### tag_mapped
 If you put this option, mongo output plugin uses Fluentd's tag to determine the destination collection.
 
 For example, if you generate records 'mongo.foo', the records will be inserted into `foo` collection within `fluentd` database.
@@ -83,23 +83,35 @@ For example, if you generate records 'mongo.foo', the records will be inserted i
       collection misc
     </match>
 
-#### name
+### name
 The ReplicaSet name.
 
-#### read
+### read
 The ReplicaSet read preference (e.g. secondary, etc).
 
-#### refresh_mode
+### refresh_mode
 The ReplicaSet refresh mode (e.g. sync, etc).
 
-#### refresh_interval
+### refresh_interval
 The ReplicaSet refresh interval.
 
-#### num_retries
+### num_retries
 The num_retries is threshold at ReplicaSet failover, default is 60. If retry count reached this threshold, the plugin raises an exception.
 
-#### flush_interval
-The interval time between the dataflush from fluentd to MongoDB. Default is 60 sec.
+## Buffer Parameters
+For advanced usage, you can tune Fluentd's internal buffering mechanism by these parameters.
 
-### Futher Readings
+### buffer_type
+`file` by default ([buf_file](buf_file)). You can use `memory` ([buf_memory](buf_memory)) as well. Please specify `buffer_path` when you use `file` buffer.
+
+### buffer_queue_limit, buffer_chunk_limit
+The length of the chunk queue, and the size of each chunk. See [Buffer Plugin Overview](buffer-plugin-overview) for the basic buffer structure. Default is 256 and 8m. Suffixes “k” (KB), “m” (MB), “g” (GB) can be used.
+
+### flush_interval
+The interval of the data flush. Default is 60s. Suffixes “s” (seconds), “m” (minutes), “h” (hours) can be used
+
+### retry_wait and retry_limit
+The interval between retries, and the number of retries. Default is 1.0 and 17. `retry_wait` gets doubled between each retry (e.g. the last retry waits for 131072 sec).
+
+## Futher Readings
 - [fluent-plugin-webhdfs mongo](https://github.com/fluent/fluent-plugin-mongo)

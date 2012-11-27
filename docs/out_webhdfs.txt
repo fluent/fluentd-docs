@@ -2,48 +2,14 @@
 
 The `out_webhdfs` is a buffered output plugin to write records into HDFS (Hadoop Distributed File System).
 
-### Install
+## Install
 
 td-agent includes WebHDFS plugin by default (v1.1.10 or later). For Fluentd users, you need to install fluent-plugin-webhdfs gem by the following command.
 
     :::term
     $ fluent-gem install fluent-plugin-webhdfs
 
-### Example Config
-
-See [Fluentd + HDFS: Instant Big Data Collection](http-to-hdfs) for more real-world example.
-
-    :::text
-    <match access.**>
-      type webhdfs
-      host namenode.your.cluster.local
-      port 50070
-      path /path/on/hdfs/access.log.%Y%m%d_%H.${hostname}.log
-      flush_interval 10s
-    </match>
-
-NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
-
-NOTE: The file won't be created after importing the first record. It's created hourly (depending on `time_slice_format`). Please be patient for the first time.
-
-### Parameters
-
-#### type (required)
-The value must be `webhfds`.
-
-#### host (required)
-The namenode hostname.
-
-#### port (required)
-The namenode port number.
-
-#### path (required)
-The path on HDFS. Make sure you have ${hostname} within your path, to avoid writing into the same HDFS file from multiple Fluentd instances. This conflict could result into the data loss.
-
-#### flush_interval
-The interval time between the dataflush from fluentd to MongoDB. Default is 60 sec.
-
-### HDFS Configuration
+## HDFS Configuration
 
 Append operations is not enabled by default on CDH. Please put these configurations into your hdfs-site.xml, and restart the whole cluster.
 
@@ -62,6 +28,52 @@ Append operations is not enabled by default on CDH. Please put these configurati
       <value>true</value>
     </property>
 
-### Futher Readings
+## Example Config
+
+See [Fluentd + HDFS: Instant Big Data Collection](http-to-hdfs) for more real-world example.
+
+    :::text
+    <match access.**>
+      type webhdfs
+      host namenode.your.cluster.local
+      port 50070
+      path /path/on/hdfs/access.log.%Y%m%d_%H.${hostname}.log
+      flush_interval 10s
+    </match>
+
+NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+
+NOTE: The file won't be created after importing the first record. It's created hourly (depending on `time_slice_format`). Please be patient for the first time.
+
+## Parameters
+
+### type (required)
+The value must be `webhfds`.
+
+### host (required)
+The namenode hostname.
+
+### port (required)
+The namenode port number.
+
+### path (required)
+The path on HDFS. Make sure you have ${hostname} within your path, to avoid writing into the same HDFS file from multiple Fluentd instances. This conflict could result into the data loss.
+
+## Buffer Parameters
+For advanced usage, you can tune Fluentd's internal buffering mechanism by these parameters.
+
+### buffer_type
+`file` by default ([buf_file](buf_file)). You can use `memory` ([buf_memory](buf_memory)) as well. Please specify `buffer_path` when you use `file` buffer.
+
+### buffer_queue_limit, buffer_chunk_limit
+The length of the chunk queue, and the size of each chunk. See [Buffer Plugin Overview](buffer-plugin-overview) for the basic buffer structure. Default is 256 and 8m. Suffixes “k” (KB), “m” (MB), “g” (GB) can be used.
+
+### flush_interval
+The interval of the data flush. Default is 60s. Suffixes “s” (seconds), “m” (minutes), “h” (hours) can be used
+
+### retry_wait and retry_limit
+The interval between retries, and the number of retries. Default is 1.0 and 17. `retry_wait` gets doubled between each retry (e.g. the last retry waits for 131072 sec).
+
+## Futher Readings
 - [fluent-plugin-webhdfs repository](https://github.com/fluent/fluent-plugin-webhdfs)
 - [Slide: Fluentd and WebHDFS](http://www.slideshare.net/tagomoris/fluentd-and-webhdfs)

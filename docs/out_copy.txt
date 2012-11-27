@@ -2,7 +2,7 @@
 
 The `copy` output plugin copies events to multiple outputs.
 
-### Example Config
+## Example Config
 
 `out_copy` is included within Fluentd core. No extra installation process is required.
 
@@ -24,10 +24,11 @@ The `copy` output plugin copies events to multiple outputs.
 
 NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
 
-### Parameters
+## Parameters
 
-#### type (required)
+### type (required)
 The value must be `copy`.
 
-#### &lt;store&gt; (required at least one)
+### &lt;store&gt; (required at least one)
 Specify destinations. The format is same as &lt;match&gt; directive.
+

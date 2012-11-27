@@ -4,7 +4,7 @@ The `out_forward` buffered output plugin forwards events to other fluentd server
 
 It detects fault of a server using “φ accrual failure detector” algorithm. You can customize parameter of the algorithm. When a fault server recovers, the plugin makes it available automatically after several seconds.
 
-### Example Config
+## Example Config
 
 `out_forward` is included within Fluentd core. No extra installation process is required.
 
@@ -39,12 +39,12 @@ It detects fault of a server using “φ accrual failure detector” algorithm. 
 
 NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
 
-### Parameters
+## Parameters
 
-#### type (required)
+### type (required)
 The value must be `forward`.
 
-#### &lt;server&gt; (required at least one)
+### &lt;server&gt; (required at least one)
 Destination servers. Each server must have following information.
 
 * *name*: Name of the server. This parameter is used in error messages.
@@ -52,26 +52,42 @@ Destination servers. Each server must have following information.
 * *port*: Port number of the host. Default is 24224. Note that both TCP packets (event stream) and UDP packets (heartbeat message) are sent to this port.
 * *weight*: Weight of load balancing. For example, weight of a server is 20 and weight of the other server is 30, events are sent in 2:3 raito. Default is 60.
 
-#### &lt;secondary&gt;
+### &lt;secondary&gt;
 Backup destination which is used when all servers are not available. This parameter is optional.
 
-#### send_timeout
+### send_timeout
 Timeout time to send event logs. Default is 60 seconds.
 
-#### recover_wait
+### recover_wait
 Wait time before accepting recovery of a fault server. Default is 10 seconds.
 
-#### heartbeat_interval
+### heartbeat_interval
 Interval of heartbeat packer. Default is 1 second.
-phi_threshold
+
+### phi_threshold
 Threshold parameter to detect fault of a server. Default is 8.
 
-#### hard_timeout
+### hard_timeout
 Hard timeout to detect failure of a server. Default is same as the send_timeout parameter.
 
-### Trouble Shooting
+## Buffer Parameters
+For advanced usage, you can tune Fluentd's internal buffering mechanism by these parameters.
 
-#### "no nodes are available"
+### buffer_type (buffer_path)
+`file` by default ([buf_file](buf_file)). You can use `memory` ([buf_memory](buf_memory)) as well. Please specify `buffer_path` when you're using `file` buffer.
+
+### buffer_queue_limit, buffer_chunk_limit
+The length of the chunk queue, and the size of each chunk. See [Buffer Plugin Overview](buffer-plugin-overview) for the basic buffer structure. Default is 256 and 8m. Suffixes “k” (KB), “m” (MB), “g” (GB) can be used.
+
+### flush_interval
+The interval of the data flush. Default is 60s. Suffixes “s” (seconds), “m” (minutes), “h” (hours) can be used
+
+### retry_wait and retry_limit
+The interval between retries, and the number of retries. Default is 1.0 and 17. `retry_wait` gets doubled between each retry (e.g. the last retry waits for 131072 sec).
+
+## Trouble Shooting
+
+### "no nodes are available"
 Please check you can communicate with port 24224 by **not only TCP, but also UDP**. These commands will be useful for checking the network configuration.
 
     :::term
