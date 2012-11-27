@@ -25,6 +25,8 @@ td-agent includes the S3 plugin by default. Fluentd users will need to install t
       time_slice_format %Y%m%d-%H
       time_slice_wait 10m
       utc
+
+      buffer_chunk_limit 256m
     </match>
 
 Please refer to the [Store Apache Logs into Amazon S3](apache-to-s3) article for real-world use cases.
