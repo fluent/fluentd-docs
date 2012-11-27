@@ -16,6 +16,12 @@ This slide covers the integration between Fluentd and MongoDB. The presentation 
 
 &nbsp;
 
+## Dive into Fluentd Plugin
+
+<center><iframe src="http://www.slideshare.net/slideshow/embed_code/11411503" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/repeatedly/fluentd-meetup-dive-into-fluent-plugin" title="Fluentd meetup dive into fluent plugin" target="_blank">Fluentd meetup dive into fluent plugin</a> </strong> from <strong><a href="http://www.slideshare.net/repeatedly" target="_blank">N Masahiro</a></strong> </div></center>
+
+&nbsp;
+
 ## Fluentd and WebHDFS
 
 This slide covers the integration between Fluentd and HDFS (Hadoop Distributed File System). The presentation is done at Fluentd meetup, Nov 08.
