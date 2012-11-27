@@ -2,7 +2,7 @@
 
 The `out_file` buffered output plugin writes events to files. By default, it writes into the file in daily basis (almost around 00:10). Before that, no files are created. If you want to output the logs hourly or minutely, please modify `time_slice_format` value.
 
-### Example Config
+## Example Config
 
 `out_file` is included within Fluentd core. No extra installation process is required.
 
@@ -19,15 +19,15 @@ The `out_file` buffered output plugin writes events to files. By default, it wri
 
 NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
 
-### Parameters
+## Parameters
 
-#### type (required)
+### type (required)
 The value must be `file`.
 
-#### path (required)
+### path (required)
 Path of the file. Actual path becomes path + time + ”.log”. See also time_slice_format parameter descried below.
 
-#### time_slice_format
+### time_slice_format
 
 Format of the time in the file path. Following characters are replaced with values:
 
@@ -39,17 +39,26 @@ Format of the time in the file path. Following characters are replaced with valu
 
 Default is `%Y%m%d` which splits files every day. Use `%Y%m%d%H` to split files every hour.
 
-#### time_slice_wait
+### time_slice_wait
 The amount of time to wait for old logs. This is used to account for delays in logs arriving to your Fluentd node. The default is 10 minutes ('10m'), meaning that Fluentd will wait until 10 minutes past the hour for any logs that occured during the past hour (e.g. a log recorded at 1:59 but arriving at the Fluentd node after 2:00 but before 2:10 will be uploaded together with all the other logs from 1:00 to 1:59 in one transaction, avoiding extra overhead). Larger values can be set as needed.
 
-#### time_format
+### time_format
 Format of the time written in files. Default is ISO-8601.
 
-#### utc
+### utc
 Uses UTC for path formatting. Default is localtime.
 
-#### compress
+### compress
 Compress flushed files. Supported algorithm is `gzip`. Default is no-compression.
 
-### Buffer
-This output plugin uses [file buffer](buf_file) by default. You can use other buffer plugins as well.
+## Buffer Parameters
+For advanced usage, you can tune Fluentd's internal buffering scheme by these parameters.
+
+### buffer_type
+`file` by default (see [buf_file](buf_file)). You can use `memory` as well. Please specify `buffer_path` as well when you're using `file`.
+
+### buffer_queue_limit, buffer_chunk_limit
+The length of the chunk queue, and the size of each chunk. See [Buffer Plugin Overview](buffer-plugin-overview) for the basic buffer structure. Default is 256 and 8m.Suffixes “k” (KB), “m” (MB), “g” (GB) can be used.
+
+### retry_wait and retry_limit
+The interval between retries, and the number of retries. Default is 1.0 and 17. `retry_wait` gets doubled between each retry.

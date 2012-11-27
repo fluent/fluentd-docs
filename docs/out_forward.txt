@@ -69,9 +69,9 @@ Threshold parameter to detect fault of a server. Default is 8.
 #### hard_timeout
 Hard timeout to detect failure of a server. Default is same as the send_timeout parameter.
 
-## Trouble Shooting
+### Trouble Shooting
 
-### "no nodes are available"
+#### "no nodes are available"
 Please check you can communicate with port 24224 by **not only TCP, but also UDP**. These commands will be useful for checking the network configuration.
 
     :::term

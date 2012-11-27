@@ -6,9 +6,47 @@ Fluentd has 3 types of plugins: Input, Output, and Buffer plugin. This article d
 
 Buffer plugin is used by buffered output plugins, such as `out_file`, `out_forward`, etc. The user can choose an appropriate buffer plugin for the desired combination of performance and reliability.
 
+## Buffer Structure
+
+The structure of the buffer is a queue of chunks like following:
+
+    :::text
+    queue
+    +---------+
+    |         |
+    |  chunk <-- write events to the top chunk
+    |         |
+    |  chunk  |
+    |         |
+    |  chunk  |
+    |         |
+    |  chunk --> write out the bottom chunk
+    |         |
+    +---------+
+
+When chunk size exceeds limit (`buffer_chunk_limit`) or specified time elapsed (`flush_interval`), new empty chunk is pushed. The bottom chunk is written out immediately when new chunk is pushed.
+
+If it failed to write, the chunk is left in the queue and retried to write after seconds (`retry_wait`). If the retry count is exceeds limit (`retry_limit`), the chunk is trashed. The wait time before retrying increases twice and twice (1.0sec, 2.0sec, 4.0sec, ...). If the length of the queue exceeds limit (`buffer_queue_limit`), new events are rejected.
+
+All buffered output plugins supports following parameters described above:
+
+    :::text
+    <match pattern>
+      buffer_type memory
+      buffer_chunk_limit 256m
+      buffer_queue_limit 128
+      flush_interval 60s
+      retry_limit 17
+      retry_wait 1s
+    </match>
+
+`buffer_type` specifies the type of buffer plugin. Default is memory.
+
+Suffixes “s” (seconds), “m” (minutes), “h” (hours) can be used for `flush_interval` and `retry_wait`. `retry_wait` can be a decimal.
+
+Suffixes “k” (KB), “m” (MB), “g” (GB) can be used for `buffer_chunk_limit`.
+
 ## List of Buffer Plugins
 
 * [buf_memory](buf_memory)
 * [buf_file](buf_file)
-
-

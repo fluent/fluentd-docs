@@ -15,3 +15,15 @@ NOTE: See <a href="config-file">Config File</a> for the basic structure and synt
 
 #### buffer_type (required)
 The value must be `memory`.
+
+#### buffer_chunk_limit
+The size of each buffer chunk. Default is 8m. Suffixes “k” (KB), “m” (MB), “g” (GB) can be used. See [Buffer Plugin Overview](buffer-plugin-overview) for the basic buffer structure. 
+
+#### buffer_queue_limit
+The length of the chunk queue. See [Buffer Plugin Overview](buffer-plugin-overview) for the basic buffer structure. Default is 256.
+
+#### flush_interval
+The interval of the data flush. Suffixes “s” (seconds), “m” (minutes), “h” (hours) can be used
+
+#### retry_wait
+The interval between retries. Suffixes “s” (seconds), “m” (minutes), “h” (hours) can be used.
