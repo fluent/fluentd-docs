@@ -1,4 +1,4 @@
-# out_exec_filter Output Plugin
+# exec_filter Output Plugin
 
 The `out_exec_filter` buffered output plugin executes an external program, using events as input and reading new events from the program output. It passes tab-separated values (TSV) to stdin and reads TSV from stdout.
 
