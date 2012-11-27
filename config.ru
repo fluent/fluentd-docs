@@ -3,8 +3,8 @@ require './app.rb'
 
 # Unicorn self-process killer
 require 'unicorn/worker_killer'
-use UnicornWorkerKiller::MaxRequests, 10240 + Random.rand(10240)
-use UnicornWorkerKiller::Oom, (96 + Random.rand(32)) * (1024**2)
+use Unicorn::WorkerKiller::MaxRequests, 10240 + Random.rand(10240)
+use Unicorn::WorkerKiller::Oom, (96 + Random.rand(32)) * (1024**2)
 
 # Out-Of-Band GC
 require 'unicorn/oob_gc'
