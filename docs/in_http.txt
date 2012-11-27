@@ -1,4 +1,4 @@
-# in_http Input Plugin
+# http Input Plugin
 
 The `in_http` input plugin enables Fluentd to retrieve records from HTTP POST. The URL path is regarded as `tag` of the Fluentd event log, and the POSTed body element is regarded as the record itself.
 

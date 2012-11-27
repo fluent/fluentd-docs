@@ -1,4 +1,4 @@
-# out_exec Output Plugin
+# exec Output Plugin
 
 The `out_exec` buffered output plugin passes events to an external program as a tab-separated value (TSV) file. The command is passed the location of a TSV file containing incoming events as its last argument.
 

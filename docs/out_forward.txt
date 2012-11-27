@@ -1,4 +1,4 @@
-# out_forward Output Plugin
+# forward Output Plugin
 
 The `out_forward` buffered output plugin forwards events to other fluentd servers. This plugin supports load-balancing and automatic fail-over (a.k.a. active-active backup). If you want replication, use copy plugin described below.
 

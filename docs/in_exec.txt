@@ -1,4 +1,4 @@
-# in_exec Input Plugin
+# exec Input Plugin
 
 The `in_exec` input plugin executes external program to receive or pull event logs. This reads TSV (tab separated values) from the stdout of the program.
 

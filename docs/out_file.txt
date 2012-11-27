@@ -1,4 +1,4 @@
-# out_file Output Plugin
+# file Output Plugin
 
 The `out_file` buffered output plugin writes events to files. By default, it writes into the file in daily basis (almost around 00:10). Before that, no files are created. If you want to output the logs hourly or minutely, please modify `time_slice_format` value.
 

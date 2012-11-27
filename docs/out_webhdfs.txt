@@ -1,4 +1,4 @@
-# out_webhdfs Output Plugin
+# HDFS (WebHDFS) Output Plugin
 
 The `out_webhdfs` is a buffered output plugin to write records into HDFS (Hadoop Distributed File System).
 

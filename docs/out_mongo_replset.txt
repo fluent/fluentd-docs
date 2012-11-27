@@ -1,4 +1,4 @@
-# out_mongo_replset Output Plugin
+# MongoDB ReplicaSet Output Plugin
 
 The `out_mongo_replset` is a buffered output plugin to write records into [MongoDB](http://mongodb.org/), the emerging document-oriented database system.
 

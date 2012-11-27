@@ -1,4 +1,4 @@
-# out_mongo Output Plugin
+# MongoDB Output Plugin
 
 The `out_mongo` is a buffered output plugin to write records into [MongoDB](http://mongodb.org/), the emerging document-oriented database system.
 

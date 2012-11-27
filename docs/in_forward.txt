@@ -1,4 +1,4 @@
-# in_forward Input Plugin
+# forward Input Plugin
 
 The `in_forward` input plugin listens TCP socket to receive event stream, and also listens UDP socket to receive heartbeat message.
 

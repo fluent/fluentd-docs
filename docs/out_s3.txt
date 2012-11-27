@@ -1,4 +1,4 @@
-# out_s3 Output Plugin
+# Amazon S3 Output Plugin
 
 The `out_s3` plugin is a buffered output plugin used to write records into the Amazon S3 cloud object storage service.
 

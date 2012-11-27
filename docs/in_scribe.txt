@@ -1,4 +1,4 @@
-# in_scribe Input Plugin
+# scribe Input Plugin
 
 The `in_scribe` input plugin enables Fluentd to retrieve records through Scribe protocol. [Scribe](https://github.com/facebook/scribe) is another log collector daemon which is open-sourced by Facebook.
 
