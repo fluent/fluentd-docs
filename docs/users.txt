@@ -4,10 +4,20 @@ These are the some of Fluentd users.
 
 NOTE: Are you using Fluentd? Please give us your testimonials to expand the community :) Please send a mail to <a href="mailto:kazuki.ohta@gmail.com">me</a> with your testimonial, name, title, and company's logo!
 
+## Backplane, Inc.
+
+<p>
+<center><a href="http://thebackplane.com/"><img src="/images/logo-Backplane.gif" height="80px" /></a></center>
+</p>
+
+When I first started at <a href="http://thebackplane.com/">Backplane</a>, I wanted to get us to start logging everything and aggregating it in JSON, and I wanted that system up and running fast. Fluentd got me there in less than a day. I was skeptical of reliability at first, but it takes so little time to setup, there's no reason not to try it.
+
+It hasn't crashed once yet, works exactly as I need it to thanks to the huge plugin library, and likely saved us a ton of time. As an added bonus: the user list for Fluentd was also way more responsive when I ran into initial setup questions than those of any competitors. If you want to start logging your data fast, Fluentd is a great way to go. - Eli Finkelshteyn, Lead Data Scientist
+
 ## ContextLogic, Inc.
 
 <p>
-<center><img src="http://fluentd.org/images/user_logo/ContextLogic.png" height="80px" /></center>
+<center><a href="http://www.contextlogic.com/"><img src="http://fluentd.org/images/user_logo/ContextLogic.png" height="80px" /></a></center>
 </p>
 
 At <a href="http://www.wishwall.me/">wishwall.me</a>, we started using Fluentd from early on to collect user event data. Its reliability and ease of use from application code (Python for us) make it easy for us to keep track of the key metrics. - Danny Zhang, co-founder
@@ -25,7 +35,7 @@ So far, we've been pleased with Fluentd's robustness and performance: it has hel
 ## NHN Japan Corporation.
 
 <br /><p>
-<center><img src="/images/logo-NHN.jpg" height="50px" /></center>
+<center><a href="http://www.nhncorp.jp/"><img src="/images/logo-NHN.jpg" height="50px" /></a></center>
 </p><br />
 
 NHN Japan, based in Tokyo, is web services company. Log collection and analysis is one the most important missions in our day-to-day operations. As such we have spent quite a long time to search for the right tool that can process and collect data from various sources with great flexibility and high throughput -- and we came up with Fluentd.
@@ -35,7 +45,7 @@ We utilize Fluentd to collect a very large amount of logs. The logs are written 
 ## PPLive, Inc.
 
 <p>
-<center><img src="/images/logo-PPTV.png" height="80px" /></center>
+<center><a href="http://www.pptv.com/"><img src="/images/logo-PPTV.png" height="80px" /></a></center>
 </p><br />
 
 <a href="http://www.pptv.com/">PPTV.com</a> is one of the largest Chinese online TV provider, which has 35 million active users. PPTV clients can be installed on multi-platforms (Windows, Mac, Android, iOS, WP, etc).
@@ -47,7 +57,7 @@ Realtime monitoring/reporting/charting can be generated from MongoDB data, which
 ## SlideShare, Inc.
 
 <p>
-<center><img src="http://fluentd.org/images/user_logo/Slideshare.png" height="80px" /></center>
+<center><a href="http://www.slideshare.net/"><img src="http://fluentd.org/images/user_logo/Slideshare.png" height="80px" /></a></center>
 </p><br />
 
 <a href="http://www.slideshare.net/">SlideShare</a> uses Fluentd to stream logs and events in the cloud. We were looking for a versatile yet lightweight logger in Ruby, and Fluentd fit the bill perfectly. - Sylvain Kalache, Operations Engineer
