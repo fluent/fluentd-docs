@@ -76,6 +76,7 @@ To test the configuration, just post the JSON to Fluentd. Sending USR1 signal fl
 Then, please use `td tables` command. If the count is not zero, the data import is finished.
 
     :::term
+    $ td tables
     +----------+------------+------+-------+--------+
     | Database | Table      | Type | Count | Schema |
     +----------+------------+------+-------+--------+
