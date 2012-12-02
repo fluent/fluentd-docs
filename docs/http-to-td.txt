@@ -1,4 +1,4 @@
-# Treasure Data: Cloud Data Warehouse
+# Log Everything to the Cloud
 
 This article describes how to use [Fluentd](http://fluentd.org/)'s [Treasure Data plugin](http://github.com/treasure-data/fluent-plugin-td/), to aggregate semi-structured logs into Treasure Data (TD), the cloud data warehouse.
 
@@ -100,6 +100,8 @@ After that, you can query against imported data.
     +-----+
     |   1 |
     +-----+
+
+NOTE: You shouldn't send sensitive information to the cloud. To help that, out_tdlog has some anonymization system. Please check <a href="http://github.com/treasure-data/fluent-plugin-td/">Treasure Data plugin</a>
 
 ## Conclusion
 
