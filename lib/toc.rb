@@ -32,6 +32,9 @@ section 'tutorial', 'Tutorial' do
   category 'http-to-hdfs', 'Data Collection to HDFS' do
     article 'http-to-hdfs', 'Data Collection to HDFS', ['Hadoop', 'HDFS']
   end
+  category 'http-to-td', 'Data Collection to TD' do
+    article 'http-to-td', 'Data Collection to Treasure Data', ['Treasure Data', 'Hadoop', 'Hive']
+  end
   category 'ruby', 'Logging from Ruby' do
     article 'ruby',   'Import Logs from Ruby Applications'
   end

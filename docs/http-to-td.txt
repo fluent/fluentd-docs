@@ -1,0 +1,112 @@
+# Treasure Data: Cloud Data Warehouse
+
+This article describes how to use [Fluentd](http://fluentd.org/)'s [Treasure Data plugin](http://github.com/treasure-data/fluent-plugin-td/), to aggregate semi-structured logs into Treasure Data (TD), the cloud data warehouse.
+
+## Background
+
+[Fluentd](http://fluentd.org/) is an advanced open-source log colector originally started developing at [Treasure Data, Inc](http://www.treasure-data.com/). Fluentd is specifically designed for solving big data collection problem.
+
+[Treasure Data](http://www.treasure-data.com/) provides the Cloud Data Warehouse Service, which Fluentd users can easily store and analyze the logs on the cloud. Fluentd is designed to be pluggable to connect with many systems, but Treasure Data would be a top selection if you don't want to maintain your backend infrastructure.
+
+This post shows how to receive the data from HTTP, and streamingly put it into TD with [Fluentd](http://fluentd.org/), with a little configuration.
+
+## Architecture
+
+The figure below shows the high-level architecture.
+
+<center>
+<img src="http://www.treasure-data.com/images/architecture.png" />
+</center><br /><br />
+
+## Signup
+
+At first, please [sign up](https://www.treasure-data.com/signup/) and get the apikey by `td apikey:show` command.
+
+    :::term
+    $ td apikey:show
+    kdfasklj218dsakfdas0983120
+
+## Install
+
+For simplicity, this post shows the one-node configuration. You should have the following software installed on the same node.
+
+* [Fluentd](http://fluentd.org/) with [TD plugin](https://github.com/treasure-data/fluent-plugin-td)
+
+Fluentd’s deb/rpm package (`td-agent`) includes the TD plugin by default. If you want to use Ruby Gems to install the plugin, `gem install fluent-plugin-td` does the job.
+
+* [Debian Package](install-by-deb)
+* [RPM Package](install-by-rpm)
+
+## Fluentd Configuration
+
+Let’s start the actual configurations. If you use deb/rpm, the Fluentd’s config file is located at /etc/td-agent/td-agent.conf. Otherwise, it is located at /etc/fluentd/fluentd.conf.
+
+### HTTP Input
+
+For input, let's setup Fluentd to accept the record from HTTP. This is what the Fluentd configuration looks like.
+
+    <source>
+      type http
+      port 8888
+    </source>
+
+### Treasure Data Output
+
+The output configuration should look like this:
+
+    # Treasure Data output
+    <match td.*.*>
+      type tdlog
+      apikey YOUR_API_KEY_IS_HERE
+      auto_create_table
+      buffer_type file
+      buffer_path /var/log/td-agent/buffer/td
+      use_ssl true
+    </match>
+
+## Test
+
+To test the configuration, just post the JSON to Fluentd. Sending USR1 signal flushes the buffer within Fluentd.
+
+    :::term
+    $ curl -X POST -d 'json={"action":"login","user":2}' \
+      http://localhost:8888/td.testdb.www_access
+    $ kill -USR1 `cat /var/run/td-agent/td-agent.pid`
+
+Then, please use `td tables` command. If the count is not zero, the data import is finished.
+
+    :::term
+    +----------+------------+------+-------+--------+
+    | Database | Table      | Type | Count | Schema |
+    +----------+------------+------+-------+--------+
+    | testdb   | www_access | log  |     1 |        |
+    +----------+------------+------+-------+--------+
+
+After that, you can query against imported data.
+
+    :::term
+    $ td query -w -d testdb \
+      "SELECT COUNT(1) AS cnt FROM www_access"
+    queued...
+    started at 2012-04-10T23:44:41Z
+    2012-04-10 23:43:12,692 Stage-1 map = 0%,  reduce = 0%
+    2012-04-10 23:43:18,766 Stage-1 map = 100%,  reduce = 0%
+    2012-04-10 23:43:32,973 Stage-1 map = 100%,  reduce = 100%
+    Status     : success
+    Result     :
+    +-----+
+    | cnt |
+    +-----+
+    |   1 |
+    +-----+
+
+## Conclusion
+
+Fluentd + Treasure Data enable you to have data collection and analysis system in days, not months. Treasure Data could be a useful solution if you don't want to maintain the backend storage and analytics infrastructure.
+
+## Further Readings
+
+* [Treasure Data Console](http://console.treasure-data.com/)
+* [Treasure Data Documentation](http://docs.treasure-data.com/)
+* [Fluentd Plugins List](http://fluentd.org/plugin/)
+* [Fluentd Source Code](http://github.com/fluent/fluentd/)

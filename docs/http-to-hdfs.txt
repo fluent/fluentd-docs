@@ -1,6 +1,6 @@
 # Fluentd + HDFS: Instant Big Data Collection
 
-This article describes how to use [Fluentd](http://fluentd.org/)'s newly released [WebHDFS plugin](http://github.com/fluent/fluent-plugin-webhdfs/), to aggregate semi-structured logs into Hadoop HDFS.
+This article describes how to use [Fluentd](http://fluentd.org/)'s [WebHDFS plugin](http://github.com/fluent/fluent-plugin-webhdfs/), to aggregate semi-structured logs into Hadoop HDFS.
 
 ## Background
 
@@ -89,11 +89,13 @@ Also, please be careful that *path* specified at WebHDFS output is configured to
 
 To test the configuration, just post the JSON to Fluentd. This example users curl command to do so.
 
+    :::term
     $ curl -X POST -d 'json={"action":"login","user":2}' \
       http://localhost:8888/hdfs.access.test
 
 Then, let’s access HDFS and see the stored data.
 
+    :::term
     $ sudo -u hdfs hadoop fs -lsr /log/
     drwxr-xr-x   - 1 supergroup          0 2012-10-22 09:40 /log/20121022_14/access.log.dev
 
