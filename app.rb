@@ -175,12 +175,23 @@ helpers do
   end
 
   def find_keywords(article, category)
-    default = ['Fluentd', 'log collection', 'logging']
+    default = ['Fluentd', 'log collector']
     sections.each { |_, _, categories|
       categories.each { |category_name, _, articles|
         return default + [category_name] if category_name == category
         articles.each { |article_name, _, keywords|
-          return default + keywords if article_name == article
+          if article_name == article
+            ks = keywords
+            keywords.each { |k|
+              if k =~ /in_/
+                ks = ["#{k[3..-1]} plugin"] + ks
+              end
+              if k =~ /buf_/ || k =~ /out_/
+                ks = ["#{k[4..-1]} plugin"] + ks
+              end
+            }
+            return default + ks
+          end
         }
       }
     }
