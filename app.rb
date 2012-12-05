@@ -184,10 +184,13 @@ helpers do
             ks = keywords
             keywords.each { |k|
               if k =~ /in_/
-                ks = ["#{k[3..-1]} plugin"] + ks
+                ks = ["#{k[3..-1]} plugin", "#{k[3..-1]} input plugin"] + ks
               end
-              if k =~ /buf_/ || k =~ /out_/
-                ks = ["#{k[4..-1]} plugin"] + ks
+              if k =~ /out_/
+                ks = ["#{k[4..-1]} plugin", "#{k[4..-1]} output plugin"] + ks
+              end
+              if k =~ /buf_/
+                ks = ["#{k[4..-1]} plugin", "#{k[4..-1]} buffer plugin"] + ks
               end
             }
             return default + ks
