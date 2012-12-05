@@ -179,21 +179,9 @@ helpers do
     sections.each { |_, _, categories|
       categories.each { |category_name, _, articles|
         return default + [category_name] if category_name == category
-        articles.each { |article_name, _, keywords|
+        articles.each { |article_name, title, keywords|
           if article_name == article
-            ks = keywords
-            keywords.each { |k|
-              if k =~ /in_/
-                ks = ["#{k[3..-1]} plugin", "#{k[3..-1]} input plugin"] + ks
-              end
-              if k =~ /out_/
-                ks = ["#{k[4..-1]} plugin", "#{k[4..-1]} output plugin"] + ks
-              end
-              if k =~ /buf_/
-                ks = ["#{k[4..-1]} plugin", "#{k[4..-1]} buffer plugin"] + ks
-              end
-            }
-            return default + ks
+            return default + [title] + keywords
           end
         }
       }

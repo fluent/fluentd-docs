@@ -76,25 +76,25 @@ section 'plugin', 'Input Plugins' do
     article 'input-plugin-overview', 'Input Plugin Overview'
   end
   category 'in_forward', 'in_forward' do
-    article 'in_forward', 'in_forward'
+    article 'in_forward', 'forward Input Plugin'
   end
   category 'in_http', 'in_http' do
-    article 'in_http', 'in_http'
+    article 'in_http', 'http Input Plugin'
   end
   category 'in_tail', 'in_tail' do
-    article 'in_tail', 'in_tail'
+    article 'in_tail', 'tail Input Plugin'
   end
   category 'in_exec', 'in_exec' do
-    article 'in_exec', 'in_exec'
+    article 'in_exec', 'exec Input Plugin'
   end
   category 'in_syslog', 'in_syslog' do
-    article 'in_syslog', 'in_syslog', ['Syslog']
+    article 'in_syslog', 'syslog Input Plugin', ['Syslog']
   end
   category 'in_scribe', 'in_scribe' do
-    article 'in_scribe', 'in_scribe', ['Scribe', 'Facebook']
+    article 'in_scribe', 'scribe Input Plugin', ['Scribe', 'Facebook']
   end
   category 'in_others', 'Others' do
-    article 'in_others', 'Ohters'
+    article 'in_others', 'Ohter Input Plugins'
   end
 end
 section 'output-plugins', 'Output Plugins' do
@@ -102,43 +102,43 @@ section 'output-plugins', 'Output Plugins' do
     article 'output-plugin-overview', 'Output Plugin Overview'
   end
   category 'out_file', 'out_file' do
-    article 'out_file', 'out_file'
+    article 'out_file', 'file Output Plugin'
   end
   category 'out_forward', 'out_forward' do
-    article 'out_forward', 'out_forward'
+    article 'out_forward', 'forward Output Plugin'
   end
   category 'out_exec', 'out_exec' do
-    article 'out_exec', 'out_exec'
+    article 'out_exec', 'exec Output Plugin'
   end
   category 'out_exec_filter', 'out_exec_filter' do
-    article 'out_exec_filter', 'out_exec_filter'
+    article 'out_exec_filter', 'exec_filter Output Plugin'
   end
   category 'out_copy', 'out_copy' do
-    article 'out_copy', 'out_copy'
+    article 'out_copy', 'copy Output Plugin'
   end
   category 'out_roundrobin', 'out_roundrobin' do
-    article 'out_roundrobin', 'out_roundrobin'
+    article 'out_roundrobin', 'roundrobin Output Plugin'
   end
   category 'out_stdout', 'out_stdout' do
-    article 'out_stdout', 'out_stdout'
+    article 'out_stdout', 'stdout Output Plugin'
   end
   category 'out_null', 'out_null' do
-    article 'out_null', 'out_null'
+    article 'out_null', 'null Output Plugin'
   end
   category 'out_s3', 'out_s3' do
-    article 'out_s3', 'out_s3', ['Amazon S3', 'AWS', 'Simple Storage Service']
+    article 'out_s3', 'S3 Output Plugin', ['Amazon S3', 'AWS', 'Simple Storage Service']
   end
   category 'out_mongo', 'out_mongo' do
-    article 'out_mongo', 'out_mongo', ['MongoDB']
+    article 'out_mongo', 'MongoDB Output Plugin', ['MongoDB']
   end
   category 'out_mongo_replset', 'out_mongo_replset' do
-    article 'out_mongo_replset', 'out_mongo_replset', ['MongoDB', 'Mongo']
+    article 'out_mongo_replset', 'MongoDB ReplicaSet Output Plugin', ['MongoDB', 'Mongo']
   end
   category 'out_webhdfs', 'out_webhdfs' do
-    article 'out_webhdfs', 'out_webhdfs', ['Hadoop', 'HDFS']
+    article 'out_webhdfs', 'WebHDFS Output Plugin', ['Hadoop', 'HDFS']
   end
   category 'out_others', 'Others' do
-    article 'out_others', 'Ohters'
+    article 'out_others', 'Other Output Plugins'
   end
 end
 section 'buffer-plugins', 'Buffer Plugins' do
@@ -146,10 +146,10 @@ section 'buffer-plugins', 'Buffer Plugins' do
     article 'buffer-plugin-overview', 'Buffer Plugin Overview'
   end
   category 'buf_memory', 'buf_memory' do
-    article 'buf_memory', 'buf_memory'
+    article 'buf_memory', 'memory Buffer Plugin'
   end
   category 'buf_file', 'buf_file' do
-    article 'buf_file', 'buf_file'
+    article 'buf_file', 'file Buffer Plugin'
   end
 end
 section 'developer', 'Developer' do
