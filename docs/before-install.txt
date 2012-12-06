@@ -22,7 +22,7 @@ If your console shows `1024`, it's insufficient. Please add following lines to y
     * soft nofile 65536
     * hard nofile 65536
 
-### Optimize Network Kernel Parameters
+## Optimize Network Kernel Parameters
 
 Please add these parameters to your /etc/sysctl.conf. Then, please type `sysctl -w` or reboot your node.
 
