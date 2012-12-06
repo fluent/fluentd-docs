@@ -69,7 +69,7 @@ section 'configuration', 'Configuration' do
     article 'monitoring', 'Monitoring'
   end
   category 'signals', 'Signals' do
-    article 'signals', 'Signals'
+    article 'signals', 'Signal Handling', ['Signals']
   end
 end
 section 'plugin', 'Input Plugins' do
