@@ -6,6 +6,7 @@ section 'overview', 'Overview' do
     article 'architecture', 'Architecture'
   end
   category 'installation', 'Installation' do
+    article 'before-install', 'Before Fluentd Installation'
     article 'install-by-rpm', 'Fluentd RPM Installation'
     article 'install-by-deb', 'Fluentd Deb Installation'
     article 'install-by-gem', 'Fluentd Gem Installation'

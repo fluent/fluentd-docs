@@ -2,6 +2,10 @@
 
 This article describes how to install Fluentd from Ruby gem.
 
+## Step0: Before Installation
+
+Please follow [Before Installation Guide](before-install). Configuring your OS properly will avoid many unnecessary problems.
+
 ## Step1: Import Recipe
 
 Here we distribute the chef recipe to install td-agent. Please import the recipe, add it to run_list, and upload to the Chef Server.

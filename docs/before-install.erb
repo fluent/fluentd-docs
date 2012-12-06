@@ -1,0 +1,31 @@
+# Before Installing Fluentd
+
+You MUST follow these setups before installing Fluentd, otherwise you will have some troubles.
+
+## Setup NTP
+
+It's HIGHLY recommended to setup *ntpd* on the node. Otherwise your logs could contain invalid timestamps.
+
+## Increase Max # of File Descriptors
+
+Please increase maximum number of file descriptors. You can check the number by `ulimit -n` command.
+
+    :::term
+    $ ulimit -n
+    65535
+
+If your console shows `1024`, it's insufficient. Please add following lines to your `/etc/security/limits.conf` and reboot your machine.
+
+    :::term
+    root soft nofile 65536
+    root hard nofile 65536
+    * soft nofile 65536
+    * hard nofile 65536
+
+### Optimize Network Kernel Parameters
+
+Please add these parameters to your /etc/sysctl.conf. Then, please type `sysctl -w` or reboot your node.
+
+    net.ipv4.tcp_tw_recycle = 1
+    net.ipv4.tcp_tw_reuse = 1
+    net.ipv4.ip_local_port_range = 10240    65535
