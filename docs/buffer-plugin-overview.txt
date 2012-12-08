@@ -1,6 +1,6 @@
 # Buffer Plugin Overview
 
-Fluentd has 3 types of plugins: Input, Output, and Buffer plugin. This article describes the overview of Input plugin.
+Fluentd has 3 types of plugins: Input, Output, and Buffer plugin. This article describes the overview of Buffer plugin.
 
 ## Overview
 
