@@ -25,7 +25,7 @@ At <a href="http://http://www.wish.com//">wish.com</a>, we started using Fluentd
 ## CyberAgent, Inc.
 
 <p>
-<center><img src="/images/logo-CA.gif" height="70px" /></center>
+<center><a href="http://www.cyberagent.info/"><img src="/images/logo-CA.gif" height="70px" /></a></center>
 </p><br />
 
 <a href="http://www.cyberagent.info/">CyberAgent</a> (<a href="http://www.marketwatch.com/investing/stock/4751?countrycode=jp">TYO:4751</a>) is a Tokyo based company that specializes in internet business. We are expanding our businesses in the field of Social Network Services and Web advertising. 
@@ -39,7 +39,7 @@ Fluentd helps us collect and analyze an app log and midleware log efficiently. A
 ## GREE, Inc.
 
 <p>
-<center><img src="/images/logo-GREE.png" height="80px" /></center>
+<center><a href="http://gree-corp.com/"><img src="/images/logo-GREE.png" height="80px" /></a></center>
 </p><br />
 
 Data Science is at the core of <a href="http://gree-corp.com/">GREE</a> (<a href="http://www.marketwatch.com/investing/stock/3632?countrycode=jp">TYO:3632</a>)'s business, and it starts with logging user events and Advertisement related data. We currently deploy Fluentd for a number of our games and ad services to federate user event data, and use that data to inform our product decisions.
@@ -66,7 +66,7 @@ We utilize Fluentd to collect a very large amount of logs. The logs are written 
 
 We (PPTV site operation team) tried to find a solution to do realtime log-collection and analyse based on the massive logfiles. Finally, we found that Fluentd is the perfect solution to do real-time log collection. Log can be JSON-structured to MongoDB cluster.
 
-Realtime monitoring/reporting/charting can be generated from MongoDB data, which is helpful to our operation work. Fluentd is a great tool! - Xinyi Zhou
+Realtime monitoring/reporting/charting can be generated from MongoDB data, which is helpful to our operation work. Fluentd is a great tool! - Xinyi Zhou, Site Operation Team
 
 ## SlideShare, Inc.
 
