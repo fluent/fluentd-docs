@@ -20,7 +20,7 @@ It hasn't crashed once yet, works exactly as I need it to thanks to the huge plu
 <center><a href="http://www.contextlogic.com/"><img src="http://fluentd.org/images/user_logo/ContextLogic.png" height="80px" /></a></center>
 </p>
 
-At <a href="http://http://www.wish.com//">wish.com</a>, we started using Fluentd from early on to collect user event data. Its reliability and ease of use from application code (Python for us) make it easy for us to keep track of the key metrics. - Danny Zhang, co-founder
+At <a href="http://www.wish.com/">wish.com</a>, we started using Fluentd from early on to collect user event data. Its reliability and ease of use from application code (Python for us) make it easy for us to keep track of the key metrics. - Danny Zhang, co-founder
 
 ## CyberAgent, Inc.
 
