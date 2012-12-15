@@ -6,9 +6,9 @@ This article describes how to use [Fluentd](http://fluentd.org/)'s [Treasure Dat
 
 [Fluentd](http://fluentd.org/) is an advanced open-source log colector originally started developing at [Treasure Data, Inc](http://www.treasure-data.com/). Fluentd is specifically designed for solving big data collection problem.
 
-[Treasure Data](http://www.treasure-data.com/) provides the Cloud Data Warehouse Service, which Fluentd users can easily store and analyze the logs on the cloud. Fluentd is designed to be pluggable to connect with many systems, but Treasure Data would be a top selection if you don't want to maintain your backend infrastructure.
+[Treasure Data](http://www.treasure-data.com/) provides the Cloud Data Warehouse, which Fluentd users can easily store and analyze the logs on the cloud. Fluentd is designed to be pluggable to connect with many systems, but Treasure Data would be a top selection if you don't want to maintain your backend infrastructure.
 
-This post shows how to receive the data from HTTP, and streamingly put it into TD with [Fluentd](http://fluentd.org/), with a little configuration.
+This post shows how to receive the data from HTTP, and streamingly put it into TD with [Fluentd](http://fluentd.org/), with a little configuration. You can start from $29/Month with 5GB/Month data import.
 
 ## Architecture
 
