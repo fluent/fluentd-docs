@@ -16,7 +16,7 @@ Please refer the following documents to install fluentd.
 * [Install Fluentd by Deb](install-by-deb) (td-agent)
 * [Install Fluentd by Gem](install-by-gem)
 
-## Modifying Config File
+## Modifying the Config File
 
 Next, please ensure to have [in_forward](in_forward) source within your configuration file.
 
