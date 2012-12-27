@@ -30,8 +30,8 @@ section 'tutorial', 'Tutorial' do
   category 'http-to-hdfs', 'Data Collection to HDFS' do
     article 'http-to-hdfs', 'Data Collection to HDFS', ['Hadoop', 'HDFS']
   end
-  category 'http-to-td', 'Data Collection to TD' do
-    article 'http-to-td', 'Data Collection to Treasure Data', ['Treasure Data', 'Hadoop', 'Hive']
+  category 'http-to-td', 'Data Analytics with TD' do
+    article 'http-to-td', 'Data Analytics with Treasure Data', ['Treasure Data', 'Hadoop', 'Hive']
   end
   category 'apache-to-s3', 'Data Archiving to S3' do
     article 'apache-to-s3', 'Store Apache Logs into Amazon S3', ['Amazon S3']

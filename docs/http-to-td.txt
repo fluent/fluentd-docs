@@ -1,4 +1,4 @@
-# Log Everything to the Cloud
+# Data Analytics with Treasure Data (Cloud DWH)
 
 This article describes how to use [Fluentd](http://fluentd.org/)'s [Treasure Data plugin](http://github.com/treasure-data/fluent-plugin-td/), to aggregate semi-structured logs into Treasure Data (TD), the cloud data warehouse.
 
