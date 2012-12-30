@@ -1,17 +1,17 @@
 # Monitoring Fluentd
 
-This article covers how to monitor the `fluentd` daemon.
+This article explains how to monitor the `Fluentd` daemon.
 
 ## Port Monitoring
 
-Fluentd opens the some ports depending on the configuration. We recommend checking the availability of these ports.
+Fluentd opens several ports according to the configuration file. We recommend checking the availability of these ports. The default port settings are shown below:
 
 * TCP 0.0.0.0 8888 (HTTP by default)
 * TCP 0.0.0.0 24224 (Forward by default)
 
 ### Debug Port
 
-A debug port for local communication should be recommended for trouble shooting. The configuration below is required, though.
+A debug port for local communication is recommended for trouble shooting. Please note that the configuration below will be required.
 
     :::text
     <source>
@@ -20,14 +20,13 @@ A debug port for local communication should be recommended for trouble shooting.
       port 24230
     </source>
 
-You can attach the process by `fluent-debug` command, and execute command through dRuby.
+You can attach the process using the `fluent-debug` command through dRuby.
 
 ## Process Monitoring
 
-Two `ruby` processes (parent and child) are executed. Please make sure these processes are running. This is the exampel of `td-agent`.
+Two `ruby` processes (parent and child) are executed. Please make sure these processes are running. The example for `td-agent` is shown below.
 
     :::term
     /usr/lib/fluent/ruby/bin/ruby /usr/sbin/td-agent
       --daemon /var/run/td-agent/td-agent.pid
       --log /var/log/td-agent/td-agent.log
-
