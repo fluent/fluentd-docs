@@ -1,6 +1,3 @@
 # Mailing List
 
-Please join [Fluentd Google Groups](https://groups.google.com/forum/?fromgroups#!forum/fluentd) to share the ideas and feedbacks within Fluentd community!
-
-* [Fluentd Google Groups](https://groups.google.com/forum/?fromgroups#!forum/fluentd)
-
+Please join the [Fluentd Google Group](https://groups.google.com/forum/?fromgroups#!forum/fluentd) to share your ideas and feedback within the Fluentd community!
