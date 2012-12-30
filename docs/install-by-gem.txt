@@ -31,7 +31,7 @@ The last command sends Fluentd a message ‘{“json”:”message”}’ with a
     :::term
     2011-07-10 16:49:50 +0900 debug.test: {"json":"message"}
 
-NOTE: It's HIGHLY recommended to setup <b>ntpd</b> on the node to prevent invalid timestamps in your logs.
+NOTE: It's HIGHLY recommended that you set up <b>ntpd</b> on the node to prevent invalid timestamps in your logs.
 
 NOTE: For large deployments, you must use <a href="http://www.canonware.com/jemalloc/">jemalloc</a> to avoid memory fragmentation. This is already included in the <a href="install-by-rpm">rpm</a> and <a href="install-by-deb">deb</a> packages.
 

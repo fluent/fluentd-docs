@@ -2,30 +2,22 @@
 
 ## Introduction to Fluentd
 
-This slide covers the basics of Fluentd.
+These slides explain the basics of Fluentd.
 
 <center><iframe src="http://www.slideshare.net/slideshow/embed_code/11410514?rel=0" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/treasure-data/fluentd-meetup-in-japan-11410514" title="Fluentd meetup in japan" target="_blank">Fluentd meetup in japan</a> </strong> from <strong><a href="http://www.slideshare.net/treasure-data" target="_blank">Treasure Data, Inc.</a></strong> </div></center>
 
-&nbsp;
-
 ## Fluentd loves MongoDB
 
-This slide covers the integration between Fluentd and MongoDB. The presentation is done at MongoSV User Group, July 17.
+These slides explain the integration of Fluentd with MongoDB. The presentation was originally given at the MongoSV User Group meetup on July 17, 2012.
 
 <center><iframe src="http://www.slideshare.net/slideshow/embed_code/13676771?rel=0" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/treasure-data/fluentd-loves-mongodb-at-mongosv-july172012" title="Fluentd loves MongoDB, at MongoDB SV User Group, July 17, 2012" target="_blank">Fluentd loves MongoDB, at MongoDB SV User Group, July 17, 2012</a> </strong> from <strong><a href="http://www.slideshare.net/treasure-data" target="_blank">Treasure Data, Inc.</a></strong> </div></center>
-
-&nbsp;
 
 ## Dive into Fluentd Plugin
 
 <center><iframe src="http://www.slideshare.net/slideshow/embed_code/11411503" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/repeatedly/fluentd-meetup-dive-into-fluent-plugin" title="Fluentd meetup dive into fluent plugin" target="_blank">Fluentd meetup dive into fluent plugin</a> </strong> from <strong><a href="http://www.slideshare.net/repeatedly" target="_blank">N Masahiro</a></strong> </div></center>
 
-&nbsp;
-
 ## Fluentd and WebHDFS
 
-This slide covers the integration between Fluentd and HDFS (Hadoop Distributed File System). The presentation is done at Fluentd meetup, Nov 08.
+These slides explain the integration of Fluentd with HDFS (Hadoop Distributed File System). The presentation was originally given at the Fluentd meetup on November 08, 2012.
 
 <center><iframe src="http://www.slideshare.net/slideshow/embed_code/15082128" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/tagomoris/fluentd-and-webhdfs" title="Fluentd and WebHDFS" target="_blank">Fluentd and WebHDFS</a> </strong> from <strong><a href="http://www.slideshare.net/tagomoris" target="_blank">SATOSHI TAGOMORI</a></strong> </div></center>
-
-&nbsp;

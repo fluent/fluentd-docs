@@ -4,7 +4,7 @@ You MUST set up your environment according to the steps below before installing 
 
 ## Set Up NTP
 
-It's HIGHLY recommended to setup *ntpd* on the node to prevent invalid timestamps in your logs.
+It's HIGHLY recommended that you set up *ntpd* on the node to prevent invalid timestamps in your logs.
 
 ## Increase Max # of File Descriptors
 

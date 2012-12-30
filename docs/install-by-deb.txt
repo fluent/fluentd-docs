@@ -28,7 +28,7 @@ Executing [install-ubuntu-lucid.sh](http://toolbelt.treasure-data.com/sh/install
     :::term
     $ curl -L http://toolbelt.treasure-data.com/sh/install-ubuntu-lucid.sh | sh
 
-NOTE: It's HIGHLY recommended to setup <b>ntpd</b> on the node to prevent invalid timestamps in your logs.
+NOTE: It's HIGHLY recommended that you set up <b>ntpd</b> on the node to prevent invalid timestamps in your logs.
 
 ## Step2: Launch Daemon
 
