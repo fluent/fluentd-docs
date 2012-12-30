@@ -1,44 +1,44 @@
-# Fluentd deb Installation
+# Installing Fluentd Using deb Package
 
-This article describes how to install td-agent deb package, the stable distribution package of fluentd maintained by [Treasure Data, Inc](http://www.treasure-data.com/).
+This article explains how to install the td-agent deb package, the stable Fluentd distribution package maintained by [Treasure Data, Inc](http://www.treasure-data.com/).
 
 ## What is td-agent?
 
-Fluentd is written in C for performance sensitive part, and Ruby for the flexibility, but the installation and the operation of Ruby daemon have some difficulties for the casual users.
+Fluentd is written in Ruby for flexibility, with performance sensitive parts written in C. However, casual users may have difficutly installing and operating a Ruby daemon.
 
-That's why Treasure Data, Inc. is providing **the stable distribution of Fluentd**, called `td-agent`. The detailed difference between fluentd and td-agent can be found [here](faq#what-is-the-difference-with-td-agent-and-fluentd).
+That's why Treasure Data, Inc. is providing **the stable distribution of Fluentd**, called `td-agent`. The differences between Fluentd and td-agent can be found [here](faq#what-is-the-difference-with-td-agent-and-fluentd).
 
 ## Step0: Before Installation
 
-Please follow [Before Installation Guide](before-install). Configuring your OS properly will avoid many unnecessary problems.
+Please follow the [Preinstallation Guide](before-install) to configure your OS properly. This will prevent many unnecessary problems.
 
 ## Step1: Install from Apt Repository
 
-Currently, "Ubuntu 12.04 LTS / Precise" and "Ubuntu 10.04 LTS / Lucid" are supported.
+"Ubuntu 12.04 LTS / Precise" and "Ubuntu 10.04 LTS / Lucid" are currently supported.
 
 #### Ubuntu Precise
-Executing [install-ubuntu-precise.sh](http://toolbelt.treasure-data.com/sh/install-ubuntu-precise.sh) will automaticallly install td-agent on your machine. This shell script registers new apt repository at `/etc/apt/sources.list.d/treasure-data.list`, and installs `td-agent` deb package.
+Executing [install-ubuntu-precise.sh](http://toolbelt.treasure-data.com/sh/install-ubuntu-precise.sh) will automaticallly install td-agent on your machine. This shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
 
     :::term
     $ curl -L http://toolbelt.treasure-data.com/sh/install-ubuntu-precise.sh | sh
 
 #### Ubuntu Lucid
-Executing [install-ubuntu-lucid.sh](http://toolbelt.treasure-data.com/sh/install-ubuntu-lucid.sh) will automaticallly install td-agent on your machine. This shell script registers new apt repository at `/etc/apt/sources.list.d/treasure-data.list`, and installs `td-agent` deb package.
+Executing [install-ubuntu-lucid.sh](http://toolbelt.treasure-data.com/sh/install-ubuntu-lucid.sh) will automaticallly install td-agent on your machine. This shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
 
     :::term
     $ curl -L http://toolbelt.treasure-data.com/sh/install-ubuntu-lucid.sh | sh
 
-NOTE: It's HIGHLY recommended to setup <b>ntpd</b> on the node. Otherwise your logs could contain invalid timestamps.
+NOTE: It's HIGHLY recommended to setup <b>ntpd</b> on the node to prevent invalid timestamps in your logs.
 
 ## Step2: Launch Daemon
 
-`/etc/init.d/td-agent` script is provided to start, stop, or restart the agent.
+The `/etc/init.d/td-agent` script is provided to start, stop, or restart the agent.
 
     $ /etc/init.d/td-agent restart
     $ /etc/init.d/td-agent status
     td-agent (pid  21678) is running...
 
-These commands are supported.
+The following commands are supported:
 
     :::term
     $ /etc/init.d/td-agent start
@@ -48,16 +48,16 @@ These commands are supported.
 
 Please make sure **your configuration file** is located at `/etc/td-agent/td-agent.conf`.
 
-## Step3: Put Sample Logs via HTTP
+## Step3: Post Sample Logs via HTTP
 
-By default, `/etc/td-agent/td-agent.conf` is configured to take logs from HTTP and routes them to stdout (`/var/log/td-agent/td-agent.log`). You can post the sample log records by curl command.
+By default, `/etc/td-agent/td-agent.conf` is configured to take logs from HTTP and route them to stdout (`/var/log/td-agent/td-agent.log`). You can post sample log records using the curl command.
 
     :::term
     $ curl -X POST -d 'json={"json":"message"}' http://localhost:8888/debug.test
 
-## Next Step
+## Next Steps
 
-Now you're ready to collect your real logs by Fluentd. See the following tutorials to learn how to collect your data from various data sources.
+You're now ready to collect your real logs using Fluentd. Please see the following tutorials to learn how to collect your data from various data sources.
 
   * Application Logs
     * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs)
@@ -66,7 +66,7 @@ Now you're ready to collect your real logs by Fluentd. See the following tutoria
     * [Store Apache Log into MongoDB](apache-to-mongodb)
     * [Data Collection into HDFS](http-to-hdfs)
 
-Please look at those resources for further steps.
+Please refer to the resources below for further steps.
 
 * [ChangeLog of td-agent](http://help.treasure-data.com/kb/installing-td-agent-daemon/changelog-of-td-agent)
 * [Chef Cookbook](https://github.com/treasure-data/chef-td-agent/)

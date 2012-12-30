@@ -1,24 +1,22 @@
-# Fluentd Chef Installation
+# Installing Fluentd Using Chef
 
-This article describes how to install Fluentd from Ruby gem.
+This article explains how to install Fluentd using Chef.
 
 ## Step0: Before Installation
 
-Please follow [Before Installation Guide](before-install). Configuring your OS properly will avoid many unnecessary problems.
+Please follow the [Preinstallation Guide](before-install) to configure your OS properly. This will prevent many unnecessary problems.
 
 ## Step1: Import Recipe
 
-Here we distribute the chef recipe to install td-agent. Please import the recipe, add it to run_list, and upload to the Chef Server.
-
-* [https://github.com/treasure-data/chef-td-agent](https://github.com/treasure-data/chef-td-agent)
+The chef recipe to install td-agent can be found [here](https://github.com/treasure-data/chef-td-agent). Please import the recipe, add it to run_list, and upload it to the Chef Server.
 
 ## Step2: Run chef-client
 
 Please run chef-client to install td-agent across your machines.
 
-## Next Step
+## Next Steps
 
-Now you're ready to collect your real logs by Fluentd. See the following tutorials to learn how to collect your data from various data sources.
+You're now ready to collect your real logs using Fluentd. Please see the following tutorials to learn how to collect your data from various data sources.
 
   * Application Logs
     * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs)

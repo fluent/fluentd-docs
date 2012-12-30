@@ -1,25 +1,25 @@
-# Fluentd Ruby Gem Installation
+# Installing Fluentd Using Ruby Gem
 
-This article describes how to install Fluentd from Ruby gem.
+This article explains how to install Fluentd using Ruby gem.
 
 ## Step0: Before Installation
 
-Please follow [Before Installation Guide](before-install). Configuring your OS properly will avoid many unnecessary problems.
+Please follow the [Preinstallation Guide](before-install) to configure your OS properly. This will prevent many unnecessary problems.
 
 ## Step1: Install Ruby interpreter
 
 Please install Ruby >= 1.9.2 on your local environment.
 
-## Step2: Install fluentd gem
+## Step2: Install Fluentd gem
 
-Fetch and install the  `fluetnd` Ruby gem by `gem` command. Official ruby gem page is [here](https://rubygems.org/gems/fluentd).
+Fetch and install the `fluetnd` Ruby gem using the `gem` command. The official ruby gem page is [here](https://rubygems.org/gems/fluentd).
 
     :::term
     $ gem install fluentd --no-ri --no-rdoc
 
 ## Step3: Run
 
-To confirm that Fluentd was installed successfully, run the following commands:
+Run the following commands to to confirm that Fluentd was installed successfully:
 
     :::term
     $ fluentd --setup ./fluent
@@ -31,13 +31,15 @@ The last command sends Fluentd a message ‘{“json”:”message”}’ with a
     :::term
     2011-07-10 16:49:50 +0900 debug.test: {"json":"message"}
 
-NOTE: It's HIGHLY recommended to setup <b>ntpd</b> on the node. Otherwise your logs could contain invalid timestamps. Also for the large deployment, you must use <a href="http://www.canonware.com/jemalloc/">jemalloc</a> to avoid memory fragmentations. <a href="install-by-rpm">rpm</a> / <a href="install-by-deb">deb</a> packages already include it.
+NOTE: It's HIGHLY recommended to setup <b>ntpd</b> on the node to prevent invalid timestamps in your logs.
 
-NOTE: fluentd gem doesn't come with /etc/init.d/ scripts. You should use the process management tools like <a href="http://cr.yp.to/daemontools.html">daemontools</a>, <a href="http://smarden.org/runit/">runit</a>, <a href="http://supervisord.org/">supervisord</a>, <a href="http://upstart.ubuntu.com/">upstart</a>.
+NOTE: For large deployments, you must use <a href="http://www.canonware.com/jemalloc/">jemalloc</a> to avoid memory fragmentation. This is already included in the <a href="install-by-rpm">rpm</a> and <a href="install-by-deb">deb</a> packages.
 
-## Next Step
+NOTE: The Fluentd gem doesn't come with /etc/init.d/ scripts. You should use process management tools such as <a href="http://cr.yp.to/daemontools.html">daemontools</a>, <a href="http://smarden.org/runit/">runit</a>, <a href="http://supervisord.org/">supervisord</a>, or <a href="http://upstart.ubuntu.com/">upstart</a>.
 
-Now you're ready to collect your real logs by Fluentd. See the following tutorials to learn how to collect your data from various data sources.
+## Next Steps
+
+You're now ready to collect your real logs using Fluentd. Please see the following tutorials to learn how to collect your data from various data sources.
 
   * Application Logs
     * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs)

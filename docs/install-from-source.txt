@@ -1,6 +1,6 @@
-# Fluentd Source Installation
+# Installing Fluentd from Source
 
-This article describes how to install Fluentd from source code (git repository). This is useful for developers.
+This article explains how to install Fluentd from source code (git repository). This is useful for developers.
 
 ## Step1: Install Ruby interpreter
 
@@ -8,7 +8,7 @@ Please install Ruby >= 1.9.2 on your local environment.
 
 ## Step2: Fetch Source Code
 
-Fetch the source code from github. Official repository is located [here](http://github.com/fluent/fluentd/).
+Fetch the source code from github. The official repository is located [here](http://github.com/fluent/fluentd/).
 
     :::term
     $ git clone https://github.com/fluent/fluentd.git
@@ -16,7 +16,7 @@ Fetch the source code from github. Official repository is located [here](http://
 
 ## Step3: Build and Install
 
-Build the package by `rake` and install it by `gem`.
+Build the package with `rake` and install it with `gem`.
 
     :::term
     $ rake build
@@ -28,7 +28,7 @@ Build the package by `rake` and install it by `gem`.
 
 ## Step4: Run
 
-To confirm that Fluentd was installed successfully, run the following commands:
+Run the following commands to to confirm that Fluentd was installed successfully:
 
     :::term
     $ fluentd --setup ./fluent
@@ -40,6 +40,17 @@ The last command sends Fluentd a message ‘{“json”:”message”}’ with a
     :::term
     2011-07-10 16:49:50 +0900 debug.test: {"json":"message"}
 
-NOTE: It's HIGHLY recommended to setup <b>ntpd</b> on the node. Otherwise your logs could contain invalid timestamps. Also for the large deployment, you must use <a href="http://www.canonware.com/jemalloc/">jemalloc</a> to avoid memory fragmentations. <a href="install-by-rpm">rpm</a> / <a href="install-by-deb">deb</a> packages already include it.
+NOTE: It's HIGHLY recommended to setup <b>ntpd</b> on the node to prevent invalid timestamps in your logs.
 
-&nbsp;
+NOTE: For large deployments, you must use <a href="http://www.canonware.com/jemalloc/">jemalloc</a> to avoid memory fragmentation. This is already included in the <a href="install-by-rpm">rpm</a> and <a href="install-by-deb">deb</a> packages.
+
+## Next Steps
+
+You're now ready to collect your real logs using Fluentd. Please see the following tutorials to learn how to collect your data from various data sources.
+
+  * Application Logs
+    * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs)
+  * Examples
+    * [Store Apache Log into Amazon S3](apache-to-s3)
+    * [Store Apache Log into MongoDB](apache-to-mongodb)
+    * [Data Collection into HDFS](http-to-hdfs)
