@@ -1,6 +1,6 @@
 # file Buffer Plugin
 
-The `file` buffer plugin provides persistent buffer implementation. It uses file to store buffer chunks.
+The `file` buffer plugin provides a persistent buffer implementation. It uses files to store buffer chunks on disk.
 
 ### Example Config
 
@@ -10,7 +10,7 @@ The `file` buffer plugin provides persistent buffer implementation. It uses file
       buffer_path /var/log/fluent/myapp.*.buffer
     </match>
 
-NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
 ### Parameters
 
@@ -18,16 +18,16 @@ NOTE: See <a href="config-file">Config File</a> for the basic structure and synt
 The value must be `file`.
 
 #### buffer_path (required)
-Path to store buffer chunks. ‘*’ is replaced with random characters. This parameter is required.
+The path where buffer chunks are stored. The ‘*’ is replaced with random characters. This parameter is required.
 
 #### buffer_chunk_limit
-The size of each buffer chunk. Default is 8m. Suffixes “k” (KB), “m” (MB), “g” (GB) can be used. See [Buffer Plugin Overview](buffer-plugin-overview) for the basic buffer structure. 
+The size of each buffer chunk. The default is 8m. The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used. Please see the [Buffer Plugin Overview](buffer-plugin-overview) article for the basic buffer structure. 
 
 #### buffer_queue_limit
-The length of the chunk queue. See [Buffer Plugin Overview](buffer-plugin-overview) for the basic buffer structure. Default is 256.
+The length limit of the chunk queue. Please see the [Buffer Plugin Overview](buffer-plugin-overview) article for the basic buffer structure. The default limit is 256 chunks.
 
 #### flush_interval
-The interval of the data flush. Suffixes “s” (seconds), “m” (minutes), “h” (hours) can be used. Sometimes this parameter is ignored by specifying `time_slice_format` parameter.
+The interval between data flushes. The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used
 
 #### retry_wait
-The interval between retries. Suffixes “s” (seconds), “m” (minutes), “h” (hours) can be used.
+The interval between retries. The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.

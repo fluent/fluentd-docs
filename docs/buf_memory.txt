@@ -1,6 +1,6 @@
 # memory Buffer Plugin
 
-The `memory` buffer plugin provides fast buffer implementation. It uses memory to store buffer chunks. Buffered events which can’t be written soon are deleted when fluentd is shut down.
+The `memory` buffer plugin provides a fast buffer implementation. It uses memory to store buffer chunks. When Fluentd is shut down, buffered logs that can’t be written quickly are deleted.
 
 ### Example Config
 
@@ -9,7 +9,7 @@ The `memory` buffer plugin provides fast buffer implementation. It uses memory t
       buffer_type memory
     </match>
 
-NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
 ### Parameters
 
@@ -17,13 +17,13 @@ NOTE: See <a href="config-file">Config File</a> for the basic structure and synt
 The value must be `memory`.
 
 #### buffer_chunk_limit
-The size of each buffer chunk. Default is 8m. Suffixes “k” (KB), “m” (MB), “g” (GB) can be used. See [Buffer Plugin Overview](buffer-plugin-overview) for the basic buffer structure. 
+The size of each buffer chunk. The default is 8m. The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used. Please see the [Buffer Plugin Overview](buffer-plugin-overview) article for the basic buffer structure. 
 
 #### buffer_queue_limit
-The length of the chunk queue. See [Buffer Plugin Overview](buffer-plugin-overview) for the basic buffer structure. Default is 256.
+The length limit of the chunk queue. Please see the [Buffer Plugin Overview](buffer-plugin-overview) article for the basic buffer structure. The default limit is 256 chunks.
 
 #### flush_interval
-The interval of the data flush. Suffixes “s” (seconds), “m” (minutes), “h” (hours) can be used
+The interval between data flushes. The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used
 
 #### retry_wait
-The interval between retries. Suffixes “s” (seconds), “m” (minutes), “h” (hours) can be used.
+The interval between retries. The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.

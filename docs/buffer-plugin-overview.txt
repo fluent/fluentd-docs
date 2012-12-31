@@ -1,14 +1,14 @@
 # Buffer Plugin Overview
 
-Fluentd has 3 types of plugins: Input, Output, and Buffer plugin. This article describes the overview of Buffer plugin.
+Fluentd has 3 types of plugins: Input, Output, and Buffer. This article provides an overview of Buffer plugins.
 
 ## Overview
 
-Buffer plugin is used by buffered output plugins, such as `out_file`, `out_forward`, etc. The user can choose an appropriate buffer plugin for the desired combination of performance and reliability.
+Buffer plugins are used by buffered output plugins, such as `out_file`, `out_forward`, etc. Users can choose the buffer plugin that best suits their performance and reliability needs.
 
 ## Buffer Structure
 
-The structure of the buffer is a queue of chunks like following:
+The buffer structure is a queue of chunks like the following:
 
     :::text
     queue
@@ -24,11 +24,11 @@ The structure of the buffer is a queue of chunks like following:
     |         |
     +---------+
 
-When chunk size exceeds limit (`buffer_chunk_limit`) or specified time elapsed (`flush_interval`), new empty chunk is pushed. The bottom chunk is written out immediately when new chunk is pushed.
+When the top chunk exceeds the specified size or time limit (`buffer_chunk_limit` and `flush_interval`, respectively), a new empty chunk is pushed to the top of the queue. The bottom chunk is written out immediately when new chunk is pushed.
 
-If it failed to write, the chunk is left in the queue and retried to write after seconds (`retry_wait`). If the retry count is exceeds limit (`retry_limit`), the chunk is trashed. The wait time before retrying increases twice and twice (1.0sec, 2.0sec, 4.0sec, ...). If the length of the queue exceeds limit (`buffer_queue_limit`), new events are rejected.
+If the bottom chunk write out fails, it will remain in the queue and Fluentd will retry after waiting several seconds (`retry_wait`). If the retry count exceeds the specified limit (`retry_limit`), the chunk is trashed. The retry wait time doubles each time (1.0sec, 2.0sec, 4.0sec, ...). If the queue length exceeds the specified limit (`buffer_queue_limit`), new events are rejected.
 
-All buffered output plugins supports following parameters described above:
+All buffered output plugins support the following parameters:
 
     :::text
     <match pattern>
@@ -40,11 +40,11 @@ All buffered output plugins supports following parameters described above:
       retry_wait 1s
     </match>
 
-`buffer_type` specifies the type of buffer plugin. Default is memory.
+`buffer_type` specifies the buffer plugin to use. The `memory` Buffer plugin is used by default.
 
-Suffixes “s” (seconds), “m” (minutes), “h” (hours) can be used for `flush_interval` and `retry_wait`. `retry_wait` can be a decimal.
+The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used for `flush_interval` and `retry_wait`. `retry_wait` can be a decimal value.
 
-Suffixes “k” (KB), “m” (MB), “g” (GB) can be used for `buffer_chunk_limit`.
+The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for `buffer_chunk_limit`.
 
 ## List of Buffer Plugins
 
