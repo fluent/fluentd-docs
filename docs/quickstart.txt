@@ -1,20 +1,20 @@
 Quickstart Guide
 ================
 
-Let's get started with Fluentd! Fluentd is a log collector daemon which instantly enables you to have '**Log Everything**' architecture. Fluentd treats logs as JSON, well-known machine-readable format.
+Let's get started with Fluentd! Fluentd is a log collector daemon that instantly enables you to have a '**Log Everything**' architecture. Fluentd treats logs as JSON, a popular machine-readable format.
 
 ## Step1: Install
 
-Please follow the installation/quickstart guides below which matches your environment.
+Please follow the installation/quickstart guides below that matches your environment.
 
-* [Installation by rpm Package](install-by-rpm)
-* [Installation by deb Package](install-by-deb)
-* [Installation by gem Package](install-by-gem)
+* [Installation Using rpm Package](install-by-rpm)
+* [Installation Using deb Package](install-by-deb)
+* [Installation Using Ruby Gem](install-by-gem)
 * [Installation from source](install-from-source)
 
 ## Step2: Use
 
-The list below are the typical usecases of Fluentd. You might want to pick the one from them.
+The articles shown below cover the typical use cases of Fluentd. Please refer to the article(s) that suits your needs.
 
   * Application Logs
     * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs)
@@ -28,7 +28,7 @@ The list below are the typical usecases of Fluentd. You might want to pick the o
 
 ## Step3: Learn More
 
-Learn more about Fluentd.
+The articles shown below will provide detailed information for you to learn more about Fluentd.
 
   * [Architecture Overview](architecture)
   * Plugin Overview
