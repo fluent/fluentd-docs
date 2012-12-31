@@ -2,7 +2,7 @@
 
 These are the some of Fluentd users.
 
-NOTE: Are you using Fluentd? Please give us your testimonials to expand the community :) Please send a mail to <a href="mailto:kazuki.ohta@gmail.com">me</a> with your testimonial, name, title, and company's logo!
+NOTE: Are you using Fluentd? If so, please share your testimonial with us to help expand the community! :) Please <a href="mailto:kazuki.ohta@gmail.com">send me a message</a> with your testimonial, name, title, and company's logo!
 
 ## Backplane, Inc.
 
@@ -34,7 +34,7 @@ Though collecting and analyzing log data is quite important in our services, we 
 
 That is why we began to use Fluentd. Fluentd made it possible to collect existing log with significantly lower resources, while it is not affecting the analyzing process. We introduced this system successfully and safely.
 
-Fluentd helps us collect and analyze an app log and midleware log efficiently. And as a result, it improves our daily operation and services. - Tomomitsu Tsuda (General Manager)
+Fluentd helps us collect and analyze an app log and midleware log efficiently. And as a result, it improves our daily operation and services. - Tomomitsu Tsuda, General Manager
 
 ## GREE, Inc.
 
