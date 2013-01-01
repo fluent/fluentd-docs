@@ -1,12 +1,12 @@
 # forward Input Plugin
 
-The `in_forward` input plugin listens TCP socket to receive event stream, and also listens UDP socket to receive heartbeat message.
+The `in_forward` Input plugin listens to a TCP socket to receive the event stream. It also listens to an UDP socket to receive heartbeat messages.
 
-This plugin is mainly used to receive event logs from other fluentd, fluent-cat command or client libraries, because this is by far the most efficient way to retrieve the records.
+This plugin is mainly used to receive event logs from other Fluentd instances, the Fluent-cat command, or client libraries. This is by far the most efficient way to retrieve the records.
 
 ### Example Config
 
-`in_forward` is included within Fluentd core. No extra installation process is required.
+`in_forward` is included in Fluentd's core. No additional installation process is required.
 
     :::text
     <source>
@@ -15,7 +15,7 @@ This plugin is mainly used to receive event logs from other fluentd, fluent-cat 
       bind 0.0.0.0
     </source>
 
-NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
 ### Parameters
 
@@ -23,14 +23,14 @@ NOTE: See <a href="config-file">Config File</a> for the basic structure and synt
 The value must be `forward`.
 
 #### port
-The port to listen on. Default Value = 24224.
+The port to listen to. Default Value = 24224
 
 #### bind
-The bind address to listen on. Default Value = 0.0.0.0 (all addresses)
+The bind address to listen to. Default Value = 0.0.0.0 (all addresses)
 
 ### Protocol
 
-This plugin uses [MessagePack](http://msgpack.org/) for the internal protocol. MessagePack is binary-based data serialization / deserialization library. The MessagePack data stream with the following structure will be accepted by `in_forward`.
+This plugin uses [MessagePack](http://msgpack.org/) for the internal protocol. MessagePack is a binary-based data serialization / deserialization library. `in_forward` accepts MessagePack data streams with the following structure.
 
     :::text
     stream:
