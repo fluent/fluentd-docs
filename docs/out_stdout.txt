@@ -1,17 +1,17 @@
 # stdout Output Plugin
 
-The `stdout` output plugin prints events to the stdout (or logs if launched with daemon mode). This output plugin is useful for debugging purpose.
+The `stdout` output plugin prints events to stdout (or logs if launched with daemon mode). This output plugin is useful for debugging purposes.
 
 ### Example Config
 
-`out_stdout` is included within Fluentd core. No extra installation process is required.
+`out_stdout` is included in Fluentd's core. No additional installation process is required.
 
     :::text
     <match pattern>
       type stdout
     </match>
 
-NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
 ### Parameters
 

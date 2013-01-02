@@ -1,5 +1,5 @@
 # Other Output Plugins
 
-Here's a list of available plugins. Please check it out.
+Please refer to this list of available plugins to find out about other Output plugins.
 
 * [Fluentd plugins](http://fluentd.org/plugin/)

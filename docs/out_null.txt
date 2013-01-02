@@ -1,19 +1,19 @@
 # null Output Plugin
 
-The `null` output plugin just throw away events.
+The `null` output plugin just throws away events.
 
 ## Example Config
 
-`out_null` is included within Fluentd core. No extra installation process is required.
+`out_null` is included in Fluentd's core. No additional installation process is required.
 
     :::text
     <match pattern>
       type null
     </match>
 
-NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
 ## Parameters
 
 ### type (required)
-The value must be `stdout`.
+The value must be `null`.
