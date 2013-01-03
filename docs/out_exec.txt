@@ -1,10 +1,10 @@
 # exec Output Plugin
 
-The `out_exec` buffered output plugin passes events to an external program as a tab-separated value (TSV) file. The command is passed the location of a TSV file containing incoming events as its last argument.
+The `out_exec` Buffered Output plugin passes events to an external program as a tab-separated value (TSV) file. The program receives the path of a TSV file containing incoming events as its last argument.
 
 ## Example Config
 
-`out_exec` is included within Fluentd core. No extra installation process is required.
+`out_exec` is included in Fluentd's core. No additional installation process is required.
 
     :::text
     <match pattern>
@@ -16,7 +16,7 @@ The `out_exec` buffered output plugin passes events to an external program as a 
       time_format %Y-%m-%d %H:%M:%S
     </match>
 
-NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
 ## Parameters
 
@@ -24,28 +24,31 @@ NOTE: See <a href="config-file">Config File</a> for the basic structure and synt
 The value must be `exec`.
 
 ### command (required)
-A command to execute. The exec plugin passes the path of a TSV file as the last argument.
+The command (program) to execute. The exec plugin passes the path of a TSV file as the last argument.
 
 ### keys (required)
 Comma-separated keys to use in the TSV file.
 
 ### tag_key
-Name of the key to use as the event tag instead of the value in the event record.
+The name of the key to use as the event tag. This replaces the value in the event record.
 
 ### time_key
-Name of the key to use as the event time instead of the value in the event record.
+The name of the key to use as the event time. This replaces the the value in the event record.
 
 ### time_format
-Format for event time used when the `time_key` parameter is specified. Default is UNIX time (integer).
+The format for event time used when the `time_key` parameter is specified. The default is UNIX time (integer).
 
 ## Buffer Parameters
-For advanced usage, you can tune Fluentd's internal buffering mechanism by these parameters.
+For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
 
-### buffer_type (buffer_path)
-`file` by default ([buf_file](buf_file)). You can use `memory` ([buf_memory](buf_memory)) as well. Please specify `buffer_path` when you're using `file` buffer.
+### buffer_type
+The buffer type is `file` by default ([buf_file](buf_file)). The `memory` ([buf_memory](buf_memory)) buffer type can be chosen as well. The `path` parameter is used as `buffer_path` in this plugin.
 
 ### buffer_queue_limit, buffer_chunk_limit
-The length of the chunk queue, and the size of each chunk. See [Buffer Plugin Overview](buffer-plugin-overview) for the basic buffer structure. Default is 256 and 8m. Suffixes “k” (KB), “m” (MB), “g” (GB) can be used.
+The length of the chunk queue and the size of each chunk, respectively. Please see the [Buffer Plugin Overview](buffer-plugin-overview) article for the basic buffer structure. The default values are 256 and 8m, respectively. The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for buffer_chunk_limit.
+
+### flush_interval
+The interval between data flushes. The default is 1s. The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.
 
 ### retry_wait and retry_limit
-The interval between retries, and the number of retries. Default is 1.0 and 17. `retry_wait` gets doubled between each retry (e.g. the last retry waits for 131072 sec).
+The interval between write retries, and the number of retries. The default values are 1.0 and 17, respectively. `retry_wait` doubles every retry (e.g. the last retry waits for 131072 sec, roughly 36 hours).
