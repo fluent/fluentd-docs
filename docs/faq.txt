@@ -77,3 +77,7 @@ Fluentd is a log collector daemon, for semi-structured JSON-based log. It deals 
 ## I've got a weird timestamp value, what happened?
 
 Fluentd and its logger libraries depend on your system's clock for timestamp value. So it's highly recommended to setup NTP on your node, to keep your clock synched with correct clocks.
+
+## How do we develop a custom plugin?
+
+Please refer [Plugin Development Guide](http://docs.fluentd.org/articles/plugin-development).
