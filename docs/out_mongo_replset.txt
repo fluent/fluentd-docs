@@ -40,11 +40,8 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 ### type (required)
 The value must be `mongo`.
 
-### host (required)
-The MongoDB hostname.
-
-### port (required)
-The MongoDB port.
+### nodes (required)
+The comma separated node strings (e.g. host1:27017,host2:27017,host3:27017).
 
 ### database (required)
 The database name.
