@@ -4,7 +4,7 @@ The `out_forward` Buffered Output plugin forwards events to other fluentd nodes.
 
 The `out_forward` plugin detects server faults using a “φ accrual failure detector” algorithm. You can customize the parameters of the algorithm. When a server fault recovers, the plugin makes the server available automatically after a few seconds.
 
-## Example Config
+## Example Configuration
 
 `out_forward` is included in Fluentd's core. No additional installation process is required.
 

@@ -2,7 +2,7 @@
 
 The `null` output plugin just throws away events.
 
-## Example Config
+## Example Configuration
 
 `out_null` is included in Fluentd's core. No additional installation process is required.
 

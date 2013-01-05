@@ -18,7 +18,7 @@ Fluentd enables your apps to insert records to MongoDB asynchronously with batch
     :::term
     $ fluent-gem install fluent-plugin-mongo
 
-## Example Config
+## Example Configuration
 
     # Single MongoDB
     <match mongo.**>

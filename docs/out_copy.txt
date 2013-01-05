@@ -2,7 +2,7 @@
 
 The `copy` output plugin copies events to multiple outputs.
 
-## Example Config
+## Example Configuration
 
 `out_copy` is included in Fluentd's core. No additional installation process is required.
 

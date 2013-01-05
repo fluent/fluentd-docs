@@ -2,7 +2,7 @@
 
 The `out_file` Buffered Output plugin writes events to files. By default, it creates files on a daily basis (around 00:10). This means that when you first import records using the plugin, no file is created immediately. The file will be created when the `time_slice_format` condition has been met. To change the output frequency, please modify the `time_slice_format` value.
 
-## Example Config
+## Example Configuration
 
 `out_file` is included in Fluentd's core. No additional installation process is required.
 

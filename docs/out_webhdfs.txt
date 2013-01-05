@@ -28,7 +28,7 @@ Append operations is not enabled by default on CDH. Please put these configurati
       <value>true</value>
     </property>
 
-## Example Config
+## Example Configuration
 
 See [Fluentd + HDFS: Instant Big Data Collection](http-to-hdfs) for more real-world example.
 

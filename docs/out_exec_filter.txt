@@ -2,7 +2,7 @@
 
 The `out_exec_filter` Buffered Output plugin (1) executes an external program using events as input and (2) reads new events from the program output. It passes tab-separated values (TSV) to stdin and reads TSV from stdout.
 
-## Example Config
+## Example Configuration
 
 `out_exec_filter` is included in Fluentd's core. No additional installation process is required.
 

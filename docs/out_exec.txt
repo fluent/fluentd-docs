@@ -2,7 +2,7 @@
 
 The `out_exec` Buffered Output plugin passes events to an external program as a tab-separated value (TSV) file. The program receives the path of a TSV file containing incoming events as its last argument.
 
-## Example Config
+## Example Configuration
 
 `out_exec` is included in Fluentd's core. No additional installation process is required.
 

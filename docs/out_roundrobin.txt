@@ -2,7 +2,7 @@
 
 The `roundrobin` Output plugin distributes events to multiple outputs using a round-robin algorithm.
 
-## Example Config
+## Example Configuration
 
 `out_roundrobin` is included in Fluentd's core. No additional installation process is required.
 
