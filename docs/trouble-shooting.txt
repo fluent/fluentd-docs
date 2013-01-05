@@ -1,16 +1,18 @@
-# Trouble Shooting Fluentd
+# Troubleshooting Fluentd
 
 ## Look at Logs
 
-If things aren't going as expected, please look at your logs at first. For td-agent (rpm/deb), the log is located at `/var/log/td-agent/td-agent.log`.
+If things aren't happeneing as expected, please first look at your logs. For td-agent (rpm/deb), the logs are located at `/var/log/td-agent/td-agent.log`.
 
 ## Turn on Verbose Logging
 
-If you turn on verbose logging, you can get more information on the logs.
+You can get more information about the logs if verbose logging is turned on. Please follow the steps below.
 
 ### rpm
 
-Please 1) edit `/etc/init.d/td-agent`, 2) add `-vv` to TD_AGENT_ARGS, and 3) restart td-agent.
+1. edit `/etc/init.d/td-agent`
+2. add `-vv` to TD_AGENT_ARGS
+3. restart td-agent
 
     :::term
     # at /etc/init.d/td-agent
@@ -20,7 +22,9 @@ Please 1) edit `/etc/init.d/td-agent`, 2) add `-vv` to TD_AGENT_ARGS, and 3) res
 
 ### deb
 
-Please 1) edit `/etc/init.d/td-agent`, 2) add `-vv` to DAEMON_ARGS, and 3) restart td-agent.
+1. edit `/etc/init.d/td-agent`
+2. add `-vv` to DAEMON_ARGS
+3. restart td-agent
 
     :::term
     # at /etc/init.d/td-agent
