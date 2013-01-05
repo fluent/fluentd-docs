@@ -71,6 +71,9 @@ section 'configuration', 'Configuration' do
   category 'signals', 'Signals' do
     article 'signals', 'Signal Handling', ['Signals']
   end
+  category 'trouble-shooting', 'Trouble Shooting' do
+    article 'trouble-shooting', 'Trouble Shooting'
+  end
 end
 section 'plugin', 'Input Plugins' do
   category 'input-plugin-overview', 'Overview' do
