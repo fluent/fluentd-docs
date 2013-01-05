@@ -1,25 +1,26 @@
 # MongoDB Output Plugin
 
-The `out_mongo` is a buffered output plugin to write records into [MongoDB](http://mongodb.org/), the emerging document-oriented database system.
+The `out_mongo` Buffered Output plugin writes records into [MongoDB](http://mongodb.org/), the emerging document-oriented database system.
 
-NOTE: If you're using ReplicaSet, please refer <a href="out_mongo_replset">out_mongo_replset</a>.
+NOTE: If you're using ReplicaSet, please see the <a href="out_mongo_replset">out_mongo_replset</a> article instead.
 
 ## Why Fluentd with MongoDB?
 
-Compared to directly insert records from apps to MongoDB, Fluentd enables your application to insert records asynchronously with batch-insertion.
+Fluentd enables your apps to insert records to MongoDB asynchronously with batch-insertion, unlike direct insertion of records from your apps. This has the following advantages:
 
-It has 1) less impact on application performance, and 2) more MongoDB insert throughput, while maintaining JSON record structure.
+1. less impact on application performance
+2. higher MongoDB insertion throughput while maintaining JSON record structure
 
 ## Install
 
-td-agent includes MongoDB plugin by default. For Fluentd gem users, you need to install fluent-plugin-mongo gem by the following command.
-
+`out_mongo` is included in td-agent by default. Fluentd gem users will need to install the fluent-plugin-mongo gem using the following command.
+ 
     :::term
     $ fluent-gem install fluent-plugin-mongo
 
 ## Example Config
 
-See [Store Apache Logs into MongoDB](apache-to-mongodb) for more real-world example.
+Please see the [Store Apache Logs into MongoDB](apache-to-mongodb) article for a more real-world example.
 
     # Single MongoDB
     <match mongo.**>
@@ -41,7 +42,7 @@ See [Store Apache Logs into MongoDB](apache-to-mongodb) for more real-world exam
       flush_interval 10s
     </match>
 
-NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
 ## Parameters
 
@@ -49,10 +50,10 @@ NOTE: See <a href="config-file">Config File</a> for the basic structure and synt
 The value must be `mongo`.
 
 ### host (required)
-MongoDB hostname,
+The MongoDB hostname.
 
 ### port (required)
-MongoDB port.
+The MongoDB port.
 
 ### database (required)
 The database name.
@@ -61,21 +62,21 @@ The database name.
 The collection name.
 
 ### capped
-Put this option if you want to use capped collection. This is always recommended because MongoDB is not suitable for storing large amount of historical data.
+This option enables capped collection. This is always recommended because MongoDB is not suited to storing large amounts of historical data.
 
 #### capped_size
-Set capped collection size.
+Sets the capped collection size.
 
 ### user
-The username for authentication.
+The username to use for authentication.
 
 ### password
-The password for authentication.
+The password to use for authentication.
 
 ### tag_mapped
-If you put this option, mongo output plugin uses Fluentd's tag to determine the destination collection.
+This option will allow out_mongo to use Fluentd's tag to determine the destination collection.
 
-For example, if you generate records 'mongo.foo', the records will be inserted into `foo` collection within `fluentd` database.
+For example, if you generate records with tags 'mongo.foo', the records will be inserted into the `foo` collection within the `fluentd` database.
 
     :::text
     <match mongo.*>
@@ -87,28 +88,29 @@ For example, if you generate records 'mongo.foo', the records will be inserted i
       # Set 'tag_mapped' if you want to use tag mapped mode.
       tag_mapped
 
-      # If tag is "mongo.foo", then prefix "mongo." is removed.
-      # Collection name to insert is "foo".
+      # If the tag is "mongo.foo", then the prefix "mongo." is removed.
+      # The inserted collection name is "foo".
       remove_tag_prefix mongo.
 
-      # This configuration is used if tag not found. Default is 'untagged'.
+      # This configuration is used if the tag is not found. The default is 'untagged'.
       collection misc
     </match>
 
+
 ## Buffer Parameters
-For advanced usage, you can tune Fluentd's internal buffering mechanism by these parameters.
+For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
 
 ### buffer_type
-`file` by default ([buf_file](buf_file)). You can use `memory` ([buf_memory](buf_memory)) as well. Please specify `buffer_path` when you use `file` buffer.
+The buffer type is `file` by default ([buf_file](buf_file)). The `memory` ([buf_memory](buf_memory)) buffer type can be chosen as well. The `path` parameter is used as `buffer_path` in this plugin.
 
 ### buffer_queue_limit, buffer_chunk_limit
-The length of the chunk queue, and the size of each chunk. See [Buffer Plugin Overview](buffer-plugin-overview) for the basic buffer structure. Default is 256 and 8m. Suffixes “k” (KB), “m” (MB), “g” (GB) can be used.
+The length of the chunk queue and the size of each chunk, respectively. Please see the [Buffer Plugin Overview](buffer-plugin-overview) article for the basic buffer structure. The default values are 256 and 8m, respectively. The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for buffer_chunk_limit.
 
 ### flush_interval
-The interval of the data flush. Default is 60s. Suffixes “s” (seconds), “m” (minutes), “h” (hours) can be used
+The interval between data flushes. The default is 1s. The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.
 
 ### retry_wait and retry_limit
-The interval between retries, and the number of retries. Default is 1.0 and 17. `retry_wait` gets doubled between each retry (e.g. the last retry waits for 131072 sec).
+The interval between write retries, and the number of retries. The default values are 1.0 and 17, respectively. `retry_wait` doubles every retry (e.g. the last retry waits for 131072 sec, roughly 36 hours).
 
-## Futher Readings
+## Futher Reading
 - [fluent-plugin-mongo repository](https://github.com/fluent/fluent-plugin-mongo)
