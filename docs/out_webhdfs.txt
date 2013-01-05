@@ -1,17 +1,17 @@
 # HDFS (WebHDFS) Output Plugin
 
-The `out_webhdfs` is a buffered output plugin to write records into HDFS (Hadoop Distributed File System).
+The `out_webhdfs` Buffered Output plugin writes records into HDFS (Hadoop Distributed File System). By default, it creates files on an hourly basis. This means that when you first import records using the plugin, no file is created immediately. The file will be created when the `time_slice_format` condition has been met. To change the output frequency, please modify the `time_slice_format` value.
 
 ## Install
 
-td-agent includes WebHDFS plugin by default (v1.1.10 or later). For Fluentd users, you need to install fluent-plugin-webhdfs gem by the following command.
+`out_webhdfs` is included in td-agent by default (v1.1.10 or later). Fluentd gem users will have to install the fluent-plugin-webhdfs gem using the following command.
 
     :::term
     $ fluent-gem install fluent-plugin-webhdfs
 
 ## HDFS Configuration
 
-Append operations is not enabled by default on CDH. Please put these configurations into your hdfs-site.xml, and restart the whole cluster.
+Append operations are not enabled by default on CDH. Please put these configurations into your hdfs-site.xml file and restart the whole cluster.
 
     <property>
       <name>dfs.webhdfs.enabled</name>
@@ -30,8 +30,6 @@ Append operations is not enabled by default on CDH. Please put these configurati
 
 ## Example Configuration
 
-See [Fluentd + HDFS: Instant Big Data Collection](http-to-hdfs) for more real-world example.
-
     :::text
     <match access.**>
       type webhdfs
@@ -41,9 +39,9 @@ See [Fluentd + HDFS: Instant Big Data Collection](http-to-hdfs) for more real-wo
       flush_interval 10s
     </match>
 
-NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+Please see the [Fluentd + HDFS: Instant Big Data Collection](http-to-hdfs) article for real-world use cases.
 
-NOTE: The file won't be created after importing the first record. It's created hourly (depending on `time_slice_format`). Please be patient for the first time.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
 ## Parameters
 
@@ -57,23 +55,23 @@ The namenode hostname.
 The namenode port number.
 
 ### path (required)
-The path on HDFS. Make sure you have ${hostname} within your path, to avoid writing into the same HDFS file from multiple Fluentd instances. This conflict could result into the data loss.
+The path on HDFS. Please include ${hostname} in your path to avoid writing into the same HDFS file from multiple Fluentd instances. This conflict could result in data loss.
 
 ## Buffer Parameters
-For advanced usage, you can tune Fluentd's internal buffering mechanism by these parameters.
+For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
 
 ### buffer_type
-`file` by default ([buf_file](buf_file)). You can use `memory` ([buf_memory](buf_memory)) as well. Please specify `buffer_path` when you use `file` buffer.
+The buffer type is `file` by default ([buf_file](buf_file)). The `memory` ([buf_memory](buf_memory)) buffer type can be chosen as well. The `path` parameter is used as `buffer_path` in this plugin.
 
 ### buffer_queue_limit, buffer_chunk_limit
-The length of the chunk queue, and the size of each chunk. See [Buffer Plugin Overview](buffer-plugin-overview) for the basic buffer structure. Default is 256 and 8m. Suffixes “k” (KB), “m” (MB), “g” (GB) can be used.
+The length of the chunk queue and the size of each chunk, respectively. Please see the [Buffer Plugin Overview](buffer-plugin-overview) article for the basic buffer structure. The default values are 256 and 8m, respectively. The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for buffer_chunk_limit.
 
 ### flush_interval
-The interval of the data flush. Default is 60s. Suffixes “s” (seconds), “m” (minutes), “h” (hours) can be used
+The interval between data flushes. The default is 1s. The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.
 
 ### retry_wait and retry_limit
-The interval between retries, and the number of retries. Default is 1.0 and 17. `retry_wait` gets doubled between each retry (e.g. the last retry waits for 131072 sec).
+The interval between write retries, and the number of retries. The default values are 1.0 and 17, respectively. `retry_wait` doubles every retry (e.g. the last retry waits for 131072 sec, roughly 36 hours).
 
-## Futher Readings
+## Futher Reading
 - [fluent-plugin-webhdfs repository](https://github.com/fluent/fluent-plugin-webhdfs)
-- [Slide: Fluentd and WebHDFS](http://www.slideshare.net/tagomoris/fluentd-and-webhdfs)
+- [Slides: Fluentd and WebHDFS](http://www.slideshare.net/tagomoris/fluentd-and-webhdfs)
