@@ -1,12 +1,12 @@
 # forward Output Plugin
 
-The `out_forward` buffered output plugin forwards events to other fluentd servers. This plugin supports load-balancing and automatic fail-over (a.k.a. active-active backup). If you want replication, use copy plugin described below.
+The `out_forward` Buffered Output plugin forwards events to other fluentd nodes. This plugin supports load-balancing and automatic fail-over (a.k.a. active-active backup). For replication, please use the [out_copy](out_copy) plugin.
 
-It detects fault of a server using “φ accrual failure detector” algorithm. You can customize parameter of the algorithm. When a fault server recovers, the plugin makes it available automatically after several seconds.
+The `out_forward` plugin detects server faults using a “φ accrual failure detector” algorithm. You can customize the parameters of the algorithm. When a server fault recovers, the plugin makes the server available automatically after a few seconds.
 
 ## Example Config
 
-`out_forward` is included within Fluentd core. No extra installation process is required.
+`out_forward` is included in Fluentd's core. No additional installation process is required.
 
     :::text
     <match pattern>
@@ -37,61 +37,61 @@ It detects fault of a server using “φ accrual failure detector” algorithm. 
       </secondary>
     </match>
 
-NOTE: See <a href="config-file">Config File</a> for the basic structure and syntax of the configuration file.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
 ## Parameters
 
 ### type (required)
 The value must be `forward`.
 
-### &lt;server&gt; (required at least one)
-Destination servers. Each server must have following information.
+### &lt;server&gt; (at least one is required)
+The destination servers. Each server must have following information.
 
-* *name*: Name of the server. This parameter is used in error messages.
-* *host* (required): IP address or host name of the server. This parameters is required.
-* *port*: Port number of the host. Default is 24224. Note that both TCP packets (event stream) and UDP packets (heartbeat message) are sent to this port.
-* *weight*: Weight of load balancing. For example, weight of a server is 20 and weight of the other server is 30, events are sent in 2:3 raito. Default is 60.
+* *name*: The name of the server. This parameter is used in error messages.
+* *host* (required): The IP address or host name of the server.
+* *port*: The port number of the host. The default is 24224. Note that both TCP packets (event stream) and UDP packets (heartbeat message) are sent to this port.
+* *weight*: The load balancing weight. If the weight of one server is 20 and the weight of the other server is 30, events are sent in a 2:3 raito. The default weight is 60.
 
-### &lt;secondary&gt;
-Backup destination which is used when all servers are not available. This parameter is optional.
+### &lt;secondary&gt; (optional)
+The backup destination that is used when all servers are unavailable.
 
 ### send_timeout
-Timeout time to send event logs. Default is 60 seconds.
+The timeout time when sending event logs. The default is 60 seconds.
 
 ### recover_wait
-Wait time before accepting recovery of a fault server. Default is 10 seconds.
+The wait time before accepting a server fault recovery. The default is 10 seconds.
 
 ### heartbeat_interval
-Interval of heartbeat packer. Default is 1 second.
+The interval of the heartbeat packer. The default is 1 second.
 
 ### phi_threshold
-Threshold parameter to detect fault of a server. Default is 8.
+The threshold parameter used to detect server faults. The default value is 8.
 
 ### hard_timeout
-Hard timeout to detect failure of a server. Default is same as the send_timeout parameter.
+The hard timeout used to detect server failure. The default value is equal to the send_timeout parameter.
 
 ## Buffer Parameters
-For advanced usage, you can tune Fluentd's internal buffering mechanism by these parameters.
+For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
 
-### buffer_type (buffer_path)
-`file` by default ([buf_file](buf_file)). You can use `memory` ([buf_memory](buf_memory)) as well. Please specify `buffer_path` when you're using `file` buffer.
+### buffer_type
+The buffer type is `file` by default ([buf_file](buf_file)). The `memory` ([buf_memory](buf_memory)) buffer type can be chosen as well. The `path` parameter is used as `buffer_path` in this plugin.
 
 ### buffer_queue_limit, buffer_chunk_limit
-The length of the chunk queue, and the size of each chunk. See [Buffer Plugin Overview](buffer-plugin-overview) for the basic buffer structure. Default is 256 and 8m. Suffixes “k” (KB), “m” (MB), “g” (GB) can be used.
+The length of the chunk queue and the size of each chunk, respectively. Please see the [Buffer Plugin Overview](buffer-plugin-overview) article for the basic buffer structure. The default values are 256 and 8m, respectively. The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for buffer_chunk_limit.
 
 ### flush_interval
-The interval of the data flush. Default is 60s. Suffixes “s” (seconds), “m” (minutes), “h” (hours) can be used
+The interval between data flushes. The default is 1s. The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.
 
 ### retry_wait and retry_limit
-The interval between retries, and the number of retries. Default is 1.0 and 17. `retry_wait` gets doubled between each retry (e.g. the last retry waits for 131072 sec).
+The interval between write retries, and the number of retries. The default values are 1.0 and 17, respectively. `retry_wait` doubles every retry (e.g. the last retry waits for 131072 sec, roughly 36 hours).
 
-## Trouble Shooting
+## Troubleshooting
 
 ### "no nodes are available"
-Please check you can communicate with port 24224 by **not only TCP, but also UDP**. These commands will be useful for checking the network configuration.
+Please make sure that you can communicate with port 24224 using **not only TCP, but also UDP**. These commands will be useful for checking the network configuration.
 
     :::term
     $ telnet host 24224
     $ nmap -p 24224 -sU host
 
-There exists one [known issue](http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=2019944) that VMware sometimes losts small UDP packages which are used for heartbeat.
+Please note that there is one [known issue](http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=2019944) where VMware will occasionally lose small UDP packages used for heartbeat.
