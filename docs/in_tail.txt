@@ -2,7 +2,7 @@
 
 The `in_tail` Input plugin allows Fluentd to read events from the tail of text files. Its behavior is similar to the `tail -F` command.
 
-### Example Config
+### Example Configuration
 
 `in_tail` is included in Fluentd's core. No additional installation process is required.
 

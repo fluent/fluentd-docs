@@ -11,7 +11,7 @@ Since Scribe hasn't been well maintained recently, this plugin is useful for exi
     :::term
     $ fluent-gem install fluent-plugin-scribe
 
-### Example Config
+### Example Configuration
 
     :::text
     <source>
