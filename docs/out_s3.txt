@@ -1,10 +1,10 @@
 # Amazon S3 Output Plugin
 
-The `out_s3` plugin is a buffered output plugin used to write records into the Amazon S3 cloud object storage service.
+The `out_s3` Buffered Output plugin writes records into the Amazon S3 cloud object storage service. By default, it creates files. This means that when you first import records using the plugin, no file is created immediately. The file will be created when the `time_slice_format` condition has been met. To change the output frequency, please modify the `time_slice_format` value.
 
 ## Installation
 
-td-agent includes the S3 plugin by default. Fluentd users will need to install the fluent-plugin-s3 gem using the following command:
+`out_s3` is included in td-agent by default. Fluentd gem users will need to install the fluent-plugin-s3 gem using the following command.
 
     :::term
     $ fluent-gem install fluent-plugin-s3
@@ -22,20 +22,18 @@ td-agent includes the S3 plugin by default. Fluentd users will need to install t
       path logs/
       buffer_path /var/log/fluent/s3
 
-      time_slice_format %Y%m%d-%H
+      time_slice_format %Y%m%d%H
       time_slice_wait 10m
       utc
 
       buffer_chunk_limit 256m
     </match>
 
-Please refer to the [Store Apache Logs into Amazon S3](apache-to-s3) article for real-world use cases.
+Please see the [Store Apache Logs into Amazon S3](apache-to-s3) article for real-world use cases.
 
-NOTE: Please refer to the <a href="config-file">Config File</a> article for more information on the basic structure and syntax of the configuration file.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
-NOTE: Files are created on an hourly basis (depending on `time_slice_format`). This means that when you first import records using the plugin, no file is created immediately. The file will be created when the `time_slice_format` condition has been met.
-
-NOTE: Make sure you have <b>enough space in the buffer_path directory</b>. Running out of space is a frequent problem reported by users.
+NOTE: Please make sure that you have <b>enough space in the buffer_path directory</b>. Running out of disk space is a probelm frequently reported by users.
 
 ## Parameters
 
@@ -43,19 +41,19 @@ NOTE: Make sure you have <b>enough space in the buffer_path directory</b>. Runni
 The value must be `s3`.
 
 ### aws_key_id (required)
-AWS access key id.
+The AWS access key id.
 
 ### aws_sec_key (required)
-AWS secret key.
+The AWS secret key.
 
 ### s3_bucket (required)
-Amazon S3 bucket name.
+The Amazon S3 bucket name.
 
 ### buffer_path (required)
-Path prefix of the log buffer files.
+The path prefix of the log buffer files.
 
 ### s3_endpoint
-Amazon S3 endpoint name. Please select the appropriate endpoint name from the list below and confirm that your bucket has been created in the correct region.
+The Amazon S3 endpoint name. Please select the appropriate endpoint name from the list below and confirm that your bucket has been created in the correct region.
 
 * s3.amazonaws.com
 * s3-us-west-1.amazonaws.com
@@ -66,32 +64,46 @@ Amazon S3 endpoint name. Please select the appropriate endpoint name from the li
 * s3-ap-northeast-1.amazonaws.com
 
 ### time_slice_format
-The time format used as the file name. The default is `%Y%m%d`. Use `%Y%m%d%H` to split files on an hourly basis.
+The time format used as part of the file name. The following characters are replaced with actual values when the file is created:
+
+* %Y: month of the year (01..12)
+* %d: Day of the month (01..31)
+* %H: Hour of the day, 24-hour clock (00..23)
+* %M: Minute of the hour (00..59)
+* %S: Second of the minute (00..60)
+
+The default format is `%Y%m%d%H`, which creates one file per hour.
 
 ### time_slice_wait
-The amount of time to wait for old logs. This is used to account for delays in logs arriving to your Fluentd node. The default is 10 minutes ('10m'), meaning that Fluentd will wait until 10 minutes past the hour for any logs that occured during the past hour.
+The amount of time Fluentd will wait for old logs to arrive. This is used to account for delays in logs arriving to your Fluentd node. The default wait time is 10 minutes ('10m'), where Fluentd will wait until 10 minutes past the hour for any logs that occured within the past hour.
 
-For example, a log recorded at 1:59 but arriving at the Fluentd node after 2:00 but before 2:10 will be uploaded together with all the other logs from 1:00 to 1:59 in one transaction, avoiding extra overhead). Larger values can be set as needed.
+For example, a log recorded at 1:59 but arriving at the Fluentd node between 2:00 and 2:10 will be uploaded together with all the other logs from 1:00 to 1:59 in one transaction, avoiding extra overhead. Larger values can be set as needed.
+
+### time_format
+The format of the time written in files. The default format is ISO-8601.
 
 ### path
-Path prefix of the files on S3. The default is “” (no prefix).
+The path prefix of the files on S3. The default is “” (no prefix).
 
 NOTE: The actual path on S3 will be: “{path}{time_slice_format}_{sequential_number}.gz”
 
 ### utc
-Use UTC instead of local time.
+Uses UTC for path formatting. The default format is localtime.
 
 ## Buffer Parameters
-For advanced usage, you can tune Fluentd's internal buffering mechanism by these parameters.
+For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
 
 ### buffer_type
-`file` by default ([buf_file](buf_file)). You can use `memory` ([buf_memory](buf_memory)) as well. Please specify `buffer_path` when you use `file` buffer.
+The buffer type is `file` by default ([buf_file](buf_file)). The `memory` ([buf_memory](buf_memory)) buffer type can be chosen as well. The `path` parameter is used as `buffer_path` in this plugin.
 
 ### buffer_queue_limit, buffer_chunk_limit
-The length of the chunk queue, and the size of each chunk. See [Buffer Plugin Overview](buffer-plugin-overview) for the basic buffer structure. Default is 256 and 8m. Suffixes “k” (KB), “m” (MB), “g” (GB) can be used.
+The length of the chunk queue and the size of each chunk, respectively. Please see the [Buffer Plugin Overview](buffer-plugin-overview) article for the basic buffer structure. The default values are 256 and 8m, respectively. The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for buffer_chunk_limit.
+
+### flush_interval
+The interval between data flushes. The default is 1s. The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.
 
 ### retry_wait and retry_limit
-The interval between retries, and the number of retries. Default is 1.0 and 17. `retry_wait` gets doubled between each retry (e.g. the last retry waits for 131072 sec).
+The interval between write retries, and the number of retries. The default values are 1.0 and 17, respectively. `retry_wait` doubles every retry (e.g. the last retry waits for 131072 sec, roughly 36 hours).
 
 ## Futher Reading
 - [fluent-plugin-s3 repository](https://github.com/fluent/fluent-plugin-s3)

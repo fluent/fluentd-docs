@@ -20,8 +20,6 @@ Fluentd enables your apps to insert records to MongoDB asynchronously with batch
 
 ## Example Config
 
-Please see the [Store Apache Logs into MongoDB](apache-to-mongodb) article for a more real-world example.
-
     # Single MongoDB
     <match mongo.**>
       type mongo_replset
@@ -32,6 +30,8 @@ Please see the [Store Apache Logs into MongoDB](apache-to-mongodb) article for a
       # flush
       flush_interval 10s
     </match>
+
+Please see the [Store Apache Logs into MongoDB](apache-to-mongodb) article for real-world use cases.
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 

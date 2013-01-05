@@ -1,6 +1,6 @@
 # file Output Plugin
 
-The `out_file` Buffered Output plugin writes events to files. By default, it writes to file on a daily basis (around 00:10). No files are created before this time. To change the output frequency, please modify the `time_slice_format` value.
+The `out_file` Buffered Output plugin writes events to files. By default, it creates files on a daily basis (around 00:10). This means that when you first import records using the plugin, no file is created immediately. The file will be created when the `time_slice_format` condition has been met. To change the output frequency, please modify the `time_slice_format` value.
 
 ## Example Config
 
@@ -28,8 +28,7 @@ The value must be `file`.
 The Path of the file. The actual path is path + time + ”.log”. The time portion is determined by the time_slice_format parameter, descried below.
 
 ### time_slice_format
-
-The time format in the file path. The following characters are replaced with actual values when the file is created:
+The time format used as part of the file name. The following characters are replaced with actual values when the file is created:
 
 * %Y: month of the year (01..12)
 * %d: Day of the month (01..31)
