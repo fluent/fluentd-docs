@@ -1,12 +1,14 @@
 # Overview
 
-**Fluentd** is a log collector daemon, which treats logs as JSON stream. So far, the largest user collects logs from 500+ servers, 5 TB daily, with 50,000 msgs/sec at peak time. Fluentd is written in C with thin-Ruby wrapper.
+**Fluentd** is a log collector daemon that treats logs as a JSON stream. The current largest user collects logs from 500+ servers, 5 TB daily, with 50,000 msgs/sec at peak time.
+
+Fluentd is written in C with thin-Ruby wrapper.
 
 ## Purpose
 
-Modern web and mobile applications generate a very large number of **event logs** (ex: login, logout, purchase, follow, etc). By analyzing these event logs, these services can be improved greatly. However, collecting these logs in a simple and reliable manner remains a challenge. 
+Modern web and mobile applications generate a very large number of **event logs** (ex: login, logout, purchase, follow, etc.). These services can be improved greatly by analyzing their event logs. However, collecting these logs in a simple, reliable, and scalable manner remains a challenge. 
 
-Fluentd solves this problem by **SIMPLICITY** of providing the following features just works:
+Fluentd solves this problem by providing a **simple solution** with the following features that just work:
 
 * Easy Installation
 * Small Footprint
@@ -17,16 +19,16 @@ Fluentd solves this problem by **SIMPLICITY** of providing the following feature
 
 ## Easy Installation
 
-**Fluentd** is provided as [rpm](install-by-rpm)/[deb](install-by-deb) packages, with built-in Ruby interpreter. Virtually no dependency on your system.
+**Fluentd** is available as a [rpm](install-by-rpm) or [deb](install-by-deb) package, with a built-in Ruby interpreter. There are virtually no system dependencies when installing via these packages.
 
-It's also provides as [Ruby gem](install-by-gem), and can be installed with a single command.
+Fluentd is also avaialble as a [Ruby gem](install-by-gem), and can be installed with a single command.
 
 ## Small Footprint
 
 Due to its simple architecture, Fluentd’s core consists of just 3,000 lines of Ruby. Fluentd collects events from various **input** sources and writes them to **output** sinks.
 
 * Input Examples: HTTP, Syslog, Apache Log
-* Output Examples: Files, Mails, RDBMS databases, NoSQL storages
+* Output Examples: Files, Mail, RDBMS databases, NoSQL storages
 
 The figure below shows the basic idea of **input** and **output**::
 
@@ -46,18 +48,18 @@ The figure below shows the basic idea of **input** and **output**::
 
 ## Semi-Structured Data Logging
 
-A collected event log consists of three entities: *tag*, *time* and *record*. Tag is a string separated by '.' (e.g. myapp.access), and is used to categorize events. Time is the UNIX time when the event occurs. Record is a JSON object.
+A collected event log consists of three components: *tag*, *time* and *record*. The tag is a string separated by '.' (e.g. myapp.access), and is used to categorize events. The time is the UNIX time when the event occurs. The record is a JSON object containing the event information.
 
 ## Flexible Plugin Mechanism
 
-Fluentd’s inputs sources and output destinations can be extended by writing appropriate Ruby plugins; they can then be published via Ruby gems. The list of available plugins can be seen with the following command::
+Fluentd’s input sources and output destinations can be extended by writing appropriate Ruby plugins. Plugins can then be published via Ruby gems; the following command shows the list of available plugins::
 
     :::term
     $ gem search -rd fluent-plugin
 
 ## Reliable Buffering
 
-In traditional systems, event logs can be lost when an unexpected output write failure (ex: network failure) occurs. Fluentd has been designed to combat this issue, and is equipped with a reliable buffering strategy.  Fluentd’s buffer, a queue of chunks containing the event logs, temporarily stores the collected events::
+In traditional systems, event logs can be lost when an unexpected output write failure (ex: network failure) occurs. Fluentd has been designed to combat this issue, and is equipped with a reliable buffering strategy. Fluentd’s buffer, a queue of chunks containing the event logs, temporarily stores the collected events::
 
     Queue
     +---------+
@@ -72,7 +74,7 @@ In traditional systems, event logs can be lost when an unexpected output write f
     |         |  (transactional)
     +---------+
 
-When Fluentd receives an event from its input source, the event log is appended to the top chunk in the buffer. This operation for temporary storage is never blocked, even if the next server is down.
+When Fluentd receives an event from its input source, the event log is appended to the top chunk in the buffer. This temporary storage operation is never blocked, even if the next server is down.
 
 A new empty chunk is pushed onto the top of the queue when either (1) the size of the top chunk reaches its limit, or (2) the timer expires. 
 
@@ -82,7 +84,7 @@ Fluentd’s buffer implementation is pluggable. The default plugin, 'Memory', st
 
 ## Log Forwarding
 
-Fluentd supports both single-node and multi-node configurations. In multi-node configuration, Fluentd supports log forwarding in order to collect the event logs into one location for analysis. Application servers will forward the local logs of their Fluentd instances to the Fluentd instance of a central server::
+Fluentd supports both single-node and multi-node configurations. A multi-node configuration is typically used to forward event logs to one central location for analysis. Fluentd nodes on application servers forward the local logs to the Fluentd node of the central server::
 
     Web Server
     +---------+
