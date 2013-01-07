@@ -1,6 +1,6 @@
 # Data Import from Node.js Applications
 
-'[fluent-logger-node](https://github.com/yssk22/fluent-logger-node)', is a library to post records from Node.js applications to Fluentd. This article explains how to use the fluent-logger-node library.
+'[fluent-logger-node](https://github.com/fluent/fluent-logger-node)', is a library to post records from Node.js applications to Fluentd. This article explains how to use the fluent-logger-node library.
 
 ## Prerequisites
 
