@@ -1,38 +1,38 @@
 # FAQ
 
-## Fluentd is written in Ruby, is it slow?
+## Fluentd is written in Ruby. Is it slow?
 
-Fluentd is written in C for the performance sensitive part, and Ruby for the flexibility. Especially, the networking layer and object serialization layer is written in C (See [cool.io](https://github.com/tarcieri/cool.io) and [MessagePack](http://msgpack.org/)).
+The most performance sensitive parts of Fluentd are written in C. The Ruby code acts as a wrapper that provides flexibility to the overall solution. In particular, the networking layer and object serialization layer are written in C (See [cool.io](https://github.com/tarcieri/cool.io) and [MessagePack](http://msgpack.org/)).
 
-It's not perfectly written in C or C++, so might be slow in Ruby part. But Thanks to Ruby community, we have [a lot of plugins](http://fluentd.org/plugin/) :) Besides the fact that Fluentd is used at [many large services](users), actually the normal box will achieve 18k messages per sec with a single proceses.
+Since Fluentd is not written entirely in C or C++, it may be slow in its Ruby parts. But by giving up a little bit of speed, we have gained [many plugins](http://fluentd.org/plugin/) from the Ruby community :). Fluentd's performance has been put to the test at [many large services](users); in fact, a regular PC box can handle 18,000 messages/second with a single proceses.
 
-If you think that number is insufficient for you, you can go for other solutions which is completely written in C-family or Java but you'll lose the flexibility in some sense. 
+If this number is insufficient for your application, please consider other solutions which are written entirely in C-family or Java. However, please note that you will lose some flexibility as a tradeoff.
 
 ## What is the difference with td-agent and Fluentd?
 
-In one word, td-agent is a stable package distribution of Fluentd. There're following differences.
+td-agent is the stable distribution package of Fluentd. The differences are as follows:
 
-* td-agent is distributed as [deb](install-by-deb)/[rpm](install-by-rpm) package, while Fluentd is distributed by [Ruby gem](install-by-gem).
-* td-agent contains Ruby interpreter itself in the package, while Fluentd not.
-* td-agent contains /etc/init.d/ script, while Fluentd not.
-* td-agent contains stable version of Fluentd, with some plugins compatible with that version.
-* td-agent contains [jemalloc](http://www.canonware.com/jemalloc/), to prevent memory fragmentations on heavy loaded sites.
+* td-agent is distributed as a [deb](install-by-deb) or [rpm](install-by-rpm) package, while Fluentd is distributed as a [Ruby gem](install-by-gem).
+* td-agent includes the Ruby interpreter itself, while Fluentd not.
+* td-agent includes the /etc/init.d/ script, while Fluentd not.
+* td-agent includes the latest stable version of Fluentd and some compatible plugins.
+* td-agent includes [jemalloc](http://www.canonware.com/jemalloc/) to prevent memory fragmentation on heavily loaded sites.
 
-## Should I use td-agent or fluentd gem?
+## Should I use td-agent or the Fluentd gem?
 
-td-agent takes its importance on stability over new features. If you want to control the features and new changes by yourself, using fluentd gem is recommended. If you use Fluentd for the first time or use it at the large scale environment, using td-agent is recommended. td-agent is released every 2 or 3 months.
+td-agent stresses stability over new features. If you wish to control Fluentd features and updates on your own, using the Fluentd gem is recommended. If you are using Fluentd for the first time or are using it in a large scale environment, using td-agent is recommended. A new version of td-agent is released every 2 or 3 months.
 
-## What is 'tag'?
+## What is Fluentd's 'tag'?
 
-The message inside Fluentd consists of the three entities.
+Each Fluentd event log consists of the three components:
 
-* time
 * tag
+* time
 * message
 
-Every time you post the log, you need to specify the tag. The tag are used to route the message with in Fluentd. In the configuration file, you have 'match' section to specify which tags are routed to that configuration.
+A tag must be specified for every log sent to Fluentd. The tag is used to route the message within Fluentd. The 'match' section in the configuration file specifies the tags that are routed to each destination.
 
-Let's look at the example. This configuration tails /var/log/combine.log, and generates the log with tag 'test-tag.'
+Let's take a look at the example below. This configuration tails /var/log/combine.log and generates Fluentd logs with tag 'test-tag.'
 
     :::term
     <source>
@@ -42,42 +42,42 @@ Let's look at the example. This configuration tails /var/log/combine.log, and ge
       tag test-tag
     </source> 
 
-Then if you add these lines to the document, the logs are printed to stdout.
+If you add the following lines to the configuration file, the logs are routed to stdout.
 
     :::term
     <match test-tag> 
       type stdout
     </match>
 
-On the other hand, this doesn't show nothing, because match section doesn't match the tag.
+On the other hand, adding the following lines to the configuration file will not route the logs anywhere, since the match section doesn't match the tag.
 
     :::term
     <match some-other-tag>
       type stdout
     </match>
 
-In conclusion, you can have a control of how to process the data by using tags.
+In essence, you can control your data process flow by using tags.
 
-## How to estimate Fluentd's resource usage?
+## How can I estimate Fluentd's resource usage?
 
-Fluentd consumes more resources, when you throw more logs. From our observation, CPU is a major bottleneck for heavy loaded Fluentd systems. To utilize multiple CPU cores, Fluentd also supports multi-process mode. The normal PC box could handle around 18,000 msgs/second.
+Fluentd consumes more resources as more logs are thrown at it. We have found that the CPU becomes a major bottleneck for heavily loaded Fluentd systems. To combat this bottleneck, Fluentd can leverage multiple CPU cores through its multi-process mode. A regular PC box is able to handle around 18,000 msgs/second.
 
-## How about Fluentd's performance?
+## How is Fluentd's performance?
 
-The most of performance sensitive parts are carefully written as Ruby's C extensions. In addition to that, Fluentd supports multi process mode, to leverage multiple CPU cores.
+The most performance sensitive parts of Fluentd are carefully written in C, with Ruby code acting as a flexible wrapper. In addition, Fluentd can leverage multiple CPU cores through its multi-process mode.
 
-From our experiment, normal PC box could deliver 18,000 messages / second. If you need more higher, please consider using multiple Fluentd servers. If you need 100x performance, you should look at another or your own solution.
+In our benchmark experiments, a regular PC box was able to deliver 18,000 messages/second. If you need to handle a higher load, please consider using multiple Fluentd servers. If your application needs 100x this performance, please consider using other solutions or creating a custom solution.
 
-## What is the difference with Splunk?
+## What is the difference between Fluentd and Splunk?
 
-Splunk is a log collection + search engine for unstrucuted, text-based log. If has a nice UI and indexing engine, to search the term from the text log files.
+Splunk is a log collection + search engine for unstrucuted, text-based logs. It has a nice UI and indexing engine for searching for terms within text log files.
 
-Fluentd is a log collector daemon, for semi-structured JSON-based log. It deals with machine-readable logs, while Splunk handles text-based log. Also Fluentd is a mechanism of just receive, buffer, and forward the data into another place. No search engine functionality.
+Fluentd is a log collector daemon for semi-structured JSON-based logs. It deals with machine-readable logs, whereas Splunk handles text-based logs. Also, Fluentd is simply a mechanism for receiving, buffering, and forwarding the data to another place. It does not have search engine functionality.
 
-## I've got a weird timestamp value, what happened?
+## I have a weird timestamp value, what happened?
 
-Fluentd and its logger libraries depend on your system's clock for timestamp value. So it's highly recommended to setup NTP on your node, to keep your clock synched with correct clocks.
+The timestamps of Fluentd and its logger libraries depend on your system's clock. It's highly recommended that you set up NTP on your nodes so that your clocks remain synced with the correct clocks.
 
 ## How do we develop a custom plugin?
 
-Please refer [Plugin Development Guide](http://docs.fluentd.org/articles/plugin-development).
+Please refer to the [Plugin Development Guide](http://docs.fluentd.org/articles/plugin-development).
