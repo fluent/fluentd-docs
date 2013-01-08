@@ -1,30 +1,31 @@
 # Store Apache Logs into Amazon S3
 
-This article shows how to use [Fluentd](http://fluentd.org/)'s Amazon S3 plugin ([out_s3](out_s3)) to aggregate semi-structured logs in real-time.
+This article explains how to use [Fluentd](http://fluentd.org/)'s Amazon S3 Output plugin ([out_s3](out_s3)) to aggregate semi-structured logs in real-time.
 
 ## Background
 
-[Fluentd](http://fluentd.org/) is an advanced open-source log collector developed at [Treasure Data, Inc](http://www.treasure-data.com/). One of the major purpose of aggregating logs is data archiving. [Amazon S3](http://aws.amazon.com/s3/), the cloud object storage provided by Amazon is widely used for the data archiving.
+[Fluentd](http://fluentd.org/) is an advanced open-source log collector originally developed at [Treasure Data, Inc](http://www.treasure-data.com/). One of the main objectives of log aggregation is data archiving. [Amazon S3](http://aws.amazon.com/s3/), the cloud object storage provided by Amazon, is a popular solution for data archiving.
 
-This post shows how to import Apache logs into Amazon S3 with Fluentd, by really small configurations.
+This article will show you how to use [Fluentd](http://fluentd.org/) to import Apache logs into Amazon S3.
 
 ## Mechanism
 
 Fluentd does 3 things:
 
-1. It continuously “tails” the access log.
-2. It parses the incoming log entries into meaningful fields (such as `ip`, `path`, etc) and buffers them.
+1. It continuously “tails” the access log file.
+2. It parses the incoming log entries into meaningful fields (such as `ip`, `path`, etc.) and buffers them.
 3. It writes the buffered data to Amazon S3 periodically.
 
 ## Install
 
-For simplicity, this post shows the one-node configuration. You should have the following software installed on the same node.
+For simplicity, this article will describe how to set up an one-node configuration. Please install the following software on the same node.
 
-* Fluentd with Amazon S3 Plugin
+* [Fluentd](http://fluentd.org/)
+* Amazon S3 Plugin
 * Your Amazon Web Services Account
 * Apache (with the Combined Log Format)
 
-Fluentd’s most recent version of deb/rpm package includes the Amazon S3 plugin. If you want to use Ruby Gems to install the plugin, `gem install fluent-plugin-s3` does the job.
+The Amazon S3 plugin is included in the latest version of Fluentd’s deb/rpm package. If you want to use Ruby Gems to install the plugin, please use `gem install fluent-plugin-s3`.
 
 * [Debian Package](install-by-deb)
 * [RPM Package](install-by-rpm)
@@ -32,11 +33,11 @@ Fluentd’s most recent version of deb/rpm package includes the Amazon S3 plugin
 
 ## Configuration
 
-Let's start the actual configurations. If you use deb/rpm, the Fluentd’s config file is located at `/etc/td-agent/td-agent.conf`. Otherwise, it is located at `/etc/fluentd/fluentd.conf`.
+Let’s start configuring Fluentd. If you used the deb/rpm package, Fluentd's config file is located at /etc/td-agent/td-agent.conf. Otherwise, it is located at /etc/fluentd/fluentd.conf.
 
 ### Tail Input
 
-For input, let's set up Fluentd to track the recent Apache logs (usually at /var/log/apache2/access_log). This is what the Fluentd configuration looks like.
+For the input source, we will set up Fluentd to track the recent Apache logs (typically found at /var/log/apache2/access_log) The Fluentd configuration file should look like this:
 
     :::text
     <source>
@@ -47,20 +48,20 @@ For input, let's set up Fluentd to track the recent Apache logs (usually at /var
       tag s3.apache.access
     </source>
 
-NOTE: Please make sure Apache outputs default 'combined' format. `format apache2` cannot parse custom log format. Please check <a href="in_tail">in_tail</a> document.
+NOTE: Please make sure that your Apache outputs are in the default 'combined' format. `format apache2` cannot parse custom log formats. Please see the <a href="in_tail">in_tail</a> article for more information.
 
 Let’s go through the configuration line by line.
 
-1. `type tail`: The tail plugin continuously tracks the log file. This handy plugin is part of Fluentd’s core plugins.
-2. `format apache`: Use Fluentd’s built-in Apache log parser.
-3. `path /var/log/apache2/access_log`: Assuming the Apache log is in `/var/log/apache2/access_log`.
-4. `tag s3.apache.access`: `s3.apache.access` is used as tag to route the message at Fluentd.
+1. `type tail`: The tail Input plugin continuously tracks the log file. This handy plugin is included in Fluentd’s core.
+2. `format apache2`: Uses Fluentd’s built-in Apache log parser.
+3. `path /var/log/apache2/access_log`: The location of the Apache log. This may be different for your particular system.
+4. `tag s3.apache.access`: `s3.apache.access` is used as the tag to route the messages within Fluentd.
 
-That’s it. You should be able to output a JSON-formatted data stream for Fluentd to consume.
+That’s it! You should now be able to output a JSON-formatted data stream for Fluentd to process.
 
 ### Amazon S3 Output
 
-The output configuration should look like this:
+The output destination will be Amazon S3. The output configuration should look like this:
 
     :::text
     <match s3.*.*>
@@ -72,29 +73,32 @@ The output configuration should look like this:
       path logs/
       buffer_path /var/log/fluent/s3
 
-      time_slice_format %Y%m%d-%H
+      time_slice_format %Y%m%d%H
       time_slice_wait 10m
       utc
 
       buffer_chunk_limit 256m
     </match>
 
-The `match` section specifies the regexp to match the tags. If the tag is matched, then the config inside the `<match>...</match>` is used. In this example, the `s3.apache.access` tag (generated by `tail`) is always used.
+The match section specifies the regexp used to look for matching tags. If a matching tag is found in a log, then the config inside `<match>...</match>` is used (i.e. the log is routed according to the config inside). In this example, the `s3.apache.access` tag (generated by `tail`) is always used.
 
 ## Test
-To test the configuration, just ping the Apache server. This example uses `ab` (Apache Bench) program.
+
+To test the configuration, just ping the Apache server. This example uses the `ab` (Apache Bench) program.
 
     :::term
     $ ab -n 100 -c 10 http://localhost/
 
-Then, please login into [AWS Console](https://console.aws.amazon.com/s3/home) and look at your bucket.
+Then, log into your [AWS Console](https://console.aws.amazon.com/s3/home) and look at your bucket.
 
-WARNING: By default, Fluentd uploads the data into Amazon S3 `EVERY HOUR` (around xx:10). Please be patient about it. If you want to upload minutely, please change `time_slice_format` parameter to `%Y%m%d-%H%M`.
+WARNING: By default, files are created on an hourly basis (around xx:10). This means that when you first import records using the plugin, no file is created immediately. The file will be created when the `time_slice_format` condition has been met. To change the output frequency, please modify the `time_slice_format` value. To write files every minute, please use `%Y%m%d%H%M` for the `time_slice_format`.
 
 ## Conclusion
-Fluentd + Amazon S3 makes log archiving fairly simple.
 
-## Further Readings
-- [out_s3](out_s3)
+Fluentd + Amazon S3 makes log archiving simple.
+
+## Further Reading
+
+- [Amazon S3 Output plugin](out_s3)
 - [Fluentd Plugins List](http://fluentd.org/plugin/)
 - [Fluentd Source Code](https://github.com/fluent/fluentd)

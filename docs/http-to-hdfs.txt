@@ -1,6 +1,6 @@
 # Fluentd + HDFS: Instant Big Data Collection
 
-This article explains how to use [Fluentd](http://fluentd.org/)'s [WebHDFS plugin](http://github.com/fluent/fluent-plugin-webhdfs/) to aggregate semi-structured logs into Hadoop HDFS.
+This article explains how to use [Fluentd](http://fluentd.org/)'s [WebHDFS Output plugin](http://github.com/fluent/fluent-plugin-webhdfs/) to aggregate semi-structured logs into Hadoop HDFS.
 
 ## Background
 
@@ -31,6 +31,7 @@ The WebHDFS plugin is included in the latest version of Fluentd's deb/rpm packag
 * [Debian Package](install-by-deb)
 * [RPM Package](install-by-rpm)
 * For CDH, please refer to the [downloads page](https://ccp.cloudera.com/display/SUPPORT/CDH+Downloads) (CDH3u5 and CDH4 onwards)
+* [Ruby gem](install-by-gem)
 
 ## Fluentd Configuration
 
@@ -57,7 +58,7 @@ The output destination will be WebHDFS. The output configuration should look lik
       flush_interval 10s
     </match>
 
-The match section specifies the regexp used to look for matching tags. If a matching tag is found in a log, then the config inside the 'match' section is used (i.e. the log is routed according to the config inside).
+The match section specifies the regexp used to look for matching tags. If a matching tag is found in a log, then the config inside `<match>...</match>` is used (i.e. the log is routed according to the config inside).
 
 **flush_interval** specifies how often the data is written to HDFS. An append operation is used to append the incoming data to the file specified by the **path** parameter.
 
@@ -107,7 +108,7 @@ Fluentd + WebHDFS make real-time log collection simple, robust and scalable! [@t
 
 ## Further Reading
 
-* [out_webhdfs](out_webhdfs)
+* [WebHDFS Output Plugin](out_webhdfs)
 * [Slides: Fluentd and WebHDFS](http://www.slideshare.net/tagomoris/fluentd-and-webhdfs)
 * [Fluentd Plugins List](http://fluentd.org/plugin/)
 * [Fluentd Source Code](http://github.com/fluent/fluentd/)

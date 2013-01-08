@@ -1,6 +1,6 @@
 # Data Analytics with Treasure Data (Cloud Data Warehouse)
 
-This article explains how to use [Fluentd](http://fluentd.org/)'s [Treasure Data plugin](http://github.com/treasure-data/fluent-plugin-td/), to aggregate semi-structured logs into Treasure Data (TD), the Cloud Data Warehouse.
+This article explains how to use [Fluentd](http://fluentd.org/)'s [Treasure Data Output plugin](http://github.com/treasure-data/fluent-plugin-td/), to aggregate semi-structured logs into Treasure Data (TD), the Cloud Data Warehouse.
 
 ## Background
 
@@ -37,6 +37,7 @@ The TD plugin is included in Fluentd’s deb/rpm package (`td-agent`) by default
 
 * [Debian Package](install-by-deb)
 * [RPM Package](install-by-rpm)
+* [Ruby gem](install-by-gem)
 
 ## Fluentd Configuration
 
@@ -65,7 +66,7 @@ The output destination will be Treasure Data. The output configuration should lo
       use_ssl true
     </match>
 
-The match section specifies the regexp used to look for matching tags. If a matching tag is found in a log, then the config inside the 'match' section is used (i.e. the log is routed according to the config inside).
+The match section specifies the regexp used to look for matching tags. If a matching tag is found in a log, then the config inside `<match>...</match>` is used (i.e. the log is routed according to the config inside).
 
 ## Test
 
