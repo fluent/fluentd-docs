@@ -45,7 +45,7 @@ First, install the fluent-logger library via pip.
     :::term
     $ pip install fluent-logger
 
-Next, initialize and post the records as follows.
+Next, initialize and post the records as shown below.
 
     :::python
     # test.py
