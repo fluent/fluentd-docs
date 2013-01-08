@@ -1,6 +1,6 @@
 # Data Analytics with Treasure Data (Cloud Data Warehouse)
 
-This article describes how to use [Fluentd](http://fluentd.org/)'s [Treasure Data plugin](http://github.com/treasure-data/fluent-plugin-td/), to aggregate semi-structured logs into Treasure Data (TD), the Cloud Data Warehouse.
+This article explains how to use [Fluentd](http://fluentd.org/)'s [Treasure Data plugin](http://github.com/treasure-data/fluent-plugin-td/), to aggregate semi-structured logs into Treasure Data (TD), the Cloud Data Warehouse.
 
 ## Background
 
@@ -8,7 +8,7 @@ This article describes how to use [Fluentd](http://fluentd.org/)'s [Treasure Dat
 
 [Treasure Data](http://www.treasure-data.com/) provides a Cloud Data Warehousing service, which Fluentd users can use to easily store and analyze their logs on the cloud. Fluentd is designed to flexibly connect with many systems via plugins, but Treasure Data should be your top choice if you don't want to spend engineering resources maintaining your backend infrastructure.
 
-This article will show you how to use Fluentd(http://fluentd.org/) to receive data from HTTP and stream it into TD. You can start from $29/month for 5GB/month data import.
+This article will show you how to use [Fluentd](http://fluentd.org/) to receive data from HTTP and stream it into TD. You can start from $29/month for 5GB/month data import.
 
 ## Architecture
 
@@ -33,7 +33,7 @@ For simplicity, this article will describe how to set up an one-node configurati
 * [Fluentd](http://fluentd.org/) 
 * [TD plugin](https://github.com/treasure-data/fluent-plugin-td)
 
-The TD plugin is included in Fluentd’s deb/rpm package (`td-agent`) by default. If you want to use Ruby Gems to install the plugin, `gem install fluent-plugin-td` will do the job.
+The TD plugin is included in Fluentd’s deb/rpm package (`td-agent`) by default. If you want to use Ruby Gems to install the plugin, please use `gem install fluent-plugin-td`.
 
 * [Debian Package](install-by-deb)
 * [RPM Package](install-by-rpm)
@@ -64,6 +64,8 @@ The output destination will be Treasure Data. The output configuration should lo
       buffer_path /var/log/td-agent/buffer/td
       use_ssl true
     </match>
+
+The match section specifies the regexp used to look for matching tags. If a matching tag is found in a log, then the config inside the 'match' section is used (i.e. the log is routed according to the config inside).
 
 ## Test
 

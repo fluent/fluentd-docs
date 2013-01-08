@@ -58,6 +58,8 @@ On the other hand, adding the following lines to the configuration file will not
 
 In essence, you can control your data process flow by using tags.
 
+NOTE: The match section specifies the regexp used to look for matching tags. If a matching tag is found in a log, then the config inside the 'match' section is used (i.e. the log is routed according to the config inside).
+
 ## How can I estimate Fluentd's resource usage?
 
 Fluentd consumes more resources as more logs are thrown at it. We have found that the CPU becomes a major bottleneck for heavily loaded Fluentd systems. To combat this bottleneck, Fluentd can leverage multiple CPU cores through its multi-process mode. A regular PC box is able to handle around 18,000 msgs/second.
