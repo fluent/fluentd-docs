@@ -1,6 +1,6 @@
 # Configuration File
 
-This article describes basic ideas of Fluentd configuration file.
+This article describes the basic concepts of Fluentd's configuration file.
 
 ## Overview
 
