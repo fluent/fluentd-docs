@@ -31,9 +31,9 @@ First, please [sign up](https://www.treasure-data.com/signup/) to TD and get you
 For simplicity, this article will describe how to set up an one-node configuration. Please install the following software on the same node.
 
 * [Fluentd](http://fluentd.org/) 
-* [TD plugin](https://github.com/treasure-data/fluent-plugin-td)
+* [TD Output Plugin](https://github.com/treasure-data/fluent-plugin-td)
 
-The TD plugin is included in Fluentd’s deb/rpm package (`td-agent`) by default. If you want to use Ruby Gems to install the plugin, please use `gem install fluent-plugin-td`.
+The TD Output plugin is included in Fluentd’s deb/rpm package (`td-agent`) by default. If you want to use Ruby Gems to install the plugin, please use `gem install fluent-plugin-td`.
 
 * [Debian Package](install-by-deb)
 * [RPM Package](install-by-rpm)

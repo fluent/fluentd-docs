@@ -23,10 +23,10 @@ The figure below shows the high-level architecture.
 For simplicity, this article will describe how to set up an one-node configuration. Please install the following software on the same node.
 
 * [Fluentd](http://fluentd.org/)
-* [WebHDFS Plugin](https://github.com/fluent/fluent-plugin-webhdfs/) ([out_webhdfs](out_webhdfs))
+* [WebHDFS Output Plugin](https://github.com/fluent/fluent-plugin-webhdfs/) ([out_webhdfs](out_webhdfs))
 * HDFS (Apache 1.0.0, CDH3u5 or CDH4 onwards)
 
-The WebHDFS plugin is included in the latest version of Fluentd's deb/rpm package (v1.1.10 or later). If you want to use Ruby Gems to install the plugin, please use `gem install fluent-plugin-webhdfs`.
+The WebHDFS Output plugin is included in the latest version of Fluentd's deb/rpm package (v1.1.10 or later). If you want to use Ruby Gems to install the plugin, please use `gem install fluent-plugin-webhdfs`.
 
 * [Debian Package](install-by-deb)
 * [RPM Package](install-by-rpm)

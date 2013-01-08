@@ -21,11 +21,11 @@ Fluentd does 3 things:
 For simplicity, this article will describe how to set up an one-node configuration. Please install the following software on the same node.
 
 * [Fluentd](http://fluentd.org/)
-* Amazon S3 Plugin
+* [Amazon S3 Output Plugin](out_s3)
 * Your Amazon Web Services Account
 * Apache (with the Combined Log Format)
 
-The Amazon S3 plugin is included in the latest version of Fluentd’s deb/rpm package. If you want to use Ruby Gems to install the plugin, please use `gem install fluent-plugin-s3`.
+The Amazon S3 Output plugin is included in the latest version of Fluentd’s deb/rpm package. If you want to use Ruby Gems to install the plugin, please use `gem install fluent-plugin-s3`.
 
 * [Debian Package](install-by-deb)
 * [RPM Package](install-by-rpm)
@@ -95,7 +95,7 @@ WARNING: By default, files are created on an hourly basis (around xx:10). This m
 
 ## Conclusion
 
-Fluentd + Amazon S3 makes log archiving simple.
+Fluentd + Amazon S3 makes real-time log archiving simple.
 
 ## Further Reading
 
