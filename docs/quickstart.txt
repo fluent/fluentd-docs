@@ -17,7 +17,7 @@ Please follow the installation/quickstart guides below that matches your environ
 The articles shown below cover the typical use cases of Fluentd. Please refer to the article(s) that suits your needs.
 
   * Application Logs
-    * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs)
+    * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
   * Examples
     * [Store Apache Log into Amazon S3](apache-to-s3)
     * [Store Apache Log into MongoDB](apache-to-mongodb)
