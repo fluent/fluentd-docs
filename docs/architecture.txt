@@ -1,6 +1,6 @@
 # Overview
 
-**Fluentd** is a log collector daemon that treats logs as a JSON stream. The current largest user collects logs from 500+ servers, 5 TB daily, with 50,000 msgs/sec at peak time.
+**Fluentd** is an Open-Source log collector daemon that treats logs as a JSON stream. The current largest user collects logs from 500+ servers, 5 TB daily, with 50,000 msgs/sec at peak time.
 
 Fluentd is written in C with thin-Ruby wrapper.
 
