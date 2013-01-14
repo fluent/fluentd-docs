@@ -1,6 +1,6 @@
 # exec_filter Output Plugin
 
-The `out_exec_filter` Buffered Output plugin (1) executes an external program using events as input and (2) reads new events from the program output. It passes tab-separated values (TSV) to stdin and reads TSV from stdout.
+The `out_exec_filter` Buffered Output plugin (1) executes an external program using an event as input and (2) reads new event from the program output. It passes tab-separated values (TSV) to stdin and reads TSV from stdout by default.
 
 ## Example Configuration
 
@@ -25,13 +25,39 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 The value must be `exec_filter`.
 
 ### command (required)
-The command (program) to execute. The exec plugin passes the path of a TSV file as the last argument.
+The command (program) to execute. The `out_exec_filter` plugin passes the incoming event to the program input and receives the filtered event from the program output.
 
-### in_keys (required)
-Comma-separated keys used to map the incoming event to the program's TSV input.
+### in_format
+The format used to map the incoming event to the program input.
 
-### out_keys (required)
-Comma-separated keys used to process the program's TSV output.
+The following formats are supported:
+
+* tsv (default)
+
+If you use tsv format, please also specify the comma-separated `in_keys` parameter.
+
+    :::text
+    in_keys k1,k2,k3
+
+* json
+* msgpack
+
+### out_format
+The format used to process the program output.
+
+The following formats are supported:
+
+* tsv (default)
+
+If you use tsv format, please also specify the comma-separated `out_keys` parameter.
+
+    :::text
+    out_keys k1,k2,k3,k4
+
+* json
+* msgpack
+
+NOTE: In json format, this plugin uses Yajl library to parse the program output. Yajl do buffering internally so sometimes the output isn't instantaneous.
 
 ### tag_key
 The name of the key to use as the event tag. This replaces the value in the event record.
