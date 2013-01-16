@@ -99,6 +99,7 @@ get '/categories/:category' do
 end
 
 get '/articles/:article' do
+  puts "@[#{ENV['RACK_ENV']}:articles] #{{ :name => params[:article] }.to_json}"
   cache_long
   render_article params[:article], params[:congrats]
 end
