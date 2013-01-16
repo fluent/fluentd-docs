@@ -35,6 +35,9 @@ end
 set :app_file, __FILE__
 set :static_cache_control, [:public, :max_age => 3600*24]
 
+# In-Mem Cache
+$IO_CACHE = {}
+
 #
 # NOT FOUND
 #
@@ -131,8 +134,11 @@ helpers do
   end
 
   def render_article(article, congrats)
-    source = File.read(article_file(article))
-    @article = Article.load(article, source)
+    @filepath = article_file(article)
+    unless $IO_CACHE.has_key? @filepath
+      $IO_CACHE[@filepath] = File.read(@filepath)
+    end
+    @article = Article.load(article, $IO_CACHE[@filepath])
 
     @title   = @article.title
     @desc    = @article.desc
