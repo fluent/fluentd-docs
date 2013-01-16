@@ -1,14 +1,14 @@
-# Data Analytics with Treasure Data (Cloud Data Warehouse)
+# Data Analytics with Treasure Data
 
-This article explains how to use [Fluentd](http://fluentd.org/)'s [Treasure Data Output plugin](http://github.com/treasure-data/fluent-plugin-td/), to aggregate semi-structured logs into Treasure Data (TD), the Cloud Data Warehouse.
+This article explains how to use [Fluentd](http://fluentd.org/)'s [Treasure Data Output plugin](http://github.com/treasure-data/fluent-plugin-td/), to aggregate semi-structured logs into Treasure Data (TD), the Big Data as-a-Service.
 
 ## Background
 
 [Fluentd](http://fluentd.org/) is an advanced open-source log collector originally developed at [Treasure Data, Inc](http://www.treasure-data.com/). Fluentd is specifically designed to solve the big-data log collection problem.
 
-[Treasure Data](http://www.treasure-data.com/) provides a Cloud Data Warehousing service, which Fluentd users can use to easily store and analyze their logs on the cloud. Fluentd is designed to flexibly connect with many systems via plugins, but Treasure Data should be your top choice if you don't want to spend engineering resources maintaining your backend infrastructure.
+[Treasure Data](http://www.treasure-data.com/) provides Big Data as-a-Service, which Fluentd users can use to easily store and analyze the data on the cloud. Fluentd is designed to flexibly connect with many systems via plugins, but Treasure Data should be your top choice if you don't want to spend engineering resources maintaining your backend infrastructure.
 
-This article will show you how to use [Fluentd](http://fluentd.org/) to receive data from HTTP and stream it into TD. You can start from $29/month for 5GB/month data import.
+This article will show you how to use [Fluentd](http://fluentd.org/) to receive data from HTTP and stream it into TD. You can start from $29/month for 50GB of storage.
 
 ## Architecture
 
@@ -113,7 +113,7 @@ Fluentd + Treasure Data gives you a data collection and analysis system in days,
 
 ## Further Reading
 
-* [Treasure Data Console](http://console.treasure-data.com/)
+* [Treasure Data, Big Data as-a-Service](http://www.treasure-data.com/)
 * [Treasure Data Documentation](http://docs.treasure-data.com/)
 * [Fluentd Plugins List](http://fluentd.org/plugin/)
 * [Fluentd Source Code](http://github.com/fluent/fluentd/)
