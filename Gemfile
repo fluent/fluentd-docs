@@ -1,5 +1,8 @@
 source :gemcutter
 
+# https://devcenter.heroku.com/articles/ruby-versions
+ruby '1.9.3'
+
 gem 'sinatra', '1.3.3'
 gem 'sinatra-assetpack', '0.0.12.pre1', :require => 'sinatra/assetpack'
 gem 'rdiscount', '1.6.8'
