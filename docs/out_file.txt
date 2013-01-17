@@ -30,7 +30,8 @@ The Path of the file. The actual path is path + time + ”.log”. The time port
 ### time_slice_format
 The time format used as part of the file name. The following characters are replaced with actual values when the file is created:
 
-* %Y: month of the year (01..12)
+* %Y: year including the century
+* %m: month of the year (01..12)
 * %d: Day of the month (01..31)
 * %H: Hour of the day, 24-hour clock (00..23)
 * %M: Minute of the hour (00..59)
