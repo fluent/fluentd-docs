@@ -36,7 +36,14 @@ set :app_file, __FILE__
 set :static_cache_control, [:public, :max_age => 3600*24]
 
 # In-Mem Cache
-$IO_CACHE = {}
+$IO_CACHE ||= {}
+configure :production do
+  if $IO_CACHE.empty?
+    Dir.glob("#{settings.root}/docs/*.txt") { |path|
+      $IO_CACHE[path] = File.read(path)
+    }
+  end
+end
 
 #
 # NOT FOUND
