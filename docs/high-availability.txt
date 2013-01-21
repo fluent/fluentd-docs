@@ -14,7 +14,7 @@ In such systems, several delivery guarantees are possible:
 
 If the system "can't lose a single event", and must also transfer "*exactly once*", then the system must stop ingesting events when it runs out of write capacity. The proper approach would be to use synchronous logging and return errors when the event cannot be accepted. 
 
-That's why *Fluentd guarantees 'At most once' transfer*. In order to collect massive amounts of data without impacting application performance, a data logger must transfer data asynchronously. Performance improves at the cost of potential delivery failure.
+That's why *Fluentd guarantees 'At most once' transfers*. In order to collect massive amounts of data without impacting application performance, a data logger must transfer data asynchronously. This improves performance at the cost of potential delivery failures.
 
 However, most failure scenarios are preventable. The following sections describe how to set up Fluentd's topology for high availability.
 
@@ -28,7 +28,7 @@ To configure Fluentd for high availability, we assume that your network consists
 
 '*log aggregators*' are daemons that continuously receive events from the log forwarders. They buffer the events and periodically upload the data into the cloud.
 
-Fluentd can act as either a log forwarder or a log aggreagator, depending on its configuration. The next sections describes the setups. We assume that the active log aggregator has ip '192.168.0.1' and that the backup has ip '192.168.0.2'.
+Fluentd can act as either a log forwarder or a log aggreagator, depending on its configuration. The next sections describes the respective setups. We assume that the active log aggregator has ip '192.168.0.1' and that the backup has ip '192.168.0.2'.
 
 ## Log Forwarder Configuration
 
@@ -94,7 +94,9 @@ The incoming logs are buffered, then periodically uploaded into the cloud. If up
 
 When a log forwarder receives events from applications, the events are first written into a disk buffer (specified by buffer_path). After every flush_interval, the buffered data is forwarded to aggregators.
 
-This process is inherently robust against data loss. If a log forwarder's fluentd process dies, the buffered data is properly transferred to its aggregator after it restarts. If the network between forwarders and aggregators breaks, the data transfer is automatically retried. That being said, possible message loss scenarios do exist:
+This process is inherently robust against data loss. If a log forwarder's fluentd process dies, the buffered data is properly transferred to its aggregator after it restarts. If the network between forwarders and aggregators breaks, the data transfer is automatically retried.
+
+However, possible message loss scenarios do exist:
 
 * The process dies immediately after receiving the events, but before writing them into the buffer.
 * The forwarder's disk is broken, and the file buffer is lost.
@@ -105,7 +107,7 @@ When log aggregators receive events from log forwarders, the events are first wr
 
 This process is inherenty robust against data loss. If a log aggregator's fluentd process dies, the data from the log forwarder is properly retransferred after it restarts. If the network between aggregators and the cloud breaks, the data transfer is automatically retried.
 
-That being said, possible message loss scenarios do exist:
+However, possible message loss scenarios do exist:
 
 * The process dies immediately after receiving the events, but before writing them into the buffer.
 * The aggregator's disk is broken, and the file buffer is lost.
@@ -113,4 +115,10 @@ That being said, possible message loss scenarios do exist:
 ## Trouble Shooting
 
 ### "no nodes are available"
-Please check you can communicate with port 24224 by **not only TCP, but also UDP**. There exists one [known issue](http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=2019944) that VMware sometimes losts small UDP packages which are used for heartbeat.
+Please make sure that you can communicate with port 24224 using **not only TCP, but also UDP**. These commands will be useful for checking the network configuration.
+
+    :::term
+    $ telnet host 24224
+    $ nmap -p 24224 -sU host
+
+Please note that there is one [known issue](http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&cmd=displayKC&externalId=2019944) where VMware will occasionally lose small UDP packages used for heartbeat.
