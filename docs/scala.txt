@@ -2,7 +2,7 @@
 
 The '[fluent-logger-scala](http://github.com/oza/fluent-logger-scala)' library is used to post records from Scala applications to Fluentd.
 
-This article explains how to use the fluent-logger-Scala library.
+This article explains how to use the fluent-logger-scala library.
 
 ## Prerequisites
 
@@ -41,7 +41,7 @@ Please restart your agent once these lines are in place.
 
 ## Using fluent-logger-scala
 
-First, please add the following lines to build.sbt. The logger's revision information can be found in [ChangeLog](https://github.com/oza/fluent-logger-scala/blob/master/ChangeLog).
+First, please add the following lines to build.sbt. The logger's revision information can be found in the [ChangeLog](https://github.com/oza/fluent-logger-scala/blob/master/ChangeLog).
 
     resolvers += "Apache Maven Central Repository" at "http://repo.maven.apache.org/maven2/"
 
