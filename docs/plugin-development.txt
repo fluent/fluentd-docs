@@ -2,18 +2,18 @@
 
 ## Installing custom plugins
 
-To install a plugin, put a ruby script to ``/etc/fluent/plugin`` directory.
+To install a plugin, please put the ruby script in the ``/etc/fluent/plugin`` directory.
 
-Or you can create gem package that includes ``lib/fluent/plugin/<TYPE>_<NAME>.rb`` file. *TYPE* is ``in`` for input plugins, ``out`` for output plugins and ``buf`` for buffer plugins. It's like ``lib/fluent/plugin/out_mail.rb``. The packaged gem can be distributed and installed using RubyGems. See [list of Fluentd plugins](http://fluentd.org/plugin/).
+Alternatively, you can create a Ruby Gem package that includes a ``lib/fluent/plugin/<TYPE>_<NAME>.rb`` file. The *TYPE* is ``in`` for input plugins, ``out`` for output plugins, and ``buf`` for buffer plugins. For example, an eMail Output plugin would have the path: ``lib/fluent/plugin/out_mail.rb``. The packaged gem can be distributed and installed using RubyGems. For further information, please see the [list of Fluentd plugins](http://fluentd.org/plugin/).
 
-## Input plugins
+## Writing Input Plugins
 
-Extend **Fluent::Input** class and implement following methods.
+Extend the **Fluent::Input** class and implement the following methods.
 
     :::ruby
     class SomeInput < Fluent::Input
-      # Register plugin first. NAME is the name of this plugin
-      # which is used in the configuration file.
+      # First, register the plugin. NAME is the name of this plugin
+      # and identifies the plugin in the configuration file.
       Fluent::Plugin.register_input('NAME', self)
 
       # This method is called before starting.
@@ -39,7 +39,7 @@ Extend **Fluent::Input** class and implement following methods.
       end
     end
 
-To submit events, use ``Fluent::Engine.emit(tag, time, record)`` method, where ``tag`` is the String, ``time`` is the UNIX time integer and ``record`` is a Hash object.
+To submit events, use the ``Fluent::Engine.emit(tag, time, record)`` method, where ``tag`` is the String, ``time`` is the UNIX time integer and ``record`` is a Hash object.
 
     :::ruby
     tag = "myapp.access"
@@ -47,16 +47,16 @@ To submit events, use ``Fluent::Engine.emit(tag, time, record)`` method, where `
     record = {"message"=>"body"}
     Fluent::Engine.emit(tag, time, record)
 
-RDoc of the Engine class is available from [Fluentd RDoc](http://fluentd.org/rdoc/Fluent/EngineClass.html).
+The RDoc of the Engine class can be found in the [Fluentd RDoc](http://fluentd.org/rdoc/Fluent/EngineClass.html).
 
-## Buffered output plugins
+## Writing Buffered Output Plugins
 
-Extend **Fluent::BufferedOutput** class and implement following methods.
+Extend the **Fluent::BufferedOutput** class and implement the following methods.
 
     :::ruby
     class SomeOutput < Fluent::BufferedOutput
-      # Register plugin first. NAME is the name of this plugin
-      # which is used in the configuration file.
+      # First, register the plugin. NAME is the name of this plugin
+      # and identifies the plugin in the configuration file.
       Fluent::Plugin.register_output('NAME', self)
 
       # This method is called before starting.
@@ -82,22 +82,22 @@ Extend **Fluent::BufferedOutput** class and implement following methods.
         ...
       end
 
-      # This method is called when an event is reached.
-      # Convert event to a raw string.
+      # This method is called when an event reaches to Fluentd.
+      # Convert the event to a raw string.
       def format(tag, time, record)
         [tag, time, record].to_json + "\n"
       end
 
-      ## optionally, you can use to_msgpack to serialize the object.
+      ## Optionally, you can use to_msgpack to serialize the object.
       #def format(tag, time, record)
       #  [tag, time, record].to_msgpack
       #end
 
-      # This method is called every flush interval. write the buffer chunk
+      # This method is called every flush interval. Write the buffer chunk
       # to files or databases here.
       # 'chunk' is a buffer chunk that includes multiple formatted
       # events. You can use 'data = chunk.read' to get all events and
-      # 'chunk.open {|io| ... }' to get IO object.
+      # 'chunk.open {|io| ... }' to get IO objects.
       def write(chunk)
         data = chunk.read
         print data
@@ -111,22 +111,22 @@ Extend **Fluent::BufferedOutput** class and implement following methods.
     end
 
 
-## Time sliced output plugins
+## Writing Time Sliced Output Plugins
 
-Time sliced output plugins are extended version of buffered output plugin. One of the examples of time sliced output is ``out_file`` plugin.
+Time Sliced Output plugins are extended versions of buffered output plugins. One example of a time sliced output is the ``out_file`` plugin.
 
-Note that it uses file buffer by default. Thus ``buffer_path`` option is required.
+Note that Time Sliced Output plugins use file buffer by default. Thus the ``buffer_path`` option is required.
 
-To implement time sliced output plugin, Extend **Fluent::TimeSlicedOutput** class and implement following methods.
+To implement a Time Sliced Output plugin, extend the **Fluent::TimeSlicedOutput** class and implement the following methods.
 
     :::ruby
     class SomeOutput < Fluent::TimeSlicedOutput
       # configure(conf), start(), shutdown() and format(tag, time, record) are
-      # same as BufferedOutput.
+      # the same as BufferedOutput.
       ...
 
-      # You can use 'chunk.key' to get sliced time. Format of the 'chunk.key'
-      # can be configured by 'time_format' option. Default format is %Y%m%d.
+      # You can use 'chunk.key' to get sliced time. The format of 'chunk.key'
+      # can be configured by the 'time_format' option. The default format is %Y%m%d.
       def write(chunk)
         day = chunk.key
         ...
@@ -134,14 +134,14 @@ To implement time sliced output plugin, Extend **Fluent::TimeSlicedOutput** clas
     end
 
 
-## Non-buffered output plugins
+## Writing Non-buffered Output Plugins
 
-Extend **Fluent::Output** class and implement following methods.
+Extend the **Fluent::Output** class and implement the following methods.
 
     :::ruby
     class SomeOutput < Fluent::Output
-      # Register plugin first. NAME is the name of this plugin
-      # which is used in the configuration file.
+      # First, register the plugin. NAME is the name of this plugin
+      # and identifies the plugin in the configuration file.
       Fluent::Plugin.register_output('NAME', self)
 
       # This method is called before starting.
@@ -162,11 +162,11 @@ Extend **Fluent::Output** class and implement following methods.
         ...
       end
     
-      # This method is called when an event is reached.
+      # This method is called when an event reaches Fluentd.
       # 'es' is a Fluent::EventStream object that includes multiple events.
       # You can use 'es.each {|time,record| ... }' to retrieve events.
-      # 'chain' is an object that manages transaction. Call 'chain.next' at
-      # appropriate point and rollback if it raises exception.
+      # 'chain' is an object that manages transactions. Call 'chain.next' at
+      # appropriate points and rollback if it raises an exception.
       def emit(tag, es, chain)
         chain.next
         es.each {|time,record|
@@ -175,24 +175,24 @@ Extend **Fluent::Output** class and implement following methods.
       end
     end
 
-## Custom parser for Tail input plugin
+## Customizing the Tail Input Plugin Parser
 
-You can customize text parser of Tail input plugin by extending **Fluent::TailInput** class.
+You can customize the text parser for the Tail Input plugin by extending the **Fluent::TailInput** class.
 
-Put following file to **/etc/fluent/plugin/in_mytail.rb**.
+Put the following file into **/etc/fluent/plugin/in_mytail.rb**.
 
     :::ruby
     class MyTailInput < Fluent::TailInput
       Fluent::Plugin.register_input('mytail', self)
     
-      # Override 'configure_parser(conf)' method.
+      # Override the 'configure_parser(conf)' method.
       # You can get config parameters in this method.
       def configure_parser(conf)
         @time_format = conf['time_format'] || '%Y-%M-%d %H:%M:%S'
       end
     
-      # Override 'parse_line(line)' method that returns time and record.
-      # This example method assumes following log format:
+      # Override the 'parse_line(line)' method that returns the time and record.
+      # This example method assumes the following log format:
       #   %Y-%m-%d %H:%M:%S\tkey1\tvalue1\tkey2\tvalue2...
       #   %Y-%m-%d %H:%M:%S\tkey1\tvalue1\tkey2\tvalue2...
       #   ...
@@ -212,7 +212,7 @@ Put following file to **/etc/fluent/plugin/in_mytail.rb**.
       end
     end
 
-Use following configuration file::
+Use the following configuration file::
 
     :::text
     <source>
@@ -223,42 +223,42 @@ Use following configuration file::
 
 ## Debugging plugins
 
-Run ``fluentd`` with ``-vv`` option to show debug messages::
+Run ``fluentd`` with the ``-vv`` option to show debug messages::
 
     :::term
     $ fluentd -vv
 
-**stdout** and **copy** output plugins are useful for debugging. **stdout** output plugin dumps matched events to the console. It can be used as following::
+The **stdout** and **copy** output plugins are useful for debugging. The **stdout** output plugin dumps matched events to the console. It can be used as shown below::
 
     :::text
-    # You want to debug this plugin
+    # You want to debug this plugin.
     <source>
       type your_custom_input_plugin
     </source>
     
-    # Dump all events to stdout
+    # Dump all events to stdout.
     <match **>
       type stdout
     </match>
 
-**copy** output plugin copies matched events to multiple output plugins. You can use it with the stdout plugin::
+The **copy** output plugin copies matched events to multiple output plugins. You can use it in conjunction with the stdout plugin::
 
     :::text
     <source>
       type tcp
     </source>
 
-    # Use tcp input plugin and fluent-cat command to feed events:
+    # Use the tcp Input plugin and the fluent-cat command to feed events:
     #  $ echo '{"event":"message"}' | fluent-cat test.tag
     <match test.tag>
       type copy
 
-      # Dump the matched events
+      # Dump the matched events.
       <store>
         type stdout
       </store>
 
-      # And feed them to your plugin
+      # Feed the dumped events to your plugin.
       <store>
         type your_custom_output_plugin
       </store>
@@ -278,8 +278,8 @@ Fluentd provides unit test frameworks for plugins:
     Fluent::Test::OutputTestDriver
       Test driver for non-buffered output plugins.
 
-See fluentd's source code for details.
+Please see Fluentd's source code for details.
 
-## Further Readings
+## Further Reading
 
-* [Slide: Dive into Fluentd Plugin](http://www.slideshare.net/repeatedly/fluentd-meetup-dive-into-fluent-plugin)
+* [Slides: Dive into Fluentd Plugin](http://www.slideshare.net/repeatedly/fluentd-meetup-dive-into-fluent-plugin)
