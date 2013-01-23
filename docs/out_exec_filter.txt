@@ -72,10 +72,10 @@ The format for event time used when the `time_key` parameter is specified. The d
 For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
 
 ### buffer_type
-The buffer type is `file` by default ([buf_file](buf_file)). The `memory` ([buf_memory](buf_memory)) buffer type can be chosen as well. The `path` parameter is used as `buffer_path` in this plugin.
+The buffer type is `memory` by default ([buf_memory](buf_memory)). The `file` ([buf_file](buf_file)) buffer type can be chosen as well. The `path` parameter is used as `buffer_path` in this plugin.
 
 ### buffer_queue_limit, buffer_chunk_limit
-The length of the chunk queue and the size of each chunk, respectively. Please see the [Buffer Plugin Overview](buffer-plugin-overview) article for the basic buffer structure. The default values are 256 and 8m, respectively. The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for buffer_chunk_limit.
+The length of the chunk queue and the size of each chunk, respectively. Please see the [Buffer Plugin Overview](buffer-plugin-overview) article for the basic buffer structure. The default values are 64 and 8m, respectively. The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for buffer_chunk_limit.
 
 ### flush_interval
 The interval between data flushes. The default is 1s. The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.
