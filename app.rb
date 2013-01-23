@@ -70,6 +70,7 @@ assets {
   js_compression  :jsmin
   css_compression :simple
   prebuild true # only on production
+  expires 24*3600*7, :public
 }
 
 #
