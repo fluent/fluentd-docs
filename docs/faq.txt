@@ -22,6 +22,10 @@ td-agent is the stable distribution package of Fluentd. The differences are as f
 
 td-agent stresses stability over new features. If you wish to control Fluentd features and updates on your own, using the Fluentd gem is recommended. If you are using Fluentd for the first time or are using it in a large scale environment, using td-agent is recommended. A new version of td-agent is released every 2 or 3 months.
 
+## Does Fluentd run on Windows?
+
+Unfortunately, NO. Fluentd depends on Ruby gem called cool.io and it doesn't work on Windows. We're working on the next version to overcome this point, but for now it doesn't work on Windows.
+
 ## What is Fluentd's 'tag'?
 
 Each Fluentd event log consists of the three components:
