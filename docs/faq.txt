@@ -24,7 +24,7 @@ td-agent stresses stability over new features. If you wish to control Fluentd fe
 
 ## Does Fluentd run on Windows?
 
-Unfortunately, NO. Fluentd depends on Ruby gem called cool.io and it doesn't work on Windows. We're working on the next version to overcome this point, but for now it doesn't work on Windows.
+Unfortunately, no. Fluentd depends on a Ruby gem called cool.io, which doesn't work on Windows. We're aiming to resolve this issue for the next Fluentd version.
 
 ## What is Fluentd's 'tag'?
 
