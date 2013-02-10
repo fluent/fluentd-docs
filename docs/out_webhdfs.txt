@@ -61,13 +61,13 @@ The path on HDFS. Please include ${hostname} in your path to avoid writing into 
 For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
 
 ### buffer_type
-The buffer type is `memory` by default ([buf_memory](buf_memory)). The `file` ([buf_file](buf_file)) buffer type can be chosen as well. The `buffer_path` parameter MUST be specified with `buffer_type file`.
+The buffer type is `memory` by default ([buf_memory](buf_memory)). The `file` ([buf_file](buf_file)) buffer type can be chosen as well. Unlike many other output plugins, the `buffer_path` parameter MUST be specified when using `buffer_type file`.
 
 ### buffer_queue_limit, buffer_chunk_limit
 The length of the chunk queue and the size of each chunk, respectively. Please see the [Buffer Plugin Overview](buffer-plugin-overview) article for the basic buffer structure. The default values are 64 and 256m, respectively. The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for buffer_chunk_limit.
 
 ### flush_interval
-The interval between force data flushes. The default is nil (don't force flush and wait end of time slice + time_slice_wait). The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.
+The interval between forced data flushes. The default is nil (don't force flush and wait until the end of time slice + time_slice_wait). The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.
 
 ### retry_wait and retry_limit
 The interval between write retries, and the number of retries. The default values are 1.0 and 17, respectively. `retry_wait` doubles every retry (e.g. the last retry waits for 131072 sec, roughly 36 hours).
