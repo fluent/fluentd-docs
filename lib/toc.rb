@@ -6,12 +6,12 @@ section 'overview', 'Overview' do
     article 'architecture', 'Architecture'
   end
   category 'installation', 'Installation' do
-    article 'before-install', 'Before Fluentd Installation'
-    article 'install-by-rpm', 'Fluentd RPM Installation'
-    article 'install-by-deb', 'Fluentd Deb Installation'
-    article 'install-by-gem', 'Fluentd Gem Installation'
-    article 'install-by-chef', 'Fluentd Chef Installation'
-    article 'install-from-source', 'Fluentd Source Installation'
+    article 'before-install', 'Before Installing Fluentd'
+    article 'install-by-rpm', 'Installing Fluentd Using rpm Package'
+    article 'install-by-deb', 'Installing Fluentd Using deb Package'
+    article 'install-by-gem', 'Installing Fluentd Using Ruby Gem'
+    article 'install-by-chef', 'Installing Fluentd Using Chef'
+    article 'install-from-source', 'Installing Fluentd from Source'
   end
   category 'users', 'Users' do
     article 'users', 'Users'
