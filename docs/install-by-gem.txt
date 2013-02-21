@@ -12,7 +12,7 @@ Please install Ruby >= 1.9.2 on your local environment.
 
 ## Step2: Install Fluentd gem
 
-Fetch and install the `fluetnd` Ruby gem using the `gem` command. The official ruby gem page is [here](https://rubygems.org/gems/fluentd).
+Fetch and install the `fluentd` Ruby gem using the `gem` command. The official ruby gem page is [here](https://rubygems.org/gems/fluentd).
 
     :::term
     $ gem install fluentd --no-ri --no-rdoc
