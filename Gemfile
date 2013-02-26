@@ -1,18 +1,17 @@
-source :gemcutter
+source 'https://rubygems.org'
 
 # https://devcenter.heroku.com/articles/ruby-versions
-ruby '1.9.3'
+ruby '2.0.0'
 
 gem 'sinatra', '1.3.3'
 gem 'sinatra-assetpack', '0.1.2', :require => 'sinatra/assetpack'
 gem 'rdiscount', '1.6.8'
 gem 'rest-client', '1.2.0'
 gem 'haml', '2.2.17'
-gem 'json'
 gem 'coderay'
 gem 'rack-codehighlighter'
 gem 'sanitize'
-gem 'jemalloc', '~> 0.1.6'
+gem 'jemalloc', '~> 0.1.8'
 
 # Webserver
 gem 'unicorn', '~> 4.2.1'
