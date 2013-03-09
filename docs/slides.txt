@@ -6,6 +6,12 @@ These slides explain the basics of Fluentd.
 
 <center><iframe src="http://www.slideshare.net/slideshow/embed_code/11410514?rel=0" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/treasure-data/fluentd-meetup-in-japan-11410514" title="Fluentd meetup in japan" target="_blank">Fluentd meetup in japan</a> </strong> from <strong><a href="http://www.slideshare.net/treasure-data" target="_blank">Treasure Data, Inc.</a></strong> </div></center>
 
+## The basics of Fluentd
+
+Another slides to explain the basics of Fluentd.
+
+<iframe src="http://www.slideshare.net/slideshow/embed_code/17001359?rel=0" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/treasure-data/the-basics-of-fluentd" title="The basics of fluentd" target="_blank">The basics of fluentd</a> </strong> from <strong><a href="http://www.slideshare.net/treasure-data" target="_blank">Treasure Data, Inc.</a></strong> </div>
+
 ## Fluentd loves MongoDB
 
 These slides explain the integration of Fluentd with MongoDB. The presentation was originally given at the MongoSV User Group meetup on July 17, 2012.
