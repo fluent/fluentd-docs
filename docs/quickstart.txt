@@ -12,6 +12,8 @@ Please follow the installation/quickstart guides below that matches your environ
 * [Install Fluentd with Ruby Gem](install-by-gem)
 * [Install Fluentd from source](install-from-source)
 
+NOTE: Fluentd doesn't run on Windows.
+
 ## Step2: Use
 
 The articles shown below cover the typical use cases of Fluentd. Please refer to the article(s) that suits your needs.
