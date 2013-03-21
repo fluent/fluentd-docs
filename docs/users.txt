@@ -76,6 +76,14 @@ Realtime monitoring/reporting/charting can be generated from MongoDB data, which
 
 <a href="http://www.slideshare.net/">SlideShare</a> uses Fluentd to stream logs and events in the cloud. We were looking for a versatile yet lightweight logger in Ruby, and Fluentd fit the bill perfectly. - Sylvain Kalache, Operations Engineer
 
+## Uken Games
+
+<p>
+<center><a href="http://www.uken.com/"><img src="/images/logo-UkenGames.png" height="80px" /></a></center>
+</p><br />
+
+<a href="http://www.uken.com/">Uken Games</a> is a Canadian cross-platform gaming company. Our users generate a lot of logs, and Fluentd made it really easy for us to manage them. It also allowed us to painlessly try and compare new solutions for log analysis, simply by modifying configs and zero-downtime restarting the client. Deploying Fluentd was a breeze with Chef. - Pitr Vernigorov
+
 ## Viki, Inc.
 
 <p>
