@@ -19,6 +19,9 @@ section 'overview', 'Overview' do
   category 'slides', 'Slides' do
     article 'slides', 'Slides'
   end
+  category 'support', 'Support' do
+    article 'support', 'Support'
+  end
   category 'faq', 'FAQ' do
     article 'faq', 'FAQ'
   end

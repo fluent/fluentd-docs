@@ -1,0 +1,3 @@
+# Support
+
+[Treasure Data, Inc.](http://www.treasure-data.com/) provides support for Fluentd, when the user subscribed its business or enterprise plan. If you're serious about data collection problem, please let us know!

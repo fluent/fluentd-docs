@@ -6,7 +6,7 @@ This article explains how to install the td-agent rpm package, the stable Fluent
 
 Fluentd is written in Ruby for flexibility, with performance sensitive parts written in C. However, casual users may have difficutly installing and operating a Ruby daemon.
 
-That's why Treasure Data, Inc. is providing **the stable distribution of Fluentd**, called `td-agent`. The differences between Fluentd and td-agent can be found [here](faq#what-is-the-difference-with-td-agent-and-fluentd).
+That's why [Treasure Data, Inc](http://www.treasure-data.com/) is providing **the stable distribution of Fluentd**, called `td-agent`. The differences between Fluentd and td-agent can be found [here](faq#what-is-the-difference-with-td-agent-and-fluentd).
 
 ## Step0: Before Installation
 
