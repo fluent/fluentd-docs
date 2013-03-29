@@ -12,6 +12,8 @@ section 'overview', 'Overview' do
     article 'install-by-gem', 'Installing Fluentd Using Ruby Gem'
     article 'install-by-chef', 'Installing Fluentd Using Chef'
     article 'install-from-source', 'Installing Fluentd from Source'
+    article 'install-on-heroku', 'Installing Fluentd on Heroku'
+    article 'install-on-beanstalk', 'Installing Fluentd on Amazon Beanstalk'
   end
   category 'users', 'Users' do
     article 'users', 'Users'

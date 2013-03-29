@@ -1,0 +1,5 @@
+# Install Fluentd (td-agent) on Amazon Beanstalk
+
+[This repository](https://github.com/treasure-data/elastic-beanstalk-td-agent) is a boilerplate repository to install td-agent on your Amazon Beankstalk application. Please follow the instruction at README.
+
+- [treasure-data/elastic-beanstalk-td-agent](https://github.com/treasure-data/elastic-beanstalk-td-agent)
