@@ -4,9 +4,9 @@ This article describes how to install Fluentd (td-agent) on [Heroku](http://www.
 
 ## Create Your App
 
-Heroku doesn't allow to install separate process within a single dyno. So we need to setup Fluentd as a separate Heroku application. This will become your central log aggregation server.
+Heroku doesn't allow users to install separate processes within a single dyno. You will thus need to setup Fluentd as a separate Heroku application. This will become you central log aggregation server.
 
-We provide a boilerplate repository to get you started. Follow the steps below to create Fluentd (td-agent) as a Heroku application.
+Treasure Data provides a boilerplate repository to get you started. Follow the steps below to create Fluentd (td-agent) as a Heroku application.
 
     :::term
     # Clone
@@ -30,7 +30,7 @@ We provide a boilerplate repository to get you started. Follow the steps below t
 
 ## Test
 
-You can now confirm that the log aggregation server is set up correctly. In the example below, you will send a GET request to the log server at http://td-agent-on-heroku.herokuapp.com to log the event { "json": "message" } with dabug.sample tag. Note how the JSON-formatted data is passed as a query parameter value.
+Let's confirm that the log aggregation server has been set up correctly. Please send a GET request to the log server, http://td-agent-on-heroku.herokuapp.com, as shown below. This will log the event { "json": "message" } with a dabug.sample tag. Note how the JSON-formatted data is passed as a query parameter value.
 
     :::term
     $ curl "http://td-agent-on-heroku.herokuapp.com/debug.sample?json=%7B%22json%22%3A%22message%22%7D"
