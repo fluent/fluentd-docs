@@ -41,6 +41,9 @@ section 'tutorial', 'Tutorial' do
   category 'apache-to-s3', 'Data Archiving to S3' do
     article 'apache-to-s3', 'Store Apache Logs into Amazon S3', ['Amazon S3']
   end
+  category 'fluentd-elasticsearch-kibana', 'Data Search with Kibana' do
+    article 'fluentd-elasticsearch-kibana', 'Data Search with Kibana', ['Treasure Data', 'Hadoop', 'Hive']
+  end
   category 'ruby', 'Logging from Ruby' do
     article 'ruby',   'Import Logs from Ruby Applications'
   end

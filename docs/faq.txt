@@ -26,6 +26,10 @@ td-agent stresses stability over new features. If you wish to control Fluentd fe
 
 Unfortunately, no. Fluentd depends on a Ruby gem called cool.io, which doesn't work on Windows. We're aiming to resolve this issue for the next Fluentd version.
 
+## Does Fluentd have UI or storage?
+
+No, Fluentd doesn't have both UI and storage. But [Kibana integration](fluentd-elasticsearch-kibana) could help you.
+
 ## What is Fluentd's 'tag'?
 
 Each Fluentd event log consists of the three components:
