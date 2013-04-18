@@ -11,7 +11,7 @@ Fluentd is a flexible and robust event log collector, but Fluentd doesn’t prov
 ### Java for ElasticSearch
 
     :::term
-    % java -version
+    $ java -version
     java version "1.6.0_45"
     Java(TM) SE Runtime Environment (build 1.6.0_45-b06-451-11M4406)
     Java HotSpot(TM) 64-Bit Server VM (build 20.45-b01-451, mixed mode)
@@ -19,7 +19,7 @@ Fluentd is a flexible and robust event log collector, but Fluentd doesn’t prov
 ### Ruby for Fluentd and Kibana
 
     :::term
-    % ruby --version
+    $ ruby --version
     ruby 1.9.3p385 (2013-02-06 revision 39114) [x86_64-darwin12.2.1]
 
 ## Setup ElasticSearch
@@ -27,35 +27,35 @@ Fluentd is a flexible and robust event log collector, but Fluentd doesn’t prov
 Please downlod and extract the package.
 
     :::term
-    % curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.0.RC2.tar.gz
-    % tar zxvf elasticsearch-0.90.0.RC2.tar.gz
-    % cd elasticsearch-0.90.0.RC2/
+    $ curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.0.RC2.tar.gz
+    $ tar zxvf elasticsearch-0.90.0.RC2.tar.gz
+    $ cd elasticsearch-0.90.0.RC2/
 
 Then, start ElasticSearch.
 
     :::term
-    % ./bin/elasticsearch -f
+    $ ./bin/elasticsearch -f
 
 ## Setup Kibana
 
 Download via webpage or clone repository from github. Kibana is a Sinatra application.
 
     :::term
-    % git clone git://github.com/rashidkpc/Kibana.git
-    % cd Kibana
-    % bundle install --path vendor/bundle # "gem install bundle" is needed if you don't install bundle
+    $ git clone git://github.com/rashidkpc/Kibana.git
+    $ cd Kibana
+    $ bundle install --path vendor/bundle # "gem install bundle" is needed if you don't install bundle
 
 Then, start Kibana. You can modify Kibana configuration via KibanaConfig.rb.
 
     :::term
-    % bundle exec ruby kibana.rb
+    $ bundle exec ruby kibana.rb
 
 ## Setup Fluentd
 
 Install Fluentd and ElasticSearch plugin:
 
     :::term
-    % gem install fluentd fluent-plugin-elasticsearch
+    $ gem install fluentd fluent-plugin-elasticsearch
 
 Fluentd configuration is like below:
 
@@ -74,7 +74,7 @@ Fluentd configuration is like below:
 fluent-plugin-elasticsearch provides logstash_format option. It enables Kibana to search stored event logs in ElasticSearch. Finally, let's start Fluentd.
 
     :::term
-    % fluentd -c es.conf
+    $ fluentd -c es.conf
     2013-04-17 00:03:51 -0700 [info]: starting fluentd-0.10.33
     2013-04-17 00:03:51 -0700 [info]: reading config file path = "es.conf"
     2013-04-17 00:03:51 -0700 [info]: using configuration file: <ROOT>
@@ -96,10 +96,10 @@ fluent-plugin-elasticsearch provides logstash_format option. It enables Kibana t
 Send some events to Fluentd.
 
     :::term
-    % echo '{"message":"Hello!"}' | fluent-cat es.event
-    % echo '{"message":"D"}' | fluent-cat es.event
-    % echo '{"message":"Ruby"}' | fluent-cat es.event
-    % echo '{"message":"Elastic!!"}' | fluent-cat es.event
+    $ echo '{"message":"Hello!"}' | fluent-cat es.event
+    $ echo '{"message":"D"}' | fluent-cat es.event
+    $ echo '{"message":"Ruby"}' | fluent-cat es.event
+    $ echo '{"message":"Elastic!!"}' | fluent-cat es.event
 
 After Fluentd flushed received events to ElasticSearch, you can search the stored event logs via Kibana by accessing [http://127.0.0.1:5601/](http://127.0.0.1:5601/) by the browser.
 
