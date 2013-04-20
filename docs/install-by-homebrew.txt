@@ -24,7 +24,7 @@ If you don't install homebrew yet, please execute this command to install homebr
 Please make sure you have `brew` command, and use `brew install` to fetch td-agent formula to install td-agent.
 
     :::term
-    $ brew install "toolbelt.treasure-data.com/brew/td-agent.rb"
+    $ brew install "http://toolbelt.treasure-data.com/brew/td-agent.rb"
 
 You can launch `td-agent` in a foreground process.
 
