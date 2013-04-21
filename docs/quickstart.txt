@@ -1,7 +1,9 @@
 Quickstart Guide
 ================
 
-Let's get started with Fluentd! Fluentd is  is fully free and fully open-source log collector that instantly enables you to have a '**Log Everything**' architecture with <a href="/plugin/">125+ other systems</a>. Fluentd treats logs as JSON, a popular machine-readable format.
+Let's get started with **Fluentd**! Fluentd is  is fully free and fully open-source log collector that instantly enables you to have a '**Log Everything**' architecture with <a href="/plugin/">125+ other systems</a>.
+
+**Fluentd is proven**: the current largest user collects logs from 5000+ servers, 5 TB daily, with 50,000 msgs/sec at peak time. Fluentd treats logs as JSON, a popular machine-readable format. 
 
 ## Step1: Installing Fluentd
 
