@@ -1,4 +1,4 @@
-# Search event logs using Fluentd + Kibana
+# Search logs by Fluentd + ElasticSearch / Kibana
 
 Fluentd is a flexible and robust event log collector, but Fluentd doesn’t provide own datastore and Web UI. So if you want to search the event logs collected by Fluentd, then you can use Kibana and ElasticSearch :)
 
