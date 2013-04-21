@@ -13,6 +13,9 @@ gem 'rack-codehighlighter'
 gem 'sanitize'
 gem 'jemalloc', '~> 0.1.8'
 
+# Compressor
+gem 'yui-compressor', :require => 'yui/compressor'
+
 # Webserver
 gem 'unicorn', '~> 4.2.1'
 gem 'unicorn-worker-killer', '~> 0.2.0'

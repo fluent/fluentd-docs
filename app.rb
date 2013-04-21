@@ -67,8 +67,8 @@ assets {
   css :application, '/css/application.css', [
     '/css/*.css'
   ]
-  js_compression  :jsmin
-  css_compression :simple
+  js_compression :yui
+  css_compression :yui
   prebuild true # only on production
   expires 24*3600*7, :public
 }
