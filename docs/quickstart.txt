@@ -1,18 +1,25 @@
 Quickstart Guide
 ================
 
-Let's get started with Fluentd! Fluentd is an Open-Source log collector daemon that instantly enables you to have a '**Log Everything**' architecture. Fluentd treats logs as JSON, a popular machine-readable format.
+Let's get started with Fluentd! Fluentd is  is fully free and fully open-source log collector that instantly enables you to have a '**Log Everything**' architecture with <a href="/plugin/">125+ other systems</a>. Fluentd treats logs as JSON, a popular machine-readable format.
 
 ## Step1: Installing Fluentd
 
 Please follow the installation/quickstart guides below that matches your environment.
 
-* [Install Fluentd with rpm Package](install-by-rpm)
-* [Install Fluentd with deb Package](install-by-deb)
-* [Install Fluentd with Ruby Gem](install-by-gem)
+* [Install Fluentd by Homebrew](install-by-homebrew) (Mac OS X)
+* [Install Fluentd by RPM package](install-by-rpm) (Redhat Linux)
+* [Install Fluentd by Deb package](install-by-deb) (Ubuntu/Debian Linux)
+* [Install Fluentd by Ruby Gem](install-by-gem)
+* [Install Fluentd by Chef](install-by-chef)
 * [Install Fluentd from source](install-from-source)
 
 NOTE: Fluentd doesn't run on Windows.
+
+Fluentd runs on major PaaSs as well.
+
+* [Install Fluentd on Heroku](install-on-heroku)
+* [Install Fluentd on AWS Elastic Beanstalk](install-on-beanstalk)
 
 ## Step2: Use
 
