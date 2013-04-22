@@ -1,6 +1,6 @@
 # Installing Fluentd using Homebrew (MacOS X)
 
-This article explains how to install the td-agent on Mac OS X, the stable Fluentd distribution package maintained by [Treasure Data, Inc](http://www.treasure-data.com/).
+This article explains how to install td-agent, the stable Fluentd distribution package maintained by [Treasure Data, Inc](http://www.treasure-data.com/), on MacOS X.
 
 ## What is td-agent?
 
@@ -8,11 +8,11 @@ Fluentd is written in Ruby for flexibility, with performance sensitive parts wri
 
 That's why [Treasure Data, Inc](http://www.treasure-data.com/) is providing **the stable distribution of Fluentd**, called `td-agent`. The differences between Fluentd and td-agent can be found [here](faq#what-is-the-difference-with-td-agent-and-fluentd).
 
-For MacOS X, we're using [Homebrew](http://mxcl.github.io/homebrew/) packaging manager, to distribute td-agent.
+For MacOS X, we're using the [Homebrew](http://mxcl.github.io/homebrew/) packaging manager to distribute td-agent.
 
 ## Step1: Install Homebrew
 
-If you don't install homebrew yet, please execute this command to install homebrew on your Mac.
+If you haven't installed Homebrew on your Mac yet, please install it using the command below.
 
     :::term
     $ ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"
@@ -21,7 +21,7 @@ If you don't install homebrew yet, please execute this command to install homebr
 
 ## Step2: Install td-agent
 
-Please make sure you have `brew` command, and use `brew install` to fetch td-agent formula to install td-agent.
+Once you have the `brew` command, please use `brew install` to fetch the td-agent formula and install td-agent.
 
     :::term
     $ brew install "http://toolbelt.treasure-data.com/brew/td-agent.rb"
@@ -33,7 +33,7 @@ You can launch `td-agent` in a foreground process.
     2013-04-19 16:55:03 -0700 [info]: starting fluentd-0.10.33
     2013-04-19 16:55:03 -0700 [info]: reading config file path="/usr/local/etc/td-agent/td-agent.conf"
 
-Alternatively, you can manage `td-agent` daemon process by using `launchctl`. This is not necessary, but it's convenient if you want to run td-agent as always. Let's register `td-agent` as a built-in daemon and launch it via `launchctl` command.
+Alternatively, you can manage the `td-agent` daemon process with `launchctl`. This is not necessary, but it's convenient if you want to continuously run td-agent in the background. Let's register `td-agent` as a built-in daemon and launch it using the `launchctl` command.
 
     :::term
     # Register
