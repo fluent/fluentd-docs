@@ -78,11 +78,25 @@ The most performance sensitive parts of Fluentd are carefully written in C, with
 
 In our benchmark experiments, a regular PC box was able to deliver 18,000 messages/second. If you need to handle a higher load, please consider using multiple Fluentd servers. If your application needs 100x this performance, please consider using other solutions or creating a custom solution.
 
-## What is the difference between Fluentd and Splunk?
+## What's the difference between Scribe and Fluentd?
+
+Not maintained v.s. Maintained. Simply speaking, Scribe isn't maintained anymore because Facebook doesn't use it anymore. They rewrote it in Java, and it's called [Calligraphus](http://www-conf.slac.stanford.edu/xldb2011/talks/xldb2011_tue_0940_facebookrealtimeanalytics.pdf). Scribe is more performant because it's written in C++, but hard to extend like Fluentd.
+
+## What's the difference between Kafka and Fluentd?
+
+Pull v.s. Push. Kafka is almost like a queue. Kafka needs another application to "pull" logged events to store them into a storage. Instead, Fluentd supports output plugins which "push" logged events to a storage.
+
+In push-based architecture, Fluentd also takes care of "buffering." When putting the files into the backend fails, Fluentd automatically retries to send a buffered file into it. For Kafka, you need to take care of the retry part by yourselves.
+
+## What's the difference between Flume and Fluentd?
+
+Java v.s. C + Ruby. If you want to use the Hadoop-families especially CDH (Cloudera Distribution for Hadoop) as a backend, you may have better support or compatibility. Fluentd is backend-storage agnostic, less memory footprint, and easy to use and extend.
+
+## What's the difference between Splunk and Fluentd?
 
 Splunk is a log collection + search engine for unstrucuted, text-based logs. It has a nice UI and indexing engine for searching for terms within text log files.
 
-Fluentd is a log collector daemon for semi-structured JSON-based logs. It deals with machine-readable logs, whereas Splunk handles text-based logs. Also, Fluentd is simply a mechanism for receiving, buffering, and forwarding the data to another place. It does not have search engine functionality.
+Fluentd is a log collector daemon for semi-structured JSON-based logs. It deals with machine-readable logs, whereas Splunk handles text-based logs. Also, Fluentd is simply a mechanism for receiving, buffering, and forwarding the data to another place. It does not have search engine functionality but you can use [ElasticSearch + Kibana](fluentd-elasticsearch-kibana) as a backend to search the logs.
 
 ## I have a weird timestamp value, what happened?
 
