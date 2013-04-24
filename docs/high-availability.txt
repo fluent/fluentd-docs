@@ -105,7 +105,7 @@ However, possible message loss scenarios do exist:
 
 When log aggregators receive events from log forwarders, the events are first written into a disk buffer (specified by buffer_path). After every flush_interval, the buffered data is uploaded into the cloud.
 
-This process is inherenty robust against data loss. If a log aggregator's fluentd process dies, the data from the log forwarder is properly retransferred after it restarts. If the network between aggregators and the cloud breaks, the data transfer is automatically retried.
+This process is inherently robust against data loss. If a log aggregator's fluentd process dies, the data from the log forwarder is properly retransferred after it restarts. If the network between aggregators and the cloud breaks, the data transfer is automatically retried.
 
 However, possible message loss scenarios do exist:
 
