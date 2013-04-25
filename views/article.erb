@@ -1,7 +1,9 @@
 <div id="page">
 <div class="topic_content">
-
 <article>
+  <%= erb :languages %>
+  <hr size="1" style="margin-top: 10px; margin-bottom: 10px; color: rgba(0, 0, 0, .15);">
+
   <hgroup>
     <h1><%= @title %></h1>
   </hgroup>
@@ -16,7 +18,11 @@
     </section>
   <% end %>
   <%= @body %>
-  <hr size="1" style="margin-top: 10px; margin-bottom: 18px; color: rgba(0, 0, 0, .15);">
+  <hr size="1" style="margin-top: 10px; margin-bottom: 10px; color: rgba(0, 0, 0, .15);">
+
+  <%= erb :languages %>
+
+  <hr size="1" style="margin-top: 10px; margin-bottom: 10px; color: rgba(0, 0, 0, .15);">
 
   <p>
     If this article is incorrect or outdated, or omits critical information, please <a href="http://github.com/fluent/fluentd-docs/">let us know</a> or comment below. Fluentd Project is sponsored by <a href="http://try.treasure-data.com/treasure-data-the-backend-for-fluentd/">Treasure Data, Inc </a><iframe src="http://treasure-data.com/icons/square_icon?event=ViewFluentdDoc&prop=VisitFluentd&size=20" scrolling="no" width="22px" height="22px" frameborder="0" marginwidth="0" marginheight="0"></iframe>

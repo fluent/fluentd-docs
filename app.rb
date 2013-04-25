@@ -39,11 +39,32 @@ set :static_cache_control, [:public, :max_age => 3600*24]
 $IO_CACHE ||= {}
 configure :production do
   if $IO_CACHE.empty?
-    Dir.glob("#{settings.root}/docs/*.txt") { |path|
+    Dir.glob(["#{settings.root}/docs/*.txt", "#{settings.root}/docs/*/*.txt"]) { |path|
       $IO_CACHE[path] = File.read(path)
     }
   end
 end
+
+#
+# For i18n
+#
+def build_available_languages
+  articles = Dir.glob("#{settings.root}/docs/*.txt").map { |a|
+    a["#{settings.root}/docs/".size..-(1 + ".txt".size)]
+  }
+
+  languages = {}
+  articles.each { |article|
+    langs = ['en']
+    Dir.glob("#{settings.root}/docs/*/#{article}.txt").each { |a|
+      langs << a["#{settings.root}/docs/".size..-(1 + 1 + "#{article}.txt".size)]
+    }
+    languages[article] = langs.sort
+  }
+  languages
+end
+$AVAILABLE_LANGUAGES = build_available_languages
+$DEFAULT_LANGUAGE = 'en'
 
 #
 # NOT FOUND
@@ -109,14 +130,25 @@ get '/categories/:category' do
   render_category params[:category]
 end
 
+get '/:lang/categories/:category' do
+  cache_long
+  render_category params[:category], params[:lang]
+end
+
 get '/articles/:article' do
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
   cache_long
   render_article params[:article], params[:congrats]
 end
 
+get '/:lang/articles/:article' do
+  puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
+  cache_long
+  render_article params[:article], params[:congrats], params[:lang]
+end
+
 helpers do
-  def render_category(category)
+  def render_category(category, lang = nil)
     @articles = []
     @desc = ''
     sections.each { |_, _, categories|
@@ -141,8 +173,10 @@ helpers do
     status 404
   end
 
-  def render_article(article, congrats)
-    @filepath = article_file(article)
+  def render_article(article, congrats, lang = $DEFAULT_LANGUAGE)
+    status 404 unless avaiable_language?(article, lang)
+
+    @filepath = article_file(article, lang)
     unless $IO_CACHE.has_key? @filepath
       $IO_CACHE[@filepath] = File.read(@filepath)
     end
@@ -155,18 +189,30 @@ helpers do
     @toc     = @article.toc
     @body    = @article.body
     @congrats = congrats ? true : false
+    @current_lang = lang
+    @available_langs = $AVAILABLE_LANGUAGES[article]
 
     erb :article
   rescue Errno::ENOENT
     status 404
   end
 
-  def article_file(article)
+  def article_file(article, lang)
     if article.include?('/')
       article
     else
-      "#{settings.root}/docs/#{article}.txt"
+      if lang == $DEFAULT_LANGUAGE
+        "#{settings.root}/docs/#{article}.txt"
+      else
+        "#{settings.root}/docs/#{lang}/#{article}.txt"
+      end
     end
+  end
+
+  def avaiable_language?(article, lang)
+    return true if lang == $DEFAULT_LANGUAGE
+
+    $AVAILABLE_LANGUAGES[article].include?(lang)
   end
 
   def cache_long
