@@ -57,7 +57,7 @@
           </section>
           <select id="quicknav">
             <option value="/">Home</option>
-            <% sections.each do |slug, title, categories| %>
+            <% sections(@current_lang).each do |slug, title, categories| %>
             <optgroup label="<%=title %>">
               <% categories.each do |slug, title, _| %>
               <option value="<%=prefix %>/categories/<%= slug %>"><%=h title %></option>
