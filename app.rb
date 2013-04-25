@@ -67,6 +67,24 @@ $AVAILABLE_LANGUAGES = build_available_languages
 $DEFAULT_LANGUAGE = 'en'
 
 #
+# For table-of-content
+#
+require 'toc'
+
+def build_tocs
+  toc_langs = Dir.glob("#{settings.root}/lib/toc.*.rb").map { |toc|
+    File.basename(toc, ".rb")["toc.".size..-1]
+  }
+
+  tocs = {}
+  toc_langs.each { |lang|
+    tocs[lang] = TOC.new(lang)
+  }
+  tocs
+end
+$TOCS = build_tocs
+
+#
 # NOT FOUND
 #
 not_found do
@@ -122,6 +140,7 @@ end
 get '/search' do
   page = params[:page].to_i
   search, prev_page, next_page = search_for(params[:q], page)
+  @current_lang = $DEFAULT_LANGUAGE
   erb :search, :locals => {:search => search, :query => params[:q], :prev_page => prev_page, :next_page => next_page}
 end
 
@@ -148,10 +167,10 @@ get '/:lang/articles/:article' do
 end
 
 helpers do
-  def render_category(category, lang = nil)
+  def render_category(category, lang = $DEFAULT_LANGUAGE)
     @articles = []
     @desc = ''
-    sections.each { |_, _, categories|
+    sections(lang).each { |_, _, categories|
       categories.each { |name, title, articles|
         if name == category
           @title = title
@@ -161,10 +180,17 @@ helpers do
         end
       }
     }
+
     if @articles.length == 1
       article_name = @articles.first.first
-      redirect "/articles/#{article_name}"
+      redirect_path = if lang == $DEFAULT_LANGUAGE
+                        "/articles/#{article_name}"
+                      else
+                        "/#{lang}/articles/#{article_name}"
+                      end
+      redirect redirect_path
     elsif !@articles.empty?
+      @current_lang = lang
       erb :category
     else
       status 404
@@ -189,6 +215,7 @@ helpers do
     @toc     = @article.toc
     @body    = @article.body
     @congrats = congrats ? true : false
+
     @current_lang = lang
     @available_langs = $AVAILABLE_LANGUAGES[article]
 
@@ -209,6 +236,10 @@ helpers do
     end
   end
 
+  def prefix
+    @current_lang == $DEFAULT_LANGUAGE ? '' : "/#{@current_lang}"
+  end
+
   def avaiable_language?(article, lang)
     return true if lang == $DEFAULT_LANGUAGE
 
@@ -223,9 +254,9 @@ helpers do
     title.downcase.gsub(/[^a-z0-9 -]/, '').gsub(/ /, '-')
   end
 
-  def find_category(article)
+  def find_category(article, lang = $DEFAULT_LANGUAGE)
     return nil if article.nil?
-    sections.each { |_, _, categories|
+    sections(lang).each { |_, _, categories|
       categories.each { |category_name, _, articles|
         articles.each { |article_name, _, _|
           return category_name if article_name == article
@@ -235,9 +266,9 @@ helpers do
     nil
   end
 
-  def find_keywords(article, category)
+  def find_keywords(article, category, lang = $DEFAULT_LANGUAGE)
     default = ['Fluentd', 'log collector']
-    sections.each { |_, _, categories|
+    sections(lang).each { |_, _, categories|
       categories.each { |category_name, _, articles|
         return default + [category_name] if category_name == category
         articles.each { |article_name, title, keywords|
@@ -250,8 +281,12 @@ helpers do
     default
   end
 
-  def sections
-    TOC.sections
+  def sections(lang = $DEFAULT_LANGUAGE)
+    if $TOCS.has_key?(lang)
+      $TOCS[lang].sections
+    else
+      $TOCS[$DEFAULT_LANGUAGE].sections
+    end
   end
 
   def next_section(current_slug, root=sections)
@@ -274,33 +309,4 @@ helpers do
   end
 
   alias_method :h, :escape_html
-end
-
-module TOC
-  extend self
-
-  def sections
-    @sections ||= []
-  end
-
-  # define a section
-  def section(name, title)
-    sections << [name, title, []]
-    yield if block_given?
-  end
-
-  # define a category
-  def category(name, title)
-    sections.last.last << [name, title, []]
-    yield if block_given?
-  end
-
-  # define a article
-  def article(name, title, keywords=[])
-    keywords = [name] + keywords
-    sections.last.last.last.last << [name, title, keywords]
-  end
-
-  file = File.dirname(__FILE__) + '/lib/toc.rb'
-  eval File.read(file), binding, file
 end

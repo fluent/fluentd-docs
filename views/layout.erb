@@ -6,7 +6,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta charset="utf-8">
   <title><%=h @title %> | Fluentd</title>
-  <meta name="keywords" content="<%= find_keywords(params[:article], params[:category]).join(',') %>">
+  <meta name="keywords" content="<%= find_keywords(params[:article], params[:category], @current_lang).join(',') %>">
   <meta name="description" content="<%= @desc %>">
   <meta name="google-site-verification" content="y_tydIQd6TZaoY-qR9geJSDX95h10_w4CXL6NznjgdI" />
   <meta name="msvalidate.01" content="FA8C6A3FF6ADEE726950F238947D5295" />
@@ -60,21 +60,21 @@
             <% sections.each do |slug, title, categories| %>
             <optgroup label="<%=title %>">
               <% categories.each do |slug, title, _| %>
-              <option value="/categories/<%= slug %>"><%=h title %></option>
+              <option value="<%=prefix %>/categories/<%= slug %>"><%=h title %></option>
               <% end %>
             </optgroup>
             <% end %>
           </select>
           <ul id="nav">
-            <% sections.each do |slug, title, categories| %>
+            <% sections(@current_lang).each do |slug, title, categories| %>
             <li class="category-group">
               <a class="category" href="#"><%= title %></a>
               <ul class="tags">
                 <% categories.each do |slug, title, _| %>
-                <% if (params[:category] == slug) || (find_category(params[:article]) == slug) %>
-                <li class="active"><a href="/categories/<%= slug %>"><%=h title %></a></li>
+                <% if (params[:category] == slug) || (find_category(params[:article], @current_lang) == slug) %>
+                <li class="active"><a href="<%=prefix %>/categories/<%= slug %>"><%=h title %></a></li>
                 <% else %>
-                <li><a href="/categories/<%= slug %>"><%=h title %></a></li>
+                <li><a href="<%=prefix %>/categories/<%= slug %>"><%=h title %></a></li>
                 <% end %>
                 <% end %>
               </ul>
