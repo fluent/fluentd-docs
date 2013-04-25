@@ -28,7 +28,7 @@ Unfortunately, no. Fluentd depends on a Ruby gem called cool.io, which doesn't w
 
 ## Does Fluentd have UI or storage?
 
-No, Fluentd doesn't have both UI and storage. But [Kibana integration](fluentd-elasticsearch-kibana) could help you.
+No, Fluentd doesn't have either UI or storage. However, [Kibana integration](fluentd-elasticsearch-kibana) may be useful for you.
 
 ## What is Fluentd's 'tag'?
 
