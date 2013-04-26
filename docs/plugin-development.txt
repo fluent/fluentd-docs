@@ -86,11 +86,18 @@ Extend the **Fluent::BufferedOutput** class and implement the following methods.
       # Convert the event to a raw string.
       def format(tag, time, record)
         [tag, time, record].to_json + "\n"
+        # Alternatively, use msgpack to serialize the object.
+        # [tag, time, record].to_msgpack
       end
 
-      ## Optionally, you can use to_msgpack to serialize the object.
-      #def format(tag, time, record)
-      #  [tag, time, record].to_msgpack
+      ## Intead of the above method, you could instead implement this method,
+      ## which is called by fluentd to process a collection of events.
+      #def format_stream(tag, es)
+      #  es.each {|time, record|
+      #    [tag, time, record].to_json + "\n"
+      #    # Alternatively, use msgpack to serialize the object. 
+      #    # [tag, time, record].to_msgpack
+      #  }
       #end
 
       # This method is called every flush interval. Write the buffer chunk
