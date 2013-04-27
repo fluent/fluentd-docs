@@ -60,7 +60,7 @@
             <% sections(@current_lang).each do |slug, title, categories| %>
             <optgroup label="<%=title %>">
               <% categories.each do |slug, title, _| %>
-              <option value="<%=prefix %>/categories/<%= slug %>"><%=h title %></option>
+              <option value="/<%=prefix %>categories/<%= slug %>"><%=h title %></option>
               <% end %>
             </optgroup>
             <% end %>
@@ -72,9 +72,9 @@
               <ul class="tags">
                 <% categories.each do |slug, title, _| %>
                 <% if (params[:category] == slug) || (find_category(params[:article], @current_lang) == slug) %>
-                <li class="active"><a href="<%=prefix %>/categories/<%= slug %>"><%=h title %></a></li>
+                <li class="active"><a href="/<%=prefix %>categories/<%= slug %>"><%=h title %></a></li>
                 <% else %>
-                <li><a href="<%=prefix %>/categories/<%= slug %>"><%=h title %></a></li>
+                <li><a href="/<%=prefix %>categories/<%= slug %>"><%=h title %></a></li>
                 <% end %>
                 <% end %>
               </ul>

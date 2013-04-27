@@ -247,7 +247,7 @@ helpers do
   end
 
   def prefix
-    (@current_lang.nil? || @current_lang == $DEFAULT_LANGUAGE) ? '' : "/#{@current_lang}"
+    (@current_lang.nil? || @current_lang == $DEFAULT_LANGUAGE) ? '' : "#{@current_lang}/"
   end
 
   def avaiable_language?(article, lang)

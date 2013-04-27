@@ -10,7 +10,7 @@
   <% @articles.each do |name, title, _| %>
     <ul class="articles results">
       <li>
-        <a href="<%=prefix %>/articles/<%= slugify(name) %>"><%= title %></a>
+        <a href="/<%=prefix %>articles/<%= slugify(name) %>"><%= title %></a>
       </li>
     </ul>
   <% end %>
