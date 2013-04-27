@@ -125,16 +125,11 @@ get '/robots.txt' do
 end
 
 get '/sitemap.xml' do
-  @articles = []
-  sections.each { |_, _, categories|
-    categories.each { |_, _, articles|
-      articles.each { |name, _, _|
-        @articles << name
-      }
-    }
-  }
-  content_type 'text/xml'
-  erb :sitemap, :layout => false
+  render_sitemap
+end
+
+get '/:lang/sitemap.xml' do
+  render_sitemap(params[:lang])
 end
 
 get '/search' do
@@ -222,6 +217,21 @@ helpers do
     erb :article
   rescue Errno::ENOENT
     status 404
+  end
+
+  def render_sitemap(lang = $DEFAULT_LANGUAGE)
+    status 404 unless avaiable_language?('quickstart', lang)
+
+    @articles = []
+    sections(lang).each { |_, _, categories|
+      categories.each { |_, _, articles|
+        articles.each { |name, _, _|
+          @articles << name
+        }
+      }
+    }
+    content_type 'text/xml'
+    erb :sitemap, :layout => false
   end
 
   def article_file(article, lang)
