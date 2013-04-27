@@ -125,11 +125,20 @@ get '/robots.txt' do
 end
 
 get '/sitemap.xml' do
-  render_sitemap
-end
-
-get '/:lang/sitemap.xml' do
-  render_sitemap(params[:lang])
+  @articles = {}
+  $TOCS.each_pair { |lang, toc|
+    article_names = []
+    toc.sections.each { |_, _, categories|
+      categories.each { |_, _, articles|
+        articles.each { |name, _, _|
+          article_names << name
+        }
+      }
+    }
+    @articles[lang] = article_names
+  }
+  content_type 'text/xml'
+  erb :sitemap, :layout => false
 end
 
 get '/search' do
@@ -217,21 +226,6 @@ helpers do
     erb :article
   rescue Errno::ENOENT
     status 404
-  end
-
-  def render_sitemap(lang = $DEFAULT_LANGUAGE)
-    status 404 unless avaiable_language?('quickstart', lang)
-
-    @articles = []
-    sections(lang).each { |_, _, categories|
-      categories.each { |_, _, articles|
-        articles.each { |name, _, _|
-          @articles << name
-        }
-      }
-    }
-    content_type 'text/xml'
-    erb :sitemap, :layout => false
   end
 
   def article_file(article, lang)

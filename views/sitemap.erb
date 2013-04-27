@@ -6,14 +6,17 @@
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-  <% @articles.each do |article| %>
-    <% if File.exist?("#{settings.root}/docs/#{prefix}#{article}.txt") %>
-      <url>
-        <loc>http://docs.fluentd.org/<%=prefix %>articles/<%= article %></loc>
-        <lastmod><%= File::mtime("#{settings.root}/docs/#{prefix}#{article}.txt").strftime("%Y-%m-%d") %></lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-      </url>
+  <% @articles.each_pair do |lang, articles| %>
+    <% @current_lang = lang %>
+    <% articles.each do |article| %>
+      <% if File.exist?("#{settings.root}/docs/#{prefix}#{article}.txt") %>
+        <url>
+          <loc>http://docs.fluentd.org/<%=prefix %>articles/<%= article %></loc>
+          <lastmod><%= File::mtime("#{settings.root}/docs/#{prefix}#{article}.txt").strftime("%Y-%m-%d") %></lastmod>
+          <changefreq>daily</changefreq>
+          <priority>0.8</priority>
+        </url>
+      <% end %>
     <% end %>
   <% end %>
 </urlset>
