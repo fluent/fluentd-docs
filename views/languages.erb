@@ -1,7 +1,9 @@
+<div style="text-align:right">
 Available languages <% @available_langs.each { |lang| %>
   <% if lang == @current_lang %>
-  | <%= lang %>
+  | <b><i><%= lang %></i><b>
   <% else %>
   | <a href="<%= "#{lang == 'en' ? '' : "/#{lang}"}/articles/#{@article.topic}" %>"><%= lang %></a>
   <% end %>
 <% } %> |
+</div>
