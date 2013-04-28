@@ -43,3 +43,23 @@ task :index do
   puts "finished indexing"
 end
 
+desc 'Build last_updated.json'
+task :last_updated do
+  require 'json'
+  require 'time'
+
+  last_updates = {}
+  `git ls-files docs`.split("\n").each { |file|
+    lang, name = file['docs/'.size..-1].split('/', 2)
+    if name.nil?
+      name = lang
+      lang = 'en'
+    end
+
+    path = Pathname.new(file).realpath.to_s
+    last_updates[lang] ||= {}
+    last_updates[lang][File.basename(name, ".txt")] = Time.at((`git log --pretty=%ct --max-count=1 #{path}`.strip).to_i).utc
+  }
+
+  File.write("./config/last_updated.json", JSON.dump(last_updates))
+end

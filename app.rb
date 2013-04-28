@@ -6,6 +6,7 @@ require 'sass'
 require 'coderay'
 require 'indextank'
 require 'rack/codehighlighter'
+require 'json'
 
 $LOAD_PATH << File.dirname(__FILE__) + '/lib'
 require 'article.rb'
@@ -83,6 +84,11 @@ def build_tocs
   tocs
 end
 $TOCS = build_tocs
+
+#
+# Last update list for each article
+#
+$LAST_UPDATED = JSON.parse(File.read("#{settings.root}/config/last_updated.json"))
 
 #
 # NOT FOUND
@@ -219,6 +225,7 @@ helpers do
     @toc     = @article.toc
     @body    = @article.body
     @congrats = congrats ? true : false
+    @last_updated = $LAST_UPDATED[lang][article]
 
     @current_lang = lang
     @available_langs = $AVAILABLE_LANGUAGES[article]
