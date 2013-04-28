@@ -19,6 +19,13 @@ If you'd like to propose an edit to the Fluentd docs, fork this repo, then send 
 
     $ git push heroku master
 
+## NOTE
+
+When updated the article, please update config/last_updated.json too.
+
+    $ bundle exec rake last_updated
+    $ git add config/last_updated.json
+
 # Add other language
 
 0. First, please create symlink to english article for preventing 404.
