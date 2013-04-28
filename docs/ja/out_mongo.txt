@@ -1,1 +1,131 @@
-../out_mongo.txt
+# MongoDBアウトプットプラグイン
+
+`out_mongo`バッファアウトプットプラグインは、ドキュメント指向データベースである[MongoDB](http://mongodb.org/)へとレコードを書き出します。
+
+NOTE: ReplicaSetを使う場合には、<a href="out_mongo_replset">out_mongo_replset</a>の記事を参照してください。
+
+## なぜFluentdとMongoDB？
+
+Fluentdは、あなたのアプリケーションから直接レコードを書き込むのと違い、バッチで非同期にMongoDBへとレコードを書き込めるようにします。これには以下のようなアドバンテージがあります。
+
+1. アプリケーションパフォーマンスへの影響が少ない
+2. MongoDBへのより高い書き込みスループット
+
+## インストール
+
+`out_mongo`はデフォルトでtd-agentに含まれています。Fluentdのgemを利用している方は、以下のコマンドでfluent-plugin-mongoをインストールしてください。
+ 
+    :::term
+    $ fluent-gem install fluent-plugin-mongo
+
+## 設定例
+
+    # Single MongoDB
+    <match mongo.**>
+      type mongo
+      host fluentd
+      port 27017
+      database fluentd
+      collection test
+
+      # for capped collection
+      capped
+      capped_size 1024m
+
+      # authentication
+      user michael
+      password jordan
+
+      # flush
+      flush_interval 10s
+    </match>
+
+実際のユースケースに関しては、[ApacheのログをMongoDBに保存する](apache-to-mongodb)を参照してください。
+
+NOTE: 設定ファイルの基本的な構造や文法に関しては、<a href="config-file">設定ファイル</a>を参照してください。
+
+## パラメータ
+
+### type (必須)
+
+値は`mongo`です。
+
+### host (必須)
+
+MongoDBのホスト名。
+
+### port (必須)
+
+MongoDBのポート。
+
+### database (必須)
+
+データベース名。
+
+### collection (tag_mappedでない場合は必須)
+
+コレクション名。
+
+### capped
+
+このオプションを指定すると、cappedコレクションになります。MongoDBは巨大な歴史的なデータの保存には適していないため、このオプションは推奨されています。
+
+#### capped_size
+
+cappedコレクションのサイズ。
+
+### user
+
+認証で使うユーザ名。
+
+### password
+
+認証で使うパスワード。
+
+### tag_mapped
+
+このオプションは、Fluentdのタグを書き込み先のコレクションに使えるようにします。
+
+例えば以下の例の場合、あなたが'mongo.foo'のタグでレコードを生成した場合、このレコードは`fluentd`データベースの`foo`コレクションにレコードが書き込まれます。
+
+    :::text
+    <match mongo.*>
+      type mongo
+      host fluentd
+      port 27017
+      database fluentd
+
+      # Set 'tag_mapped' if you want to use tag mapped mode.
+      tag_mapped
+
+      # If the tag is "mongo.foo", then the prefix "mongo." is removed.
+      # The inserted collection name is "foo".
+      remove_tag_prefix mongo.
+
+      # This configuration is used if the tag is not found. The default is 'untagged'.
+      collection misc
+    </match>
+
+
+## Buffer Parameters
+
+更に進んだ利用をするために、以下のパラメータを使ってFluentd内部のバッファを調整することが出来ます。
+
+### buffer_type
+
+バッファタイプはデフォルトで`memory`です([buf_memory](buf_memory))。`file`([buf_file](buf_file))バッファタイプも同様に選べます。
+
+### buffer_queue_limit, buffer_chunk_limit
+
+チャンクキューとチャンクサイズの長さをそれぞれ指定出来ます。基本的なバッファの構造に関しては[バッファプラグイン概要](buffer-plugin-overview)を参照してください。デフォルトはそれぞれ64と8Mです。“k” (KB), “m” (MB), and “g” (GB)のサフィックスはbuffer_chunk_limitで利用出来ます。
+
+### flush_interval
+
+データをフラッシュする間隔です。デフォルトはそれぞれ60sです。“s” (seconds), “m” (minutes), and “h”を利用出来ます。
+
+### retry_wait and retry_limit
+
+書き込みリトライの間隔と、リトライ回数です。デフォルトはそれぞれ1.0と17です。`retry_wait`は各リトライを2倍にします(例えば最後のリトライは131072秒、約36時間待ちます)。
+
+## Futher Reading
+- [fluent-plugin-mongo repository](https://github.com/fluent/fluent-plugin-mongo)
