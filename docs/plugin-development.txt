@@ -86,7 +86,7 @@ Extend the **Fluent::BufferedOutput** class and implement the following methods.
       # Convert the event to a raw string.
       def format(tag, time, record)
         [tag, time, record].to_json + "\n"
-        # Alternatively, use msgpack to serialize the object.
+        ## Alternatively, use msgpack to serialize the object.
         # [tag, time, record].to_msgpack
       end
 
