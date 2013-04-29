@@ -1,1 +1,32 @@
-../before-install.txt
+# Fluentdインストールの前に
+
+Fluentdをインストールする前に、以下の手順にしたがってお使いの環境をセットアップする必要があります。そうしなければ多くの不要な問題の原因となるでしょう。
+
+## NTPの設定
+
+ログ内に無効なタイムスタンプが入ることを防ぐためにノード上で *ntpd* を設定することを強くお勧めします。
+
+## ファイルディスクリプタの最大値を増やす
+
+ファイルディスクリプタの最大数を増やしてください。現在の数値は `ulimit -n` コマンドで確認できます。
+
+    :::term
+    $ ulimit -n
+    65535
+
+コンソールに `1024` と表示される場合、それでは不十分です。 `/etc/security/limits.conf` に次の行を追加した後、マシンを再起動してください。
+
+    :::term
+    root soft nofile 65536
+    root hard nofile 65536
+    * soft nofile 65536
+    * hard nofile 65536
+
+## ネットワーク関係のカーネルパラメータの最適化
+
+`/etc/sysctl.conf` ファイルにこれらのパラメータを追加した後、 `sysctl -w` と入力するかまたはノードを再起動してください。
+
+    :::term
+    net.ipv4.tcp_tw_recycle = 1
+    net.ipv4.tcp_tw_reuse = 1
+    net.ipv4.ip_local_port_range = 10240    65535
