@@ -12,7 +12,7 @@ That's why [Treasure Data, Inc](http://www.treasure-data.com/) is providing **th
 
 Please follow the [Preinstallation Guide](before-install) to configure your OS properly. This will prevent many unnecessary problems.
 
-## Step1: Install from Apt Repository
+## Step1 (Ubuntu): Install from Apt Repository
 
 "Ubuntu 12.04 LTS / Precise" and "Ubuntu 10.04 LTS / Lucid" are currently supported.
 
@@ -29,6 +29,24 @@ Executing [install-ubuntu-lucid.sh](http://toolbelt.treasure-data.com/sh/install
     $ curl -L http://toolbelt.treasure-data.com/sh/install-ubuntu-lucid.sh | sh
 
 NOTE: It's HIGHLY recommended that you set up <b>ntpd</b> on the node to prevent invalid timestamps in your logs.
+
+## Step1 (Debian): Download .dpkg and Install Manually
+
+This method works with Debian Squeeze.
+
+#### Debian Squeeze
+
+Download the [most recent .deb](http://packages.treasure-data.com/debian/pool/contrib/t/td-agent/). Make sure and get the proper architecture for your version of Debian (i386 or amd64).
+
+Install the dependencies manually.
+
+    :::term
+    $ apt-get install -y libxslt1.1 libyaml-0-2
+
+Then install the downloaded .dpkg.
+
+    :::term
+    $ dpkg -i /path/to/downloaded/deb
 
 ## Step2: Launch Daemon
 
