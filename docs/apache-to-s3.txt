@@ -71,7 +71,7 @@ The output destination will be Amazon S3. The output configuration should look l
       aws_sec_key YOUR_AWS_SECRET/KEY
       s3_bucket YOUR_S3_BUCKET_NAME
       path logs/
-      buffer_path /var/log/fluent/s3
+      buffer_path /var/log/td-agent/s3
 
       time_slice_format %Y%m%d%H
       time_slice_wait 10m
