@@ -32,20 +32,20 @@ section 'overview', 'Overview' do
   end
 end
 section 'tutorial', 'Tutorial' do
+  category 'free-alternative-to-splunk-by-fluentd', 'Data Search like Splunk' do
+    article 'free-alternative-to-splunk-by-fluentd', 'Data Search like Splunk', ['Splunk', 'Free Alternative']
+  end
+  category 'http-to-td', 'Data Analytics with TD' do
+    article 'http-to-td', 'Data Analytics with Treasure Data', ['Treasure Data', 'Hadoop', 'Hive']
+  end
   category 'apache-to-mongo', 'Data Collection to Mongo' do
     article 'apache-to-mongodb', 'Store Apache Logs into MongoDB', ['MongoDB']
   end
   category 'http-to-hdfs', 'Data Collection to HDFS' do
     article 'http-to-hdfs', 'Data Collection to HDFS', ['Hadoop', 'HDFS']
   end
-  category 'http-to-td', 'Data Analytics with TD' do
-    article 'http-to-td', 'Data Analytics with Treasure Data', ['Treasure Data', 'Hadoop', 'Hive']
-  end
   category 'apache-to-s3', 'Data Archiving to S3' do
     article 'apache-to-s3', 'Store Apache Logs into Amazon S3', ['Amazon S3']
-  end
-  category 'fluentd-elasticsearch-kibana', 'Data Search with Kibana' do
-    article 'fluentd-elasticsearch-kibana', 'Data Search with Kibana', ['Treasure Data', 'Hadoop', 'Hive']
   end
   category 'ruby', 'Logging from Ruby' do
     article 'ruby',   'Import Logs from Ruby Applications'
