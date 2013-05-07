@@ -16,7 +16,7 @@
     Java(TM) SE Runtime Environment (build 1.6.0_45-b06-451-11M4406)
     Java HotSpot(TM) 64-Bit Server VM (build 20.45-b01-451, mixed mode)
 
-### Ruby for Fluentd and Kibana
+### Ruby for Kibana
 
     :::term
     $ ruby --version
