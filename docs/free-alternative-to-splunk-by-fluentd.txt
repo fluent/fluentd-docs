@@ -50,14 +50,20 @@ Then, start Kibana. You can modify Kibana configuration via KibanaConfig.rb.
     :::term
     $ bundle exec ruby kibana.rb
 
-## Setup Fluentd
+## Setup Fluentd (td-agent)
 
-Install Fluentd and ElasticSearch plugin:
+Let's install td-agent, the packaged version of Fluentd first.
+
+* [Debian Package](install-by-deb)
+* [RPM Package](install-by-rpm)
+* [Ruby gem](install-by-gem)
+
+After that, we need to install fluent-plugin-elastic search.
 
     :::term
-    $ gem install fluentd fluent-plugin-elasticsearch
+    $ /usr/lib64/fluent/ruby/bin/fluent-gem install fluent-plugin-elasticsearch
 
-Fluentd configuration is like below:
+Please modify `/etc/td-agent/td-agent.conf` like below:
 
     :::text
     <source>
@@ -76,26 +82,10 @@ Fluentd configuration is like below:
       flush_interval 10s # for testing
     </match>
 
-fluent-plugin-elasticsearch provides logstash_format option. It enables Kibana to search stored event logs in ElasticSearch. Finally, let's start Fluentd.
+fluent-plugin-elasticsearch provides logstash_format option. It enables Kibana to search stored event logs in ElasticSearch. Finally, let's start td-agent.
 
     :::term
-    $ fluentd -c fluentd.conf
-    2013-04-17 00:03:51 -0700 [info]: starting fluentd-0.10.33
-    2013-04-17 00:03:51 -0700 [info]: listening fluent socket on 0.0.0.0:24224
-
-## Store and Search event logs
-
-Send some events to Fluentd.
-
-    :::term
-    $ echo '{"message":"Hello!"}'    | fluent-cat syslog.example
-    $ echo '{"message":"D"}'         | fluent-cat syslog.example
-    $ echo '{"message":"Ruby"}'      | fluent-cat syslog.example
-    $ echo '{"message":"Elastic!!"}' | fluent-cat syslog.example
-
-After Fluentd flushed received events to ElasticSearch, you can search the stored event logs via Kibana by accessing [http://127.0.0.1:5601/](http://127.0.0.1:5601/) by the browser.
-
-<center><img src="/images/kibana_and_fluentd.png" width="90%"/></center><br/><br/>
+    $ sudo /etc/init.d/td-agent start
 
 ## Setup rsyslogd
 
@@ -103,6 +93,38 @@ Finally, let's forward the logs from your rsyslogd to Fluentd. Please add the fo
 
     :::text
     *.* @127.0.0.1:42185
+
+rsyslog service must be restarted after the modification.
+
+    :::text
+    $ sudo /etc/init.d/rsyslog restart
+
+## Store and Search event logs
+
+After Fluentd receives some logs from rsyslog and flushed them to ElasticSearch, you can search the stored event logs via Kibana by accessing [http://127.0.0.1:5601/](http://127.0.0.1:5601/) by the browser.
+
+<center><img src="/images/kibana_and_fluentd.png" width="90%"/></center><br/><br/>
+
+To manually send the log, please use `logger` command.
+
+    :::text
+    $ logger -t test foobar
+
+To debug the td-agent configuration, using [out_copy](out_copy) + [out_stdout](out_stdout) is useful. All the logs including errors are at `/etc/td-agent/td-agent.log`.
+
+    :::text
+    <match syslog.**>
+      type copy
+      <store>
+        # for debug (see /var/log/td-agent.log)
+        type stdout
+      </store>
+      <store>
+        type elasticsearch
+        logstash_format true
+        flush_interval 10s # for testing
+      </store>
+    </match>
 
 ## Conclusion
 
