@@ -1,4 +1,4 @@
-# Best Free Alternative to Splunk by Fluentd
+# Free Alternative to Splunk by Fluentd
 
 [Splunk](http://www.splunk.com/) is a great solution for log search, except its cost. Kibana + ElasticSearch + Fluentd give you a free alternative of Splunk, with easy setup :)
 
