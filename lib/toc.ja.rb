@@ -7,12 +7,12 @@ section 'overview', 'Overview' do
   category 'architecture', 'アーキテクチャ' do
     article 'architecture', 'アーキテクチャ'
   end
-  category 'installation', 'Installation' do
-    article 'before-install', 'Before Installing Fluentd'
-    article 'install-by-homebrew', 'Installing Fluentd using Homebrew (MacOS X)'
-    article 'install-by-rpm', 'Installing Fluentd using RPM Package (Redhat Linux)'
-    article 'install-by-deb', 'Installing Fluentd using DEB Package (Debian / Ubuntu Linux)'
-    article 'install-by-gem', 'Installing Fluentd using Ruby Gem'
+  category 'installation', 'インストール' do
+    article 'before-install', 'Fluentdインストールの前に'
+    article 'install-by-homebrew', 'HomebrewでFluentdをインストールする (Mac OS X)'
+    article 'install-by-rpm', 'rpmパッケージからFluentdをインストールする'
+    article 'install-by-deb', 'debパッケージからFluentdをインストールする'
+    article 'install-by-gem', 'Ruby GemからFluentdをインストールする'
     article 'install-by-chef', 'Installing Fluentd using Chef'
     article 'install-from-source', 'Installing Fluentd from Source'
     article 'install-on-heroku', 'Installing Fluentd on Heroku'

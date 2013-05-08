@@ -1,4 +1,4 @@
-# Ruby Gemを使ってFluentdをインストールする
+# Ruby GemからFluentdをインストールする
 
 この記事では、Ruby gemを使ってFluentdをインストールする方法について説明します。
 
