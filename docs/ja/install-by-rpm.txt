@@ -1,1 +1,65 @@
-../install-by-rpm.txt
+# rpmパッケージからFluentdをインストールする
+
+この記事では、[Treasure Data社](http://www.treasure-data.com/)がメンテナンスしているFluentdの安定版配布パッケージであるtd-agentのrpmパッケージをインストールする方法について説明します。
+
+## td-agentとは?
+
+Fluentdは拡張しやすいようRubyで実装され、一部の性能に直結する部分はC言語で実装されています。しかしライトユーザーにとってRubyのデーモンをインストールし運用することは難しい場合があります。
+
+それが[Treasure Data社](http://www.treasure-data.com/)が **Fluentd安定版の配布パッケージ** を提供している理由であり、これは `td-agent` と呼ばれています。Fluentdとtd-agentの違いは[ここ](faq#what-is-the-difference-with-td-agent-and-fluentd)で確認することができます。
+
+## Step0: インストールの前に
+
+[プレインストールガイド](before-install)に従ってOSのプロパティを設定してください。そうすることで多くの不要な問題を防げるでしょう。
+
+## Step1: rpmリポジトリからのインストール
+
+現在、CentOSとRHEL(5.0以降)がサポートされています。
+
+[install-redhat.sh](http://toolbelt.treasure-data.com/sh/install-redhat.sh)を実行すると自動的にtd-agentがインストールされます。このシェルスクリプトは`/etc/yum.repos.d/td.repo`に新しいrpmリポジトリを登録し、 `td-agent` のrpmパッケージをインストールします。
+
+    $ curl -L http://toolbelt.treasure-data.com/sh/install-redhat.sh | sh
+
+注意: ログ内に無効なタイムスタンプが入ることを防ぐためにノード上で<b>ntpd</b>を設定することを強くお勧めします。
+
+## Step2: デーモンの起動
+
+`/etc/init.d/td-agent` スクリプトはエージェントの起動, 停止, 再起動を提供します。
+
+    $ /etc/init.d/td-agent start 
+    Starting td-agent: [  OK  ]
+    $ /etc/init.d/td-agent status
+    td-agent (pid  21678) is running...
+
+以下のコマンドがサポートされています。
+
+    :::term
+    $ /etc/init.d/td-agent start
+    $ /etc/init.d/td-agent stop
+    $ /etc/init.d/td-agent restart
+    $ /etc/init.d/td-agent status
+
+**設定ファイル** が `/etc/td-agent/td-agent.conf` にあることを確認してください。
+
+## Step3: HTTP経由でのサンプルログ送信
+
+デフォルトでは、 `/etc/td-agent/td-agent.conf` はHTTPからログを取得するよう構成され、標準出力にルーティングされます(`/var/log/td-agent/td-agent.log`)。curlコマンドを用いてサンプルログを送信することができます。
+
+    :::term
+    $ curl -X POST -d 'json={"json":"message"}' http://localhost:8888/debug.test
+
+## 次のステップ
+
+これでFluentdを使って実際のログを収集する準備が整いました。さまざまなデータソースからデータを収集する方法については、以下のチュートリアルを参照してください。
+
+  * アプリケーションログ
+    * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
+  * 使用例
+    * [ApacheのログをAmazon S3に送る方法](apache-to-s3)
+    * [ApacheのログをMongoDBに蓄積する方法](apache-to-mongodb)
+    * [HDFSへのデータ収集](http-to-hdfs)
+
+さらなるステップについては以下のリソースを参照してください。
+
+* [td-agentのChangeLog](http://help.treasure-data.com/kb/installing-td-agent-daemon/changelog-of-td-agent)
+* [Chef Cookbook](https://github.com/treasure-data/chef-td-agent/)
