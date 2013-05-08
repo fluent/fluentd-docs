@@ -10,8 +10,8 @@ section 'overview', 'Overview' do
   category 'installation', 'インストール' do
     article 'before-install', 'Fluentdインストールの前に'
     article 'install-by-homebrew', 'HomebrewでFluentdをインストールする (Mac OS X)'
-    article 'install-by-rpm', 'rpmパッケージからFluentdをインストールする'
-    article 'install-by-deb', 'debパッケージからFluentdをインストールする'
+    article 'install-by-rpm', 'RPMパッケージからFluentdをインストールする (Redhat Linux)'
+    article 'install-by-deb', 'DEBパッケージからFluentdをインストールする (Debian / Ubuntu Linux)'
     article 'install-by-gem', 'Ruby GemからFluentdをインストールする'
     article 'install-by-chef', 'Installing Fluentd using Chef'
     article 'install-from-source', 'Installing Fluentd from Source'
