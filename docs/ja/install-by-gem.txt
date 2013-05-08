@@ -1,1 +1,49 @@
-../install-by-gem.txt
+# Ruby Gemを使ってFluentdをインストールする
+
+この記事では、Ruby gemを使ってFluentdをインストールする方法について説明します。
+
+## Step0: インストールの前に
+
+[プレインストールガイド](before-install)に従ってOSのプロパティを設定してください。そうすることで多くの不要な問題を防げるでしょう。
+
+## Step1: Rubyインタプリタのインストール
+
+ローカルにRuby(>= 1.9.2)をインストールしてください。
+
+## Step2: Fluentd gemのインストール
+
+`gem` コマンドを使って `fluentd` Ruby gemの取得とインストールを行ってください。ruby gemの公式ページは[こちら](https://rubygems.org/gems/fluentd)です。
+
+    :::term
+    $ gem install fluentd --no-ri --no-rdoc
+
+## Step3: 実行
+
+Fluentdが正常にインストールされたことを確認するために、次のコマンドを実行します。
+
+    :::term
+    $ fluentd --setup ./fluent
+    $ fluentd -c ./fluent/fluent.conf -vv &
+    $ echo '{"json":"message"}' | fluent-cat debug.test
+
+最後のコマンドは、Fluentdに“debug.test”というタグで‘{“json”:”message”}’というメッセージを送信します。インストールが成功していれば、Fluentdは次のようなメッセージを出力するでしょう。
+
+    :::term
+    2011-07-10 16:49:50 +0900 debug.test: {"json":"message"}
+
+注意: ログ内に無効なタイムスタンプが入ることを防ぐためにノード上で<b>ntpd</b>を設定することを強くお勧めします。
+
+注意: 規模が大きい場合、メモリの断片化を避けるために<a href="http://www.canonware.com/jemalloc/">jemalloc</a>を使う必要があります。これは<a href="install-by-rpm">rpm</a>および<a href="install-by-deb">deb</a>パッケージにはあらかじめ含まれています。
+
+注意: Fluentd gemをインストールしても /etc/init.d/ にスクリプトは作られません。<a href="http://cr.yp.to/daemontools.html">daemontools</a>, <a href="http://smarden.org/runit/">runit</a>, <a href="http://supervisord.org/">supervisord</a>, または<a href="http://upstart.ubuntu.com/">upstart</a>のようなプロセス管理ツールを使う必要があります。
+
+## 次のステップ
+
+これでFluentdを使って実際のログを収集する準備が整いました。さまざまなデータソースからデータを収集する方法については、以下のチュートリアルを参照してください。
+
+  * アプリケーションログ
+    * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
+  * 使用例
+    * [Application LogsApacheのログをAmazon S3に送る方法](apache-to-s3)
+    * [ApacheのログをMongoDBに蓄積する方法](apache-to-mongodb)
+    * [HDFSへのデータ収集](http-to-hdfs)
