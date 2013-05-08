@@ -44,6 +44,6 @@ Fluentdが正常にインストールされたことを確認するために、�
   * アプリケーションログ
     * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
   * 使用例
-    * [Application LogsApacheのログをAmazon S3に送る方法](apache-to-s3)
+    * [ApacheのログをAmazon S3に送る方法](apache-to-s3)
     * [ApacheのログをMongoDBに蓄積する方法](apache-to-mongodb)
     * [HDFSへのデータ収集](http-to-hdfs)
