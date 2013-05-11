@@ -13,7 +13,7 @@ section 'overview', 'Overview' do
     article 'install-by-rpm', 'RPMパッケージからFluentdをインストールする (Redhat Linux)'
     article 'install-by-deb', 'DEBパッケージからFluentdをインストールする (Debian / Ubuntu Linux)'
     article 'install-by-gem', 'Ruby GemからFluentdをインストールする'
-    article 'install-by-chef', 'Installing Fluentd using Chef'
+    article 'install-by-chef', 'ChefでFluentdをインストールする'
     article 'install-from-source', 'Installing Fluentd from Source'
     article 'install-on-heroku', 'Installing Fluentd on Heroku'
     article 'install-on-beanstalk', 'Installing Fluentd on AWS Elastic Beanstalk'
