@@ -1,1 +1,56 @@
-../install-from-source.txt
+# ソースコードからFluentdをインストールする
+
+この記事では、gitリポジトリのソースコードからFluentdをインストールする方法について説明します。これは開発者にとって便利な方法です。
+
+## Step1: Rubyインタプリタのインストール
+
+ローカルにRuby(>= 1.9.2)をインストールしてください。
+
+## Step2: ソースコードの取得
+
+githubからソースコードを取得します。公式のリポジトリは[こちら](http://github.com/fluent/fluentd/)です。
+
+    :::term
+    $ git clone https://github.com/fluent/fluentd.git
+    $ cd fluentd
+
+## Step3: ビルドとインストール
+
+`rake` でパッケージをビルドし、 `gem` でインストールしてください。
+
+    :::term
+    $ rake build
+    Successfully built RubyGem
+    Name: fluentd
+    Version: xxx
+    File: fluentd-xxx.gem
+    $ gem install pkg/fluentd-xxx.gem
+
+## Step4: 実行
+
+Fluentdが正常にインストールされたことを確認するために、次のコマンドを実行します。
+
+    :::term
+    $ fluentd --setup ./fluent
+    $ fluentd -c ./fluent/fluent.conf -vv &
+    $ echo '{"json":"message"}' | fluent-cat debug.test
+
+最後のコマンドは、Fluentdに“debug.test”というタグで‘{“json”:”message”}’というメッセージを送信します。インストールが成功していれば、Fluentdは次のようなメッセージを出力するでしょう。
+
+    :::term
+    2011-07-10 16:49:50 +0900 debug.test: {"json":"message"}
+
+注意: ログ内に無効なタイムスタンプが入ることを防ぐためにノード上で<b>ntpd</b>を設定することを強くお勧めします。
+
+注意: 規模が大きい場合、メモリの断片化を避けるために<a href="http://www.canonware.com/jemalloc/">jemalloc</a>を使う必要があります。これは<a href="install-by-rpm">rpm</a>および<a href="install-by-deb">deb</a>パッケージにはあらかじめ含まれています。
+
+## 次のステップ
+
+これでFluentdを使って実際のログを収集する準備が整いました。さまざまなデータソースからデータを収集する方法については、以下のチュートリアルを参照してください。
+
+  * アプリケーションログ
+    * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
+  * 使用例
+    * [ApacheのログをAmazon S3に送る方法](apache-to-s3)
+    * [ApacheのログをMongoDBに蓄積する方法](apache-to-mongodb)
+    * [HDFSへのデータ収集](http-to-hdfs)
