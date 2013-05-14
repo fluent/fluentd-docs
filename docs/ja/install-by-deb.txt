@@ -28,7 +28,7 @@ Fluentdは拡張しやすいようRubyで実装され、一部の性能に直結
     :::term
     $ curl -L http://toolbelt.treasure-data.com/sh/install-ubuntu-lucid.sh | sh
 
-注意: ログ内に無効なタイムスタンプが入ることを防ぐためにノード上で<b>ntpd</b>を設定することを強くお勧めします。
+NOTE: ログ内に無効なタイムスタンプが入ることを防ぐためにノード上で<b>ntpd</b>を設定することを強くお勧めします。
 
 ## Step2: デーモンの起動
 

@@ -40,9 +40,9 @@ Fluentdが正常にインストールされたことを確認するために、�
     :::term
     2011-07-10 16:49:50 +0900 debug.test: {"json":"message"}
 
-注意: ログ内に無効なタイムスタンプが入ることを防ぐためにノード上で<b>ntpd</b>を設定することを強くお勧めします。
+NOTE: ログ内に無効なタイムスタンプが入ることを防ぐためにノード上で<b>ntpd</b>を設定することを強くお勧めします。
 
-注意: 規模が大きい場合、メモリの断片化を避けるために<a href="http://www.canonware.com/jemalloc/">jemalloc</a>を使う必要があります。これは<a href="install-by-rpm">rpm</a>および<a href="install-by-deb">deb</a>パッケージにはあらかじめ含まれています。
+NOTE: 規模が大きい場合、メモリの断片化を避けるために<a href="http://www.canonware.com/jemalloc/">jemalloc</a>を使う必要があります。これは<a href="install-by-rpm">rpm</a>および<a href="install-by-deb">deb</a>パッケージにはあらかじめ含まれています。
 
 ## 次のステップ
 
