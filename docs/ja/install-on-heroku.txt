@@ -1,1 +1,46 @@
-../install-on-heroku.txt
+# Heroku上にFluentd (td-agent)をインストールする
+
+この記事では、[Heroku](http://www.heroku.com/)上にFluentd (td-agent)をインストールする方法について説明します。
+
+## アプリケーションの作成
+
+Herokuでは、ユーザーは1つのdynoに別々のプロセスをインストールすることができません。このように独立したHerokuアプリケーションとしてFluentdをセットアップする必要があります。これは中央ログ集計サーバーとなります。
+
+Treasure Dataは始めやすいように定型的なリポジトリを提供しています。HerokuアプリケーションとしてFluentd (td-agent)を作成するには次の手順に従ってください。
+
+    :::term
+    # Clone
+    $ git clone git://github.com/treasure-data/heroku-td-agent.git
+    $ cd heroku-td-agent
+    $ rm -fR .git
+    $ git init
+    $ git add .
+    $ git commit -m 'initial commit'
+    
+    # Create the app & deploy
+    $ heroku create --stack cedar
+    $ git push heroku master
+
+    # Modify your conf
+    $ vi td-agent.conf
+    $ git commit -a -m 'update config file'
+    
+    # Deploy
+    $ git push heroku master
+
+## テスト
+
+さあ、ログ集約サーバーが正しく設定されていることを確認してみましょう。次のようにログサーバー(http://td-agent-on-heroku.herokuapp.com)にGETリクエストを送ってください。これは“debug.sample”というタグで‘{“json”:”message”}’というイベントを送信します。JSON形式のデータをクエリパラメータの値として渡す方法に注意してください。
+
+    :::term
+    $ curl "http://td-agent-on-heroku.herokuapp.com/debug.sample?json=%7B%22json%22%3A%22message%22%7D"
+
+一般的なURL書式は次のようになります。
+
+    :::term
+    http://{YOUR LOG SERVER DOMAIN}/td.{DB_NAME}.{TABLE_NAME}?json={JSON_FORMATTED_DATA}
+
+出力はSTDOUT上で得られます。
+
+    :::term
+    $ heroku logs --tail
