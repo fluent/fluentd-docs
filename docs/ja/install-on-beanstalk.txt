@@ -1,1 +1,5 @@
-../install-on-beanstalk.txt
+# Elastic Beanstalk上にFluentd (td-agent)をインストールする
+
+AWS Elastic Beanstalkアプリケーション上でtd-agentをインストールするための定型的なアプリケーションは[こちらのリポジトリ](https://github.com/treasure-data/elastic-beanstalk-td-agent)で提供されています。READMEファイルの指示に従ってください。
+
+- [treasure-data/elastic-beanstalk-td-agent](https://github.com/treasure-data/elastic-beanstalk-td-agent)
