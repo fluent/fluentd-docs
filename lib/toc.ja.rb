@@ -16,7 +16,7 @@ section 'overview', 'Overview' do
     article 'install-by-chef', 'ChefでFluentdをインストールする'
     article 'install-from-source', 'ソースコードからFluentdをインストールする'
     article 'install-on-heroku', 'Heroku上にFluentd (td-agent)をインストールする'
-    article 'install-on-beanstalk', 'Installing Fluentd on AWS Elastic Beanstalk'
+    article 'install-on-beanstalk', 'AWS Elastic Beanstalk上にFluentd (td-agent)をインストールする'
   end
   category 'users', 'Users' do
     article 'users', 'Users'
