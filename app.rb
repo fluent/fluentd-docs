@@ -141,7 +141,7 @@ get '/sitemap.xml' do
         }
       }
     }
-    @articles[lang] = article_names
+    @articles[lang] = article_names if lang == 'en'
   }
   content_type 'text/xml'
   erb :sitemap, :layout => false
