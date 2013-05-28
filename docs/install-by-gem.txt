@@ -41,6 +41,8 @@ NOTE: The Fluentd gem doesn't come with /etc/init.d/ scripts. You should use pro
 
 You're now ready to collect your real logs using Fluentd. Please see the following tutorials to learn how to collect your data from various data sources.
 
+  * Basic Configuration
+    * [Config File](config-file)
   * Application Logs
     * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
   * Examples

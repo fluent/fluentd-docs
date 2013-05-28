@@ -18,6 +18,8 @@ Please run chef-client to install td-agent across your machines.
 
 You're now ready to collect your real logs using Fluentd. Please see the following tutorials to learn how to collect your data from various data sources.
 
+  * Basic Configuration
+    * [Config File](config-file)
   * Application Logs
     * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
   * Examples
