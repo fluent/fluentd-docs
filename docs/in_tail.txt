@@ -37,7 +37,7 @@ The tag of the event.
 #### format (required)
 The format of the log. Itis the name of a template or regexp surrounded by ‘/’.
 
-The regexp must have at least one named capture (?&lt;NAME&gt;PATTERN). If the regexp has a capture named ‘time’, it is used as the time of the event. You can specify the time format using the time_format parameter. If the regexp has a capture named ‘tag’, the tag parameter + the captured tag is used as the tag of the event.
+The regexp must have at least one named capture (?&lt;NAME&gt;PATTERN). If the regexp has a capture named ‘time’, it is used as the time of the event. You can specify the time format using the time_format parameter.
 
 The following templates are supported:
 
