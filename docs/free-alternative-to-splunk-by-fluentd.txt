@@ -1,10 +1,10 @@
 # Free Alternative to Splunk by Fluentd
 
-[Splunk](http://www.splunk.com/) is a great solution for log search, except its cost. Kibana + ElasticSearch + Fluentd give you a free alternative of Splunk, with easy setup :)
+[Splunk](http://www.splunk.com/) is a great solution for searching logs; the drawback of course is its cost. The combination of Kibana + ElasticSearch + Fluentd provides a free alternative to Splunk, with easy setup. :)
 
 <center><img src="/images/kibana_and_fluentd.png" width="90%"/></center><br/><br/>
 
-[ElasticSearch](http://www.elasticsearch.org/) is a easy to use Search Engine and [Kibana](http://kibana.org/) is a great Web UI for ElasticSearch with LogStash format. All of the following procedure was tested on Mac OS X Mountain Lion.
+[ElasticSearch](http://www.elasticsearch.org/) is an easy to use Search Engine. Meanwhile, [Kibana](http://kibana.org/) is a great Web UI for ElasticSearch that supports the LogStash format. The following procedure was tested on Mac OS X Mountain Lion.
 
 ## Prerequisites
 
@@ -22,9 +22,9 @@
     $ ruby --version
     ruby 1.9.3p385 (2013-02-06 revision 39114) [x86_64-darwin12.2.1]
 
-## Setup ElasticSearch
+## Set Up ElasticSearch
 
-Please downlod and extract the package.
+Please download and extract the ElasticSearch package.
 
     :::term
     $ curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.0.RC2.tar.gz
@@ -38,32 +38,32 @@ Then, start ElasticSearch.
 
 ## Setup Kibana
 
-Download via webpage or clone repository from github. Kibana is a Sinatra application.
+Download Kibana via the official webpage or clone its Github repository. Kibana is a Sinatra application.
 
     :::term
     $ git clone git://github.com/rashidkpc/Kibana.git
     $ cd Kibana
     $ bundle install --path vendor/bundle # "gem install bundle" is needed if you don't install bundle
 
-Then, start Kibana. You can modify Kibana configuration via KibanaConfig.rb.
+Then, start Kibana. You can modify Kibana's configuration via KibanaConfig.rb.
 
     :::term
     $ bundle exec ruby kibana.rb
 
 ## Setup Fluentd (td-agent)
 
-Let's install td-agent, the packaged version of Fluentd first.
+We'll first install td-agent, the packaged version of Fluentd.
 
 * [Debian Package](install-by-deb)
 * [RPM Package](install-by-rpm)
 * [Ruby gem](install-by-gem)
 
-After that, we need to install fluent-plugin-elastic search.
+Next, we need to install the ElasticSearch plugin for Fluentd: fluent-plugin-elasticsearch.
 
     :::term
     $ /usr/lib64/fluent/ruby/bin/fluent-gem install fluent-plugin-elasticsearch
 
-Please modify `/etc/td-agent/td-agent.conf` like below:
+Please modify `/etc/td-agent/td-agent.conf` as shown below:
 
     :::text
     <source>
@@ -82,35 +82,35 @@ Please modify `/etc/td-agent/td-agent.conf` like below:
       flush_interval 10s # for testing
     </match>
 
-fluent-plugin-elasticsearch provides logstash_format option. It enables Kibana to search stored event logs in ElasticSearch. Finally, let's start td-agent.
+fluent-plugin-elasticsearch provides a logstash_format option. It allows Kibana to search stored event logs in ElasticSearch. Finally, let's start td-agent.
 
     :::term
     $ sudo /etc/init.d/td-agent start
 
 ## Setup rsyslogd
 
-Finally, let's forward the logs from your rsyslogd to Fluentd. Please add the following line to your `/etc/rsyslog.conf`, and restart rsyslog. This will forward your local syslog to Fluentd, and Fluentd forwards logs to ElasticSearch.
+In our final step, we'll forward the logs from your rsyslogd to Fluentd. Please add the following line to your `/etc/rsyslog.conf`, and restart rsyslog. This will forward your local syslog to Fluentd, and Fluentd in turn will forward the logs to ElasticSearch.
 
     :::text
     *.* @127.0.0.1:42185
 
-rsyslog service must be restarted after the modification.
+Please restart the rsyslog service once the modification is complete.
 
     :::text
     $ sudo /etc/init.d/rsyslog restart
 
 ## Store and Search event logs
 
-After Fluentd receives some logs from rsyslog and flushed them to ElasticSearch, you can search the stored event logs via Kibana by accessing [http://127.0.0.1:5601/](http://127.0.0.1:5601/) by the browser.
+Once Fluentd receives some logs from rsyslog and has flushed them to ElasticSearch, you can search the stored event logs via Kibana by accessing [http://127.0.0.1:5601/](http://127.0.0.1:5601/) in your browser.
 
 <center><img src="/images/kibana_and_fluentd.png" width="90%"/></center><br/><br/>
 
-To manually send the log, please use `logger` command.
+To manually send logs, please use the `logger` command.
 
     :::text
     $ logger -t test foobar
 
-To debug the td-agent configuration, using [out_copy](out_copy) + [out_stdout](out_stdout) is useful. All the logs including errors are at `/etc/td-agent/td-agent.log`.
+When debugging your td-agent configuration, using [out_copy](out_copy) + [out_stdout](out_stdout) will be useful. All the logs including errors can be found at `/etc/td-agent/td-agent.log`.
 
     :::text
     <match syslog.**>
@@ -128,4 +128,4 @@ To debug the td-agent configuration, using [out_copy](out_copy) + [out_stdout](o
 
 ## Conclusion
 
-This article introduced a combination of Fluent and Kibana (with ElasticSearch) to achieve free alternative to Splunk: store and search the machine logs. Above example is no tuning. If you use these components in production, then maybe need to modify some configurations (e.g. JVM, ElasticSearch, Fluentd buffer and etc).
+This article introduced using the combination of Fluentd and Kibana (with ElasticSearch) to achieve a free alternative to Splunk: storing and searching machine logs. The examples provided in this article have not been tuned. If you will be using these components in production, you may want to modify some of the configurations (e.g. JVM, ElasticSearch, Fluentd buffer, etc.) according to your needs.
