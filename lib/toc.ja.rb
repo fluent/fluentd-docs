@@ -18,8 +18,8 @@ section 'overview', 'Overview' do
     article 'install-on-heroku', 'Heroku上にFluentd (td-agent)をインストールする'
     article 'install-on-beanstalk', 'AWS Elastic Beanstalk上にFluentd (td-agent)をインストールする'
   end
-  category 'users', 'Users' do
-    article 'users', 'Users'
+  category 'users', 'ユーザー' do
+    article 'users', 'Fluentdのユーザー'
   end
   category 'slides', 'Slides' do
     article 'slides', 'Slides'

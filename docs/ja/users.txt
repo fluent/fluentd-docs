@@ -1,1 +1,93 @@
-../users.txt
+# Fluentdのユーザー
+
+こちらはFluentdユーザーの皆さんです。
+
+NOTE: Fluentdを使っていますか？もしそうであればコミュニティを広げるためにあなたの推薦メッセージをシェアしてください！あなたの推薦メッセージ、お名前、役職、会社のロゴを添えて<a href="mailto:kazuki.ohta@gmail.com">私にメール</a>を送ってください！
+
+## Backplane, Inc.
+
+<p>
+<center><a href="http://thebackplane.com/"><img src="/images/logo-Backplane.gif" height="80px" /></a></center>
+</p>
+
+When I first started at <a href="http://thebackplane.com/">Backplane</a>, I wanted to get us to start logging everything and aggregating it in JSON, and I wanted that system up and running fast. Fluentd got me there in less than a day. I was skeptical of reliability at first, but it takes so little time to setup, there's no reason not to try it.
+
+It hasn't crashed once yet, works exactly as I need it to thanks to the huge plugin library, and likely saved us a ton of time. As an added bonus: the user list for Fluentd was also way more responsive when I ran into initial setup questions than those of any competitors. If you want to start logging your data fast, Fluentd is a great way to go. - Eli Finkelshteyn, Lead Data Scientist
+
+## ContextLogic, Inc.
+
+<p>
+<center><a href="http://www.contextlogic.com/"><img src="http://fluentd.org/images/user_logo/ContextLogic.png" height="80px" /></a></center>
+</p>
+
+At <a href="http://www.wish.com/">wish.com</a>, we started using Fluentd from early on to collect user event data. Its reliability and ease of use from application code (Python for us) make it easy for us to keep track of the key metrics. - Danny Zhang, co-founder
+
+## CyberAgent, Inc.
+
+<p>
+<center><a href="http://www.cyberagent.info/"><img src="/images/logo-CA.gif" height="70px" /></a></center>
+</p><br />
+
+<a href="http://www.cyberagent.info/">CyberAgent</a> (<a href="http://www.marketwatch.com/investing/stock/4751?countrycode=jp">TYO:4751</a>) is a Tokyo based company that specializes in internet business. We are expanding our businesses in the field of Social Network Services and Web advertising. 
+
+Though collecting and analyzing log data is quite important in our services, we had no choice but to conduct in conventional methods such as using Hadoop to analyze log data or rsync and script.
+
+That is why we began to use Fluentd. Fluentd made it possible to collect existing log with significantly lower resources, while it is not affecting the analyzing process. We introduced this system successfully and safely.
+
+Fluentd helps us collect and analyze an app log and midleware log efficiently. And as a result, it improves our daily operation and services. - Tomomitsu Tsuda, General Manager
+
+## GREE, Inc.
+
+<p>
+<center><a href="http://gree-corp.com/"><img src="/images/logo-GREE.png" height="80px" /></a></center>
+</p><br />
+
+Data Science is at the core of <a href="http://gree-corp.com/">GREE</a> (<a href="http://www.marketwatch.com/investing/stock/3632?countrycode=jp">TYO:3632</a>)'s business, and it starts with logging user events and Advertisement related data. We currently deploy Fluentd for a number of our games and ad services to federate user event data, and use that data to inform our product decisions.
+
+So far, we've been pleased with Fluentd's robustness and performance: it has held up strongly against our massive data, allowing us to focus on data analytics instead of logging. - Masaki Fujimoto, CTO
+
+## NHN Japan Corporation.
+
+<br /><p>
+<center><a href="http://www.nhncorp.jp/"><img src="/images/logo-NHN.jpg" height="45px" /></a></center>
+</p><br />
+
+NHN Japan, based in Tokyo, is web services company. Log collection and analysis is one the most important missions in our day-to-day operations. As such we have spent quite a long time to search for the right tool that can process and collect data from various sources with great flexibility and high throughput -- and we came up with Fluentd.
+
+We utilize Fluentd to collect a very large amount of logs. The logs are written into Hadoop HDFS clusters, and are also used to analyze various service statuses in realtime. We also use many plugins from rubygems.org to further enhance this mechanism. - Satoshi Tagomori
+
+## PPLive, Inc.
+
+<p>
+<center><a href="http://www.pptv.com/"><img src="/images/logo-PPTV.png" height="80px" /></a></center>
+</p><br />
+
+<a href="http://www.pptv.com/">PPTV.com</a> is one of the largest Chinese online TV provider, which has 35 million active users. PPTV clients can be installed on multi-platforms (Windows, Mac, Android, iOS, WP, etc).
+
+We (PPTV site operation team) tried to find a solution to do realtime log-collection and analyse based on the massive logfiles. Finally, we found that Fluentd is the perfect solution to do real-time log collection. Log can be JSON-structured to MongoDB cluster.
+
+Realtime monitoring/reporting/charting can be generated from MongoDB data, which is helpful to our operation work. Fluentd is a great tool! - Xinyi Zhou, Site Operation Team
+
+## SlideShare, Inc.
+
+<p>
+<center><a href="http://www.slideshare.net/"><img src="http://fluentd.org/images/user_logo/Slideshare.png" height="80px" /></a></center>
+</p><br />
+
+<a href="http://www.slideshare.net/">SlideShare</a> uses Fluentd to stream logs and events in the cloud. We were looking for a versatile yet lightweight logger in Ruby, and Fluentd fit the bill perfectly. - Sylvain Kalache, Operations Engineer
+
+## Uken Games
+
+<p>
+<center><a href="http://www.uken.com/"><img src="/images/logo-UkenGames.png" height="80px" /></a></center>
+</p><br />
+
+<a href="http://www.uken.com/">Uken Games</a> is a Canadian cross-platform gaming company. Our users generate a lot of logs, and Fluentd made it really easy for us to manage them. It also allowed us to painlessly try and compare new solutions for log analysis, simply by modifying configs and zero-downtime restarting the client. Deploying Fluentd was a breeze with Chef. - Pitr Vernigorov
+
+## Viki, Inc.
+
+<p>
+<center><img src="http://fluentd.org/images/user_logo/Viki.png" height="80px" /></center>
+</p><br />
+
+At <a href="http://www.viki.com/">Viki</a>, we use Fluentd deployed on Heroku to collect analytics events from various apps which then go into Treasure Data and in-house Hadoop Cluster for analysis. Fluentd integrates seamlessly with Heroku, and we've been impressed with its versatility and reliability. - Abhishek Parolkar, BigData Infrastructure Manager
