@@ -22,15 +22,16 @@ Please follow the installation/quickstart guides below that matches your environ
 
 The articles shown below cover the typical use cases of Fluentd. Please refer to the article(s) that suits your needs.
 
+  * Examples
+    * [Data Search like Splunk](free-alternative-to-splunk-by-fluentd)
+    * [Data Analytics with Treasure Data](http-to-td)
+    * [Data Collection to MongoDB](apache-to-mongodb)
+    * [Data Collection to HDFS](http-to-hdfs)
+    * [Data Archiving to Amazon S3](apache-to-s3)
   * Basic Configuration
     * [Config File](config-file)
   * Application Logs
     * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
-  * Examples
-    * [Data Collection to MongoDB](apache-to-mongodb)
-    * [Data Collection to HDFS](http-to-hdfs)
-    * [Data Analytics with Treasure Data](http-to-td)
-    * [Data Archiving to Amazon S3](apache-to-s3)
   * Happy Users :)
     * [Users](users)
 
