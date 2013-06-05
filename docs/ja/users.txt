@@ -36,6 +36,17 @@ That is why we began to use Fluentd. Fluentd made it possible to collect existin
 
 Fluentd helps us collect and analyze an app log and midleware log efficiently. And as a result, it improves our daily operation and services. - Tomomitsu Tsuda, General Manager
 
+## Drecom, Inc.
+
+<p>
+<center><a href="http://www.drecom.co.jp"><img src="/images/logo-Drecom.png" height="70px" /></a></center>
+</p><br />
+
+[Drecom](http://www.drecom.co.jp) (TYO:3793), based in Tokyo, is planning and developing many types of services which are focusing on word "communication" such as: mobile contents, internet advertising, etc. In our business, Log collection and analysis is essential in order to continue to provide services of the highest satisfaction to the user.  
+
+Fluentd is easy to install, reliable, and provides support with out interfering with our regular tasks. If anything, we are paying attention to not forget the presence of the silent daemon. It can not only provide many plugins, but also have and can develop add plugins with necessary functions.  
+
+We are pleased to fluent work with the Fluentd daemon.
 ## GREE, Inc.
 
 <p>
