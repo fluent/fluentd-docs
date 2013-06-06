@@ -36,6 +36,16 @@ That is why we began to use Fluentd. Fluentd made it possible to collect existin
 
 Fluentd helps us collect and analyze an app log and midleware log efficiently. And as a result, it improves our daily operation and services. - Tomomitsu Tsuda, General Manager
 
+## DeNA Co., Ltd.
+
+<p>
+<center><a href="http://dena.com/"><img src="/images/logo-DeNA.jpg" height="70px" /></a></center>
+</p><br />
+
+[DeNA Co., Ltd](http://dena.com/). (pronounced “D-N-A”) is a global Internet company (<a href="http://www.marketwatch.com/investing/stock/2432?countrycode=jp">TSE:2432</a>) focused on social games and e-commerce. DeNA operates the Mobage platform, which is one of the most successful gaming service in Japan with more than 49 million registered players as of March, 2013.
+
+We use Fluentd for log monitoring, visualization of metrics, and realtime log collection. It can deal with the log of our large-scaled servers. We are very happy with its reliability, and flexibility provided by its plugin mechanism. - Naotoshi Seo, Infrastructure Engineer
+
 ## Drecom Co., Ltd.
 
 <p>
