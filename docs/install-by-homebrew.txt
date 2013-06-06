@@ -10,6 +10,8 @@ That's why [Treasure Data, Inc](http://www.treasure-data.com/) is providing **th
 
 For MacOS X, we're using the [Homebrew](http://mxcl.github.io/homebrew/) packaging manager to distribute td-agent.
 
+NOTE: If you use RVM, then please disable RVM. Because RVM causes LoadError in td-agent brew.
+
 ## Step1: Install Homebrew
 
 If you haven't installed Homebrew on your Mac yet, please install it using the command below.
