@@ -53,14 +53,6 @@ First, please add the following lines to pom.xml. The logger's revision informat
       ...
     </dependencies>
     
-    <repositories>
-      <repository>
-        <id>fluentd.org</id>
-        <name>Fluentd's Maven2 Repository</name>
-        <url>http://fluentd.org/maven2</url>
-      </repository>
-    </repositories>
-
 Next, please insert the following lines into your application. Further information regarding the API can be found [here](https://github.com/fluent/fluent-logger-java).
 
     :::java
