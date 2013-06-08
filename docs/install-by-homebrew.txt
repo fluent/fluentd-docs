@@ -10,7 +10,7 @@ That's why [Treasure Data, Inc](http://www.treasure-data.com/) is providing **th
 
 For MacOS X, we're using the [Homebrew](http://mxcl.github.io/homebrew/) packaging manager to distribute td-agent.
 
-NOTE: If you use RVM, then please disable RVM. RVM will cause an error where we will be unable to load fluentd within the td-agent formula.
+NOTE: If you are using RVM, please disable it. RVM will cause an error where fluentd cannot be loaded from the td-agent formula.
 
 ## Step1: Install Homebrew
 
