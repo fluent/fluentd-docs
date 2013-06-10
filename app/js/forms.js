@@ -3,7 +3,7 @@ $(document).ready(function() {
 
   // -- replace select menus with html dropdown menu
   // -- be sure to include jquery.selectbox-0.5.js
-  $('form select').selectbox();
+  // $('form select').selectbox();
   // -- add classes to form fields
   $('html body textarea, html body input[type="text"], html body input[type="password"]').addClass("text");
   $('input[type="submit"]').addClass("submit");
