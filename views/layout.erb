@@ -81,9 +81,22 @@
             </li>
             <% end %>
           </ul>
-          <section class="pie-clearfix pie-clearfix-ie" id="search">
-            <a href="http://bit.ly/12AXuov" target="_blank"><div id="pdf-download">Download as PDF</div></a>
+          <section class="pie-clearfix pie-clearfix-ie">
+            <a href='#' target="_blank"><div id="pdf-download">Download as PDF</div></a>
           </section>
+
+          <div id='pdf-modal' class='modal'>
+            <div class='modal-head'>Download Documentation as PDF</div>
+            <div class='modal-content'>
+              <form action='http://go.treasure-data.com/l/24122/2013-06-14/4ky' method='post'>
+                <label class='control-label' for='email'>Email </label>
+                <input type='email' name='email' required>
+
+                <button action='submit' class='close btn'>Download</button>
+              </form>
+            </div>
+          </div>
+
         </aside><!-- /#sidebar -->
         <section id="main">
           <%= yield %>
