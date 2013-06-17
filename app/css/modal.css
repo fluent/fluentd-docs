@@ -57,6 +57,7 @@
     -moz-border-radius:0px 0px 4px 4px;
     border-radius:0px 0px 4px 4px;
 }
+
 .modal-content form {
     font-size:14px;
     font-weight:normal;
@@ -65,7 +66,18 @@
     color:#555555;
     width:100%;
     float: left;
-    margin:19px 0;
+    margin:0px;
+}
+
+.modal-content p {
+    font-size:13px;
+    font-weight:normal;
+    text-align:center;
+    line-height:22px;
+    color:#555555;
+    width:98%;
+    float: left;
+    margin:5px 4px;
 }
 
 .reveal-modal-bg {
@@ -85,7 +97,6 @@
     *display: inline;
     padding: 4px 12px;
     margin-bottom: 0;
-    margin-top: 1em;
     *margin-left: .5em;
     margin-right: 2em;
     font-size: 14px;
@@ -151,18 +162,19 @@
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-label,
-input{
+label.email,
+input.email{
     margin-top: 0.7em;
     display: inline;
     padding-left: 10px;
+    padding-right: 5px;
     font-size: 14px;
     font-weight: normal;
     line-height: 20px;
 }
 
-input{
-    width: 240px;
+input.email{
+    width: 250px;
 }
 
 button.btn{
@@ -170,7 +182,7 @@ button.btn{
     *padding-bottom: 3px;
 }
 
-input[type="email"]{
+input[type="email"].email{
     background-color: #ffffff;
     border: 1px solid #cccccc;
     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
@@ -182,7 +194,7 @@ input[type="email"]{
     transition: border linear 0.2s, box-shadow linear 0.2s;
 }
 
-input[type="email"]:focus{
+input[type="email"]:focus.email{
     border-color: rgba(82, 168, 236, 0.8);
     outline: 0;
     outline: thin dotted \9;
@@ -193,11 +205,12 @@ input[type="email"]:focus{
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
 }
 
-input[type="email"]{
+input[type="email"].email{
     display: inline-block;
     height: 20px;
     padding: 4px 6px;
     margin-bottom: 10px;
+    margin-right:12px;
     font-size: 14px;
     line-height: 20px;
     color: #555555;
