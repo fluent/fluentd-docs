@@ -17,6 +17,8 @@ Please follow the installation/quickstart guides below that matches your environ
 * [Install Fluentd by Chef](install-by-chef)
 * [Install Fluentd from source](install-from-source)
 
+NOTE: Currently, Fluentd doesn't run on Windows. See <a href="faq#does-fluentd-run-on-windows">FAQ</a>
+
 ## Step2: Use
 
 The articles shown below cover the typical use cases of Fluentd. Please refer to the article(s) that suits your needs.
