@@ -28,6 +28,12 @@ Two `ruby` processes (parent and child) are executed. Please make sure these pro
       --daemon /var/run/td-agent/td-agent.pid
       --log /var/log/td-agent/td-agent.log
 
+For td-agent on Linux, you can check by the following command. It's correct if two processes are shown.
+
+    $ ps w -C ruby -C td-agent --no-heading
+    32342 ?        Sl     0:00 /usr/lib/fluent/ruby/bin/ruby /usr/sbin/td-agent --daemon /var/run/td-agent/td-agent.pid --log /var/log/td-agent/td-agent.log
+    32345 ?        Sl     0:01 /usr/lib/fluent/ruby/bin/ruby /usr/sbin/td-agent --daemon /var/run/td-agent/td-agent.pid --log /var/log/td-agent/td-agent.log
+
 ## Port Monitoring
 
 Fluentd opens several ports according to the configuration file. We recommend checking the availability of these ports. The default port settings are shown below:
