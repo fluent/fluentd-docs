@@ -1,7 +1,8 @@
-クイックスタートガイド
-================
+# クイックスタートガイド
 
-さあ、 **Fluentd** を使ってみましょう！ **Fluentd** は<a href="http://fluentd.org/plugin/">125種類以上のシステム</a>で瞬時に '**Log Everything**' アーキテクチャを提供する完全に自由で完全にオープンソースのログ収集システムです。Fluentdはログを(コンピュータにとって可読性の高いフォーマットとして人気の)JSONとして扱います。また、C言語とRubyによる薄いラッパーで書かれており柔軟性があります。
+さあ、 **Fluentd** を使ってみましょう！ **Fluentd** は<a href="http://fluentd.org/plugin/">125種類以上のシステム</a>で瞬時に '**Log Everything**' アーキテクチャを提供する完全に自由で完全にオープンソースのログ収集システムです。
+
+Fluentdはログを(コンピュータにとって可読性の高いフォーマットとして人気の)JSONとして扱います。また、C言語とRubyによる薄いラッパーで書かれており柔軟性があります。
 
 Fluentdの性能は実際に立証されています。もっとも大規模なユーザーは **5000台以上のサーバー** から一日あたり5TB以上、ピークタイムには秒間50,000メッセージにものぼるログを収集しています。
 
@@ -16,24 +17,22 @@ Fluentdの性能は実際に立証されています。もっとも大規模な�
 * [ChefでFluentdをインストールする](install-by-chef)
 * [Fluentdをソースコードからインストールする](install-from-source)
 
-NOTE: FluentdはWindowsでは動作しません。
-
-Fluentdは主要なPaaS上でも使えます。
-
-* [Heroku上でFluentdをインストールする](install-on-heroku)
-* [AWS Elastic Beanstalk上でFluentdをインストールする](install-on-beanstalk)
+NOTE: FluentdはWindowsでは動作しません。<a href="faq#does-fluentd-run-on-windows">FAQ</a>をご覧ください。
 
 ## Step2: 使いこなす
 
 以下の記事はFluentdのよくあるユースケースをカバーします。あなたのニーズに合った記事を選んで参照してみてください。
 
-  * アプリケーションログ
-    * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
   * 使用例
+    * [Splunkのようなデータ検索](free-alternative-to-splunk-by-fluentd)
+    * [Treasure Dataを使ったデータ解析](http-to-td)
     * [MongoDBへのデータ収集](apache-to-mongodb)
     * [HDFSへのデータ収集](http-to-hdfs)
-    * [Treasure Dataを使ったデータ解析](http-to-td)
     * [Amazon S3へのデータ蓄積](apache-to-s3)
+  * 基本的な設定
+    * [設定ファイル](config-file)
+  * アプリケーションログ
+    * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
   * 素晴らしいユーザーの皆さん
     * [ユーザー一覧](users)
 
@@ -47,3 +46,4 @@ Fluentdは主要なPaaS上でも使えます。
     * [アウトプット・プラグイン](output-plugin-overview)
     * [バッファ・プラグイン](buffer-plugin-overview)
   * [高可用性設定](high-availability)
+  * [FAQ](faq)
