@@ -36,6 +36,13 @@ When updated the article, please update config/last_updated.json too.
 
 after initialization, remove symlink and add translated article :)
 
+# Detect outdated documents
+
+    $ bundle exec rake outdated
+    docs/ja/install-by-chef.txt     : 17 days, 4 hours
+    ...
+    docs/ja/quickstart.txt          : 50 days, 23 hours
+
 # Acknowledgement
 
 This program is forked from [heroku/heroku-docs](http://github.com/heroku/heroku-docs), and originally written by @rtomayko and @adamwiggins. Later, modified by @kzk and @doryokujin.
