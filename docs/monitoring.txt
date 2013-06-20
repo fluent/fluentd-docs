@@ -4,7 +4,7 @@ This article explains how to monitor the `Fluentd` daemon.
 
 ## Monitoring Agent
 
-Fluentd has a monitoring agent to retrieve internal metrics by JSON via HTTP. Please put the following lines to your configuration file.
+Fluentd has a monitoring agent to retrieve internal metrics in JSON via HTTP. Please add the following lines to your configuration file.
 
     :::text
     <source>
@@ -21,14 +21,14 @@ Next, please restart the agent and get the metrics via HTTP.
 
 ## Process Monitoring
 
-Two `ruby` processes (parent and child) are executed. Please make sure these processes are running. The example for `td-agent` is shown below.
+Two `ruby` processes (parent and child) are executed. Please make sure that these processes are running. The example for `td-agent` is shown below.
 
     :::term
     /usr/lib/fluent/ruby/bin/ruby /usr/sbin/td-agent
       --daemon /var/run/td-agent/td-agent.pid
       --log /var/log/td-agent/td-agent.log
 
-For td-agent on Linux, you can check by the following command. It's correct if two processes are shown.
+For td-agent on Linux, you can check the process statuses with the following command. Two processes should be shown if there are no issues.
 
     $ ps w -C ruby -C td-agent --no-heading
     32342 ?        Sl     0:00 /usr/lib/fluent/ruby/bin/ruby /usr/sbin/td-agent --daemon /var/run/td-agent/td-agent.pid --log /var/log/td-agent/td-agent.log
