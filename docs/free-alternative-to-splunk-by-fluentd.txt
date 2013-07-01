@@ -2,7 +2,7 @@
 
 [Splunk](http://www.splunk.com/) is a great solution for searching logs; the drawback of course is its cost. The combination of Kibana + ElasticSearch + Fluentd provides a free alternative to Splunk, with easy setup. :)
 
-<center><img src="/images/kibana_and_fluentd.png" width="90%"/></center><br/><br/>
+<iframe width="560" height="315" src="//www.youtube.com/embed/hXiBe8NcLPA?rel=0" frameborder="0" allowfullscreen></iframe><br /><br />
 
 [ElasticSearch](http://www.elasticsearch.org/) is an easy to use Search Engine. Meanwhile, [Kibana](http://kibana.org/) is a great Web UI for ElasticSearch that supports the LogStash format. The following procedure was tested on Mac OS X Mountain Lion.
 
@@ -125,6 +125,12 @@ When debugging your td-agent configuration, using [out_copy](out_copy) + [out_st
         flush_interval 10s # for testing
       </store>
     </match>
+
+## Dashboard
+
+<center><img src="http://three.kibana.org/assets/img/piemap.png" width="90%"/></center><br />
+
+The upcoming <a href="http://three.kibana.org/">Kibana3</a> comes with a beautiful dashboard.
 
 ## Conclusion
 
