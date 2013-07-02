@@ -130,7 +130,7 @@ When debugging your td-agent configuration, using [out_copy](out_copy) + [out_st
 
 <center><img src="http://three.kibana.org/assets/img/piemap.png" width="90%"/></center><br />
 
-The upcoming <a href="http://three.kibana.org/">Kibana3</a> comes with a beautiful dashboard.
+The upcoming <a href="http://three.kibana.org/">Kibana 3</a> comes with a beautiful dashboard.
 
 ## Conclusion
 
