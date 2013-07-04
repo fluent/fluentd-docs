@@ -36,7 +36,7 @@ This method works with Debian Squeeze.
 
 #### Debian Squeeze
 
-Download the [most recent .deb](http://packages.treasure-data.com/debian/pool/contrib/t/td-agent/). Make sure and get the proper architecture for your version of Debian (i386 or amd64).
+Download the [most recent .deb](http://packages.treasure-data.com/debian/pool/contrib/t/td-agent/). Please be sure to choose the proper Debian version for your architecture (i386 or amd64).
 
 Install the dependencies manually.
 
