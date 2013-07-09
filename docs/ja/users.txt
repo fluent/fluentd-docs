@@ -68,6 +68,19 @@ Data Science is at the core of <a href="http://gree-corp.com/">GREE</a> (<a href
 
 So far, we've been pleased with Fluentd's robustness and performance: it has held up strongly against our massive data, allowing us to focus on data analytics instead of logging. - Masaki Fujimoto, CTO
 
+## NAMCO BANDAI Studios Inc.
+
+<p>
+<center><a href="http://www.bandainamcostudios.co.jp/"><img src="/images/logo-BandaiNamcoStudios.jpg" height="100px" /></a></center><br /><br />
+</p>
+
+<a href="http://www.bandainamcostudios.co.jp/">NAMCO BANDAI Studios Inc.</a> is a platform-agnostic development studio that mainly develops console games, arcade games, online games, and mobile games. 
+Besides games, NBSI also produces music, movie, and other entertainment content.
+
+Log file analysis is key to examining user trends for our game services.  We keep numerous logs such as access logs, error logs, and action logs.  In order to efficiently analyze the information, we needed a solution flexible enough to aggregate the data from all the various logs. 
+
+The Fluentd concept fits our needs perfectly. For a large-scale service with hundreds of thousands of users, Fluentd's scalability has proven to be valuable. - Yasuhiro Ishimaru
+
 ## NHN Japan Corporation.
 
 <br /><p>

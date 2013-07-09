@@ -79,7 +79,7 @@ Besides games, NBSI also produces music, movie, and other entertainment content.
 
 Log file analysis is key to examining user trends for our game services.  We keep numerous logs such as access logs, error logs, and action logs.  In order to efficiently analyze the information, we needed a solution flexible enough to aggregate the data from all the various logs. 
 
-The Fluentd concept fits our needs perfectly. For a large-scale service with hundreds of thousands of users, Fluentd's scalability has proven to be valuable.-- Yasuhiro Ishimaru
+The Fluentd concept fits our needs perfectly. For a large-scale service with hundreds of thousands of users, Fluentd's scalability has proven to be valuable. - Yasuhiro Ishimaru
 
 ## NHN Japan Corporation.
 
