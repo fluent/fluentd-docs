@@ -35,7 +35,7 @@ We're now working on resolving issue 2.
 
 ## Does Fluentd have UI or storage?
 
-No, Fluentd doesn't have either UI or storage. However, [Kibana integration](fluentd-elasticsearch-kibana) may be useful for you.
+No, Fluentd doesn't have either UI or storage. However, [Kibana integration](free-alternative-to-splunk-by-fluentd) may be useful for you.
 
 ## What is Fluentd's 'tag'?
 
@@ -107,7 +107,7 @@ Meanwhile, Fluentd is backend-storage agnostic, has less memory footprint, and i
 
 Splunk is a log collection + search engine for unstrucuted, text-based logs. It has a nice UI and indexing engine for searching for terms within text log files.
 
-Fluentd is a log collector daemon for semi-structured JSON-based logs. It deals with machine-readable logs, whereas Splunk handles text-based logs. Also, Fluentd is simply a mechanism for receiving, buffering, and forwarding data to another destination. It does not have search engine functionality but you can use [ElasticSearch + Kibana](fluentd-elasticsearch-kibana) as a backend to search the logs.
+Fluentd is a log collector daemon for semi-structured JSON-based logs. It deals with machine-readable logs, whereas Splunk handles text-based logs. Also, Fluentd is simply a mechanism for receiving, buffering, and forwarding data to another destination. It does not have search engine functionality but you can use [ElasticSearch + Kibana](free-alternative-to-splunk-by-fluentd) as a backend to search the logs.
 
 ## I have a weird timestamp value, what happened?
 
