@@ -31,7 +31,8 @@ Unfortunately, no. There are two issues.
 
 We have recently resolved issue 1 by becoming the Cool.io maintainer ourselves. Cool.io v1.2 now supports the Windows environment. 
 
-We're now working on resolving issue 2.
+We're now working on resolving issue 2 on Windows branch. <br />
+See github: [Windows branch](https://github.com/fluent/fluentd/tree/windows)
 
 ## Does Fluentd have UI or storage?
 
