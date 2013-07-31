@@ -68,6 +68,16 @@ Data Science is at the core of <a href="http://gree-corp.com/">GREE</a> (<a href
 
 So far, we've been pleased with Fluentd's robustness and performance: it has held up strongly against our massive data, allowing us to focus on data analytics instead of logging. - Masaki Fujimoto, CTO
 
+## LINE Corporation.
+
+<p>
+<center><a href="http://linecorp.com/"><img src="/images/logo-LINE.png" height="80px" /></a></center>
+</p>
+
+LINE Corp., based in Tokyo, is web services company. Log collection and analysis is one the most important missions in our day-to-day operations. As such we have spent quite a long time to search for the right tool that can process and collect data from various sources with great flexibility and high throughput -- and we came up with Fluentd.
+
+We utilize Fluentd to collect a very large amount of logs. The logs are written into Hadoop HDFS clusters, and are also used to analyze various service statuses in realtime. We also use many plugins from rubygems.org to further enhance this mechanism. - Satoshi Tagomori
+
 ## NAMCO BANDAI Studios Inc.
 
 <p>
@@ -80,16 +90,6 @@ Besides games, NBSI also produces music, movie, and other entertainment content.
 Log file analysis is key to examining user trends for our game services.  We keep numerous logs such as access logs, error logs, and action logs.  In order to efficiently analyze the information, we needed a solution flexible enough to aggregate the data from all the various logs. 
 
 The Fluentd concept fits our needs perfectly. For a large-scale service with hundreds of thousands of users, Fluentd's scalability has proven to be valuable. - Yasuhiro Ishimaru
-
-## LINE Corporation.
-
-<p>
-<center><a href="http://linecorp.com/"><img src="/images/logo-LINE.png" height="80px" /></a></center>
-</p>
-
-LINE Corp., based in Tokyo, is web services company. Log collection and analysis is one the most important missions in our day-to-day operations. As such we have spent quite a long time to search for the right tool that can process and collect data from various sources with great flexibility and high throughput -- and we came up with Fluentd.
-
-We utilize Fluentd to collect a very large amount of logs. The logs are written into Hadoop HDFS clusters, and are also used to analyze various service statuses in realtime. We also use many plugins from rubygems.org to further enhance this mechanism. - Satoshi Tagomori
 
 ## PPLive, Inc.
 
