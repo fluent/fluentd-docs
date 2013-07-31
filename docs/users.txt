@@ -81,13 +81,13 @@ Log file analysis is key to examining user trends for our game services.  We kee
 
 The Fluentd concept fits our needs perfectly. For a large-scale service with hundreds of thousands of users, Fluentd's scalability has proven to be valuable. - Yasuhiro Ishimaru
 
-## NHN Japan Corporation.
+## LINE Corporation.
 
-<br /><p>
-<center><a href="http://www.nhncorp.jp/"><img src="/images/logo-NHN.jpg" height="45px" /></a></center>
-</p><br />
+<p>
+<center><a href="http://linecorp.com/"><img src="/images/logo-LINE.png" height="80px" /></a></center>
+</p>
 
-NHN Japan, based in Tokyo, is web services company. Log collection and analysis is one the most important missions in our day-to-day operations. As such we have spent quite a long time to search for the right tool that can process and collect data from various sources with great flexibility and high throughput -- and we came up with Fluentd.
+LINE Corp., based in Tokyo, is web services company. Log collection and analysis is one the most important missions in our day-to-day operations. As such we have spent quite a long time to search for the right tool that can process and collect data from various sources with great flexibility and high throughput -- and we came up with Fluentd.
 
 We utilize Fluentd to collect a very large amount of logs. The logs are written into Hadoop HDFS clusters, and are also used to analyze various service statuses in realtime. We also use many plugins from rubygems.org to further enhance this mechanism. - Satoshi Tagomori
 
