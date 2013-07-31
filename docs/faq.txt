@@ -120,19 +120,19 @@ Please refer to the [Plugin Development Guide](http://docs.fluentd.org/articles/
 
 ## I installed td-agent and want to add custom plugins. How do I do it?
 
-You should use `fluent-gem`. You can do so by
+Please use `fluent-gem` as shown below.
 
     :::term
     $ /usr/lib/fluent/ruby/bin/fluent-gem install <plugin name>
 
-For example, if you are adding `fluent-plugin-twitter`, you do
+For example, issue the following command if you are adding `fluent-plugin-twitter`.
 
     :::term
     $ /usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-twitter
 
-(If you can't find fluent-gem there, try to look for it in `/usr/lib64/fluent/ruby/bin/fluent-gem`)
+(If you can't find fluent-gem in the above directory, try looking in `/usr/lib64/fluent/ruby/bin/fluent-gem`)
 
-Now, you might ask, "Why do I need to specify the full path?" The reason is td-agent does not modify any host environment variable, including `PATH`. If you want to make all td-agent/fluentd related programs available without writing "/usr/lib/..." every time, you can add
+Now you might be wondering, "Why do I need to specify the full path?" The reason is that td-agent does not modify any host environment variable, including `PATH`. If you want to make all td-agent/fluentd related programs available without writing "/usr/lib/..." every time, you can add
 
     :::bash
     export PATH=$PATH:/usr/lib/fluent/ruby/bin/
