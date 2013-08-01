@@ -88,5 +88,5 @@ You're now ready to collect your real logs using Fluentd. Please see the followi
 
 Please refer to the resources below for further steps.
 
-* [ChangeLog of td-agent](http://help.treasure-data.com/kb/installing-td-agent-daemon/changelog-of-td-agent)
+* [ChangeLog of td-agent](http://docs.treasure-data.com/articles/td-agent-changelog)
 * [Chef Cookbook](https://github.com/treasure-data/chef-td-agent/)

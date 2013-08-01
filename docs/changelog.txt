@@ -6,4 +6,4 @@ Fluentd's ChangeLog can be found [here](https://github.com/fluent/fluentd/blob/m
 
 ## td-agent ChangeLog
 
-td-agent's ChangeLog can be found [here](http://help.treasure-data.com/kb/installing-td-agent-daemon/changelog-of-td-agent).
+td-agent's ChangeLog can be found [here](http://docs.treasure-data.com/articles/td-agent-changelog).
