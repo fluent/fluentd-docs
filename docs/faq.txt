@@ -138,3 +138,7 @@ Now you might be wondering, "Why do I need to specify the full path?" The reason
     export PATH=$PATH:/usr/lib/fluent/ruby/bin/
 
 to your `~/.bash_profile`.
+
+## How can I match (send) an event to multiple outputs?
+
+You can use the `copy` [output plugin](/articles/out_copy) to send the same event to multiple output destinations.
