@@ -73,5 +73,5 @@ MacOS Xでtd-agentを配布するために、我々は[Homebrew](http://mxcl.git
 
 さらなるステップについては以下のリソースを参照してください。
 
-* [td-agentのChangeLog](http://help.treasure-data.com/kb/installing-td-agent-daemon/changelog-of-td-agent)
+* [td-agentのChangeLog](http://docs.treasure-data.com/articles/td-agent-changelog)
 * [Chef Cookbook](https://github.com/treasure-data/chef-td-agent/)

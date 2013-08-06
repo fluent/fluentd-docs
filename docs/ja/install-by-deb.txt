@@ -68,5 +68,5 @@ NOTE: ログ内に無効なタイムスタンプが入ることを防ぐため�
 
 さらなるステップについては以下のリソースを参照してください。
 
-* [td-agentのChangeLog](http://help.treasure-data.com/kb/installing-td-agent-daemon/changelog-of-td-agent)
+* [td-agentのChangeLog](http://docs.treasure-data.com/articles/td-agent-changelog)
 * [Chef Cookbook](https://github.com/treasure-data/chef-td-agent/)
