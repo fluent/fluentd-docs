@@ -78,6 +78,16 @@ LINE Corp., based in Tokyo, is web services company. Log collection and analysis
 
 We utilize Fluentd to collect a very large amount of logs. The logs are written into Hadoop HDFS clusters, and are also used to analyze various service statuses in realtime. We also use many plugins from rubygems.org to further enhance this mechanism. - Satoshi Tagomori
 
+## Livesense, Inc.
+
+<p>
+<center><a href="http://en.livesense.co.jp/"><img src="/images/logo-Livesense.png" height="60"></a></center>
+</p><br />
+
+<a href="http://en.livesense.co.jp/">Livesense Inc.</a> (<a href="http://www.marketwatch.com/investing/stock/6054?countrycode=jp">TYO:6054</a>) engages in the internet business. We operates internet media in the fields of HR (jobs), real estate and new businesses. We were founded in 2006 and is headquartered in Tokyo, Japan.
+
+Since we adopted Fluentd, our services have acquired to integrate collecting various structured events and log data. It is not only for collecting logs, it could preprocess logs with many swiss-army knife plugins to make it easy to analyze them. Also we could easily to create input/output plugins as needed. Fluentd has been worked in our business to help day-by-day data driven development for our Growth Hacker. Therefore, I felt Fluentd is revolutionary log collection tool I have ever seen. - Kentaro Yoshida
+
 ## NAMCO BANDAI Studios Inc.
 
 <p>
