@@ -24,7 +24,7 @@ The `copy` output plugin copies events to multiple outputs.
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
-Here is an example to send events to both a local file under `/var/log/fluent/myapp` and the collection `fluentd.test` in a local MongoDB instance (see [out_file](/articles/out_file) and [out_mongo](/articles/out_mongo) for more details about respective plugins.)
+Here is an example set up to send events to both a local file under `/var/log/fluent/myapp` and the collection `fluentd.test` in a local MongoDB instance (Please see the [out_file](/articles/out_file) and [out_mongo](/articles/out_mongo) articles for more details about the respective plugins.)
 
     :::text
     <match myevent.file_and_mongo>
