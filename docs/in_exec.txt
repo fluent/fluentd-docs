@@ -1,6 +1,6 @@
 # exec Input Plugin
 
-The `in_exec` Input plugin executes external programs to receive or pull event logs. It will then read TSV (tab separated values) from the stdout of the program.
+The `in_exec` Input plugin executes external programs to receive or pull event logs. It will then read TSV (tab separated values), JSON or MessagePack from the stdout of the program.
 
 You can run a program periodically or permanently. To run periodically, please use the run_interval parameter.
 
@@ -29,8 +29,20 @@ The value must be `exec`.
 #### command (required)
 The command (program) to execute.
 
-#### keys (required)
-The column names of the TSV output.
+### format
+The format used to map program output to the incoming event.
+
+The following formats are supported:
+
+* tsv (default)
+
+When using the tsv format, please also specify the comma-separated `keys` parameter.
+
+    :::text
+    keys k1,k2,k3
+
+* json
+* msgpack
 
 #### tag (required if tag_key is not specified)
 tag of the output events.
