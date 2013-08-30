@@ -18,7 +18,7 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 #### type (required)
 The value must be `stdout`.
 
-#### output_type (required)
+#### output_type
 Output format. The following formats are supported:
 
 * json

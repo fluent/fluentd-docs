@@ -110,3 +110,5 @@ The interval between write retries, and the number of retries. The default value
 
 ## Further Reading
 - [fluent-plugin-s3 repository](https://github.com/fluent/fluent-plugin-s3)
+
+This page doesn't describe all configurations. If you want to know more configurations, please check above github link.
