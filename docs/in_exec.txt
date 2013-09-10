@@ -30,20 +30,19 @@ The value must be `exec`.
 The command (program) to execute.
 
 #### format
-The format used to map program output to the incoming event.
+The format used to map the program output to the incoming event.
 
 The following formats are supported:
 
 * tsv (default)
+* json
+* msgpack
 
 When using the tsv format, please also specify the comma-separated `keys` parameter.
 
     :::text
     keys k1,k2,k3
-
-* json
-* msgpack
-
+    
 #### tag (required if tag_key is not specified)
 tag of the output events.
 
