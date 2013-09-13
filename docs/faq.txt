@@ -10,13 +10,52 @@ If this number is insufficient for your application, please consider other solut
 
 ## What is the difference with td-agent and Fluentd?
 
-td-agent is the stable distribution package of Fluentd. The differences are as follows:
+`td-agent` is the stable distribution package of fluentd. The differences are as follows:
 
-* td-agent is distributed as a [deb](install-by-deb) or [rpm](install-by-rpm) package, while Fluentd is distributed as a [Ruby gem](install-by-gem).
-* td-agent includes the Ruby interpreter itself, while Fluentd not.
-* td-agent includes the /etc/init.d/ script, while Fluentd not.
-* td-agent includes the latest stable version of Fluentd and some compatible plugins.
-* td-agent includes [jemalloc](http://www.canonware.com/jemalloc/) to prevent memory fragmentation on heavily loaded sites.
+<table>
+    <th>
+        <td>fluentd</td>
+        <td>td-agent</td>
+    </th>
+    <tr>
+        <td>installation</td>
+        <td>gem install fluentd</td>
+        <td><a
+href="http://docs.fluentd.org/articles/install-by-rpm">.rpm</a>/<a
+href="http://docs.fluentd.org/articles/install-by-deb">.deb</a> packages for Linux. Homebrew for OSX</td>
+    </tr>
+    <tr>
+        <td>configuration</td>
+        <td>generic</td>
+        <td>preconfigured to send data to <a
+href="http://www.treasure-data.com">Treasure Data (can be modified)</a></td>
+    </tr>
+    <tr>
+        <td>adding 3rd party <a href="http://www.fluentd.org/plugin/">plugins</a></td>
+        <td>fluent-gem (ex: flunet-gem install fluent-plugin-td)</td>
+        <td>Manual setup (but it ships with several plugins pre-loaded)</td>
+    </tr>
+    <tr>
+        <td>init.d script (for production deployment)</td>
+        <td>No (the user needs to writh shell script to set it up)</td>
+        <td>Yes (shipped with .deb and .rpm)</td>
+    </tr>
+    <tr>
+        <td>Chef recipe</td>
+        <td>No</td>
+        <td>Yes</td>
+    </tr>
+    <tr>
+        <td>Memory allocator</td>
+        <td>OS default</td>
+        <td>optimized (jemalloc)</td>
+    </tr>
+    <tr>
+        <td>QA/Support</td>
+        <td>Community-driven</td>
+        <td>QA by Treasure Data/Support for Treasure Data's paid customers</td>
+    </tr>
+</table>
 
 ## Should I use td-agent or the Fluentd gem?
 
