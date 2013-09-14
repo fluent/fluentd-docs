@@ -1,5 +1,6 @@
 deployment:
   production:
     branch: master
-    heroku:
-      appname: fluentd-docs
+    commands:
+      - git push git@heroku.com:fluentd-docs.git $CIRCLE_SHA1:master
+      - curl -d a=b -H Fastly-Key:$FASTLY_APIKEY https://api.fastly.com/service/7h8RA7D8Hj05hsljzcfnK9/purge_all
