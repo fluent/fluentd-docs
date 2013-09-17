@@ -171,8 +171,8 @@ section 'developer', 'Developer' do
   category 'plugin-development', 'Plugin Development' do
     article 'plugin-development', 'Plugin Development'
   end
-  category 'mailing-list', 'Mailing List' do
-    article 'mailing-list', 'Mailing List'
+  category 'mailing-list', 'メーリングリスト' do
+    article 'mailing-list', 'メーリングリスト'
   end
   category 'source-code', 'Source Code' do
     article 'source-code', 'Source Code'

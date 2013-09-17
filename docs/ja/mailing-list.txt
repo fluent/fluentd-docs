@@ -1,1 +1,3 @@
-../mailing-list.txt
+# メーリングリスト
+
+あなたのアイデアや意見をFluentdコミュニティと共有したりフィードバックを得ることができる[Fluentd Google Group](https://groups.google.com/forum/?fromgroups#!forum/fluentd)にご参加ください!
