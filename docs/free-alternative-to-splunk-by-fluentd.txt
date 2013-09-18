@@ -4,7 +4,9 @@
 
 <iframe width="560" height="315" src="//www.youtube.com/embed/hXiBe8NcLPA?rel=0" frameborder="0" allowfullscreen></iframe><br /><br />
 
-[ElasticSearch](http://www.elasticsearch.org/) is an open source search engine known for its ease of use. [Kibana](http://kibana.org/) is an open source Web UI that makes ElasticSearch user friendly for marketers, engineers and data scientists alike. Kibana supports the LogStash format, which in turn is supported by the fluentd-plugin-elasticsearch plugin. And of course, Fluentd is the open source log collector known for its scalability and flexibility.
+[ElasticSearch](http://www.elasticsearch.org/) is an open source search engine known for its ease of use. [Kibana](http://kibana.org/) is an open source Web UI that makes ElasticSearch user friendly for marketers, engineers and data scientists alike.
+
+Kibana supports the LogStash format, which in turn is supported by the fluentd-plugin-elasticsearch plugin. And of course, Fluentd is the open source log collector known for its scalability and flexibility.
 
 By combining these three tools we get a scalable, flexible, easy to use log search engine with a great Web UI that provides an end to end solution from log collection to visualization, all for free!
 
@@ -138,12 +140,14 @@ When debugging your td-agent configuration, using [out_copy](out_copy) + [out_st
       </store>
     </match>
 
-## Dashboard
+## Demo Environment
 
-<center><img src="http://three.kibana.org/assets/img/piemap.png" width="90%"/></center><br />
+Please access to the demo environment of Kibana.
 
-The upcoming <a href="http://three.kibana.org/">Kibana 3</a> comes with a beautiful dashboard.
+- [Kibana Demo Environment](http://demo.kibana.org/)
 
 ## Conclusion
 
-This article introduced using the combination of Fluentd and Kibana (with ElasticSearch) to achieve a free alternative to Splunk: storing and searching machine logs. The examples provided in this article have not been tuned. If you will be using these components in production, you may want to modify some of the configurations (e.g. JVM, ElasticSearch, Fluentd buffer, etc.) according to your needs.
+This article introduced the combination of Fluentd and Kibana (with ElasticSearch) to achieve a free alternative to Splunk: storing and searching machine logs. The examples provided in this article have not been tuned.
+
+If you will be using these components in production, you may want to modify some of the configurations (e.g. JVM, ElasticSearch, Fluentd buffer, etc.) according to your needs.
