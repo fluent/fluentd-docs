@@ -11,7 +11,11 @@
     <% articles.each do |article| %>
       <% if File.exist?("#{settings.root}/docs/#{prefix}#{article}.txt") %>
         <url>
+      <% if /^recipe-/.match(article) %>
+          <loc>http://docs.fluentd.org/<%=prefix %><%= article.gsub("recipe-", "recipe/").gsub("-to-", "/") %></loc>
+      <% else %>
           <loc>http://docs.fluentd.org/<%=prefix %>articles/<%= article %></loc>
+      <% end %>
           <lastmod><%= File::mtime("#{settings.root}/docs/#{prefix}#{article}.txt").strftime("%Y-%m-%d") %></lastmod>
           <changefreq>daily</changefreq>
           <priority>0.8</priority>

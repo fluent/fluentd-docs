@@ -164,6 +164,13 @@ get '/:lang/categories/:category' do
   render_category params[:category], params[:lang]
 end
 
+get '/recipe/:data_source/:data_sink' do
+  params[:article] = "recipe-#{params[:data_source]}-to-#{params[:data_sink]}"
+  puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
+  cache_long
+  render_article params[:article], params[:congrats]
+end
+
 get '/articles/:article' do
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
   cache_long
@@ -193,7 +200,9 @@ helpers do
 
     if @articles.length == 1
       article_name = @articles.first.first
-      redirect_path = if lang == $DEFAULT_LANGUAGE
+      redirect_path = if /^recipe-/.match(article_name)
+                        article_name.split("-", 3).join("/")	
+                      elsif lang == $DEFAULT_LANGUAGE
                         "/articles/#{article_name}"
                       else
                         "/#{lang}/articles/#{article_name}"

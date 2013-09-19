@@ -70,6 +70,18 @@ section 'configuration', 'Configuration' do
   category 'config-file', 'Config File' do
     article 'config-file', 'Config File'
   end
+  category 'recipes', 'Recipes' do
+    for recipe in Dir.entries("#{settings.root}/docs").grep(/^recipe-/)
+      recipe.chomp!(".txt")
+      article recipe, (recipe.split("-").map {|w|
+        if /json|csv|tsv/.match(w)
+          w.upcase
+        else
+          w.capitalize
+        end
+      }).join(" ")
+    end 
+  end
   category 'high-availability', 'High Availability' do
     article 'high-availability', 'Fluentd High Availability Configuration'
   end
