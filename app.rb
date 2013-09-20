@@ -209,6 +209,7 @@ helpers do
                       end
       redirect redirect_path
     elsif !@articles.empty?
+      @articles.sort!
       @current_lang = lang
       erb :category
     else
