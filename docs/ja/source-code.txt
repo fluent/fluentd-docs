@@ -1,1 +1,6 @@
-../source-code.txt
+# ソースコード
+
+Fluentdのソースコードはgithub上で管理されています。プロジェクトは[ここ](https://github.com/fluent/)で見ることができます。
+
+* [github.com/fluent/](http://github.com/fluent/)
+* [github.com/fluent/fluentd](http://github.com/fluent/fluentd)

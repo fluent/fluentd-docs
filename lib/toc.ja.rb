@@ -174,8 +174,8 @@ section 'developer', 'Developer' do
   category 'mailing-list', 'メーリングリスト' do
     article 'mailing-list', 'メーリングリスト'
   end
-  category 'source-code', 'Source Code' do
-    article 'source-code', 'Source Code'
+  category 'source-code', 'ソースコード' do
+    article 'source-code', 'ソースコード'
   end
   category 'bug-tracking', 'Bug Tracking' do
     article 'bug-tracking', 'Bug Tracking'
