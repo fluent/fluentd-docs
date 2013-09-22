@@ -183,7 +183,7 @@ section 'developer', 'Developer' do
   category 'changelog', 'ChangeLog' do
     article 'changelog', 'ChangeLog'
   end
-  category 'logo', 'Logo' do
-    article 'logo', 'Logo'
+  category 'logo', 'ロゴ' do
+    article 'logo', 'ロゴ'
   end
 end
