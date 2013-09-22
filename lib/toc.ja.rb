@@ -177,8 +177,8 @@ section 'developer', 'Developer' do
   category 'source-code', 'Source Code' do
     article 'source-code', 'Source Code'
   end
-  category 'bug-tracking', 'Bug Tracking' do
-    article 'bug-tracking', 'Bug Tracking'
+  category 'bug-tracking', 'バグ管理' do
+    article 'bug-tracking', 'バグ管理'
   end
   category 'changelog', 'ChangeLog' do
     article 'changelog', 'ChangeLog'
