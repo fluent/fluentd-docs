@@ -79,8 +79,8 @@ section 'configuration', 'Configuration' do
   category 'monitoring', 'Monitoring' do
     article 'monitoring', 'Monitoring'
   end
-  category 'signals', 'Signals' do
-    article 'signals', 'Signal Handling', ['Signals']
+  category 'signals', 'シグナル一覧' do
+    article 'signals', 'シグナル処理', ['シグナル一覧']
   end
   category 'trouble-shooting', 'トラブルシューティング' do
     article 'trouble-shooting', 'トラブルシューティング'
