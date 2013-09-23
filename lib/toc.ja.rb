@@ -24,8 +24,8 @@ section 'overview', 'Overview' do
   category 'slides', 'スライド' do
     article 'slides', 'スライド'
   end
-  category 'support', 'Support' do
-    article 'support', 'Support'
+  category 'support', 'サポート' do
+    article 'support', 'サポート'
   end
   category 'faq', 'FAQ' do
     article 'faq', 'FAQ'
