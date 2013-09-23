@@ -21,8 +21,8 @@ section 'overview', 'Overview' do
   category 'users', 'ユーザー' do
     article 'users', 'Fluentdのユーザー'
   end
-  category 'slides', 'Slides' do
-    article 'slides', 'Slides'
+  category 'slides', 'スライド' do
+    article 'slides', 'スライド'
   end
   category 'support', 'Support' do
     article 'support', 'Support'
