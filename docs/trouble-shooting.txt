@@ -2,7 +2,7 @@
 
 ## Look at Logs
 
-If things aren't happeneing as expected, please first look at your logs. For td-agent (rpm/deb), the logs are located at `/var/log/td-agent/td-agent.log`.
+If things aren't happening as expected, please first look at your logs. For td-agent (rpm/deb), the logs are located at `/var/log/td-agent/td-agent.log`.
 
 ## Turn on Verbose Logging
 
