@@ -180,8 +180,8 @@ section 'developer', 'Developer' do
   category 'bug-tracking', 'バグ管理' do
     article 'bug-tracking', 'バグ管理'
   end
-  category 'changelog', 'ChangeLog' do
-    article 'changelog', 'ChangeLog'
+  category 'changelog', '変更履歴' do
+    article 'changelog', '変更履歴'
   end
   category 'logo', 'ロゴ' do
     article 'logo', 'ロゴ'
