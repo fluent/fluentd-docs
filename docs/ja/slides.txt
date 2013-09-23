@@ -1,1 +1,29 @@
-../slides.txt
+# プレゼンテーション スライド
+
+## Fluentd入門
+
+このスライドはFluentdの基本を説明します。
+
+<center><iframe src="http://www.slideshare.net/slideshow/embed_code/11410514?rel=0" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/treasure-data/fluentd-meetup-in-japan-11410514" title="Fluentd meetup in japan" target="_blank">Fluentd meetup in japan</a> </strong> from <strong><a href="http://www.slideshare.net/treasure-data" target="_blank">Treasure Data, Inc.</a></strong> </div></center>
+
+## Fluentdの基本
+
+Fluentdの基本を説明する別のスライドです。
+
+<center><iframe src="http://www.slideshare.net/slideshow/embed_code/17001359?rel=0" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/treasure-data/the-basics-of-fluentd" title="The basics of fluentd" target="_blank">The basics of fluentd</a> </strong> from <strong><a href="http://www.slideshare.net/treasure-data" target="_blank">Treasure Data, Inc.</a></strong> </div></center>
+
+## Fluentd Loves MongoDB
+
+このスライドはMongoDBとFluentdの統合について説明します。このプレゼンテーションは2012年7月17日に開催されたMongoSV User Group meetupの際のものです。
+
+<center><iframe src="http://www.slideshare.net/slideshow/embed_code/13676771?rel=0" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/treasure-data/fluentd-loves-mongodb-at-mongosv-july172012" title="Fluentd loves MongoDB, at MongoDB SV User Group, July 17, 2012" target="_blank">Fluentd loves MongoDB, at MongoDB SV User Group, July 17, 2012</a> </strong> from <strong><a href="http://www.slideshare.net/treasure-data" target="_blank">Treasure Data, Inc.</a></strong> </div></center>
+
+## Dive into Fluentd Plugins
+
+<center><iframe src="http://www.slideshare.net/slideshow/embed_code/11411503" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/repeatedly/fluentd-meetup-dive-into-fluent-plugin" title="Fluentd meetup dive into fluent plugin" target="_blank">Fluentd meetup dive into fluent plugin</a> </strong> from <strong><a href="http://www.slideshare.net/repeatedly" target="_blank">N Masahiro</a></strong> </div></center>
+
+## FluentdとWebHDFS
+
+このスライドはHDFS (Hadoop分散ファイルシステム) とFluentdの統合について説明します。このプレゼンテーションは2012年11月8日に開催されたFluentd meetupの際のものです。
+
+<center><iframe src="http://www.slideshare.net/slideshow/embed_code/15082128" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC;border-width:1px 1px 0;margin-bottom:5px" allowfullscreen webkitallowfullscreen mozallowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="http://www.slideshare.net/tagomoris/fluentd-and-webhdfs" title="Fluentd and WebHDFS" target="_blank">Fluentd and WebHDFS</a> </strong> from <strong><a href="http://www.slideshare.net/tagomoris" target="_blank">SATOSHI TAGOMORI</a></strong> </div></center>
