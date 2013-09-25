@@ -73,8 +73,8 @@ section 'configuration', 'Configuration' do
   category 'high-availability', 'High Availability' do
     article 'high-availability', 'Fluentd High Availability Configuration'
   end
-  category 'failure-scenarios', 'Failure Scenarios' do
-    article 'failure-scenarios', 'Failure Scenarios'
+  category 'failure-scenarios', '障害のシナリオ' do
+    article 'failure-scenarios', '障害のシナリオ'
   end
   category 'monitoring', 'Monitoring' do
     article 'monitoring', 'Monitoring'
