@@ -51,6 +51,11 @@ Here is an example set up to send events to both a local file under `/var/log/fl
 ### type (required)
 The value must be `copy`.
 
+### deep_copy
+`out_copy` shares a record between `store` plugins by default.
+
+When `deep_copy` is true, `out_copy` passes different record to each `store` plugin.
+
 ### &lt;store&gt; (at least one required)
 Specifies the storage destinations. The format is the same as the &lt;match&gt; directive.
 
