@@ -1,6 +1,6 @@
 # Unix Domain Socket Input Plugin
 
-The `in_unix` Input plugin enables Fluentd to retrieve records from Unix Domain Socket. The wire protocol is same with [in_forward](in_forward), but the transport layer is different.
+The `in_unix` Input plugin enables Fluentd to retrieve records from the Unix Domain Socket. The wire protocol is the same as [in_forward](in_forward), but the transport layer is different.
 
 ### Example Configuration
 
@@ -20,4 +20,4 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 The value must be `unix`.
 
 #### path (required)
-The path to unix domain socket.
+The path to your Unix Domain Socket.
