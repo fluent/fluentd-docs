@@ -61,6 +61,9 @@ The timeout time when sending event logs. The default is 60 seconds.
 ### recover_wait
 The wait time before accepting a server fault recovery. The default is 10 seconds.
 
+### heartbeat_type
+The transport protocol to use for heartbeats. The default is "udp", but you can select "tcp" as well.
+
 ### heartbeat_interval
 The interval of the heartbeat packer. The default is 1 second.
 
