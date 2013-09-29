@@ -67,8 +67,8 @@ section 'tutorial', 'Tutorial' do
   end
 end
 section 'configuration', 'Configuration' do
-  category 'config-file', 'Config File' do
-    article 'config-file', 'Config File'
+  category 'config-file', '設定ファイル' do
+    article 'config-file', '設定ファイル'
   end
   category 'high-availability', 'High Availability' do
     article 'high-availability', 'Fluentd High Availability Configuration'
