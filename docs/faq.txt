@@ -8,7 +8,7 @@ Since Fluentd is not written entirely in C or C++, it may be slow in its Ruby pa
 
 If this number is insufficient for your application, please consider other solutions which are written entirely in C-family or Java. However, please note that you will lose some flexibility as a tradeoff.
 
-## What is the difference with td-agent and Fluentd?
+## What are the differences between td-agent and Fluentd?
 
 `td-agent` is the stable distribution package of fluentd. The differences are as follows:
 
