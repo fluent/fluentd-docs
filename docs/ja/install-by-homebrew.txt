@@ -64,6 +64,8 @@ MacOS Xでtd-agentを配布するために、我々は[Homebrew](http://mxcl.git
 
 これでFluentdを使って実際のログを収集する準備が整いました。さまざまなデータソースからデータを収集する方法については、以下のチュートリアルを参照してください。
 
+  * 基本的な設定
+    * [設定ファイル](config-file)
   * アプリケーションログ
     * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
   * 使用例
