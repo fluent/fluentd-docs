@@ -108,6 +108,9 @@ The interval between forced data flushes. The default is nil (don't force flush 
 ### retry_wait and retry_limit
 The interval between write retries, and the number of retries. The default values are 1.0 and 17, respectively. `retry_wait` doubles every retry (e.g. the last retry waits for 131072 sec, roughly 36 hours).
 
+### num_threads
+The number of threads to flush the buffer. This option can be used to parallelize the data upload into S3. The default is 1.
+
 ## Further Reading
 This page doesn't describe all the possible configurations. If you want to know about other configurations, please check the link below.
 
