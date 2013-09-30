@@ -8,7 +8,7 @@ The `in_unix` Input plugin enables Fluentd to retrieve records from the Unix Dom
 
     :::text
     <source>
-      type type
+      type unix
       path /path/to/socket.sock
     </source>
 
