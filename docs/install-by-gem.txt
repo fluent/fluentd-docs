@@ -19,7 +19,7 @@ Fetch and install the `fluentd` Ruby gem using the `gem` command. The official r
 
 ## Step3: Run
 
-Run the following commands to to confirm that Fluentd was installed successfully:
+Run the following commands to confirm that Fluentd was installed successfully:
 
     :::term
     $ fluentd --setup ./fluent
