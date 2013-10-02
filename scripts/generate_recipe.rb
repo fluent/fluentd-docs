@@ -8,7 +8,7 @@ CANONICAL_TO_PLUGIN_NAME = {
   "csv" => "tail",
   "json" => "tail",
   "tsv" => "tail",
-  "apache" => "tail",
+  "apache logs" => "tail",
   "nginx" => "tail",
   "treasure data" => "td",
 }
@@ -37,7 +37,7 @@ def generate_recipe!(input, output)
   output_plugin = CANONICAL_TO_PLUGIN_NAME[output] || output
   output_plugin = nil if default_plugin?(output_plugin)
   erb_res = ERB.new(File.new([CONF_DIR, 'template.erb'].join("/")).read, 0, "-").result(binding)
-  doc_filepath = [DOCS_DIR, "recipe-#{input}-to-#{output.gsub(" ", "-")}.txt"].join("/")
+  doc_filepath = [DOCS_DIR, "recipe-#{input.gsub(" ", "-")}-to-#{output.gsub(" ", "-")}.txt"].join("/")
   File.open(doc_filepath, 'w') { |f| f.write(erb_res) }
 end
 

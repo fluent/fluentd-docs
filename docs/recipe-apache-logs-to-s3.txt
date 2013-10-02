@@ -1,9 +1,9 @@
-# Getting Data From Apache Into S3 Using Fluentd
+# Getting Data From Apache logs Into S3 Using Fluentd
 
-Looking to get data out of apache into s3? You can do that with [fluentd](//fluentd.org) in **10 minutes**!
+Looking to get data out of apache logs into s3? You can do that with [fluentd](//fluentd.org) in **10 minutes**!
 
 <table>
-  <td><img style="display:inline;width:250px" src="/images/plugin_icon/apache.png"/></td>
+  <td><img style="display:inline;width:250px" src="/images/plugin_icon/apache logs.png"/></td>
   <td><span style="font-size:50px">&#8594;</span></td>
   <td><img style="display:inline;width:250px" src="/images/plugin_icon/s3.png"/></td>
 </table>

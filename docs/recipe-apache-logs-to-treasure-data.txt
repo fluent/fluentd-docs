@@ -1,18 +1,18 @@
-# Getting Data From Apache Into Elasticsearch Using Fluentd
+# Getting Data From Apache logs Into Treasure Data Using Fluentd
 
-Looking to get data out of apache into elasticsearch? You can do that with [fluentd](//fluentd.org) in **10 minutes**!
+Looking to get data out of apache logs into treasure data? You can do that with [fluentd](//fluentd.org) in **10 minutes**!
 
 <table>
-  <td><img style="display:inline;width:250px" src="/images/plugin_icon/apache.png"/></td>
+  <td><img style="display:inline;width:250px" src="/images/plugin_icon/apache logs.png"/></td>
   <td><span style="font-size:50px">&#8594;</span></td>
-  <td><img style="display:inline;width:250px" src="/images/plugin_icon/elasticsearch.png"/></td>
+  <td><img style="display:inline;width:250px" src="/images/plugin_icon/treasure data.png"/></td>
 </table>
 
 Here is how:
 
     :::term
     $ gem install fluentd
-    $ gem install fluent-plugin-elasticsearch
+    $ gem install fluent-plugin-td
     $ touch fluentd.conf
 
 `fluentd.conf` should look like this (just copy and paste this into fluentd.conf):
@@ -26,13 +26,13 @@ Here is how:
       format apache2 # Do you have a custom format? You can write your own regex.
     </source>
     
-    <match **>
-      type elasticsearch
-      host <hostname> #(optional; default="localhost")
-      port <port> #(optional; default=9200)
-      index_name <index name> #(optional; default=fluentd)
-      type_name <type name> #(optional; default=fluentd)
-    </match **>
+    <match td.*.*>
+      type tdlog
+      apikey <Treasure Data API key> # You get your API key by signing up for Treasure Data
+      auto_create_table
+      buffer_type file
+      buffer_path /var/log/td-agent/buffer/td
+    </match>
 
 After that, you can start fluentd and everything should work:
 

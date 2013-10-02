@@ -164,6 +164,10 @@ get '/:lang/categories/:category' do
   render_category params[:category], params[:lang]
 end
 
+get '/recipe/apache/:data_sink' do
+  redirect "/recipe/apache-logs/#{params[:data_sink]}"
+end
+
 get '/recipe/:data_source/:data_sink' do
   params[:article] = "recipe-#{params[:data_source]}-to-#{params[:data_sink]}"
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
