@@ -31,11 +31,11 @@ The configuration file consists of the following directives:
 2. **match** directives determine the output destinations.
 3. **include** directives include other files.
 
-## (1) Source Directive
+Let's actually create a configuration file step by step.
 
-Fluentd's input sources are enabled by selecting and configuring the desired input plugins using **source** directives. Fluentd's standard input plugins include ``http`` and ``forward``. 
+##(1) "source": where all the data come from
 
-#### Examples
+Fluentd's input sources are enabled by selecting and configuring the desired input plugins using **source** directives. Fluentd's standard input plugins include ``http`` and ``forward``. `http` turns fluentd into an HTTP endpoint to accept incoming HTTP messages whereas `forward` turns fluentd into a TCP endpoint to accept TCP packets. Of course, it can be both at the same time (You can add as many sources as you wish)
 
     # Receive events from 24224/tcp
     # This is used by log forwarding and the fluent-cat command
@@ -50,11 +50,11 @@ Fluentd's input sources are enabled by selecting and configuring the desired inp
       port 9880
     </source>
 
-Each **source** directive must include a ``type`` parameter. The ``type`` parameter specifies the input plugin to use.
+Each **source** directive must include a ``type`` parameter. The ``type`` parameter specifies which input plugin to use.
 
-#### Routing
+####Interlude: Routing
 
-The 'source' submits events into the Fluentd's routing engine. An event consists of three entities: **tag**, **time** and **record**. The tag is a string separated by '.'s (e.g. myapp.access), and is used as the directions for Fluentd's internal routing engine. The time is the UNIX time when the event occurs. The record is a JSON object. 
+The `source` submits events into the Fluentd's routing engine. An event consists of three entities: **tag**, **time** and **record**. The tag is a string separated by '.'s (e.g. myapp.access), and is used as the directions for Fluentd's internal routing engine. The time field is specified by input plugins, and it must be in the Unix time format. The record is a JSON object. 
 
 In the example above, the HTTP input plugin submits the following event::
 
@@ -63,39 +63,43 @@ In the example above, the HTTP input plugin submits the following event::
     time: (current time)
     record: {"event":"data"}
 
-#### Plugin
+####Don't find your input source: Write your own plugin!
 
-Users can expand Fluentd's input sources beyond the default options by writing their own plugins. For further information regarding Fluentd's input sources, please refer to the [Input Plugin Overview](input-plugin-overview) article.
+You can add new input sources by writing your own plugins. For further information regarding Fluentd's input sources, please refer to the [Input Plugin Overview](input-plugin-overview) article.
 
+##(2) "match": Tell fluentd what to do!
 
-## (2) Match Directive
+The "match" directive looks for events with _match_ing tags and process them. The most common use of the match directive is outputting events to other systems (for this reason, the plugins that corresponds to the match directive is called "output plugins") Fluentd's standard output plugins include ``file`` and ``forward``.  Let's add those to our configuration file.
 
-Fluentd's output destinations are enabled by selecting and configuring the desired output plugins using **match** directives. Fluentd's standard output plugins include ``file`` and ``forward``. 
-
-#### Examples
+    # Receive events from 24224/tcp
+    # This is used by log forwarding and the fluent-cat command
+    <source>
+      type forward
+      port 24224
+    </source>
+    
+    # http://this.host:9880/myapp.access?json={"event":"data"}
+    <source>
+      type http
+      port 9880
+    </source>
 
     # Match events tagged with "myapp.access" and
     # store them to /var/log/fluent/access.%Y-%m-%d
+    # Of course, you can control how you partition your data
+    # with the time_slice_format option.
     <match myapp.access>
       type file
       path /var/log/fluent/access
     </match>
     
-    <match myapp.log.**>
-      type file
-      format /var/log/fluent/myapp_hourly
-      time_slice_format %Y%m%d%H
-    </match>
+Each **match** directive must include a match pattern and a ``type`` parameter. Only events with **tag** matching the pattern will be sent to the output destination (in the above example, only the events with the tag "myapp.access" is matched). The ``type`` parameter specifies the output plugin to use.
 
-Each **match** directive must include a match pattern and a ``type`` parameter. Match patterns are used to filter the events. Only events with **tag** matching the pattern will be sent to the output destination. The ``type`` parameter specifies the output plugin to use.
+Just like input sources, you can add new output destinations by writing your own plugins. For further information regarding Fluentd's output destinations, please refer to the [Output Plugin Overview](output-plugin-overview) article.
 
-For example, the user can send all matches to the pattern ``myapp.accesslog.**`` to ``file`` in a specified directory.
+###Match Pattern: how you control event flow inside fluentd
 
-Users can expand Fluentd's output sources beyond the default options by writing their own plugins. For further information regarding Fluentd's output destinations, please refer to the [Output Plugin Overview](output-plugin-overview) article.
-
-### Match Pattern
-
-The following match patterns can be used:
+The following match patterns can be used for the `<match>` tag.
 
 * ``*`` matches a single tag element.
 
@@ -112,7 +116,7 @@ The following match patterns can be used:
   * This can be used in combination with the ``*`` or ``**`` patterns. Examples include ``a.{b,c}.*`` and ``a.{b,c.**}``
 
 
-## (3) Include Directive
+## (3) Re-use your config: the "include" directive
 
 Directives in separate configuration files can be imported using the **include** directive::
 
