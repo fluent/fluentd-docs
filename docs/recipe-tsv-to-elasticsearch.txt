@@ -22,7 +22,7 @@ Here is how:
       type tail
       path /var/log/httpd-access.log #...or where you placed your Apache access log
       pos_file /var/log/td-agent/httpd-access.log.pos # This is where you record file position
-      tag foo.bar #fluentd tag!
+      tag foobar.tsv #fluentd tag!
       format tsv
       keys key1, key2, key3 # e.g., user_id, timestamp, action
       time_key key2 # Specify the column that you want to use as timestamp
@@ -34,7 +34,7 @@ Here is how:
       port <port> #(optional; default=9200)
       index_name <index name> #(optional; default=fluentd)
       type_name <type name> #(optional; default=fluentd)
-    </match **>
+    </match>
 
 After that, you can start fluentd and everything should work:
 

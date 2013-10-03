@@ -38,7 +38,7 @@ Here is how:
       auto_create_bucket <true/false> #(optional; default=true)
       check_apikey_on_start <true/false> #(optional; default=true)
       proxy_uri <proxy uri string> #(optional)
-    </match **>
+    </match>
 
 After that, you can start fluentd and everything should work:
 

@@ -32,7 +32,7 @@ Here is how:
       port <port> #(optional; default=9200)
       index_name <index name> #(optional; default=fluentd)
       type_name <type name> #(optional; default=fluentd)
-    </match **>
+    </match>
 
 After that, you can start fluentd and everything should work:
 

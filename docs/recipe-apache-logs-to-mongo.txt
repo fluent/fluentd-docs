@@ -32,7 +32,7 @@ Here is how:
       collection <collection name> #(optional; default="untagged")
       host <hostname> #(optional; default="localhost")
       port <port> #(optional; default=27017)
-    </match **>
+    </match>
 
 After that, you can start fluentd and everything should work:
 
