@@ -1,4 +1,4 @@
-# Getting Data From Apache logs Into Mongo Using Fluentd
+# Getting Data From Apache Logs Into Mongo Using Fluentd
 
 Looking to get data out of apache logs into mongo? You can do that with [fluentd](//fluentd.org) in **10 minutes**!
 

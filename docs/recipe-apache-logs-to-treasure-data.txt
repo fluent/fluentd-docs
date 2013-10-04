@@ -1,4 +1,4 @@
-# Getting Data From Apache logs Into Treasure Data Using Fluentd
+# Getting Data From Apache Logs Into Treasure Data Using Fluentd
 
 Looking to get data out of apache logs into treasure data? You can do that with [fluentd](//fluentd.org) in **10 minutes**!
 
