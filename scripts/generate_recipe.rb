@@ -11,6 +11,7 @@ CANONICAL_TO_PLUGIN_NAME = {
   "apache logs" => "tail",
   "nginx" => "tail",
   "treasure data" => "td",
+  "http rest api" => "http",
 }
 
 def default_plugin?(name)
