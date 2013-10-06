@@ -88,8 +88,8 @@ section 'configuration', 'Configuration' do
   category 'failure-scenarios', '障害のシナリオ' do
     article 'failure-scenarios', '障害のシナリオ'
   end
-  category 'monitoring', 'Monitoring' do
-    article 'monitoring', 'Monitoring'
+  category 'monitoring', '監視' do
+    article 'monitoring', '監視'
   end
   category 'signals', 'シグナル一覧' do
     article 'signals', 'シグナル処理', ['シグナル一覧']
