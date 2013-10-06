@@ -65,6 +65,9 @@ section 'tutorial', 'Tutorial' do
   category 'java', 'Logging from Java' do
     article 'java',   'Import Logs from Java Applications'
   end
+  category 'scala', 'Logging from Scala' do
+    article 'scala',   'Import Logs from Scala Applications'
+  end
 end
 section 'configuration', 'Configuration' do
   category 'config-file', '設定ファイル' do
