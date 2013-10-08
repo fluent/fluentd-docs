@@ -18,14 +18,6 @@ The figure below shows the high-level architecture.
 <img src="http://www.treasure-data.com/images/architecture.png" />
 </center><br /><br />
 
-## Signup
-
-First, please [sign up](https://www.treasure-data.com/signup/) to TD and get your apikey using the `td apikey:show` command.
-
-    :::term
-    $ td apikey:show
-    kdfasklj218dsakfdas0983120
-
 ## Install
 
 For simplicity, this article will describe how to set up an one-node configuration. Please install the following software on the same node.
@@ -38,6 +30,18 @@ The TD Output plugin is included in Fluentd’s deb/rpm package (`td-agent`) by 
 * [Debian Package](install-by-deb)
 * [RPM Package](install-by-rpm)
 * [Ruby gem](install-by-gem)
+
+## Signup
+
+Next, please [sign up](https://www.treasure-data.com/signup/) to TD and get your apikey using the `td apikey:show` command.
+
+    :::term
+    $ td account -f
+    Enter your Treasure Data credentials.
+    Email: your.email@gmail.com
+    Password (typing will be hidden):
+    $ td apikey:show
+    kdfasklj218dsakfdas0983120
 
 ## Fluentd Configuration
 
