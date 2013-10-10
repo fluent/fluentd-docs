@@ -94,13 +94,13 @@ NOTE: The actual path on S3 will be: “{path}{time_slice_format}_{sequential_nu
 Uses UTC for path formatting. The default format is localtime.
 
 ### store_as
-The compression type. The default is "gzip", but you can also choose "lzo", "json", and "txt".
+The compression type. The default is "gzip", but you can also choose "lzo", "json", or "txt".
 
 ### proxy_uri
-The proxy url, and the default is nil.
+The proxy url. The default is nil.
 
 ### use_ssl
-Use SSL or not for the data transfer between Fluentd and S3. The default is "yes".
+Enable/disable SSL for data transfers between Fluentd and S3. The default is "yes".
 
 ## Buffer Parameters
 For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
