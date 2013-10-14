@@ -4,26 +4,35 @@ Fluentd has 3 types of plugins: Input, Output, and Buffer. This article provides
 
 ## Overview
 
-An output plugin is typically 'buffered'. A buffered output plugin instructs Fluentd to accumulate event logs in a buffer before writing chunks of data out to a file or network.
+There are three types of output plugins: Non-Buffered, Buffered, and Time Sliced.
 
-The buffer’s behavior is defined by a separate [Buffer plugin](buffer-plugin-overview). Different buffer plugins can be chosen for each output plugin. Some output plugins are fully customized and do not use buffers.
+* *Non-Buffered* plugins do not buffer data and immediately write out results.
+* *Buffered* plugins maintain a queue of chunks (a chunk is a collection of events), and its behavior can be tuned by "chunk limit" and "queue limit" (See the diagram  below).
+* *Time Sliced* plugins are in fact a type of Bufferred plugin, but the chunks are keyed by time (See the diagram below).
 
-## List of Buffered Output Plugins
+<img style="display:block;" src="http://image.slidesharecdn.com/fluentdmeetup-diveintofluentplugin-120203210125-phpapp02/95/slide-60-728.jpg"/>
 
-* [out_file](out_file)
-* [out_forward](out_forward)
-* [out_exec](out_exec)
-* [out_exec_filter](out_exec_filter)
-* [out_s3](out_s3)
-* [out_mongo](out_mongo) or [out_mongo_replset](out_mongo_replset)
-* [out_webhdfs](out_webhdfs)
+The buffer’s behavior is defined by the separate [Buffer plugin](buffer-plugin-overview). Different buffer plugins can be chosen for each output plugin. Some output plugins are fully customized and do not use buffers.
 
 ## List of Non-Buffered Output Plugins
 
 * [out_copy](out_copy)
+* [out_null](out_null)
 * [out_roundrobin](out_roundrobin)
 * [out_stdout](out_stdout)
-* [out_null](out_null)
+
+## List of Buffered Output Plugins
+
+* [out_exec_filter](out_exec_filter)
+* [out_forward](out_forward)
+* [out_mongo](out_mongo) or [out_mongo_replset](out_mongo_replset)
+
+## List of Time Sliced Output Plugins
+
+* [out_exec](out_exec)
+* [out_file](out_file)
+* [out_s3](out_s3)
+* [out_webhdfs](out_webhdfs)
 
 ## Other Plugins
 
