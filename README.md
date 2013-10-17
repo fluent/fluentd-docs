@@ -39,9 +39,19 @@ after initialization, remove symlink and add translated article :)
 # Detect outdated documents
 
     $ bundle exec rake outdated
-    docs/ja/install-by-chef.txt     : 17 days, 4 hours
-    ...
-    docs/ja/quickstart.txt          : 50 days, 23 hours
+    docs/ja/config-file.txt    : 4 days, 10 hours
+    docs/ja/install-by-gem.txt : 13 hours
+    docs/ja/out_mongo.txt      : 153 days, 19 hours
+    docs/ja/quickstart.txt     : 14 hours
+    Following articles not to exist in "br":
+      changelog.txt
+      config-file.txt
+      faq.txt
+    Following article not to exist in "eu":
+      java.txt
+    Following articles not to exist in "la":
+      apache-to-mongodb.txt
+      apache-to-s3.txt
 
 # Acknowledgement
 
