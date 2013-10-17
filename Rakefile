@@ -78,11 +78,11 @@ desc 'list outdated documents'
 task :outdated do
   base = {}
   def base.unreferenced
-    @referenced = [] unless @referenced
+    @referenced ||= []
     self.keys - @referenced
   end
   def base.[](key)
-    @referenced = [] unless @referenced
+    @referenced ||= []
     @referenced << key
     super
   end
@@ -97,7 +97,7 @@ task :outdated do
   outdated_files = []
   `git ls-files docs/*/*.txt`.split("\n").each { |file|
     lang, name = parse_docs_path(file)
-    base_per_lang[lang] = base.clone unless base_per_lang[lang]
+    base_per_lang[lang] ||= base.clone
     if base_time = base_per_lang[lang][name]
       path = Pathname.new(file).realpath.to_s
       diff = base_time - Time.at((`git log --pretty=%ct --max-count=1 #{path}`.strip).to_i).utc
@@ -116,11 +116,13 @@ task :outdated do
     puts "#{file}#{' ' * (longest - file.length + 1)}: #{outdated}"
   }
   base_per_lang.each { |lang, names|
-    next if names.unreferenced.empty?
-    msg = "Missing articles on \"#{lang}\": "
-    missings = names.unreferenced.map { | missing|
-      "#{' ' * msg.length}#{missing}"
+    unrefs = names.unreferenced
+    next if unrefs.empty?
+    msg = "Following article#{(unrefs.size > 1) ? 's' : ''} not to exist in \"#{lang}\":"
+    not_exists = unrefs.map { |not_exist|
+      "  #{not_exist}"
     }
-    puts "#{msg}#{missings.join("\n").strip}"
+    puts msg
+    puts not_exists.join("\n")
   }
 end
