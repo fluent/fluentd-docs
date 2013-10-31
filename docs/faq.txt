@@ -37,7 +37,7 @@ href="http://www.treasure-data.com">Treasure Data (can be modified)</a></td>
     </tr>
     <tr>
         <td>init.d script (for production deployment)</td>
-        <td>No (the user needs to writh shell script to set it up)</td>
+        <td>No (the user needs to write shell script to set it up)</td>
         <td>Yes (shipped with .deb and .rpm)</td>
     </tr>
     <tr>
