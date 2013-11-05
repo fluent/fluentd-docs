@@ -63,13 +63,13 @@ In the example above, the HTTP input plugin submits the following event::
     time: (current time)
     record: {"event":"data"}
 
-####Don't find your input source: Write your own plugin!
+####Didn't find your input source? You can write your own plugin!
 
 You can add new input sources by writing your own plugins. For further information regarding Fluentd's input sources, please refer to the [Input Plugin Overview](input-plugin-overview) article.
 
 ##(2) "match": Tell fluentd what to do!
 
-The "match" directive looks for events with _match_ing tags and process them. The most common use of the match directive is outputting events to other systems (for this reason, the plugins that corresponds to the match directive is called "output plugins") Fluentd's standard output plugins include ``file`` and ``forward``.  Let's add those to our configuration file.
+The "match" directive looks for events with _match_ing tags and processes them. The most common use of the match directive is to output events to other systems (for this reason, the plugins that correspond to the match directive are called "output plugins"). Fluentd's standard output plugins include ``file`` and ``forward``.  Let's add those to our configuration file.
 
     # Receive events from 24224/tcp
     # This is used by log forwarding and the fluent-cat command
@@ -93,11 +93,11 @@ The "match" directive looks for events with _match_ing tags and process them. Th
       path /var/log/fluent/access
     </match>
     
-Each **match** directive must include a match pattern and a ``type`` parameter. Only events with **tag** matching the pattern will be sent to the output destination (in the above example, only the events with the tag "myapp.access" is matched). The ``type`` parameter specifies the output plugin to use.
+Each **match** directive must include a match pattern and a ``type`` parameter. Only events with a **tag** matching the pattern will be sent to the output destination (in the above example, only the events with the tag "myapp.access" is matched). The ``type`` parameter specifies the output plugin to use.
 
 Just like input sources, you can add new output destinations by writing your own plugins. For further information regarding Fluentd's output destinations, please refer to the [Output Plugin Overview](output-plugin-overview) article.
 
-###Match Pattern: how you control event flow inside fluentd
+###Match Pattern: how you control the event flow inside fluentd
 
 The following match patterns can be used for the `<match>` tag.
 
