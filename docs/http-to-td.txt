@@ -15,7 +15,7 @@ This article will show you how to use [Fluentd](http://fluentd.org/) to receive 
 The figure below shows the high-level architecture.
 
 <center>
-<img src="http://www.treasure-data.com/images/architecture.png" />
+<img width="600" src="/images/treasuredata_architecture.png" />
 </center><br /><br />
 
 ## Install
