@@ -1,12 +1,12 @@
 # Data Analytics with Treasure Data
 
-This article explains how to use [Fluentd](http://fluentd.org/)'s [Treasure Data Output plugin](http://github.com/treasure-data/fluent-plugin-td/) to aggregate semi-structured logs into Treasure Data (TD), which offers Big Data as-a-Service.
+This article explains how to use [Fluentd](http://fluentd.org/)'s [Treasure Data Output plugin](http://github.com/treasure-data/fluent-plugin-td/) to aggregate semi-structured logs into Treasure Data (TD), which offers Cloud Data Service.
 
 ## Background
 
-[Fluentd](http://fluentd.org/) is an advanced open-source log collector originally developed at [Treasure Data, Inc](http://www.treasure-data.com/). Fluentd is specifically designed to solve the big-data log collection problem.
+[Fluentd](http://fluentd.org/) is an advanced open-source log collector originally developed at [Treasure Data, Inc](http://www.treasuredata.com/). Fluentd is specifically designed to solve the big-data log collection problem.
 
-[Treasure Data](http://www.treasure-data.com/) provides Big Data as-a-Service, which Fluentd users can use to easily store and analyze data on the cloud. Fluentd is designed to flexibly connect with many systems via plugins, but Treasure Data should be your top choice if you don't want to spend engineering resources maintaining your backend infrastructure.
+[Treasure Data](http://www.treasuredata.com/) provides Cloud Data Service, which Fluentd users can use to easily store and analyze data on the cloud. Fluentd is designed to flexibly connect with many systems via plugins, but Treasure Data should be your top choice if you don't want to spend engineering resources maintaining your backend infrastructure.
 
 This article will show you how to use [Fluentd](http://fluentd.org/) to receive data from HTTP and stream it into TD. You can start from $29/month for 50GB of storage.
 
@@ -33,7 +33,7 @@ The TD Output plugin is included in Fluentd’s deb/rpm package (`td-agent`) by 
 
 ## Signup
 
-Next, please [sign up](https://www.treasure-data.com/signup/) to TD and get your apikey using the `td apikey:show` command.
+Next, please [sign up](https://console.treasure-data.com/users/sign_up) to TD and get your apikey using the `td apikey:show` command.
 
     :::term
     $ td account -f
@@ -117,7 +117,7 @@ Fluentd + Treasure Data gives you a data collection and analysis system in days,
 
 ## Further Reading
 
-* [Treasure Data: Big Data as-a-Service](http://www.treasure-data.com/)
-* [Treasure Data Documentation](http://docs.treasure-data.com/)
+* [Treasure Data: Cloud Data Service](http://www.treasuredata.com/)
+* [Treasure Data Documentation](http://docs.treasuredata.com/)
 * [Fluentd Plugins List](http://fluentd.org/plugin/)
 * [Fluentd Source Code](http://github.com/fluent/fluentd/)

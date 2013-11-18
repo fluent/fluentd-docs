@@ -1,12 +1,12 @@
 # debパッケージからFluentdをインストールする
 
-この記事では、[Treasure Data社](http://www.treasure-data.com/)がメンテナンスしているFluentdの安定版配布パッケージであるtd-agentのdebパッケージをインストールする方法について説明します。
+この記事では、[Treasure Data社](http://www.treasuredata.com/)がメンテナンスしているFluentdの安定版配布パッケージであるtd-agentのdebパッケージをインストールする方法について説明します。
 
 ## td-agentとは?
 
 Fluentdは拡張しやすいようRubyで実装され、一部の性能に直結する部分はC言語で実装されています。しかしライトユーザーにとってRubyのデーモンをインストールし運用することは難しい場合があります。
 
-それが[Treasure Data社](http://www.treasure-data.com/)が **Fluentd安定版の配布パッケージ** を提供している理由であり、これは `td-agent` と呼ばれています。Fluentdとtd-agentの違いは[ここ](faq#what-is-the-difference-with-td-agent-and-fluentd)で確認することができます。
+それが[Treasure Data社](http://www.treasuredata.com/)が **Fluentd安定版の配布パッケージ** を提供している理由であり、これは `td-agent` と呼ばれています。Fluentdとtd-agentの違いは[ここ](faq#what-is-the-difference-with-td-agent-and-fluentd)で確認することができます。
 
 ## Step0: インストールの前に
 
@@ -17,16 +17,16 @@ Fluentdは拡張しやすいようRubyで実装され、一部の性能に直結
 現在、"Ubuntu 12.04 LTS / Precise" と "Ubuntu 10.04 LTS / Lucid" がサポートされています。
 
 #### Ubuntu Precise
-[install-ubuntu-precise.sh](http://toolbelt.treasure-data.com/sh/install-ubuntu-precise.sh)を実行すると自動的にtd-agentがインストールされます。このシェルスクリプトは`/etc/apt/sources.list.d/treasure-data.list`に新しいaptリポジトリを登録し、 `td-agent` のdebパッケージをインストールします。
+[install-ubuntu-precise.sh](http://toolbelt.treasuredata.com/sh/install-ubuntu-precise.sh)を実行すると自動的にtd-agentがインストールされます。このシェルスクリプトは`/etc/apt/sources.list.d/treasure-data.list`に新しいaptリポジトリを登録し、 `td-agent` のdebパッケージをインストールします。
 
     :::term
-    $ curl -L http://toolbelt.treasure-data.com/sh/install-ubuntu-precise.sh | sh
+    $ curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-precise.sh | sh
 
 #### Ubuntu Lucid
-[install-ubuntu-lucid.sh](http://toolbelt.treasure-data.com/sh/install-ubuntu-lucid.sh)を実行すると自動的にtd-agentがインストールされます。このシェルスクリプトは`/etc/apt/sources.list.d/treasure-data.list`に新しいaptリポジトリを登録し、 `td-agent` のdebパッケージをインストールします。
+[install-ubuntu-lucid.sh](http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid.sh)を実行すると自動的にtd-agentがインストールされます。このシェルスクリプトは`/etc/apt/sources.list.d/treasure-data.list`に新しいaptリポジトリを登録し、 `td-agent` のdebパッケージをインストールします。
 
     :::term
-    $ curl -L http://toolbelt.treasure-data.com/sh/install-ubuntu-lucid.sh | sh
+    $ curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid.sh | sh
 
 NOTE: ログ内に無効なタイムスタンプが入ることを防ぐためにノード上で<b>ntpd</b>を設定することを強くお勧めします。
 
@@ -70,5 +70,5 @@ NOTE: ログ内に無効なタイムスタンプが入ることを防ぐため�
 
 さらなるステップについては以下のリソースを参照してください。
 
-* [td-agentのChangeLog](http://docs.treasure-data.com/articles/td-agent-changelog)
+* [td-agentのChangeLog](http://docs.treasuredata.com/articles/td-agent-changelog)
 * [Chef Cookbook](https://github.com/treasure-data/chef-td-agent/)

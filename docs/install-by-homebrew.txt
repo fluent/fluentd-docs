@@ -1,12 +1,12 @@
 # Installing Fluentd using Homebrew (MacOS X)
 
-This article explains how to install td-agent, the stable Fluentd distribution package maintained by [Treasure Data, Inc](http://www.treasure-data.com/), on MacOS X.
+This article explains how to install td-agent, the stable Fluentd distribution package maintained by [Treasure Data, Inc](http://www.treasuredata.com/), on MacOS X.
 
 ## What is td-agent?
 
 Fluentd is written in Ruby for flexibility, with performance sensitive parts written in C. However, casual users may have difficulty installing and operating a Ruby daemon.
 
-That's why [Treasure Data, Inc](http://www.treasure-data.com/) is providing **the stable distribution of Fluentd**, called `td-agent`. The differences between Fluentd and td-agent can be found [here](faq#what-is-the-difference-with-td-agent-and-fluentd).
+That's why [Treasure Data, Inc](http://www.treasuredata.com/) is providing **the stable distribution of Fluentd**, called `td-agent`. The differences between Fluentd and td-agent can be found [here](faq#what-is-the-difference-with-td-agent-and-fluentd).
 
 For MacOS X, we're using the [Homebrew](http://mxcl.github.io/homebrew/) packaging manager to distribute td-agent.
 
@@ -26,7 +26,7 @@ If you haven't installed Homebrew on your Mac yet, please install it using the c
 Once you have the `brew` command, please use `brew install` to fetch the td-agent formula and install td-agent.
 
     :::term
-    $ brew install "http://toolbelt.treasure-data.com/brew/td-agent.rb"
+    $ brew install "http://toolbelt.treasuredata.com/brew/td-agent.rb"
 
 You can launch `td-agent` in a foreground process.
 
@@ -78,5 +78,5 @@ You're now ready to collect your real logs using Fluentd. Please see the followi
 
 Please refer to the resources below for further steps.
 
-* [ChangeLog of td-agent](http://docs.treasure-data.com/articles/td-agent-changelog)
+* [ChangeLog of td-agent](http://docs.treasuredata.com/articles/td-agent-changelog)
 * [Chef Cookbook](https://github.com/treasure-data/chef-td-agent/)

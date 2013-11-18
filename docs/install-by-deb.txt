@@ -1,12 +1,12 @@
 # Installing Fluentd Using deb Package
 
-This article explains how to install the td-agent deb package, the stable Fluentd distribution package maintained by [Treasure Data, Inc](http://www.treasure-data.com/).
+This article explains how to install the td-agent deb package, the stable Fluentd distribution package maintained by [Treasure Data, Inc](http://www.treasuredata.com/).
 
 ## What is td-agent?
 
 Fluentd is written in Ruby for flexibility, with performance sensitive parts written in C. However, casual users may have difficulty installing and operating a Ruby daemon.
 
-That's why [Treasure Data, Inc](http://www.treasure-data.com/) is providing **the stable distribution of Fluentd**, called `td-agent`. The differences between Fluentd and td-agent can be found [here](faq#what-is-the-difference-with-td-agent-and-fluentd).
+That's why [Treasure Data, Inc](http://www.treasuredata.com/) is providing **the stable distribution of Fluentd**, called `td-agent`. The differences between Fluentd and td-agent can be found [here](faq#what-is-the-difference-with-td-agent-and-fluentd).
 
 ## Step0: Before Installation
 
@@ -17,16 +17,16 @@ Please follow the [Preinstallation Guide](before-install) to configure your OS p
 "Ubuntu 12.04 LTS / Precise" and "Ubuntu 10.04 LTS / Lucid" are currently supported.
 
 #### Ubuntu Precise
-Executing [install-ubuntu-precise.sh](http://toolbelt.treasure-data.com/sh/install-ubuntu-precise.sh) will automaticallly install td-agent on your machine. This shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
+Executing [install-ubuntu-precise.sh](http://toolbelt.treasuredata.com/sh/install-ubuntu-precise.sh) will automaticallly install td-agent on your machine. This shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
 
     :::term
-    $ curl -L http://toolbelt.treasure-data.com/sh/install-ubuntu-precise.sh | sh
+    $ curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-precise.sh | sh
 
 #### Ubuntu Lucid
-Executing [install-ubuntu-lucid.sh](http://toolbelt.treasure-data.com/sh/install-ubuntu-lucid.sh) will automaticallly install td-agent on your machine. This shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
+Executing [install-ubuntu-lucid.sh](http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid.sh) will automaticallly install td-agent on your machine. This shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
 
     :::term
-    $ curl -L http://toolbelt.treasure-data.com/sh/install-ubuntu-lucid.sh | sh
+    $ curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid.sh | sh
 
 NOTE: It's HIGHLY recommended that you set up <b>ntpd</b> on the node to prevent invalid timestamps in your logs.
 
@@ -88,5 +88,5 @@ You're now ready to collect your real logs using Fluentd. Please see the followi
 
 Please refer to the resources below for further steps.
 
-* [ChangeLog of td-agent](http://docs.treasure-data.com/articles/td-agent-changelog)
+* [ChangeLog of td-agent](http://docs.treasuredata.com/articles/td-agent-changelog)
 * [Chef Cookbook](https://github.com/treasure-data/chef-td-agent/)
