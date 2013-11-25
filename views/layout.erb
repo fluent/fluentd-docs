@@ -25,11 +25,11 @@
     $('a').click(function(){
       var link_url = $(this).attr('href');
       if (/docs.treasuredata.com/.test(link_url)) {
-        _gaq.push(['_trackEvent', 'TD Link', 'Click', 'Documentation', link_url, true]);
+        _gaq.push(['_trackEvent', 'Fluentd to TD Link', 'Click', 'Documentation', link_url, true]);
         return;
       }
       if (/www.treasuredata.com/.test(link_url)) {
-        _gaq.push(['_trackEvent', 'TD Link', 'Click', 'Main website', link_url, true]);
+        _gaq.push(['_trackEvent', 'Fluentd to TD Link', 'Click', 'Main website', link_url, true]);
         return;
       }
     })
