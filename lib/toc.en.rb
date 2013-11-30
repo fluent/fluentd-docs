@@ -97,6 +97,9 @@ section 'configuration', 'Configuration' do
   category 'signals', 'Signals' do
     article 'signals', 'Signal Handling', ['Signals']
   end
+  category 'performance-tuning', 'Performance Tuning' do
+    article 'performance-tuning', 'Performance Tuning'
+  end
   category 'trouble-shooting', 'Trouble Shooting' do
     article 'trouble-shooting', 'Trouble Shooting'
   end
