@@ -1,0 +1,66 @@
+# multiprocess Input Plugin
+
+Fluentd can use only single CPU core on the system by default. But `in_multiprocess` Input plugin enables Fluentd to use multiple CPU cores, by spawning multiple child processes. One fluentd user is using this plugin to handle 10+ billion records / day.
+
+### Install
+
+`in_multiprocess` is NOT included in td-agent by default. td-agent user needs to install fluent-plugin-multiprocess manually.
+
+    :::term
+    $ /usr/lib64/fluent/ruby/bin/fluent-gem install fluent-plugin-multiprocess
+
+Fluentd gem users will need to install the fluent-plugin-multiprocess gem using the following command.
+
+    :::term
+    $ fluent-gem install fluent-plugin-multiprocess
+
+### Example Configuration
+
+    :::text
+    <source>
+      type multiprocess
+
+      <process>
+        cmdline -c /etc/fluent/fluentd_child1.conf
+        sleep_before_start 1s
+        sleep_before_shutdown 5s
+      </process>
+      <process>
+        cmdline -c /etc/fluent/fluentd_child2.conf
+        sleep_before_start 1s
+        sleep_before_shutdown 5s
+      </process>
+      <process>
+        cmdline -c /etc/fluent/fluentd_child3.conf
+        sleep_before_start 1s
+        sleep_before_shutdown 5s
+      </process>
+    </source>
+
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+
+### Parameters
+
+#### type (required)
+The value must be `multirprocess`.
+
+#### graceful_kill_interval
+The interval to send the signal to gracefully shutting down the process (default: 2sec).
+
+#### graceful_kill_interval_increment
+The increment time, when graceful shutdown fails (default: 3sec).
+
+#### graceful_kill_timeout
+The timeout, to identify the failure of gracefull shutdown (default: 60sec).
+
+#### process (required)
+`process `section sets command line arguments of a child process. This plugin creates one child process for each <process> section.
+
+#### cmdline (required)
+`cmdline` option is required in a <process> section
+
+#### sleep_before_start
+This parameter sets wait time before starting the process (default: 0sec).
+
+#### sleep_before_shutdown
+This parameter sets wait time before shutting down the process (default: 0sec).
