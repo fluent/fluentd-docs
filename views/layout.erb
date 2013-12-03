@@ -130,11 +130,9 @@
       </div><!-- /#category -->
     </div><!-- /.wrapper -->
     <div id="got-question"
-      style="opacity:0; position:fixed;bottom:0;left:0;width:280px;height:50px;background-color:#FFF;border:2px
-      #555555 solid;border-radius:8px;">
+      style="opacity:0; position:fixed;bottom:0;left:0;width:280px;height:50px;background-color:#FFFFFF;border:1px solid #D60000">
       <div style="margin:8px auto; width:200px; text-align:center;font-size:14px;">
-        <a style="color:#DD0000; text-decoration:underline" href="http://groups.google.com/group/fluentd">Got questions? Ask us
-          on the mailing list!</a>
+        <a style="color:#D60000" href="http://go.treasuredata.com/Fluentd_education">Interested in the Fluentd Newsletters?</a>
       </div>
     </div>
   </div><!-- /#sheet -->
@@ -197,6 +195,13 @@
           var link_opacity = window.pageYOffset > 260 ? 1.0 : 0;
           $('#got-question').css('opacity', link_opacity); 
         });
+        $('#got-question').hover(function(){
+          $(this).css('background-color', '#D60000');
+          $('#got-question a').css('color', '#FFFFFF');
+        }, function(){
+          $(this).css('background-color', '#FFFFFF');
+          $('#got-question a').css('color', '#D60000');
+        })
     })
   </script>
   <%= ::NewRelic::Agent.browser_timing_footer rescue "" %>
