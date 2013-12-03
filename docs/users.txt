@@ -101,6 +101,14 @@ Log file analysis is key to examining user trends for our game services.  We kee
 
 The Fluentd concept fits our needs perfectly. For a large-scale service with hundreds of thousands of users, Fluentd's scalability has proven to be valuable. - Yasuhiro Ishimaru
 
+## Nintendo, Inc.
+
+<p>
+<center><a href="http://www.nintendo.com/"><img src="http://fluentd.org/images/user_logo/nintendo.png" height="60px" /></a></center><br /><br />
+</p>
+
+We use Fluentd to collect massive data logs for our platforms. Having developed a system based on Fluentd, we are now effectively monitoring and analyzing our services in real-time. We are very much satisfied with its flexibility, especially how easy it is to use in tandem with other systems.
+
 ## PPLive, Inc.
 
 <p>

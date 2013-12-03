@@ -1,0 +1,13 @@
+# Performance Tuning
+
+## Check top command
+
+If Fluentd doesn't perform well as you expected, please check `top` command first. You need to identify which part of your system is the bottleneck (CPU? Memory? Disk I/O? etc).
+
+## Multi Process
+
+Fluentd often becomes CPU bottleneck for handling billions of incoming records. To utilize multiple CPU cores, using `in_multiprocess` is recommended.
+
+* [in_multiprocess](in_multiprocess)
+
+

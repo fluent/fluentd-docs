@@ -120,9 +120,15 @@ Fluentd consumes more resources as more logs are thrown at it. We have found tha
 
 ## How is Fluentd's performance?
 
-The most performance sensitive parts of Fluentd are carefully written in C, with Ruby code acting as a flexible wrapper. In addition, Fluentd can leverage multiple CPU cores through its multi-process mode.
+The most performance sensitive parts of Fluentd are carefully written in C, with Ruby code acting as a flexible wrapper. In addition, Fluentd can leverage multiple CPU cores through its [multi-process plugin](in_multiprocess).
 
 In our benchmark experiments, a regular PC box was able to deliver 18,000 messages/second. If you need to handle a higher load, please consider using multiple Fluentd servers. If your application needs 100x this performance, please consider using other solutions or creating a custom solution.
+
+## What's the difference between Logstash and Fluentd?
+
+Check out this blog post. The simplicity and robustness by built-in buffering mechanism is a unique characteristics of Fluentd.
+
+* [Fluentd vs Logstash](http://jasonwilder.com/blog/2013/11/19/fluentd-vs-logstash/)
 
 ## What's the difference between Scribe and Fluentd?
 

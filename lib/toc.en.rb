@@ -97,6 +97,9 @@ section 'configuration', 'Configuration' do
   category 'signals', 'Signals' do
     article 'signals', 'Signal Handling', ['Signals']
   end
+  category 'performance-tuning', 'Performance Tuning' do
+    article 'performance-tuning', 'Performance Tuning'
+  end
   category 'trouble-shooting', 'Trouble Shooting' do
     article 'trouble-shooting', 'Trouble Shooting'
   end
@@ -125,6 +128,9 @@ section 'plugin', 'Input Plugins' do
   end
   category 'in_scribe', 'in_scribe' do
     article 'in_scribe', 'scribe Input Plugin', ['Scribe', 'Facebook']
+  end
+  category 'in_multiprocess', 'in_multiprocess' do
+    article 'in_multiprocess', 'Multi-Process Input Plugin'
   end
   category 'in_others', 'Others' do
     article 'in_others', 'Ohter Input Plugins'
