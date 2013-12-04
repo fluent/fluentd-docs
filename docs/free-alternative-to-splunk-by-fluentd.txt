@@ -30,7 +30,7 @@ In the same directory, launch Fluentd, Elasticsearch and Kibana by running the f
 
     $ fluentd -c test.conf
 
-* This Fluentd instance has been configured to accept HTTP messages on port 8888. Go visit `http://loclahost:8888/es/test?json={"message":"hello world!"}` This sends a JSON event `{"message":"hello world!"}` with the tag `es.test`. Fluentd matches this event with the `<match es.**>...</match>` statement and sends it to Elasticsearch.
+* This Fluentd instance has been configured to accept HTTP messages on port 8888. Go visit `http://localhost:8888/es/test?json={"message":"hello world!"}` This sends a JSON event `{"message":"hello world!"}` with the tag `es.test`. Fluentd matches this event with the `<match es.**>...</match>` statement and sends it to Elasticsearch.
 * Check the data on Kibana by visiting `http://localhost:24300/kibana/index.html#/dashboard/file/guided.json`!
 
 That's it! If you are interested in setting this up for production, read along.
