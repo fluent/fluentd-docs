@@ -126,7 +126,7 @@ In our benchmark experiments, a regular PC box was able to deliver 18,000 messag
 
 ## What's the difference between Logstash and Fluentd?
 
-Check out this blog post. The simplicity and robustness by built-in buffering mechanism is a unique characteristics of Fluentd.
+Fluentd's built-in buffering mechanism offers both simplicity and robustness simultaneously. Check out the blog post below for more details.
 
 * [Fluentd vs Logstash](http://jasonwilder.com/blog/2013/11/19/fluentd-vs-logstash/)
 
