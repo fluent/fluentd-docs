@@ -35,6 +35,9 @@ section 'tutorial', 'Tutorial' do
   category 'free-alternative-to-splunk-by-fluentd', 'Data Search like Splunk' do
     article 'free-alternative-to-splunk-by-fluentd', 'Data Search like Splunk', ['Splunk', 'Free Alternative']
   end
+  category 'splunk-like-grep-and-alert-email', 'Grep, Count and Alert like Splunk' do
+    article 'free-alternative-to-splunk-by-fluentd', 'Data Search like Splunk', ['Splunk', 'Alerting']
+  end
   category 'http-to-td', 'Data Analytics with TD' do
     article 'http-to-td', 'Data Analytics with Treasure Data', ['Treasure Data', 'Hadoop', 'Hive']
   end
