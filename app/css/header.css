@@ -36,9 +36,9 @@
   height:100%;
 }
 .top-holder{
-  width:500px;
+  width:600px;
   float:right;
-  padding:27px 4px 0 0;
+  padding:31px 0;
 }
 .top-holder .follow{
   font-size:15px;
@@ -55,7 +55,7 @@
 }
 .top-holder li{
   float:left;
-  margin:0 0 0 40px;
+  margin:0 0 0 30px;
   text-decoration: underline;
   list-style: none;
 }
