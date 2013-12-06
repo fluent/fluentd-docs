@@ -1,0 +1,113 @@
+# Splunk-like Grep-and-Alert-Email System Using Fluentd
+
+[Splunk](http://www.splunk.com/) is a great tool for searching logs (but if you are interested in a free alternative, [check this out](free-alternative-to-splunk-by-fluentd)). One of its key features is the ability to "grep" logs and send alert emails when certain conditions are met.
+
+In this little "how to" article, we will show you how you can build a similar system using Fluentd. More specifically, we will create a system that sends an alert email when it detects a 5xx HTTP status code in an Apache access log.
+
+## Installing the Needed Plugins
+
+It it assumed that you already have Fluentd [installed](/categories/installation).
+
+Please install `fluent-plugin-grepcounter` by running
+
+    :::term
+    $ gem install fluent-plugin-grepcounter
+
+Please install `fluent-plugin-mail` by running
+
+    :::term
+    $ gem install fluent-plugin-mail
+
+## Configuration
+
+###Configuration File: Soup to Nuts
+Here is an example configuration file. It's a bit long, but each part is well-commented, so don't be afraid.
+
+    :::text
+    <source>
+      type http #This is for testing
+      port 8888
+    </source>
+
+    <source>
+      type tail
+      format apache2
+      path /var/log/apache2/access.log #This is the location of your Apache log
+      tag apache.access
+    </source>
+    
+    <match apache.access>
+      type grepcounter
+      count_interval 3 #Time window to grep and count the # of events
+      input_key code #We look at the (http status) "code" field
+      regexp ^5\d\d$ #This regexp matches 5xx status codes
+      threshold 1 #The # of events to trigger emitting an output
+      add_tag_prefix error_5xx #The output event's tag will be error_5xx.apache.access
+    </match>
+    
+    <match error_5xx.apache.access>
+      # The event that comes here looks like
+      #{
+      #  "count":1,
+      #  "input_tag":"error_5xx.apache.access",
+      #  "input_tag_last":"access",
+      #  "message":[500]
+      #}
+
+      type copy #Copying events, one to send to stdout, another for email alerts
+      
+      <store>
+        type stdout
+      </store>
+      
+      <store>
+        type mail
+        host smtp.gmail.com #This is for Gmail and Google Apps. Any SMTP server should work
+        port 587 #This is the port for smtp.gmail.com
+        user kiyoto@treasure-data.com #I work here! Use YOUR EMAIL.
+        password XXXXXX #I can't tell you this! Use YOUR PASSWORD!
+        enable_starttls_auto true
+        from YOUR_SENDER_EMAIL_HERE
+        to YOUR_RECIPIENT_EMAIL_HERE
+        subject [URGENT] APACHE 5XX ERROR
+        message Total 5xx error count: %s\n\nPlease check your Apache webserver ASAP
+        message_out_keys count #The value of 'count' will be substituted into %s above.
+      </store>
+    </match>
+
+Save the above into your own configuration file (**We assume it's called `test.conf` for the rest of this page**). Make sure your SMTP is configured correctly (otherwise, you will get a warning when you run the program).
+
+###What the Configuration File Does
+
+In prose, the above config does three things:
+
+1. Set up Fluentd to tail an Apache log file (located at `/var/log/apache2/access.log`).
+2. Count the number of events whose "code" field is 5xx every 3 seconds. And if the count is at least 1 (because of `threshold 1`), emit an event with the tag `error_5xx.apache.access`. All of this is done by `fluent-plugin-grepcounter`.
+3. Finally, for events with the tag `error_5xx.apache.access`, send an email to dev@treasure-data.com (and also output to STDOUT for debugging & testing).
+
+Note how you could do all of this **without writing a single line of code or paying a dime!**
+
+##Testing
+
+Now, you can just run
+
+    :::term
+    $ fluentd -c test.conf
+
+to get Fluentd to start running.
+
+To trigger the alert email, you can eiter induce a 5xx error. manually appending a 5xx error log line to your Apache log, or visit (on the same server)
+
+    :::text
+    http://localhost:8888/apache/access?json={"code":"500"}
+
+(This uses the in_http plugin). Now, you should be getting an alert email with the subject line "[URGENT] APACHE 5XX ERROR" in your inbox!
+
+##What's Next?
+
+This is a contrived evample. In reality, you would set the threshold higher. Also, you might be interested in tracking 4xx pages as well. In addition to Apache logs, Fluentd can handle Nginx logs, syslogs, or any single- or multi-lined logs.
+
+- Explore other [plugins](http://fluentd.org/plugin/)
+- Browse [recipes](/categories/recipes)
+- Ask questions on the [mailing list](https://groups.google.com/forum/#!forum/fluentd)
+- [Sign up for our newsletters](http://go.treasuredata.com/Fluentd_education)
