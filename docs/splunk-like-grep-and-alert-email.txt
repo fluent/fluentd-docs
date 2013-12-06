@@ -96,7 +96,7 @@ Now, you can just run
 
 to get Fluentd to start running.
 
-To trigger the alert email, you can eiter induce a 5xx error. manually appending a 5xx error log line to your Apache log, or visit (on the same server)
+To trigger the alert email, you can either manually append a 5xx error log line to your Apache log or visit (on the same server)
 
     :::text
     http://localhost:8888/apache/access?json={"code":"500"}
@@ -105,9 +105,11 @@ To trigger the alert email, you can eiter induce a 5xx error. manually appending
 
 ##What's Next?
 
-This is a contrived evample. In reality, you would set the threshold higher. Also, you might be interested in tracking 4xx pages as well. In addition to Apache logs, Fluentd can handle Nginx logs, syslogs, or any single- or multi-lined logs.
+This is a contrived example. In reality, you would set the threshold higher. Also, you might be interested in tracking 4xx pages as well. In addition to Apache logs, Fluentd can handle Nginx logs, syslogs, or any single- or multi-lined logs.
 
-- Explore other [plugins](http://fluentd.org/plugin/)
-- Browse [recipes](/categories/recipes)
-- Ask questions on the [mailing list](https://groups.google.com/forum/#!forum/fluentd)
-- [Sign up for our newsletters](http://go.treasuredata.com/Fluentd_education)
+You can learn more about Fluentd and its plugins by
+
+- exploring other [plugins](http://fluentd.org/plugin/)
+- browsing [recipes](/categories/recipes)
+- asing questions on the [mailing list](https://groups.google.com/forum/#!forum/fluentd)
+- [signing up for our newsletters](http://go.treasuredata.com/Fluentd_education)
