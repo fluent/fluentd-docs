@@ -1,12 +1,12 @@
-# Input Plugin Overview
+# インプットプラグイン概要
 
-Fluentd has 3 types of plugins: Input, Output, and Buffer. This article provides an overview of Input plugins.
+Fluentdには３種類のプラグライン(インプット, アウトプットおよびバッファー)があります。本記事ではインプットプラグインの概要を説明します。
 
-## Overview
+## 概要
 
-Input plugins extend Fluentd to retrieve and pull event logs from external sources. An input plugin typically creates a thread socket and a listen socket. It can also be written to periodically pull data from data sources.
+インプットプラグインはFluentdを拡張し、外部資源からイベントログを検索および取得します。インプットプラグインでは典型的にはスレッドソケットおよびリッスンソケットを作成します。 定期的にデータ資源から、データを取得し書き込むこともできます。
 
-## List of Input Plugins
+## インプットプラグイン一覧
 
 * [in_forward](in_forward)
 * [in_http](in_http)
@@ -15,8 +15,8 @@ Input plugins extend Fluentd to retrieve and pull event logs from external sourc
 * [in_syslog](in_syslog)
 * [in_scribe](in_scribe)
 
-## Other Input Plugins
+## 他のインプットプラグイン
 
-Please refer to this list of available plugins to find out about other Input plugins.
+他のインプットプラグインを探すには、以下の利用可能なプラグイン一覧を参照してください。
 
-* [Fluentd plugins](http://fluentd.org/plugin/)
+* [Fluentdプラグイン](http://fluentd.org/plugin/)
