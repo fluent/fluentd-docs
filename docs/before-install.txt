@@ -30,3 +30,7 @@ Please add these parameters to your `/etc/sysctl.conf` file, then either type `s
     net.ipv4.tcp_tw_recycle = 1
     net.ipv4.tcp_tw_reuse = 1
     net.ipv4.ip_local_port_range = 10240    65535
+
+
+NOTE: This optimization is for highly loaded environment with many Fluentd instances. If your environment doesn't have a problem with TCP_WAIT, then this change is not needed.
+
