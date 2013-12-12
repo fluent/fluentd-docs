@@ -30,3 +30,6 @@ Fluentdをインストールする前に、以下の手順にしたがってお�
     net.ipv4.tcp_tw_recycle = 1
     net.ipv4.tcp_tw_reuse = 1
     net.ipv4.ip_local_port_range = 10240    65535
+
+NOTE: これは、とても多くのFluentdインスタンスを使用する高負荷環境のための最適化方法です。ご使用の環境で TCP_WAIT に問題がない場合には、この設定変更は必要ありません。
+
