@@ -1,12 +1,12 @@
-# forward Input Plugin
+# フォワードインプットプラグイン
 
-The `in_forward` Input plugin listens to a TCP socket to receive the event stream. It also listens to an UDP socket to receive heartbeat messages.
+`in_forward`インプットプラグインはTCPソケットをリッスンし、イベントストリームを受信します。UDPソケットもリッスンし、ハートビートメッセージを受信します。
 
-This plugin is mainly used to receive event logs from other Fluentd instances, the Fluent-cat command, or client libraries. This is by far the most efficient way to retrieve the records.
+このプラグインは主に他のFluentdインスタンス、Fluent-catコマンドまたはクライアントライブラリーからイベントログを受信するために使用されます。この方法はレコードを取得する最も効率的な方法です。
 
-### Example Configuration
+### 設定例
 
-`in_forward` is included in Fluentd's core. No additional installation process is required.
+`in_forward`はFluentdのコアに含まれています。追加のインストール作業は必要ありません。
 
     :::text
     <source>
@@ -15,31 +15,31 @@ This plugin is mainly used to receive event logs from other Fluentd instances, t
       bind 0.0.0.0
     </source>
 
-NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+NOTE: 設定ファイルの基本的な構造や文法に関しては、<a href="config-file">設定ファイル</a>の記事を参照してください。
 
-### Parameters
+### パラメータ
 
-#### type (required)
-The value must be `forward`.
+#### type (必須)
+値は`forward`です。
 
 #### port
-The port to listen to. Default Value = 24224
+リッスンするポートです。デフォルト値は24224です。
 
 #### bind
-The bind address to listen to. Default Value = 0.0.0.0 (all addresses)
+リッスンするバインドアドレスです。デフォルト値は0.0.0.0 (すべてのアドレス)です。
 
-### Protocol
+### プロトコル
 
-This plugin uses [MessagePack](http://msgpack.org/) for the internal protocol. MessagePack is a binary-based data serialization / deserialization library. `in_forward` accepts MessagePack data streams with the following structure.
+このプラグインは内部プロトコルとして[MessagePack](http://msgpack.org/)を使用しています。 MessagePack はバイナリベースのシリアライズ/デシリアライズライブラリーです。`in_forward`はMessagePackデータストリームを次の構造で受け付けます。
 
     :::text
-    stream:
-      message...
-    
-    message:
+    ストリーム:
+      メッセージ...
+
+    メッセージ:
       [tag, time, record]
-      or
+      または
       [tag, [[time,record], [time,record], ...]]
-    
-    example:
+
+    例:
       ["myapp.access", [1308466941, {"a"=>1}], [1308466942, {"b"=>2}]]
