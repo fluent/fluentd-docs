@@ -1,1 +1,45 @@
-../in_forward.txt
+# forward Input Plugin
+
+The `in_forward` Input plugin listens to a TCP socket to receive the event stream. It also listens to an UDP socket to receive heartbeat messages.
+
+This plugin is mainly used to receive event logs from other Fluentd instances, the Fluent-cat command, or client libraries. This is by far the most efficient way to retrieve the records.
+
+### Example Configuration
+
+`in_forward` is included in Fluentd's core. No additional installation process is required.
+
+    :::text
+    <source>
+      type forward
+      port 24224
+      bind 0.0.0.0
+    </source>
+
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+
+### Parameters
+
+#### type (required)
+The value must be `forward`.
+
+#### port
+The port to listen to. Default Value = 24224
+
+#### bind
+The bind address to listen to. Default Value = 0.0.0.0 (all addresses)
+
+### Protocol
+
+This plugin uses [MessagePack](http://msgpack.org/) for the internal protocol. MessagePack is a binary-based data serialization / deserialization library. `in_forward` accepts MessagePack data streams with the following structure.
+
+    :::text
+    stream:
+      message...
+    
+    message:
+      [tag, time, record]
+      or
+      [tag, [[time,record], [time,record], ...]]
+    
+    example:
+      ["myapp.access", [1308466941, {"a"=>1}], [1308466942, {"b"=>2}]]
