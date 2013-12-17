@@ -101,11 +101,11 @@ Just like input sources, you can add new output destinations by writing your own
 
 The following match patterns can be used for the `<match>` tag.
 
-* ``*`` matches a single tag element.
+* ``*`` matches a single tag part.
 
   * For example, the pattern ``a.*`` matches ``a.b``, but does not match ``a`` or ``a.b.c``
 
-* ``**`` matches zero or more tag elements.
+* ``**`` matches zero or more tag parts.
 
   * For example, the pattern ``a.**`` matches ``a``, ``a.b`` and ``a.b.c``
 
