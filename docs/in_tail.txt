@@ -53,6 +53,14 @@ Reads apache’s log file for the following fields: host, user, time, method, pa
     format /^(?<host>[^ ]*) [^ ]* (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^ ]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")?$/
     time_format %d/%b/%Y:%H:%M:%S %z
 
+* `nginx`
+
+Reads Nginx’s log file for the following fields: remote, user, time, method, path, code, size, referer and agent. This template is analogous to the following configuration:
+
+    :::text
+    format /^(?<remote>[^ ]*) (?<host>[^ ]*) (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^\"]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")?$/
+    time_format %d/%b/%Y:%H:%M:%S %z
+
 * `syslog`
 
 Reads syslog’s output file (e.g. /var/log/syslog) for the following fields: time, host, ident, and message. This template is analogous to the following configuration:
@@ -76,6 +84,17 @@ If you specify the `time_key` parameter, it will be used to identify the timesta
     format csv
     keys key1, key2, key3
     time_key key3
+
+* `ltsv`
+
+ltsv (Labeled Tab-Separated Value) is a tab-delimited key-value pair format. You can learn more about it on [its webpage](http://ltsv.org).
+
+    :::text
+    format ltsv
+    delimiter =               # Optional. ':' is used by default
+    time_key time_field_name
+
+If you specify the `time_key` parameter, it will be used to identify the timestamp of the record. The timestamp when Fluentd reads the record is used by default.
 
 * `json`
 
