@@ -1,10 +1,10 @@
-# http Input Plugin
+# エイチティティピーインプットプラグイン
 
-The `in_http` Input plugin enables Fluentd to retrieve records from HTTP POST. The URL path becomes the `tag` of the Fluentd event log and the POSTed body element becomes the record itself.
+`in_http`プラグインはFluentdがHTTP POSTからレコードを取得可能にします。URLパスはFluentdイベントログの`タグ`となり、ポストされたbody要素はレコードそのものになります。
 
-### Example Configuration
+### 設定例
 
-`in_http` is included in Fluentd's core. No additional installation process is required.
+`in_http`はFluentdのコアに含まれています。追加のインストール作業は必要ありません。
 
     :::text
     <source>
@@ -15,29 +15,29 @@ The `in_http` Input plugin enables Fluentd to retrieve records from HTTP POST. T
       keepalive_timeout 10s
     </source>
 
-NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+NOTE: 設定ファイルの基本的な構造や文法に関しては、<a href="config-file">設定ファイル</a>の記事を参照してください。
 
-#### Example Usage
+#### 使用例
 
-The example below posts a record using the `curl` command.
+`curl`コマンドを使用し、レコードをポストする例を以下に示します。
 
     :::term
     $ curl -X POST -d 'json={"action":"login","user":2}'
       http://localhost:8888/test.tag.here;
 
-### Parameters
+### パラメータ
 
-#### type (required)
-The value must be `http`.
+#### type (必須)
+値は`http`です。
 
 #### port
-The port to listen to. Default Value = 9880
+リッスンするポートです。デフォルト値は9880です。
 
 #### bind
-The bind address to listen to. Default Value = 0.0.0.0 (all addresses)
+リッスンするバインドアドレスです。デフォルト値は0.0.0.0(すべてのアドレス)です。
 
 #### body_size_limit
-The size limit of the POSTed element. Default Value = 32MB
+ポストされる要素のサイズ制限です。デフォルト値は32MBです。
 
 #### keepalive_timeout
-The timeout limit for keeping the connection alive. Default Value = 10 seconds
+接続維持についてのタイムアウト時間です。デフォルト値は10秒です。
