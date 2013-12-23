@@ -1,10 +1,10 @@
-# Unix Domain Socket Input Plugin
+# ユニックスドメインソケットインプットプラグイン
 
-The `in_unix` Input plugin enables Fluentd to retrieve records from the Unix Domain Socket. The wire protocol is the same as [in_forward](in_forward), but the transport layer is different.
+`in_unix`インプットプラグインはFluentdがUnixドメインソケットからレコードを取得できるようにします。ワイヤプロトコルは[in_forward](in_forward)と同じですが、トランスポート層は異なります。
 
-### Example Configuration
+### 設定例
 
-`in_unix` is included in Fluentd's core. No additional installation process is required.
+`in_unix`はFluentdのコアに含まれています。追加のインストール作業は必要ありません。
 
     :::text
     <source>
@@ -12,12 +12,12 @@ The `in_unix` Input plugin enables Fluentd to retrieve records from the Unix Dom
       path /path/to/socket.sock
     </source>
 
-NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+NOTE: 設定ファイルの基本的な構造や文法に関しては、<a href="config-file">設定ファイル</a>の記事を参照してください。
 
-### Parameters
+### パラメータ
 
-#### type (required)
-The value must be `unix`.
+#### type (必須)
+値は`unix`です。
 
-#### path (required)
-The path to your Unix Domain Socket.
+#### path (必須)
+あなたのUnixドメインソケットのパスです。
