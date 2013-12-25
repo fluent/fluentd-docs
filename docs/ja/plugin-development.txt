@@ -1,45 +1,45 @@
-# Writing plugins
+# プラグインを書く
 
-## Installing custom plugins
+## カスタムプラグインをインストールする
 
-To install a plugin, please put the ruby script in the ``/etc/fluent/plugin`` directory.
+プラグインをインストールするために、``/etc/fluent/plugin``ディレクトリにrubyスクリプトを配置してください。
 
-Alternatively, you can create a Ruby Gem package that includes a ``lib/fluent/plugin/<TYPE>_<NAME>.rb`` file. The *TYPE* is ``in`` for input plugins, ``out`` for output plugins, and ``buf`` for buffer plugins. For example, an eMail Output plugin would have the path: ``lib/fluent/plugin/out_mail.rb``. The packaged gem can be distributed and installed using RubyGems. For further information, please see the [list of Fluentd plugins](http://fluentd.org/plugin/).
+あるいは、``lib/fluent/plugin/<TYPE>_<NAME>.rb``ファイルを含んだRuby Gemパッケージを作成することができます。*TYPE*はインプットプラグイン向けの``in``、アウトプットプラグイン向けの``out``およびバッファプラグイン向けの``buf``です。例えば、eメールアウトプットプラグインのパスは、``lib/fluent/plugin/out_mail.rb``になるでしょう。RubyGemsを使用して、パッケージされたGemは配布およびインストールすることができます。さらなる情報は、[Fluentdプラグインの一覧](http://fluentd.org/plugin/)を参照してください。
 
-## Writing Input Plugins
+## インプットプラグインを書く
 
-Extend the **Fluent::Input** class and implement the following methods.
+**Fluent::Input**クラスを継承し、次のメソッドを実装します。
 
     :::ruby
     class SomeInput < Fluent::Input
-      # First, register the plugin. NAME is the name of this plugin
-      # and identifies the plugin in the configuration file.
+      # はじめにプラグインを登録します。NAMEはこのプラグインの名前で
+      # 設定ファイル内でプラグインを識別します。
       Fluent::Plugin.register_input('NAME', self)
 
-      # This method is called before starting.
-      # 'conf' is a Hash that includes configuration parameters.
-      # If the configuration is invalid, raise Fluent::ConfigError.
+      # このメソッドは開始前に呼ばれます。
+      # 'conf'は設定パラメータを含んだハッシュです。
+      # もし設定が無効な場合は、Fluent::ConfigError例外を発生させます。
       def configure(conf)
         super
         @port = conf['port']
         ...
       end
 
-      # This method is called when starting.
-      # Open sockets or files and create a thread here.
+      # このメソッドは開始時に呼ばれます。
+      # ここで、ソケットまたはファイルをオープし、スレッドを生成します。
       def start
         super
         ...
       end
 
-      # This method is called when shutting down.
-      # Shutdown the thread and close sockets or files here.
+      # このメソッドは終了時に呼ばれます。
+      # ここで、スレッドを終了し、ソケットまたはファイルをクローズします。
       def shutdown
         ...
       end
     end
 
-To submit events, use the ``Fluent::Engine.emit(tag, time, record)`` method, where ``tag`` is the String, ``time`` is the UNIX time integer and ``record`` is a Hash object.
+イベントを送信するために、``Fluent::Engine.emit(tag, time, record)``メソッドを使用します。``tag``は文字列、``time``はUNIX時間(整数)および``record``はハッシュオブジェクトになります。
 
     :::ruby
     tag = "myapp.access"
@@ -47,70 +47,70 @@ To submit events, use the ``Fluent::Engine.emit(tag, time, record)`` method, whe
     record = {"message"=>"body"}
     Fluent::Engine.emit(tag, time, record)
 
-The RDoc of the Engine class can be found in the [Fluentd RDoc](http://fluentd.org/rdoc/Fluent/EngineClass.html).
+エンジンクラスのRDocは[Fluentd RDoc](http://fluentd.org/rdoc/Fluent/EngineClass.html)にあります。
 
-## Writing Buffered Output Plugins
+## バッファドアウトプットプラグインを書く
 
-Extend the **Fluent::BufferedOutput** class and implement the following methods.
+**Fluent::BufferedOutput**クラスを継承し、次のメソッドを実装します。
 
     :::ruby
     class SomeOutput < Fluent::BufferedOutput
-      # First, register the plugin. NAME is the name of this plugin
-      # and identifies the plugin in the configuration file.
+      # はじめにプラグインを登録します。NAMEはこのプラグインの名前で
+      # 設定ファイル内でプラグインを識別します。
       Fluent::Plugin.register_output('NAME', self)
 
-      # This method is called before starting.
-      # 'conf' is a Hash that includes configuration parameters.
-      # If the configuration is invalid, raise Fluent::ConfigError.
+      # このメソッドは開始前に呼ばれます。
+      # 'conf'は設定パラメータを含んだハッシュです。
+      # もし設定が無効な場合は、Fluent::ConfigError例外を発生させます。
       def configure(conf)
         super
         @path = conf['path']
         ...
       end
 
-      # This method is called when starting.
-      # Open sockets or files here.
+      # このメソッドは開始時に呼ばれます。
+      # ここで、ソケットまたはファイルをオープンします。
       def start
         super
         ...
       end
 
-      # This method is called when shutting down.
-      # Shutdown the thread and close sockets or files here.
+      # このメソッドは終了時に呼ばれます。
+      # ここで、スレッドを終了し、ソケットまたはファイルをクローズします。
       def shutdown
         super
         ...
       end
 
-      # This method is called when an event reaches to Fluentd.
-      # Convert the event to a raw string.
+      # このメソッドはイベントがFluentdに到達時に呼ばれます。
+      # イベントをraw文字列に変換します。
       def format(tag, time, record)
         [tag, time, record].to_json + "\n"
-        ## Alternatively, use msgpack to serialize the object.
+        ## 代わりに、オブジェクトをシリアライズするためにメッセージパックを使用します。
         # [tag, time, record].to_msgpack
       end
 
-      ## Intead of the above method, you could instead implement this method,
-      ## which is called by fluentd to process a collection of events.
+      ## 上記のメソッドの代わりに、このメソッドを代わりに実装できます。
+      ## このメソッドはFluentdによってイベントの収集を処理するために呼ばれます。
       #def format_stream(tag, es)
       #  es.each {|time, record|
       #    [tag, time, record].to_json + "\n"
-      #    # Alternatively, use msgpack to serialize the object. 
+      #    # 代わりに、オブジェクトをシリアライズするためにメッセージパックを使用します。
       #    # [tag, time, record].to_msgpack
       #  }
       #end
 
-      # This method is called every flush interval. Write the buffer chunk
-      # to files or databases here.
-      # 'chunk' is a buffer chunk that includes multiple formatted
-      # events. You can use 'data = chunk.read' to get all events and
-      # 'chunk.open {|io| ... }' to get IO objects.
+      # このメソッドはフラッシュインターバル毎に呼ばれます。ここでファイルまたはデータベースに
+      # バッファチャンクを書き込みます。
+      # 'chunk'は多様な書式化されたイベントを含むバッファチャンクです。
+      # あなはすべてのイベントを取得するために'data = chunk.read'を使用でき、
+      # IOオブジェクトを取得するために'chunk.open {|io| ... }'を使用できます。
       def write(chunk)
         data = chunk.read
         print data
       end
 
-      ## optionally, you can use chunk.msgpack_each to deserialize objects.
+      ## 任意で、オブジェクトをデシリアライズするために、chunk.msgpack_eachを使用することができます。
       #def write(chunk)
       #  chunk.msgpack_each {|(tag,time,record)|
       #  }
@@ -118,22 +118,22 @@ Extend the **Fluent::BufferedOutput** class and implement the following methods.
     end
 
 
-## Writing Time Sliced Output Plugins
+## Time Slicedアウトプットプラグインを書く
 
-Time Sliced Output plugins are extended versions of buffered output plugins. One example of a time sliced output is the ``out_file`` plugin.
+Time Slicedアウトプットプラグインはバッファアウトプットプラグインのバージョンを継承します。Time Slicedアウトプットの一例は``out_file``プラグインです。
 
-Note that Time Sliced Output plugins use file buffer by default. Thus the ``buffer_path`` option is required.
+Time Slicedアウトプットはデフォルトでファイルバッファを使用します。従って、``buffer_path``オプションは必須です。
 
-To implement a Time Sliced Output plugin, extend the **Fluent::TimeSlicedOutput** class and implement the following methods.
+Time Slicedアウトプットプラグインは実装するために、**Fluent::TimeSlicedOutput**クラスを継承し、次のメソッドを実装します。
 
     :::ruby
     class SomeOutput < Fluent::TimeSlicedOutput
-      # configure(conf), start(), shutdown() and format(tag, time, record) are
-      # the same as BufferedOutput.
+      # configure(conf)、start()、shutdown()およびformat(tag, time, record)は
+      # BufferedOutputと同じです。
       ...
 
-      # You can use 'chunk.key' to get sliced time. The format of 'chunk.key'
-      # can be configured by the 'time_format' option. The default format is %Y%m%d.
+      # あなたは刻まれた時刻をを取得するために'chunk.key'を使用することができます。'chunk.key'の書式は、'time_format'オプションでThe format of 'chunk.key'
+      # 設定することができます。デフォルトの書式は%Y%m%dです。
       def write(chunk)
         day = chunk.key
         ...
@@ -141,39 +141,39 @@ To implement a Time Sliced Output plugin, extend the **Fluent::TimeSlicedOutput*
     end
 
 
-## Writing Non-buffered Output Plugins
+## ノンバッファドアウトプラグインを書く
 
-Extend the **Fluent::Output** class and implement the following methods.
+**Fluent::Output**クラスを継承し、次のメソッドを実装します。
 
     :::ruby
     class SomeOutput < Fluent::Output
-      # First, register the plugin. NAME is the name of this plugin
-      # and identifies the plugin in the configuration file.
+      # はじめにプラグインを登録します。NAMEはこのプラグインの名前で
+      # 設定ファイル内でプラグインを識別します。
       Fluent::Plugin.register_output('NAME', self)
 
-      # This method is called before starting.
+      # このメソッドは開始前に呼ばれます。
       def configure(conf)
         super
         ...
       end
     
-      # This method is called when starting.
+      # このメソッドは開始時に呼ばれます。
       def start
         super
         ...
       end
     
-      # This method is called when shutting down.
+      # このメソッドは終了時に呼ばれます。
       def shutdown
         super
         ...
       end
     
-      # This method is called when an event reaches Fluentd.
-      # 'es' is a Fluent::EventStream object that includes multiple events.
-      # You can use 'es.each {|time,record| ... }' to retrieve events.
-      # 'chain' is an object that manages transactions. Call 'chain.next' at
-      # appropriate points and rollback if it raises an exception.
+      # このメソッドはイベントがFluentdに到達すると呼ばれます。
+      # 'es'は多様なイベントオブジェクトを含むFluent::EventStreamオブジェクトです。
+      # あなたは、イベントを取得するために、'es.each {|time,record| ... }'を使用することができます。
+      # 'chain'は、トランザクションを管理するオブジェクトです。適切な場所で'chain.next'を呼ぶと
+      # 例外が発生する場合に巻き戻します。
       def emit(tag, es, chain)
         chain.next
         es.each {|time,record|
@@ -182,24 +182,24 @@ Extend the **Fluent::Output** class and implement the following methods.
       end
     end
 
-## Customizing the Tail Input Plugin Parser
+## Tailインプットプラグインパーサーをカスタマイズする
 
-You can customize the text parser for the Tail Input plugin by extending the **Fluent::TailInput** class.
+あなたは**Fluent::TailInput**を継承することによって、Tailインプットプラグイン用のテキストパーサーをカスタマイズすることができます。
 
-Put the following file into **/etc/fluent/plugin/in_mytail.rb**.
+次のファイルを**/etc/fluent/plugin/in_mytail.rb**に配置してください。
 
     :::ruby
     class MyTailInput < Fluent::TailInput
       Fluent::Plugin.register_input('mytail', self)
     
-      # Override the 'configure_parser(conf)' method.
-      # You can get config parameters in this method.
+      # 'configure_parser(conf)'メソッドをオーバーライドしてください。
+      # あなたは、このメソッドで設定パラメータを取得できます。
       def configure_parser(conf)
         @time_format = conf['time_format'] || '%Y-%M-%d %H:%M:%S'
       end
     
-      # Override the 'parse_line(line)' method that returns the time and record.
-      # This example method assumes the following log format:
+      # 時間とレコードを返す'parse_line(line)'メソッドをオーバーライドしてください。
+      # この例のメソッドは、次のログ書式を想定しています::
       #   %Y-%m-%d %H:%M:%S\tkey1\tvalue1\tkey2\tvalue2...
       #   %Y-%m-%d %H:%M:%S\tkey1\tvalue1\tkey2\tvalue2...
       #   ...
@@ -219,7 +219,7 @@ Put the following file into **/etc/fluent/plugin/in_mytail.rb**.
       end
     end
 
-Use the following configuration file::
+次の設定ファイルを使用してください。
 
     :::text
     <source>
@@ -228,35 +228,36 @@ Use the following configuration file::
       tag myapp.mytail
     </source>
 
-## Debugging plugins
+## デバッグプラグイン
 
-Run ``fluentd`` with the ``-vv`` option to show debug messages::
+デバッグメッセージを表示するために``-vv``オプション付きで``fluentd``を実行してください。
 
     :::term
     $ fluentd -vv
 
-The **stdout** and **copy** output plugins are useful for debugging. The **stdout** output plugin dumps matched events to the console. It can be used as shown below::
+**stdout**および**copy**アウトプットプラグインはデバッグに役立ちます。**stdout**アウトプットプラグインは合致したイベントをコンソールにダンプします。下記に示すように使用することができます。
 
     :::text
-    # You want to debug this plugin.
+    # あなたはこのプラグインをデバッグしたい。
     <source>
       type your_custom_input_plugin
     </source>
     
-    # Dump all events to stdout.
+    # 標準出力にすべてのイベントをダンプする。
     <match **>
       type stdout
     </match>
 
-The **copy** output plugin copies matched events to multiple output plugins. You can use it in conjunction with the stdout plugin::
+**copy**アウトプットプラグインは多様なアウトプットプラグインに合致したイベントをコピーします。
+あなたは、標準出力のプラグインと組み合わせて使用することができます。
 
     :::text
     <source>
       type tcp
     </source>
 
-    # Use the tcp Input plugin and the fluent-cat command to feed events:
-    #  $ echo '{"event":"message"}' | fluent-cat test.tag
+    # tcpインプットプラグインとイベントを与えるfluent-catコマンドを使用してください。
+        #  $ echo '{"event":"message"}' | fluent-cat test.tag
     <match test.tag>
       type copy
 
@@ -271,22 +272,22 @@ The **copy** output plugin copies matched events to multiple output plugins. You
       </store>
     </match>
 
-## Writing test cases
+## テストケースを書く
 
-Fluentd provides unit test frameworks for plugins:
+Fluentdはプラグイン用にユニットテストフレームワークを提供します。
 
     :::text
     Fluent::Test::InputTestDriver
-      Test driver for input plugins.
+      インプットプラグイン用のテストドライバーです。
     
     Fluent::Test::BufferedOutputTestDriver
-      Test driver for buffered output plugins.
+      バッファドアウトプットプラグイン用のテストドライバーです。
     
     Fluent::Test::OutputTestDriver
-      Test driver for non-buffered output plugins.
+      ノンバッファドアウトプットプラグイン用のテストドライバーです。
 
-Please see Fluentd's source code for details.
+詳細はFluentdのソースコードを参照してください。
 
-## Further Reading
+## 参考文献
 
-* [Slides: Dive into Fluentd Plugin](http://www.slideshare.net/repeatedly/fluentd-meetup-dive-into-fluent-plugin)
+* [スライド: Dive into Fluentd Plugin](http://www.slideshare.net/repeatedly/fluentd-meetup-dive-into-fluent-plugin)
