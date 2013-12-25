@@ -90,7 +90,7 @@ Extend the **Fluent::BufferedOutput** class and implement the following methods.
         # [tag, time, record].to_msgpack
       end
 
-      ## Intead of the above method, you could instead implement this method,
+      ## Instead of the above method, you could instead implement this method,
       ## which is called by fluentd to process a collection of events.
       #def format_stream(tag, es)
       #  es.each {|time, record|
@@ -110,7 +110,7 @@ Extend the **Fluent::BufferedOutput** class and implement the following methods.
         print data
       end
 
-      ## optionally, you can use chunk.msgpack_each to deserialize objects.
+      ## Optionally, you can use chunk.msgpack_each to deserialize objects.
       #def write(chunk)
       #  chunk.msgpack_each {|(tag,time,record)|
       #  }
