@@ -4,6 +4,15 @@ These are the some of Fluentd users.
 
 NOTE: Are you using Fluentd? If so, please share your testimonial with us to help expand the community! :) Please <a href="mailto:kazuki.ohta@gmail.com">send me a message</a> with your testimonial, name, title, and company's logo!
 
+## Nintendo
+
+<p>
+<center><a href="http://thebackplane.com/"><img src="/images/logo-Nintendo.png" height="80px" /></a></center>
+</p>
+
+<br/>
+We use Fluentd to collect massive data logs for our platforms. Having developed a system based on Fluentd, we are now effectively monitoring and analyzing our services in real-time. We are very much satisfied with its flexibility, especially how easy it is to use in tandem with other systems.
+
 ## Backplane, Inc.
 
 <p>
