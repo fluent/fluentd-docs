@@ -27,6 +27,8 @@ The value must be `file`.
 ### path (required)
 The Path of the file. The actual path is path + time + ”.log”. The time portion is determined by the time_slice_format parameter, descried below.
 
+NOTE: Initially, you may see a file which looks like "/path/to/file.20140101.log.b4eea2c8166b147a0" and think "what's this 'b4eea2c8166b147a0'?" This file is NOT the file output file but an intermediate buffer file ("b4eea2c8166b147a0" identifies the buffer). Once the content of the buffer is [flushed](buf_file), you will see the output file without the trailing identifier.
+
 ### time_slice_format
 The time format used as part of the file name. The following characters are replaced with actual values when the file is created:
 
