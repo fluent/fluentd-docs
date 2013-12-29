@@ -109,6 +109,25 @@ The `time_key` parameter can also be specified.
     format json
     time_key key3
 
+* `none`
+
+For those who want to defer parsing/structuring data, there is `none` format, which parses the line as-is with the key name "message". For example, if you had a line
+
+    :::text
+    hello world. I am a line of log!
+
+It gets parsed as
+
+    :::text
+    {"message":"hello world. I am a line of log!"}
+
+By default, the key field is "message" but you can specify a different value with the `message_key` parameter like this:
+
+    :::text
+    format none
+    message_key my_message
+    
+
 #### types (optional, v.0.10.42 and up)
 
 By default, every parsed field has type `string`, but one can specify other types. This is convenient when you want to filter particular fields by numerical comparison or store data with sensible type information.
