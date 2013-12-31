@@ -219,7 +219,7 @@ Put the following file into **/etc/fluent/plugin/in_mytail.rb**.
       end
     end
 
-Use the following configuration file::
+Use the following configuration file:
 
     :::text
     <source>
@@ -230,12 +230,12 @@ Use the following configuration file::
 
 ## Debugging plugins
 
-Run ``fluentd`` with the ``-vv`` option to show debug messages::
+Run ``fluentd`` with the ``-vv`` option to show debug messages:
 
     :::term
     $ fluentd -vv
 
-The **stdout** and **copy** output plugins are useful for debugging. The **stdout** output plugin dumps matched events to the console. It can be used as shown below::
+The **stdout** and **copy** output plugins are useful for debugging. The **stdout** output plugin dumps matched events to the console. It can be used as shown below:
 
     :::text
     # You want to debug this plugin.
@@ -248,7 +248,7 @@ The **stdout** and **copy** output plugins are useful for debugging. The **stdou
       type stdout
     </match>
 
-The **copy** output plugin copies matched events to multiple output plugins. You can use it in conjunction with the stdout plugin::
+The **copy** output plugin copies matched events to multiple output plugins. You can use it in conjunction with the stdout plugin:
 
     :::text
     <source>
