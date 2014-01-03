@@ -1,1 +1,23 @@
-../in_unix.txt
+# Unixドメインソケットインプットプラグイン
+
+`in_unix`インプットプラグインはFluentdがUnixドメインソケットからレコードを取得できるようにします。ワイヤプロトコルは[in_forward](in_forward)と同じですが、トランスポート層は異なります。
+
+### 設定例
+
+`in_unix`はFluentdのコアに含まれています。追加のインストール作業は必要ありません。
+
+    :::text
+    <source>
+      type unix
+      path /path/to/socket.sock
+    </source>
+
+NOTE: 設定ファイルの基本的な構造や文法に関しては、<a href="config-file">設定ファイル</a>の記事を参照してください。
+
+### パラメータ
+
+#### type (必須)
+値は`unix`です。
+
+#### path (必須)
+あなたのUnixドメインソケットのパスです。
