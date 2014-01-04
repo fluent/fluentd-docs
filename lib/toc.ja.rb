@@ -181,8 +181,8 @@ section 'output-plugins', 'Output Plugins' do
   end
 end
 section 'buffer-plugins', 'Buffer Plugins' do
-  category 'buffer-plugin-overview', 'Overview' do
-    article 'buffer-plugin-overview', 'Buffer Plugin Overview'
+  category 'buffer-plugin-overview', '概要' do
+    article 'buffer-plugin-overview', 'Bufferプラグインの概要'
   end
   category 'buf_memory', 'buf_memory' do
     article 'buf_memory', 'memory Buffer Plugin'
