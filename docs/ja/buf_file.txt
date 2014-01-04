@@ -1,1 +1,36 @@
-../buf_file.txt
+# file Bufferプラグイン
+
+`file` バッファプラグインは永続的なバッファ実装を提供します。これはバッファチャンクをディスク上に格納するためにファイルを使用します。
+
+### 設定例
+
+    :::text
+    <match pattern>
+      buffer_type file
+      buffer_path /var/log/fluent/myapp.*.buffer
+    </match>
+
+NOTE: 設定ファイルの基本的な構造や文法に関しては、<a href="config-file">設定ファイル</a>を参照してください。
+
+### パラメータ
+
+#### buffer_type (必須)
+値は `file` でなければなりません。
+
+#### buffer_path (必須)
+バッファチャンクを格納するpath。 ‘*’ はランダムな文字で置き換えられます。このパラメータは必須です。
+
+#### buffer_chunk_limit
+各バッファチャンクのサイズ。デフォルトは8mです。接尾辞 “k” (KB), “m” (MB), “g” (GB) が使用できます。基本的なバッファ構造については[Bufferプラグインの概要](buffer-plugin-overview)を参照してください。
+
+#### buffer_queue_limit
+チャンクキューの長さの制限値。基本的なバッファ構造については[Bufferプラグインの概要](buffer-plugin-overview)を参照してください。デフォルトの制限値は256チャンクです。
+
+#### flush_interval
+データをフラッシュする間隔。接尾辞“s” (seconds), “m” (minutes), “h” (hours) が使用できます。
+
+#### flush_at_shutdown
+もしtrueに設定された場合、キュー内のチャンクはプロセスシャットダウン時にフラッシュされます。
+
+#### retry_wait
+再試行の間隔。接尾辞 “s” (seconds), “m” (minutes), “h” (hours) が使用できます。
