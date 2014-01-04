@@ -35,6 +35,9 @@ section 'tutorial', 'Tutorial' do
   category 'free-alternative-to-splunk-by-fluentd', 'Data Search like Splunk' do
     article 'free-alternative-to-splunk-by-fluentd', 'Data Search like Splunk', ['Splunk', 'Free Alternative']
   end
+  category 'splunk-like-grep-and-alert-email', 'Grep, Count and Alert like Splunk' do
+    article 'splunk-like-grep-and-alert-email', 'Email Alerts like Splunk', ['Splunk', 'Alerting']
+  end
   category 'http-to-td', 'Data Analytics with TD' do
     article 'http-to-td', 'Data Analytics with Treasure Data', ['Treasure Data', 'Hadoop', 'Hive']
   end
@@ -97,19 +100,22 @@ section 'configuration', 'Configuration' do
   category 'signals', 'シグナル一覧' do
     article 'signals', 'シグナル処理', ['シグナル一覧']
   end
+  category 'performance-tuning', 'Performance Tuning' do
+    article 'performance-tuning', 'Performance Tuning'
+  end
   category 'trouble-shooting', 'トラブルシューティング' do
     article 'trouble-shooting', 'トラブルシューティング'
   end
 end
 section 'plugin', 'Input Plugins' do
-  category 'input-plugin-overview', 'Overview' do
-    article 'input-plugin-overview', 'Input Plugin Overview'
+  category 'input-plugin-overview', '概要' do
+    article 'input-plugin-overview', 'Inputプラグインの概要'
   end
   category 'in_forward', 'in_forward' do
-    article 'in_forward', 'forward Input Plugin'
+    article 'in_forward', 'forward Inputプラグイン'
   end
   category 'in_http', 'in_http' do
-    article 'in_http', 'http Input Plugin'
+    article 'in_http', 'http Inputプラグイン'
   end
   category 'in_tail', 'in_tail' do
     article 'in_tail', 'tail Input Plugin'
@@ -122,6 +128,9 @@ section 'plugin', 'Input Plugins' do
   end
   category 'in_scribe', 'in_scribe' do
     article 'in_scribe', 'scribe Input Plugin', ['Scribe', 'Facebook']
+  end
+  category 'in_multiprocess', 'in_multiprocess' do
+    article 'in_multiprocess', 'Multi-Process Input Plugin'
   end
   category 'in_others', 'その他' do
     article 'in_others', 'その他のinputプラグイン'
