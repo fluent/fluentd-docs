@@ -136,7 +136,7 @@ section 'plugin', 'Input Plugins' do
     article 'in_multiprocess', 'Multi-Process Input Plugin'
   end
   category 'in_others', 'Others' do
-    article 'in_others', 'Ohter Input Plugins'
+    article 'in_others', 'Other Input Plugins'
   end
 end
 section 'output-plugins', 'Output Plugins' do
