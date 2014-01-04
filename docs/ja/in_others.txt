@@ -1,1 +1,5 @@
-../in_others.txt
+# その他のinputプラグイン
+
+その他のinputプラグインについては利用可能なプラグインのリストを参照してください。
+
+* [Fluentdプラグイン](http://fluentd.org/plugin/)

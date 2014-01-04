@@ -123,8 +123,8 @@ section 'plugin', 'Input Plugins' do
   category 'in_scribe', 'in_scribe' do
     article 'in_scribe', 'scribe Input Plugin', ['Scribe', 'Facebook']
   end
-  category 'in_others', 'Others' do
-    article 'in_others', 'Ohter Input Plugins'
+  category 'in_others', 'その他' do
+    article 'in_others', 'その他のinputプラグイン'
   end
 end
 section 'output-plugins', 'Output Plugins' do
