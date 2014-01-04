@@ -185,7 +185,7 @@ section 'buffer-plugins', 'Buffer Plugins' do
     article 'buffer-plugin-overview', 'Bufferプラグインの概要'
   end
   category 'buf_memory', 'buf_memory' do
-    article 'buf_memory', 'memory Buffer Plugin'
+    article 'buf_memory', 'memory Bufferプラグイン'
   end
   category 'buf_file', 'buf_file' do
     article 'buf_file', 'file Buffer Plugin'
