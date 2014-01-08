@@ -98,23 +98,7 @@ The ReplicaSet refresh interval.
 ### num_retries
 The ReplicaSet failover threshold. The default threshold is 60. If the retry count reaches this threshold, the plugin raises an exception.
 
-## Buffer Parameters
-For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
-
-### buffer_type
-The buffer type is `memory` by default ([buf_memory](buf_memory)). The `file` ([buf_file](buf_file)) buffer type can be chosen as well. The `path` parameter is used as `buffer_path` in this plugin.
-
-### buffer_queue_limit, buffer_chunk_limit
-The length of the chunk queue and the size of each chunk, respectively. Please see the [Buffer Plugin Overview](buffer-plugin-overview) article for the basic buffer structure. The default values are 64 and 8m, respectively. The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for buffer_chunk_limit.
-
-### flush_interval
-The interval between data flushes. The default is 60s. The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.
-
-### retry_wait and retry_limit
-The interval between write retries, and the number of retries. The default values are 1.0 and 17, respectively. `retry_wait` doubles every retry (e.g. the last retry waits for 131072 sec, roughly 36 hours).
-
-### num_threads
-The number of threads to flush the buffer. This option can be used to parallelize the data insert into MongoDBs. The default is 1.
+INCLUDE: _buffer_parameters
 
 ## Further Readings
 - [fluent-plugin-webhdfs mongo](https://github.com/fluent/fluent-plugin-mongo)

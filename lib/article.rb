@@ -9,17 +9,18 @@ class Article
     self
   end
   
-  def self.load(topic, source)
-    topic = new(topic, source)
+  def self.load(topic, source, prefix)
+    topic = new(topic, source, prefix)
     topic.parse
     return topic
   end
   
   attr_reader :topic, :title, :desc, :content, :toc, :intro, :body
   
-  def initialize(name, source)
+  def initialize(name, source, prefix)
     @topic = name
     @source = source
+    @prefix = prefix
   end
   
   def parse
@@ -48,9 +49,15 @@ class Article
                 "<table class='note'>\n<td class='icon'></td><td class='content'>\\1</td>\n</table>\n\n"
 		)
   end
+
+  def includes(source)
+    source.gsub(/INCLUDE: (.*?)\n\n/m) { |pattern|
+      includes(File.read("#{@prefix}/#{$1}.txt"))
+    }
+  end
   
   def markdown(source)
-    html = RDiscount.new(notes(source), :smart).to_html
+    html = RDiscount.new(notes(includes(source)), :smart).to_html
     # parse custom {lang} definitions to support syntax highlighting
     html.gsub(/<pre><code>\{(\w+)\}/, '<pre><code class="brush: \1;">')
   end
