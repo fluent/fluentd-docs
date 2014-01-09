@@ -237,8 +237,8 @@ helpers do
     unless $IO_CACHE.has_key? @filepath
       $IO_CACHE[@filepath] = File.read(@filepath)
     end
-    @article = Article.load(article, $IO_CACHE[@filepath])
-
+    doc_path = "#{settings.root}/docs/#{lang == $DEFAULT_LANGUAGE ? '' : lang}"
+    @article = Article.load(article, $IO_CACHE[@filepath], doc_path)
     @title   = @article.title
     @desc    = @article.desc
     @content = @article.content
