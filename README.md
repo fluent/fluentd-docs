@@ -53,6 +53,27 @@ after initialization, remove symlink and add translated article :)
       apache-to-mongodb.txt
       apache-to-s3.txt
 
+# INCLUDE pragma
+
+In order to avoid copy-and-pasting the same content on multiple pages, one can
+use the "INCLUDE pragma".
+
+The syntax is as follows
+
+    INCLUDE: <filename>
+    
+    blah blah blah...
+
+(Notice that there is a blank line between "INCLUDE..." and "blah blah blah...") Then, the docs app will search for <filename> in the `docs` directory. For
+example, if you write
+
+    INCLUDE: _buffer_parameters.txt
+
+    blah blah blah...
+
+The docs app would insert the content of _buffer_parameters.txt into the docs
+page.
+
 # Acknowledgement
 
 This program is forked from [heroku/heroku-docs](http://github.com/heroku/heroku-docs), and originally written by @rtomayko and @adamwiggins. Later, modified by @kzk and @doryokujin.
