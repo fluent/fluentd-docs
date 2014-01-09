@@ -64,10 +64,11 @@ The syntax is as follows
     
     blah blah blah...
 
-(Notice that there is a blank line between "INCLUDE..." and "blah blah blah...") Then, the docs app will search for <filename> in the `docs` directory. For
+(Notice that there is a blank line between "INCLUDE..." and "blah blah blah...")
+Then, the docs app will search for <filename>.txt in the `docs` directory. For
 example, if you write
 
-    INCLUDE: _buffer_parameters.txt
+    INCLUDE: _buffer_parameters
 
     blah blah blah...
 
