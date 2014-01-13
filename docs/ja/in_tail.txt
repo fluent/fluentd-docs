@@ -1,10 +1,10 @@
-# tail Input Plugin
+# tailインプットプラグイン
 
-The `in_tail` Input plugin allows Fluentd to read events from the tail of text files. Its behavior is similar to the `tail -F` command.
+`in_tail`インプットプラグインはFluentdがテキストファイルの末尾からイベントを読み込むことができます。その動作は`tail -F`コマンドに似ています。
 
-### Example Configuration
+### 設定例
 
-`in_tail` is included in Fluentd's core. No additional installation process is required.
+`in_tail`はFluentdのコアに含まれています。追加のインストール作業は必要ありません。
 
     :::text
     <source>
@@ -15,39 +15,39 @@ The `in_tail` Input plugin allows Fluentd to read events from the tail of text f
       format apache2
     </source>
 
-NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+NOTE: 設定ファイルの基本的な構造や文法に関しては、<a href="config-file">設定ファイル</a>の記事を参照してください。
 
-### How it Works
+### どのように動作するか
 
-* When Fluentd is first configured with `in_tail`, it will start reading from the **tail** of that log, not the beggining.
-* Once the log is rotated, Fluentd starts reading the new file from the beggining. It keeps track of the current inode number.
-* If `td-agent` restarts, it starts reading from the last position td-agent read before the restart. This position is recorded in the position file specified by the pos_file parameter.
+* Fluentdは`in_tail`がはじめに設定されている場合には、そのログの先頭ではなく、**末尾**から読み込みを開始します。
+* いったん、ログがローテートされると、Fluentdは先頭から新しいファイルを読み込みます。Fluentdは現在のiノード番号を追跡します。
+* `td-agent`が再起動する場合、td-agentが再起動する前に読み込んだ最後の位置から読み込みを開始します。この位置はpos_fileパラメータで指定された位置ファイルに記録されます。
 
-### Parameters
+### パラメータ
 
-#### type (required)
-The value must be `tail`.
+#### type (必須)
+値は`tail`です。
 
-#### path (required)
-The paths to read. Multiple paths can be specified, separated by ‘,’.
+#### path (必須)
+読み込むパスです。複数パスは','区切りで指定することができます。
 
-#### tag (required)
-The tag of the event.
+#### tag (必須)
+イベントのタグです。
 
-#### format (required)
-The format of the log. Itis the name of a template or regexp surrounded by ‘/’.
+#### format (必須)
+ログのフォーマットです。それはテンプレートの名前または‘/’で囲まれた正規表現です。
 
-The regexp must have at least one named capture (?&lt;NAME&gt;PATTERN). If the regexp has a capture named ‘time’, it is used as the time of the event. You can specify the time format using the time_format parameter.
+正規表現は少なくとも一つの名付けされたキャプチャ(?&lt;NAME&gt;PATTERN)を持たなければいけません。正規表現が‘time’と名付けられたキャプチャを持っている場合、正規表現はイベントの時間として使用されます。time_formatパラメータを使用して、時間フォーマットを指定することができます。
 
-The following templates are supported:
+次のテンプレートがサポートされています。
 
-* regexp
+* 正規表現
 
-The regexp for the format parameter can be specified. [Fluentular](http://fluentular.herokuapp.com/) is a great website to test your regexp for Fluentd configuration.
+フォーマットパラメータ用の正規表現を指定することができます。[Fluentular](http://fluentular.herokuapp.com/)はFluentd設定用の正規表現をテストすることに最適なWebサイトです。
 
 * `apache2`
 
-Reads apache’s log file for the following fields: host, user, time, method, path, code, size, referer and agent. This template is analogous to the following configuration:
+次のフィールド用apacheのログファイルを読み込みます。フィールドはhost、user、time、method、path、code、size、refererおよびagentです。このテンプレートは次の設定に似ています。
 
     :::text
     format /^(?<host>[^ ]*) [^ ]* (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^ ]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")?$/
@@ -55,7 +55,7 @@ Reads apache’s log file for the following fields: host, user, time, method, pa
 
 * `nginx`
 
-Reads Nginx’s log file for the following fields: remote, user, time, method, path, code, size, referer and agent. This template is analogous to the following configuration:
+次のフィールド用Nginxのログファイルを読み込みます。フィールドはremote、user、time、 method、path、code、size、refererおよびagentです。このテンプレートは次の設定に似ています。
 
     :::text
     format /^(?<remote>[^ ]*) (?<host>[^ ]*) (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^\"]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")?$/
@@ -63,22 +63,22 @@ Reads Nginx’s log file for the following fields: remote, user, time, method, p
 
 * `syslog`
 
-Reads syslog’s output file (e.g. /var/log/syslog) for the following fields: time, host, ident, and message. This template is analogous to the following configuration:
+次のフィールド用syslogの出力ファイル(例 /var/log/syslog)を読み込みます。フィールドはtime, host, identおよびmessageです。このテンプレートは次の設定に似ています。
 
     :::text
     format /^(?<time>[^ ]* [^ ]* [^ ]*) (?<host>[^ ]*) (?<ident>[a-zA-Z0-9_\/\.\-]*)(?:\[(?<pid>[0-9]+)\])?[^\:]*\: *(?<message>.*)$/
     time_format %b %d %H:%M:%S
 
-* `tsv` or `csv`
+* `tsv`または`csv`
 
-If you use tsv or csv format, please also specify the `keys` parameter.
+tsvまたはcsvフォーマットを使用する場合、`keys`パラメータも指定してください。
 
     :::text
     format tsv
     keys key1, key2, key3
     time_key key2
 
-If you specify the `time_key` parameter, it will be used to identify the timestamp of the record. The timestamp when Fluentd reads the record is used by default.
+`time_key`パラメータを指定する場合、それはレコードのタイムスタンプを識別するために使用されます。Fluentdがレコードを読み込むときのタイムスタンプはデフォルトで使用されます。
 
     :::text
     format csv
@@ -87,23 +87,23 @@ If you specify the `time_key` parameter, it will be used to identify the timesta
 
 * `ltsv`
 
-ltsv (Labeled Tab-Separated Value) is a tab-delimited key-value pair format. You can learn more about it on [its webpage](http://ltsv.org).
+ltsv(Labeled Tab-Separated Value)はタブ区切りのキーバリューペアフォーマットです。あたなは[Webページ](http://ltsv.org)でさらに学ぶことができます。
 
     :::text
     format ltsv
     delimiter =               # Optional. ':' is used by default
     time_key time_field_name
 
-If you specify the `time_key` parameter, it will be used to identify the timestamp of the record. The timestamp when Fluentd reads the record is used by default.
+`time_key`パラメータを指定した場合、レコードのタイムスタンプを識別するために使用されます。Fluentdがレコードを読み込むときのタイムスタンプはデフォルトで使用されます。
 
 * `json`
 
-One JSON map, per line. This is the most straight forward format :).
+一行毎に一つのJSONに関連づけます。これはもっとも簡単なフォーマットです。
 
     :::text
     format json
 
-The `time_key` parameter can also be specified.
+`time_key`パラメータも指定することができます。
 
     :::text
     format json
@@ -111,64 +111,65 @@ The `time_key` parameter can also be specified.
 
 * `none`
 
-For those who want to defer parsing/structuring data, there is `none` format, which parses the line as-is with the key name "message". For example, if you had a line
+データの解析/構造化を遅らせたい人々のために、`none`フォーマットがあります。それは、キー名が"message"である行を解析します。例えば、次の一行がある場合
 
     :::text
     hello world. I am a line of log!
 
-It gets parsed as
+
+それは次のように解析されます。
 
     :::text
     {"message":"hello world. I am a line of log!"}
 
-By default, the key field is "message" but you can specify a different value with the `message_key` parameter like this:
+デフォルトではキーフィールドは"message"ですが、このように`message_key`パラメータを使用して異なる値を指定することができます。
 
     :::text
     format none
     message_key my_message
     
 
-#### types (optional, v.0.10.42 and up)
+#### types (任意, v.0.10.42以上)
 
-By default, every parsed field has type `string`, but one can specify other types. This is convenient when you want to filter particular fields by numerical comparison or store data with sensible type information.
+デフォルトでは解析されたフィールド毎にタイプ`string`を持ちますが、フィールドは他のタイプを指定することができます。これは数値比較によって特定のフィールドをフィルターしたい、または適切なタイプ情報と共にデータを保存するときには便利です。
 
-The syntax is
+文法は
 
     :::text
     types <field_name_1>:<type_name_1>,<field_name_2>:<type_name_2>,...
 
-e.g.,
+例
 
     :::text
     types user_id:integer,paid:bool,paid_usd_amount:float
 
-i.e., "," is used to delimit field-type pairs, and ":" is used to separate a field name with its intended type.
+例 ","はフィールドタイプペアを区別するために使用されます。そして、":"はフィールド名とその意図されたタイプを区別するために使用されます。
 
-Untyped fields remain as strings.
+タイプ付けされていないフィールドは文字列のままです。
 
-Here is the list of supported types:
+これはサポートされているタイプは一覧です。
 
 * string
 * bool
-* integer ("int" would NOT work!)
+* integer ("int"は機能しません!)
 * float
 * time
 * array
 
-For `time` and `array` types, there is an optional third field after type name. For the "time" type, you can specify a time format like you would in `time_format`. For the "array" type, the third field specifies the delimiter (the default is ","). For example, if a field called "item_ids" with the value "3,4,5", `types item_ids:array` parses it as ["3", "4", "5"]. Alternatively, if the value is "Adam|Alice|Bob", `types item_ids:array:|` parses it as ["Adam", "Alice", "Bob"].
+`time`と`array`向けに、タイプ名の後に任意の第３フィールドがあります。"time"タイプは向けに、`time_format`のように時間フォーマットを指定することができます。"array"タイプ向けに、第３フィールドは区切り記号(デフォルトは",")を指定しています。例えば、値 "3,4,5"を持ち"item_ids"と呼ばれたフィールドの場合、`types item_ids:array`は値 "3,4,5"を["3", "4", "5"]として解析します。代わりに、値が"Adam|Alice|Bob"の場合、`types item_ids:array:|`は"Adam|Alice|Bob"を["Adam", "Alice", "Bob"]として解析します。
 
-### pos_file (highly recommended)
-This parameter is highly recommended. Fluentd will record the position it last read into this file.
+### pos_file (強く推奨)
+このパラメータは強く推奨します。Fluentdはこのファイルに最後に読み込んだ位置を記録します。
 
     :::text
     pos_file /var/log/td-agent/tmp/access.log.pos
 
 #### time_format
-The format of the time field. This parameter is required only if the format includes a ‘time’ capture and it cannot be parsed automatically. Please see [Time#strftime](http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime) for additional information.
+時間フィールドのフォーマットです。このパラメータはフォーマットに‘time’キャプチャを含んでいる場合のみ必要とされ、それを自動的には解析することはできません。追加情報は[Time#strftime](http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime)を参照してください。
 
 #### rotate_wait
-in_tail actually does a bit more than `tail -F` itself. When rotating a file, some data may still need to be written to the old file as opposed to the new one.
+in_tailは実際には`tail -F`自体より少し多く機能します。ファイルをローテートするとき、いくつかのデータは新しいデータではなく、まだ古いファイルに書き込まれる必要があるかもしれません。
 
-in_tail takes care of this by keeping a reference to the old file (even after it has been rotated) for some time before transitioning completely to the new file. This helps prevent data designated for the old file from getting lost. By default, this time interval is 5 seconds.
+in_tailは新しいファイルに完全に移行する前に、しばらくの間、古いファイルへの参照を（古いファイルがローテートされた後でも）維持することによって、これを処理します。これは古いファイルに指定されたデータが消失することを防ぐことに役立ちます。デフォルトでは、この時間間隔は5秒です。
 
-The rotate_wait parameter accepts a single integer representing the number of seconds you want this time interval to be.
+rotate_waitパラメータはあなたがこの時間間隔にしたい秒数を表す一つの整数を受け取ります。
