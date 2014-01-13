@@ -7,3 +7,4 @@ bin
 vendor/cache
 vendor/bundle
 *~
+Gemfile.lock
