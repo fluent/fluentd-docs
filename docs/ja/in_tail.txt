@@ -1,1 +1,174 @@
-../in_tail.txt
+# tail Input Plugin
+
+The `in_tail` Input plugin allows Fluentd to read events from the tail of text files. Its behavior is similar to the `tail -F` command.
+
+### Example Configuration
+
+`in_tail` is included in Fluentd's core. No additional installation process is required.
+
+    :::text
+    <source>
+      type tail
+      path /var/log/httpd-access.log
+      pos_file /var/log/td-agent/httpd-access.log.pos
+      tag apache.access
+      format apache2
+    </source>
+
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+
+### How it Works
+
+* When Fluentd is first configured with `in_tail`, it will start reading from the **tail** of that log, not the beggining.
+* Once the log is rotated, Fluentd starts reading the new file from the beggining. It keeps track of the current inode number.
+* If `td-agent` restarts, it starts reading from the last position td-agent read before the restart. This position is recorded in the position file specified by the pos_file parameter.
+
+### Parameters
+
+#### type (required)
+The value must be `tail`.
+
+#### path (required)
+The paths to read. Multiple paths can be specified, separated by ‘,’.
+
+#### tag (required)
+The tag of the event.
+
+#### format (required)
+The format of the log. Itis the name of a template or regexp surrounded by ‘/’.
+
+The regexp must have at least one named capture (?&lt;NAME&gt;PATTERN). If the regexp has a capture named ‘time’, it is used as the time of the event. You can specify the time format using the time_format parameter.
+
+The following templates are supported:
+
+* regexp
+
+The regexp for the format parameter can be specified. [Fluentular](http://fluentular.herokuapp.com/) is a great website to test your regexp for Fluentd configuration.
+
+* `apache2`
+
+Reads apache’s log file for the following fields: host, user, time, method, path, code, size, referer and agent. This template is analogous to the following configuration:
+
+    :::text
+    format /^(?<host>[^ ]*) [^ ]* (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^ ]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")?$/
+    time_format %d/%b/%Y:%H:%M:%S %z
+
+* `nginx`
+
+Reads Nginx’s log file for the following fields: remote, user, time, method, path, code, size, referer and agent. This template is analogous to the following configuration:
+
+    :::text
+    format /^(?<remote>[^ ]*) (?<host>[^ ]*) (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^\"]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")?$/
+    time_format %d/%b/%Y:%H:%M:%S %z
+
+* `syslog`
+
+Reads syslog’s output file (e.g. /var/log/syslog) for the following fields: time, host, ident, and message. This template is analogous to the following configuration:
+
+    :::text
+    format /^(?<time>[^ ]* [^ ]* [^ ]*) (?<host>[^ ]*) (?<ident>[a-zA-Z0-9_\/\.\-]*)(?:\[(?<pid>[0-9]+)\])?[^\:]*\: *(?<message>.*)$/
+    time_format %b %d %H:%M:%S
+
+* `tsv` or `csv`
+
+If you use tsv or csv format, please also specify the `keys` parameter.
+
+    :::text
+    format tsv
+    keys key1, key2, key3
+    time_key key2
+
+If you specify the `time_key` parameter, it will be used to identify the timestamp of the record. The timestamp when Fluentd reads the record is used by default.
+
+    :::text
+    format csv
+    keys key1, key2, key3
+    time_key key3
+
+* `ltsv`
+
+ltsv (Labeled Tab-Separated Value) is a tab-delimited key-value pair format. You can learn more about it on [its webpage](http://ltsv.org).
+
+    :::text
+    format ltsv
+    delimiter =               # Optional. ':' is used by default
+    time_key time_field_name
+
+If you specify the `time_key` parameter, it will be used to identify the timestamp of the record. The timestamp when Fluentd reads the record is used by default.
+
+* `json`
+
+One JSON map, per line. This is the most straight forward format :).
+
+    :::text
+    format json
+
+The `time_key` parameter can also be specified.
+
+    :::text
+    format json
+    time_key key3
+
+* `none`
+
+For those who want to defer parsing/structuring data, there is `none` format, which parses the line as-is with the key name "message". For example, if you had a line
+
+    :::text
+    hello world. I am a line of log!
+
+It gets parsed as
+
+    :::text
+    {"message":"hello world. I am a line of log!"}
+
+By default, the key field is "message" but you can specify a different value with the `message_key` parameter like this:
+
+    :::text
+    format none
+    message_key my_message
+    
+
+#### types (optional, v.0.10.42 and up)
+
+By default, every parsed field has type `string`, but one can specify other types. This is convenient when you want to filter particular fields by numerical comparison or store data with sensible type information.
+
+The syntax is
+
+    :::text
+    types <field_name_1>:<type_name_1>,<field_name_2>:<type_name_2>,...
+
+e.g.,
+
+    :::text
+    types user_id:integer,paid:bool,paid_usd_amount:float
+
+i.e., "," is used to delimit field-type pairs, and ":" is used to separate a field name with its intended type.
+
+Untyped fields remain as strings.
+
+Here is the list of supported types:
+
+* string
+* bool
+* integer ("int" would NOT work!)
+* float
+* time
+* array
+
+For `time` and `array` types, there is an optional third field after type name. For the "time" type, you can specify a time format like you would in `time_format`. For the "array" type, the third field specifies the delimiter (the default is ","). For example, if a field called "item_ids" with the value "3,4,5", `types item_ids:array` parses it as ["3", "4", "5"]. Alternatively, if the value is "Adam|Alice|Bob", `types item_ids:array:|` parses it as ["Adam", "Alice", "Bob"].
+
+### pos_file (highly recommended)
+This parameter is highly recommended. Fluentd will record the position it last read into this file.
+
+    :::text
+    pos_file /var/log/td-agent/tmp/access.log.pos
+
+#### time_format
+The format of the time field. This parameter is required only if the format includes a ‘time’ capture and it cannot be parsed automatically. Please see [Time#strftime](http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime) for additional information.
+
+#### rotate_wait
+in_tail actually does a bit more than `tail -F` itself. When rotating a file, some data may still need to be written to the old file as opposed to the new one.
+
+in_tail takes care of this by keeping a reference to the old file (even after it has been rotated) for some time before transitioning completely to the new file. This helps prevent data designated for the old file from getting lost. By default, this time interval is 5 seconds.
+
+The rotate_wait parameter accepts a single integer representing the number of seconds you want this time interval to be.
