@@ -1,1 +1,175 @@
-../in_tail.txt
+# tailインプットプラグイン
+
+`in_tail`インプットプラグインはFluentdがテキストファイルの末尾からイベントを読み込むことができます。その動作は`tail -F`コマンドに似ています。
+
+### 設定例
+
+`in_tail`はFluentdのコアに含まれています。追加のインストール作業は必要ありません。
+
+    :::text
+    <source>
+      type tail
+      path /var/log/httpd-access.log
+      pos_file /var/log/td-agent/httpd-access.log.pos
+      tag apache.access
+      format apache2
+    </source>
+
+NOTE: 設定ファイルの基本的な構造や文法に関しては、<a href="config-file">設定ファイル</a>の記事を参照してください。
+
+### どのように動作するか
+
+* Fluentdは`in_tail`がはじめに設定されている場合には、そのログの先頭ではなく、**末尾**から読み込みを開始します。
+* いったん、ログがローテートされると、Fluentdは先頭から新しいファイルを読み込みます。Fluentdは現在のiノード番号を追跡します。
+* `td-agent`が再起動する場合、td-agentが再起動する前に読み込んだ最後の位置から読み込みを開始します。この位置はpos_fileパラメータで指定された位置ファイルに記録されます。
+
+### パラメータ
+
+#### type (必須)
+値は`tail`です。
+
+#### path (必須)
+読み込むパスです。複数パスは','区切りで指定することができます。
+
+#### tag (必須)
+イベントのタグです。
+
+#### format (必須)
+ログのフォーマットです。それはテンプレートの名前または‘/’で囲まれた正規表現です。
+
+正規表現は少なくとも一つの名付けされたキャプチャ(?&lt;NAME&gt;PATTERN)を持たなければいけません。正規表現が‘time’と名付けられたキャプチャを持っている場合、正規表現はイベントの時間として使用されます。time_formatパラメータを使用して、時間フォーマットを指定することができます。
+
+次のテンプレートがサポートされています。
+
+* 正規表現
+
+フォーマットパラメータ用の正規表現を指定することができます。[Fluentular](http://fluentular.herokuapp.com/)はFluentd設定用の正規表現をテストすることに最適なWebサイトです。
+
+* `apache2`
+
+次のフィールド用apacheのログファイルを読み込みます。フィールドはhost、user、time、method、path、code、size、refererおよびagentです。このテンプレートは次の設定に似ています。
+
+    :::text
+    format /^(?<host>[^ ]*) [^ ]* (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^ ]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")?$/
+    time_format %d/%b/%Y:%H:%M:%S %z
+
+* `nginx`
+
+次のフィールド用Nginxのログファイルを読み込みます。フィールドはremote、user、time、 method、path、code、size、refererおよびagentです。このテンプレートは次の設定に似ています。
+
+    :::text
+    format /^(?<remote>[^ ]*) (?<host>[^ ]*) (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^\"]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")?$/
+    time_format %d/%b/%Y:%H:%M:%S %z
+
+* `syslog`
+
+次のフィールド用syslogの出力ファイル(例 /var/log/syslog)を読み込みます。フィールドはtime, host, identおよびmessageです。このテンプレートは次の設定に似ています。
+
+    :::text
+    format /^(?<time>[^ ]* [^ ]* [^ ]*) (?<host>[^ ]*) (?<ident>[a-zA-Z0-9_\/\.\-]*)(?:\[(?<pid>[0-9]+)\])?[^\:]*\: *(?<message>.*)$/
+    time_format %b %d %H:%M:%S
+
+* `tsv`または`csv`
+
+tsvまたはcsvフォーマットを使用する場合、`keys`パラメータも指定してください。
+
+    :::text
+    format tsv
+    keys key1, key2, key3
+    time_key key2
+
+`time_key`パラメータを指定する場合、それはレコードのタイムスタンプを識別するために使用されます。Fluentdがレコードを読み込むときのタイムスタンプはデフォルトで使用されます。
+
+    :::text
+    format csv
+    keys key1, key2, key3
+    time_key key3
+
+* `ltsv`
+
+ltsv(Labeled Tab-Separated Value)はタブ区切りのキーバリューペアフォーマットです。あたなは[Webページ](http://ltsv.org)でさらに学ぶことができます。
+
+    :::text
+    format ltsv
+    delimiter =               # Optional. ':' is used by default
+    time_key time_field_name
+
+`time_key`パラメータを指定した場合、レコードのタイムスタンプを識別するために使用されます。Fluentdがレコードを読み込むときのタイムスタンプはデフォルトで使用されます。
+
+* `json`
+
+一行毎に一つのJSONに関連づけます。これはもっとも簡単なフォーマットです。
+
+    :::text
+    format json
+
+`time_key`パラメータも指定することができます。
+
+    :::text
+    format json
+    time_key key3
+
+* `none`
+
+データの解析/構造化を遅らせたい人々のために、`none`フォーマットがあります。それは、キー名が"message"である行を解析します。例えば、次の一行がある場合
+
+    :::text
+    hello world. I am a line of log!
+
+
+それは次のように解析されます。
+
+    :::text
+    {"message":"hello world. I am a line of log!"}
+
+デフォルトではキーフィールドは"message"ですが、このように`message_key`パラメータを使用して異なる値を指定することができます。
+
+    :::text
+    format none
+    message_key my_message
+    
+
+#### types (任意, v.0.10.42以上)
+
+デフォルトでは解析されたフィールド毎にタイプ`string`を持ちますが、フィールドは他のタイプを指定することができます。これは数値比較によって特定のフィールドをフィルターしたい、または適切なタイプ情報と共にデータを保存するときには便利です。
+
+文法は
+
+    :::text
+    types <field_name_1>:<type_name_1>,<field_name_2>:<type_name_2>,...
+
+例
+
+    :::text
+    types user_id:integer,paid:bool,paid_usd_amount:float
+
+例 ","はフィールドタイプペアを区別するために使用されます。そして、":"はフィールド名とその意図されたタイプを区別するために使用されます。
+
+タイプ付けされていないフィールドは文字列のままです。
+
+これはサポートされているタイプは一覧です。
+
+* string
+* bool
+* integer ("int"は機能しません!)
+* float
+* time
+* array
+
+`time`と`array`向けに、タイプ名の後に任意の第３フィールドがあります。"time"タイプは向けに、`time_format`のように時間フォーマットを指定することができます。"array"タイプ向けに、第３フィールドは区切り記号(デフォルトは",")を指定しています。例えば、値 "3,4,5"を持ち"item_ids"と呼ばれたフィールドの場合、`types item_ids:array`は値 "3,4,5"を["3", "4", "5"]として解析します。代わりに、値が"Adam|Alice|Bob"の場合、`types item_ids:array:|`は"Adam|Alice|Bob"を["Adam", "Alice", "Bob"]として解析します。
+
+### pos_file (強く推奨)
+このパラメータは強く推奨します。Fluentdはこのファイルに最後に読み込んだ位置を記録します。
+
+    :::text
+    pos_file /var/log/td-agent/tmp/access.log.pos
+
+#### time_format
+時間フィールドのフォーマットです。このパラメータはフォーマットに‘time’キャプチャを含んでいる場合のみ必要とされ、それを自動的には解析することはできません。追加情報は[Time#strftime](http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime)を参照してください。
+
+#### rotate_wait
+in_tailは実際には`tail -F`自体より少し多く機能します。ファイルをローテートするとき、いくつかのデータは新しいデータではなく、まだ古いファイルに書き込まれる必要があるかもしれません。
+
+in_tailは新しいファイルに完全に移行する前に、しばらくの間、古いファイルへの参照を（古いファイルがローテートされた後でも）維持することによって、これを処理します。これは古いファイルに指定されたデータが消失することを防ぐことに役立ちます。デフォルトでは、この時間間隔は5秒です。
+
+rotate_waitパラメータはあなたがこの時間間隔にしたい秒数を表す一つの整数を受け取ります。
