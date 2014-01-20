@@ -1,1 +1,59 @@
-../in_exec.txt
+# exec Input Plugin
+
+The `in_exec` Input plugin executes external programs to receive or pull event logs. It will then read TSV (tab separated values), JSON or MessagePack from the stdout of the program.
+
+You can run a program periodically or permanently. To run periodically, please use the run_interval parameter.
+
+### Example Configuration
+
+`in_exec` is included in Fluentd's core. No additional installation process is required.
+
+    :::text
+    <source>
+      type exec
+      command cmd arg arg
+      keys k1,k2,k3
+      tag_key k1
+      time_key k2
+      time_format %Y-%m-%d %H:%M:%S
+      run_interval 10s
+    </source>
+
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+
+### Parameters
+
+#### type (required)
+The value must be `exec`.
+
+#### command (required)
+The command (program) to execute.
+
+#### format
+The format used to map the program output to the incoming event.
+
+The following formats are supported:
+
+* tsv (default)
+* json
+* msgpack
+
+When using the tsv format, please also specify the comma-separated `keys` parameter.
+
+    :::text
+    keys k1,k2,k3
+    
+#### tag (required if tag_key is not specified)
+tag of the output events.
+
+#### tag_key
+The key to use as the event tag instead of the value in the event record. If this parameter is not specified, the `tag` parameter will be used instead.
+
+#### time_key
+The key to use as the event time instead of the value in the event record. If this parameter is not specified, the current time will be used instead.
+
+#### time_format
+The format of the event time used for the time_key parameter. The default is UNIX time (integer).
+
+#### run_interval
+The interval time between periodic program runs.
