@@ -117,6 +117,9 @@ section 'plugin', 'Input Plugins' do
   category 'in_http', 'in_http' do
     article 'in_http', 'http Inputプラグイン'
   end
+  category 'in_unix', 'in_unix' do
+    article 'in_unix', 'UDS Input Plugin'
+  end
   category 'in_tail', 'in_tail' do
     article 'in_tail', 'tail Input Plugin'
   end
