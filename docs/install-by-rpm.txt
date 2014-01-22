@@ -14,7 +14,7 @@ Please follow the [Preinstallation Guide](before-install) to configure your OS p
 
 ### GPG key
 
-rpm package is signed with Treasure Data GPG key ([See this site](http://packages.treasure-data.com/)). We recommend importing GPG key to rpm.
+The rpm package is signed with the Treasure Data GPG key, which can be found [here](http://packages.treasure-data.com/). We recommend importing the GPG key to apt.
 
     $ rpm --import /path/to/RPM-GPG-KEY-td-agent
 
