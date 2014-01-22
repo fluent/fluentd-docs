@@ -24,7 +24,7 @@ If your console shows `1024`, it is insufficient. Please add following lines to 
 
 ## Optimize Network Kernel Parameters
 
-Please add these parameters to your `/etc/sysctl.conf` file, then either type `sysctl -w` or reboot your node.
+For high load environments consisting of many Fluentd instances, please add these parameters to your `/etc/sysctl.conf` file. Please either type `sysctl -w` or reboot your node to have the changes take effect. If your environment doesn't have a problem with TCP_WAIT, then these changes are not needed.
 
     :::term
     net.ipv4.tcp_tw_recycle = 1
@@ -32,5 +32,5 @@ Please add these parameters to your `/etc/sysctl.conf` file, then either type `s
     net.ipv4.ip_local_port_range = 10240    65535
 
 
-NOTE: This optimization is for highly loaded environment with many Fluentd instances. If your environment doesn't have a problem with TCP_WAIT, then this change is not needed.
+
 
