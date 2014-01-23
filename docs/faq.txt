@@ -31,7 +31,7 @@ href="http://docs.fluentd.org/articles/install-by-deb">.deb</a> packages for Lin
     </tr>
     <tr>
         <td>Adding 3rd party <a href="http://www.fluentd.org/plugin/">plugins</a></td>
-        <td>fluent-gem (ex: flunet-gem install fluent-plugin-td)</td>
+        <td>fluent-gem (ex: fluent-gem install fluent-plugin-td)</td>
         <td>Manual setup (but it ships with several plugins pre-loaded)</td>
     </tr>
     <tr>
