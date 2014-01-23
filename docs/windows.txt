@@ -1,0 +1,95 @@
+#Collecting Log Data from Windows
+
+As of v10, Fluentd does NOT support Windows. However, there are times you need to collect data stream from Windows machines. For examples,
+
+1. **Tailing log files on Windows**: suppose you have a Windows application and want to collect and analyze its log data.
+2. **Collecting Windows Event Logs**: collect Event Logs from your Windows servers for systems analysis, compliance checking, etc.
+
+In this article, we explain how to get started on collecting data from Windows machines.
+
+**This setup has been tested on a 64-bit Windows 8 machine.**
+
+##Prerequisites
+
+1. [nxlog](nxlog.org), an open source log management tool that runs on Windows.
+2. A Linux server (For this article, we assume it's Ubuntu 13)
+
+##Setup
+
+###Set up a Linux server with rsyslogd and Fluentd
+
+1. Get hold of a Linux server. In this example, we assume it is Ubuntu.
+2. **Make sure it has ports open for UDP. In the following example, we assume port 5140 is open.**
+3. [Install td-agent](http://docs.fluentd.org/articles/install-by-deb). (See [here](/categories/installation) for various ways to install Fluentd/Treasure Agent)
+4. Edit td-agent's configuration file located at `/etc/td-agent/td-agent.conf` and add the following lines
+
+        <source>
+          type syslog
+          port 5140
+          tag windowslog
+        </source>    
+        <match windowslog.**>
+          type stdout
+        </match>
+
+        The above code listens to port 5140 (UDP) and outputs the data to stdout (which is piped to `/var/log/td-agent/td-agent.log`)    
+5. Start td-agent by running `sudo service td-agent start`
+
+###Set up nxlog on Windows
+
+1. Follow [this link](http://nxlog.org/download) and download a copy of nxlog onto the Windows machine you want to collect log data from. Just open the downloaded installer and follow the instruction there. By default, it should be installed in `C:\Program Files (x86)\nxlog`
+2. Create an nxlog config file as follows and save it as `nxlog.conf`:
+
+        define ROOT C:\Program Files (x86)\nxlog
+        Moduledir %ROOT%\modules
+        CacheDir %ROOT%\data
+        Pidfile %ROOT%\data\nxlog.pid
+        SpoolDir %ROOT%\data
+        LogFile %ROOT%\data\nxlog.log
+        <Extension syslog>
+          Module      xm_syslog
+        </Extension>
+        <Extension json>
+          Module      xm_json
+        </Extension>
+        <Input in>
+          Module im_file
+          File "<PATH TO THE LOG FILE YOU WANT TO TAIL>"
+          SavePos TRUE
+          InputType LineBased
+        </Input>
+        <Processor t>
+          Module pm_transformer
+          OutputFormat syslog_bsd
+          Exec $Message=(": "+$raw_event);
+        </Processor>
+        <Output out>
+          Module om_udp
+          Host 54.200.236.1 # Your host name here
+          Port 5140
+        </Output>
+        <Route r>
+          Path in => t => out
+        </Route>
+    
+    This configuration will send each line of the log file (see the File parameter inside &lt;Input in&gt...&lt;/Input&gt;) as a syslog message to a remote Fluentd/Treasure Agent instance.
+
+###Test
+1. Go to nxlog's directory (in Powershell or Command Prompt) and run the following command:
+        
+        \nxlog.exe -f -c  <path to nxlog.conf>
+    
+    The "-f" option runs nxlog in the foreground (this is for testing). If this is for production, you would want to turn it into a Windows Service.
+2. After nxlog starts running successfully, add a new line "Windows is awesome" into the tailed file, and save it.
+3. Now, go to the Linux server and run
+
+        $ sudo tail -f /var/log/td-agent/td-agent.log
+        ...
+        ...
+        ...
+        2014-01-22 08:26:29 +0000 windowslog.user.notice: {"host":"portly","ident":"","message":"Windows is awesome"}
+4. You successfully sent data from a Windows machine to a remote Fluentd instance running on Linux.
+
+###Next Step
+
+This example verifies that one can collect data from Windows to a remote Fluentd instance. However, the data is not terribly useful because each line of data is placed into the "message" field as unstructured text. You probably want to write a plugin/extend the syslog plugin so that you can parse the "message" field in the event.

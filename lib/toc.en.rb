@@ -71,6 +71,9 @@ section 'tutorial', 'Tutorial' do
   category 'scala', 'Logging from Scala' do
     article 'scala',   'Import Logs from Scala Applications'
   end
+  category 'windows', 'Logging from Windows' do
+    article 'windows',   'Import Logs from Windows Machines'
+  end
 end
 section 'configuration', 'Configuration' do
   category 'config-file', 'Config File' do
