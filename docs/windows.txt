@@ -12,7 +12,7 @@ In this article, we explain how to get started on collecting data from Windows m
 ##Prerequisites
 
 1. [nxlog](nxlog.org), an open source log management tool that runs on Windows.
-2. A Linux server (For this article, we assume it's Ubuntu 13)
+2. A Linux server (For this article, we assume it's Ubuntu 12)
 
 ##Setup
 
