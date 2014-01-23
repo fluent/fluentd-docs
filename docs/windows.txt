@@ -1,18 +1,18 @@
 #Collecting Log Data from Windows
 
-As of v10, Fluentd does NOT support Windows. However, there are times you need to collect data stream from Windows machines. For examples,
+In this article, we explain how to get started with collecting data from Windows machines.
 
-1. **Tailing log files on Windows**: suppose you have a Windows application and want to collect and analyze its log data.
-2. **Collecting Windows Event Logs**: collect Event Logs from your Windows servers for systems analysis, compliance checking, etc.
+As of v10, Fluentd does NOT support Windows. However, there are times when you must collect data streams from Windows machines. For example:
 
-In this article, we explain how to get started on collecting data from Windows machines.
+1. **Tailing log files on Windows**: collect and analyze log data from a Windows application.
+2. **Collecting Windows Event Logs**: collect event logs from your Windows servers for system analysis, compliance checking, etc.
 
 **This setup has been tested on a 64-bit Windows 8 machine.**
 
 ##Prerequisites
 
 1. [nxlog](nxlog.org), an open source log management tool that runs on Windows.
-2. A Linux server (For this article, we assume it's Ubuntu 12)
+2. A Linux server (we assume Ubuntu 12 for this article)
 
 ##Setup
 
@@ -37,7 +37,7 @@ In this article, we explain how to get started on collecting data from Windows m
 
 ###Set up nxlog on Windows
 
-1. Follow [this link](http://nxlog.org/download) and download a copy of nxlog onto the Windows machine you want to collect log data from. Just open the downloaded installer and follow the instruction there. By default, it should be installed in `C:\Program Files (x86)\nxlog`
+1. Follow [this link](http://nxlog.org/download) and download a copy of nxlog onto the Windows machine you want to collect log data from. Open the downloaded installer and follow the instructions. By default, it should be installed in `C:\Program Files (x86)\nxlog`
 2. Create an nxlog config file as follows and save it as `nxlog.conf`:
 
         define ROOT C:\Program Files (x86)\nxlog
@@ -80,7 +80,7 @@ In this article, we explain how to get started on collecting data from Windows m
         \nxlog.exe -f -c  <path to nxlog.conf>
     
     The "-f" option runs nxlog in the foreground (this is for testing). If this is for production, you would want to turn it into a Windows Service.
-2. After nxlog starts running successfully, add a new line "Windows is awesome" into the tailed file, and save it.
+2. Once nxlog is running, add a new line "Windows is awesome" into the tailed file, and save it.
 3. Now, go to the Linux server and run
 
         $ sudo tail -f /var/log/td-agent/td-agent.log
@@ -92,4 +92,4 @@ In this article, we explain how to get started on collecting data from Windows m
 
 ###Next Step
 
-This example verifies that one can collect data from Windows to a remote Fluentd instance. However, the data is not terribly useful because each line of data is placed into the "message" field as unstructured text. You probably want to write a plugin/extend the syslog plugin so that you can parse the "message" field in the event.
+This example showed that we can collect data from a Windows machine and send it to a remote Fluentd instance. However, the data is not terribly useful because each line of data is placed into the "message" field as unstructured text. For production purposes, you would probably want to write a plugin/extend the syslog plugin so that you can parse the "message" field in the event.
