@@ -18,9 +18,12 @@ Unfortunately, no. There are two issues.
 2. Fluentd uses *nix dependent code
 
 We have recently resolved issue 1 by becoming the Cool.io maintainer ourselves. Cool.io v1.2 now supports the Windows environment. 
-
 We're now working on resolving issue 2 on Windows branch. <br />
 See github: [Windows branch](https://github.com/fluent/fluentd/tree/windows)
+
+### How to collect logs from Windows Machine?
+
+We can use nxlog using syslog protocol. See [Collecting Log Data from Windows](http://docs.fluentd.org/articles/windows) article.
 
 ### Does Fluentd have UI or storage?
 

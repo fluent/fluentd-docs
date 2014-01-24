@@ -11,7 +11,7 @@ As of v10, Fluentd does NOT support Windows. However, there are times when you m
 
 ##Prerequisites
 
-1. [nxlog](nxlog.org), an open source log management tool that runs on Windows.
+1. [nxlog](http://nxlog.org), an open source log management tool that runs on Windows.
 2. A Linux server (we assume Ubuntu 12 for this article)
 
 ##Setup
