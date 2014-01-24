@@ -106,7 +106,7 @@ class Article
     post_match = nil
     while matched = ss.scan_until(H2_RE)
       section = ss.matched.scan(H2_RE).first.first
-      cur_pos = ss.pos
+      cur_pos = ss.charpos
       post_match = ss.post_match
       ss.check_until(H2_RE)
       tocs[section] = _scan_sub_toc(ss.pre_match ? ss.pre_match[cur_pos..-1] : post_match)
