@@ -1,6 +1,8 @@
 # FAQ
 
-## Fluentd is written in Ruby. Is it slow?
+## Fluentd Core
+
+### Fluentd is written in Ruby. Is it slow?
 
 The most performance sensitive parts of Fluentd are written in C. The Ruby code acts as a wrapper that provides flexibility to the overall solution. In particular, the networking layer and object serialization layer are written in C (See [cool.io](https://github.com/tarcieri/cool.io) and [MessagePack](http://msgpack.org/)).
 
@@ -8,7 +10,73 @@ Since Fluentd is not written entirely in C or C++, it may be slow in its Ruby pa
 
 If this number is insufficient for your application, please consider other solutions which are written entirely in C-family or Java. However, please note that you will lose some flexibility as a tradeoff.
 
-## What are the differences between td-agent and Fluentd?
+### Does Fluentd run on Windows?
+
+Unfortunately, no. There are two issues.
+
+1. Fluentd depends on a Ruby gem called cool.io, which doesn't work on Windows
+2. Fluentd uses *nix dependent code
+
+We have recently resolved issue 1 by becoming the Cool.io maintainer ourselves. Cool.io v1.2 now supports the Windows environment. 
+
+We're now working on resolving issue 2 on Windows branch. <br />
+See github: [Windows branch](https://github.com/fluent/fluentd/tree/windows)
+
+### Does Fluentd have UI or storage?
+
+No, Fluentd doesn't have either UI or storage. However, [Kibana integration](free-alternative-to-splunk-by-fluentd) may be useful for you.
+
+### What is Fluentd's 'tag'?
+
+Each Fluentd event log consists of the three components:
+
+* tag
+* time
+* message
+
+A tag must be specified for every log sent to Fluentd. The tag is used to route the message within Fluentd. The 'match' section in the configuration file specifies the tags that are routed to each destination.
+
+Let's take a look at the example below. This configuration tails /var/log/combine.log and generates Fluentd logs with tag 'test-tag.'
+
+    :::term
+    <source>
+      type tail
+      format /^(?<wholemsg>.*)$/
+      path /var/log/combined.log 
+      tag test-tag
+    </source> 
+
+If you add the following lines to the configuration file, the logs are routed to stdout.
+
+    :::term
+    <match test-tag> 
+      type stdout
+    </match>
+
+On the other hand, adding the following lines to the configuration file will not route the logs anywhere, since the match section doesn't match the tag.
+
+    :::term
+    <match some-other-tag>
+      type stdout
+    </match>
+
+In essence, you can control your data process flow by using tags.
+
+NOTE: The match section specifies the regexp used to look for matching tags. If a matching tag is found in a log, then the config inside the 'match' section is used (i.e. the log is routed according to the config inside).
+
+### How can I estimate Fluentd's resource usage?
+
+Fluentd consumes more resources as more logs are thrown at it. We have found that the CPU becomes a major bottleneck for heavily loaded Fluentd systems. To combat this bottleneck, Fluentd can leverage multiple CPU cores through its multi-process mode. A regular PC box is able to handle around 18,000 msgs/second.
+
+### How is Fluentd's performance?
+
+The most performance sensitive parts of Fluentd are carefully written in C, with Ruby code acting as a flexible wrapper. In addition, Fluentd can leverage multiple CPU cores through its [multi-process plugin](in_multiprocess).
+
+In our benchmark experiments, a regular PC box was able to deliver 18,000 messages/second. If you need to handle a higher load, please consider using multiple Fluentd servers. If your application needs 100x this performance, please consider using other solutions or creating a custom solution.
+
+## Treasure Agent(td-agnt)
+
+### What are the differences between td-agent and Fluentd?
 
 `td-agent` is the stable distribution package of fluentd. The differences are as follows:
 
@@ -56,113 +124,49 @@ href="http://docs.fluentd.org/articles/install-by-deb">.deb</a> packages for Lin
     </tr>
 </table>
 
-## Should I use td-agent or the Fluentd gem?
+### Should I use td-agent or the Fluentd gem?
 
 td-agent stresses stability over new features. If you wish to control Fluentd features and updates on your own, using the Fluentd gem is recommended. If you are using Fluentd for the first time or are using it in a large scale environment, using td-agent is recommended. A new version of td-agent is released every 2 or 3 months.
 
-## Does Fluentd run on Windows?
+## Fluentd compared to other projects
 
-Unfortunately, no. There are two issues.
-
-1. Fluentd depends on a Ruby gem called cool.io, which doesn't work on Windows
-2. Fluentd uses *nix dependent code
-
-We have recently resolved issue 1 by becoming the Cool.io maintainer ourselves. Cool.io v1.2 now supports the Windows environment. 
-
-We're now working on resolving issue 2 on Windows branch. <br />
-See github: [Windows branch](https://github.com/fluent/fluentd/tree/windows)
-
-## Does Fluentd have UI or storage?
-
-No, Fluentd doesn't have either UI or storage. However, [Kibana integration](free-alternative-to-splunk-by-fluentd) may be useful for you.
-
-## What is Fluentd's 'tag'?
-
-Each Fluentd event log consists of the three components:
-
-* tag
-* time
-* message
-
-A tag must be specified for every log sent to Fluentd. The tag is used to route the message within Fluentd. The 'match' section in the configuration file specifies the tags that are routed to each destination.
-
-Let's take a look at the example below. This configuration tails /var/log/combine.log and generates Fluentd logs with tag 'test-tag.'
-
-    :::term
-    <source>
-      type tail
-      format /^(?<wholemsg>.*)$/
-      path /var/log/combined.log 
-      tag test-tag
-    </source> 
-
-If you add the following lines to the configuration file, the logs are routed to stdout.
-
-    :::term
-    <match test-tag> 
-      type stdout
-    </match>
-
-On the other hand, adding the following lines to the configuration file will not route the logs anywhere, since the match section doesn't match the tag.
-
-    :::term
-    <match some-other-tag>
-      type stdout
-    </match>
-
-In essence, you can control your data process flow by using tags.
-
-NOTE: The match section specifies the regexp used to look for matching tags. If a matching tag is found in a log, then the config inside the 'match' section is used (i.e. the log is routed according to the config inside).
-
-## How can I estimate Fluentd's resource usage?
-
-Fluentd consumes more resources as more logs are thrown at it. We have found that the CPU becomes a major bottleneck for heavily loaded Fluentd systems. To combat this bottleneck, Fluentd can leverage multiple CPU cores through its multi-process mode. A regular PC box is able to handle around 18,000 msgs/second.
-
-## How is Fluentd's performance?
-
-The most performance sensitive parts of Fluentd are carefully written in C, with Ruby code acting as a flexible wrapper. In addition, Fluentd can leverage multiple CPU cores through its [multi-process plugin](in_multiprocess).
-
-In our benchmark experiments, a regular PC box was able to deliver 18,000 messages/second. If you need to handle a higher load, please consider using multiple Fluentd servers. If your application needs 100x this performance, please consider using other solutions or creating a custom solution.
-
-## What's the difference between Logstash and Fluentd?
+### What's the difference between Logstash and Fluentd?
 
 Fluentd's built-in buffering mechanism offers both simplicity and robustness simultaneously. Check out the blog post below for more details.
 
 * [Fluentd vs Logstash](http://jasonwilder.com/blog/2013/11/19/fluentd-vs-logstash/)
 
-## What's the difference between Scribe and Fluentd?
+### What's the difference between Scribe and Fluentd?
 
 First, Fluentd is actively maintained while Scribe is not. Scribe is no longer used by Facebook, and is thus no longer maintained. Facebook has rewritten Scribe in Java, and now calls it [Calligraphus](http://www-conf.slac.stanford.edu/xldb2011/talks/xldb2011_tue_0940_facebookrealtimeanalytics.pdf). 
 
 Second, Scribe is more performant than Fluentd because it's written in C++; but as a tradeoff, it is difficult to extend compared to Fluentd.
 
-## What's the difference between Kafka and Fluentd?
+### What's the difference between Kafka and Fluentd?
 
 Pull v.s. Push. Kafka is almost like a queue. Kafka needs another application to "pull" logged events to store them. Meanwhile, Fluentd supports output plugins which "push" logged events to a storage destination.
 
 Fluentd's push-based architecture also takes care of "buffering". When file transfers to your backend storage fails, Fluentd automatically retries the transfer of the buffered file. When using Kafka, you need to handle the retry mechanism yourself.
 
-## What's the difference between Flume and Fluentd?
+### What's the difference between Flume and Fluentd?
 
 `Java` v.s. `C + Ruby`. If you intend to use the Hadoop-family of products especially CDH (Cloudera Distribution for Hadoop) as your backend, Flume may provide better support or compatibility than Fluentd.
 
 Meanwhile, Fluentd is backend-storage agnostic, has less memory footprint, and is easy to use and extend.
 
-## What's the difference between Splunk and Fluentd?
+### What's the difference between Splunk and Fluentd?
 
 Splunk is a log collection + search engine for unstrucuted, text-based logs. It has a nice UI and indexing engine for searching for terms within text log files.
 
 Fluentd is a log collector daemon for semi-structured JSON-based logs. It deals with machine-readable logs, whereas Splunk handles text-based logs. Also, Fluentd is simply a mechanism for receiving, buffering, and forwarding data to another destination. It does not have search engine functionality but you can use [ElasticSearch + Kibana](free-alternative-to-splunk-by-fluentd) as a backend to search the logs.
 
-## I have a weird timestamp value, what happened?
+## Operations
+
+### I have a weird timestamp value, what happened?
 
 The timestamps of Fluentd and its logger libraries depend on your system's clock. It's highly recommended that you set up NTP on your nodes so that your clocks remain synced with the correct clocks.
 
-## How do we develop a custom plugin?
-
-Please refer to the [Plugin Development Guide](http://docs.fluentd.org/articles/plugin-development).
-
-## I installed td-agent and want to add custom plugins. How do I do it?
+### I installed td-agent and want to add custom plugins. How do I do it?
 
 Please use `fluent-gem` as shown below.
 
@@ -183,6 +187,12 @@ Now you might be wondering, "Why do I need to specify the full path?" The reason
 
 to your `~/.bash_profile`.
 
-## How can I match (send) an event to multiple outputs?
+### How can I match (send) an event to multiple outputs?
 
 You can use the `copy` [output plugin](/articles/out_copy) to send the same event to multiple output destinations.
+
+## Plugin Development
+
+### How do we develop a custom plugin?
+
+Please refer to the [Plugin Development Guide](http://docs.fluentd.org/articles/plugin-development).
