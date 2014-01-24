@@ -11,8 +11,15 @@
   <% if @toc.size > 0 %>
     <section id="table-of-contents"><h3>Table of Contents</h3>
       <ul id="toc">
-        <% @toc.each do |section| %>
-          <li><a href="#<%= slugify(section) %>"><%= section %></a></li>
+        <% @toc.each do |section, sub_sections| %>
+          <li class="toc-item"><a href="#<%= slugify(section) %>"><%= section %></a></li>
+            <% if sub_sections.size > 0 %>
+              <ul class="sub-toc">
+              <% sub_sections.each do |s| %>
+                <li class="sub-toc-item"><a href="#<%= slugify(s) %>"><%= s %></a></li>
+              <% end %>
+              </ul>
+            <% end %>
         <% end %>
       </ul>
     </section>

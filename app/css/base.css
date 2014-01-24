@@ -836,11 +836,17 @@ object {
     #article article #table-of-contents ul {
       list-style: none;
       padding: 0 0 0 4px;
+      margin-bottom: 10px;
     }
 
-    #article article #table-of-contents ul li {
+    #article article #table-of-contents ul li.toc-item {
       background: url("/images/wikistyle/index_li_bullet.png") left center no-repeat;
       padding: 0 0 0 22px;
+    }
+
+    #article article #table-of-contents ul li.sub-toc-item {
+      list-style-type: circle;
+      margin-left: 44px;
     }
     /* ------------------------------------------- */
 
