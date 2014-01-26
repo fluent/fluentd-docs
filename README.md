@@ -1,8 +1,8 @@
 # Fluentd Docs App
 
-Ultrasimple CMS and content for documentation of Fluentd.  The production site is [here](http://docs.fluentd.org/).
+Ultrasimple CMS and content for Fluentd documentation. The production site is [here](http://docs.fluentd.org/).
 
-If you'd like to propose an edit to the Fluentd docs, fork this repo, then send us a pull request.
+If you'd like to propose an edit to the Fluentd docs, please fork this repo and send us a pull request.
 
 # Install
 
@@ -21,20 +21,20 @@ If you'd like to propose an edit to the Fluentd docs, fork this repo, then send 
 
 ## NOTE
 
-When updated the article, please update config/last_updated.json too.
+When you have updated an article, please update config/last_updated.json too.
 
     $ bundle exec rake last_updated
     $ git add config/last_updated.json
 
-# Add other language
+# Add Another Language
 
-0. First, please create symlink to english article for preventing 404.
+0. First, please create a symlink to the English article in order to prevent a 404 response.
 
     $ cd docs
     $ make lang # e.g. de
     $ for f in *.txt; do ls lang/$f || ln -s ../$f lang/$f; done
 
-after initialization, remove symlink and add translated article :)
+After initialization, please remove the symlink and add the translated article. :)
 
 # Detect outdated documents
 
