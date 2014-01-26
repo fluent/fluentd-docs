@@ -61,16 +61,18 @@ The syntax is as follows:
 
     INCLUDE: <filename without extension>
     
-    *the rest of the document.*
+    ... the rest of the document.
 
 Please remember to include a blank line between "INCLUDE..." and the rest of the document. 
-The docs app will search for <filename>.txt in the `docs` directory and insert its contents into the current document. For example, if you write
+The docs app will search for \<filename\>.txt in the `docs` directory and insert its contents into the current document.
+
+For example, if you write
 
     INCLUDE: _buffer_parameters
 
-    *the rest of the document.*
+    ... the rest of the document.
 
-then the docs app will insert the contents of _buffer_parameters.txt into the current document.
+then the docs app will insert the contents of \_buffer\_parameters.txt into the current document.
 
 # Acknowledgement
 
