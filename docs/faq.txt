@@ -21,9 +21,9 @@ We have recently resolved issue 1 by becoming the Cool.io maintainer ourselves. 
 We're now working on resolving issue 2 on Windows branch. <br />
 See github: [Windows branch](https://github.com/fluent/fluentd/tree/windows)
 
-### How to collect logs from Windows Machine?
+### How can I collect logs from a Windows Machine?
 
-We can use nxlog using syslog protocol. See [Collecting Log Data from Windows](http://docs.fluentd.org/articles/windows) article.
+You can use nxlog with the syslog protocol. Please see the [Collecting Log Data from Windows](http://docs.fluentd.org/articles/windows) article for details.
 
 ### Does Fluentd have UI or storage?
 
@@ -196,6 +196,6 @@ You can use the `copy` [output plugin](/articles/out_copy) to send the same even
 
 ## Plugin Development
 
-### How do we develop a custom plugin?
+### How do I develop a custom plugin?
 
 Please refer to the [Plugin Development Guide](http://docs.fluentd.org/articles/plugin-development).
