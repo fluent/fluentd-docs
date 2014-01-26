@@ -55,25 +55,22 @@ after initialization, remove symlink and add translated article :)
 
 # INCLUDE pragma
 
-In order to avoid copy-and-pasting the same content on multiple pages, one can
-use the "INCLUDE pragma".
+You can use the "INCLUDE pragma" to avoid copy-and-pasting the same content or updates on multiple pages.
 
-The syntax is as follows
+The syntax is as follows:
 
-    INCLUDE: <filename>
+    INCLUDE: <filename without extension>
     
-    blah blah blah...
+    *the rest of the document.*
 
-(Notice that there is a blank line between "INCLUDE..." and "blah blah blah...")
-Then, the docs app will search for <filename>.txt in the `docs` directory. For
-example, if you write
+Please remember to include a blank line between "INCLUDE..." and the rest of the document. 
+The docs app will search for <filename>.txt in the `docs` directory and insert its contents into the current document. For example, if you write
 
     INCLUDE: _buffer_parameters
 
-    blah blah blah...
+    *the rest of the document.*
 
-The docs app would insert the content of _buffer_parameters.txt into the docs
-page.
+then the docs app will insert the contents of _buffer_parameters.txt into the current document.
 
 # Acknowledgement
 
