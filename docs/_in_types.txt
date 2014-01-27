@@ -1,6 +1,6 @@
 #### types (optional, v.0.10.42 and up)
 
-By default, every parsed field has type `string`, but one can specify other types. This is convenient when you want to filter particular fields by numerical comparison or store data with sensible type information.
+Although every parsed field has type `string` by default, you can specify other types. This is useful when filtering particular fields numerically or storing data with sensible type information.
 
 The syntax is
 
@@ -12,11 +12,11 @@ e.g.,
     :::text
     types user_id:integer,paid:bool,paid_usd_amount:float
 
-i.e., "," is used to delimit field-type pairs, and ":" is used to separate a field name with its intended type.
+As demonstrated above, "," is used to delimit field-type pairs while ":" is used to separate a field name with its intended type.
 
-Untyped fields remain as strings.
+Unspecified fields are parsed at the default string type.
 
-Here is the list of supported types:
+The list of supported types are shown below:
 
 * string
 * bool
@@ -25,4 +25,6 @@ Here is the list of supported types:
 * time
 * array
 
-For `time` and `array` types, there is an optional third field after type name. For the "time" type, you can specify a time format like you would in `time_format`. For the "array" type, the third field specifies the delimiter (the default is ","). For example, if a field called "item_ids" with the value "3,4,5", `types item_ids:array` parses it as ["3", "4", "5"]. Alternatively, if the value is "Adam|Alice|Bob", `types item_ids:array:|` parses it as ["Adam", "Alice", "Bob"].
+For the `time` and `array` types, there is an optional third field after the type name. For the "time" type, you can specify a time format like you would in `time_format`. 
+
+For the "array" type, the third field specifies the delimiter (the default is ","). For example, if a field called "item_ids" contains the value "3,4,5", `types item_ids:array` parses it as ["3", "4", "5"]. Alternatively, if the value is "Adam|Alice|Bob", `types item_ids:array:|` parses it as ["Adam", "Alice", "Bob"].
