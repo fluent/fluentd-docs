@@ -111,17 +111,17 @@ The `time_key` parameter can also be specified.
 
 * `none`
 
-For those who want to defer parsing/structuring data, there is `none` format, which parses the line as-is with the key name "message". For example, if you had a line
+You can use the `none` formant to defer parsing/structuring the data. This will parse the line as-is with the key name "message". For example, if you had a line
 
     :::text
     hello world. I am a line of log!
 
-It gets parsed as
+It will be parsed as
 
     :::text
     {"message":"hello world. I am a line of log!"}
 
-By default, the key field is "message" but you can specify a different value with the `message_key` parameter like this:
+The key field is "message" by default, but you can specify a different value using the `message_key` parameter as shown below:
 
     :::text
     format none
