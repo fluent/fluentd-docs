@@ -1,0 +1,28 @@
+#### types (optional, v.0.10.42 and up)
+
+By default, every parsed field has type `string`, but one can specify other types. This is convenient when you want to filter particular fields by numerical comparison or store data with sensible type information.
+
+The syntax is
+
+    :::text
+    types <field_name_1>:<type_name_1>,<field_name_2>:<type_name_2>,...
+
+e.g.,
+
+    :::text
+    types user_id:integer,paid:bool,paid_usd_amount:float
+
+i.e., "," is used to delimit field-type pairs, and ":" is used to separate a field name with its intended type.
+
+Untyped fields remain as strings.
+
+Here is the list of supported types:
+
+* string
+* bool
+* integer ("int" would NOT work!)
+* float
+* time
+* array
+
+For `time` and `array` types, there is an optional third field after type name. For the "time" type, you can specify a time format like you would in `time_format`. For the "array" type, the third field specifies the delimiter (the default is ","). For example, if a field called "item_ids" with the value "3,4,5", `types item_ids:array` parses it as ["3", "4", "5"]. Alternatively, if the value is "Adam|Alice|Bob", `types item_ids:array:|` parses it as ["Adam", "Alice", "Bob"].
