@@ -2,12 +2,35 @@
 
 The `out_rewrite_tag_filter` Output plugin has designed to rewrite tag like mod_rewrite. Re-emmit a record with rewrited tag when a value matches/unmatches with the regular expression.  Also you can change a tag from apache log by domain, status-code(ex. 500 error), user-agent, request-uri, regex-backreference and so on with regular expression. 
 
+## How it works
+
+It is a sample to arrange the tags by the regexp matched value of 'message'.
+
+    :::text
+    # Configuration
+    <match app.message>
+      type rewrite_tag_filter
+      rewriterule1 message ^\[(\w+)\] $1.${tag}
+    </match>
+
+    :::text
+    +----------------------------------------+        +----------------------------------------------+
+    | original record                        |        | rewrited tag record                          |
+    |----------------------------------------|        |----------------------------------------------|
+    | app.message {"message":"[info]: ..."}  | +----> | info.app.message {"message":"[info]: ..."}   |
+    | app.message {"message":"[warn]: ..."}  | +----> | warn.app.message {"message":"[warn]: ..."}   |
+    | app.message {"message":"[crit]: ..."}  | +----> | crit.app.message {"message":"[crit]: ..."}   |
+    | app.message {"message":"[alert]: ..."} | +----> | alert.app.message {"message":"[alert]: ..."} |
+    +----------------------------------------+        +----------------------------------------------+
+
 ## Install
 
 `out_rewrite_tag_filter` is included in td-agent by default (v1.1.18 or later). Fluentd gem users will have to install the fluent-plugin-rewrite-tag-filter gem using the following command.
 
     :::term
     $ fluent-gem install fluent-plugin-rewrite-tag-filter
+    OR
+    $ sudo /usr/lib64/fluent/ruby/bin/fluent-gem install fluent-plugin-rewrite-tag-filter
 
 ## Example Configuration
 
@@ -22,7 +45,7 @@ Configuration design is dropping some pattern record first, then re-emit other m
       rewriterule3 domain !^.+\.com$                  clear
       rewriterule4 domain ^maps\.example\.com$        site.ExampleMaps
       rewriterule5 domain ^news\.example\.com$        site.ExampleNews
-      # it also supported regexp back reference.
+      # it is also supported regexp back reference.
       rewriterule6 domain ^(mail)\.(example)\.com$    site.$2$1
       rewriterule7 domain .+                          site.unmatched
     </match>
@@ -68,6 +91,10 @@ It is supported these placeholder for new_tag (rewrited tag). See more details a
 * Collect access log from multiple application servers (config1)
 * Sum up the 404 error and output to mongoDB (config2)
 
+Note: These plugins are required to be installed.
+* fluent-plugin-rewrite-tag-filter
+* fluent-plugin-mongo
+
 ##### [Config1] Application Servers
 
     :::text
@@ -81,6 +108,7 @@ It is supported these placeholder for new_tag (rewrited tag). See more details a
       pos_file /var/log/td-agent/apache_access.pos
     </source>
 
+    # Forward to monitoring server
     <match apache.access>
       type forward
       flush_interval 5s
@@ -135,8 +163,6 @@ Note: These plugins are required to be installed.
 * fluent-plugin-mongo
 * fluent-plugin-irc
 
-## record chain
-
 ##### [Config1] Application Servers
 
     :::text
@@ -151,6 +177,7 @@ Note: These plugins are required to be installed.
       pos_file /var/log/td-agent/apache_access.pos
     </source>
 
+    # Forward to monitoring server
     <match apache.access>
       type forward
       flush_interval 5s
