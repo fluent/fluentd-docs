@@ -128,35 +128,8 @@ ltsv(Labeled Tab-Separated Value)はタブ区切りのキーバリューペア�
     format none
     message_key my_message
     
+INCLUDE: _in_types
 
-#### types (任意, v.0.10.42以上)
-
-デフォルトでは解析されたフィールド毎にタイプ`string`を持ちますが、フィールドは他のタイプを指定することができます。これは数値比較によって特定のフィールドをフィルターしたい、または適切なタイプ情報と共にデータを保存するときには便利です。
-
-文法は
-
-    :::text
-    types <field_name_1>:<type_name_1>,<field_name_2>:<type_name_2>,...
-
-例
-
-    :::text
-    types user_id:integer,paid:bool,paid_usd_amount:float
-
-例 ","はフィールドタイプペアを区別するために使用されます。そして、":"はフィールド名とその意図されたタイプを区別するために使用されます。
-
-タイプ付けされていないフィールドは文字列のままです。
-
-これはサポートされているタイプは一覧です。
-
-* string
-* bool
-* integer ("int"は機能しません!)
-* float
-* time
-* array
-
-`time`と`array`向けに、タイプ名の後に任意の第３フィールドがあります。"time"タイプは向けに、`time_format`のように時間フォーマットを指定することができます。"array"タイプ向けに、第３フィールドは区切り記号(デフォルトは",")を指定しています。例えば、値 "3,4,5"を持ち"item_ids"と呼ばれたフィールドの場合、`types item_ids:array`は値 "3,4,5"を["3", "4", "5"]として解析します。代わりに、値が"Adam|Alice|Bob"の場合、`types item_ids:array:|`は"Adam|Alice|Bob"を["Adam", "Alice", "Bob"]として解析します。
 
 ### pos_file (強く推奨)
 このパラメータは強く推奨します。Fluentdはこのファイルに最後に読み込んだ位置を記録します。

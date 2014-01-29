@@ -128,7 +128,7 @@ The key field is "message" by default, but you can specify a different value usi
     message_key my_message
     
 
-INCLUDE: <_in_types>
+INCLUDE: _in_types
 
 
 ### pos_file (highly recommended)

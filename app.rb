@@ -252,8 +252,9 @@ helpers do
     @available_langs = $AVAILABLE_LANGUAGES[article]
 
     erb :article
-  rescue Errno::ENOENT
-    status 404
+#  rescue Errno::ENOENT
+#    puts "HELLLOO"
+#    status 404
   end
 
   def article_file(article, lang)
