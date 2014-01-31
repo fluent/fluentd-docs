@@ -161,6 +161,9 @@ section 'output-plugins', 'Output Plugins' do
   category 'out_copy', 'out_copy' do
     article 'out_copy', 'copy Output Plugin'
   end
+  category 'out_geoip', 'out_geoip' do
+    article 'out_geoip', 'GeoIP Output Plugin'
+  end
   category 'out_roundrobin', 'out_roundrobin' do
     article 'out_roundrobin', 'roundrobin Output Plugin'
   end
@@ -178,6 +181,9 @@ section 'output-plugins', 'Output Plugins' do
   end
   category 'out_mongo_replset', 'out_mongo_replset' do
     article 'out_mongo_replset', 'MongoDB ReplicaSet Output Plugin', ['MongoDB', 'Mongo']
+  end
+  category 'out_rewrite_tag_filter', 'out_rewrite_tag_filter' do
+    article 'out_rewrite_tag_filter', 'rewrite_tag_filter Output Plugin'
   end
   category 'out_webhdfs', 'out_webhdfs' do
     article 'out_webhdfs', 'WebHDFS Output Plugin', ['Hadoop', 'HDFS']

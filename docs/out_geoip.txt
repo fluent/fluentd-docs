@@ -1,0 +1,144 @@
+# GeoIP Output Plugin
+
+The `out_geoip` Buffered Output plugin adds information about geographical location of IP addresses with Maxmind GeoIP databases.
+
+## Dependency
+
+Dependent library has required to be installed before install plugin.
+
+    :::term
+    # for RHEL/CentOS
+    $ sudo yum install geoip-devel --enablerepo=epel
+
+    # for Ubuntu/Debian
+    $ sudo apt-get install libgeoip-dev
+
+    # for MacOSX (brew)
+    $ brew install geoip
+
+## Install
+
+`out_geoip` is not included in td-agent. All users will have to install the fluent-plugin-geoip gem using the following command.
+
+    :::term
+    $ fluent-gem install fluent-plugin-geoip
+    OR
+    $ sudo /usr/lib64/fluent/ruby/bin/fluent-gem install fluent-plugin-geoip
+
+## Example Configuration
+
+It is a sample to add geolocation information into 
+apache.access
+
+    :::text
+    <match test.message>
+      type geoip
+      geoip_lookup_key        host
+      enable_key_country_code geoip_country
+      enable_key_city         geoip_city
+      enable_key_latitude     geoip_lat
+      enable_key_longitude    geoip_lon
+      remove_tag_prefix       test.
+      add_tag_prefix          geoip.
+      flush_interval          5s
+    </match>
+
+
+    :::text
+    # original record
+    test.message {
+      "host":"66.102.9.80",
+      "message":"test"
+    }
+
+    # output record
+    geoip.message: {
+      "host":"66.102.9.80",
+      "message":"test",
+      "geoip_country":"US",
+      "geoip_city":"Mountain View",
+      "geoip_lat":37.4192008972168,
+      "geoip_lon":-122.05740356445312
+    }
+
+NOTE: Please see the <a href="https://github.com/y-ken/fluent-plugin-geoip">README.md</a> for further details.
+
+## Parameters
+
+### geoip_lookup_key (required)
+specify geoip lookup field (default: host)
+In the case of accessing nested hash value, delimiting keys by dot like 'host.ip'.
+
+### remove_tag_prefix / add_tag_prefix (required at least one)
+Set tag replace rule
+
+### enable_key_*** (required at least one)
+Specify key name which data types will be added to the record.
+
+These are supported parameters.
+
+* enable_key_city
+* enable_key_latitude
+* enable_key_longitude
+* enable_key_country_code3
+* enable_key_country_code
+* enable_key_country_name
+* enable_key_dma_code
+* enable_key_area_code
+* enable_key_region
+
+### include_tag_key
+If you need to include original tag name into record, set this true (default: false)
+
+### tag_key
+On the `include_tag_key true`, add tag name into record using this value as key name.
+
+## Buffer Parameters
+For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
+
+### buffer_type
+The buffer type is `memory` by default ([buf_memory](buf_memory)). The `file` ([buf_file](buf_file)) buffer type can be chosen as well. Unlike many other output plugins, the `buffer_path` parameter MUST be specified when using `buffer_type file`.
+
+### buffer_queue_limit, buffer_chunk_limit
+The length of the chunk queue and the size of each chunk, respectively. Please see the [Buffer Plugin Overview](buffer-plugin-overview) article for the basic buffer structure. The default values are 64 and 256m, respectively. The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for buffer_chunk_limit.
+
+### flush_interval
+The interval between forced data flushes. The default is nil (don't force flush and wait until the end of time slice + time_slice_wait). The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.
+
+
+## Use cases
+
+#### Plot real time access statistics with world map by Elasticsearch and Kibana
+
+To visualize world map with <a href="http://www.elasticsearch.org/overview/kibana/">Kibana</a>, it needs adding country_code field.
+
+Note: These plugins are required to be installed.
+ * fluent-plugin-geoip
+ * fluent-plugin-elasticsearch
+
+    :::text
+    <match td.apache.access>
+      type geoip
+
+      # Set key which contains client ip address
+      geoip_lookup_key     host
+
+      # Specify key name country_code
+      enable_key_country_code  geoip_country
+
+      # swapping tag prefix from 'td.' to 'es.'
+      remove_tag_prefix    td.
+      add_tag_prefix       es.
+    </match>
+
+    <match es.apache.access>
+      type            elasticsearch
+      host            localhost
+      port            9200
+      type_name       apache
+      logstash_format true
+      flush_interval  10s
+    </match>
+
+## Further Reading
+- [fluent-plugin-geoip repository](https://github.com/y-ken/fluent-plugin-geoip)
