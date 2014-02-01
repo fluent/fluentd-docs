@@ -1,0 +1,19 @@
+# Community
+
+Fluentd has a unique great developer community! Here's a list of places you can join as a community member.
+
+#### Mailing List
+- [Fluentd Google Groups](https://groups.google.com/forum/?fromgroups#!forum/fluentd)
+
+#### Social
+- [Twitter (@fluentd)](htttp://www.twitter.com/fluentd)
+- [Twitter (#fluentd)](https://twitter.com/search?q=%23fluentd&src=typd&f=realtime)
+- [Facebook Page](https://www.facebook.com/pages/Fluentd-Log-Everything-in-JSON/196064987183037)
+- [StackOverflow](http://stackoverflow.com/questions/tagged/fluentd?sort=newest)
+
+#### Develop
+- [Source Code](http://github.com/fluent/fluentd)
+- [Bug/Feature Tracker](https://github.com/fluent/fluentd/issues?state=open)
+
+#### Meetup
+- [Fluentd User Group at San Francisco](http://www.meetup.com/Fluentd-User-Group/)
