@@ -12,11 +12,11 @@ That's why [Treasure Data, Inc](http://www.treasuredata.com/) is providing **the
 
 Please follow the [Preinstallation Guide](before-install) to configure your OS properly. This will prevent many unnecessary problems.
 
-### GPG key
+### Step0: Add GPG key
 
-The rpm package is signed with the Treasure Data GPG key, which can be found [here](http://packages.treasure-data.com/). We recommend importing the GPG key to apt.
+The rpm package is signed with the Treasure Data GPG key, which can be found [here](http://packages.treasure-data.com/). At first, please add they key to your rpm system.
 
-    $ rpm --import /path/to/RPM-GPG-KEY-td-agent
+    $ rpm --import http://packages.treasure-data.com/redhat/RPM-GPG-KEY-td-agent
 
 ## Step1: Install from rpm Repository
 
