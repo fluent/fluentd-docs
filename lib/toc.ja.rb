@@ -9,11 +9,11 @@ section 'overview', 'Overview' do
   end
   category 'installation', 'インストール' do
     article 'before-install', 'Fluentdインストールの前に'
-    article 'install-by-homebrew', 'HomebrewでFluentdをインストールする (Mac OS X)'
     article 'install-by-rpm', 'RPMパッケージからFluentdをインストールする (Redhat Linux)'
     article 'install-by-deb', 'DEBパッケージからFluentdをインストールする (Debian / Ubuntu Linux)'
     article 'install-by-gem', 'Ruby GemからFluentdをインストールする'
     article 'install-by-chef', 'ChefでFluentdをインストールする'
+    article 'install-by-homebrew', 'HomebrewでFluentdをインストールする (Mac OS X)'
     article 'install-from-source', 'ソースコードからFluentdをインストールする'
     article 'install-on-heroku', 'Heroku上にFluentd (td-agent)をインストールする'
     article 'install-on-beanstalk', 'AWS Elastic Beanstalk上にFluentd (td-agent)をインストールする'
