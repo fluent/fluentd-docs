@@ -31,11 +31,11 @@ section 'overview', 'Overview' do
     article 'faq', 'FAQ'
   end
 end
-section 'tutorial', 'Tutorial' do
+section 'usecases', 'Use Cases' do
   category 'free-alternative-to-splunk-by-fluentd', 'Data Search like Splunk' do
     article 'free-alternative-to-splunk-by-fluentd', 'Data Search like Splunk', ['Splunk', 'Free Alternative']
   end
-  category 'splunk-like-grep-and-alert-email', 'Grep, Count and Alert like Splunk' do
+  category 'splunk-like-grep-and-alert-email', 'Data Filtering and Alerting' do
     article 'splunk-like-grep-and-alert-email', 'Email Alerts like Splunk', ['Splunk', 'Alerting']
   end
   category 'http-to-td', 'Data Analytics with TD' do
@@ -50,6 +50,11 @@ section 'tutorial', 'Tutorial' do
   category 'apache-to-s3', 'Data Archiving to S3' do
     article 'apache-to-s3', 'Store Apache Logs into Amazon S3', ['Amazon S3']
   end
+  category 'windows', 'Windows Event Collection' do
+    article 'windows', 'Windows Event Collection'
+  end
+end
+section 'application-logging', 'Application Logging' do
   category 'ruby', 'Logging from Ruby' do
     article 'ruby',   'Import Logs from Ruby Applications'
   end
@@ -70,9 +75,6 @@ section 'tutorial', 'Tutorial' do
   end
   category 'scala', 'Logging from Scala' do
     article 'scala',   'Import Logs from Scala Applications'
-  end
-  category 'windows', 'Logging from Windows' do
-    article 'windows',   'Import Logs from Windows Machines'
   end
 end
 section 'configuration', 'Configuration' do
