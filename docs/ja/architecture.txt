@@ -2,6 +2,10 @@
 
 **Fluentd** は<a href="http://fluentd.org/plugin/">125種類以上のシステム</a>で瞬時に '**Log Everything**' アーキテクチャを提供する完全に自由で完全にオープンソースのログ収集システムです。Fluentdはログを(コンピュータにとって可読性の高いフォーマットとして人気の)JSONとして扱います。また、C言語とRubyによる薄いラッパーで書かれており柔軟性があります。
 
+<center>
+<img src="/images/fluentd-architecture.png" width="450px"/><br /><br />
+</center>
+
 Fluentdの性能は実際に立証されています。もっとも大規模なユーザーは **5000台以上のサーバー** から一日あたり5TB以上、ピークタイムには秒間50,000メッセージにものぼるログを収集しています。
 
 ## 目的
