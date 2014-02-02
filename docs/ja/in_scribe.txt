@@ -1,17 +1,17 @@
-# scribe Input Plugin
+# scribeインプットプラグイン
 
-The `in_scribe` Input plugin enables Fluentd to retrieve records through the Scribe protocol. [Scribe](https://github.com/facebook/scribe) is another log collector daemon that is open-sourced by Facebook.
+`in_scribe`インプットプラグインはFluentdがScribeプロトコルでレコードを取得することを可能にします。[Scribe](https://github.com/facebook/scribe)はFacebookによってオープンソース化された別のログコレクタデーモンです。
 
-Since Scribe hasn't been well maintained recently, this plugin is useful for existing Scribe users who want to use Fluentd with an existing Scribe infrastructure.
+Scribeは最近あまりメンテナンスされていないので、このプラグインは既存のScribeインフラストラクチャでFluentdを使用したい既存のScribeユーザーに役立ちます。
 
-### Install
+### インストール
 
-`in_scribe` is included in td-agent by default. Fluentd gem users will need to install the fluent-plugin-scribe gem using the following command.
+`in_scribe`はデフォルトでtd-agentに含まれています。Fluentd gemユーザーは次のコマンドで　使用して、fluent-plugin-scribe gemをインストールする必要があります。
 
     :::term
     $ fluent-gem install fluent-plugin-scribe
 
-### Example Configuration
+### 設定例
 
     :::text
     <source>
@@ -22,49 +22,49 @@ Since Scribe hasn't been well maintained recently, this plugin is useful for exi
       msg_format json
     </source>
 
-NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+NOTE: 設定ファイルの基本的な構造や文法に関しては、<a href="config-file">設定ファイル</a>の記事を参照してください。
 
-#### Example Usage
+#### 利用例
 
-We assume that you're already familiar with the Scribe protocol. This [Python example code](https://github.com/fluent/fluent-plugin-scribe/blob/master/bin/fluent-scribe-remote) posts logs to `in_scribe`.
+私たちはあなたがすでにScribeプロトコルに精通していると想定しています。この[Rubyサンプルコード](https://github.com/fluent/fluent-plugin-scribe/blob/master/bin/fluent-scribe-remote)は`in_scribe`にログを送信します。
 
-Scribe's `category` field becomes the `tag` of the Fluentd event log and Scribe's `message` field becomes the record itself. The `msg_format` parameter specifies the format of the `message` field.
+Scribeの`category`フィールドはFluentdイベントログの`tag`になり、Scribeの`message`フィールドはレコード自体になります。`msg_format`パラメータは`message`フィールドのフォーマットを指定します。
 
-### Parameters
+### パラメータ
 
-#### type (required)
-The value must be `scribe`.
+#### type (必須)
+値は`scribe`でなければなりません。
 
 #### port
-The port to listen to. Default Value = 1463
+リッスンするポートです。デフォルト値は1463です。
 
 #### bind
-The bind address to listen to. Default Value = 0.0.0.0 (all addresses)
+リッスンするためのバインドアドレスです。デフォルト値は0.0.0.0(すべてのアドレス)です。
 
 #### msg_format
 
-The message format can be ‘text’, ‘json’, or ‘url_param’ (default: text)
+メッセージフォーマットは‘text’、‘json’または‘url_param’(デフォルトはtext)にすることができます。
 
-For `json`, Fluentd's record is organized as follows. Scribe's message field must be a valid JSON string representing Hash; otherwise, the record is ignored.
+`json`向けに、Fluentdのレコードは次のように構成されています。Scribeのメッセージフィールドはハッシュを表す有効なJSON文字列にしなければなりません。それゆえ、レコードは無視されます。
 
     tag: $category
     record: $message
 
-For `text`, Fluentd's record is organized as follows. Scribe's message can be any arbitrary string, but JSON is recommended for ease of use with the subsequent analytics pipeline.
+`text`向けに、Fluentdのレコードは次のように構成されています。Scribeのメッセージフィールドは任意の文字列することができますが、その後に続く分析パイプラインでの使用を容易にするためにJSONが推奨されます。
 
     tag: $category
     record: {'message': $message}
 
-For `url_param`, Fluentd's record is organized as follows. Scribe's message field must contain URL parameter style key-value pairs with URL encoding (e.g. key1=val1&key2=val2).
+`url_param`向けに、Fluentdのレコードは次のように構成されています。ScribeのメッセージフィールドはURLエンコーディングしたURLのパラメータースタイルのキーと値のペア(例 key1=val1&key2=val2)を含まなければなりません。
 
     tag: $url_param
     record: {$key1: $val1, $key2: $val2, ...}
 
 #### is_framed
-Specifies whether to use Thrift's framed protocol or not (default: true).
+Thriftのフレームドプロトコルを使用するかどうかを指定します。(デフォルトはtrue)
 
 #### server_type
-Chooses the server architecture. Options are ‘simple’, ‘threaded’, ‘thread_pool’, or ‘nonblocking’ (default: nonblocking).
+サーバアーキテクチャを選択します。オプションは‘simple’、‘threaded’、‘thread_pool’または‘nonblocking’です。(デフォルトはnonblocking)
 
 ####  add_prefix
-The prefix string which will always be added to the tag (default: nil).
+tagに常に追加されるプレフィックス文字列です。(デフォルトはnil)
