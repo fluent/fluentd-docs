@@ -1,14 +1,22 @@
 # Overview
 
-**Fluentd** is a fully free and fully open-source log collector that instantly enables you to have a '**Log Everything**' architecture with <a href="http://fluentd.org/plugin/">125+ types of systems</a>.
+**Fluentd** is a fully free and fully open-source log management tool, that **simplifies how the data gets collected, and stored**. You don't have to maintain a lots of ad-hoc scripts anymore.
+
 
 <center>
-<img src="/images/fluentd-architecture.png" width="450px"/><br /><br />
+<table style="border: 0px;">
+  <tr>
+    <td><center><b>After Fluentd</b></center></td>
+    <td><center><b>Before</b></center></td>
+  </tr>
+  <tr>
+    <td><img src="/images/fluentd-after.png" width="275px"/></td>
+    <td><img src="/images/fluentd-before.png" width="275px"/></td>
+  </tr>
+</table>
 </center>
 
-Fluentd treats logs as JSON, a popular machine-readable format. It is written primarily in C with a thin-Ruby wrapper that gives users flexibility.
-
-Fluentd's performance has been proven in the field: its largest user currently collects logs from **5000+ servers**, 5 TB of daily data, handling 50,000 msgs/sec at peak time.
+Fluentd is flexible & robust, and it has been proven in the field: its largest user currently collects logs from 5000+ servers, 5 TB of daily data, handling 50,000 msgs/sec at peak time.
 
 ## Purpose
 
