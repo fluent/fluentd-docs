@@ -32,13 +32,22 @@ section 'overview', 'Overview' do
   end
 end
 section 'usecases', 'Use Cases' do
-  category 'free-alternative-to-splunk-by-fluentd', 'Data Search like Splunk' do
-    article 'free-alternative-to-splunk-by-fluentd', 'Data Search like Splunk', ['Splunk', 'Free Alternative']
+  category 'logging-from-apps', 'Centralized App Logging' do
+    article 'ruby',   'Import Logs from Ruby Applications'
+    article 'python', 'Import Logs from Python Applications'
+    article 'php',    'Import Logs from PHP Applications'
+    article 'perl',   'Import Logs from Perl Applications'
+    article 'nodejs', 'Import Logs from Node.js Applications'
+    article 'java',   'Import Logs from Java Applications'
+    article 'scala',   'Import Logs from Scala Applications'
   end
-  category 'splunk-like-grep-and-alert-email', 'Data Filtering and Alerting' do
+  category 'free-alternative-to-splunk-by-fluentd', 'Log Management & Search' do
+    article 'free-alternative-to-splunk-by-fluentd', 'Log Data Search', ['Splunk', 'Free Alternative']
+  end
+  category 'splunk-like-grep-and-alert-email', 'Log Filtering and Alerting' do
     article 'splunk-like-grep-and-alert-email', 'Email Alerts like Splunk', ['Splunk', 'Alerting']
   end
-  category 'http-to-td', 'Data Analytics with TD' do
+  category 'http-to-td', 'Big Data Analytics' do
     article 'http-to-td', 'Data Analytics with Treasure Data', ['Treasure Data', 'Hadoop', 'Hive']
   end
   category 'apache-to-mongo', 'Data Collection to Mongo' do
@@ -50,28 +59,8 @@ section 'usecases', 'Use Cases' do
   category 'apache-to-s3', 'Data Archiving to S3' do
     article 'apache-to-s3', 'Store Apache Logs into Amazon S3', ['Amazon S3']
   end
-end
-section 'application-logging', 'Application Logging' do
-  category 'ruby', 'Logging from Ruby' do
-    article 'ruby',   'Import Logs from Ruby Applications'
-  end
-  category 'python', 'Logging from Python' do
-    article 'python', 'Import Logs from Python Applications'
-  end
-  category 'php', 'Logging from PHP' do
-    article 'php',    'Import Logs from PHP Applications'
-  end
-  category 'perl', 'Logging from Perl' do
-    article 'perl',   'Import Logs from Perl Applications'
-  end
-  category 'nodejs', 'Logging from Node.js' do
-    article 'nodejs', 'Import Logs from Node.js Applications'
-  end
-  category 'java', 'Logging from Java' do
-    article 'java',   'Import Logs from Java Applications'
-  end
-  category 'scala', 'Logging from Scala' do
-    article 'scala',   'Import Logs from Scala Applications'
+  category 'windows', 'Windows Event Collection' do
+    article 'windows', 'Windows Event Collection'
   end
 end
 section 'configuration', 'Configuration' do

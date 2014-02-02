@@ -1,4 +1,4 @@
-# Data Analytics with Treasure Data
+# Cloud Big Data Analytics with Treasure Data
 
 This article explains how to use [Fluentd](http://fluentd.org/)'s [Treasure Data Output plugin](http://github.com/treasure-data/fluent-plugin-td/) to aggregate semi-structured logs into Treasure Data (TD), which offers Cloud Data Service.
 

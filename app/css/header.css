@@ -7,7 +7,7 @@
 #header{
 	width:100%;
 	z-index:2;
-	padding:0 0 28px;
+	padding:0 0 0px;
 	position:relative;
 	margin:0 0 -26px;
 	background:url(../images/bg-header.png) 50% 100% no-repeat;
@@ -38,7 +38,7 @@
 .top-holder{
   width:600px;
   float:right;
-  padding:31px 0;
+  padding:30px 0;
 }
 .top-holder .follow{
   font-size:15px;

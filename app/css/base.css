@@ -340,7 +340,7 @@ object {
     #pdf-download {
       background-image: url('/images/pdf-icon.png');
       background-position: left 3px;
-      background-position-x: 20px;
+      background-position-x: 10px;
       background-repeat: no-repeat;
       border: solid 1px;
       margin-bottom: 4px;
@@ -358,7 +358,31 @@ object {
       outline: none;
       padding-top: 8px;
       padding-bottom: 10px;
-      padding-left: 50px;
+      padding-left: 40px;
+    }
+
+    #newsletter-signup {
+      background-image: url('/images/news-icon.png');
+      background-position: left 3px;
+      background-position-x: 6px;
+      background-repeat: no-repeat;
+      border: solid 1px;
+      margin-bottom: 4px;
+      background-color: #fafafa;
+      border: 1px solid #aeb3b8;
+      -moz-border-radius: 3px;
+      -webkit-border-radius: 3px;
+      border-radius: 3px;
+      -moz-box-shadow: 0 1px 1px rgba(255, 255, 255, .66), 0 1px 4px rgba(0, 0, 0, .1) inset;
+      -webkit-box-shadow: 0 1px 1px rgba(255, 255, 255, .66), 0 1px 4px rgba(0, 0, 0, .1) inset;
+      box-shadow: 0 1px 1px rgba(255, 255, 255, .66), 0 1px 4px rgba(0, 0, 0, .1) inset;
+      color: #2275bb;
+      font-family: 'Helvetica Neue', Helvetica, Arial, Geneva, sans-serif;
+      font-size: 13px;
+      outline: none;
+      padding-top: 8px;
+      padding-bottom: 10px;
+      padding-left: 40px;
     }
 
       /* =search
