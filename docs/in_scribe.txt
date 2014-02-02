@@ -26,7 +26,7 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 
 #### Example Usage
 
-We assume that you're already familiar with the Scribe protocol. This [Python example code](https://github.com/fluent/fluent-plugin-scribe/blob/master/bin/fluent-scribe-remote) posts logs to `in_scribe`.
+We assume that you're already familiar with the Scribe protocol. This [Ruby example code](https://github.com/fluent/fluent-plugin-scribe/blob/master/bin/fluent-scribe-remote) posts logs to `in_scribe`.
 
 Scribe's `category` field becomes the `tag` of the Fluentd event log and Scribe's `message` field becomes the record itself. The `msg_format` parameter specifies the format of the `message` field.
 
