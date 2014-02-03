@@ -96,6 +96,8 @@ For example, if you generate records with tags 'mongo.foo', the records will be 
       collection misc
     </match>
 
+This option is good for flexible log collection.
+
 INCLUDE: _buffer_parameters
 
 ## Further Reading
