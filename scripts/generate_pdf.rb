@@ -20,6 +20,13 @@
 # But Pandoc's code highlight is poor, so we need more rich code highlight like gimli.
 
 require 'fileutils'
+require 'ostruct'
+
+def settings
+  os = OpenStruct.new
+  os.root = '.'
+  os
+end
 
 DOC_HOME = File.expand_path(Dir.pwd)
 
@@ -75,7 +82,46 @@ def fix_internal_link(line)
   }
 end
 
+def parse_include(df, f)
+  in_block = false # check current line is in code block or not
+  f.each_line.with_index { |line, i|
+    block = line.strip
+    if match = /^.*\<img.*src="(.*?)" .*\>/.match(block)
+      # User logos are different size, so we should resize these images.
+      path = generate_image(match[1], name == 'users')
+      df.puts("![](#{path})")
+      next
+    elsif block.start_with?(':::')
+      # Wrap source code with '```' for Pandoc highlight.
+      # If need more complex configuration, then switch '```' to '~~~~{.lang}'
+      # TODO: We need code block folding.
+      type = block[3..-1]
+      type = 'text' if (type == 'term') || (type == 'text')
+      type = 'javascript' if type == 'js'
+
+      df.puts('')
+      df.puts("```#{type}")
+      in_block = true
+      next
+    elsif line.start_with?('INCLUDE: ')
+      parse_include(df, File.read("#{DOC_HOME}/docs/#{line['INCLUDE: '.length..-1].strip}.txt"))
+      next
+    elsif in_block && !line.empty? && line[0] != " " && line[0] != "\n"
+      df.puts('```')
+      df.puts
+      in_block = false
+    end
+    line = fix_internal_link(line)
+
+    # 4 space is not needed when use code highlight
+    df.puts(in_block ? line[4..-1] : line)
+  }
+  df.puts("```") if in_block
+  df.puts
+end
+
 excludes = ['support', 'slides', 'logo']
+exclude_categories = ['recipes']  # reduce duplicate document
 
 # Pandoc's internal link can't link to arbitary section in another file.
 # So, merge all files into one file.
@@ -95,6 +141,8 @@ HEADER
 
   TOC.new('en').sections.each { |_, __, categories|
     categories.each { |_, __, articles|
+      next if exclude_categories.include?(_)
+
       articles.each { |name, title, keywords|
         next if excludes.include?(name)
 
@@ -102,6 +150,10 @@ HEADER
         in_block = false # check current line is in code block or not
         f.each_line.with_index { |line, i|
           block = line.strip
+          if block.start_with?('rewriterule1 message ')
+            line = '      rewriterule1 message ^\\[(\\\\w+)\\] \$1.\${tag}'
+            block = line.strip
+          end
           if i.zero?
             line = "#{block} {##{name}}"
           elsif match = /^.*\<img.*src="(.*?)" .*\>/.match(block)
@@ -120,6 +172,9 @@ HEADER
             df.puts('')
             df.puts("```#{type}")
             in_block = true
+            next
+          elsif line.start_with?('INCLUDE: ')
+            parse_include(df, File.read("#{DOC_HOME}/docs/#{line['INCLUDE: '.length..-1].strip}.txt"))
             next
           elsif in_block && !line.empty? && line[0] != " " && line[0] != "\n"
             df.puts('```')
