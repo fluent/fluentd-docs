@@ -74,9 +74,7 @@ The username to use for authentication.
 The password to use for authentication.
 
 ### tag_mapped
-This option will allow out_mongo to use Fluentd's tag to determine the destination collection.
-
-For example, if you generate records with tags 'mongo.foo', the records will be inserted into the `foo` collection within the `fluentd` database.
+This option will allow out_mongo to use Fluentd's tag to determine the destination collection. For example, if you generate records with tags 'mongo.foo', the records will be inserted into the `foo` collection within the `fluentd` database.
 
     :::text
     <match mongo.*>
@@ -96,7 +94,7 @@ For example, if you generate records with tags 'mongo.foo', the records will be 
       collection misc
     </match>
 
-This option is good for flexible log collection.
+This option is useful for flexible log collection.
 
 INCLUDE: _buffer_parameters
 
