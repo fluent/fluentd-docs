@@ -231,13 +231,17 @@ helpers do
   end
 
   def render_article(article, congrats, lang = $DEFAULT_LANGUAGE)
-    status 404 unless avaiable_language?(article, lang)
-
     @filepath = article_file(article, lang)
+    if not (avaiable_language?(article, lang) and File.exists?(@filepath))
+      status 404
+      return
+    end
+
     unless $IO_CACHE.has_key? @filepath
       $IO_CACHE[@filepath] = File.read(@filepath)
     end
     doc_path = "#{settings.root}/docs/#{lang == $DEFAULT_LANGUAGE ? '' : lang}"
+
     @article = Article.load(article, $IO_CACHE[@filepath], doc_path)
     @title   = @article.title
     @desc    = @article.desc
@@ -252,9 +256,6 @@ helpers do
     @available_langs = $AVAILABLE_LANGUAGES[article]
 
     erb :article
-#  rescue Errno::ENOENT
-#    puts "HELLLOO"
-#    status 404
   end
 
   def article_file(article, lang)
