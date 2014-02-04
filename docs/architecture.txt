@@ -1,6 +1,6 @@
 # Overview
 
-**Fluentd** is a fully free and fully open-source log management tool, that **simplifies how the data gets collected, and stored**. You don't have to maintain a lots of ad-hoc scripts anymore.
+**Fluentd** is a fully free and open-source log management tool that **simplifies your data collection and storage pipeline**. It eliminates the need to maintain a set of ad-hoc scripts for this purpose.
 
 
 <center>
@@ -16,7 +16,7 @@
 </table>
 </center>
 
-Fluentd is flexible & robust, and it has been proven in the field: its largest user currently collects logs from 5000+ servers, 5 TB of daily data, handling 50,000 msgs/sec at peak time.
+Fluentd is flexible, robust, and industry-proven: our largest user currently collects logs from 5000+ servers, ingests 5 TB of daily data, and handles 50,000 msgs/sec at peak time.
 
 ## Purpose
 
