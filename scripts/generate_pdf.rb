@@ -63,6 +63,28 @@ def generate_image(path, resize = false)
   path
 end
 
+def get_markdown_table(orig_table)
+  case
+  when orig_table.index('Manual setup')
+    # Remove some example to adjust the PDF size
+    <<EOS
+
+  || fluentd | td-agent
+--|---------|---------
+ Installation | gem install fluentd | [.rpm](http://docs.fluentd.org/articles/install-by-rpm) / [.deb](http://docs.fluentd.org/articles/install-by-deb) packages for Linux.
+ Configuration | generic | preconfigured to send data to [Treasure Data (can be modified)](http://www.treasuredata.com)
+ Adding 3rd party [plugins](http://www.fluentd.org/plugin/) | fluent-gem | Manual setup (but it ships with several plugins pre-loaded)
+ init.d script | No | Yes (shipped with .deb and .rpm)
+ Chef recipe | No | Yes
+ Memory allocator | OS default | optimized (jemalloc)
+ QA/Support | Community-driven | QA by Treasure Data/Support for Treasure Data's paid customers
+
+EOS
+  else
+    orig_table
+  end
+end
+
 def fix_internal_link(line)
   line.gsub(/\[(.*?)\]\((.*?)\)/) { |match| 
     if $2.start_with?('http:') or $2.start_with?('https:')
@@ -148,6 +170,7 @@ HEADER
 
         f = File.read("#{DOC_HOME}/docs/#{name}.txt")
         in_block = false # check current line is in code block or not
+        table_content = nil
         f.each_line.with_index { |line, i|
           block = line.strip
           if block.start_with?('rewriterule1 message ')
@@ -180,6 +203,19 @@ HEADER
             df.puts('```')
             df.puts
             in_block = false
+          elsif line.start_with?('<table')
+            table_content = ''
+            next
+          elsif line.start_with?('</table>')
+            table_content << line
+            df.puts('')
+            df.puts(get_markdown_table(table_content))
+            df.puts('')
+            table_content = nil
+            next
+          elsif table_content
+            table_content << line
+            next
           end
           line = fix_internal_link(line)
 
