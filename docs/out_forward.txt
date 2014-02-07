@@ -74,7 +74,7 @@ The threshold parameter used to detect server faults. The default value is 8.
 The hard timeout used to detect server failure. The default value is equal to the send_timeout parameter.
 
 ### standby
-The standby to use for Active-Standby model between fluentd nodes. When an active node went down, standby node is promoted to an active node.
+Marks a node as the standby node for an Active-Standby model between Fluentd nodes. When an active node goes down, the standby node is promoted to an active node. The standby node is not used by the `out_forward` plugin until then.
 
     :::text
     <match pattern>
@@ -86,7 +86,7 @@ The standby to use for Active-Standby model between fluentd nodes. When an activ
         host 192.168.1.3
         weight 60
       </server>
-      <server>  # forward doesn't use myserver2 until myserver1 go down
+      <server>  # forward doesn't use myserver2 until myserver1 goes down
         name myserver2
         host 192.168.1.4
         weight 60
