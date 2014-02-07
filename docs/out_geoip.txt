@@ -1,10 +1,10 @@
 # GeoIP Output Plugin
 
-The `out_geoip` Buffered Output plugin adds information about geographical location of IP addresses with Maxmind GeoIP databases.
+The `out_geoip` Buffered Output plugin adds geographic location information to logs using the Maxmind GeoIP databases.
 
-## Dependency
+## Prerequisites
 
-Dependent library has required to be installed before install plugin.
+* The GeoIP library.
 
     :::term
     # for RHEL/CentOS
@@ -18,7 +18,7 @@ Dependent library has required to be installed before install plugin.
 
 ## Install
 
-`out_geoip` is not included in td-agent. All users will have to install the fluent-plugin-geoip gem using the following command.
+`out_geoip` is not included in td-agent. All users must install the fluent-plugin-geoip gem using the following command.
 
     :::term
     $ fluent-gem install fluent-plugin-geoip
@@ -27,8 +27,7 @@ Dependent library has required to be installed before install plugin.
 
 ## Example Configuration
 
-It is a sample to add geolocation information into 
-apache.access
+The configuration shown below adds geolocation information to apache.access
 
     :::text
     <match test.message>
@@ -61,21 +60,19 @@ apache.access
       "geoip_lon":-122.05740356445312
     }
 
-NOTE: Please see the <a href="https://github.com/y-ken/fluent-plugin-geoip">README.md</a> for further details.
+NOTE: Please see the <a href="https://github.com/y-ken/fluent-plugin-geoip#readme">fluent-plugin-geoip README</a> for further details.
 
 ## Parameters
 
 ### geoip_lookup_key (required)
-specify geoip lookup field (default: host)
-In the case of accessing nested hash value, delimiting keys by dot like 'host.ip'.
+Specifies the geoip lookup field (default: host)
+If accessing a nested hash value, delimit the key with '.', as in 'host.ip'.
 
-### remove_tag_prefix / add_tag_prefix (required at least one)
-Set tag replace rule
+### remove_tag_prefix / add_tag_prefix (requires one or the other)
+Set tag replace rule.
 
-### enable_key_*** (required at least one)
-Specify key name which data types will be added to the record.
-
-These are supported parameters.
+### enable_key_*** (requires at least one)
+Specifies the geographic data that will be added to the record. The supported parameters are shown below:
 
 * enable_key_city
 * enable_key_latitude
@@ -88,10 +85,10 @@ These are supported parameters.
 * enable_key_region
 
 ### include_tag_key
-If you need to include original tag name into record, set this true (default: false)
+Set to `true` to include the original tag name in the record. (default: false)
 
 ### tag_key
-On the `include_tag_key true`, add tag name into record using this value as key name.
+Adds the tag name into the record using this value as the key name When `include_tag_key` is set to `true`.
 
 ## Buffer Parameters
 For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
@@ -106,13 +103,13 @@ The length of the chunk queue and the size of each chunk, respectively. Please s
 The interval between forced data flushes. The default is nil (don't force flush and wait until the end of time slice + time_slice_wait). The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.
 
 
-## Use cases
+## Use Cases
 
-#### Plot real time access statistics with world map by Elasticsearch and Kibana
+#### Plot real time access statistics on a world map using Elasticsearch and Kibana
 
-To visualize world map with <a href="http://www.elasticsearch.org/overview/kibana/">Kibana</a>, it needs adding country_code field.
+The `country_code` field is needed to visualize access statistics on a world map using <a href="http://www.elasticsearch.org/overview/kibana/">Kibana</a>.
 
-Note: These plugins are required to be installed.
+Note: The following plugins are required:
  * fluent-plugin-geoip
  * fluent-plugin-elasticsearch
 
@@ -120,13 +117,13 @@ Note: These plugins are required to be installed.
     <match td.apache.access>
       type geoip
 
-      # Set key which contains client ip address
+      # Set key name for the client ip address values
       geoip_lookup_key     host
 
-      # Specify key name country_code
+      # Specify key name for the country_code values
       enable_key_country_code  geoip_country
 
-      # swapping tag prefix from 'td.' to 'es.'
+      # Swap tag prefix from 'td.' to 'es.'
       remove_tag_prefix    td.
       add_tag_prefix       es.
     </match>
