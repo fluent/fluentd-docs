@@ -18,6 +18,16 @@
 
 Fluentd is flexible, robust, and industry-proven: our largest user currently collects logs from 5000+ servers, ingests 5 TB of daily data, and handles 50,000 msgs/sec at peak time.
 
+## Learn what Fluentd is All About
+
+This presentation explains what Fluentd is and then goes into more detail what makes Fluentd special and different.
+
+<center>
+<iframe src="http://www.slideshare.net/slideshow/embed_code/11410514?rel=0" width="597" height="486" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+</center>
+
+The following section describes the more detailed Fluentd philosophy and architecture.
+
 ## Purpose
 
 Modern web and mobile applications generate a very large number of **event logs** (ex: login, logout, purchase, follow, etc.). These services can be improved greatly by analyzing their event logs. However, collecting these logs in a simple, reliable, and scalable manner remains a challenge. 
