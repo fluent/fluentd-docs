@@ -195,6 +195,9 @@ section 'developer', 'Developer' do
   category 'plugin-development', 'Plugin Development' do
     article 'plugin-development', 'Plugin Development'
   end
+  category 'community', 'Community' do
+    article 'community', 'Community'
+  end
   category 'mailing-list', 'メーリングリスト' do
     article 'mailing-list', 'メーリングリスト'
   end
