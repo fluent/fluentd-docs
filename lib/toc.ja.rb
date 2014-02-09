@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 section 'overview', 'Overview' do
-  category 'getting-started', 'はじめよう' do
-    article 'quickstart', 'クイックスタートガイド'
-  end
   category 'architecture', 'アーキテクチャ' do
     article 'architecture', 'アーキテクチャ'
+  end
+  category 'getting-started', 'はじめよう' do
+    article 'quickstart', 'クイックスタートガイド'
   end
   category 'installation', 'インストール' do
     article 'before-install', 'Fluentdインストールの前に'
