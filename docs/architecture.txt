@@ -16,10 +16,6 @@
 </table>
 </center>
 
-Fluentd is flexible, robust, and industry-proven: our largest user currently collects logs from 5000+ servers, ingests 5 TB of daily data, and handles 50,000 msgs/sec at peak time.
-
-## Learn what Fluentd is All About
-
 This presentation explains what Fluentd is and then goes into more detail what makes Fluentd special and different.
 
 <center>
