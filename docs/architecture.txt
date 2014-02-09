@@ -1,4 +1,4 @@
-# Overview
+# Overview of Fluentd
 
 **Fluentd** is a fully free and open-source log management tool that **simplifies your data collection and storage pipeline**. It eliminates the need to maintain a set of ad-hoc scripts for this purpose.
 
