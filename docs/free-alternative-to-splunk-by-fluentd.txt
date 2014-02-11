@@ -1,10 +1,10 @@
 # Free Alternative to Splunk Using Fluentd
 
-[Splunk](http://www.splunk.com/) is a great tool for searching logs, but its high cost makes it prohibitive for many teams. In this article, we present a free and open source alternative to Splunk by combining three open source projects: Elasticsearch, Kibana, and Fluentd.
+[Splunk](http://www.splunk.com/) is a great tool for searching logs, but its high cost makes it prohibitive for many teams. In this article, we present a free and open source alternative to Splunk by combining three open source projects: ElasticSearch, Kibana, and Fluentd.
 
-<img src="/images/fluentd-elasticsearch-kibana.png"/>
+<iframe width="560" height="315" src="//www.youtube.com/embed/hXiBe8NcLPA?rel=0" frameborder="0" allowfullscreen></iframe><br /><br />
 
-[Elasticsearch](http://www.elasticsearch.org/) is an open source search engine known for its ease of use. [Kibana](http://kibana.org/) is an open source Web UI that makes Elasticsearch user friendly for marketers, engineers and data scientists alike.
+[ElasticSearch](http://www.elasticsearch.org/) is an open source search engine known for its ease of use. [Kibana](http://kibana.org/) is an open source Web UI that makes ElasticSearch user friendly for marketers, engineers and data scientists alike.
 
 Kibana supports the LogStash format, which in turn is supported by the fluentd-plugin-elasticsearch plugin. And of course, Fluentd is the open source log collector known for its scalability and flexibility.
 
@@ -12,80 +12,98 @@ By combining these three tools we get a scalable, flexible, easy to use log sear
 
 In this guide, we will go over installation, setup, and basic use of this combined log search solution. The contents of this article were tested on Mac OS X Mountain Lion.
 
-## Get Up and Running in 2 Minutes
+## Prerequisites
 
-### One Line to Install Them All
+### Java for ElasticSearch
 
-If you are new to both Fluentd and Elasticsearch/Kibana, no worries. Run:
+First, we'll make sure that we have Java version 6 or higher installed as a prerequisite for ElasticSearch.
 
-    $ curl -Ls http://docs.fluentd.org/misc/fluentd-kibana-elasticsearch/setup.sh | bash
+    :::term
+    $ java -version
+    java version "1.6.0_45"
+    Java(TM) SE Runtime Environment (build 1.6.0_45-b06-451-11M4406)
+    Java HotSpot(TM) 64-Bit Server VM (build 20.45-b01-451, mixed mode)
 
-and you are good to go (**make sure you have write access to the current directory**). Essentially, that command creates a Fluentd/Elasticsearch/Kibana "sandbox" right on your machine to test what the integratoin looks like (See the diagram below)
+### Ruby for Kibana
 
-<img src="/images/fluentd-elasticsearch-kibana-all-in-one.png"/>
+Next, we'll make sure that we have Ruby version 1.9.3 or higher installed as a prerequisite for Kibana.
 
-### Send Data to Elasticsearch and Visuazlize in Kibana!
+    :::term
+    $ ruby --version
+    ruby 1.9.3p385 (2013-02-06 revision 39114) [x86_64-darwin12.2.1]
 
-In the same directory, launch Fluentd, Elasticsearch and Kibana by running the following command:
+Now that we've checked for prerequisites, we're now ready to install and set up the three open source tools.
 
-    $ fluentd -c test.conf
+## Set Up ElasticSearch
 
-* This Fluentd instance has been configured to accept HTTP messages on port 8888. Go visit `http://loclahost:8888/es/test?json={"message":"hello world!"}` This sends a JSON event `{"message":"hello world!"}` with the tag `es.test`. Fluentd matches this event with the `<match es.**>...</match>` statement and sends it to Elasticsearch.
-* Check the data on Kibana by visiting `http://localhost:24300/kibana/index.html#/dashboard/file/guided.json`!
+To install ElasticSearch, please download and extract the ElasticSearch package as shown below.
 
-That's it! If you are interested in setting this up for production, read along.
+    :::term
+    $ curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.0.RC2.tar.gz
+    $ tar zxvf elasticsearch-0.90.0.RC2.tar.gz
+    $ cd elasticsearch-0.90.0.RC2/
 
-<img src="/images/kibana-screenshot.png"/>
+Once installation is complete, start ElasticSearch.
 
-## In Production Setup
+    :::term
+    $ ./bin/elasticsearch -f
 
-In this section, we assume you are already familiar with Elasticsearch and Kibana and **have an Elasticsearch+Kibana instance running somewhere**.
+## Setup Kibana
 
-### Set Up Treasure Agent (enterprise counterpart for Fluentd)
+To install Kibana, download it via the official webpage or clone its Github repository as shown below. Kibana is a Sinatra application.
 
-In this guide We'll install Treasure Agent, the QA'ed counterpart of Fluentd supported by [Treasure Data](http://www.treasuredata.com/en/products/treasure-agent.php). Please refer to the guides below for detailed installation steps.
+    :::term
+    $ git clone git://github.com/rashidkpc/Kibana.git
+    $ cd Kibana
+    $ bundle install --path vendor/bundle # "gem install bundle" is needed if you don't install bundle
+
+Once installation is complete, start Kibana. You can modify Kibana's configuration via KibanaConfig.rb.
+
+    :::term
+    $ bundle exec ruby kibana.rb
+
+## Setup Fluentd (td-agent)
+
+In this guide We'll install td-agent, the stable release of Fluentd. Please refer to the guides below for detailed installation steps.
 
 * [Debian Package](install-by-deb)
 * [RPM Package](install-by-rpm)
+* [Ruby gem](install-by-gem)
 
-Next, we'll install the Elasticsearch plugin for Fluentd: fluent-plugin-elasticsearch.
+Next, we'll install the ElasticSearch plugin for Fluentd: fluent-plugin-elasticsearch.
 
     :::term
     $ /usr/lib64/fluent/ruby/bin/fluent-gem install fluent-plugin-elasticsearch
 
-We'll configure td-agent (Fluentd) to interface properly with Elasticsearch. Please modify `/etc/td-agent/td-agent.conf` as shown below:
+We'll configure td-agent (Fluentd) to interface properly with ElasticSearch. Please modify `/etc/td-agent/td-agent.conf` as shown below:
 
     :::text
-    #Comments are preceded with '#' like Perl/Python/Ruby
-
-    <source> #Input plugins are defined be <source>...</source> statements
-      type syslog #This is the Syslog input plugin, which we will use later in this tutorial
+    <source>
+      type syslog
       port 42185
-      tag es.syslog
+      tag syslog
+    </source>
 
     <source>
-      type http #This is the HTTP input plugin, which turns Fluentd into an HTTP endpoint
-      port 8888 #Send data to http://localhost:8888/<Fluentd tag>?json=<json event>
+      type forward
     </source>
-    
-    <match es.**>
+
+    <match syslog.**>
       type elasticsearch
       logstash_format true
-      index_name fluentd
-      type_name fluentd
-      flush_interval 3 # For testing
-      host <YOUR ELASTICSEARCH URL>
-      port <YOUR ELASTICSEARCH PORT>
+      flush_interval 10s # for testing
     </match>
+
+fluent-plugin-elasticsearch comes with a logstash_format option that allows Kibana to search stored event logs in ElasticSearch.
 
 Once everything has been set up and configured, we'll start td-agent.
 
     :::term
     $ sudo /etc/init.d/td-agent start
 
-### Got rsyslogd?
+## Setup rsyslogd
 
-In our final step, we'll forward the logs from your rsyslogd to Fluentd. Please add the following line to your `/etc/rsyslog.conf`, and restart rsyslog. This will forward your local syslog to Fluentd, and Fluentd in turn will forward the logs to Elasticsearch.
+In our final step, we'll forward the logs from your rsyslogd to Fluentd. Please add the following line to your `/etc/rsyslog.conf`, and restart rsyslog. This will forward your local syslog to Fluentd, and Fluentd in turn will forward the logs to ElasticSearch.
 
     :::text
     *.* @127.0.0.1:42185
@@ -95,9 +113,13 @@ Please restart the rsyslog service once the modification is complete.
     :::text
     $ sudo /etc/init.d/rsyslog restart
 
-Now, your syslog data should be flowing through Fluentd into Elasticsearch.
+## Store and Search Event Logs
 
-To manually send logs to Elasticsearch, please use the `logger` command.
+Once Fluentd receives some event logs from rsyslog and has flushed them to ElasticSearch, you can search the stored logs using Kibana by accessing [http://127.0.0.1:5601/](http://127.0.0.1:5601/) in your browser.
+
+<center><img src="/images/kibana_and_fluentd.png" width="90%"/></center><br/><br/>
+
+To manually send logs to ElasticSearch, please use the `logger` command.
 
     :::text
     $ logger -t test foobar
@@ -105,7 +127,7 @@ To manually send logs to Elasticsearch, please use the `logger` command.
 When debugging your td-agent configuration, using [out_copy](out_copy) + [out_stdout](out_stdout) will be useful. All the logs including errors can be found at `/etc/td-agent/td-agent.log`.
 
     :::text
-    <match es.**>
+    <match syslog.**>
       type copy
       <store>
         # for debug (see /var/log/td-agent.log)
@@ -114,16 +136,18 @@ When debugging your td-agent configuration, using [out_copy](out_copy) + [out_st
       <store>
         type elasticsearch
         logstash_format true
-        index_name fluentd
-        type_name fluentd
-        flush_interval 3 # For testing
-        host <YOUR ELASTICSEARCH URL>
-        port <YOUR ELASTICSEARCH PORT>
+        flush_interval 10s # for testing
       </store>
     </match>
 
+## Demo Environment
+
+Please access the Kibana Demo Environment from the link below.
+
+- [Kibana Demo Environment](http://demo.kibana.org/)
+
 ## Conclusion
 
-This article introduced the combination of Fluentd and Kibana (with Elasticsearch) which achieves a free alternative to Splunk: storing and searching machine logs. The examples provided in this article have not been tuned.
+This article introduced the combination of Fluentd and Kibana (with ElasticSearch) which achieves a free alternative to Splunk: storing and searching machine logs. The examples provided in this article have not been tuned.
 
-If you will be using these components in production, you may want to modify some of the configurations (e.g. JVM, Elasticsearch, Fluentd buffer, etc.) according to your needs.
+If you will be using these components in production, you may want to modify some of the configurations (e.g. JVM, ElasticSearch, Fluentd buffer, etc.) according to your needs.
