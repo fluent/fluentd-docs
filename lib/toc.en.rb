@@ -44,7 +44,8 @@ section 'usecases', 'Use Cases' do
   category 'free-alternative-to-splunk-by-fluentd', 'Log Management & Search' do
     article 'free-alternative-to-splunk-by-fluentd', 'Log Data Search', ['Splunk', 'Free Alternative']
   end
-  category 'splunk-like-grep-and-alert-email', 'Log Filtering and Alerting' do
+  category 'log-filtering-and-alerting', 'Log Filtering and Alerting' do
+    article 'filter-modify-apache', 'Filter and Modify Data (Apache example)'
     article 'splunk-like-grep-and-alert-email', 'Email Alerts like Splunk', ['Splunk', 'Alerting']
   end
   category 'http-to-td', 'Big Data Analytics' do

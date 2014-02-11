@@ -1,0 +1,94 @@
+# How To Filter Or Modify Data Inside Fluentd (Apache as an Example)
+
+In this article, we introduce several useful plugins to filter and modify data inside Fluentd. In the following sections, common scenarios involving data manipulation (such as filtering and modifying data) are described. Each scenario is accompanied by a how-to section using a plugin (or plugins)
+
+## Scenario: Filtering Data By the Value of a Field
+
+Suppose Fluentd instances are collecting data from Apache web server logs via [in_tail](in_tail). Your goal is to filter out all the 200 requests.
+
+## Solution: Using fluent-plugin-grep
+
+[fluent-plugin-grep](https://github.com/sonots/fluent-plugin-grep) is a plugin that can "grep" data based on different fields of Fluentd events.
+
+If your event looks like
+
+    :::text
+    {
+        "code": 200,
+        "url": "http://yourdomain.com/page.html",
+        "size": 2344,
+        "referer": "http://www.treasuredata.com"
+        ...
+    }
+
+then you can filter out all the requests with status code 200 as follows
+
+    :::text
+    ...
+    <match apache.**>
+        type grep
+        input_key code
+        exclude ^200$
+        add_tag_prefix filtered
+    </match>
+
+"add_tag_prefix" prepends a tag in front of filtered events so that it can be matched to a different section. For example,
+
+    :::text
+    ...
+    <match apache.**>
+        type grep
+        input_key code
+        exclude ^200$
+        add_tag_prefix filtered
+    </match>
+    <match filtered.apache.**>
+        type td_lot
+        apikey XXXXX
+        ...
+    </match>
+
+sends all logs with status code other than 200 to [Treasure Data](http://www.treasuredata.com)
+
+fluent-plugin-grep can filter based on multiple fields as well. In the config below, it keeps all requests with status code 4xx that are NOT referred from  yourdomain.com (a real world use case: figuring out how many dead links there are in the wild by filtering out internal links)
+
+    :::text
+    ...
+    <match apache.**>
+        type grep
+        regexp1 code ^4\d\d$
+        exclude1 referer ^https?://yourdomain.com
+        add_tag_prefix external_dead_links
+    </match>
+    ...
+
+## Scenario: Adding a New Field (such as hostname)
+
+Adding a new field/changing an existing field is a fairly common requirement for data collection. For example, a lot of Fluentd users need to add the hostname of the server to Apache web server log data to figure out which server is getting how many requests (i.e., store them in MongoDB/HDFS and run GROUP-BYs).
+
+## Solution: Using fluent-plugin-record-modifier
+
+[fluent-plugin-record-modifier](https://github.com/repeatedly/fluent-plugin-record-modifier) can add a new field to each data record with a couple of lines of code.
+    
+Suppose you have an event that looks like
+
+    {"code":200, "url":"http://yourdomain.com", "size":1232}
+
+Now, suppose we have the following setting using fluent-plugin-record-modifier.
+
+    :::text
+    <match foo.bar>
+        type record_modifier
+        gen_host ${hostname}
+        tag with_hostname
+    </match>
+    ...
+    <match with_hostname>
+        ...
+    </match>
+
+This modifies the event and turns it into
+
+    {"gen_host": "our_server", code":200, "url":"http://yourdomain.com", "size":1232}
+
+`${hostname}` is due to [fluent-mixin-config-placeholder](https://github.com/tagomoris/fluent-mixin-config-placeholders), and it inlines the host name of the server that the Fluentd instance is running on (in the example, the server's name is "our_server")
