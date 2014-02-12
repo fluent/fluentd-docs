@@ -145,6 +145,13 @@
       </a>
       </div>
     </div>
+    <div id="anchored-stargazer-count"
+      style="opacity:0; position:fixed;top:52px;left:189px;width:110px;height:20px;">
+      <iframe src="http://ghbtns.com/github-btn.html?user=fluent&repo=fluentd&type=watch&count=true"
+            allowtransparency="true" frameborder="0" scrolling="0" width="110px"
+            height="20px"></iframe>
+    </div>
+
   </div><!-- /#sheet -->
 
   <!-- Google Analytics -->
@@ -202,7 +209,7 @@
   <script>
     $(document).ready(function() {
         $(window).scroll(function() {
-          var link_opacity = window.pageYOffset > 600 ? 1.0 : 0;
+          var link_opacity = window.pageYOffset > 700 ? 1.0 : 0;
           $('#got-question').css('opacity', link_opacity); 
         });
         $('#got-question').hover(function(){
@@ -211,7 +218,12 @@
         }, function(){
           $(this).css('background-color', '#FFFFFF');
           $('#got-question span').css('color', '#D60000');
-        })
+        });
+
+        $(window).scroll(function() {
+          var link_opacity = window.pageYOffset > 700 ? 1.0 : 0;
+          $('#anchored-stargazer-count').css('opacity', link_opacity); 
+        });
     })
   </script>
   <%= ::NewRelic::Agent.browser_timing_footer rescue "" %>
