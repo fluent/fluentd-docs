@@ -60,6 +60,9 @@ section 'usecases', 'Use Cases' do
   category 'apache-to-s3', 'Data Archiving to S3' do
     article 'apache-to-s3', 'Store Apache Logs into Amazon S3', ['Amazon S3']
   end
+  category 'apache-to-riak', 'Data Collection to Riak' do
+    article 'apache-to-riak', 'Store Apache Logs into Riak', ['Riak']
+  end
   category 'windows', 'Windows Event Collection' do
     article 'windows', 'Windows Event Collection'
   end
