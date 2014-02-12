@@ -337,7 +337,7 @@ object {
       width: 204px;
     }
 
-    #pdf-download {
+    .pdf-download {
       background-image: url('/images/pdf-icon.png');
       background-position: left 3px;
       background-position-x: 10px;
