@@ -50,14 +50,17 @@ section 'usecases', 'Use Cases' do
   category 'http-to-td', 'Big Data Analytics' do
     article 'http-to-td', 'Data Analytics with Treasure Data', ['Treasure Data', 'Hadoop', 'Hive']
   end
+  category 'apache-to-s3', 'Data Archiving to S3' do
+    article 'apache-to-s3', 'Store Apache Logs into Amazon S3', ['Amazon S3']
+  end
   category 'apache-to-mongo', 'Data Collection to Mongo' do
     article 'apache-to-mongodb', 'Store Apache Logs into MongoDB', ['MongoDB']
   end
   category 'http-to-hdfs', 'Data Collection to HDFS' do
     article 'http-to-hdfs', 'Data Collection to HDFS', ['Hadoop', 'HDFS']
   end
-  category 'apache-to-s3', 'Data Archiving to S3' do
-    article 'apache-to-s3', 'Store Apache Logs into Amazon S3', ['Amazon S3']
+  category 'apache-to-riak', 'Data Collection to Riak' do
+    article 'apache-to-riak', 'Store Apache Logs into Riak', ['Riak']
   end
   category 'windows', 'Windows Event Collection' do
     article 'windows', 'Windows Event Collection'

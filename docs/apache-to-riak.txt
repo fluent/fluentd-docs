@@ -1,6 +1,10 @@
 # Store Apache Logs into Riak
 
-<img src="http://docs.fluentd.org/images/fluentd-riak.png"/>
+This article explains how to use Fluentd’s Riak Output plugin ([out_riak](https://github.com/kuenishi/fluent-plugin-riak)) to aggregate semi-structured logs in real-time.
+
+<center>
+<img src="http://docs.fluentd.org/images/fluentd-riak.png" height="280px"/>
+</center>
 
 ## Prerequisites
 
@@ -12,13 +16,15 @@
 
 If you already have `gem` (Rubygems command line tool) installed, you can install Fluentd with the following command.
 
-    gem install fluentd
+    :::term
+    $ gem install fluentd
 
 Also, Treasure Data packages Fluentd as `td-agent` for the [deb](http://docs.fluentd.org/articles/install-by-deb) and [rpm](http://docs.fluentd.org/articles/install-by-rpm) packaging systems.
 
-We also need to install the Riak plugin so that we can output data to a Riak node. This is as easy as running
+We also need to install the [Riak plugin](https://github.com/kuenishi/fluent-plugin-riak) so that we can output data to a Riak node. This is as easy as running
 
-    gem install fluent-plugin-riak
+    :::term
+    $ gem install fluent-plugin-riak
 
 (If you are using td-agent, you can run `/usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-riak` to install the same plugin.)
 
@@ -51,12 +57,14 @@ The `<match riak.**>...</match>` matches all events whose tags start with `riak.
 
 Launch Fluentd with the following command:
 
+    :::term
     $ fluentd -c fluentd.conf
 
 Do make sure you have correct file access permissions so that you can read the Apache log file and write to `/var/log/fluentd/apache2.access_log.pos` (sudo-ing might help).
 
 Now, you should start seeing data into your Riak cluster. We can check that by hitting Riak's HTTP API:
 
+    :::term
     $ curl http://localhost:8098/buckets/fluentlog/keys?keys=true
     {"keys":["2014-01-23-d30b0698-b9de-4290-b8be-a66555497078", ...]}
     $ curl http://localhost:8098/buckets/fluentlog/keys/2014-01-23-d30b0698-b9de-4290-b8be-a66555497078
