@@ -21,21 +21,13 @@ In this guide, we will go over installation, setup, and basic use of this combin
 
 ### Java for Elasticsearch
 
-First, we'll make sure that we have Java version 6 or higher installed as a prerequisite for Elasticsearch.
+We'll make sure that we have Java version 6 or higher installed as a prerequisite for Elasticsearch.
 
     :::term
     $ java -version
     java version "1.6.0_45"
     Java(TM) SE Runtime Environment (build 1.6.0_45-b06-451-11M4406)
     Java HotSpot(TM) 64-Bit Server VM (build 20.45-b01-451, mixed mode)
-
-### Ruby for Kibana
-
-Next, we'll make sure that we have Ruby version 1.9.3 or higher installed as a prerequisite for Kibana.
-
-    :::term
-    $ ruby --version
-    ruby 1.9.3p385 (2013-02-06 revision 39114) [x86_64-darwin12.2.1]
 
 Now that we've checked for prerequisites, we're now ready to install and set up the three open source tools.
 
@@ -55,17 +47,17 @@ Once installation is complete, start Elasticsearch.
 
 ## Setup Kibana
 
-To install Kibana, download it via the official webpage or clone its Github repository as shown below. Kibana is a Sinatra application.
+To install Kibana, download it via the official webpage and extract it. Kibana is a HTML / CSS / JavaScript application.
 
     :::term
-    $ git clone git://github.com/rashidkpc/Kibana.git
-    $ cd Kibana
-    $ bundle install --path vendor/bundle # "gem install bundle" is needed if you don't install bundle
+    $ curl -O https://download.elasticsearch.org/kibana/kibana/kibana-3.0.0milestone5.tar.gz
+    $ tar zxvf kibana-3.0.0milestone5.tar.gz
+    $ cd kibana-3.0.0milestone5/
 
-Once installation is complete, start Kibana. You can modify Kibana's configuration via KibanaConfig.rb.
+Once installation is complete, start Kibana to open `index.html`. You can modify Kibana's configuration via `config.js`.
 
     :::term
-    $ bundle exec ruby kibana.rb
+    $ open index.html
 
 ## Setup Fluentd (td-agent)
 
