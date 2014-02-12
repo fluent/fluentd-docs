@@ -8,9 +8,9 @@ This article explains how to use Fluentd’s Riak Output plugin ([out_riak](http
 
 ## Prerequisites
 
-	1. You are on OSX or Linux
-	2. Riak is already installed and running
-	3. You have an Apache web server log
+1. You are on OSX or Linux
+2. Riak is already installed and running
+3. You have an Apache web server log
 
 ## Installing Fluentd and the Riak output plugin
 
@@ -42,11 +42,11 @@ Create a configuration file called `fluent.conf` and copy and paste the followin
 
     <match riak.**>
       type riak
-	    buffer_type memory
-	    flush_interval 5s
-	    retry_limit 5
-	    retry_wait 1s
-	    nodes localhost:8087 # Assumes Riak is running locally on port 8087
+      buffer_type memory
+      flush_interval 5s
+      retry_limit 5
+      retry_wait 1s
+      nodes localhost:8087 # Assumes Riak is running locally on port 8087
     </match>
 
 The `<source>...</source>` section tells Fluentd to tail an Apache2-formatted log file located at `/var/log/apache2/access_log`. Each line is parsed as an Apache access log event and tagged with the `riak.apache` label.
