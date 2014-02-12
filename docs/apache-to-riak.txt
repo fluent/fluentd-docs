@@ -36,18 +36,18 @@ Create a configuration file called `fluent.conf` and copy and paste the followin
       type tail
       format apache2
       path /var/log/apache2/access_log
-			pos_file /var/log/fluentd/apache2.access_log.pos
-			tag riak.apache
-		</source>
+      pos_file /var/log/fluentd/apache2.access_log.pos
+      tag riak.apache
+    </source>
 
-		<match riak.**>
-			type riak
+    <match riak.**>
+      type riak
 	    buffer_type memory
 	    flush_interval 5s
 	    retry_limit 5
 	    retry_wait 1s
 	    nodes localhost:8087 # Assumes Riak is running locally on port 8087
-		</match>
+    </match>
 
 The `<source>...</source>` section tells Fluentd to tail an Apache2-formatted log file located at `/var/log/apache2/access_log`. Each line is parsed as an Apache access log event and tagged with the `riak.apache` label.
 
@@ -85,8 +85,8 @@ Now, you should start seeing data into your Riak cluster. We can check that by h
 
 There it is! (the response JSON is formatted for readability)
 
-## Further Reading
+## Learn More
 
+- [Fluentd Architecture](architecture)
+- [Fluentd Get Started](quickstart)
 - [Riak Output Plugin](http://github.com/kuenishi/fluent-plugin-riak)
-- [Fluentd Plugins List](http://fluentd.org/plugin/)
-- [Fluentd Source Code](https://github.com/fluent/fluentd)
