@@ -106,9 +106,9 @@ We can then access HDFS to see the stored data.
 
 Fluentd + WebHDFS make real-time log collection simple, robust and scalable! [@tagomoris](http://github.com/tagomoris) has already been using this plugin to collect 20,000 msgs/sec, 1.5 TB/day without any major problems for several months now.
 
-## Further Reading
+## Learn More
 
+* [Fluentd Architecture](architecture)
+* [Fluentd Get Started](quickstart)
 * [WebHDFS Output Plugin](out_webhdfs)
 * [Slides: Fluentd and WebHDFS](http://www.slideshare.net/tagomoris/fluentd-and-webhdfs)
-* [Fluentd Plugins List](http://fluentd.org/plugin/)
-* [Fluentd Source Code](http://github.com/fluent/fluentd/)

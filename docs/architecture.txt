@@ -120,3 +120,8 @@ Fluentd supports both single-node and multi-node configurations. A multi-node co
     +---------+      |
     | Fluentd -------+
     +---------+
+
+## Learn More
+
+* [Fluentd Get Started](quickstart)
+

@@ -93,3 +93,8 @@ As of v10, Fluentd does NOT support Windows. However, there are times when you m
 ###Next Step
 
 This example showed that we can collect data from a Windows machine and send it to a remote Fluentd instance. However, the data is not terribly useful because each line of data is placed into the "message" field as unstructured text. For production purposes, you would probably want to write a plugin/extend the syslog plugin so that you can parse the "message" field in the event.
+
+## Learn More
+
+* [Fluentd Architecture](architecture)
+* [Fluentd Get Started](quickstart)

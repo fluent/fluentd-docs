@@ -97,8 +97,8 @@ WARNING: By default, files are created on an hourly basis (around xx:10). This m
 
 Fluentd + Amazon S3 makes real-time log archiving simple.
 
-## Further Reading
+## Learn More
 
+- [Fluentd Architecture](architecture)
+- [Fluentd Get Started](quickstart)
 - [Amazon S3 Output plugin](out_s3)
-- [Fluentd Plugins List](http://fluentd.org/plugin/)
-- [Fluentd Source Code](https://github.com/fluent/fluentd)

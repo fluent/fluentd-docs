@@ -121,9 +121,9 @@ Then, access MongoDB and see the stored data.
 
 Fluentd + MongoDB makes real-time log collection simple, easy, and robust.
 
-## Further Reading
+## Lean More
 
+- [Fluentd Architecture](architecture)
+- [Fluentd Get Started](quickstart)
 - [MongoDB Output Plugin](out_mongo)
 - [MongoDB ReplicaSet Output Plugin](out_mongo_replset)
-- [Fluentd Plugins List](http://fluentd.org/plugin/)
-- [Fluentd Source Code](https://github.com/fluent/fluentd)
