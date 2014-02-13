@@ -21,7 +21,7 @@ In this guide, we will go over installation, setup, and basic use of this combin
 
 ### Java for Elasticsearch
 
-We'll make sure that we have Java version 6 or higher installed as a prerequisite for Elasticsearch.
+Please confirm that your Java version is 6 or higher.
 
     :::term
     $ java -version
@@ -54,7 +54,7 @@ To install Kibana, download it via the official webpage and extract it. Kibana i
     $ tar zxvf kibana-3.0.0milestone5.tar.gz
     $ cd kibana-3.0.0milestone5/
 
-Once installation is complete, start Kibana to open `index.html`. You can modify Kibana's configuration via `config.js`.
+Once installation is complete, start Kibana and open `index.html`. You can modify Kibana's configuration via `config.js`.
 
     :::term
     $ open index.html
