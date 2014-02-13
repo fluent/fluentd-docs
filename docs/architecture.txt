@@ -1,6 +1,6 @@
 # Overview of Fluentd
 
-**Fluentd** is a fully free and open-source log management tool that **simplifies your data collection and storage pipeline**. It eliminates the need to maintain a set of ad-hoc scripts for this purpose.
+**Fluentd** is a fully free and open-source log management tool that **simplifies your data collection and storage pipeline**. It eliminates the need to maintain a set of ad-hoc scripts.
 
 
 <center>
@@ -16,13 +16,11 @@
 </table>
 </center>
 
-This presentation explains what Fluentd is and then goes into more detail what makes Fluentd special and different.
+This presentation provides an overview of Fluentd, an introduction to its unique features, and a comparison with other prominent logging solutions. The rest of the document provides a more detailed description of Fluentd's philosophy and architecture.
 
 <center>
 <iframe src="http://www.slideshare.net/slideshow/embed_code/11410514?rel=0" width="597" height="486" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
 </center>
-
-The following section describes the more detailed Fluentd philosophy and architecture.
 
 ## Purpose
 
