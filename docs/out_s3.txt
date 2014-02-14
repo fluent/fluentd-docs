@@ -33,7 +33,7 @@ Please see the [Store Apache Logs into Amazon S3](apache-to-s3) article for real
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
-NOTE: Please make sure that you have <b>enough space in the buffer_path directory</b>. Running out of disk space is a probelm frequently reported by users.
+NOTE: Please make sure that you have <b>enough space in the buffer_path directory</b>. Running out of disk space is a problem frequently reported by users.
 
 ## Parameters
 

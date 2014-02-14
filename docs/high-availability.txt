@@ -28,7 +28,7 @@ To configure Fluentd for high availability, we assume that your network consists
 
 '*log aggregators*' are daemons that continuously receive events from the log forwarders. They buffer the events and periodically upload the data into the cloud.
 
-Fluentd can act as either a log forwarder or a log aggreagator, depending on its configuration. The next sections describes the respective setups. We assume that the active log aggregator has ip '192.168.0.1' and that the backup has ip '192.168.0.2'.
+Fluentd can act as either a log forwarder or a log aggregator, depending on its configuration. The next sections describes the respective setups. We assume that the active log aggregator has ip '192.168.0.1' and that the backup has ip '192.168.0.2'.
 
 ## Log Forwarder Configuration
 

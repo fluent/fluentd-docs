@@ -23,13 +23,13 @@ The deb package is signed with the Treasure Data GPG key, which can be found [he
 "Ubuntu 12.04 LTS / Precise" and "Ubuntu 10.04 LTS / Lucid" are currently supported.
 
 #### Ubuntu Precise
-Executing [install-ubuntu-precise.sh](http://toolbelt.treasuredata.com/sh/install-ubuntu-precise.sh) will automaticallly install td-agent on your machine. This shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
+Executing [install-ubuntu-precise.sh](http://toolbelt.treasuredata.com/sh/install-ubuntu-precise.sh) will automatically install td-agent on your machine. This shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
 
     :::term
     $ curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-precise.sh | sh
 
 #### Ubuntu Lucid
-Executing [install-ubuntu-lucid.sh](http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid.sh) will automaticallly install td-agent on your machine. This shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
+Executing [install-ubuntu-lucid.sh](http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid.sh) will automatically install td-agent on your machine. This shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
 
     :::term
     $ curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid.sh | sh

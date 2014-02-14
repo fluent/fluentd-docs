@@ -9,7 +9,7 @@ In the failure scenario, the application sometimes fails to post records to its 
 If the destination Fluentd instance dies, certain logger implementations will use extra memory to hold incoming logs. When Fluentd comes back, these loggers will automatically send out the buffered logs to Fluentd again. Once the maximum buffer memory size is reached, most current implementations will write the data onto the disk or throw away the logs.
 
 #### 2) Exponential Backoff (available for [Ruby](ruby), [Java](java))
-When trying to resend logs to the local forwarder, some implemententions will use exponential backoff to prevent excessive re-connect requests.
+When trying to resend logs to the local forwarder, some implementations will use exponential backoff to prevent excessive re-connect requests.
 
 ## Forwarder or Aggregator Fluentd Goes Down
 What happens when a Fluentd process dies for some reason? It depends on your buffer configuration.
