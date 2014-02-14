@@ -98,6 +98,9 @@ Marks a node as the standby node for an Active-Standby model between Fluentd nod
 
 INCLUDE: _buffer_parameters
 
+INCLUDE: _log_level_params
+
+
 ## Troubleshooting
 
 ### "no nodes are available"

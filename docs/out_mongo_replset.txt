@@ -100,5 +100,8 @@ The ReplicaSet failover threshold. The default threshold is 60. If the retry cou
 
 INCLUDE: _buffer_parameters
 
+INCLUDE: _log_level_params
+
+
 ## Further Readings
 - [fluent-plugin-webhdfs mongo](https://github.com/fluent/fluent-plugin-mongo)

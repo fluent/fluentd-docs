@@ -28,6 +28,9 @@ The port to listen to. Default Value = 24224
 #### bind
 The bind address to listen to. Default Value = 0.0.0.0 (all addresses)
 
+INCLUDE: _log_level_params
+
+
 ### Protocol
 
 This plugin uses [MessagePack](http://msgpack.org/) for the internal protocol. MessagePack is a binary-based data serialization / deserialization library. `in_forward` accepts MessagePack data streams with the following structure.

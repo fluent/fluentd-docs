@@ -21,3 +21,6 @@ The value must be `unix`.
 
 #### path (required)
 The path to your Unix Domain Socket.
+
+INCLUDE: _log_level_params
+

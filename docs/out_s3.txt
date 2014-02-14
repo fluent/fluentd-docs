@@ -104,6 +104,9 @@ Enable/disable SSL for data transfers between Fluentd and S3. The default is "ye
 
 INCLUDE: _buffer_parameters
 
+INCLUDE: _log_level_params
+
+
 ## Further Reading
 This page doesn't describe all the possible configurations. If you want to know about other configurations, please check the link below.
 

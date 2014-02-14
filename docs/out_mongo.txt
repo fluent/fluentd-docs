@@ -98,5 +98,8 @@ This option is useful for flexible log collection.
 
 INCLUDE: _buffer_parameters
 
+INCLUDE: _log_level_params
+
+
 ## Further Reading
 - [fluent-plugin-mongo repository](https://github.com/fluent/fluent-plugin-mongo)

@@ -23,3 +23,5 @@ Output format. The following formats are supported:
 
 * json
 * hash (Ruby's hash)
+
+INCLUDE: _log_level_params

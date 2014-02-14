@@ -146,3 +146,6 @@ in_tail actually does a bit more than `tail -F` itself. When rotating a file, so
 in_tail takes care of this by keeping a reference to the old file (even after it has been rotated) for some time before transitioning completely to the new file. This helps prevent data designated for the old file from getting lost. By default, this time interval is 5 seconds.
 
 The rotate_wait parameter accepts a single integer representing the number of seconds you want this time interval to be.
+
+INCLUDE: _log_level_params
+

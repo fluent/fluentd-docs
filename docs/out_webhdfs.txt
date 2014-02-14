@@ -59,6 +59,9 @@ The path on HDFS. Please include ${hostname} in your path to avoid writing into 
 
 INCLUDE: _buffer_parameters
 
+INCLUDE: _log_level_params
+
+
 ## Further Reading
 - [fluent-plugin-webhdfs repository](https://github.com/fluent/fluent-plugin-webhdfs)
 - [Slides: Fluentd and WebHDFS](http://www.slideshare.net/tagomoris/fluentd-and-webhdfs)

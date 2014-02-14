@@ -57,3 +57,6 @@ The format of the event time used for the time_key parameter. The default is UNI
 
 #### run_interval
 The interval time between periodic program runs.
+
+INCLUDE: _log_level_params
+

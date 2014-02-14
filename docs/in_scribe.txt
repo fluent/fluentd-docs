@@ -68,3 +68,6 @@ Chooses the server architecture. Options are ‘simple’, ‘threaded’, ‘th
 
 ####  add_prefix
 The prefix string which will always be added to the tag (default: nil).
+
+INCLUDE: _log_level_params
+

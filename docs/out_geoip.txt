@@ -102,6 +102,8 @@ The length of the chunk queue and the size of each chunk, respectively. Please s
 ### flush_interval
 The interval between forced data flushes. The default is nil (don't force flush and wait until the end of time slice + time_slice_wait). The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.
 
+INCLUDE: _log_level_params
+
 
 ## Use Cases
 

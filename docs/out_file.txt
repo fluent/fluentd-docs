@@ -57,3 +57,5 @@ Compresses flushed files using `gzip`. No compression is performed by default.
 
 INCLUDE: _buffer_parameters
 
+INCLUDE: _log_level_params
+

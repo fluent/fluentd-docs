@@ -40,3 +40,5 @@ The format for event time used when the `time_key` parameter is specified. The d
 
 INCLUDE: _buffer_parameters
 
+INCLUDE: _log_level_params
+

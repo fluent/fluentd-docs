@@ -32,3 +32,6 @@ The value must be `roundrobin`.
 
 ### &lt;store&gt; (required at least one)
 Specifies the storage destinations. The format is the same as the &lt;match&gt; directive.
+
+INCLUDE: _log_level_params
+
