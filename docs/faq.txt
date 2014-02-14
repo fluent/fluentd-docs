@@ -6,7 +6,7 @@
 
 The most performance sensitive parts of Fluentd are written in C. The Ruby code acts as a wrapper that provides flexibility to the overall solution. In particular, the networking layer and object serialization layer are written in C (See [cool.io](https://github.com/tarcieri/cool.io) and [MessagePack](http://msgpack.org/)).
 
-Since Fluentd is not written entirely in C or C++, it may be slow in its Ruby parts. But by giving up a little bit of speed, we have gained [many plugins](http://fluentd.org/plugin/) from the Ruby community :). Fluentd's performance has been put to the test at [many large services](users); in fact, a regular PC box can handle 18,000 messages/second with a single proceses.
+Since Fluentd is not written entirely in C or C++, it may be slow in its Ruby parts. But by giving up a little bit of speed, we have gained [many plugins](http://fluentd.org/plugin/) from the Ruby community :). Fluentd's performance has been put to the test at [many large services](users); in fact, a regular PC box can handle 18,000 messages/second with a single process.
 
 If this number is insufficient for your application, please consider other solutions which are written entirely in C-family or Java. However, please note that you will lose some flexibility as a tradeoff.
 

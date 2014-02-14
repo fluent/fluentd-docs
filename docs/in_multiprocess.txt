@@ -42,7 +42,7 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 ### Parameters
 
 #### type (required)
-The value must be `multirprocess`.
+The value must be `multiprocess`.
 
 #### graceful_kill_interval
 The interval to send the signal to gracefully shut down the process (default: 2sec).

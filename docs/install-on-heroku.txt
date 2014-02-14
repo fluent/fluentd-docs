@@ -30,7 +30,7 @@ Treasure Data provides a boilerplate repository to get you started. Follow the s
 
 ## Test
 
-Let's confirm that the log aggregation server has been set up correctly. Please send a GET request to the log server, http://td-agent-on-heroku.herokuapp.com, as shown below. This will log the event { "json": "message" } with a dabug.sample tag. Note how the JSON-formatted data is passed as a query parameter value.
+Let's confirm that the log aggregation server has been set up correctly. Please send a GET request to the log server, http://td-agent-on-heroku.herokuapp.com, as shown below. This will log the event { "json": "message" } with a debug.sample tag. Note how the JSON-formatted data is passed as a query parameter value.
 
     :::term
     $ curl "http://td-agent-on-heroku.herokuapp.com/debug.sample?json=%7B%22json%22%3A%22message%22%7D"

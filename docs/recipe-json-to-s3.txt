@@ -35,7 +35,7 @@ Here is how:
       aws_sec_key <Your AWS secret key> #(required)
       s3_bucket <s3 bucket name> #(required)
       s3_endpoint <s3 endpoint name> #(required; ex: s3-us-west-1.amazonaws.com)
-      s3_object_key_format <formae string> #(optional; default="%{path}%{time_slice}_%{index}.%{file_extension}")
+      s3_object_key_format <format string> #(optional; default="%{path}%{time_slice}_%{index}.%{file_extension}")
       auto_create_bucket <true/false> #(optional; default=true)
       check_apikey_on_start <true/false> #(optional; default=true)
       proxy_uri <proxy uri string> #(optional)
