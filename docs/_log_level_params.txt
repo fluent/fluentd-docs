@@ -22,6 +22,6 @@ For example, in order to debug [in_tail](in_tail) but suppress all but fatal log
     <source>
         type http
         log_level fatal
-    </source.
+    </source>
 
 NB: Although this option is supported for all plugins, some plugins still use the old-style, global logger. For those "outdated" plugins, the `log_level` can't control logging verbosity until the plugin author updates their code to the new per-plugin logging style. See (this blog article)[http://repeatedly.github.io/2014/02/new-log-level-parameter/].
