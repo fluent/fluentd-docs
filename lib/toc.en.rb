@@ -31,6 +31,14 @@ section 'overview', 'Overview' do
     article 'faq', 'FAQ'
   end
 end
+section 'resources', 'Resources' do
+  category 'datasheet', 'Data Sheet' do
+    article 'datasheet', 'Data Sheet'
+  end
+  category 'whitepapers', 'Adtech White Paper' do
+    article 'adtech-best-practices', 'Adtech Fluentd Best Practices'
+  end
+end
 section 'usecases', 'Use Cases' do
   category 'logging-from-apps', 'Centralized App Logging' do
     article 'ruby',   'Import Logs from Ruby Applications'

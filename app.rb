@@ -182,6 +182,14 @@ get '/:lang/recipe/:data_source/:data_sink' do
   render_article params[:article], params[:congrats], params[:lang]
 end
 
+get '/articles/datasheet' do
+  redirect 'http://go.treasuredata.com/datasheet_fluentd'
+end
+
+get '/articles/adtech-best-practices' do
+  redirect 'http://go.treasuredata.com/fluentd_for_adtech'
+end
+
 get '/articles/:article' do
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
   cache_long
