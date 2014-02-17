@@ -1,8 +1,6 @@
 #### log_level option (Fluentd v0.10.43 and above)
 
-`log_level` allows the user to configure different levels of logging for each plugin.
-
-`log_level` field takes one of the following six values, in the increasing order of verbosity:
+The `log_level` option allows the user to set different levels of logging for each plugin. Shown below is the list of supported values, in increasing order of verbosity:
 
 * `fatal`
 * `error`
@@ -11,7 +9,7 @@
 * `debug`
 * `trace`
 
-For example, in order to debug [in_tail](in_tail) but suppress all but fatal log messages for [in_http](in_http), `log_level` options should be set as follows:
+For example, in order to debug [in_tail](in_tail) but suppress all but fatal log messages for [in_http](in_http), their respective `log_level` options should be set as follows:
 
     <source>
         type tail
@@ -24,5 +22,5 @@ For example, in order to debug [in_tail](in_tail) but suppress all but fatal log
         log_level fatal
     </source>
 
-NOTE: Although this option is supported for all plugins, some plugins still use the old-style, global logger. For those "outdated" plugins, the `log_level` can't control logging verbosity until the plugin author updates their code to the new per-plugin logging style. See <a href="http://repeatedly.github.io/2014/02/new-log-level-parameter/">this blog article</a>.
+NOTE: Although this option is supported for all plugins, certain plugins may still use the old-style, [global logging option](plugin-development#debugging-plugins). <a href="http://repeatedly.github.io/2014/02/new-log-level-parameter/">This blog article</a> explains how to update such plugins to the new log level system.
 
