@@ -1,9 +1,9 @@
 # Community
 
-Fluentd has a unique great developer community! Here's a list of places you can join as a community member.
+Fluentd has a thriving developer and user community. Here are some ways to come join the conversation!
 
 #### Get in Touch
-There're a lot of ways to get in touch with Fluentd developers and users.
+Whether you have technical questions or just want to mingle with fellow community members, we've got you covered.
 
 - [Fluentd Google Groups](https://groups.google.com/forum/?fromgroups#!forum/fluentd)
 - Twitter ([#fluentd](https://twitter.com/search?q=%23fluentd&src=typd&f=realtime), [@fluentd](http://www.twitter.com/fluentd))
@@ -11,22 +11,22 @@ There're a lot of ways to get in touch with Fluentd developers and users.
 - [StackOverflow](http://stackoverflow.com/questions/tagged/fluentd?sort=newest)
 
 #### Share
-Sharing what you have built with Fluentd is a great way to help people understand the value of Fluentd. 
+Help others learn about the value of Fluentd by sharing what you've built!
 
-If you have a great story to tell we'll be happy to help you spread the word. Tell your story at a company tech talk, tweet ([#fluentd](https://twitter.com/search?q=%23fluentd&src=typd&f=realtime), [@fluentd](http://www.twitter.com/fluentd)) present at your local user group, or submit a talk proposal to a conference or event about how you are using Fluentd!
+Whether it be a company/community tech talk, a conference talk proposal, or a blog article, if you have a great story to tell we'll be happy to help spread the word. Tweet us at ([#fluentd](https://twitter.com/search?q=%23fluentd&src=typd&f=realtime) and [@fluentd](http://www.twitter.com/fluentd)) about how you are using Fluentd!
 
 #### Meetup
-Meetup is a great way to network with Fluentd developers and users.
+Our meetups are a great way to mingle with fellow Fluentd developers and users. Come share your ideas, discuss your challenges, and learn from each other.
 
 - [Fluentd User Group in San Francisco](http://www.meetup.com/Fluentd-User-Group/)
 
 #### Contribute
-An Open Source project like Fluentd couldn’t exist without contributions from the developer community. Let's take a look at our source code repository and issue list, and consider submitting a patch.
+An Open Source project like Fluentd couldn’t exist without contributions from the developer community. Take a look at our source code repository and issue list, and consider submitting a patch.
 
 - [Source Code](http://github.com/fluent/fluentd)
 - [Bug/Feature Tracker](https://github.com/fluent/fluentd/issues?state=open)
 
-Like the program itself, we run the documentation as an open source project. The sources are available on Github, and we encourage you to make improvements, whether big or small, make a pull request.
+We run the documentation as an open source project as well. We encourage and appreciate any improvements, big or small. Make a pull request!
 
 - [Documentation Souce Code](http://github.com/fluent/fluentd-docs)
 
