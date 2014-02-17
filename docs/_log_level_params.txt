@@ -22,5 +22,5 @@ For example, in order to debug [in_tail](in_tail) but suppress all but fatal log
         log_level fatal
     </source>
 
-NOTE: Although this option is supported for all plugins, certain plugins may still use the old-style, [global logging option](plugin-development#debugging-plugins). <a href="http://repeatedly.github.io/2014/02/new-log-level-parameter/">This blog article</a> explains how to update such plugins to the new log level system.
+NOTE: Although this option is supported for all plugins, certain plugins may still use the old-style, [global logging option](trouble-shooting#turn-on-verbose-logging). <a href="http://repeatedly.github.io/2014/02/new-log-level-parameter/">This blog article</a> explains how to update such plugins to the new log level system.
 
