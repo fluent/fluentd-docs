@@ -4,7 +4,7 @@
 
 ### インストール
 
-`in_multiprocess`はデフォルトではtd-agentに含まれて**いません。**td-agentユーザーはfluent-plugin-multiprocessを手動でインストールしなければなりません
+`in_multiprocess`はデフォルトではtd-agentに含まれて**いません。**td-agentユーザーはfluent-plugin-multiprocessを手動でインストールしなければなりません。
 
     :::term
     $ /usr/lib64/fluent/ruby/bin/fluent-gem install fluent-plugin-multiprocess
