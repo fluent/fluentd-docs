@@ -79,6 +79,9 @@ section 'configuration', 'Configuration' do
   category 'config-file', 'Config File' do
     article 'config-file', 'Config File'
   end
+  category 'logging', 'Logging' do
+    article 'logging', 'Logging'
+  end
   category 'high-availability', 'High Availability' do
     article 'high-availability', 'Fluentd High Availability Configuration'
   end
