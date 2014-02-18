@@ -79,6 +79,9 @@ section 'configuration', 'Configuration' do
   category 'config-file', 'Config File' do
     article 'config-file', 'Config File'
   end
+  category 'high-availability', 'High Availability' do
+    article 'high-availability', 'Fluentd High Availability Configuration'
+  end
   category 'recipes', 'Recipes' do
     for recipe in Dir.entries("#{settings.root}/docs").grep(/^recipe-/)
       recipe.chomp!(".txt")
@@ -91,9 +94,8 @@ section 'configuration', 'Configuration' do
       }).join(" ")
     end 
   end
-  category 'high-availability', 'High Availability' do
-    article 'high-availability', 'Fluentd High Availability Configuration'
-  end
+end
+section 'operations', 'Operations' do
   category 'failure-scenarios', 'Failure Scenarios' do
     article 'failure-scenarios', 'Failure Scenarios'
   end
