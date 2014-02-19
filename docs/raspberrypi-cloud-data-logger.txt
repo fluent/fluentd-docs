@@ -7,7 +7,7 @@
 </center>
 <br /><br />
 
-This article introduces how to transport sensor data from Raspberry Pi to the cloud, by using Fluentd data collector. For the cloud side, we'll use Treasure Data cloud data service.
+This article introduces how to transport sensor data from Raspberry Pi to the cloud, by using Fluentd data collector. For the cloud side, we'll use [Treasure Data](http://go.treasuredata.com/fluentd) cloud data service as an example, but you can use any cloud services in theory.
 
 ## Install Raspbian
 
@@ -61,8 +61,7 @@ Finally, please launch Fluentd within your terminal.
 To test the configuration, just post the JSON to Fluentd via HTTP.
 
     :::term
-    $ sudo aptitude install curl
-    $ curl -X POST -d 'json={"sensor1":3123.13,"sensor2":321fdsa}' \
+    $ curl -X POST -d 'json={"sensor1":3123.13,"sensor2":321.3}' \
       http://localhost:8888/td.testdb.raspberrypi
 
 Finally, please access to the databases page to check if your data is uploaded to the cloud correctly.
@@ -72,6 +71,13 @@ Finally, please access to the databases page to check if your data is uploaded t
 You can now issues queries against the imported data.
 
 * [Treasure Data: New Query](https://console.treasuredata.com/query_forms/new)
+
+For example, these queries calculate the average sensor1 value, and the sum of sensor2 value.
+
+    :::sql
+    SELECT AVG(sensor1) FROM raspberrypi;
+    SELECT SUM(sensor1) FROM raspberrypi;
+
 
 ## Conclusion
 
