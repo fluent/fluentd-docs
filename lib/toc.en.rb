@@ -89,11 +89,8 @@ section 'configuration', 'Configuration' do
       }).join(" ")
     end 
   end
-  category 'high-availability', 'High Availability Config' do
-    article 'high-availability', 'Fluentd High Availability Configuration'
-  end
 end
-section 'operations', 'Operations' do
+section 'deployment', 'Deployment' do
   category 'logging', 'Logging' do
     article 'logging', 'Logging'
   end
@@ -102,6 +99,9 @@ section 'operations', 'Operations' do
   end
   category 'signals', 'Signals' do
     article 'signals', 'Signal Handling', ['Signals']
+  end
+  category 'high-availability', 'High Availability Config' do
+    article 'high-availability', 'Fluentd High Availability Configuration'
   end
   category 'failure-scenarios', 'Failure Scenarios' do
     article 'failure-scenarios', 'Failure Scenarios'

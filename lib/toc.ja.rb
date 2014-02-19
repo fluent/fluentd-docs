@@ -88,22 +88,22 @@ section 'configuration', 'Configuration' do
       }).join(" ")
     end 
   end
-  category 'high-availability', 'High Availability Config' do
-    article 'high-availability', 'Fluentd High Availability Configuration'
-  end
 end
-section 'operations', 'Operations' do
+section 'deployment', 'Deployment' do
   category 'logging', 'ロギング' do
     article 'logging', 'ロギング'
-  end
-  category 'failure-scenarios', '障害のシナリオ' do
-    article 'failure-scenarios', '障害のシナリオ'
   end
   category 'monitoring', '監視' do
     article 'monitoring', '監視'
   end
   category 'signals', 'シグナル一覧' do
     article 'signals', 'シグナル処理', ['シグナル一覧']
+  end
+  category 'high-availability', 'High Availability Config' do
+    article 'high-availability', 'Fluentd High Availability Configuration'
+  end
+  category 'failure-scenarios', 'Failure Scenarios' do
+    article 'failure-scenarios', 'Failure Scenarios'
   end
   category 'performance-tuning', 'Performance Tuning' do
     article 'performance-tuning', 'Performance Tuning'
