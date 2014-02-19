@@ -21,105 +21,47 @@ This presentation provides an overview of Fluentd, an introduction to its unique
 <center>
 <iframe src="http://www.slideshare.net/slideshow/embed_code/11410514?rel=0" width="597" height="486" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
 </center>
+<br/><br/>
 
-## Purpose
+## Next Step
 
-Modern web and mobile applications generate a very large number of **event logs** (ex: login, logout, purchase, follow, etc.). These services can be improved greatly by analyzing their event logs. However, collecting these logs in a simple, reliable, and scalable manner remains a challenge. 
+### Use Cases
 
-Fluentd solves this problem by providing a **simple solution** with the following features that just work:
+The articles shown below cover the typical use cases of Fluentd. Please refer to the article(s) that suits your needs.
 
-* Easy Installation
-* Small Footprint
-* Semi-Structured Data Logging
-* Flexible Plugin Mechanism
-* Reliable Buffering
-* Log Forwarding
+  * Tutorials
+    * [Data Search like Splunk](free-alternative-to-splunk-by-fluentd)
+    * [Data Filtering and Alerting](splunk-like-grep-and-alert-email)
+    * [Data Analytics with Treasure Data](http-to-td)
+    * [Data Collection to MongoDB](apache-to-mongodb)
+    * [Data Collection to HDFS](http-to-hdfs)
+    * [Data Archiving to Amazon S3](apache-to-s3)
+    * [Windows Event Collection](windows)
+  * Basic Configuration
+    * [Config File](config-file)
+  * Application Logs
+    * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
+  * Happy Users :)
+    * [Users](users)
 
-## Easy Installation
+### Installing Fluentd
 
-**Fluentd** is available as a [rpm](install-by-rpm) or [deb](install-by-deb) package, with a built-in Ruby interpreter. There are virtually no system dependencies when installing via these packages.
+Please follow the installation/quickstart guides below that matches your environment.
 
-Fluentd is also available as a [Ruby gem](install-by-gem), and can be installed with a single command.
+* [Install Fluentd by RPM package](install-by-rpm) (Redhat Linux)
+* [Install Fluentd by Deb package](install-by-deb) (Ubuntu/Debian Linux)
+* [Install Fluentd by Ruby Gem](install-by-gem)
+* [Install Fluentd by Chef](install-by-chef)
+* [Install Fluentd by Homebrew](install-by-homebrew) (Mac OS X)
+* [Install Fluentd from source](install-from-source)
 
-## Small Footprint
+### Learn More
 
-Due to its simple architecture, Fluentd’s core consists of just 3,000 lines of Ruby. Fluentd collects events from various **input** sources and writes them to **output** sinks.
+The articles shown below will provide detailed information for you to learn more about Fluentd.
 
-* Input Examples: HTTP, Syslog, Apache Log
-* Output Examples: Files, Mail, RDBMS databases, NoSQL storages
-
-The figure below shows the basic idea of **input** and **output**::
-
-    :::text
-        Input                          Output
-    +--------------------------------------------+
-    |                                            |
-    |  Web Apps  ---+                 +--> File  |
-    |               |                 |          |
-    |               +-->           ---+          |
-    |  /var/log  ------>  Fluentd  ------> Mail  |
-    |               +-->           ---+          |
-    |               |                 |          |
-    |  Apache    ---+                 +--> S3    |
-    |                                            |
-    +--------------------------------------------+
-
-## Semi-Structured Data Logging
-
-A collected event log consists of three components: *tag*, *time* and *record*. The tag is a string separated by '.' (e.g. myapp.access), and is used to categorize events. The time is the UNIX time when the event occurs. The record is a JSON object containing the event information.
-
-## Flexible Plugin Mechanism
-
-Fluentd’s input sources and output destinations can be extended by writing appropriate Ruby plugins. Plugins can then be published via Ruby gems; the following command shows the list of available plugins::
-
-    :::term
-    $ gem search -rd fluent-plugin
-
-## Reliable Buffering
-
-In traditional systems, event logs can be lost when an unexpected output write failure (ex: network failure) occurs. Fluentd has been designed to combat this issue, and is equipped with a reliable buffering strategy. Fluentd’s buffer, a queue of chunks containing the event logs, temporarily stores the collected events::
-
-    Queue
-    +---------+
-    |         |
-    |  Chunk <-- Write events to the top chunk
-    |         |  (never block)
-    |  Chunk  |
-    |         |
-    |  Chunk  |
-    |         |
-    |  Chunk --> Write out the bottom chunk
-    |         |  (transactional)
-    +---------+
-
-When Fluentd receives an event from its input source, the event log is appended to the top chunk in the buffer. This temporary storage operation is never blocked, even if the next server is down.
-
-A new empty chunk is pushed onto the top of the queue when either (1) the size of the top chunk reaches its limit, or (2) the timer expires. 
-
-A separate thread writes the bottom chunk out to either the next server or the storage server. If this write operation is successful, the chunk is removed from the queue. Otherwise, the thread leaves the chunk in the queue and will try again later.
-
-Fluentd’s buffer implementation is pluggable. The default plugin, 'Memory', stores the chunks in memory. It is fast but not persistent. Another plugin, 'File', stores the chunks in file.
-
-## Log Forwarding
-
-Fluentd supports both single-node and multi-node configurations. A multi-node configuration is typically used to forward event logs to one central location for analysis. Fluentd nodes on application servers forward the local logs to the Fluentd node of the central server::
-
-    Web Server
-    +---------+
-    | Fluentd -------+
-    +---------+      |
-                     |
-    Proxy Server     |
-    +---------+      +--> +---------+
-    | Fluentd ----------> | Fluentd |
-    +---------+      +--> +---------+
-                     |
-    Database Server  |
-    +---------+      |
-    | Fluentd -------+
-    +---------+
-
-## Learn More
-
-* [Fluentd Get Started](quickstart)
-
+  * Plugin Overview
+    * [Input Plugins](input-plugin-overview)
+    * [Output Plugins](output-plugin-overview)
+    * [Buffer Plugins](buffer-plugin-overview)
+  * [High Availability Configuration](high-availability)
+  * [FAQ](faq)
