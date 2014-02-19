@@ -1,0 +1,69 @@
+# Logging of Fluentd
+
+This article describes Fluentd logging mechanizm. 
+
+## Log level
+
+Shown below is the list of supported values, in increasing order of verbosity:
+
+* `fatal`
+* `error`
+* `warn`
+* `info`
+* `debug`
+* `trace`
+
+Default log level is `info`. So, Fluentd outputs `info`, `warn`, `error` and `fatal` logs by default.
+And Fluentd has two log layer, global and per plugin. You can set different log level between global and plugins.
+
+## Global log
+
+Global log is used by Fluentd core and a plugin which doesn't set own log level.
+Fluentd provides several options to change global log level.
+
+### Increase verbose level
+
+`-v` option is for setting `debug` level and `-vv` option is for setting `trace` level.
+
+    :::term
+    $ fluentd -v  ... # debug level
+    $ fluentd -vv ... # trace level
+
+These options are useful for debugging.
+
+### Decrease verbose level
+
+`-q` option is for setting `warn` level and `-qq` option is for setting `error` level.
+
+    :::term
+    $ fluentd -q  ... # warn level
+    $ fluentd -qq ... # error level
+
+## Per plugin log (Fluentd v0.10.43 and above)
+
+You can set `log_level` parameter in each plugin configuration. The `log_level` option allows the user to set different levels of logging for each plugin. 
+
+For example, in order to debug [in_tail](in_tail) but suppress all but fatal log messages for [in_http](in_http), their respective `log_level` options should be set as follows:
+
+    <source>
+        type tail
+        log_level debug
+        path /var/log/data.log
+        ...
+    </source>
+    <source>
+        type http
+        log_level fatal
+    </source>
+
+If you don't set `log_level` parameter, a plugin uses global log.
+
+NOTE: Although this option is supported for all plugins, certain plugins haven't supported yet. <a href="plugin-development#logging">Logging section of Plugin Development article</a> explains how to update such plugins to the new log level system.
+
+## Output to log file
+
+Fluentd outputs logs to `STDOUT` by default. If you want to use a file instead, then please specify `-o` option.
+
+    :::term
+    $ fluentd -o /path/to/log_file
+
