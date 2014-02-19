@@ -21,6 +21,9 @@ section 'overview', 'Overview' do
   category 'users', 'Users' do
     article 'users', 'Users'
   end
+  category 'datasheet', 'Data Sheet' do
+    article 'datasheet', 'Data Sheet'
+  end
   category 'slides', 'Slides' do
     article 'slides', 'Slides'
   end
@@ -29,14 +32,6 @@ section 'overview', 'Overview' do
   end
   category 'faq', 'FAQ' do
     article 'faq', 'FAQ'
-  end
-end
-section 'resources', 'Resources' do
-  category 'datasheet', 'Data Sheet' do
-    article 'datasheet', 'Data Sheet'
-  end
-  category 'whitepapers', 'Adtech White Paper' do
-    article 'adtech-best-practices', 'Adtech Fluentd Best Practices'
   end
 end
 section 'usecases', 'Use Cases' do
@@ -79,12 +74,6 @@ section 'configuration', 'Configuration' do
   category 'config-file', 'Config File' do
     article 'config-file', 'Config File'
   end
-  category 'logging', 'Logging' do
-    article 'logging', 'Logging'
-  end
-  category 'high-availability', 'High Availability' do
-    article 'high-availability', 'Fluentd High Availability Configuration'
-  end
   category 'recipes', 'Recipes' do
     for recipe in Dir.entries("#{settings.root}/docs").grep(/^recipe-/)
       recipe.chomp!(".txt")
@@ -97,16 +86,22 @@ section 'configuration', 'Configuration' do
       }).join(" ")
     end 
   end
+  category 'high-availability', 'High Availability Config' do
+    article 'high-availability', 'Fluentd High Availability Configuration'
+  end
 end
 section 'operations', 'Operations' do
-  category 'failure-scenarios', 'Failure Scenarios' do
-    article 'failure-scenarios', 'Failure Scenarios'
+  category 'logging', 'Logging' do
+    article 'logging', 'Logging'
   end
   category 'monitoring', 'Monitoring' do
     article 'monitoring', 'Monitoring'
   end
   category 'signals', 'Signals' do
     article 'signals', 'Signal Handling', ['Signals']
+  end
+  category 'failure-scenarios', 'Failure Scenarios' do
+    article 'failure-scenarios', 'Failure Scenarios'
   end
   category 'performance-tuning', 'Performance Tuning' do
     article 'performance-tuning', 'Performance Tuning'
@@ -229,5 +224,10 @@ section 'developer', 'Developer' do
   end
   category 'logo', 'Logo' do
     article 'logo', 'Logo'
+  end
+end
+section 'advanced-resources', 'Advanced Resources' do
+  category 'whitepapers', 'Fluentd Best Practices for Advertising Business' do
+    article 'adtech-best-practices', 'Adtech Fluentd Best Practices'
   end
 end

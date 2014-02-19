@@ -185,8 +185,14 @@ end
 get '/articles/datasheet' do
   redirect 'http://go.treasuredata.com/datasheet_fluentd'
 end
+get '/:lang/articles/datasheet' do
+  redirect 'http://go.treasuredata.com/datasheet_fluentd'
+end
 
 get '/articles/adtech-best-practices' do
+  redirect 'http://go.treasuredata.com/fluentd_for_adtech'
+end
+get '/:lang/articles/adtech-best-practices' do
   redirect 'http://go.treasuredata.com/fluentd_for_adtech'
 end
 
