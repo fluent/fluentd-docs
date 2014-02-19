@@ -1,1 +1,155 @@
-../free-alternative-to-splunk-by-fluentd.txt
+# Splunkのフリーな代替としてFluentdを使う
+
+[Splunk](http://www.splunk.com/) はログを検索することにおいて素晴らしいツールですが、コストが高いため、多くのチームで使用されずにいます。この記事ではElasticsearch、Kibana、Fluentdという3つのオープンソースプロジェクトを組み合わせることにより、Splunkのようにフリーかつオープンソースの代替を提示します。
+
+<center>
+<a href="http://demo.kibana.org/" target="_blank"><img src="/images/kibana-screenshot.png" width="90%"/></a><br />
+<a href="http://demo.kibana.org/" target="_blank">Click to See the Demo</a>
+</center><br/><br/>
+
+[Elasticsearch](http://www.elasticsearch.org/) は使いやすさに定評のあるオープンソースの検索エンジンです。[Kibana](http://kibana.org/) はマーケティング担当者、エンジニア、データサイエンティストのためにElasticsearchを使いやすくするWeb UIです。
+
+これら3つのツール(Fluentd + Elasticsearch + Kibana)を組み合わせることにより、拡張性が高く、柔軟で、使いやすい、Splunkに代わる素晴らしいWeb UIを持つログ検索エンジンを無料で使うことが出来ます！
+
+<center>
+<img width="540" src="/images/fluentd-elasticsearch-kibana.png"/>
+</center><br /><br />
+
+このガイドでは、インストール、セットアップ及び、この統合されたログ検索ソリューションの基本的な使い方を確認します。この記事の内容はMac OS X Mountain Lionでテストしました。
+
+## 前提条件
+
+### Elasticsearch用のJava
+
+お使いのJavaのバージョンが6以上であることを確認してください。
+
+    :::term
+    $ java -version
+    java version "1.6.0_45"
+    Java(TM) SE Runtime Environment (build 1.6.0_45-b06-451-11M4406)
+    Java HotSpot(TM) 64-Bit Server VM (build 20.45-b01-451, mixed mode)
+
+さあ、前提条件が確認でき、3つのオープンソースツールをインストールしてセットアップする準備が整いました。
+
+## Elasticsearchのセットアップ
+
+Elasticsearchをインストールするには、Elasticsearchパッケージをダウンロードして、以下のように展開してください。
+
+    :::term
+    $ curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.0.RC2.tar.gz
+    $ tar zxvf elasticsearch-0.90.0.RC2.tar.gz
+    $ cd elasticsearch-0.90.0.RC2/
+
+インストールが完了したらElasticsearchを起動します。
+
+    :::term
+    $ ./bin/elasticsearch -f
+
+## Kibanaのセットアップ
+
+Kibanaをインストールするには、公式ウェブページからダウンロードして展開します。Kibanaは、HTML / CSS / JavaScript で出来たアプリケーションです。
+
+    :::term
+    $ curl -O https://download.elasticsearch.org/kibana/kibana/kibana-3.0.0milestone5.tar.gz
+    $ tar zxvf kibana-3.0.0milestone5.tar.gz
+    $ cd kibana-3.0.0milestone5/
+
+インストールが完了したら、`index.html`を開きKibanaを開始します。`config.js`を編集することでKibaneの設定を変更することが出来ます。
+
+    :::term
+    $ open index.html
+
+## Fluentd (td-agent) のセットアップ
+
+このガイドではFluentdの安定リリース版であるtd-agentをインストールします。詳細なインストール手順については下記のガイドを参照してください。
+
+* [Debianパッケージ](install-by-deb)
+* [RPMパッケージ](install-by-rpm)
+* [Ruby gem](install-by-gem)
+
+次にFluentd用のElasticsearchプラグイン(fluent-plugin-elasticsearch)をインストールします。
+
+    :::term
+    $ /usr/lib64/fluent/ruby/bin/fluent-gem install fluent-plugin-elasticsearch
+
+Elasticsearchと正しく接続されるようにtd-agent(Fluentd)を設定します。下記のように`/etc/td-agent/td-agent.conf`を編集してください。
+
+    :::text
+    <source>
+      type syslog
+      port 42185
+      tag syslog
+    </source>
+
+    <source>
+      type forward
+    </source>
+
+    <match syslog.**>
+      type elasticsearch
+      logstash_format true
+      flush_interval 10s # for testing
+    </match>
+
+fluent-plugin-elasticsearchにlogstash_formatオプションを指定することによって、KibanaはElasticsearchに格納されたイベントログを検索することができるようになります。
+
+すべてのセットアップと設定が完了したらtd-agentを起動します。
+
+    :::term
+    $ sudo /etc/init.d/td-agent start
+
+## rsyslogdのセットアップ
+
+最後のステップとしてrsyslogdからFluentdにログを転送します。`/etc/rsyslog.conf`に次の行を追加しrsyslogを再起動してください。ローカルのsyslogをFluentdに転送することにより、FluentdはElasticsearchにログを転送します。
+
+    :::text
+    *.* @127.0.0.1:42185
+
+編集が完了したらrsyslogを再起動してください。
+
+    :::text
+    $ sudo /etc/init.d/rsyslog restart
+
+## イベントログの格納と検索
+
+Fluentdがrsyslogからいくつかのイベントログを受信して、Elasticsearchにそれらをフラッシュしたら、[http://127.0.0.1:5601/](http://127.0.0.1:5601/)にアクセスすることでKibanaによるログ検索を行えます。
+
+<center><img src="/images/kibana-screenshot.png" width="90%"/></center><br/><br/>
+
+手動でElasticsearchにログを送信するには`logger`コマンドを使ってください。
+
+    :::text
+    $ logger -t test foobar
+
+[out_copy](out_copy) + [out_stdout](out_stdout)を使うとtd-agentの設定をデバッグする際に便利です。エラーを含めたすべてのログは`/etc/td-agent/td-agent.log`で確認することができます。
+
+    :::text
+    <match syslog.**>
+      type copy
+      <store>
+        # for debug (see /var/log/td-agent.log)
+        type stdout
+      </store>
+      <store>
+        type elasticsearch
+        logstash_format true
+        flush_interval 10s # for testing
+      </store>
+    </match>
+
+## デモ環境
+
+下記のリンクからKibanaのデモ環境にアクセスしてください。
+
+- [Kibana Demo Environment](http://demo.kibana.org/)
+
+## 結びに
+
+この記事ではログを保存し検索するSplunkの無料代替え版を、FluentdとKibana(とElasticsearch)を組み合わせて導入しました。この記事の例はチューニングされていません。
+
+本番でこれらのコンポーネントを使用する場合は必要に応じて構成のいくつか(例: JVM, Elasticsearch, Fluentd buffer, etc.)を変更する必要があります。
+
+## より詳細な内容はこちら
+
+- [Fluentdアーキテクチャ](architecture)
+- [Fluentdクイックスタート](quickstart)
