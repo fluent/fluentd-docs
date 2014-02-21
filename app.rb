@@ -141,7 +141,15 @@ get '/sitemap.xml' do
         }
       }
     }
-    @articles[lang] = article_names if lang == 'en'
+    if lang == 'en'
+      @articles[lang] = article_names if lang == 'en'
+    else
+      translated_article_names = []
+      article_names.each { |a|
+        translated_article_names << a if !File.symlink?("./docs/#{lang}/#{a}.txt")
+      }
+      @articles[lang] = translated_article_names
+    end
   }
   content_type 'text/xml'
   erb :sitemap, :layout => false
