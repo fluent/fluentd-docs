@@ -69,7 +69,7 @@ section 'usecases', 'Use Cases' do
     article 'windows', 'Windows Event Collection'
   end
   category 'cloud-data-logger', 'RapsberryPi Data Logger' do
-    article 'raspberrypi-cloud-data-logger', 'Raspberry Pi Cloud Data Logger', ['Raspberry Pi', 'Cloud Data Logger']
+    article 'raspberrypi-cloud-data-logger', 'Raspberry Pi Cloud Data Logger', ['Raspberry Pi', 'Data Logger', 'Data Acquisition']
   end
 end
 section 'configuration', 'Configuration' do
