@@ -64,6 +64,8 @@ To test the configuration, just post the JSON to Fluentd via HTTP.
     $ curl -X POST -d 'json={"sensor1":3123.13,"sensor2":321.3}' \
       http://localhost:8888/td.testdb.raspberrypi
 
+NOTE: Are you using Python? Please check how to use fluentd's <a href="python">python logger</a> library.
+
 Finally, please access to the databases page to check if your data is uploaded to the cloud correctly.
 
 * [Treasure Data: List of Databases](https://console.treasuredata.com/databases)
