@@ -1144,3 +1144,22 @@ del.differ, del.differ * {
 .languagebar li {
   display: inline;
 }
+.btn-look {
+	display:block;
+	font:bold 20px/30px Arial, Helvetica, sans-serif;
+	border-radius: 23px;
+	-moz-border-radius: 23px;
+	-webkit-border-radius: 23px;
+	width:174px;
+	padding:4px 18px 4px 10px;
+	color:#fff;
+	text-transform:uppercase;
+	text-align:center;
+	box-shadow: 1px 1px 1px #fff;
+	-webkit-box-shadow: 1px 1px 1px #fff;
+	-moz-box-shadow: 1px 1px 1px #fff;
+	background:#da4808 url(/images/arrow01.png) 177px 50% no-repeat;
+}
+.btn-look a:visited {
+  color: #ffffff;
+}
