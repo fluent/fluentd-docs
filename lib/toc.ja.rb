@@ -145,8 +145,8 @@ section 'plugin', 'Input Plugins' do
   end
 end
 section 'output-plugins', 'Output Plugins' do
-  category 'output-plugin-overview', 'Overview' do
-    article 'output-plugin-overview', 'Output Plugin Overview'
+  category 'output-plugin-overview', '概要' do
+    article 'output-plugin-overview', 'アウトプットプラグイン概要'
   end
   category 'out_file', 'out_file' do
     article 'out_file', 'file Output Plugin'
