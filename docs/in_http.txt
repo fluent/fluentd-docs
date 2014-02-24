@@ -51,4 +51,4 @@ If you want to pass the event time from your application, please use `time` quer
 
     :::term
     $ curl -X POST -d 'json={"action":"login","user":2}'
-      "http://localhost:8888/test.tag.here?time = 1392021185"
+      "http://localhost:8888/test.tag.here?time=1392021185"
