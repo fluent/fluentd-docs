@@ -3,7 +3,7 @@
 [Raspberry Pi](http://www.raspberrypi.org/) is a credit-card-sized single-board computer. Because it is low-cost and easy to equip various types of sensors, using Raspberry Pi as cloud data logger is one of the ideal use cases.
 
 <center>
-<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/RaspberryPi.jpg/600px-RaspberryPi.jpg" width="400px "/>
+<img src="/images/raspberry-pi-cloud-data-logger.png" width="400px"/>
 </center>
 <br /><br />
 
