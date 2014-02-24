@@ -47,7 +47,7 @@ INCLUDE: _log_level_params
 
 ### time query parameter
 
-If you want to pass the event time from your application, please use `time` query parameter.
+If you want to pass the event time from your application, please use the `time` query parameter.
 
     :::term
     $ curl -X POST -d 'json={"action":"login","user":2}'
