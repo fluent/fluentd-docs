@@ -13,6 +13,8 @@ This article shows how to use Fluentd to collect GlusterFS logs for analysis (se
 
 The rest of this article explains how to set up Fluentd with GlusterFS. For this example, we chose Elasticsearch as the backend system.
 
+<img src="/images/glusterfs-fluentd.png"/>
+
 ##Setting up Fluentd on GlusterFS nodes
 
 ###Step 1: installing Fluentd
