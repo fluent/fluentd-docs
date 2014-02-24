@@ -1,28 +1,28 @@
 # Cloud Data Logger by Raspberry Pi
 
-[Raspberry Pi](http://www.raspberrypi.org/) is a credit-card-sized single-board computer. Because it is low-cost and easy to equip various types of sensors, using Raspberry Pi as cloud data logger is one of the ideal use cases.
+[Raspberry Pi](http://www.raspberrypi.org/) is a credit-card-sized single-board computer. Because it is low-cost and easy to equip with various types of sensors, using Raspberry Pi as a cloud data logger is one of its ideal use cases.
 
 <center>
 <img src="/images/raspberry-pi-cloud-data-logger.png" width="400px"/>
 </center>
 <br /><br />
 
-This article introduces how to transport sensor data from Raspberry Pi to the cloud, by using Fluentd data collector. For the cloud side, we'll use [Treasure Data](http://go.treasuredata.com/fluentd) cloud data service as an example, but you can use any cloud services in theory.
+This article introduces how to transport sensor data from Raspberry Pi to the cloud, using Fluentd as the data collector. For the cloud side, we'll use the [Treasure Data](http://go.treasuredata.com/fluentd) cloud data service as an example, but you can use any cloud service in its place.
 
 ## Install Raspbian
 
-[Raspbian](http://www.raspbian.org/) is a free operating system based on Debian optimized for the Raspberry Pi. Please follow the instruction from these blog articles, and install Raspbian to your Raspberry Pi.
+[Raspbian](http://www.raspbian.org/) is a free operating system based on Debian, optimized for the Raspberry Pi. Please install Raspbian on your Raspberry Pi by following the instructions in the blog post below:
 
 - [Getting Started with Raspberry Pi: Installing Raspbian](http://www.andrewmunsell.com/blog/getting-started-raspberry-pi-install-raspbian)
 
 ## Install Fluentd
 
-Next, let's install Fluentd on to your Raspbian. Raspbian bundles Ruby 1.9.3 by default, and we need the extra development package to install Fluentd.
+Next, we'll install Fluentd on Raspbian. Raspbian bundles Ruby 1.9.3 by default, but we need the extra development package to install Fluentd.
 
     :::term
     $ sudo aptitude install ruby-dev
 
-Then, let's install Fluentd and necessary plugins.
+We'll now install Fluentd and the necessary plugins.
 
     :::term
     $ sudo gem install fluentd
@@ -30,9 +30,9 @@ Then, let's install Fluentd and necessary plugins.
 
 ## Configure and Launch Fluentd
 
-Please sign up to Treasure Data from [sign up page](https://console.treasuredata.com/users/sign_up). Treasure Data offers free plan to store and analyze millions of data points. From the users page, you can get the API key of your account.
+Please sign up to Treasure Data from the [sign up page](https://console.treasuredata.com/users/sign_up). Its free plan lets you store and analyze millions of data points. You can get your account's API key from the users page.
 
-Then, please prepare `fluentd.conf` file with the following contents. Please don't forget to put your API key.
+Please prepare the `fluentd.conf` file with the following information, including your API key.
 
     :::text
     <match td.*.*>
@@ -51,39 +51,39 @@ Then, please prepare `fluentd.conf` file with the following contents. Please don
       type forward
     </source>
 
-Finally, please launch Fluentd within your terminal.
+Finally, please launch Fluentd via your terminal.
 
     :::term
     $ fluentd -c fluent.conf
 
 ## Upload Test
 
-To test the configuration, just post the JSON to Fluentd via HTTP.
+To test the configuration, just post a JSON message to Fluentd via HTTP.
 
     :::term
     $ curl -X POST -d 'json={"sensor1":3123.13,"sensor2":321.3}' \
       http://localhost:8888/td.testdb.raspberrypi
 
-NOTE: Are you using Python? Please check how to use fluentd's <a href="python">python logger</a> library.
+NOTE: If you're using Python, you can use Fluentd's <a href="python">python logger</a> library.
 
-Finally, please access to the databases page to check if your data is uploaded to the cloud correctly.
+Now, access the databases page to confirm that your data has been uploaded to the cloud properly.
 
 * [Treasure Data: List of Databases](https://console.treasuredata.com/databases)
 
-You can now issues queries against the imported data.
+You can now issue queries against the imported data.
 
 * [Treasure Data: New Query](https://console.treasuredata.com/query_forms/new)
 
-For example, these queries calculate the average sensor1 value, and the sum of sensor2 value.
+For example, these queries calculate the average sensor1 value and the sum of sensor2 values.
 
     :::sql
     SELECT AVG(sensor1) FROM raspberrypi;
-    SELECT SUM(sensor1) FROM raspberrypi;
+    SELECT SUM(sensor2) FROM raspberrypi;
 
 
 ## Conclusion
 
-Raspberry Pi is an ideal platform to prototype the data logger hardware. Fluentd helps Raspberry Pi to transfer the collected data to the cloud easily and reliably.
+Raspberry Pi is an ideal platform for prototyping data logger hardware. Fluentd helps Raspberry Pi transfer the collected data to the cloud easily and reliably.
 
 ## Learn More
 
