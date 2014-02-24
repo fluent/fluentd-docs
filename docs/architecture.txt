@@ -16,14 +16,14 @@
 </table>
 </center>
 
-This presentation provides an overview of Fluentd, an introduction to its unique features, and a comparison with other prominent logging solutions. The rest of the document provides a more detailed description of Fluentd's philosophy and architecture.
+This presentation provides an overview of Fluentd, an introduction to its unique features, and a comparison with other prominent logging solutions.
 
 <center>
 <iframe src="http://www.slideshare.net/slideshow/embed_code/11410514?rel=0" width="597" height="486" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px 1px 0; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
 </center>
 <br/>
 
-Hope you had better understanding of Fluentd now. Next, let's give it a spin!
+Now that you have a better understanding of Fluentd, let's give it a spin!
 
 <center>
 <div class="btn-look">
