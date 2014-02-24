@@ -44,3 +44,11 @@ The timeout limit for keeping the connection alive. Default Value = 10 seconds
 
 INCLUDE: _log_level_params
 
+
+### time query parameter
+
+If you want to pass the event time from your application, please use `time` query parameter.
+
+    :::term
+    $ curl -X POST -d 'json={"action":"login","user":2}'
+      "http://localhost:8888/test.tag.here?time = 1392021185"
