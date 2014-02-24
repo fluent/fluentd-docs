@@ -230,14 +230,14 @@ Use the following configuration file:
 
 ## Logging
 
-Older Fluentd always uses `$log` object to output logs. Since v0.10.43, Fluentd provides `log` method to support `log_level` parameter. Newer plugin should use `log` method:
+In the past, Fluentd used `$log` objects to output logs. Fluentd (v0.10.43 and above) now provides the `log` method to support the plugin-specific `log_level` parameter. Newer plugins should use the `log` method instead of `$log` objects:
 
     :::ruby
     log.info "setup foo plugin"
 
-### Support older Fluentd versions
+### Supporting Older Fluentd Versions
 
-When using `log` method, your plugin only works on Fluentd v0.10.43 or above. If you want to support older Fluentd versions, you can use following code in your plugin.
+The `log` method only works with Fluentd v0.10.43 or above. Please use the following code in your plugin to support older Fluentd versions:
 
     :::ruby
     module Fluent
@@ -250,7 +250,7 @@ When using `log` method, your plugin only works on Fluentd v0.10.43 or above. If
       end
     end
 
-This code defines `log` method using `$log` when `log` method is not defined, so `log.error` is same as `$log.error` on older Fluentd.
+This code defines the `log` method using `$log` when the `log` method is not defined, so `log.error` becomes `$log.error` for older Fluentd versions.
 
 ## Debugging plugins
 
@@ -259,7 +259,7 @@ Run ``fluentd`` with the ``-vv`` option to show debug messages:
     :::term
     $ fluentd -vv
 
-The **stdout** and **copy** output plugins are useful for debugging. The **stdout** output plugin dumps matched events to the console. It can be used as shown below:
+The **stdout** and **copy** output plugins are useful for debugging. The **stdout** output plugin dumps matched events to the console. It can be used as follows:
 
     :::text
     # You want to debug this plugin.
