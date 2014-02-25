@@ -2,6 +2,8 @@
 
 This article explains how to install the td-agent deb package, the stable Fluentd distribution package maintained by [Treasure Data, Inc](http://www.treasuredata.com/).
 
+NOTE: "Ubuntu 12.04 LTS / Precise" and "Ubuntu 10.04 LTS / Lucid" are currently supported. If you are interested in Debian, please contact us on the [mailing list](https://groups.google.com/d/forum/fluentd).
+
 ## What is td-agent?
 
 Fluentd is written in Ruby for flexibility, with performance sensitive parts written in C. However, casual users may have difficulty installing and operating a Ruby daemon.
@@ -35,24 +37,6 @@ Executing [install-ubuntu-lucid.sh](http://toolbelt.treasuredata.com/sh/install-
     $ curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid.sh | sh
 
 NOTE: It's HIGHLY recommended that you set up <b>ntpd</b> on the node to prevent invalid timestamps in your logs.
-
-## Step1 (Debian): Download .dpkg and Install Manually
-
-This method works with Debian Squeeze.
-
-#### Debian Squeeze
-
-Download the [most recent .deb](http://packages.treasure-data.com/debian/pool/contrib/t/td-agent/). Please be sure to choose the proper Debian version for your architecture (i386 or amd64).
-
-Install the dependencies manually.
-
-    :::term
-    $ apt-get install -y libxslt1.1 libyaml-0-2
-
-Then install the downloaded .dpkg.
-
-    :::term
-    $ dpkg -i /path/to/downloaded/deb
 
 ## Step2: Launch Daemon
 
