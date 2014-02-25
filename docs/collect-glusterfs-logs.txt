@@ -19,7 +19,7 @@ The rest of this article explains how to set up Fluentd with GlusterFS. For this
 
 ###Step 1: installing Fluentd
 
-First, install Fluentd with the following ocmmand
+First, install Fluentd with the following command
 
     :::term
     $ curl -L http://toolbelt.treasuredata.com/sh/install-redhat.sh | sh
