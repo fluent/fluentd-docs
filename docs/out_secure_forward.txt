@@ -1,0 +1,115 @@
+# Secure Forward Output
+
+The `out_secure_forward` output plugin sends messages via **SSL with authentication** (c.f. [in_secure_forward](in_secure_forward)).
+
+##Example Configurations
+
+###Minimal configurations like this:
+
+    <match secret.data.**>
+      type secure_forward
+      shared_key secret_string
+      self_hostname client.fqdn.local
+      <server>
+        host server.fqdn.local  # or IP
+        # port 24284
+      </server>
+    </match>
+
+NOTE: Without hostname ACL (and it's not implemented yet), `self_hostname` is not checked in any state. `${hostname}` placeholder is available for such cases.
+
+    <match secret.data.**>
+      type secure_forward
+      shared_key secret_string
+      self_hostname ${hostname}
+      <server>
+        host server.fqdn.local  # or IP
+        # port 24284
+      </server>
+    </match>
+
+###Multiple forward destinations over SSL
+
+When two or more `<server>...</server>` clauses are specified, this plugin uses these server nodes in a round-robin order. The servers with `standby yes` are NOT selected until all non-standby servers go down.
+
+If a server requires username & password, set `username` and `password` in the `<server>` section:
+
+    <match secret.data.**>
+      type secure_forward
+      shared_key secret_string
+      self_hostname client.fqdn.local
+      <server>
+        host first.fqdn.local
+        username repeatedly
+        password sushi
+      </server>
+      <server>
+        host second.fqdn.local
+        username sasatatsu
+        password karaage
+      </server>
+      <server>
+        host standby.fqdn.local
+        username kzk
+        password hawaii
+        standby  yes
+      </server>
+    </match>
+
+To specify keepalive timeouts, use the `keepalive` parameter. For example, in the configuration below, SSL connection is disconnected and re-connected every hour. By default, `keepalive` is set to 0 and the connection does NOT get disconnected unless there is a connection issue (This feature is for DNS name updates and refreshing SSL common keys).
+
+    <match secret.data.**>
+      type secure_forward
+      shared_key secret_string
+      self_hostname client.fqdn.local
+      keepalive 3600
+      <server>
+        host server.fqdn.local  # or IP
+        # port 24284
+      </server>
+    </match>
+
+##Parameters
+
+####type
+It is required and must be `secure_forward`.
+
+####port (integer)
+24284 by default
+
+####bind (sring)
+0.0.0.0 by default
+
+####self_hostname (string)
+Default value of the auto-generated certificate common name (CN)
+
+####shared_key (string)
+Optional shared key
+
+####keepalive (time)
+The duration for keepalive. If this parameter is not specified, keepalive is disabled.
+
+####send_timeout (time)
+The send timeout value for sockets. The default value is 60 seconds.
+
+####allow_self_signed_certificate (bool)
+`true` if sellf-signed CA is allowed. The default is `true`.
+
+####ca_file_path (string)
+The path to the certificate file.
+
+####reconnect_interval (time)
+The interval between SSL reconnects. 5 seconds by default.
+
+####read_length (integer)
+The number of bytes read per nonblocking read. The default value is 8MB=8*1024*1024 bytes.
+
+####read_interval_msec (integer)
+The interval between the non-blocking reads, in milliseconds. The default value is 50.
+
+####socket_interval_msec (integer)
+The inteval between SSL reconnects in milliseconds. The default value is 200.
+
+INCLUDE: _buffer_parameters
+
+INCLUDE: _log_level_params

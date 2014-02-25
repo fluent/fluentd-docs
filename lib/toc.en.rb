@@ -123,6 +123,9 @@ section 'plugin', 'Input Plugins' do
   category 'in_forward', 'in_forward' do
     article 'in_forward', 'forward Input Plugin'
   end
+  category 'in_secure_forward', 'in_secure_forward' do
+    article 'in_secure_forward', 'secure_forward Intput Plugin', ['SSL', 'authentication']
+  end
   category 'in_http', 'in_http' do
     article 'in_http', 'http Input Plugin'
   end
@@ -157,6 +160,9 @@ section 'output-plugins', 'Output Plugins' do
   end
   category 'out_forward', 'out_forward' do
     article 'out_forward', 'forward Output Plugin'
+  end
+  category 'out_secure_forward', 'out_secure_forward' do
+    article 'out_secure_forward', 'secure_forward Output Plugin', ['SSL', 'authentication']
   end
   category 'out_exec', 'out_exec' do
     article 'out_exec', 'exec Output Plugin'

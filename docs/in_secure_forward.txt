@@ -1,0 +1,154 @@
+# Secure Forward Input
+
+The `in_secure_forward` input plugin accepts messages via **SSL with authentication** (c.f. [out_secure_forward](out_secure_forward)).
+
+##Example Configurations
+
+This section has some example configurations
+
+###Minimal configurations
+
+    <source>
+      type secure_forward
+      shared_key         secret_string
+      self_hostname      server.fqdn.local  # This fqdn is used as CN (Common Name) of certificates
+      cert_auto_generate yes                # This parameter MUST be specified
+    </source>
+
+###Checking username/password from clients
+
+    <source>
+      type secure_forward
+      shared_key         secret_string
+      self_hostname      server.fqdn.local
+      cert_auto_generate yes
+      authentication     yes # Deny clients without valid username/password
+      <user>
+        username tagomoris
+        password foobar012
+      </user>
+      <user>
+        username frsyuki
+        password yakiniku
+      </user>
+    </source>
+
+###Denying unknown source IP/hosts
+
+    <source>
+      type secure_forward
+      shared_key         secret_string
+      self_hostname      server.fqdn.local
+      cert_auto_generate     yes
+      allow_anonymous_source no  # Allow to accept from nodes of <client>
+      <client>
+        host 192.168.10.30
+        # network address (ex: 192.168.10.0/24) NOT Supported now
+      </client>
+      <client>
+        host your.host.fqdn.local
+        # wildcard (ex: *.host.fqdn.local) NOT Supported now
+      </client>
+    </source>
+
+You can use both of username/password check and client check:
+
+    <source>
+      type secure_forward
+      shared_key         secret_string
+      self_hostname      server.fqdn.local
+      cert_auto_generate     yes
+      allow_anonymous_source no  # Allow to accept from nodes of <client>
+      authentication         yes # Deny clients without valid username/password
+      <user>
+        username tagomoris
+        password foobar012
+      </user>
+      <user>
+        username frsyuki
+        password sukiyaki
+      </user>
+      <user>
+        username repeatedly
+        password sushi
+      </user
+      <client>
+        host 192.168.10.30      # allow all users to connect from 192.168.10.30
+      </client>
+      <client>
+        host  192.168.10.31
+        users tagomoris,frsyuki # deny repeatedly from 192.168.10.31
+      </client>
+      <client>
+        host 192.168.10.32
+        shared_key less_secret_string # limited shared_key for 192.168.10.32
+        users      repeatedly         # and repatedly only
+      </client>
+    </source>
+
+##Parameters
+
+####type
+It is required and must be `secure_forward`.
+
+####port (integer)
+24284 by default
+
+####bind (sring)
+0.0.0.0 by default
+
+####self_hostname (string)
+Default value of the auto-generated certificate common name (CN)
+
+####shared_key (string)
+Optional shared key
+
+####allow_keepalive (bool)
+Accept keepalive connection, `true` by default.
+
+####allow_anonymous_source (bool)
+Accept connections from unknown hosts.
+
+####authentication (bool)
+Require password authentication, `false` by default.
+
+####cert_auto_generate (bool)
+Auto-generate the CA (see the `generate_*` parameters below). Default to `false`. If `cert_auto_generat` is false, `cert_file_path` must be set.
+
+####generate_private_key_length (integer)
+The byte length of the auto-generated private key, 2048 by default.
+
+####generate_cert_country (string)
+The country of the auto-generated certificate, "US" by default.
+
+####generate_cert_state (string)
+The state of the auto-generated certificate, "CA" by default.
+
+####generate_cert_locality (string)
+The locality of the auto-generated certificate, "Mountain View" by default.
+
+####generate_cert_common_name (string)
+The common name of the auto-generated certificate, defaults to the value of `self_hostname`
+
+####cert_file_path (string)
+The path to the cert file. If this is not set, `cert_auto_generate` must be set to `true`.
+
+####private_key_file (string)
+The path to the private key file used with the cert file located at `cert_file_path`.
+
+####private_key_passphrase (string)
+The optional passphrase for the private key file found in `private_key_file`.
+
+####read_length (size)
+The number of bytes read per nonblocking read. The default value is 8MB=8*1024*1024 bytes.
+
+####read_interval_msec (integer)
+The interval between the non-blocking reads, in milliseconds. The default value is 50.
+
+####socket_interval_msec (integer)
+The inteval between SSL reconnects in milliseconds. The default value is 200.
+
+
+INCLUDE: _buffer_parameters
+
+INCLUDE: _log_level_params
