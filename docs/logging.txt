@@ -67,3 +67,66 @@ Fluentd outputs logs to `STDOUT` by default. If you want to use a file instead, 
     :::term
     $ fluentd -o /path/to/log_file
 
+NOTE: Fluentd doesn't support log rotation yet.
+
+## Capture Fluentd logs
+
+You can process Fluentd logs using `<match fluent.**>`. If you define `<match fluent.**>` in your configuration, 
+then Fluend sends own logs to this match. This is useful for monitoring Fluentd logs.
+
+For example, if you have following `<match fluent.**>`:
+
+    # omit other source / match
+    <match fluent.**>
+      type stdout
+    </match>
+
+then Fluentd outputs `fluent.info` log to stdout like below:
+
+    2014-02-27 00:00:00 +0900 [info]: shutting down fluentd
+    2014-02-27 00:00:01 +0900 fluent.info: { "message":"shutting down fluentd"} # by <match fluent.**>
+    2014-02-27 00:00:01 +0900 [info]: process finished code = 0
+
+At production, you can use [out_forward](out_forward) to send Fluentd logs to monitoring server.
+A monitoring server filters the logs and sends filtered logs to your notification system, e.g. chat, irc, etc.
+
+Leaf server example:
+
+    # Add hostname for identifing the server and tag to filter by log level
+    <match fluent.**>
+      type record_modifier
+      tag internal.message
+      host ${hostname}
+      include_tag_key
+      tag_key original_tag
+    </match>
+
+    <match internal.message>
+      type forward
+      <server>
+        # Monitoring server parameters
+      </server>
+    </match>
+
+Monitoring server example:
+
+    # Ignore trace, debug and info log
+    <match internal.message>
+      type grep
+      regexp1 original_tag fluent.(warn|error|fatal)
+      add_prefix filtered
+    </match>
+
+    <match filtered.internal.message>
+      # your notification setup. This example uses irc plugin
+      type irc
+      host irc.domain
+      channel notify
+      message notice: %s [%s] @%s %s
+      out_keys original_tag,time,host,message
+    </match>
+
+If an error occurred, you got a notification message in your irc `notify` channel.
+
+    01:01  fluentd: [11:10:24] notice: fluent.warn [2014/02/27 01:00:00] @leaf.server.domain forward error: detached forwarding server 'server.name'
+
