@@ -4,7 +4,7 @@ The `in_forward` Input plugin listens to a TCP socket to receive the event strea
 
 This plugin is mainly used to receive event logs from other Fluentd instances, the fluent-cat command, or client libraries. This is by far the most efficient way to retrieve the records.
 
-### Example Configuration
+## Example Configuration
 
 `in_forward` is included in Fluentd's core. No additional installation process is required.
 
@@ -17,7 +17,7 @@ This plugin is mainly used to receive event logs from other Fluentd instances, t
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
-### Parameters
+## Parameters
 
 #### type (required)
 The value must be `forward`.
