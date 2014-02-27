@@ -114,7 +114,7 @@ Monitoring server example:
     <match internal.message>
       type grep
       regexp1 original_tag fluent.(warn|error|fatal)
-      add_prefix filtered
+      add_tag_prefix filtered
     </match>
 
     <match filtered.internal.message>
@@ -128,5 +128,5 @@ Monitoring server example:
 
 If an error occurred, you got a notification message in your irc `notify` channel.
 
-    01:01  fluentd: [11:10:24] notice: fluent.warn [2014/02/27 01:00:00] @leaf.server.domain forward error: detached forwarding server 'server.name'
+    01:01  fluentd: [11:10:24] notice: fluent.warn [2014/02/27 01:00:00] @leaf.server.domain detached forwarding server 'server.name'
 
