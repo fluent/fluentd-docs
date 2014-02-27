@@ -73,7 +73,7 @@ section 'usecases', 'Use Cases' do
     article 'raspberrypi-cloud-data-logger', 'Raspberry Pi Cloud Data Logger', ['Raspberry Pi', 'Data Logger', 'Data Acquisition']
   end
   category 'GlusterFS', 'GlusterFS' do
-    article 'GlusterFS Log Collection', 'Collecting GlusterFS Logs', ['GlusterFS']
+    article 'collect-glusterfs-logs', 'Collecting GlusterFS Logs', ['GlusterFS']
   end
 end
 section 'configuration', 'Configuration' do
