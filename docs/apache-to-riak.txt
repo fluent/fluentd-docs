@@ -8,29 +8,29 @@ This article explains how to use Fluentd’s Riak Output plugin ([out_riak](http
 
 ## Prerequisites
 
-1. You are on OSX or Linux
-2. Riak is already installed and running
-3. You have an Apache web server log
+1. An OSX or Linux machine
+2. Fluentd is installed ([installation guide](link)]
+3. Riak is installed
+4. An Apache web server log
 
-## Installing Fluentd and the Riak output plugin
+## Installing the Fluentd Riak Output Plugin
 
-If you already have `gem` (Rubygems command line tool) installed, you can install Fluentd with the following command.
+The [Riak output plugin](https://github.com/kuenishi/fluent-plugin-riak) is used to output data from a Fluentd node to a Riak node. 
 
-    :::term
-    $ gem install fluentd
+### Rubygems Users
 
-Also, Treasure Data packages Fluentd as `td-agent` for the [deb](http://docs.fluentd.org/articles/install-by-deb) and [rpm](http://docs.fluentd.org/articles/install-by-rpm) packaging systems.
-
-We also need to install the [Riak plugin](https://github.com/kuenishi/fluent-plugin-riak) so that we can output data to a Riak node. This is as easy as running
+Rubygems users can run the command below to install the plugin:
 
     :::term
     $ gem install fluent-plugin-riak
 
-(If you are using td-agent, you can run `/usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-riak` to install the same plugin.)
+### td-agent Users
+
+If you are using td-agent, run `/usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-riak` to install the Riak output plugin.
 
 ## Configuring Fluentd
 
-Create a configuration file called `fluent.conf` and copy and paste the following lines into it:
+Create a configuration file called `fluent.conf` and add the following lines:
 
     <source>
       type tail
@@ -51,7 +51,7 @@ Create a configuration file called `fluent.conf` and copy and paste the followin
 
 The `<source>...</source>` section tells Fluentd to tail an Apache2-formatted log file located at `/var/log/apache2/access_log`. Each line is parsed as an Apache access log event and tagged with the `riak.apache` label.
 
-The `<match riak.**>...</match>` matches all events whose tags start with `riak.` and sends it to a Riak node located at `localhost:8087`. You can send events to multiple nodes like `nodes host1 host2 host3` as well.
+The `<match riak.**>...</match>` section tells Fluentd to look for events whose tags start with `riak.` and send all matches to a Riak node located at `localhost:8087`. You can send events to multiple nodes by writing `nodes host1 host2 host3` instead.
 
 ## Testing
 
@@ -60,9 +60,9 @@ Launch Fluentd with the following command:
     :::term
     $ fluentd -c fluentd.conf
 
-Do make sure you have correct file access permissions so that you can read the Apache log file and write to `/var/log/fluentd/apache2.access_log.pos` (sudo-ing might help).
+NOTE: Please confirm that you have the file access permissions to (1) read the Apache log file and (2) write to `/var/log/fluentd/apache2.access_log.pos` (sudo-ing might help).
 
-Now, you should start seeing data into your Riak cluster. We can check that by hitting Riak's HTTP API:
+You should now see data coming into your Riak cluster. We can make sure that everything is running smoothly by hitting Riak's HTTP API:
 
     :::term
     $ curl http://localhost:8098/buckets/fluentlog/keys?keys=true
