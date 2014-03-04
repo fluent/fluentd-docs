@@ -1,12 +1,12 @@
 # Secure Forward Input
 
-The `in_secure_forward` input plugin accepts messages via **SSL with authentication** (c.f. [out_secure_forward](out_secure_forward)).
+The `in_secure_forward` input plugin accepts messages via **SSL with authentication** (cf. [out_secure_forward](out_secure_forward)).
 
 ##Example Configurations
 
-This section has some example configurations
+This section provides some example configurations for `in_secure_forward`.
 
-###Minimal configurations
+###Minimalist Configuration
 
     <source>
       type secure_forward
@@ -15,7 +15,7 @@ This section has some example configurations
       cert_auto_generate yes                # This parameter MUST be specified
     </source>
 
-###Checking username/password from clients
+###Check username/password from Clients
 
     <source>
       type secure_forward
@@ -33,7 +33,7 @@ This section has some example configurations
       </user>
     </source>
 
-###Denying unknown source IP/hosts
+###Deny Unknown Source IP/hosts
 
     <source>
       type secure_forward
@@ -51,7 +51,7 @@ This section has some example configurations
       </client>
     </source>
 
-You can use both of username/password check and client check:
+You can use the username/password check and client check together:
 
     <source>
       type secure_forward
@@ -89,46 +89,48 @@ You can use both of username/password check and client check:
 ##Parameters
 
 ####type
-It is required and must be `secure_forward`.
+This parameter is required. Its value must be `secure_forward`.
 
 ####port (integer)
-24284 by default
+The default value is 24284.
 
 ####bind (sring)
-0.0.0.0 by default
+The default value is 0.0.0.0.
 
 ####self_hostname (string)
-Default value of the auto-generated certificate common name (CN)
+Default value of the auto-generated certificate common name (CN).
 
 ####shared_key (string)
-Optional shared key
+Optional shared key.
 
 ####allow_keepalive (bool)
-Accept keepalive connection, `true` by default.
+Accept keepalive connection. The default value is `true`.
 
 ####allow_anonymous_source (bool)
 Accept connections from unknown hosts.
 
 ####authentication (bool)
-Require password authentication, `false` by default.
+Require password authentication. The default value is `false`.
 
 ####cert_auto_generate (bool)
-Auto-generate the CA (see the `generate_*` parameters below). Default to `false`. If `cert_auto_generat` is false, `cert_file_path` must be set.
+Auto-generate the CA (see the `generate_*` parameters below). The default value is `false`.
+
+If `cert_auto_generat` is false, `cert_file_path` must be set.
 
 ####generate_private_key_length (integer)
-The byte length of the auto-generated private key, 2048 by default.
+The byte length of the auto-generated private key. The default value is 2048.
 
 ####generate_cert_country (string)
-The country of the auto-generated certificate, "US" by default.
+The country of the auto-generated certificate. The default value is "US".
 
 ####generate_cert_state (string)
-The state of the auto-generated certificate, "CA" by default.
+The state of the auto-generated certificate. The default value is "CA".
 
 ####generate_cert_locality (string)
-The locality of the auto-generated certificate, "Mountain View" by default.
+The locality of the auto-generated certificate. The default value is "Mountain View".
 
 ####generate_cert_common_name (string)
-The common name of the auto-generated certificate, defaults to the value of `self_hostname`
+The common name of the auto-generated certificate. The default value is the value of `self_hostname`.
 
 ####cert_file_path (string)
 The path to the cert file. If this is not set, `cert_auto_generate` must be set to `true`.
