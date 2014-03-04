@@ -1,10 +1,12 @@
 # Secure Forward Output
 
-The `out_secure_forward` output plugin sends messages via **SSL with authentication** (c.f. [in_secure_forward](in_secure_forward)).
+The `out_secure_forward` output plugin sends messages via **SSL with authentication** (cf. [in_secure_forward](in_secure_forward)).
 
 ##Example Configurations
 
-###Minimal configurations like this:
+This section provides some example configurations for `out_secure_forward`.
+
+###Minimalist Configuration
 
     <match secret.data.**>
       type secure_forward
@@ -16,7 +18,7 @@ The `out_secure_forward` output plugin sends messages via **SSL with authenticat
       </server>
     </match>
 
-NOTE: Without hostname ACL (and it's not implemented yet), `self_hostname` is not checked in any state. `${hostname}` placeholder is available for such cases.
+NOTE: Without hostname ACL (not yet implemented), `self_hostname` is not checked in any state. The `${hostname}` placeholder is available for such cases.
 
     <match secret.data.**>
       type secure_forward
@@ -28,11 +30,11 @@ NOTE: Without hostname ACL (and it's not implemented yet), `self_hostname` is no
       </server>
     </match>
 
-###Multiple forward destinations over SSL
+###Multiple Forward Destinations over SSL
 
-When two or more `<server>...</server>` clauses are specified, this plugin uses these server nodes in a round-robin order. The servers with `standby yes` are NOT selected until all non-standby servers go down.
+When two or more `<server>...</server>` clauses are specified, `out_secure_forward` uses these server nodes in a round-robin order. The servers with `standby yes` are NOT selected until all non-standby servers go down.
 
-If a server requires username & password, set `username` and `password` in the `<server>` section:
+NOTE: If a server requires username & password, set `username` and `password` in the `<server>` section:
 
     <match secret.data.**>
       type secure_forward
@@ -56,7 +58,7 @@ If a server requires username & password, set `username` and `password` in the `
       </server>
     </match>
 
-To specify keepalive timeouts, use the `keepalive` parameter. For example, in the configuration below, SSL connection is disconnected and re-connected every hour. By default, `keepalive` is set to 0 and the connection does NOT get disconnected unless there is a connection issue (This feature is for DNS name updates and refreshing SSL common keys).
+Use the `keepalive` parameter to specify keepalive timeouts. For example, the configuration below disconnects and re-connects its SSL connection every hour. By default, `keepalive` is set to 0 and the connection does NOT get disconnected unless there is a connection issue (This feature is for DNS name updates and refreshing SSL common keys).
 
     <match secret.data.**>
       type secure_forward
@@ -72,19 +74,19 @@ To specify keepalive timeouts, use the `keepalive` parameter. For example, in th
 ##Parameters
 
 ####type
-It is required and must be `secure_forward`.
+This parameter is required. Its value must be `secure_forward`.
 
 ####port (integer)
-24284 by default
+The default value is 24284.
 
 ####bind (sring)
-0.0.0.0 by default
+The default value is 0.0.0.0.
 
 ####self_hostname (string)
-Default value of the auto-generated certificate common name (CN)
+Default value of the auto-generated certificate common name (CN).
 
 ####shared_key (string)
-Optional shared key
+Optional shared key.
 
 ####keepalive (time)
 The duration for keepalive. If this parameter is not specified, keepalive is disabled.
@@ -93,13 +95,13 @@ The duration for keepalive. If this parameter is not specified, keepalive is dis
 The send timeout value for sockets. The default value is 60 seconds.
 
 ####allow_self_signed_certificate (bool)
-`true` if sellf-signed CA is allowed. The default is `true`.
+Enables self-signed CA. The default is `true`.
 
 ####ca_file_path (string)
 The path to the certificate file.
 
 ####reconnect_interval (time)
-The interval between SSL reconnects. 5 seconds by default.
+The interval between SSL reconnects. The default value is 5 seconds.
 
 ####read_length (integer)
 The number of bytes read per nonblocking read. The default value is 8MB=8*1024*1024 bytes.
