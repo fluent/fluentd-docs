@@ -14,6 +14,13 @@ There are three types of output plugins: Non-Buffered, Buffered, and Time Sliced
 
 The output plugin's buffer behavior (if any) is defined by a separate [Buffer plugin](buffer-plugin-overview). Different buffer plugins can be chosen for each output plugin. Some output plugins are fully customized and do not use buffers.
 
+### secondary output
+
+At Buffered output plugin, the user can specify `<secondary>` with any output plugin in `<match>` configuration.
+If the retry count exceeds the buffer's `retry_limit`, then buffered chunk is output to `<secondary>` output plugin.
+
+`<secondary>` is useful for backup when destination servers are unavilable, e.g. forward, mongo and other plugins. We strongly recommend `out_file` plugin for `<secondary>`.
+
 ## List of Non-Buffered Output Plugins
 
 * [out_copy](out_copy)
