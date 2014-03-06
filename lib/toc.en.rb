@@ -112,6 +112,9 @@ section 'deployment', 'Deployment' do
   category 'performance-tuning', 'Performance Tuning' do
     article 'performance-tuning', 'Performance Tuning'
   end
+  category 'plugin-management', 'Plugin Management' do
+    article 'plugin-management', 'Plugin Management'
+  end
   category 'trouble-shooting', 'Trouble Shooting' do
     article 'trouble-shooting', 'Trouble Shooting'
   end

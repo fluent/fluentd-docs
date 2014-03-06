@@ -1,0 +1,59 @@
+# Plugin Management
+
+This article describes how to manage Fluentd plugins.
+Fluentd has several approaches to add 3rd party plugin.
+
+## fluent-gem
+
+`fluent-gem` command installs the plugin for Fluentd. This is a wrapper of `gem` command.
+
+    :::term
+    fluent-gem install fluent-plugin-grep
+
+NOTE: Ruby doesn't guarantee C extension API compatibility between Ruby major versions. So if you update Ruby version of Fluentd, you should re-install the plugin which depends on C extension.
+
+## "-p" option
+
+Fluentd provides `-p` option for adding extra plugin directory to load path. For example,
+if you put `out_foo.rb` plugin into `/path/to/plugin`, you can load `out_foo.rb` plugin by specifying `-p` option like below.
+
+    :::term
+    fluentd -p /path/to/plugin
+
+You can specify `-p` option more than once.
+
+## Put a plugin into /etc/fluent/plugin
+
+By default, Fluentd adds `/etc/fluent/plugin` directory to load path.
+So if you put a plugin into `/etc/fluent/plugin`, then Fluentd loads plugins which placed at `/etc/fluent/plugin` automatically.
+
+### /etc/td-agent/plugin
+
+At td-agent, Fluentd uses `/etc/td-agent/plugin` instead of `/etc/fluent/plugin`.
+So if you use td-agent, then please put your plugin into `/etc/td-agent/plugin`.
+
+## "--gemfile" option
+
+In Ruby, Ruby application manages dependent gems using Gemfile and [Bundler](http://bundler.io/). `--gemfile` option realizes same approach in Fluentd.
+This is useful for managing plugin version separated from shared gems.
+
+For example, if you have following Gemfile at /etc/fluent/Gemfile:
+
+    :::text
+    source 'https://rubygems.org'
+
+    gem 'fluentd', '0.10.43'
+    gem 'fluent-plugin-grep', '0.3.2'
+    gem 'fluent-plugin-elasticsearch', '0.2.0'
+
+You can pass this Gemfile to Fluentd via `--gemfile` option.
+
+    :::term
+    fluentd --gemfile /etc/fluent/Gemfile
+
+When specifying `--gemfile`, Fluentd try to install listed gems using Bundler.
+In this result, Fluentd loads only listed gems separated from shared gems.
+It also prevents unexpected plugin update.
+
+In addition, if you update Ruby version of Fluetnd, then bundler re-install listed gems for new Ruby.
+This avoids C extention API compatible problem.
