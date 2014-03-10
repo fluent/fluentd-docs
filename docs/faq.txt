@@ -190,6 +190,8 @@ Now you might be wondering, "Why do I need to specify the full path?" The reason
 
 to your `~/.bash_profile`.
 
+If you want to know more plugin mangement, please check [Plugin Management](/articles/plugin-management) article.
+
 ### How can I match (send) an event to multiple outputs?
 
 You can use the `copy` [output plugin](/articles/out_copy) to send the same event to multiple output destinations.
