@@ -28,6 +28,7 @@ Here is an example set up to send events to both a local file under `/var/log/fl
 
     :::text
     <match myevent.file_and_mongo>
+      type copy
       <store>
         type file
         path /var/log/fluent/myapp
@@ -60,4 +61,3 @@ When `deep_copy` is true, `out_copy` passes different record to each `store` plu
 Specifies the storage destinations. The format is the same as the &lt;match&gt; directive.
 
 INCLUDE: _log_level_params
-
