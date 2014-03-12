@@ -15,7 +15,17 @@ By combining these three tools (Fluentd + Elasticsearch + Kibana) we get a scala
 <img width="540" src="/images/fluentd-elasticsearch-kibana.png"/>
 </center><br /><br />
 
-In this guide, we will go over installation, setup, and basic use of this combined log search solution. The contents of this article were tested on Mac OS X Mountain Lion.
+In this guide, we will go over installation, setup, and basic use of this combined log search solution. The contents of this article were tested on Mac OS X Mountain Lion. **If you're not familier with Fluentd**, please learn more about Fluentd first.
+
+<center>
+<div class="btn-look">
+<a href="http://docs.fluentd.org/articles/architecture">Learn More</a>
+</div>
+</center>
+<br />
+<br />
+<br />
+<br />
 
 ## Prerequisites
 
