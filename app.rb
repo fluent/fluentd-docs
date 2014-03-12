@@ -122,7 +122,7 @@ assets {
 # PATHS
 #
 get '/' do
-  redirect '/articles/quickstart'
+  redirect '/articles/architecture'
 end
 
 get '/robots.txt' do
