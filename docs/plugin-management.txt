@@ -1,41 +1,37 @@
 # Plugin Management
 
-This article describes how to manage Fluentd plugins.
-Fluentd has several approaches to add 3rd party plugin.
+This article explains how to manage Fluentd plugins, including adding 3rd party plugins.
 
 ## fluent-gem
 
-`fluent-gem` command installs the plugin for Fluentd. This is a wrapper of `gem` command.
+The `fluent-gem` command is used to install Fluentd plugins. This is a wrapper around the `gem` command.
 
     :::term
     fluent-gem install fluent-plugin-grep
 
-NOTE: Ruby doesn't guarantee C extension API compatibility between Ruby major versions. So if you update Ruby version of Fluentd, you should re-install the plugin which depends on C extension.
+NOTE: Ruby doesn't guarantee C extension API compatibility between its major versions. If you update Fluentd's Ruby version, you should re-install the plugins that depend on C extension.
 
 ## "-p" option
 
-Fluentd provides `-p` option for adding extra plugin directory to load path. For example,
-if you put `out_foo.rb` plugin into `/path/to/plugin`, you can load `out_foo.rb` plugin by specifying `-p` option like below.
+Fluentd's `-p` option is used to add an extra plugin directory to the load path. For example,
+if you put the `out_foo.rb` plugin into `/path/to/plugin`, you can load the `out_foo.rb` plugin by specifying the `-p` option as shown below.
 
     :::term
     fluentd -p /path/to/plugin
 
-You can specify `-p` option more than once.
+You can specify the `-p` option more than once.
 
-## Put a plugin into /etc/fluent/plugin
+## Add a Plugin Via /etc/fluent/plugin
 
-By default, Fluentd adds `/etc/fluent/plugin` directory to load path.
-So if you put a plugin into `/etc/fluent/plugin`, then Fluentd loads plugins which placed at `/etc/fluent/plugin` automatically.
+Fluentd adds the `/etc/fluent/plugin` directory to its load path by default. Thus, any additional plugins that are placed in `/etc/fluent/plugin` will be loaded automatically.
 
-### /etc/td-agent/plugin
+### If Using td-agent, Use /etc/td-agent/plugin
 
-At td-agent, Fluentd uses `/etc/td-agent/plugin` instead of `/etc/fluent/plugin`.
-So if you use td-agent, then please put your plugin into `/etc/td-agent/plugin`.
+If you are using td-agent, Fluentd uses the `/etc/td-agent/plugin` directory instead of `/etc/fluent/plugin`. Please put your plugins here instead.
 
 ## "--gemfile" option
 
-In Ruby, Ruby application manages dependent gems using Gemfile and [Bundler](http://bundler.io/). `--gemfile` option realizes same approach in Fluentd.
-This is useful for managing plugin version separated from shared gems.
+A Ruby application manages gem dependencies using Gemfile and [Bundler](http://bundler.io/). Fluentd's `--gemfile` option takes the same approach, and is useful for managing plugin versions separated from shared gems.
 
 For example, if you have following Gemfile at /etc/fluent/Gemfile:
 
@@ -46,14 +42,13 @@ For example, if you have following Gemfile at /etc/fluent/Gemfile:
     gem 'fluent-plugin-grep', '0.3.2'
     gem 'fluent-plugin-elasticsearch', '0.2.0'
 
-You can pass this Gemfile to Fluentd via `--gemfile` option.
+You can pass this Gemfile to Fluentd via the `--gemfile` option.
 
     :::term
     fluentd --gemfile /etc/fluent/Gemfile
 
-When specifying `--gemfile`, Fluentd try to install listed gems using Bundler.
-In this result, Fluentd loads only listed gems separated from shared gems.
-It also prevents unexpected plugin update.
+When specifying the `--gemfile` option, Fluentd will try to install the listed gems using Bundler.
+Fluentd will only load listed gems separated from shared gems, and will also prevent unexpected plugin updates.
 
-In addition, if you update Ruby version of Fluetnd, then bundler re-install listed gems for new Ruby.
-This avoids C extention API compatible problem.
+In addition, if you update Fluetnd's Ruby version, Bundler will re-install the listed gems for the new Ruby version.
+This allows you to avoid the C extention API compatibility problem.
