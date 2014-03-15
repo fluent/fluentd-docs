@@ -1,6 +1,6 @@
 # Logging of Fluentd
 
-This article describes Fluentd's logging mechanizm. 
+This article describes Fluentd's logging mechanism. 
 
 Fluentd has two log layers: global and per plugin. Different log levels can be set for global logging and plugin level logging.
 
