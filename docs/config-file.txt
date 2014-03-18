@@ -138,23 +138,25 @@ The **include** directive supports regular file path, glob pattern, and http URL
     # http
     include http://example.com/fluent.conf
 
-## Supported  Data Types for Values
+## Supported Data Types for Values
 
-A Fluentd plugin has parameters. For example, [in_tail](in_tail) has parameters such as `rotate_wait` and `pos_file`. Each parameter has a specific type associated with it (they should be documented, if not, let the author know), and it's important to know the definition of each type.
+Each Fluentd plugin has a set of parameters. For example, [in_tail](in_tail) has parameters such as `rotate_wait` and `pos_file`. Each parameter has a specific type associated with it. They are defined as follows:
 
-- `string` type: it parses the field as string. This is the most "generic" type in a sense that individual plugins decide how to process the string.
-- `integer` type: it parses the field as integer.
-- `float` type: it parses the field as float.
-- `size` type: it parses the field as the number of bytes. It has several notational variations:
+NOTE: Each parameter's type should be documented. If not, please let the plugin author know.
+
+- `string` type: the field is parsed as a string. This is the most "generic" type, where each plugin decides how to process the string.
+- `integer` type: the field is parsed as an integer.
+- `float` type: the field is parsed as a float.
+- `size` type: the field is parsed as the number of bytes. There are several notational variations:
     * If the value matches `<INTEGER>k` or `<INTEGER>K`, then the value is the INTEGER number of kilobytes. 
     * If the value matches `<INTEGER>m` or `<INTEGER>M`, then the value is the INTEGER number of megabytes. 
     * If the value matches `<INTEGER>g` or `<INTEGER>G`, then the value is the INTEGER number of gigabytes. 
     * If the value matches `<INTEGER>t` or `<INTEGER>T`, then the value is the INTEGER number of terabytes. 
     * Otherwise, the field is parsed as integer, and that integer is the number of bytes.
-- `time` type: it parses the field as time duration.
+- `time` type: the field is parsed as a time duration.
     * If the value matches `<INTEGER>s`, then the value is the INTEGER seconds.
     * If the value matches `<INTEGER>m`, then the value is the INTEGER minutes. 
     * If the value matches `<INTEGER>h`, then the value is the INTEGER hours. 
     * If the value matches `<INTEGER>d`, then the value is the INTEGER days. 
-    * Otherwise, the field is parsed as float, and that float is the number of seconds. This option is useful for specifying sub-second time duration like "0.1" (=0.1 second = 100ms).
+    * Otherwise, the field is parsed as float, and that float is the number of seconds. This option is useful for specifying sub-second time durations such as "0.1" (=0.1 second = 100ms).
 
