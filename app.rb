@@ -203,6 +203,12 @@ end
 get '/:lang/articles/adtech-best-practices' do
   redirect 'http://go.treasuredata.com/fluentd_for_adtech'
 end
+get '/articles/gaming-best-practices' do
+  redirect 'http://go.treasuredata.com/fluentd_best_practices_for_digital_gaming'
+end
+get '/:lang/articles/gaming-best-practices' do
+  redirect 'http://go.treasuredata.com/fluentd_best_practices_for_digital_gaming'
+end
 
 get '/articles/:article' do
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
