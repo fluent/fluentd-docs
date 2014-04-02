@@ -28,6 +28,10 @@ The port to listen to. Default Value = 24224
 #### bind
 The bind address to listen to. Default Value = 0.0.0.0 (all addresses)
 
+#### linger_timeout
+The timeout time used to set linger option. The default is 0
+
+
 INCLUDE: _log_level_params
 
 
