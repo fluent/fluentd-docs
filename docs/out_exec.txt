@@ -1,6 +1,6 @@
 # exec Output Plugin
 
-The `out_exec` Buffered Output plugin passes events to an external program as a tab-separated value (TSV) file. The program receives the path of a TSV file containing incoming events as its last argument.
+The `out_exec` Buffered Output plugin passes events to an external program. The program receives the path of a file containing incoming events as its last argument. The file format is tab-separated values (TSV) by default.
 
 ## Example Configuration
 
@@ -10,6 +10,7 @@ The `out_exec` Buffered Output plugin passes events to an external program as a 
     <match pattern>
       type exec
       command cmd arg arg
+      format tsv
       keys k1,k2,k3
       tag_key k1
       time_key k2
@@ -26,8 +27,20 @@ The value must be `exec`.
 ### command (required)
 The command (program) to execute. The exec plugin passes the path of a TSV file as the last argument.
 
-### keys (required)
-Comma-separated keys to use in the TSV file.
+### format
+The format used to map the incoming event to the program input.
+
+The following formats are supported:
+
+* tsv (default)
+
+When using the tsv format, please also specify the comma-separated `keys` parameter.
+
+    :::text
+    in_keys k1,k2,k3
+
+* json
+* msgpack
 
 ### tag_key
 The name of the key to use as the event tag. This replaces the value in the event record.
