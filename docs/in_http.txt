@@ -42,6 +42,10 @@ The size limit of the POSTed element. Default Value = 32MB
 #### keepalive_timeout
 The timeout limit for keeping the connection alive. Default Value = 10 seconds
 
+#### add_http_headers
+Add `HTTP_` prefix headers to the record. The default is `false`
+
+
 INCLUDE: _log_level_params
 
 
