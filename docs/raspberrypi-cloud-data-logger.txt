@@ -30,7 +30,7 @@ We'll now install Fluentd and the necessary plugins.
 
 ## Configure and Launch Fluentd
 
-Please sign up to Treasure Data from the [sign up page](https://console.treasuredata.com/users/sign_up). Its free plan lets you store and analyze millions of data points. You can get your account's API key from the users page.
+Please sign up to Treasure Data from the [sign up page](https://console.treasuredata.com/users/sign_up). Its free plan lets you store and analyze millions of data points. You can get your account's API key from the [users page](https://console.treasuredata.com/users/current).
 
 Please prepare the `fluentd.conf` file with the following information, including your API key.
 
