@@ -61,6 +61,34 @@ If you don't specify the `log_level` parameter, the plugin will use the global l
 
 NOTE: Some plugins haven't supported per-plugin logging yet. The <a href="plugin-development#logging">logging section of the Plugin Development article</a> explains how to update such plugins to support the new log level system.
 
+## Suppress repeated stacktrace
+
+Fluentd can suppress same stacktrace with `--suppress-repeated-stacktrace`.
+For example, if you pass `--suppress-repeated-stacktrace` to fluentd:
+
+    :::term
+    2013-12-04 15:05:53 +0900 [warn]: fluent/engine.rb:154:rescue in emit_stream: emit transaction failed  error_class = RuntimeError error = #<RuntimeError: syslog>
+      2013-12-04 15:05:53 +0900 [warn]: fluent/engine.rb:140:emit_stream: /Users/repeatedly/devel/fluent/fluentd/lib/fluent/plugin/out_stdout.rb:43:in `emit'
+      [snip]
+      2013-12-04 15:05:53 +0900 [warn]: fluent/engine.rb:140:emit_stream: /Users/repeatedly/devel/fluent/fluentd/lib/fluent/plugin/in_object_space.rb:63:in `run'
+    2013-12-04 15:05:53 +0900 [error]: plugin/in_object_space.rb:113:rescue in on_timer: object space failed to emit error = "foo.bar" error_class = "RuntimeError" tag = "foo" record = "{ ...}"
+    2013-12-04 15:05:55 +0900 [warn]: fluent/engine.rb:154:rescue in emit_stream: emit transaction failed  error_class = RuntimeError error = #<RuntimeError: syslog>
+      2013-12-04 15:05:53 +0900 [warn]: fluent/engine.rb:140:emit_stream: /Users/repeatedly/devel/fluent/fluentd/lib/fluent/plugin/o/2.0.0/gems/cool.io-1.1.1/lib/cool.io/loop.rb:96:in `run'
+      [snip]
+
+logs are changed to:
+
+    :::term
+    2013-12-04 15:05:53 +0900 [warn]: fluent/engine.rb:154:rescue in emit_stream: emit transaction failed  error_class = RuntimeError error = #<RuntimeError: syslog>
+      2013-12-04 15:05:53 +0900 [warn]: fluent/engine.rb:140:emit_stream: /Users/repeatedly/devel/fluent/fluentd/lib/fluent/plugin/o/2.0.0/gems/cool.io-1.1.1/lib/cool.io/loop.rb:96:in `run'
+      [snip]
+      2013-12-04 15:05:53 +0900 [warn]: fluent/engine.rb:140:emit_stream: /Users/repeatedly/devel/fluent/fluentd/lib/fluent/plugin/in_object_space.rb:63:in `run'
+    2013-12-04 15:05:53 +0900 [error]: plugin/in_object_space.rb:113:rescue in on_timer: object space failed to emit error = "foo.bar" error_class = "RuntimeError" tag = "foo" record = "{ ...}"
+    2013-12-04 15:05:55 +0900 [warn]: fluent/engine.rb:154:rescue in emit_stream: emit transaction failed  error_class = RuntimeError error = #<RuntimeError: syslog>
+      2013-12-04 15:05:55 +0900 [warn]: plugin/in_object_space.rb:111:on_timer: suppressed same stacktrace
+
+Same stacktrace is replaced with `suppressed same stacktrace` message until other stacktrace is received.
+
 ## Output to log file
 
 Fluentd outputs logs to `STDOUT` by default. To output to a file instead, please specify the `-o` option.
