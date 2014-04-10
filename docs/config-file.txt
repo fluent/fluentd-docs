@@ -115,6 +115,33 @@ The following match patterns can be used for the `<match>` tag.
 
   * This can be used in combination with the ``*`` or ``**`` patterns. Examples include ``a.{b,c}.*`` and ``a.{b,c.**}``
 
+### Match order
+
+Fluentd tries to match the tag in order from top.
+So if you have following configuration:
+
+    # ** matches all tags. Bad :(
+    <match **>
+      type blackhole_plugin
+    </match>
+    
+    <match myapp.access>
+      type file
+      path /var/log/fluent/access
+    </match>
+
+then `myapp.access` is never matched. So wider match pattern should be defined after tight match patterns.
+
+    <match myapp.access>
+      type file
+      path /var/log/fluent/access
+    </match>    
+
+    # Capture all unmatched tags. Good :)
+    <match **>
+      type blackhole_plugin
+    </match>
+
 
 ## (3) Re-use your config: the "include" directive
 
