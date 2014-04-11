@@ -87,7 +87,7 @@ tsvまたはcsvフォーマットを使用する場合、`keys`パラメータ�
 
 * `ltsv`
 
-ltsv(Labeled Tab-Separated Value)はタブ区切りのキーバリューペアフォーマットです。あたなは[Webページ](http://ltsv.org)でさらに学ぶことができます。
+ltsv(Labeled Tab-Separated Value)はタブ区切りのキーバリューペアフォーマットです。あなたは[Webページ](http://ltsv.org)でさらに学ぶことができます。
 
     :::text
     format ltsv
