@@ -67,6 +67,9 @@ The transport protocol to use for heartbeats. The default is "udp", but you can 
 ### heartbeat_interval
 The interval of the heartbeat packer. The default is 1 second.
 
+### phi_failure_detector
+Use "The Phi accrual failure detector" to detect server failure. The default value is `true`.
+
 ### phi_threshold
 The threshold parameter used to detect server faults. The default value is 8.
 
