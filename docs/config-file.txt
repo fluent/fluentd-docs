@@ -117,11 +117,11 @@ The following match patterns can be used for the `<match>` tag.
 
   * This can be used in combination with the ``*`` or ``**`` patterns. Examples include ``a.{b,c}.*`` and ``a.{b,c.**}``
 
-* When multiple patterns are listed (delimited by one or more whitespaces) inside one `<match>` tag, it matches any of the listed patterns.  
+* When multiple patterns are listed inside one `<match>` tag (delimited by one or more whitespaces), it matches any of the listed patterns. For example:
 
-  * For example, the patterns ``<match a b>`` match ``a`` and ``b``.
+  * The patterns ``<match a b>`` match ``a`` and ``b``.
   
-  * For example, the pattern s``<match a.** b.*>`` match ``a``, ``a.b``, ``a.b.c.`` (from the first pattern) and ``b.d`` (from the second pattern).
+  * The patterns ``<match a.** b.*>`` match ``a``, ``a.b``, ``a.b.c.`` (from the first pattern) and ``b.d`` (from the second pattern).
 
 ### Match Order
 
