@@ -2,6 +2,8 @@
 
 This article describes the basic concepts of Fluentd's configuration file.
 
+If you want to know V1 configuration format, please jump to [V1 Format](config-file#v1-format) section.
+
 ## Overview
 
 The configuration file allows the user to control the input and output behavior of Fluentd by (1) selecting input and output plugins and (2) specifying the plugin parameters. The file is required for Fluentd to operate properly.
@@ -115,6 +117,39 @@ The following match patterns can be used for the `<match>` tag.
 
   * This can be used in combination with the ``*`` or ``**`` patterns. Examples include ``a.{b,c}.*`` and ``a.{b,c.**}``
 
+* When multiple patterns are listed inside one `<match>` tag (delimited by one or more whitespaces), it matches any of the listed patterns. For example:
+
+  * The patterns ``<match a b>`` match ``a`` and ``b``.
+  
+  * The patterns ``<match a.** b.*>`` match ``a``, ``a.b``, ``a.b.c.`` (from the first pattern) and ``b.d`` (from the second pattern).
+
+### Match Order
+
+Fluentd tries to match tags in the order that they appear in the config file.
+So if you have the following configuration:
+
+    # ** matches all tags. Bad :(
+    <match **>
+      type blackhole_plugin
+    </match>
+    
+    <match myapp.access>
+      type file
+      path /var/log/fluent/access
+    </match>
+
+then `myapp.access` is never matched. Wider match patterns should be defined after tight match patterns.
+
+    <match myapp.access>
+      type file
+      path /var/log/fluent/access
+    </match>    
+
+    # Capture all unmatched tags. Good :)
+    <match **>
+      type blackhole_plugin
+    </match>
+
 
 ## (3) Re-use your config: the "include" directive
 
@@ -159,4 +194,68 @@ NOTE: Each parameter's type should be documented. If not, please let the plugin 
     * If the value matches `<INTEGER>h`, then the value is the INTEGER hours. 
     * If the value matches `<INTEGER>d`, then the value is the INTEGER days. 
     * Otherwise, the field is parsed as float, and that float is the number of seconds. This option is useful for specifying sub-second time durations such as "0.1" (=0.1 second = 100ms).
+- `array` type: the field is parsed as a JSON array (since v0.10.46)
+- `hash` type: the field is parsed as a JSON object (since v0.10.46)
+
+`array` and `hash` are JSON because almost programming languages and infrastructure tools
+can generate JSON value easily than unusual format.
+
+## V1 Format
+
+You can enable V1 configuration format by passing `--use-v1-config` option to fluentd.
+
+Basic structures are same as old format, e.g. `<source>`, `<match>` and tag matching.
+This section describes the different points between V1 and old format.
+
+NOTE: V1 means Fluentd v1(<a href="https://github.com/fluent/fluentd/issues/251">Release plan</a>). Fluentd v1 will use this new format by default. So Fluentd provides new format prior to v1 release for smooth and gradual transition.
+
+### Multi line support for array and hash values
+
+V1 format allows multi line value for array and hash values.
+
+    array_param [
+      "a", "b"
+    ]
+    hash_param {
+      "k":"v",
+      "k1":10
+    }
+
+### `"foo"` is interpreted as `foo`, not `"foo"`
+
+`"` is a quote character of string value.
+It causes the different behaviour beteen V1 and old format.
+
+    str_param "foo"
+
+- In V1, str_param is `foo`
+- In old, str_param is `"foo"`
+
+### Allow `#` in string value
+
+`#` is a comment symbol in both V1 and old format.
+But `#` is allowed in string value in V1 format.
+
+    str_param foo#bar
+
+- In V1, str_param is `foo#bar`
+- In old, str_param is `foo`
+
+### Embedded Ruby code
+
+You can evaluate the Ruby code with `#{}` in `"` quoted string.
+This is useful for setting machine information like hostname.
+
+    host_param "#{Socket.gethostname}" # host_param is actual hostname like `webserver1`.
+
+NOTE: config-xxx mixins use "${}", not "#{}". These embedded configurations are two different things.
+
+### `\` is escape character
+
+`\` is interpreted as escape character.
+You need `\` for setting `"`, `\r`, `\n`, `\t`, `\` or several characters in parameter.
+
+    str_param foo\nbar # \n is intereted as actual LF chatacter
+
+So if you have `\` in your regexp format, you should write `\\` instead of `\`.
 

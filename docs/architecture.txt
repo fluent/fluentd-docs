@@ -27,7 +27,7 @@ Now that you have a better understanding of Fluentd, let's give it a spin!
 
 <center>
 <div class="btn-look">
-<a href="http://docs.fluentd.org/">Get Started</a>
+<a href="http://docs.fluentd.org/articles/quickstart">Get Started</a>
 </div>
 </center>
 <br />

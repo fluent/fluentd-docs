@@ -1,1 +1,19 @@
-../_buffer_parameters.txt
+## バッファパラメータ
+高度な使用方法については、次のパラメータでFluentdの内部バッファリング機構を調整できます。
+
+### buffer_type
+バッファタイプはデフォルト([buf_memory](buf_memory))で`memory`です。
+`file` ([buf_file](buf_file))バッファタイプも選択することができます。
+`path`パラメータはこのプラグインで`buffer_path`として、使用されます。
+
+### buffer_queue_limit, buffer_chunk_limit
+それぞれ、チャンクキューの長さと各々のチャックのサイズ。基本バッファ構造は[Buffer Plugin Overview](buffer-plugin-overview)の記事を参照してください。デフォルト値はそれぞれ、64と8mです。接尾辞として「k」 (KB), 「m」 (MB), および 「g」 (GB)はbuffer_chunk_limitで使用できます。
+
+### flush_interval
+データフラッシュの間隔。デフォルトは60sです。接尾辞として「s」 (秒), 「m」 (分)および「h」(時間)を使用することができます。
+
+### retry_wait, retry_limit and max_retry_wait
+書き込みのリトライ間隔とリトライ数。デフォルト値は各々、1.0と1.7です。`retry_wait`はリトライ毎に2倍になります(例. 最後のリトライは131072秒、およそ36時間待ちます)。そして、`max_retry_wait`は最大リトライ間隔の制限として使用することができます。
+
+### num_threads
+フラッシュとバッファのスレッド数。このオプションはMongoDBへのデータ挿入を並列にすることができます。デフォルトは1です。
