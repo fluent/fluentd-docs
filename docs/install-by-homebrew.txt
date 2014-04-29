@@ -6,7 +6,7 @@ This article explains how to install td-agent, the stable Fluentd distribution p
 
 Fluentd is written in Ruby for flexibility, with performance sensitive parts written in C. However, casual users may have difficulty installing and operating a Ruby daemon.
 
-That's why [Treasure Data, Inc](http://www.treasuredata.com/) is providing **the stable distribution of Fluentd**, called `td-agent`. The differences between Fluentd and td-agent can be found [here](faq#what-is-the-difference-with-td-agent-and-fluentd).
+That's why [Treasure Data, Inc](http://www.treasuredata.com/) is providing **the stable distribution of Fluentd**, called `td-agent`. The differences between Fluentd and td-agent can be found [here](faq#what-are-the-differences-between-td-agent-and-fluentd).
 
 For MacOS X, we're using the [Homebrew](http://mxcl.github.io/homebrew/) packaging manager to distribute td-agent.
 
