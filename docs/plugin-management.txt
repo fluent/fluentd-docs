@@ -11,6 +11,13 @@ The `fluent-gem` command is used to install Fluentd plugins. This is a wrapper a
 
 NOTE: Ruby doesn't guarantee C extension API compatibility between its major versions. If you update Fluentd's Ruby version, you should re-install the plugins that depend on C extension.
 
+### If Using td-agent, Use /usr/lib/fluent/ruby/bin/fluent-gem
+
+We sometimes got "I installed td-agent and several plugins via `$ fluent-gem install` command, but installed plugins not found. Why?".
+Almost cases, the user uses non td-agent's `fluent-gem` command, e.g. system, rvm or etc. To avoid the problem, please use td-agent's `fluent-gem` command.
+
+See [this FAQ](http://localhost:4567/articles/faq#i-installed-td-agent-and-want-to-add-custom-plugins-how-do-i-do-it) for more details.
+
 ## "-p" option
 
 Fluentd's `-p` option is used to add an extra plugin directory to the load path. For example,
