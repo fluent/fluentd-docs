@@ -41,10 +41,10 @@ NOTE: Please make sure that you have <b>enough space in the buffer_path director
 The value must be `s3`.
 
 ### aws_key_id (required/optional)
-The AWS access key id. This parameter is required when your agent is not running on EC2 instance with an IAM Instance Profile.
+The AWS access key id. This parameter is required when your agent is not running on an EC2 instance with an IAM Instance Profile.
 
 ### aws_sec_key (required/optional)
-The AWS secret key. This parameter is required when your agent is not running on EC2 instance with an IAM Instance Profile.
+The AWS secret key. This parameter is required when your agent is not running on an EC2 instance with an IAM Instance Profile.
 
 ### s3_bucket (required)
 The Amazon S3 bucket name.
