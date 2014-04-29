@@ -81,7 +81,7 @@ In our benchmark experiments, a regular PC box was able to deliver 18,000 messag
 
 ### What are the differences between td-agent and Fluentd?
 
-`td-agent` is the stable distribution package of fluentd. The differences are as follows:
+`td-agent` is the stable distribution package of fluentd including own Ruby. The differences are as follows:
 
 <table>
     <th>
@@ -103,7 +103,7 @@ href="http://docs.fluentd.org/articles/install-by-deb">.deb</a> packages for Lin
     <tr>
         <td>Adding 3rd party <a href="http://www.fluentd.org/plugin/">plugins</a></td>
         <td>fluent-gem (ex: fluent-gem install fluent-plugin-td)</td>
-        <td>Manual setup (but it ships with several plugins pre-loaded)</td>
+        <td>fluent-gem and manual setup (but it ships with several plugins pre-loaded)</td>
     </tr>
     <tr>
         <td>init.d script (for production deployment)</td>
@@ -126,6 +126,8 @@ href="http://docs.fluentd.org/articles/install-by-deb">.deb</a> packages for Lin
         <td>QA by Treasure Data/Support for Treasure Data's paid customers</td>
     </tr>
 </table>
+
+You also should check [this section](http://localhost:4567/articles/faq#i-installed-td-agent-and-want-to-add-custom-plugins-how-do-i-do-it) before install plugins.
 
 ### Should I use td-agent or the Fluentd gem?
 
