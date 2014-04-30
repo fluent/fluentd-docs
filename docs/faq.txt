@@ -81,7 +81,7 @@ In our benchmark experiments, a regular PC box was able to deliver 18,000 messag
 
 ### What are the differences between td-agent and Fluentd?
 
-`td-agent` is the stable distribution package of Fluentd, which includes its own Ruby. The differences are as follows:
+`td-agent` is the stable distribution package of Fluentd which includes its own Ruby installation. The differences are as follows:
 
 <table>
     <th>
