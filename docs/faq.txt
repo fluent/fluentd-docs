@@ -127,7 +127,7 @@ href="http://docs.fluentd.org/articles/install-by-deb">.deb</a> packages for Lin
     </tr>
 </table>
 
-Please also see [this section](http://localhost:4567/articles/faq#i-installed-td-agent-and-want-to-add-custom-plugins-how-do-i-do-it) before installing plugins.
+Please also see [this section](/articles/faq#i-installed-td-agent-and-want-to-add-custom-plugins-how-do-i-do-it) before installing plugins.
 
 ### Should I use td-agent or the Fluentd gem?
 
