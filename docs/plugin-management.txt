@@ -13,10 +13,9 @@ NOTE: Ruby doesn't guarantee C extension API compatibility between its major ver
 
 ### If Using td-agent, Use /usr/lib/fluent/ruby/bin/fluent-gem
 
-We sometimes got "I installed td-agent and several plugins via `$ fluent-gem install` command, but installed plugins not found. Why?".
-Almost cases, the user uses non td-agent's `fluent-gem` command, e.g. system, rvm or etc. To avoid the problem, please use td-agent's `fluent-gem` command.
+If you are using td-agent, please make sure to use td-agent's `fluent-gem` command. Othrewise (e.g. you use the command belonging to system, rvm, etc.), you won't be able to find your "installed" plugins.
 
-See [this FAQ](http://localhost:4567/articles/faq#i-installed-td-agent-and-want-to-add-custom-plugins-how-do-i-do-it) for more details.
+Please see [this FAQ](/articles/faq#i-installed-td-agent-and-want-to-add-custom-plugins-how-do-i-do-it) for more information.
 
 ## "-p" option
 
