@@ -37,7 +37,11 @@ INCLUDE: _log_level_params
 
 ### Protocol
 
-This plugin uses [MessagePack](http://msgpack.org/) for the internal protocol. MessagePack is a binary-based data serialization / deserialization library. `in_forward` accepts MessagePack data streams with the following structure.
+This plugin accepts both JSON or [MessagePack](http://msgpack.org/) messages and automatically detects which is used.  Internally, Fluent uses MessagePack as it is more efficient than JSON.
+
+The time value is a platform specific integer and is based the out of Ruby's `Time.now.to_i` function.  On Linux, BSD and MAC systems, this is the number of seconds since 1970.
+
+Multiple messages may be sent in the same connection.
 
     :::text
     stream:
@@ -49,4 +53,5 @@ This plugin uses [MessagePack](http://msgpack.org/) for the internal protocol. M
       [tag, [[time,record], [time,record], ...]]
 
     example:
-      ["myapp.access", [1308466941, {"a"=>1}], [1308466942, {"b"=>2}]]
+      ["myapp.access", 1308466941, {"a":1}]["myapp.messages", 1308466942, {"b":2}]
+      ["myapp.access", [[1308466941, {"a":1}], [1308466942, {"b":2}]]]
