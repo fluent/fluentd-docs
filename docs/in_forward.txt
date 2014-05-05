@@ -39,7 +39,7 @@ INCLUDE: _log_level_params
 
 This plugin accepts both JSON or [MessagePack](http://msgpack.org/) messages and automatically detects which is used.  Internally, Fluent uses MessagePack as it is more efficient than JSON.
 
-The time value is a platform specific integer and is based the out of Ruby's `Time.now.to_i` function.  On Linux, BSD and MAC systems, this is the number of seconds since 1970.
+The time value is a platform specific integer and is based on the output of Ruby's `Time.now.to_i` function.  On Linux, BSD and MAC systems, this is the number of seconds since 1970.
 
 Multiple messages may be sent in the same connection.
 
