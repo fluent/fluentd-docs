@@ -81,6 +81,7 @@ section 'configuration', 'Configuration' do
     article 'config-file', 'Config File'
   end
   category 'recipes', 'Recipes' do
+    article "common-log-formats", "Parsing Common Log Formats"
     for recipe in Dir.entries("#{settings.root}/docs").grep(/^recipe-/)
       recipe.chomp!(".txt")
       article recipe, (recipe.split("-").map {|w|
