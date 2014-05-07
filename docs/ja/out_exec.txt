@@ -1,1 +1,57 @@
-../out_exec.txt
+# execアウトプットプラグイン
+
+`out_exec` バッファアウトプットプラグインはイベントを外部に渡します。プログラムは最後の引数として受け取ったイベントを含むファイルへのパスを受け取ります。ファイルフォーマットはデフォルトでタブ区切りされた値(TSV)です。
+
+## 設定例
+
+`out_exec`はFluentdのコアに含まれています。追加のインストール作業は必要ありません。
+
+    :::text
+    <match pattern>
+      type exec
+      command cmd arg arg
+      format tsv
+      keys k1,k2,k3
+      tag_key k1
+      time_key k2
+      time_format %Y-%m-%d %H:%M:%S
+    </match>
+
+NOTE: 設定ファイルの基本的な構造や文法に関しては、<a href="config-file">設定ファイル</a>の記事を参照してください。
+
+## パラメータ
+
+### type (必須)
+値は`exec`でなければなりません。
+
+### command (必須)
+実行するコマンド(プログラム)です。execプラグインは最後の引数としてTSVファイルのパスを渡します。
+
+### format
+受け取ったイベントをプログラムの入力に対応付けに使用されるフォーマットです。
+
+次のフォーマットがサポートされています。
+
+* tsv (デフォルト)
+
+tsvフォーマットを使用したときは、カンマ区切りの`keys`パラメータも指定してください。
+
+    :::text
+    in_keys k1,k2,k3
+
+* json
+* msgpack
+
+### tag_key
+イベントタグとして使用するキーの名前です。これはイベントレコードを値で置き換えます。
+
+### time_key
+イベント時間として使用するキーの名前です。これはイベントレコードを値で置き換えます。
+
+### time_format
+`time_key`パラメータが指定されるとき、イベント時間のためフォーマットです。デフォルトはUNIX時間(整数)です。
+
+INCLUDE: _buffer_parameters
+
+INCLUDE: _log_level_params
+
