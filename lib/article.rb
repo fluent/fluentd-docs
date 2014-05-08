@@ -53,7 +53,7 @@ class Article
 
   def includes(source)
     source.gsub(/INCLUDE: (.*?)\n\n/m) { |pattern|
-      includes(File.read("#{@prefix}/#{$1}.txt"))
+      includes(File.read("#{@prefix}/#{$1}.txt")) + "\n\n"
     }
   end
   
