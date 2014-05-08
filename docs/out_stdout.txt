@@ -25,3 +25,4 @@ Output format. The following formats are supported:
 * hash (Ruby's hash)
 
 INCLUDE: _log_level_params
+
