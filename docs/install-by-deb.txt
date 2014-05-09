@@ -18,7 +18,7 @@ Please follow the [Preinstallation Guide](before-install) to configure your OS p
 
 The deb package is signed with the Treasure Data GPG key, which can be found [here](http://packages.treasure-data.com/). We recommend importing the GPG key to apt.
 
-    $ apt-key add /path/to/RPM-GPG-KEY-td-agent
+    $ wget -O - http://packages.treasure-data.com/debian/RPM-GPG-KEY-td-agent  | sudo apt-key add -
 
 ## Step1 (Ubuntu): Install from Apt Repository
 
