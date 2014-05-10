@@ -143,7 +143,7 @@ def parse_include(df, f)
 end
 
 excludes = ['support', 'slides', 'logo']
-exclude_categories = ['recipes']  # reduce duplicate document
+exclude_categories = ['recipes', 'datasheet', 'gaming', 'adtech']  # reduce duplicate document
 
 # Pandoc's internal link can't link to arbitary section in another file.
 # So, merge all files into one file.
