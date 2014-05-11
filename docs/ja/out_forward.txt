@@ -14,7 +14,7 @@
       send_timeout 60s
       recover_wait 10s
       heartbeat_interval 1s
-      phi_threshold 8
+      phi_threshold 16
       hard_timeout 60s
       
       <server>
@@ -69,7 +69,7 @@ heartbeatに使用する送信プロトコル。デフォルトは「udp」で�
 heartbeat packerの間隔。デフォルトは1秒です。
 
 ### phi_threshold
-サーバ障害を検知に使用されるしきい値パラメータ。デフォルト値は8です。
+サーバ障害を検知に使用されるしきい値パラメータ。デフォルト値は16です。
 
 ### hard_timeout
 サーバ障害を検知に使用されるハードタイムアウト。デフォルト値はsend_timeoutパラメータと同じです。
