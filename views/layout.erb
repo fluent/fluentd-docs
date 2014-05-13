@@ -112,9 +112,29 @@
             <div class='modal-content'>
               <p>Please provide a valid email address and we will send you a copy of the Fluentd Documentation PDF immediately.</p>
               <form action='http://go.treasuredata.com/l/24122/2013-06-14/4ky' method='post'>
-                <label class='email' for='email'>Email </label>
-                <input type='email' name='email' class='email' required>
-                <button action='submit' class='close btn'>Download</button>
+                <table>
+                  <tr>
+                    <td>First Name</td>
+                    <td><input type='text' name='first_name' class='email' required></td>
+                  </tr>
+                  <tr>
+                    <td>Last Name</td>
+                    <td><input type='text' name='last_name' class='email' required></td>
+                  </tr>
+                  <tr>
+                    <td>Email</td>
+                    <td><input type='email' name='email' class='email' required></td>
+                  </tr>
+                  <tr>
+                    <td>Company</td>
+                    <td><input type='text' name='company' class='email' required></td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">
+                      <button action="submit" class="close btn">Download</button>
+                    </td>
+                  </tr>
+                </table>
               </form>
             </div>
           </div>
