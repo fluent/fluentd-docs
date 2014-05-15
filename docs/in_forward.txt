@@ -33,6 +33,13 @@ The bind address to listen to. Default Value = 0.0.0.0 (all addresses)
 #### linger_timeout
 The timeout time used to set linger option. The default is 0
 
+#### chunk_size_limit
+The size limit of the received chunk. If chunk size is larger than this value,
+then received chunk is dropped. The default is nil so no limitation.
+
+#### chunk_size_warn_limit
+The warning size limit of the received chunk. If chunk size is larger than this value,
+then dump warning message. The default is nil so no warning.
 
 INCLUDE: _log_level_params
 
