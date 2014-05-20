@@ -75,6 +75,9 @@ section 'usecases', 'Use Cases' do
   category 'GlusterFS', 'GlusterFS' do
     article 'collect-glusterfs-logs', 'Collecting GlusterFS Logs', ['GlusterFS']
   end
+  category 'cep-norikra', 'Fluentd and Norikra' do
+    article 'cep-norikra', 'Fluentd and Norikra: Complex Event Processing', ['cep-norikra']
+  end
 end
 section 'configuration', 'Configuration' do
   category 'config-file', 'Config File' do
