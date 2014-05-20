@@ -14,12 +14,6 @@ That's why [Treasure Data, Inc](http://www.treasuredata.com/) is providing **the
 
 Please follow the [Preinstallation Guide](before-install) to configure your OS properly. This will prevent many unnecessary problems.
 
-### GPG key
-
-The deb package is signed with the Treasure Data GPG key, which can be found [here](http://packages.treasure-data.com/). We recommend importing the GPG key to apt.
-
-    $ wget -O - http://packages.treasure-data.com/debian/RPM-GPG-KEY-td-agent  | sudo apt-key add -
-
 ## Step1 (Ubuntu): Install from Apt Repository
 
 "Ubuntu 12.04 LTS / Precise" and "Ubuntu 10.04 LTS / Lucid" are currently supported.
