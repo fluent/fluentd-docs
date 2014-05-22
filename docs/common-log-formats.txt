@@ -1,4 +1,4 @@
-##Common Log Formats and How To Parse Them
+# Common Log Formats and How To Parse Them
 
 This page is a glossary of common log formats to be parsed with the [Tail input plugin](in_tail).
 
