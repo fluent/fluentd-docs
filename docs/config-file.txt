@@ -4,7 +4,7 @@ This article describes the basic concepts of Fluentd's configuration file.
 
 If you want to know V1 configuration format, please jump to [V1 Format](config-file#v1-format) section.
 
-## Introduction: the life of a Fluentd event
+## Introduction: The Life of a Fluentd Event
 
 Here is a brief overview of the life of a Fluentd event to help you understand the rest of this page:
 
