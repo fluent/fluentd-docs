@@ -1,10 +1,10 @@
 # Common Log Formats and How To Parse Them
 
-This page is a glossary of common log formats to be parsed with the [Tail input plugin](in_tail).
+This page is a glossary of common log formats that can be parsed with the [Tail input plugin](in_tail).
 
-* Apache access log
+* Apache Access Log
 
-    Use `format apache2` like this:
+    Use `format apache2` as shown below:
 
         <source>
             type tail
@@ -13,9 +13,9 @@ This page is a glossary of common log formats to be parsed with the [Tail input 
             path /var/log/apache2/access.log
         </source>
 
-* Apache error log
+* Apache Error Log
 
-    Use regular expression.  See the `format` field in the following sample configuration.
+    Use a regular expression. See the `format` field in the following sample configuration.
 
         <source>
             type tail
@@ -24,10 +24,11 @@ This page is a glossary of common log formats to be parsed with the [Tail input 
             path /var/log/apache2/error.log
         </source>
 
-    The above regular expression might not work depending on your error log format. You can try [Fluentular](http://fluentular.herokuapp.com) to test your format.
-* maillog
+    Depending on your particular error log format, you may need to adjust the regular expression above. You can test your format using [Fluentular](http://fluentular.herokuapp.com).
     
-    Use regular expression.  See the `format` field in the following sample configuration.
+* Maillog
+    
+    Use a regular expression. See the `format` field in the following sample configuration.
 
         <source>
             type tail
@@ -36,9 +37,9 @@ This page is a glossary of common log formats to be parsed with the [Tail input 
             path /var/log/maillog
         </source>
 
-* nginx access log
+* Nginx Access Log
 
-    Use `format nginx` like this:
+    Use `format nginx` as shown below:
 
         <source>
             type tail
@@ -47,9 +48,9 @@ This page is a glossary of common log formats to be parsed with the [Tail input 
             path /var/log/nginx/access.log
         </source>
 
-* nginx error log
+* Nginx Error Log
     
-    Use regular expression. See the `format` field in the following sample configuration.
+    Use a regular expression. See the `format` field in the following sample configuration.
 
         <source>
             type tail
@@ -58,9 +59,9 @@ This page is a glossary of common log formats to be parsed with the [Tail input 
             path /var/log/nginx/error.log
         </source>
 
-* GlusterFS logs
+* GlusterFS Logs
 
-    [Use the GlusterFS input plugin.](collect-glusterfs-logs)
+    Use the [GlusterFS input plugin.](collect-glusterfs-logs)
 
 ###Do you not see what you are looking for?
 
