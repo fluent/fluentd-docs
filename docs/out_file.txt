@@ -55,6 +55,11 @@ Uses UTC for path formatting. The default format is localtime.
 ### compress
 Compresses flushed files using `gzip`. No compression is performed by default.
 
+### symlink_path
+
+Create symlink to temporary buffered file when `buffer_type` is `file`. No symlink is created by default.
+This is useful for tailing file content to check logs.
+
 INCLUDE: _buffer_parameters
 
 INCLUDE: _log_level_params
