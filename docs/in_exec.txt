@@ -4,7 +4,7 @@ The `in_exec` Input plugin executes external programs to receive or pull event l
 
 You can run a program periodically or permanently. To run periodically, please use the run_interval parameter.
 
-### Example Configuration
+## Example Configuration
 
 `in_exec` is included in Fluentd's core. No additional installation process is required.
 
@@ -21,7 +21,7 @@ You can run a program periodically or permanently. To run periodically, please u
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
-### Parameters
+## Parameters
 
 #### type (required)
 The value must be `exec`.
