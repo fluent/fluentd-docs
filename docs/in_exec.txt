@@ -68,7 +68,7 @@ The only requirement for the script is that it outputs TSV, JSON or MessagePack.
 
 For example, the following script scrapes the front page of [Hacker News](http://news.ycombinator.com) and scrapes information about each post:
 
-<iframe style="height:200px" src="http://gist.github.com/kiyoto/1bd903ad1bdd6ac51fcc.pibb?scroll=true"></iframe>
+<iframe src="https://gist.github.com/kiyoto/1bd903ad1bdd6ac51fcc.pibb?scroll=true"></iframe>
 
 Suppose that script is called `hn.rb`. Then, you can run it every 5 minutes with the following configuration
 
