@@ -119,6 +119,9 @@ section 'plugin', 'Input Plugins' do
   category 'in_forward', 'in_forward' do
     article 'in_forward', 'forward Inputプラグイン'
   end
+  category 'in_secure_forward', 'in_secure_forward' do
+    article 'in_secure_forward', 'secure_forward Intput Plugin', ['SSL', 'authentication']
+  end
   category 'in_http', 'in_http' do
     article 'in_http', 'http Inputプラグイン'
   end
