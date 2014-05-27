@@ -77,7 +77,7 @@ Suppose that script is called `hn.rb`. Then, you can run it every 5 minutes with
       type exec
       format json
       tag hackernews
-      command ruby scripts/hn.rb
+      command ruby /path/to/hn.rb
       run_interval 5m # don't hit HN too frequently!
     </source>
     <match hackernews>
