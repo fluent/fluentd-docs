@@ -14,11 +14,10 @@ You can get more information about the logs if verbose logging is turned on. Ple
 2. add `-vv` to TD_AGENT_ARGS
 3. restart td-agent
 
-    :::term
-    # at /etc/init.d/td-agent
-    ...
-    TD_AGENT_ARGS="... -vv"
-    ...
+        # at /etc/init.d/td-agent
+        ...
+        TD_AGENT_ARGS="... -vv"
+        ...
 
 ### deb
 
@@ -26,15 +25,14 @@ You can get more information about the logs if verbose logging is turned on. Ple
 2. add `-vv` to DAEMON_ARGS
 3. restart td-agent
 
-    :::term
-    # at /etc/init.d/td-agent
-    ...
-    DAEMON_ARGS="... -vv"
-    ...
+        # at /etc/init.d/td-agent
+        ...
+        DAEMON_ARGS="... -vv"
+        ...
 
 ### gem
 
 Please add `-vv` to your command line.
 
-    :::term
+    :::text
     $ fluentd .. -vv
