@@ -1,6 +1,6 @@
 # exec Output Plugin
 
-The `out_exec` Buffered Output plugin passes events to an external program. The program receives the path to a file containing the incoming events as its last argument. The file format is tab-separated values (TSV) by default.
+The `out_exec` TimeSliced Output plugin passes events to an external program. The program receives the path to a file containing the incoming events as its last argument. The file format is tab-separated values (TSV) by default.
 
 ## Example Configuration
 
