@@ -8,7 +8,7 @@ This article explains how to use [Fluentd](http://fluentd.org/) and [Norikra](ht
 
 However, Fluentd is not primarily designed for stream processing. We must restart Fluentd after making modifications to its configuration/code, making it unsuitable for running *both* short-span (seconds or minutes) calculations and long-span (hours or days) calculations. If we restart Fluentd to perform a short-span calculation, all existing internal statuses of short and long span calculations are lost. For large scale stream processing platforms, code/processes must be added/removed without any such losses.
 
-[Norikra](http://norikra.github.io/) is an open-source stream processing server based on [Esper](http://esper.codehaus.org/). It allows you to subscribe/unsubscribe to data streams anytime and add/remove SQL queries anytime. [Norikra](http://norikra.github.io/) is written by [@tagomoris](http://github.com/tagomoris), a committer of the Fluentd project.
+[Norikra](http://norikra.github.io/) is an open-source stream processing server based on [Esper](http://esper.codehaus.org/) by [EsperTech](http://www.espertech.com). It allows you to subscribe/unsubscribe to data streams anytime and add/remove SQL queries anytime. [Norikra](http://norikra.github.io/) is written by [@tagomoris](http://github.com/tagomoris), a committer of the Fluentd project.
 
 This article will show you how to integrate [Fluentd](http://fluentd.org/), [Norikra](http://norikra.github.io/), and the [Fluentd norikra plugin](https://github.com/norikra/fluent-plugin-norikra) to create a robust stream data processing platform.
 
