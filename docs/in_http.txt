@@ -45,6 +45,32 @@ The timeout limit for keeping the connection alive. Default Value = 10 seconds
 #### add_http_headers
 Add `HTTP_` prefix headers to the record. The default is `false`
 
+#### format
+The format of the HTTP body. The default is `default`.
+
+* default
+
+Accept records using `json=` / `msgpack=` style.
+
+* regexp
+
+Specify body format by regular expression.
+
+    :::text
+    format /^(?<field1>\d+):(?<field2>\w+)$/
+
+If you execute following command:
+
+    :::term
+    $ curl -X POST -d '123456:awesome' "http://localhost:8888/test.tag.here"
+
+then got parsed result like below:
+
+    :::text
+    {"field1":"123456","field2":"awesome}
+
+`ltsv`, `tsv`, `csv` and `none` are also supported.
+
 
 INCLUDE: _log_level_params
 
@@ -56,3 +82,13 @@ If you want to pass the event time from your application, please use the `time` 
     :::term
     $ curl -X POST -d 'json={"action":"login","user":2}'
       "http://localhost:8888/test.tag.here?time=1392021185"
+
+### Batch mode
+
+If you use `default` format, then you can send array type of json / msgpack to in_http.
+
+    :::term
+    $ curl -X POST -d 'json=[{"action":"login","user":2,"time":1392021185},{"action":"logout","user":2,"time":1392027356}]'
+      http://localhost:8888/test.tag.here;
+
+Non `default` format doesn't support batch mode yet.
