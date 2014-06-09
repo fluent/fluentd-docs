@@ -29,6 +29,26 @@ The Path of the file. The actual path is path + time + ”.log”. The time port
 
 NOTE: Initially, you may see a file which looks like "/path/to/file.20140101.log.b4eea2c8166b147a0". This is an intermediate buffer file ("b4eea2c8166b147a0" identifies the buffer). Once the content of the buffer has been completely [flushed](buf_file), you will see the output file without the trailing identifier.
 
+### append
+The flushed chunk is appended to existence file or not. The default is `false`.
+By default, out_file flushes each chunk to different path.
+
+    :::text
+    # append false
+    log.20140608_0.log
+    log.20140608_1.log
+    log.20140609_0.log
+    log.20140609_1.log
+
+This makes parallel file proccessing easy. But if you want to disable this behaviour,
+you can disable it by setting `append true`.
+
+    :::text
+    # append true
+    log.20140608.log
+    log.20140609.log
+
+
 ### format
 The format of the file content. The default is `out_file`.
 
