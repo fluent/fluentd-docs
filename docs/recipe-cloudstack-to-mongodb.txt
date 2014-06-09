@@ -1,7 +1,7 @@
-Fluentd
-=======
+Storing CloudStack Logs into MongoDB
+====================================
 
-[Fluentd](http://fluentd.org) is an open source software to collect events and logs in JSON format. It has hundred of plugins that allows you to store the logs/events in your favorite data store like AWS S3, MongoDB and even elasticsearch. It is an equivalent to [logstash](http://logstash.net). The source is available on [github](https://github.com/fluent/fluentd) but can also be installed via your favorite package manager (e.g brew, yum, apt, gem). A CloudStack plugin has been written to be able to listen to CloudStack events and store these events in a chosen storage backend. In this chapter we will show how to store CloudStack logs in Elasticsearch using Fluent. Note that the same thing can be done with logstash. The [documentation](http://docs.fluentd.org/articles/quickstart) quite straightforward, but here are the basic steps.
+[Fluentd](http://fluentd.org) is an open source software to collect events and logs in JSON format. It has hundred of plugins that allows you to store the logs/events in your favorite data store like AWS S3, MongoDB and even elasticsearch. A CloudStack plugin has been written to be able to listen to CloudStack events and store these events in a chosen storage backend. In this chapter we will show how to store CloudStack logs in MongoDB using Fluentd. The [documentation](http://docs.fluentd.org/articles/quickstart) quite straightforward, but here are the basic steps.
 
 You will need a working `fluentd` installed on your machine. Pick your package manager of choice and install `fluentd`, for instance with `gem` we would do:
 
