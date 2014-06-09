@@ -29,6 +29,11 @@ The Path of the file. The actual path is path + time + ”.log”. The time port
 
 NOTE: Initially, you may see a file which looks like "/path/to/file.20140101.log.b4eea2c8166b147a0". This is an intermediate buffer file ("b4eea2c8166b147a0" identifies the buffer). Once the content of the buffer has been completely [flushed](buf_file), you will see the output file without the trailing identifier.
 
+### format
+The format of the file content. The default is `out_file`.
+
+INCLUDE: _formatter_parameters
+
 ### time_slice_format
 The time format used as part of the file name. The following characters are replaced with actual values when the file is created:
 

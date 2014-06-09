@@ -1,0 +1,72 @@
+* out_file
+
+Dump time, tag and json record separated by a delimiter:
+
+    :::text
+    time[delimiter]tag[delimiter]record\n
+
+Actual example is:
+
+    :::text
+    2014-06-08T23:59:40[TAB]file.server.logs[TAB]{"field1":"value1","field2":"value2"}\n
+
+`out_file` format has several options to customize the content.
+
+    :::text
+    delimiter SPACE   # Optional. "\t"(TAB) is used by default
+    output_tag false  # Optional. Remove tag[delimiter] from the content. The default is false 
+    output_time true  # Optional. Remove time[delimiter] from the content. The default is false
+
+And you can set time and tag to the record by setting "include_tag_key" / "tag_key" and "include_time_key" / "time_key" options.
+If you set following options:
+
+    :::text
+    include_time_key true
+    time_key log_time  # default is time
+
+then a record has log_time field.
+
+    :::text
+    {"field1":"value1","field2":"value2","log_time":"time string",...}
+
+* json
+
+Dump json record without time and tag:
+
+    :::text
+    {"field1":"value1","field2":"value2"}\n
+
+`json` format also supports "include_xxx" options. See `out_file` section.
+If you don't want to omit time or tag information, please set `include_xxx` options.
+
+In addition, `json` format supports `time_as_epoche` option.
+If this option is `true`, time value keeps a number, not formatted string.
+
+* ltsv
+
+Dump record as [LTSV](http://ltsv.org):
+
+    :::text
+    field1[label_delimiter]value1[delimiter]field2[label_delimiter]value2\n
+
+`ltsv` format supports `delimiter` and `label_delimiter` options.
+
+    :::text
+    format ltsv
+    delimiter SPACE   # Optional. "\t"(TAB) is used by default
+    label_delimiter = # Optional. ":" is used by default
+
+And `ltsv` format also supports "include_xxx" options. See `out_file` section.
+
+* single_value
+
+For in_tail's `none` format. Use one value in json, not entire record:
+
+    :::text
+    value1\n
+
+`single_value` format accepts `add_newline` option.
+
+     :::text
+     add_newline false # default is true. If your value already has "\n", please set "false"
+

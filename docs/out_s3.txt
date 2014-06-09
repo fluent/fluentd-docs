@@ -65,6 +65,11 @@ The Amazon S3 endpoint name. Please select the appropriate endpoint name from th
 
 The most recent versions of the endpoints can be found [here](http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region).
 
+### format
+The format of the S3 object. The default is `out_file`.
+
+INCLUDE: _formatter_parameters
+
 ### time_slice_format
 The time format used as part of the file name. The following characters are replaced with actual values when the file is created:
 
