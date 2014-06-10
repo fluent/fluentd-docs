@@ -13,7 +13,7 @@ section 'overview', 'Overview' do
     article 'install-by-deb', 'Installing Fluentd using DEB Package (Debian / Ubuntu Linux)'
     article 'install-by-gem', 'Installing Fluentd using Ruby Gem'
     article 'install-by-chef', 'Installing Fluentd using Chef'
-    article 'install-by-homebrew', 'Installing Fluentd using Homebrew (MacOS X)'
+    article 'install-by-dmg', 'Installing Fluentd using .dmg Installer (MacOS X)'
     article 'install-from-source', 'Installing Fluentd from Source'
     article 'install-on-heroku', 'Installing Fluentd on Heroku'
     article 'install-on-beanstalk', 'Installing Fluentd on AWS Elastic Beanstalk'
