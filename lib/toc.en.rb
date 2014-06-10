@@ -18,15 +18,6 @@ section 'overview', 'Overview' do
     article 'install-on-heroku', 'Installing Fluentd on Heroku'
     article 'install-on-beanstalk', 'Installing Fluentd on AWS Elastic Beanstalk'
   end
-  category 'users', 'Users' do
-    article 'users', 'Users'
-  end
-  category 'datasheet', 'Data Sheet' do
-    article 'datasheet', 'Data Sheet'
-  end
-  category 'slides', 'Slides' do
-    article 'slides', 'Slides'
-  end
   category 'support', 'Support' do
     article 'support', 'Support'
   end

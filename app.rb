@@ -119,6 +119,13 @@ assets {
 }
 
 #
+# OLD URL REDIRECTS
+#
+get '/articles/users' do
+  redirect 'http://www.fluentd.org/testimonials'
+end
+
+#
 # PATHS
 #
 get '/' do
@@ -196,7 +203,6 @@ end
 get '/:lang/articles/datasheet' do
   redirect 'http://go.treasuredata.com/datasheet_fluentd'
 end
-
 get '/articles/adtech-best-practices' do
   redirect 'http://go.treasuredata.com/fluentd_for_adtech'
 end
