@@ -43,7 +43,7 @@ By using the `add_tag_prefix` option, we can prepend a tag in front of filtered 
         add_tag_prefix filtered
     </match>
     <match filtered.apache.**>
-        type td_lot
+        type td_log
         apikey XXXXX
         ...
     </match>
