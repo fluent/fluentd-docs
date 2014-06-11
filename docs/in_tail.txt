@@ -48,7 +48,7 @@ The paths to read. Multiple paths can be specified, separated by ‘,’.
     :::text
     path /path/to/%Y/%m/%d/*
 
-If the date is 20140401, Fluentd starts to watch the files in /path/to/2014/04/01 directory.
+If the date is 20140401, Fluentd starts to watch the files in /path/to/2014/04/01 directory. See also `read_from_head` parameter.
 
 NOTE: You should not use '*' with log rotation because it may cause the log duplication. In such case, you should separate in_tail plugin configuration.
 
