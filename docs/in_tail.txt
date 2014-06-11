@@ -58,6 +58,9 @@ The interval of refreshing the list of watch file. Default is 60 seconds.
 #### read_from_head
 Start to read the logs from the head of file, not bottom. The default is `false`.
 
+If you want to tail all contents with `*` or strftime dynamic path, set this parameter to `true`.
+Instead, you should guarantee that log rotation will not occur in `*` directory.
+
 #### format (required)
 The format of the log. It is the name of a template or regexp surrounded by ‘/’.
 
