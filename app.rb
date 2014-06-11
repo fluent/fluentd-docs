@@ -125,6 +125,18 @@ get '/articles/users' do
   redirect 'http://www.fluentd.org/testimonials'
 end
 
+get '/:lang/articles/users' do
+  redirect 'http://www.fluentd.org/testimonials'
+end
+
+get '/articles/slides' do
+  redirect 'http://www.fluentd.org/slides'
+end
+
+get '/:lang/articles/slides' do
+  redirect 'http://www.fluentd.org/slides'
+end
+
 #
 # PATHS
 #
