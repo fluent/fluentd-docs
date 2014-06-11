@@ -7,7 +7,7 @@
 </center>
 <br /><br />
 
-This article introduces how to transport sensor data from Raspberry Pi to the cloud, using Fluentd as the data collector. For the cloud side, we'll use the [Treasure Data](http://go.treasuredata.com/fluentd) cloud data service as an example, but you can use any cloud service in its place.
+This article introduces how to transport sensor data from Raspberry Pi to the cloud, using Fluentd as the data collector. For the cloud side, we'll use the [Treasure Data](http://www.treasuredata.com/) cloud data service as an example, but you can use any cloud service in its place.
 
 ## Install Raspbian
 
