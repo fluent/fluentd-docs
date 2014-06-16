@@ -1,7 +1,6 @@
-
 .modal {
-    width:400px;
-    height:306px;
+    width:323px;
+    height:350px;
     padding:8px;
     background:rgba(0,0,0,.3);
     -webkit-border-radius:8px;
@@ -17,7 +16,7 @@
 }
 
 .modal-head {
-    width:400px;
+    width:323px;
     height:44px;
     background-image: -webkit-linear-gradient(top, rgb(249, 249, 249), rgb(233, 233, 233));
     background-image: -moz-linear-gradient(top, rgb(249, 249, 249), rgb(233, 233, 233));
@@ -47,8 +46,8 @@
 }
 
 .modal-content {
-    width:400px;
-    height:260px;
+    width:323px;
+    height:300px;
     background:#fcfcfc;
     -webkit-box-shadow:0px 1px 3px rgba(0,0,0,.25);
     -moz-box-shadow:0px 1px 3px rgba(0,0,0,.25);
