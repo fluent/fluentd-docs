@@ -225,8 +225,3 @@ section 'developer', 'Developer' do
     article 'logo', 'ロゴ'
   end
 end
-section 'advanced-resources', 'Advanced Resources' do
-  category 'whitepapers', 'Fluentd Best Practices for Advertising Business' do
-    article 'adtech-best-practices', 'Adtech Fluentd Best Practices'
-  end
-end

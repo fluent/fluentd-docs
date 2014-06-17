@@ -236,11 +236,3 @@ section 'developer', 'Developer' do
     article 'logo', 'Logo'
   end
 end
-section 'advanced-resources', 'Advanced Resources' do
-  category 'gaming', 'Fluentd Best Practices for Digital Gaming' do
-    article 'gaming-best-practices', 'Digital Gaming Fluentd Best Practices'
-  end
-  category 'adtech', 'Fluentd Best Practices for Advertising Business' do
-    article 'adtech-best-practices', 'Adtech Fluentd Best Practices'
-  end
-end
