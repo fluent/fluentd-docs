@@ -163,3 +163,4 @@ If you will be using these components in production, you may want to modify some
 
 - [Fluentd Architecture](architecture)
 - [Fluentd Get Started](quickstart)
+- [Downloading Fluentd](http://www.fluentd.org/download)
