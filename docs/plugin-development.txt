@@ -95,6 +95,8 @@ Extend the **Fluent::BufferedOutput** class and implement the following methods.
       # 'chunk' is a buffer chunk that includes multiple formatted
       # events. You can use 'data = chunk.read' to get all events and
       # 'chunk.open {|io| ... }' to get IO objects.
+      #
+      # NOTE: This method is called by internal thread, not Fluentd's main thread. So IO wait doesn't affect other plugins.
       def write(chunk)
         data = chunk.read
         print data
@@ -133,7 +135,7 @@ To implement a Time Sliced Output plugin, extend the **Fluent::TimeSlicedOutput*
 
 ## Writing Non-buffered Output Plugins
 
-Extend the **Fluent::Output** class and implement the following methods.
+Extend the **Fluent::Output** class and implement the following methods. **Output** plugin is often used for implementing filter like plugin.
 
     :::ruby
     class SomeOutput < Fluent::Output
@@ -164,6 +166,8 @@ Extend the **Fluent::Output** class and implement the following methods.
       # You can use 'es.each {|time,record| ... }' to retrieve events.
       # 'chain' is an object that manages transactions. Call 'chain.next' at
       # appropriate points and rollback if it raises an exception.
+      #
+      # NOTE: This method is called by Fluentd's main thread so you should not write slow routine here. It causes Fluentd's performance degression.
       def emit(tag, es, chain)
         chain.next
         es.each {|time,record|
