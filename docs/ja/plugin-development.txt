@@ -43,7 +43,7 @@
 
     :::ruby
     tag = "myapp.access"
-    time = Time.now.to_i
+    time = Engine.now
     record = {"message"=>"body"}
     Fluent::Engine.emit(tag, time, record)
 
