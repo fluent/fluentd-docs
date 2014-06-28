@@ -90,16 +90,6 @@ Extend the **Fluent::BufferedOutput** class and implement the following methods.
         # [tag, time, record].to_msgpack
       end
 
-      ## Instead of the above method, you could instead implement this method,
-      ## which is called by fluentd to process a collection of events.
-      #def format_stream(tag, es)
-      #  es.each {|time, record|
-      #    [tag, time, record].to_json + "\n"
-      #    # Alternatively, use msgpack to serialize the object. 
-      #    # [tag, time, record].to_msgpack
-      #  }
-      #end
-
       # This method is called every flush interval. Write the buffer chunk
       # to files or databases here.
       # 'chunk' is a buffer chunk that includes multiple formatted

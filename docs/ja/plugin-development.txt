@@ -90,16 +90,6 @@
         # [tag, time, record].to_msgpack
       end
 
-      ## 上記のメソッドの代わりに、このメソッドを代わりに実装できます。
-      ## このメソッドはFluentdによってイベントの収集を処理するために呼ばれます。
-      #def format_stream(tag, es)
-      #  es.each {|time, record|
-      #    [tag, time, record].to_json + "\n"
-      #    # 代わりに、オブジェクトをシリアライズするためにメッセージパックを使用します。
-      #    # [tag, time, record].to_msgpack
-      #  }
-      #end
-
       # このメソッドはフラッシュインターバル毎に呼ばれます。ここでファイルまたはデータベースに
       # バッファチャンクを書き込みます。
       # 'chunk'は多様な書式化されたイベントを含むバッファチャンクです。
