@@ -16,11 +16,17 @@ Extend the **Fluent::Input** class and implement the following methods.
       # and identifies the plugin in the configuration file.
       Fluent::Plugin.register_input('NAME', self)
 
+      # config_param defines a parameter. You can refer a parameter via @port instance variable
+      # :default means this parameter is optional
+      config_param :port, :integer, :default => 8888
+
       # This method is called before starting.
       # 'conf' is a Hash that includes configuration parameters.
       # If the configuration is invalid, raise Fluent::ConfigError.
       def configure(conf)
         super
+
+        # You can also refer raw parameter via conf[name].
         @port = conf['port']
         ...
       end
@@ -59,11 +65,17 @@ Extend the **Fluent::BufferedOutput** class and implement the following methods.
       # and identifies the plugin in the configuration file.
       Fluent::Plugin.register_output('NAME', self)
 
+      # config_param defines a parameter. You can refer a parameter via @path instance variable
+      # Without :default, a parameter is required.
+      config_param :path, :string
+
       # This method is called before starting.
       # 'conf' is a Hash that includes configuration parameters.
       # If the configuration is invalid, raise Fluent::ConfigError.
       def configure(conf)
         super
+
+        # You can also refer raw parameter via conf[name].
         @path = conf['path']
         ...
       end
@@ -96,7 +108,7 @@ Extend the **Fluent::BufferedOutput** class and implement the following methods.
       # events. You can use 'data = chunk.read' to get all events and
       # 'chunk.open {|io| ... }' to get IO objects.
       #
-      # NOTE: This method is called by internal thread, not Fluentd's main thread. So IO wait doesn't affect other plugins.
+      # NOTE! This method is called by internal thread, not Fluentd's main thread. So IO wait doesn't affect other plugins.
       def write(chunk)
         data = chunk.read
         print data
@@ -167,7 +179,7 @@ Extend the **Fluent::Output** class and implement the following methods. **Outpu
       # 'chain' is an object that manages transactions. Call 'chain.next' at
       # appropriate points and rollback if it raises an exception.
       #
-      # NOTE: This method is called by Fluentd's main thread so you should not write slow routine here. It causes Fluentd's performance degression.
+      # NOTE! This method is called by Fluentd's main thread so you should not write slow routine here. It causes Fluentd's performance degression.
       def emit(tag, es, chain)
         chain.next
         es.each {|time,record|
