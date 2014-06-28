@@ -303,6 +303,7 @@ helpers do
 
   def avaiable_language?(article, lang)
     return true if lang == $DEFAULT_LANGUAGE
+    return false unless $AVAILABLE_LANGUAGES.has_key?(article)
 
     $AVAILABLE_LANGUAGES[article].include?(lang)
   end
