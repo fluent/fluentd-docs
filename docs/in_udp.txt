@@ -1,0 +1,57 @@
+# UDP Input Plugin
+
+The `in_udp` Input plugin enables Fluentd to accept UDP payload.
+
+### Example Configuration
+
+`in_udp` is included in Fluentd's core. No additional installation process is required.
+
+    :::text
+    <source>
+      type udp
+      port 20001 # optional. 5160 by default
+      bind 0.0.0.0 # optional. 0.0.0.0 by default
+	  body_size_limit 1MB # optional. 4096 bytes by default
+    </source>
+
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+
+### Parameters
+
+#### type (required)
+The value must be `udp`.
+
+#### port
+The port to listen to. Default Value = 5160
+
+#### bind
+The bind address to listen to. Default Value = 0.0.0.0
+
+#### delimiter
+The payload is read up to this character. By default, it is "\n".
+
+#### format
+The format of the UDP payload. Required.
+
+* regexp
+
+Specify body format by regular expression.
+
+    :::text
+    format /^(?<field1>\d+):(?<field2>\w+)$/
+
+If you execute following command:
+
+    :::term
+    $ echo '123456:awesome' | netcat 0.0.0.0 5170
+
+then got parsed result like below:
+
+    :::text
+    {"field1":"123456","field2":"awesome}
+
+`ltsv`, `tsv`, `csv` and `none` are also supported.
+
+
+INCLUDE: _log_level_params
+
