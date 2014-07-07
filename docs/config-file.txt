@@ -263,3 +263,7 @@ You need `\` for setting `"`, `\r`, `\n`, `\t`, `\` or several characters in par
 
 So if you have `\` in your regexp format, you should write `\\` instead of `\`.
 
+### Include configuration file
+
+In v1, `@include` is correct syntax intead of `include`.
+`include` is still supported for existence users but now deprecated.
