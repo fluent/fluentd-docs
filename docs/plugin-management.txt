@@ -56,5 +56,5 @@ You can pass this Gemfile to Fluentd via the `--gemfile` option.
 When specifying the `--gemfile` option, Fluentd will try to install the listed gems using Bundler.
 Fluentd will only load listed gems separated from shared gems, and will also prevent unexpected plugin updates.
 
-In addition, if you update Fluetnd's Ruby version, Bundler will re-install the listed gems for the new Ruby version.
+In addition, if you update Fluentd's Ruby version, Bundler will re-install the listed gems for the new Ruby version.
 This allows you to avoid the C extention API compatibility problem.
