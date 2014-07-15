@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
 section 'overview', 'Overview' do
-  category 'architecture', 'アーキテクチャ' do
-    article 'architecture', 'アーキテクチャ'
-  end
   category 'getting-started', 'はじめよう' do
     article 'quickstart', 'クイックスタートガイド'
   end

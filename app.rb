@@ -121,6 +121,10 @@ assets {
 #
 # OLD URL REDIRECTS
 #
+get '/articles/architecture' do
+  redirect 'http://www.fluentd.org/architecture'
+end
+
 get '/articles/users' do
   redirect 'http://www.fluentd.org/testimonials'
 end
@@ -141,7 +145,7 @@ end
 # PATHS
 #
 get '/' do
-  redirect '/articles/architecture'
+  redirect '/articles/quickstart'
 end
 
 get '/robots.txt' do

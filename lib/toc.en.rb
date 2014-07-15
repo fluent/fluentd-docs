@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 
 section 'overview', 'Overview' do
-  category 'architecture', 'Architecture' do
-    article 'architecture', 'Architecture'
-  end
   category 'getting-started', 'Getting Started' do
     article 'quickstart', 'Getting Started with Fluentd'
   end
