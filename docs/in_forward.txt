@@ -4,7 +4,7 @@ The `in_forward` Input plugin listens to a TCP socket to receive the event strea
 
 This plugin is mainly used to receive event logs from other Fluentd instances, the fluent-cat command, or client libraries. This is by far the most efficient way to retrieve the records.
 
-If you require a secure connection between nodes, please consider using [in_secure_forward](in_secure_forward).
+NOTE: Do <b>NOT</b> use this plugin for inter-DC or public internet data transfer without secure connections. To provide the reliable / low-latency transfer, we assume this plugin is only used within private networks. <br/><br/>If you open up the port of this plugin to the internet, the attacker can easily crash Fluentd by using the specific packet. If you require a secure connection between nodes, please consider using <a href="in_secure_forward">in_secure_forward</a>.
 
 ## Example Configuration
 
