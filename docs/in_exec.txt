@@ -92,4 +92,4 @@ And if you run Fluentd with it, you will see the following output (if you are im
     2014-05-26 21:51:35 +0000 hackernews: {"time":1401141095,"rank":3,"title":"Organic Cat Litter Chief Suspect In Nuclear Waste Accident","points":55,"user_name":"timr","duration":"2 hours ago  ","num_comments":12}
     2014-05-26 21:51:35 +0000 hackernews: {"time":1401141095,"rank":4,"title":"Do We Really Know What Makes Us Healthy? (2007)","points":27,"user_name":"gwern","duration":"1 hour ago  ","num_comments":9}
 
-Of course, you can use Fluentd's many output plugins to store the data into various backend systems like [Elasticsearc](free-alternative-to-splunk-by-fluentd), [HDFS](http-to-hdfs), [MongoDB](apache-to-mongodb), [AWS](apache-to-s3), etc.
+Of course, you can use Fluentd's many output plugins to store the data into various backend systems like [Elasticsearch](free-alternative-to-splunk-by-fluentd), [HDFS](http-to-hdfs), [MongoDB](apache-to-mongodb), [AWS](apache-to-s3), etc.

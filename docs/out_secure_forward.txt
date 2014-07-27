@@ -110,7 +110,7 @@ The number of bytes read per nonblocking read. The default value is 8MB=8*1024*1
 The interval between the non-blocking reads, in milliseconds. The default value is 50.
 
 ####socket_interval_msec (integer)
-The inteval between SSL reconnects in milliseconds. The default value is 200.
+The interval between SSL reconnects in milliseconds. The default value is 200.
 
 
 INCLUDE: _buffer_parameters

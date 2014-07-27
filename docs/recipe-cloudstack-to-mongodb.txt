@@ -35,14 +35,14 @@ Or you install the gem directly:
     :::term
     sudo gem install fluent-plugin-cloudstack
 	
-Generate a configuration file with `fluentd -s conf`, you can specify the path to your configuration file. Edit the configuraton to define a `source` as being from your CloudStack host. For instance if you a running a development environment locally:
+Generate a configuration file with `fluentd -s conf`, you can specify the path to your configuration file. Edit the configuration to define a `source` as being from your CloudStack host. For instance if you a running a development environment locally:
 
     :::text
     <source>
       type cloudstack
       host localhost
       apikey $cloudstack_apikey
-      secretkey $cloustack_secretkey
+      secretkey $cloudstack_secretkey
 
       # optional
       protocol http             # https or http, default https
