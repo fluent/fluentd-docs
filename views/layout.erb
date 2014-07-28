@@ -37,6 +37,10 @@
   var activeNav = false;
   </script>
   <script src="//cdn.optimizely.com/js/75134705.js"></script>
+  <!-- Treasure Data -->
+  <script type="text/javascript">
+    !function(t,e){if(void 0===e[t]){e[t]=function(){e[t].clients.push(this),this._init=[Array.prototype.slice.call(arguments)]},e[t].clients=[];for(var r=function(t){return function(){return this["_"+t]=this["_"+t]||[],this["_"+t].push(Array.prototype.slice.call(arguments)),this}},s=["addRecord","set","trackEvent","trackPageview","ready"],n=0;n<s.length;n++){var i=s[n];e[t].prototype[i]=r(i)}var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=("https:"===document.location.protocol?"https:":"http:")+"//s3.amazonaws.com/td-cdn/sdk/td-1.0.0.js";var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(a,c)}}("Treasure",this);
+  </script>
 </head>
 <body>
   <div id="wrapper">
@@ -225,6 +229,29 @@ var Swiftype = window.Swiftype || {};
           $('#anchored-stargazer-count').css('opacity', link_opacity); 
         });
     })
+  </script>
+  <script>
+    var td_client = new Treasure({
+      writeKey: "3867/9da79963a7a77270ae75eceb9f35893c56bd6073",
+      database: "fluentd_website"
+    });
+    $("a").click(function(ev) {
+      ev.preventDefault();
+      var node = ev.target;
+  
+      while (!node.href && node !== document) {
+        node = node.parentNode;
+      }
+  
+      if (!node || $(node).hasClass("search") || node.href === undefined ) return;
+      td_client.trackEvent('anchor_clicks', {
+        current_path: window.location.pathname,
+        clicked_link_host: node.hostname,
+        clicked_link_path: node.pathname,
+        clicked_link_href: node.href
+      }, function() { window.location = node.href }, function(err) { if (err) console.log(err) } );
+    })
+    td_client.trackPageview('views', function() {}, function(err) { if (err) console.log(err) });
   </script>
   <%= ::NewRelic::Agent.browser_timing_footer rescue "" %>
 </body>
