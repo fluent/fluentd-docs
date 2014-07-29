@@ -9,7 +9,9 @@ If you use Ruby 2.0-p353, upgrading Ruby to latest patch level or Ruby 2.1 resol
 
 Unfortunately, Ruby 2.0 package of RHEL 7 and Ubuntu 14.04 use Ruby 2.0-p353.
 So don't use Fluentd with Ruby 2.0 package on these environments.
-You can install specified Ruby version using [rbenv](https://github.com/sstephenson/rbenv) and its package.
+You can install specified Ruby version using [rbenv](https://github.com/sstephenson/rbenv).
+
+Using td-agent is another way to avoid this problem because td-agent includes own Ruby.
 
 ## Operations
 
