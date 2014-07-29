@@ -1,5 +1,16 @@
 # FAQ
 
+## Known Issue
+
+### I use Fluentd with Ruby 2.0 but Fluentd seems deadlocked. Why?
+
+The rubygems of Ruby 2.0-p353 has a deadlock problem ([#9224](https://bugs.ruby-lang.org/issues/9224)).
+If you use Ruby 2.0-p353, upgrading Ruby to latest patch level or Ruby 2.1 resolve this problem.
+
+Unfortunately, Ruby 2.0 package of RHEL 7 and Ubuntu 14.04 use Ruby 2.0-p353.
+So don't use Fluentd with Ruby 2.0 package on these environments.
+You can install specified Ruby version using [rbenv](https://github.com/sstephenson/rbenv) and its package.
+
 ## Operations
 
 ### I have a weird timestamp value, what happened?
@@ -32,6 +43,7 @@ If you would like to find out more about plugin mangement, please take a look at
 ### How can I match (send) an event to multiple outputs?
 
 You can use the `copy` [output plugin](/articles/out_copy) to send the same event to multiple output destinations.
+
 
 ## Plugin Development
 
