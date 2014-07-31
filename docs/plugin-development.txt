@@ -201,7 +201,7 @@ Put the following file into **/etc/fluent/plugin/in_mytail.rb**.
       # Override the 'configure_parser(conf)' method.
       # You can get config parameters in this method.
       def configure_parser(conf)
-        @time_format = conf['time_format'] || '%Y-%M-%d %H:%M:%S'
+        @time_format = conf['time_format'] || '%Y-%m-%d %H:%M:%S'
       end
     
       # Override the 'parse_line(line)' method that returns the time and record.
