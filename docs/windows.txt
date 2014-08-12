@@ -1,13 +1,21 @@
 #Collecting Log Data from Windows
 
-In this article, we explain how to get started with collecting data from Windows machines.
+In this article, we explain how to get started with collecting data from Windows machines (This setup has been tested on a 64-bit Windows 8 machine).
 
 As of v10, Fluentd does NOT support Windows. However, there are times when you must collect data streams from Windows machines. For example:
 
 1. **Tailing log files on Windows**: collect and analyze log data from a Windows application.
 2. **Collecting Windows Event Logs**: collect event logs from your Windows servers for system analysis, compliance checking, etc.
 
-**This setup has been tested on a 64-bit Windows 8 machine.**
+**If you're not familiar with Fluentd**, please learn more about Fluentd first.
+
+<center>
+<div class="btn-look" style="width: 300px;">
+<a href="http://docs.fluentd.org/articles/architecture">What is Fluentd?</a>
+</div>
+</center>
+<br/>
+<br/>
 
 ##Prerequisites
 

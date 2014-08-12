@@ -1158,7 +1158,7 @@ del.differ, del.differ * {
 	box-shadow: 1px 1px 1px #fff;
 	-webkit-box-shadow: 1px 1px 1px #fff;
 	-moz-box-shadow: 1px 1px 1px #fff;
-	background:#da4808 url(/images/arrow01.png) 177px 50% no-repeat;
+	background:#da4808 url(/images/arrow01.png) 90% 50% no-repeat;
 }
 .btn-look a:visited {
   color: #ffffff;

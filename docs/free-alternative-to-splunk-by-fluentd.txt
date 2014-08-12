@@ -3,9 +3,15 @@
 [Splunk](http://www.splunk.com/) is a great tool for searching logs, but its high cost makes it prohibitive for many teams. In this article, we present a free and open source alternative to Splunk by combining three open source projects: Elasticsearch, Kibana, and Fluentd.
 
 <center>
-<a href="http://demo.kibana.org/" target="_blank"><img src="/images/kibana-screenshot.png" width="90%"/></a><br />
-<a href="http://demo.kibana.org/" target="_blank">Click to See the Demo</a>
-</center><br/><br/>
+<a href="http://kibana.fluentd.org/" target="_blank"><img src="/images/kibana-screenshot.png" width="90%"/></a><br />
+</center><br/>
+
+<center>
+<div class="btn-look">
+<a href="http://kibana.fluentd.org/">Demo</a>
+</div>
+</center>
+<br/>
 
 [Elasticsearch](http://www.elasticsearch.org/) is an open source search engine known for its ease of use. [Kibana](http://kibana.org/) is an open source Web UI that makes Elasticsearch user friendly for marketers, engineers and data scientists alike.
 
@@ -18,14 +24,12 @@ By combining these three tools (Fluentd + Elasticsearch + Kibana) we get a scala
 In this guide, we will go over installation, setup, and basic use of this combined log search solution. The contents of this article were tested on Mac OS X Mountain Lion. **If you're not familiar with Fluentd**, please learn more about Fluentd first.
 
 <center>
-<div class="btn-look">
-<a href="http://docs.fluentd.org/articles/architecture">Learn More</a>
+<div class="btn-look" style="width: 300px;">
+<a href="http://docs.fluentd.org/articles/architecture">What is Fluentd?</a>
 </div>
 </center>
-<br />
-<br />
-<br />
-<br />
+<br/>
+<br/>
 
 ## Prerequisites
 
@@ -151,7 +155,7 @@ When debugging your td-agent configuration, using [out_copy](out_copy) + [out_st
 
 Please access the Kibana Demo Environment from the link below.
 
-- [Kibana Demo Environment](http://demo.kibana.org/)
+- [Kibana Demo Environment](http://kibana.fluentd.org/)
 
 ## Conclusion
 

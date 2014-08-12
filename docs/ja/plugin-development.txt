@@ -185,7 +185,7 @@ Time Slicedアウトプットプラグインは実装するために、**Fluent:
       # 'configure_parser(conf)'メソッドをオーバーライドしてください。
       # あなたは、このメソッドで設定パラメータを取得できます。
       def configure_parser(conf)
-        @time_format = conf['time_format'] || '%Y-%M-%d %H:%M:%S'
+        @time_format = conf['time_format'] || '%Y-%m-%d %H:%M:%S'
       end
     
       # 時間とレコードを返す'parse_line(line)'メソッドをオーバーライドしてください。
