@@ -45,7 +45,7 @@ Specify body format by regular expression.
 If you execute following command:
 
     :::term
-    $ echo '123456:awesome' | netcat -u 0.0.0.0 5170
+    $ echo '123456:awesome' | netcat -u 0.0.0.0 5160
 
 then got parsed result like below:
 
