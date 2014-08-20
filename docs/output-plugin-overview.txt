@@ -17,7 +17,8 @@ The output plugin's buffer behavior (if any) is defined by a separate [Buffer pl
 ### secondary output
 
 At Buffered output plugin, the user can specify `<secondary>` with any output plugin in `<match>` configuration.
-If the retry count exceeds the buffer's `retry_limit`, then buffered chunk is output to `<secondary>` output plugin.
+If the retry count exceeds the buffer's `retry_limit` (and the retry limit has
+not been disabled via `disable_retry_limit`), then buffered chunk is output to `<secondary>` output plugin.
 
 `<secondary>` is useful for backup when destination servers are unavilable, e.g. forward, mongo and other plugins. We strongly recommend `out_file` plugin for `<secondary>`.
 
