@@ -40,7 +40,7 @@ Now you might be wondering, "Why do I need to specify the full path?" The reason
 
 to your `~/.bash_profile`.
 
-If you would like to find out more about plugin mangement, please take a look at the [Plugin Management](/articles/plugin-management) article.
+If you would like to find out more about plugin management, please take a look at the [Plugin Management](/articles/plugin-management) article.
 
 ### How can I match (send) an event to multiple outputs?
 

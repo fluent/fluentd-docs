@@ -27,7 +27,7 @@ The interval between data flushes. The suffixes “s” (seconds), “m” (minu
 
 #### flush_at_shutdown
 If true, queued chunks are flushed at shutdown process. The default is `true`.
-If false, queued chunks are dicarded unlike `buf_file`.
+If false, queued chunks are discarded unlike `buf_file`.
 
 #### retry_wait
 The interval between retries. The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.

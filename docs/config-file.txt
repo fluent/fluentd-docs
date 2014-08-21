@@ -230,7 +230,7 @@ V1 format allows multi line value for array and hash values.
 ### `"foo"` is interpreted as `foo`, not `"foo"`
 
 `"` is a quote character of string value.
-It causes the different behaviour beteen V1 and old format.
+It causes the different behaviour between V1 and old format.
 
     str_param "foo"
 
@@ -261,11 +261,11 @@ NOTE: config-xxx mixins use "${}", not "#{}". These embedded configurations are 
 `\` is interpreted as escape character.
 You need `\` for setting `"`, `\r`, `\n`, `\t`, `\` or several characters in parameter.
 
-    str_param foo\nbar # \n is intereted as actual LF chatacter
+    str_param foo\nbar # \n is intereted as actual LF character
 
 So if you have `\` in your regexp format, you should write `\\` instead of `\`.
 
 ### Include configuration file
 
-In v1, `@include` is correct syntax intead of `include`.
+In v1, `@include` is correct syntax instead of `include`.
 `include` is still supported for existence users but now deprecated.

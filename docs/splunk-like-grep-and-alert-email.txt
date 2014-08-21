@@ -8,7 +8,7 @@ By the way, Splunk happens to be quite expensive. If you're interested in a free
 
 ## Installing the Needed Plugins
 
-[Install](/categories/installation) Fluend if you haven't yet.
+[Install](/categories/installation) Fluentd if you haven't yet.
 
 Please install `fluent-plugin-grepcounter` by running:
 
