@@ -9,6 +9,8 @@ The `in_udp` Input plugin enables Fluentd to accept UDP payload.
     :::text
     <source>
       type udp
+      format /^(?<field1>\d+):(?<field2>\w+)$/ # required
+      tag mytag # required
       port 20001 # optional. 5160 by default
       bind 0.0.0.0 # optional. 0.0.0.0 by default
 	  body_size_limit 1MB # optional. 4096 bytes by default
@@ -43,7 +45,7 @@ Specify body format by regular expression.
 If you execute following command:
 
     :::term
-    $ echo '123456:awesome' | netcat 0.0.0.0 5170
+    $ echo '123456:awesome' | netcat -u 0.0.0.0 5160
 
 then got parsed result like below:
 
