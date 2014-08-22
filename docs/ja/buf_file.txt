@@ -23,6 +23,8 @@ NOTE: 設定ファイルの基本的な構造や文法に関しては、<a href=
 #### buffer_chunk_limit
 各バッファチャンクのサイズ。デフォルトは8mです。接尾辞 “k” (KB), “m” (MB), “g” (GB) が使用できます。基本的なバッファ構造については[Bufferプラグインの概要](buffer-plugin-overview)を参照してください。
 
+NOTE: Time Slicedプラグインではデフォルトは256mに上書きされます。
+
 #### buffer_queue_limit
 チャンクキューの長さの制限値。基本的なバッファ構造については[Bufferプラグインの概要](buffer-plugin-overview)を参照してください。デフォルトの制限値は256チャンクです。
 

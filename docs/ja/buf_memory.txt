@@ -20,7 +20,7 @@ NOTE: 設定ファイルの基本的な構造や文法に関しては、<a href=
 各バッファチャンクのサイズ。デフォルトは8mです。接尾辞 “k” (KB), “m” (MB), “g” (GB) が使用できます。基本的なバッファ構造については[Bufferプラグインの概要](buffer-plugin-overview)を参照してください。
 
 #### buffer_queue_limit
-チャンクキューの長さの制限値。基本的なバッファ構造については[Bufferプラグインの概要](buffer-plugin-overview)を参照してください。デフォルトの制限値は256チャンクです。
+チャンクキューの長さの制限値。基本的なバッファ構造については[Bufferプラグインの概要](buffer-plugin-overview)を参照してください。デフォルトの制限値は64チャンクです。
 
 #### flush_interval
 データをフラッシュする間隔。接尾辞“s” (seconds), “m” (minutes), “h” (hours) が使用できます。
