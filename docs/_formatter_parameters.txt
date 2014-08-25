@@ -59,9 +59,9 @@ Output the value of a single field instead of the whole record. Often used in co
 
 `single_value` format supports the `add_newline` and `message_key` options.
 
-     :::text
-     add_newline false # Optional, defaults to true. If there is a trailing "\n" already, set it "false"
-     message_key my_field # Optional, defaults to "message". The value of this field is outputted.
+    :::text
+    add_newline false # Optional, defaults to true. If there is a trailing "\n" already, set it "false"
+    message_key my_field # Optional, defaults to "message". The value of this field is outputted.
 
 For this format, the following common parameters are also supported.
 INCLUDE: _formatter_common_parameters
