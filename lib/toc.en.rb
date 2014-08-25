@@ -216,6 +216,11 @@ section 'buffer-plugins', 'Buffer Plugins' do
     article 'buf_file', 'file Buffer Plugin'
   end
 end
+section 'formatter-plugins', 'Formatter Plugins' do
+  category 'formatter-plugin-overview', 'Overview' do
+    article 'formatter-plugin-overview', 'Formatter Plugin Overview'
+  end
+end
 section 'developer', 'Developer' do
   category 'plugin-development', 'Plugin Development' do
     article 'plugin-development', 'Plugin Development'
