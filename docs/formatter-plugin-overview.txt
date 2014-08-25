@@ -29,13 +29,6 @@ The output changes to
 
 i.e., each line is a single JSON object with "time" and "tag fields to retain the event's timestamp and tag.
 
-## List of Default Text Formats
-
-* [formatter_out_file](formatter_out_file)
-* [formatter_json](formatter_json)
-* [formatter_ltsv](formatter_ltsv)
-* [formatter_single_value](formatter_single_value)
-
 ## List of Output Plugins with Text Formatter Support
 
 * [out_file](out_file)
