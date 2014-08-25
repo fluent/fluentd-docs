@@ -63,5 +63,3 @@ Output the value of a single field instead of the whole record. Often used in co
     add_newline false # Optional, defaults to true. If there is a trailing "\n" already, set it "false"
     message_key my_field # Optional, defaults to "message". The value of this field is outputted.
 
-For this format, the following common parameters are also supported.
-INCLUDE: _formatter_common_parameters
