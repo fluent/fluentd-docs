@@ -4,7 +4,7 @@
 
 To install a plugin, please put the ruby script in the ``/etc/fluent/plugin`` directory.
 
-Alternatively, you can create a Ruby Gem package that includes a ``lib/fluent/plugin/<TYPE>_<NAME>.rb`` file. The *TYPE* is ``in`` for input plugins, ``out`` for output plugins, ``buf`` for buffer plugins and ``formatter`` for formatter plugins. For example, an email Output plugin would have the path: ``lib/fluent/plugin/out_mail.rb``. The packaged gem can be distributed and installed using RubyGems. For further information, please see the [list of Fluentd plugins](http://fluentd.org/plugins).
+Alternatively, you can create a Ruby Gem package that includes a ``lib/fluent/plugin/<TYPE>_<NAME>.rb`` file. The *TYPE* is ``in`` for input plugins, ``out`` for output plugins, ``buf`` for buffer plugins, ``parser`` for parser plugins,  and ``formatter`` for formatter plugins. For example, an email Output plugin would have the path: ``lib/fluent/plugin/out_mail.rb``. The packaged gem can be distributed and installed using RubyGems. For further information, please see the [list of Fluentd plugins](http://fluentd.org/plugins).
 
 ## Writing Input Plugins
 
@@ -234,9 +234,77 @@ Use the following configuration file:
       tag myapp.mytail
     </source>
 
-## Text Formatter Plugins
+## Parser Plugins (v0.10.46 and above)
 
-Starting with v.10.49, Fluentd supports [pluggable, customizable formats for output plugins](formatter-plugin-overview). The plugin files whose names start with "formatter_" are registered as Formatter Plugins.
+Starting with v0.10.46, Fluentd supports [pluggable, customizable formats for input plugins](parser-plugin-overview). The plugin files whose names start with "parser_" are registered as Parser Plugins.
+
+Here is an example of a custom parser that parses the following newline-delimited log format:
+
+    :::text
+    <timestamp><SPACE>key1=value1<DELIMITER>key2=value2<DELIMITER>key3=value...
+
+e.g., something like this
+
+    :::text
+    2014-04-01T00:00:00 name=jake age=100 action=debugging
+
+While it is not hard to write a regular expression to match this format, it is tricky to extract and save key names.
+
+Here is the code to parse this custom format (let's call it `time_key_value`). It takes one optional parameter called `delimiter`, which is the delimiter for key-value pairs. It also takes `time_format` to parse the time string.
+
+    :::ruby
+    module Fluent
+      class TextParser
+        class TimeKeyValueParser
+          include Configurable # This enables the use of config_param
+          config_param :delimiter, :string, :default => " " # delimiter is configurable with " " as default
+          config_param :time_format, :string, :default => nil # time_format is configurable
+          # This method is called after config_params have read configuration parameters
+          def configure(conf)
+            if @delimiter.length != 1
+              raise ConfigError, "delimiter must be a single character. #{@delimiter} is not."
+            end
+
+            # TimeParser class is already given. It takes a single argument as the time format
+            # to parse the time string with.
+            @time_parser = TimeParser.new(@time_format)
+          end
+          
+          # This is the main method. The input "text" is the unit of data to be parsed.
+          # If this is the in_tail plugin, it would be a line. If this is for in_syslog,
+          # it is a single syslog message.
+          def call(text)
+            time, key_values = text.split(" ", 2)
+            time = @time_parser.parse(time)
+            record = {}
+            key_values.split(@delimiter).each { |kv|
+              k, v = kv.split("=", 2)
+              record[k] = v
+            }
+            yield time, record
+          end
+        end
+        
+        # Add TimeKeyValueParser to the registry
+        register_template("time_key_value", Proc.new { TimeKeyValueParser.new })
+      end
+    end
+
+Then, save this code in `parser_time_key_value.rb` in a loadable plugin path. Then, if in_tail is configured as
+
+    :::text
+    # Other lines...
+    <source>
+      type tail
+      path /path/to/input/file
+      format time_key_parser
+    </source>
+
+Then, the log line like `2014-01-01T00:00:00 k=v a=b` is parsed as `2013-01-01 00:00:00 +0000 test: {"k":"v","a":"b"}`.
+
+## Text Formatter Plugins (v0.10.49 and above)
+
+Starting with v0.10.49, Fluentd supports [pluggable, customizable formats for output plugins](formatter-plugin-overview). The plugin files whose names start with "formatter_" are registered as Formatter Plugins.
 
 Here is an example of a custom formatter that outputs events as CSVs. It takes a required parameter called "csv_fields" and outputs the fields. It assumes that the values of the fields are already valid CSV fields.
 
@@ -275,7 +343,7 @@ Here is an example of a custom formatter that outputs events as CSVs. It takes a
           end
         end
         
-        # Add TextFormatter to the registry with the name "my_csv".
+        # Add MyCSVFormatter to the registry with the name "my_csv".
         register_template("my_csv", Proc.new { MyCSVFormatter.new })
       end
     end
