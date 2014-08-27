@@ -1,0 +1,24 @@
+# Parser Plugin Overview (v0.10.46 and above)
+
+## Overview
+
+Sometimes, the `format` parameter for input plugins (ex: [in_tail](in_tail), [in_syslog](in_syslog), [in_tcp](in_tcp) and [in_udp](in_udp)). For **v0.10.46 and above**, Fluentd has a pluggable system that enables the user to create their own parser formats.
+
+## How To Use
+
+* Write a custom format plugin. [See here for more information](plugin-development#parser-plugins-v01046-and-above).
+* From any input plugin that supports the "format" field, call the custom plugin by its name. Here is an example with in_tail.
+        <source>
+          type tail
+          path /path/to/input/file
+          format my_custom_parser
+        </source>
+
+## List of Core Input Plugins with Parser support (`format` parameter)
+
+* [in_tail](in_tail)
+* [in_tcp](in_tcp)
+* [in_udp](in_udp)
+* [in_syslog](in_syslog)
+* [in_http](in_http)
+
