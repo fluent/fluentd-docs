@@ -8,7 +8,7 @@ NOTE: "Ubuntu 12.04 LTS / Precise" and "Ubuntu 10.04 LTS / Lucid" are currently 
 
 Fluentd is written in Ruby for flexibility, with performance sensitive parts written in C. However, casual users may have difficulty installing and operating a Ruby daemon.
 
-That's why [Treasure Data, Inc](http://www.treasuredata.com/) is providing **the stable distribution of Fluentd**, called `td-agent`. The differences between Fluentd and td-agent can be found [here](faq#what-are-the-differences-between-td-agent-and-fluentd).
+That's why [Treasure Data, Inc](http://www.treasuredata.com/) is providing **the stable distribution of Fluentd**, called `td-agent`. The differences between Fluentd and td-agent can be found <a href="//www.fluentd.org/faqs">here</a>.
 
 ## Step0: Before Installation
 
