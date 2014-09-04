@@ -244,7 +244,7 @@ var Swiftype = window.Swiftype || {};
       }
   
       if (!node || $(node).hasClass("search") || node.href === undefined ) return;
-      td_client.trackEvent('anchor_clicks_unified', {
+      td_client.trackEvent('anchor_clicks_v1_2_0', {
         current_host: window.location.hostname,
         current_path: window.location.pathname,
         clicked_link_host: node.hostname,
@@ -252,7 +252,7 @@ var Swiftype = window.Swiftype || {};
         clicked_link_href: node.href
       }, function() { window.location = node.href }, function(err) { if (err) console.log(err) } );
     })
-    td_client.trackPageview('views_unified', function() {}, function(err) { if (err) console.log(err) });
+    td_client.trackPageview('views_v1_2_0', function() {}, function(err) { if (err) console.log(err) });
   </script>
   <%= ::NewRelic::Agent.browser_timing_footer rescue "" %>
 </body>
