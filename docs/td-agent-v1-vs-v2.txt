@@ -27,7 +27,7 @@ Major feature updates to td-agent v2 are as follows.
 - `td-agent-gem` utility command was added
   - To install a third-party plugin, use /usr/sbin/td-agent-gem command
   - This utility was introduced to resolve the issues around rvm.
-- Uses [Fluentd v1 configuration]http://docs.fluentd.org/articles/config-file#v1-format) by default
+- Uses [Fluentd v1 configuration](http://docs.fluentd.org/articles/config-file#v1-format) by default
 
 ## Upgrading from v1 to v2
 
