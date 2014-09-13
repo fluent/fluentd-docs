@@ -1,8 +1,8 @@
 # Installing Fluentd Using rpm Package
 
-This article explains how to install the td-agent rpm package, the stable Fluentd distribution package maintained by [Treasure Data, Inc](http://www.treasuredata.com/).
+**This guide is for td-agent v1, the old stable version. See [here](install-by-rpm) for the current installation guide for rpm.**
 
-NOTE: Currently, RedHat/CentOS 5 and 6 are supported with the support for 7 forthcoming. If you are interested in other versions/platforms, please contact us on the <a href="https://groups.google.com/d/forum/fluentd">mailing list</a>. If enough people express interest, we may consider supporting it.
+This article explains how to install the td-agent rpm package, the stable Fluentd distribution package maintained by [Treasure Data, Inc](http://www.treasuredata.com/).
 
 ## What is td-agent?
 
@@ -10,19 +10,17 @@ Fluentd is written in Ruby for flexibility, with performance sensitive parts wri
 
 That's why [Treasure Data, Inc](http://www.treasuredata.com/) is providing **the stable distribution of Fluentd**, called `td-agent`. The differences between Fluentd and td-agent can be found <a href="//www.fluentd.org/faqs">here</a>.
 
-NOTE: This installation guide is for td-agent v2, the current stable version. See <a href="td-agent-v1-vs-v2">this page</a> for the comparison between v1 and v2. <a href="install-by-rpm-v1">Here</a> is the rpm installation guide for v1.
-
-## Step 0: Before Installation
+## Step0: Before Installation
 
 Please follow the [Preinstallation Guide](before-install) to configure your OS properly. This will prevent many unnecessary problems.
 
-## Step 1: Install from rpm Repository
+## Step1: Install from rpm Repository
 
-CentOS and RHEL 5 and 6 are currently supported (The support for RHEL 7 is coming).
+CentOS and RHEL 5.0+ are currently supported.
 
-Executing [install-redhat-td-agent2.sh](http://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh) will automatically install td-agent on your machine. This shell script registers a new rpm repository at `/etc/yum.repos.d/td.repo` and installs the `td-agent` rpm package.
+Executing [install-redhat.sh](http://toolbelt.treasuredata.com/sh/install-redhat.sh) will automatically install td-agent on your machine. This shell script registers a new rpm repository at `/etc/yum.repos.d/td.repo` and installs the `td-agent` rpm package.
 
-    $ curl -L http://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh | sh
+    $ curl -L http://toolbelt.treasuredata.com/sh/install-redhat.sh | sh
 
 NOTE: It's HIGHLY recommended that you set up <b>ntpd</b> on the node to prevent invalid timestamps in your logs.
 

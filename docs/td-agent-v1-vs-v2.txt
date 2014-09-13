@@ -1,0 +1,52 @@
+# td-agent v1 vs. td-agent v2
+
+## Supported Platforms
+
+[Treasure Data, Inc.](http://www.treasuredata.com) maintains stable packages for Fluentd and canonical plugins as Treasure Agent (the package is called `td-agent`). td-agent has v1 and v2, and v2 is NOT backward-compatible with v1. That said, v2 supports more platforms and incorporates all future improvements.
+
+<table>
+	<th>
+		<td>v1</td><td>v2</td>
+	</th>
+	<tr><td>RedHat/CentOS 5/6</td><td>&#10003;</td><td>&#10003;</td></tr>
+	<tr><td>Ubuntu Lucid</td><td>&#10003;</td><td>&#10003;</td></tr>
+	<tr><td>Ubuntu Precise</td><td>&#10003;</td><td>&#10003;</td></tr>
+	<tr><td>Ubuntu Trusty</td><td></td><td>&#10003;</td></tr>
+	<tr><td>Debian Squeeze</td><td></td><td>&#10003;</td></tr>
+	<tr><td>Debian Wheezy</td><td></td><td>&#10003;</td></tr>
+	<tr><td>MacOSX</td><td></td><td>&#10003;</td></tr>
+</table>
+
+## Features
+
+Major feature updates to td-agent v2 are as follows.
+
+- Ruby 2.1.2
+- Updated for the core libraries, jemalloc 3.6.0, msgpack 0.5.8, Cool.io 1.2.4, etc.
+- Changed the installation directory from `/usr/{lib,lib64}/fluent` to `/opt/td-agent`
+- `td-agent-gem` utility command was added
+  - To install a third-party plugin, use /usr/sbin/td-agent-gem command
+  - This utility was introduced to resolve the issues around rvm.
+- Uses [Fluentd v1 configuration]http://docs.fluentd.org/articles/config-file#v1-format) by default
+
+## Upgrading from v1 to v2
+
+Because v1 and v2 are not compatible, update commands provided by package managers (ex: `yum update`) cannot be used to migrate from v1 to v2. To upgrade from v1 to v2:
+
+1. Uninstall v1.
+2. Install v2.
+3. Install the plugins for v2.
+
+If your current td-agent v1 deployment uses third-party plugins, make sure that they are compatible with v2 (Most of them should work out of the box).
+
+## td-agent v1 becomes the "old" stable version
+
+Since there is a large existing user base for td-agent v1, it will be maintained as the "old" stable version. td-agent v1 will use Fluentd v0.10.x.
+
+**If using Fluentd/td-agent for the first time/a new project, td-agent v2 is strongly recommended.**
+
+##How to Install
+
+* [Ubuntu/Debian](install-by-deb)
+* [RedHat/CentOS](install-by-rpm)
+* [MacOSX](install-by-dmg)

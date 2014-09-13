@@ -1,53 +1,36 @@
 # Installing Fluentd Using deb Package
 
+**This guide is for td-agent v1, the old stable version. See [here](install-by-deb) for the current installation guide for deb.**
+
 This article explains how to install the td-agent deb package, the stable Fluentd distribution package maintained by [Treasure Data, Inc](http://www.treasuredata.com/).
 
-NOTE: For Ubuntu, "14.04 LTS / Precise", "12.04 LTS / Lucid", "10.04 LTS / Lucid" are currently supported. For Debian, Squeeze and Wheezy are supported. If you are interested in other versions/platforms, please contact us on the <a href="https://groups.google.com/d/forum/fluentd">mailing list</a>. If enough people express interest, we may consider supporting it.
+NOTE: "Ubuntu 12.04 LTS / Precise" and "Ubuntu 10.04 LTS / Lucid" are currently supported. If you are interested in Debian, please contact us on the <a href="https://groups.google.com/d/forum/fluentd">mailing list</a>. If enough people express interest, we may consider supporting it.
 
 ## What is td-agent?
 
-Fluentd is written in Ruby for flexibility, with performance sensitive parts written in C. However, some users may have difficulty installing and operating a Ruby daemon.
+Fluentd is written in Ruby for flexibility, with performance sensitive parts written in C. However, casual users may have difficulty installing and operating a Ruby daemon.
 
 That's why [Treasure Data, Inc](http://www.treasuredata.com/) is providing **the stable distribution of Fluentd**, called `td-agent`. The differences between Fluentd and td-agent can be found <a href="//www.fluentd.org/faqs">here</a>.
 
-NOTE: This installation guide is for td-agent v2, the current stable version. See <a href="td-agent-v1-vs-v2">this page</a> for the comparison between v1 and v2. <a href="install-by-deb-v1">Here</a> is the deb installation guide for v1.
-
-## Step 0: Before Installation
+## Step0: Before Installation
 
 Please follow the [Preinstallation Guide](before-install) to configure your OS properly. This will prevent many unnecessary problems.
 
-## Step 1 : Install from Apt Repository
+## Step1 (Ubuntu): Install from Apt Repository
 
-For Ubuntu, "Ubuntu 14.04 LTS / Trusty", "Ubuntu 12.04 LTS / Precise" and "Ubuntu 10.04 LTS / Lucid" are currently supported.
+"Ubuntu 12.04 LTS / Precise" and "Ubuntu 10.04 LTS / Lucid" are currently supported.
 
-For Debian, Wheezy and Squeeze are currently supported.
-
-A shell script is provided to automate the installation process for each version. The shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
-
-For Trusty,
+#### Ubuntu Precise
+Executing [install-ubuntu-precise.sh](http://toolbelt.treasuredata.com/sh/install-ubuntu-precise.sh) will automatically install td-agent on your machine. This shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
 
     :::term
-    curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent2.sh | sh
+    $ curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-precise.sh | sh
 
-For Precise,
-
-    :::term
-    curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-precise-td-agent2.sh | sh
-
-For Lucid,
+#### Ubuntu Lucid
+Executing [install-ubuntu-lucid.sh](http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid.sh) will automatically install td-agent on your machine. This shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
 
     :::term
-    curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid-td-agent2.sh | sh
-
-For Debian Wheezy,
-
-    :::term
-    curl -L http://toolbelt.treasuredata.com/sh/install-debian-wheezy-td-agent2.sh | sh
-
-For Debian Squeeze,
-
-    :::term
-    curl -L http://toolbelt.treasuredata.com/sh/install-debian-squeeze-td-agent2.sh | sh
+    $ curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid.sh | sh
 
 NOTE: It's HIGHLY recommended that you set up <b>ntpd</b> on the node to prevent invalid timestamps in your logs.
 
