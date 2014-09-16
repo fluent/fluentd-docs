@@ -252,7 +252,7 @@ var Swiftype = window.Swiftype || {};
         clicked_link_href: node.href
       }, function() { window.location = node.href }, function(err) { if (err) console.log(err) } );
     })
-    td_client.trackPageview('views_v1_2_0', function() {}, function(err) { if (err) console.log(err) });
+    td_client.trackPageview('views_docs_v1_2_0', function() {}, function(err) { if (err) console.log(err) });
   </script>
   <%= ::NewRelic::Agent.browser_timing_footer rescue "" %>
 </body>
