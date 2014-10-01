@@ -52,6 +52,24 @@ then got parsed result like below:
 
 `ltsv`, `tsv`, `csv` and `none` are also supported.
 
+#### source_host_key
+
+The field name of the client's hostname. If set the value, the client's hostname will be set to its key. The default is nil (no adding hostname).
+
+If you set following configuration:
+
+    :::text
+    source_host_key client_host
+
+then the client's hostname is set to `client_host` field.
+
+    :::text
+    {
+        ...
+        "foo": "bar",
+        "client_host": "client.hostname.org"
+    }
+
 
 INCLUDE: _log_level_params
 
