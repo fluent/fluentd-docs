@@ -31,14 +31,13 @@ The value must be `tail`.
 #### tag (required)
 The tag of the event.
 
-`*` can be specified. `*` is replaced by actual file path which is replaced `/` with `.`.
-If you use following configuration
+`*` can be used as a placeholder that expands to the actual file path, replacing '/' with '.'. For example, if you have the following configuration
 
     :::text
     path /path/to/file
     tag foo.*
 
-in_tail emits the event to 'foo.path.to.file' tag.
+in_tail emits the parsed events with the 'foo.path.to.file' tag.
 
 #### path (required)
 The paths to read. Multiple paths can be specified, separated by ‘,’.
