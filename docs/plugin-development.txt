@@ -61,7 +61,14 @@ To submit events, use the ``Fluent::Engine.emit(tag, time, record)`` method, whe
     record = {"message"=>"body"}
     Fluent::Engine.emit(tag, time, record)
 
-The RDoc of the Engine class can be found in the [Fluentd RDoc](http://fluentd.org/rdoc/Fluent/EngineClass.html).
+### Record format
+
+Fluentd plugins assume the record is a JSON so the key should be the String, not Symbol.
+If you emit a symbol keyed record, it may cause a problem.
+
+    :::ruby
+    Fluent::Engine.emit(tag, time, {'foo' => 'bar'})  # OK!
+    Fluent::Engine.emit(tag, time, {:foo => 'bar'})   # NG!
 
 ## Writing Buffered Output Plugins
 
