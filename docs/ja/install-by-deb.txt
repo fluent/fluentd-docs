@@ -2,11 +2,15 @@
 
 この記事では、[Treasure Data社](http://www.treasuredata.com/)がメンテナンスしているFluentdの安定版配布パッケージであるtd-agentのdebパッケージをインストールする方法について説明します。
 
+NOTE: 現在、Ubuntuは"Ubuntu 14.04 LTS / Trusty", "Ubuntu 12.04 LTS / Precise" と "Ubuntu 10.04 LTS / Lucid" がサポートされています。DebianはWheezyとSqueezeがサポートされています。もし他のバージョン/プラットフォームに興味がある場合、<a href="https://groups.google.com/d/forum/fluentd">メーリングリスト</a>でお知らせください。多くの人が感心を示したものからサポートされるでしょう。
+
 ## td-agentとは?
 
 Fluentdは拡張しやすいようRubyで実装され、一部の性能に直結する部分はC言語で実装されています。しかしライトユーザーにとってRubyのデーモンをインストールし運用することは難しい場合があります。
 
 それが[Treasure Data社](http://www.treasuredata.com/)が **Fluentd安定版の配布パッケージ** を提供している理由であり、これは `td-agent` と呼ばれています。Fluentdとtd-agentの違いは[ここ](faq#what-is-the-difference-with-td-agent-and-fluentd)で確認することができます。
+
+NOTE: このインストールガイドは現在の安定バージョンであるtd-agent v2向けに書かれています。v1とv2の違いについては<a href="td-agent-v1-vs-v2">こちらのページ</a>をご覧ください。v1向けのインストールガイドは<a href="install-by-deb-v1">こちら</a>です。
 
 ## Step0: インストールの前に
 
@@ -14,19 +18,36 @@ Fluentdは拡張しやすいようRubyで実装され、一部の性能に直結
 
 ## Step1: Aptリポジトリからのインストール
 
-現在、"Ubuntu 12.04 LTS / Precise" と "Ubuntu 10.04 LTS / Lucid" がサポートされています。
+Ubuntuは現在"Ubuntu 14.04 LTS / Trusty", "Ubuntu 12.04 LTS / Precise" と "Ubuntu 10.04 LTS / Lucid" がサポートされています。
 
-#### Ubuntu Precise
-[install-ubuntu-precise.sh](http://toolbelt.treasuredata.com/sh/install-ubuntu-precise.sh)を実行すると自動的にtd-agentがインストールされます。このシェルスクリプトは`/etc/apt/sources.list.d/treasure-data.list`に新しいaptリポジトリを登録し、 `td-agent` のdebパッケージをインストールします。
+Debianは現在WheezyとSqueezeがサポートされています。
 
-    :::term
-    $ curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-precise.sh | sh
+各バージョンでのインストールを自動化するためにシェルスクリプトが提供されています。このシェルスクリプトはaptリポジトリを`/etc/apt/sources.list.d/treasure-data.list`に登録し、`td-agent`のdebパッケージをインストールします。
 
-#### Ubuntu Lucid
-[install-ubuntu-lucid.sh](http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid.sh)を実行すると自動的にtd-agentがインストールされます。このシェルスクリプトは`/etc/apt/sources.list.d/treasure-data.list`に新しいaptリポジトリを登録し、 `td-agent` のdebパッケージをインストールします。
+For Trusty,
 
     :::term
-    $ curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid.sh | sh
+        curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent2.sh | sh
+
+For Precise,
+
+    :::term
+        curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-precise-td-agent2.sh | sh
+
+For Lucid,
+
+    :::term
+        curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid-td-agent2.sh | sh
+
+For Debian Wheezy,
+
+    :::term
+        curl -L http://toolbelt.treasuredata.com/sh/install-debian-wheezy-td-agent2.sh | sh
+
+For Debian Squeeze,
+
+    :::term
+        curl -L http://toolbelt.treasuredata.com/sh/install-debian-squeeze-td-agent2.sh | sh
 
 NOTE: ログ内に無効なタイムスタンプが入ることを防ぐためにノード上で<b>ntpd</b>を設定することを強くお勧めします。
 
