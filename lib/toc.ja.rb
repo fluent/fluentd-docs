@@ -35,7 +35,8 @@ section 'usecases', 'Use Cases' do
   category 'free-alternative-to-splunk-by-fluentd', 'Log Management & Search' do
     article 'free-alternative-to-splunk-by-fluentd', 'Log Data Search', ['Splunk', 'Free Alternative']
   end
-  category 'splunk-like-grep-and-alert-email', 'Log Filtering and Alerting' do
+  category 'log-filtering-and-alerting', 'Log Filtering and Alerting' do
+    article 'filter-modify-apache', 'Filter and Modify Data (Apache example)'
     article 'splunk-like-grep-and-alert-email', 'Email Alerts like Splunk', ['Splunk', 'Alerting']
   end
   category 'http-to-td', 'Big Data Analytics' do
@@ -59,12 +60,19 @@ section 'usecases', 'Use Cases' do
   category 'cloud-data-logger', 'RapsberryPi Data Logger' do
     article 'raspberrypi-cloud-data-logger', 'Raspberry Pi Cloud Data Logger', ['Raspberry Pi', 'Data Logger', 'Data Acquisition']
   end
+  category 'GlusterFS', 'GlusterFS' do
+    article 'collect-glusterfs-logs', 'Collecting GlusterFS Logs', ['GlusterFS']
+  end
+  category 'cep-norikra', 'Fluentd and Norikra' do
+    article 'cep-norikra', 'Fluentd and Norikra: Complex Event Processing', ['cep-norikra']
+  end
 end
 section 'configuration', 'Configuration' do
   category 'config-file', '設定ファイル' do
     article 'config-file', '設定ファイル'
   end
   category 'recipes', 'Recipes' do
+    article "common-log-formats", "Parsing Common Log Formats"
     for recipe in Dir.entries("#{settings.root}/docs/ja").grep(/^recipe-/)
       recipe.chomp!(".txt")
       article recipe, (recipe.split("-").map {|w|
@@ -96,6 +104,9 @@ section 'deployment', 'Deployment' do
   category 'performance-tuning', 'Performance Tuning' do
     article 'performance-tuning', 'Performance Tuning'
   end
+  category 'plugin-management', 'Plugin Management' do
+    article 'plugin-management', 'Plugin Management'
+  end
   category 'trouble-shooting', 'トラブルシューティング' do
     article 'trouble-shooting', 'トラブルシューティング'
   end
@@ -103,6 +114,12 @@ end
 section 'plugin', 'Input Plugins' do
   category 'input-plugin-overview', '概要' do
     article 'input-plugin-overview', 'Inputプラグインの概要'
+  end
+  category 'in_udp', 'in_udp' do
+    article 'in_udp', 'UDP Input Plugin'
+  end
+  category 'in_tcp', 'in_tcp' do
+    article 'in_tcp', 'TCP Input Plugin'
   end
   category 'in_forward', 'in_forward' do
     article 'in_forward', 'forward Inputプラグイン'
@@ -197,6 +214,16 @@ section 'buffer-plugins', 'Buffer Plugins' do
   end
   category 'buf_file', 'buf_file' do
     article 'buf_file', 'file Bufferプラグイン'
+  end
+end
+section 'parser-plugins', 'Parser Plugins' do
+  category 'parser-plugin-overview', 'Overview' do
+    article 'parser-plugin-overview', 'Parser Plugin Overview'
+  end
+end
+section 'formatter-plugins', 'Formatter Plugins' do
+  category 'formatter-plugin-overview', 'Overview' do
+    article 'formatter-plugin-overview', 'Formatter Plugin Overview'
   end
 end
 section 'developer', 'Developer' do
