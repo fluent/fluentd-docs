@@ -282,6 +282,9 @@ helpers do
     @body    = @article.body
     @congrats = congrats ? true : false
     @last_updated = $LAST_UPDATED[lang][article]
+    if 30 * 24 * 60 * 60 < DateTime.parse($LAST_UPDATED[$DEFAULT_LANGUAGE][article]).to_time.to_i - DateTime.parse($LAST_UPDATED[lang][article]).to_time.to_i
+      @outdated_from = $LAST_UPDATED[$DEFAULT_LANGUAGE][article]
+    end
 
     @current_lang = lang
     @available_langs = $AVAILABLE_LANGUAGES[article]
