@@ -287,7 +287,7 @@ helpers do
     @body    = @article.body
     @congrats = congrats ? true : false
     @last_updated = $LAST_UPDATED[lang][article]
-    if $OUTDATED_SPAN < DateTime.parse($LAST_UPDATED[$DEFAULT_LANGUAGE][article]).to_time.to_i - DateTime.parse($LAST_UPDATED[lang][article]).to_time.to_i
+    if $OUTDATED_SPAN < Time.parse($LAST_UPDATED[$DEFAULT_LANGUAGE][article]) - Time.parse($LAST_UPDATED[lang][article])
       @outdated_from = $LAST_UPDATED[$DEFAULT_LANGUAGE][article]
     end
 
