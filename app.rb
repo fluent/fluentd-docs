@@ -7,6 +7,7 @@ require 'coderay'
 require 'indextank'
 require 'rack/codehighlighter'
 require 'json'
+require 'time'
 
 $LOAD_PATH << File.dirname(__FILE__) + '/lib'
 require 'article.rb'
