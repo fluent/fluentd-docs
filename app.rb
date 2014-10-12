@@ -7,6 +7,7 @@ require 'coderay'
 require 'indextank'
 require 'rack/codehighlighter'
 require 'json'
+require 'time'
 
 $LOAD_PATH << File.dirname(__FILE__) + '/lib'
 require 'article.rb'
@@ -89,6 +90,11 @@ $TOCS = build_tocs
 # Last update list for each article
 #
 $LAST_UPDATED = JSON.parse(File.read("#{settings.root}/config/last_updated.json"))
+
+#
+# Outdated span for translated articles
+#
+$OUTDATED_SPAN = 30 * 24 * 60 * 60
 
 #
 # NOT FOUND
@@ -282,6 +288,9 @@ helpers do
     @body    = @article.body
     @congrats = congrats ? true : false
     @last_updated = $LAST_UPDATED[lang][article]
+    if $OUTDATED_SPAN < Time.parse($LAST_UPDATED[$DEFAULT_LANGUAGE][article]) - Time.parse($LAST_UPDATED[lang][article])
+      @outdated_from = $LAST_UPDATED[$DEFAULT_LANGUAGE][article]
+    end
 
     @current_lang = lang
     @available_langs = $AVAILABLE_LANGUAGES[article]
