@@ -21,7 +21,7 @@
 
 Major feature updates to td-agent v2 are as follows.
 
-- Ruby 2.1.2
+- Ruby 2.1
 - Updated for the core libraries, jemalloc 3.6.0, msgpack 0.5.8, Cool.io 1.2.4, etc.
 - Changed the installation directory from `/usr/{lib,lib64}/fluent` to `/opt/td-agent`
 - `td-agent-gem` utility command was added
