@@ -11,7 +11,7 @@ It is intended as a quick introduction. For comprehensive documentation, includi
 First, instlal the secure forward plugin.
 
 * Fluentd: `gem install fluent-plugin-secure-forward`
-* td-agent v2: `/opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-secure-forward`
+* td-agent v2: `/usr/sbin/td-agent-gem install fluent-plugin-secure-forward`
 * td-agent v1: `/usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-secure-forward`
 
 Then, set up the configuration file as follows:
@@ -37,7 +37,7 @@ Then, (re)start Fluentd/td-agent.
 First, install the secure forward plugin.
 
 * Fluentd: `gem install fluent-plugin-secure-forward`
-* td-agent v2: `/opt/td-agent/embedded/bin/fluent-gem install fluent-plugin-secure-forward`
+* td-agent v2: `/usr/sbin/td-agent-gem install fluent-plugin-secure-forward`
 * td-agent v1: `/usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-secure-forward`
 
 Then, set up the configuration file as follows:
