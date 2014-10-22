@@ -35,6 +35,9 @@ section 'usecases', 'Use Cases' do
   category 'free-alternative-to-splunk-by-fluentd', 'Log Management & Search' do
     article 'free-alternative-to-splunk-by-fluentd', 'Log Data Search', ['Splunk', 'Free Alternative']
   end
+  category 'secure-log-forwarding', 'Secure Log Forwarding' do
+    article 'forwarding-over-ssl', 'SSL-Enabled Transport', ['Security', 'SSL']
+  end
   category 'log-filtering-and-alerting', 'Log Filtering and Alerting' do
     article 'filter-modify-apache', 'Filter and Modify Data (Apache example)'
     article 'splunk-like-grep-and-alert-email', 'Email Alerts like Splunk', ['Splunk', 'Alerting']
