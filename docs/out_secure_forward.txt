@@ -2,6 +2,10 @@
 
 The `out_secure_forward` output plugin sends messages via **SSL with authentication** (cf. [in_secure_forward](in_secure_forward)).
 
+## Installation
+
+`out_secure_forward` is **not** included in both `td-agent` package and `fluentd` gem. In order to install it, please refer to the <a href="plugin-management">Plugin Management</a> article.
+
 ##Example Configurations
 
 This section provides some example configurations for `out_secure_forward`.
@@ -117,4 +121,3 @@ INCLUDE: _buffer_parameters
 
 
 INCLUDE: _log_level_params
-
