@@ -4,7 +4,7 @@ The `in_secure_forward` input plugin accepts messages via **SSL with authenticat
 
 ## Installation
 
-`in_secure_forward` is **not** included in both `td-agent` package and `fluentd` gem. In order to install it, please refer to the <a href="plugin-management">Plugin Management</a> article.
+`in_secure_forward` is **not** included in either `td-agent` package or `fluentd` gem. In order to install it, please refer to the <a href="plugin-management">Plugin Management</a> article.
 
 ##Example Configurations
 
