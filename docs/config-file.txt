@@ -256,14 +256,12 @@ This is useful for setting machine information like hostname.
 
 NOTE: config-xxx mixins use "${}", not "#{}". These embedded configurations are two different things.
 
-### `\` is escape character
+### In double quoted string literal, `\` is escape character
 
 `\` is interpreted as escape character.
-You need `\` for setting `"`, `\r`, `\n`, `\t`, `\` or several characters in parameter.
+You need `\` for setting `"`, `\r`, `\n`, `\t`, `\` or several characters in double-quoted string literal.
 
-    str_param foo\nbar # \n is intereted as actual LF character
-
-So if you have `\` in your regexp format, you should write `\\` instead of `\`.
+    str_param "foo\nbar" # \n is intereted as actual LF character
 
 ### Include configuration file
 
