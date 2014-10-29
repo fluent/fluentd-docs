@@ -249,7 +249,7 @@ Use the following configuration file:
       tag myapp.mytail
     </source>
 
-## Parser Plugins (v0.10.46 and above)
+## Parser Plugins
 
 Starting with v0.10.46, Fluentd supports [pluggable, customizable formats for input plugins](parser-plugin-overview). The plugin files whose names start with "parser_" are registered as Parser Plugins.
 
@@ -317,7 +317,7 @@ Then, save this code in `parser_time_key_value.rb` in a loadable plugin path. Th
 
 Then, the log line like `2014-01-01T00:00:00 k=v a=b` is parsed as `2013-01-01 00:00:00 +0000 test: {"k":"v","a":"b"}`.
 
-## Text Formatter Plugins (v0.10.49 and above)
+## Text Formatter Plugins
 
 Starting with v0.10.49, Fluentd supports [pluggable, customizable formats for output plugins](formatter-plugin-overview). The plugin files whose names start with "formatter_" are registered as Formatter Plugins.
 
