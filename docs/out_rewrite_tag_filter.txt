@@ -29,8 +29,6 @@ It is a sample to arrange the tags by the regexp matched value of 'message'.
 
     :::term
     $ fluent-gem install fluent-plugin-rewrite-tag-filter
-    OR
-    $ sudo /usr/lib64/fluent/ruby/bin/fluent-gem install fluent-plugin-rewrite-tag-filter
 
 ## Example Configuration
 

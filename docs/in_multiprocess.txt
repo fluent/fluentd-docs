@@ -6,13 +6,9 @@ By default, Fluentd only uses a single CPU core on the system. The `in_multiproc
 
 `in_multiprocess` is NOT included in td-agent by default. td-agent users must install fluent-plugin-multiprocess manually.
 
-    :::term
-    $ /usr/lib64/fluent/ruby/bin/fluent-gem install fluent-plugin-multiprocess
-
-Fluentd gem users must install the fluent-plugin-multiprocess gem using the following command.
-
-    :::term
-    $ fluent-gem install fluent-plugin-multiprocess
+* Fluentd: `fluent-gem install fluent-plugin-multiprocess`
+* td-agent v2: `/usr/sbin/td-agent-gem install fluent-plugin-multiprocess`
+* td-agent v1: `/usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-multiprocess`
 
 ### Example Configuration
 

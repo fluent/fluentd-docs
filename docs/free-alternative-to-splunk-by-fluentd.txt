@@ -87,8 +87,8 @@ The latest version of fluent-plugin-elasticsearch requires `libcurl` and `make` 
 
 Then, install fluent-plugin-elasticsearch as follows.
 
-    :::term
-    $ /usr/lib64/fluent/ruby/bin/fluent-gem install fluent-plugin-elasticsearch
+* td-agent v2: `/usr/sbin/td-agent-gem install fluent-plugin-elasticsearch`
+* td-agent v1: `/usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-elasticsearch`
 
 We'll configure td-agent (Fluentd) to interface properly with Elasticsearch. Please modify `/etc/td-agent/td-agent.conf` as shown below:
 

@@ -21,6 +21,20 @@ The timestamps of Fluentd and its logger libraries depend on your system's clock
 
 ### I installed td-agent and want to add custom plugins. How do I do it?
 
+#### td-agent 2:
+
+Please use `td-agent-gem` as shown below.
+
+    :::term
+    $ /usr/sbin/td-agent-gem install <plugin name>
+
+For example, issue the following command if you are adding `fluent-plugin-twitter`.
+
+    :::term
+    $ /usr/sbin/td-agent-gem install fluent-plugin-twitter
+
+#### td-agent 1:
+
 Please use `fluent-gem` as shown below.
 
     :::term
@@ -36,7 +50,8 @@ For example, issue the following command if you are adding `fluent-plugin-twitte
 Now you might be wondering, "Why do I need to specify the full path?" The reason is that td-agent does not modify any host environment variable, including `PATH`. If you want to make all td-agent/fluentd related programs available without writing "/usr/lib/..." every time, you can add
 
     :::bash
-    export PATH=$PATH:/usr/lib/fluent/ruby/bin/
+    export PATH=$PATH:/opt/td-agent/embedded/bin/ # td-agent 2
+    export PATH=$PATH:/usr/lib/fluent/ruby/bin/   # td-agent 1
 
 to your `~/.bash_profile`.
 

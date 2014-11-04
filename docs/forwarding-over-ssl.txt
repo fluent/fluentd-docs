@@ -36,7 +36,7 @@ Then, (re)start Fluentd/td-agent.
 
 First, install the secure forward plugin.
 
-* Fluentd: `gem install fluent-plugin-secure-forward`
+* Fluentd: `fluent-gem install fluent-plugin-secure-forward`
 * td-agent v2: `/usr/sbin/td-agent-gem install fluent-plugin-secure-forward`
 * td-agent v1: `/usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-secure-forward`
 

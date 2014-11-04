@@ -24,15 +24,17 @@ Next, please restart the agent and get the metrics via HTTP.
 Two `ruby` processes (parent and child) are executed. Please make sure that these processes are running. The example for `td-agent` is shown below.
 
     :::term
-    /usr/lib/fluent/ruby/bin/ruby /usr/sbin/td-agent
+    /opt/td-agent/embedded/bin/ruby /usr/sbin/td-agent
       --daemon /var/run/td-agent/td-agent.pid
       --log /var/log/td-agent/td-agent.log
 
 For td-agent on Linux, you can check the process statuses with the following command. Two processes should be shown if there are no issues.
 
     $ ps w -C ruby -C td-agent --no-heading
-    32342 ?        Sl     0:00 /usr/lib/fluent/ruby/bin/ruby /usr/sbin/td-agent --daemon /var/run/td-agent/td-agent.pid --log /var/log/td-agent/td-agent.log
-    32345 ?        Sl     0:01 /usr/lib/fluent/ruby/bin/ruby /usr/sbin/td-agent --daemon /var/run/td-agent/td-agent.pid --log /var/log/td-agent/td-agent.log
+    32342 ?        Sl     0:00 /opt/td-agent/embedded/bin/ruby /usr/sbin/td-agent --daemon /var/run/td-agent/td-agent.pid --log /var/log/td-agent/td-agent.log
+    32345 ?        Sl     0:01 /opt/td-agent/embedded/bin/ruby /usr/sbin/td-agent --daemon /var/run/td-agent/td-agent.pid --log /var/log/td-agent/td-agent.log
+
+If you are using td-agent 1, Ruby's path is `/usr/lib/fluent/ruby/bin/ruby`, not `/opt/td-agent/embedded/bin/ruby`.
 
 ## Port Monitoring
 
