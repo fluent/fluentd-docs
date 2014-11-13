@@ -123,7 +123,7 @@ The name of the key to use as the event time. This replaces the the value in the
 ### time_format
 The format for event time used when the `time_key` parameter is specified. The default is UNIX time (integer).
 
-INCLUDE: _buffer_parameters
+INCLUDE: _timesliced_buffer_parameters
 
 INCLUDE: _log_level_params
 

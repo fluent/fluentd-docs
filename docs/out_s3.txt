@@ -107,7 +107,7 @@ The proxy url. The default is nil.
 ### use_ssl
 Enable/disable SSL for data transfers between Fluentd and S3. The default is "yes".
 
-INCLUDE: _buffer_parameters
+INCLUDE: _timesliced_buffer_parameters
 
 INCLUDE: _log_level_params
 

@@ -57,7 +57,7 @@ The namenode port number.
 ### path (required)
 The path on HDFS. Please include ${hostname} in your path to avoid writing into the same HDFS file from multiple Fluentd instances. This conflict could result in data loss.
 
-INCLUDE: _buffer_parameters
+INCLUDE: _timesliced_buffer_parameters
 
 INCLUDE: _log_level_params
 
