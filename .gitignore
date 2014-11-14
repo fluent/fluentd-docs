@@ -8,3 +8,6 @@ vendor/cache
 vendor/bundle
 *~
 Gemfile.lock
+
+# rbenv dot file
+.ruby-version
