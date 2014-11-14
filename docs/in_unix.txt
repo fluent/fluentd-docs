@@ -22,5 +22,9 @@ The value must be `unix`.
 #### path (required)
 The path to your Unix Domain Socket.
 
+#### backlog
+The backlog of Unix Domain Socket. The default is `1024`.
+
+
 INCLUDE: _log_level_params
 
