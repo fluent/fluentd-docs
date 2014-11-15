@@ -12,8 +12,8 @@
   <meta property="fb:admins" content="588883490,100000237607356,741094668" />
   <meta property="og:image" content="http://fluentd.org/logos/fluentd.png" />
   <link rel="canonical" href="http://docs.fluentd.org<%= request.fullpath %>" />
-  <link href="http://docs.fluentd.org/favicon.ico" rel="icon" type="image/x-icon">
-  <link href="http://docs.fluentd.org/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="/favicon.ico" rel="icon" type="image/x-icon">
+  <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <%= css :application, :media => 'screen' %>
   <%= js  :app %>
   <script type="text/javascript">
@@ -214,7 +214,7 @@ var Swiftype = window.Swiftype || {};
     $(document).ready(function() {
         $(window).scroll(function() {
           var link_opacity = window.pageYOffset > 700 ? 1.0 : 0;
-          $('#got-question').css('opacity', link_opacity); 
+          $('#got-question').css('opacity', link_opacity);
         });
         $('#got-question').hover(function(){
           $(this).css('background-color', '#D60000');
@@ -226,7 +226,7 @@ var Swiftype = window.Swiftype || {};
 
         $(window).scroll(function() {
           var link_opacity = window.pageYOffset > 700 ? 1.0 : 0;
-          $('#anchored-stargazer-count').css('opacity', link_opacity); 
+          $('#anchored-stargazer-count').css('opacity', link_opacity);
         });
     })
   </script>
@@ -238,11 +238,11 @@ var Swiftype = window.Swiftype || {};
     $("a").click(function(ev) {
       ev.preventDefault();
       var node = ev.target;
-  
+
       while (!node.href && node !== document) {
         node = node.parentNode;
       }
-  
+
       if (!node || $(node).hasClass("search") || node.href === undefined ) return;
       td_client.trackEvent('anchor_clicks_v1_2_0', {
         current_host: window.location.hostname,
