@@ -93,7 +93,27 @@ The format of the time written in files. The default format is ISO-8601.
 ### path
 The path prefix of the files on S3. The default is “” (no prefix).
 
-NOTE: The actual path on S3 will be: “{path}{time_slice_format}_{sequential_number}.gz”
+NOTE: The actual path on S3 will be: “{path}{time_slice_format}_{sequential_index}.gz” (see `s3_object_key_format`)
+
+### s3_object_key_format
+
+The actual S3 path. The default value is %{path}%{time_slice}_%{index}.%{file_extension}, which is interpolated to the actual path (ex: Ruby's variable interpolation).
+
+- path: the value of the `path` parameter above
+- time_slice: the time string as formatted by `time_slice_format`
+- index: the index for the given path. Incremented per buffer flush
+- file_extension: as determined by the `store_as` parameter.
+
+For example, if
+
+- `s3_object_key_format` is as default
+- `path` is "hello"
+- `time_slice_format` is "%Y%m%d"
+- `store_as` is "json"
+
+Then, "hello20141111_0.json" would be an example actual S3 path.
+
+NOTE: This parameter is for advanced users. Most users should NOT modify it. Also, always make sure that %{index} appears in the customized `s3_object_key_format` (Otherwise, multiple buffer flushes within the same time slice throws an error).
 
 ### utc
 Uses UTC for path formatting. The default format is localtime.
