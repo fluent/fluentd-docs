@@ -24,15 +24,17 @@ FluentdはHTTP経由でJSON形式の内部メトリックを取得できる監�
 2つの `ruby` プロセス(親と子)が実行されています。これらのプロセスが実行されていることを確認してください。 `td-agent` の例を以下に示します。
 
     :::term
-    /usr/lib/fluent/ruby/bin/ruby /usr/sbin/td-agent
+    /opt/td-agent/embedded/bin/ruby /usr/sbin/td-agent
       --daemon /var/run/td-agent/td-agent.pid
       --log /var/log/td-agent/td-agent.log
 
 Linux上で動作しているtd-agentの場合、次のコマンドでプロセスの状態をチェックすることができます。何も問題が発生していなければ、2つのプロセスが表示されるはずです。
 
     $ ps w -C ruby -C td-agent --no-heading
-    32342 ?        Sl     0:00 /usr/lib/fluent/ruby/bin/ruby /usr/sbin/td-agent --daemon /var/run/td-agent/td-agent.pid --log /var/log/td-agent/td-agent.log
-    32345 ?        Sl     0:01 /usr/lib/fluent/ruby/bin/ruby /usr/sbin/td-agent --daemon /var/run/td-agent/td-agent.pid --log /var/log/td-agent/td-agent.log
+    32342 ?        Sl     0:00 /opt/td-agent/embedded/bin/ruby /usr/sbin/td-agent --daemon /var/run/td-agent/td-agent.pid --log /var/log/td-agent/td-agent.log
+    32345 ?        Sl     0:01 /opt/td-agent/embedded/bin/ruby /usr/sbin/td-agent --daemon /var/run/td-agent/td-agent.pid --log /var/log/td-agent/td-agent.log
+
+もしtd-agent 1を使っておられるなら、Rubyのpathは`/opt/td-agent/embedded/bin/ruby`ではなく`/usr/lib/fluent/ruby/bin/ruby`となります。
 
 ## ポートの監視
 
