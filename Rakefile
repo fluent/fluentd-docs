@@ -71,7 +71,7 @@ task :last_updated do
     last_updates[lang][File.basename(name, ".txt")] = Time.at((`git log --pretty=%ct --max-count=1 #{path}`.strip).to_i).utc
   }
 
-  File.write("./config/last_updated.json", JSON.dump(last_updates))
+  File.write("./config/last_updated.json", JSON.pretty_generate(last_updates))
 end
 
 desc 'list outdated documents'
