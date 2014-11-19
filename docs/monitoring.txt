@@ -54,5 +54,5 @@ A debug port for local communication is recommended for trouble shooting. Please
       port 24230
     </source>
 
-You can attach the process using the `fluent-debug` command through dRuby.
+You can attach the process using the `fluent-debug` command through Ruby.
 
