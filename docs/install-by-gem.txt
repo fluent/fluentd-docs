@@ -8,7 +8,7 @@ Please follow the [Preinstallation Guide](before-install) to configure your OS p
 
 ## Step1: Install Ruby interpreter
 
-Please install Ruby >= 1.9.2 on your local environment.
+Please install Ruby >= 1.9.3 on your local environment.
 
 ## Step2: Install Fluentd gem
 
