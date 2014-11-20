@@ -19,11 +19,13 @@ githubからソースコードを取得します。公式のリポジトリは[�
 `rake` でパッケージをビルドし、 `gem` でインストールしてください。
 
     :::term
-    $ rake build
-    Successfully built RubyGem
-    Name: fluentd
-    Version: xxx
-    File: fluentd-xxx.gem
+    $ bundle install
+    Fetching gem metadata from https://rubygems.org/.........
+    ...
+    Your bundle is complete!
+    Use `bundle show [gemname]` to see where a bundled gem is installed.
+    $ bundle exec rake build
+    fluentd xxx built to pkg/fluentd-xxx.gem.
     $ gem install pkg/fluentd-xxx.gem
 
 ## Step4: 実行
