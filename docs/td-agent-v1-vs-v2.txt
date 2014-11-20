@@ -11,7 +11,7 @@
 	<tr><td>RedHat/CentOS 5/6</td><td>&#10003;</td><td>&#10003;</td></tr>
 	<tr><td>Ubuntu Lucid</td><td>&#10003;</td><td>&#10003;</td></tr>
 	<tr><td>Ubuntu Precise</td><td>&#10003;</td><td>&#10003;</td></tr>
-	<tr><td>Ubuntu Trusty</td><td></td><td>&#10003;</td></tr>
+	<tr><td>Ubuntu Trusty (only 64 bit for now)</td><td></td><td>&#10003;</td></tr>
 	<tr><td>Debian Squeeze</td><td></td><td>&#10003;</td></tr>
 	<tr><td>Debian Wheezy</td><td></td><td>&#10003;</td></tr>
 	<tr><td>MacOSX</td><td></td><td>&#10003;</td></tr>
