@@ -7,7 +7,7 @@
 `path`パラメータはこのプラグインで`buffer_path`として、使用されます。
 
 ### buffer_queue_limit, buffer_chunk_limit
-それぞれ、チャンクキューの長さと各々のチャックのサイズ。基本バッファ構造は[Buffer Plugin Overview](buffer-plugin-overview)の記事を参照してください。デフォルト値はそれぞれ、64と8mです。接尾辞として「k」 (KB), 「m」 (MB), および 「g」 (GB)はbuffer_chunk_limitで使用できます。
+それぞれ、チャンクキューの長さと各々のチャンクのサイズ。基本バッファ構造は[Buffer Plugin Overview](buffer-plugin-overview)の記事を参照してください。デフォルト値はそれぞれ、64と8mです。接尾辞として「k」 (KB), 「m」 (MB), および 「g」 (GB)はbuffer_chunk_limitで使用できます。
 
 ### flush_interval
 データフラッシュの間隔。デフォルトは60sです。接尾辞として「s」 (秒), 「m」 (分)および「h」(時間)を使用することができます。
