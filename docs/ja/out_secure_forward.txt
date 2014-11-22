@@ -1,10 +1,14 @@
 # Secure Forwardアウトプットプラグイン
 
-`out_secure_forward`は**SSL with authentication**経由で、メッセージを送りいます。(比較:[in_secure_forward](in_secure_forward))
+`out_secure_forward`は **SSL with authentication** 経由で、メッセージを送ります。受信には [in_secure_forward](in_secure_forward) を利用できます。
+
+##インストール
+
+`out_secure_forward` は `td-agent` パッケージおよび `fluentd` gem に**含まれていません**。インストールについては、<a href="plugin-management">Plugin Management</a> のページを参照してください。
 
 ##設定例
 
-このセクションは、`out_secure_forward`用のいくつかの設定を提供します。
+このセクションでは、`out_secure_forward` の設定例を示します。
 
 ###最小限の設定
 
@@ -30,11 +34,11 @@ NOTE: ホスト名ACL(まだ実装されていない)なしに、`self_hostname`
       </server>
     </match>
 
-###SSLを介して複数の転送先
+### SSLを介した複数ノードへの転送
 
-2つ以上の`<server>...</server>`句を指定されているとき、`out_secure_forward`は、ラウンドロビンの順序でサーバーノードを使用します。`standby yes`のサーバーはすべての準備されていないサーバーがダウンするまで**選択されません。**
+2つ以上の`<server>...</server>`句を指定すると、`out_secure_forward`は、ラウンドロビン方式で送信先サーバーノードを選択します。`standby yes`のサーバーはすべてのスタンバイではない(プライマリな)サーバーが停止するまで**選択されません。**
 
-NOTE: サーバーがユーザー名およびパスワードが必要な場合は、`＜server＞`セクションに`username`および`password`は設定してください。
+NOTE: ユーザー名およびパスワードが必要な場合は、`＜server＞`セクションに `username` および `password` を設定してください。
 
     <match secret.data.**>
       type secure_forward
@@ -58,7 +62,7 @@ NOTE: サーバーがユーザー名およびパスワードが必要な場合�
       </server>
     </match>
 
-キープアライブタイムアウトを指定するために、`keepalive`パラメータを使用します。例えば、以下の設定は1時間毎にSSL接続の切断と再接続を行います。デフォルトでは、`keepalive`は0に設定され、接続の問題がなければ**接続は切断されません**(この機能はDNS名の更新およびSSL共通キーのリフレッシュのためです)。
+keepalive タイムアウトを指定するために、`keepalive`パラメータを使用します。例えば、以下の設定は1時間毎にSSL接続の切断と再接続を行います。デフォルトでは、`keepalive`は0に設定され、接続の問題がなければ、接続は**切断されません**(この機能はDNS名の更新およびSSL共通キーのリフレッシュのためです)。
 
     <match secret.data.**>
       type secure_forward
@@ -89,7 +93,7 @@ NOTE: サーバーがユーザー名およびパスワードが必要な場合�
 任意の共有キーです。
 
 ####keepalive (時間)
-キープアライブの期間です。このパラメータが指定されていない場合は、キープアライブは、無効です。
+keepalive の期間です。このパラメータが指定されていない場合は、keepalive は無効です。
 
 ####send_timeout (時間)
 ソケット用の送信タイムアウト値です。デフォルト値は60秒です。
