@@ -28,8 +28,8 @@ Rubygems users can run the command below to install the plugin:
 
 If you are using td-agent, run following command to install the Riak output plugin.
 
-* td-agent v2: `/usr/sbin/td-agent-gem install fluent-plugin-secure-forward`
-* td-agent v1: `/usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-secu
+* td-agent v2: `/usr/sbin/td-agent-gem install fluent-plugin-riak`
+* td-agent v1: `/usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-riak
 
 ## Configuring Fluentd
 
