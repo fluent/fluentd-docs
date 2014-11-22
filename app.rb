@@ -108,21 +108,24 @@ end
 # @see http://ricostacruz.com/sinatra-assetpack/
 #
 set :root, File.dirname(__FILE__)
-Sinatra.register Sinatra::AssetPack
-assets {
-  serve '/js',  from: 'app/js'  # Optional
-  serve '/css', from: 'app/css' # Optional
-  js :app, '/js/app.js', [
-    '/js/*.js'
-  ]
-  css :application, '/css/application.css', [
-    '/css/*.css'
-  ]
-  js_compression :yui
-  css_compression :yui
-  prebuild true # only on production
-  expires 24*3600*7, :public
-}
+
+unless ENV['RACK_ENV'] == 'test'
+  Sinatra.register Sinatra::AssetPack
+  assets {
+    serve '/js',  from: 'app/js'  # Optional
+    serve '/css', from: 'app/css' # Optional
+    js :app, '/js/app.js', [
+      '/js/*.js'
+    ]
+    css :application, '/css/application.css', [
+      '/css/*.css'
+    ]
+    js_compression :yui
+    css_compression :yui
+    prebuild true # only on production
+    expires 24*3600*7, :public
+  }
+end
 
 #
 # OLD URL REDIRECTS

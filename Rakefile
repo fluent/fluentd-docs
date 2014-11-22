@@ -5,6 +5,7 @@ Bundler.setup
 $LOAD_PATH << File.dirname(__FILE__) + '/lib'
 require 'article'
 require 'indextank'
+require 'rake/testtask'
 
 desc 'start a development server'
 task :server do
@@ -22,6 +23,15 @@ def which(command)
     find { |p| File.executable?(p) }
 end
 task :start => :server
+
+desc 'test pages'
+task :test do
+  Rake::TestTask.new(:test) do |test|
+    test.libs << "test"
+    test.pattern = 'test/test_*.rb'
+    test.verbose = true
+  end
+end
 
 desc 'index documentation'
 task :index do
