@@ -22,12 +22,12 @@ The rest of this article explains how to set up Fluentd with GlusterFS. For this
 First, we'll install Fluentd using the following command:
 
     :::term
-    $ curl -L http://toolbelt.treasuredata.com/sh/install-redhat.sh | sh
+    $ curl -L http://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh | sh
 
 Next, we'll install the Fluentd plugin for GlusterFS:
 
     :::term
-    $ sudo /usr/lib64/fluent/ruby/bin/fluent-gem install fluent-plugin-glusterfs
+    $ sudo /usr/sbin/td-agent-gem install fluent-plugin-glusterfs
     Fetching: fluent-plugin-glusterfs-1.0.0.gem (100%)
     Successfully installed fluent-plugin-glusterfs-1.0.0
     1 gem installed
