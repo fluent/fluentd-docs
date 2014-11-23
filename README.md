@@ -18,6 +18,10 @@ If you find outedated article, please send pull request to this repository.
     $ bundle exec rake server
     $ open "http://localhost:9395/"
 
+# Test
+
+    $ bundle exec rake test 
+
 # Build Search Index
 
     $ heroku run rake index
