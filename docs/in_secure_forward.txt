@@ -122,7 +122,7 @@ Require password authentication. The default value is `false`.
 ####cert_auto_generate (bool)
 Auto-generate the CA (see the `generate_*` parameters below). The default value is `false`.
 
-If `cert_auto_generat` is false, `cert_file_path` must be set.
+If `cert_auto_generate` is false, `cert_file_path` must be set.
 
 ####generate_private_key_length (integer)
 The byte length of the auto-generated private key. The default value is 2048.

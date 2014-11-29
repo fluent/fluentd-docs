@@ -42,7 +42,7 @@ By default, out_file flushes each chunk to different path.
     log.20140609_0.log
     log.20140609_1.log
 
-This makes parallel file proccessing easy. But if you want to disable this behaviour,
+This makes parallel file processing easy. But if you want to disable this behaviour,
 you can disable it by setting `append true`.
 
     :::text

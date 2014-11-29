@@ -83,7 +83,7 @@ Reads apache’s log file for the following fields: host, user, time, method, pa
 
 * `apache_error`
 
-Reads apache’s error log file for the following fields:  time, level, pid, client and (error) message. This template is analoug to the following configuration:
+Reads apache’s error log file for the following fields:  time, level, pid, client and (error) message. This template is analogous to the following configuration:
 
 	:::text
 	format /^\[[^ ]* (?<time>[^\]]*)\] \[(?<level>[^\]]*)\](?: \[pid (?<pid>[^\]]*)\])? \[client (?<client>[^\]]*)\] (?<message>.*)$/

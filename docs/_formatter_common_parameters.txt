@@ -9,7 +9,7 @@
 * **tag_key** (String, Optional, defaults to "tag")
   The field name for the tag key.
 * **localtime** (Boolean. Optional, defaults to true)
-  If true, use local time. Otherwise, UTC is used. This parameter is overwridden by the `utc` parameter.
+  If true, use local time. Otherwise, UTC is used. This parameter is overwritten by the `utc` parameter.
 * **timezone** (String. Optional. _v0.10.56 and above_)
 	By setting this parameter, one can parse the time value in the specified timezone. The following formats are accepted:
 	
