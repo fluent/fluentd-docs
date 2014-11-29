@@ -8,7 +8,7 @@ It is intended as a quick introduction. For comprehensive documentation, includi
 
 ## Setup: Receiver
 
-First, instlal the secure forward plugin.
+First, install the secure forward plugin.
 
 * Fluentd: `gem install fluent-plugin-secure-forward`
 * td-agent v2: `/usr/sbin/td-agent-gem install fluent-plugin-secure-forward`

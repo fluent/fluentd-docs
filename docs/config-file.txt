@@ -261,7 +261,7 @@ NOTE: config-xxx mixins use "${}", not "#{}". These embedded configurations are 
 `\` is interpreted as escape character.
 You need `\` for setting `"`, `\r`, `\n`, `\t`, `\` or several characters in double-quoted string literal.
 
-    str_param "foo\nbar" # \n is intereted as actual LF character
+    str_param "foo\nbar" # \n is interpreted as actual LF character
 
 ### Include configuration file
 
