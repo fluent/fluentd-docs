@@ -47,6 +47,15 @@ When you have updated an article, please update config/last_updated.json too.
 
 After initialization, please remove the symlink and add the translated article. :)
 
+# Contributing docs for v1
+
+v1 docs are under docs/v1. Currently, most articles are symlinked to the corresponding file in docs/.
+
+- If you are updating an exiting article. Just replace the symlink with an actual article.
+- If you are adding a new article, just add it under docs/v1.
+
+Once v1 is released, this process will be updated.
+
 # Detect outdated documents
 
     $ bundle exec rake outdated
