@@ -9,21 +9,24 @@ class FluentdDocsTest < MiniTest::Unit::TestCase
   end
 
   docs_path = File.expand_path('../../docs', __FILE__)
-  Dir.chdir(docs_path)
-  Dir.glob(['*.txt', '*/*.txt']) do |url_part|
+  Dir.glob("#{docs_path}/*.txt") do |url_part|
+    url_part.gsub!(/^#{docs_path}\//, "")
     # Skip macro files, which start with "_"
     if not url_part.split("/").last.start_with?("_")
       url_part.gsub!(/.txt$/, '')
       method_name = url_part.gsub(/[-\/]/, '_')
+      define_method("test_ja_#{method_name}".to_s) do
+        get "/ja/articles/#{url_part.split("/", 2).last}"
+        assert last_response.ok?
+      end
       define_method("test_#{method_name}".to_s) do
-        if url_part.start_with?('ja/')
-          get "/ja/articles/#{url_part.split("/", 2).last}"
-        else
-          get "/articles/#{url_part}"
-        end
+        get "/articles/#{url_part.split("/", 2).last}"
+        assert last_response.ok?
+      end
+      define_method("test_v1_#{method_name}".to_s) do
+        get "/v1/articles/#{url_part.split("/", 2).last}"
         assert last_response.ok?
       end
     end
   end
-
 end

@@ -59,7 +59,10 @@ def build_available_languages
   articles.each { |article|
     langs = ['en']
     Dir.glob("#{settings.root}/docs/*/#{article}.txt").each { |a|
-      langs << a["#{settings.root}/docs/".size..-(1 + 1 + "#{article}.txt".size)]
+      # skipping versions
+      unless /^v\d+/.match(a.split("/")[-2])
+        langs << a["#{settings.root}/docs/".size..-(1 + 1 + "#{article}.txt".size)]
+      end
     }
     languages[article] = langs.sort
   }
@@ -67,6 +70,7 @@ def build_available_languages
 end
 $AVAILABLE_LANGUAGES = build_available_languages
 $DEFAULT_LANGUAGE = 'en'
+$DEFAULT_VERSION = 'v0.10'
 
 #
 # For table-of-content
@@ -219,7 +223,7 @@ get '/:lang/recipe/:data_source/:data_sink' do
   params[:article] = "recipe-#{params[:data_source]}-to-#{params[:data_sink]}"
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
   cache_long
-  render_article params[:article], params[:congrats], params[:lang]
+  render_article params[:article], params[:congrats], lang: params[:lang]
 end
 
 get '/articles/:article' do
@@ -228,11 +232,20 @@ get '/articles/:article' do
   render_article params[:article], params[:congrats]
 end
 
+# v1 needs to come before /:lang/article/:article
+# otherwise, lang matches first.
+get '/v1/articles/:article' do
+  puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
+  cache_long
+  render_article params[:article], params[:congrats], ver: 'v1'
+end
+
 get '/:lang/articles/:article' do
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
   cache_long
-  render_article params[:article], params[:congrats], params[:lang]
+  render_article params[:article], params[:congrats], lang: params[:lang]
 end
+
 
 helpers do
   def render_category(category, lang = $DEFAULT_LANGUAGE)
@@ -270,8 +283,8 @@ helpers do
     status 404
   end
 
-  def render_article(article, congrats, lang = $DEFAULT_LANGUAGE)
-    @filepath = article_file(article, lang)
+  def render_article(article, congrats, lang: $DEFAULT_LANGUAGE, ver: $DEFAULT_VERSION)
+    @filepath = article_file(article, lang, ver)
     if not (avaiable_language?(article, lang) and File.exists?(@filepath))
       status 404
       return
@@ -280,7 +293,8 @@ helpers do
     unless $IO_CACHE.has_key? @filepath
       $IO_CACHE[@filepath] = File.read(@filepath)
     end
-    doc_path = "#{settings.root}/docs/#{lang == $DEFAULT_LANGUAGE ? '' : lang}"
+
+    doc_path = File.dirname(@filepath)
 
     @article = Article.load(article, $IO_CACHE[@filepath], doc_path)
     @title   = @article.title
@@ -290,6 +304,9 @@ helpers do
     @toc     = @article.toc
     @body    = @article.body
     @congrats = congrats ? true : false
+    @current_version = $DEFAULT_VERSION
+    @article_version = ver
+    @default_url = "/articles/#{article}"
     @last_updated = $LAST_UPDATED[lang][article]
     if $OUTDATED_SPAN < Time.parse($LAST_UPDATED[$DEFAULT_LANGUAGE][article]) - Time.parse($LAST_UPDATED[lang][article])
       @outdated_from = $LAST_UPDATED[$DEFAULT_LANGUAGE][article]
@@ -301,15 +318,21 @@ helpers do
     erb :article
   end
 
-  def article_file(article, lang)
+  def article_file(article, lang, ver)
     if article.include?('/')
       article
     else
-      if lang == $DEFAULT_LANGUAGE
-        "#{settings.root}/docs/#{article}.txt"
-      else
-        "#{settings.root}/docs/#{lang}/#{article}.txt"
+      path_prefix = "#{settings.root}/docs/"
+
+      if ver != $DEFAULT_VERSION
+        path_prefix += "#{ver}/"
       end
+
+      if lang != $DEFAULT_LANGUAGE
+        path_prefix += "#{lang}/"
+      end
+
+      path_prefix + article + ".txt"
     end
   end
 
