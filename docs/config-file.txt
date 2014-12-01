@@ -193,7 +193,7 @@ Following configurations are set by *system* directive. You can set same configu
 Here is an example::
 
     <system>
-      # equal to -q option
+      # equal to -qq option
       log_level error
       # equal to --without-source option
       without_source
