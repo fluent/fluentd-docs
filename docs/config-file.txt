@@ -36,6 +36,7 @@ The configuration file consists of the following directives:
 1. **source** directives determine the input sources.
 2. **match** directives determine the output destinations.
 3. **include** directives include other files.
+4. **system** directives set system wide configuration.
 
 Let's actually create a configuration file step by step.
 
@@ -178,6 +179,26 @@ The **include** directive supports regular file path, glob pattern, and http URL
 
     # http
     include http://example.com/fluent.conf
+
+## (4) Set system wide configuration: the "system" directive
+
+Following configurations are set by *system* directive. You can set same configurations by fluentd options::
+
+* log_level
+* suppress_repeated_stacktrace
+* emit_error_log_interval
+* suppress_config_dump
+* without_source
+
+Here is an example::
+
+    <system>
+      # equal to -q option
+      log_level error
+      # equal to --without-source option
+      without_source
+      # ...
+    </system>
 
 ## Supported Data Types for Values
 
