@@ -14,7 +14,7 @@ Fluentdの性能は実際に立証されています。もっとも大規模な�
 
 ご使用の環境に合わせて以下のインストール／クイックスタートガイドに従ってください。
 
-* [HomebrewでFluentdをインストールする](install-by-homebrew) (Mac OS X)
+* [DMGインストーラでFluentdをインストールする](install-by-dmg) (Mac OS X)
 * [RPMパッケージからFluentdをインストールする](install-by-rpm) (Redhat Linux)
 * [DebパッケージからFluentdをインストールする](install-by-deb) (Ubuntu/Debian Linux)
 * [Ruby GemでFluentdをインストールする](install-by-gem)

@@ -174,7 +174,7 @@ We can create a stream data processing platform without any schema definitions, 
 
 ## Learn More
 
-* [Fluentd Architecture](architecture)
+* <a href="//www.fluentd.org/architecture">Fluentd Architecture</a>
 * [Fluentd Get Started](quickstart)
 * [Norikra: Query Syntax](http://norikra.github.io/query.html)
 * [Norikra: Query Examples](http://norikra.github.io/examples.html)
