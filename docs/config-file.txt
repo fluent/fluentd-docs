@@ -248,6 +248,27 @@ V1 format allows multi line value for array and hash values.
       "k1":10
     }
 
+Now, Fluentd assumes `[` or `{` is a start of array / hash.
+So if you want to set `[` or `{` started but non-json parameter, please use `'` or `"`.
+
+Example1: mail plugin::
+
+    <match **>
+      type mail
+      subject "[CRITICAL] foo's alert system"
+    </match>
+
+Example2: map plugin::
+
+    <match tag>
+      type map
+      map '[["code." + tag, time, { "code"  = > record["code"].to_i}], ["time." + tag, time, { "time"  = > record["time"].to_i}]]'
+      multi true
+    </match>
+
+NOTE: We will remove this restriction with configuration parser improvement.
+
+
 ### `"foo"` is interpreted as `foo`, not `"foo"`
 
 `"` is a quote character of string value.
