@@ -71,8 +71,6 @@ The following templates are supported:
 
 The regexp for the format parameter can be specified. [Fluentular](http://fluentular.herokuapp.com/) is a great website to test your regexp for Fluentd configuration.
 
-Following regular expressions are written in v0 configuration style. If you use td-agent 2 or applying `--use-v1-config` option, `\` should be escaped with `\`. See [this configuration section](config-file#v1-format) for more details.
-
 * `apache2`
 
 Reads apache’s log file for the following fields: host, user, time, method, path, code, size, referer and agent. This template is analogous to the following configuration:
