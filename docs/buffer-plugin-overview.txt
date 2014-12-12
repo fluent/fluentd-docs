@@ -1,6 +1,6 @@
 # Buffer Plugin Overview
 
-Fluentd has 3 types of plugins: Input, Output, and Buffer. This article gives an overview of Buffer Plugin.
+Fluentd has 5 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Buffer Plugin.
 
 We will first explain how Buffer Plugin works in general. Then, we will explain the mechanism of Time Sliced Plugin, a subclass of Buffer Plugin used by several core plugins. 
 

@@ -1,5 +1,7 @@
 # Parser Plugin Overview (v0.10.46 and above)
 
+Fluentd has 5 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Parser Plugin.
+
 ## Overview
 
 Sometimes, the `format` parameter for input plugins (ex: [in_tail](in_tail), [in_syslog](in_syslog), [in_tcp](in_tcp) and [in_udp](in_udp)) cannot parse the user's custom data format (for example, a context-dependent grammar that can't be parsed with a regular expression). To address such cases, for **v0.10.46 and above**, Fluentd has a pluggable system that enables the user to create their own parser formats.
