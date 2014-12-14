@@ -23,8 +23,8 @@ class FluentdDocsTest < MiniTest::Unit::TestCase
         get "/articles/#{url_part.split("/", 2).last}"
         assert last_response.ok?
       end
-      define_method("test_v1_#{method_name}".to_s) do
-        get "/v1/articles/#{url_part.split("/", 2).last}"
+      define_method("test_v0_12_#{method_name}".to_s) do
+        get "/v0.12/articles/#{url_part.split("/", 2).last}"
         assert last_response.ok?
       end
     end

@@ -232,12 +232,13 @@ get '/articles/:article' do
   render_article params[:article], params[:congrats]
 end
 
-# v1 needs to come before /:lang/article/:article
+# ver needs to come before /:lang/article/:article
 # otherwise, lang matches first.
-get '/v1/articles/:article' do
+
+get '/v0.12/articles/:article' do
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
   cache_long
-  render_article params[:article], params[:congrats], ver: 'v1'
+  render_article params[:article], params[:congrats], ver: 'v0.12'
 end
 
 get '/:lang/articles/:article' do
