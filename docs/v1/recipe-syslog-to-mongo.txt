@@ -1,1 +1,0 @@
-../recipe-syslog-to-mongo.txt
