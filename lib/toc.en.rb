@@ -151,6 +151,9 @@ section 'plugin', 'Input Plugins' do
   category 'in_multiprocess', 'in_multiprocess' do
     article 'in_multiprocess', 'Multi-Process Input Plugin'
   end
+  category 'in_dummy', 'in_dummy' do
+    article 'in_dummy', 'Dummy Input Plugin'
+  end
   category 'in_others', 'Others' do
     article 'in_others', 'Other Input Plugins'
   end
