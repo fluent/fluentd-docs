@@ -1,1 +1,40 @@
-../formatter-plugin-overview.txt
+# Text Formatter Overview
+
+Fluentd has 6 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Filter Plugin.
+
+## Overview
+
+Sometimes, the output format for an output plugin does not meet one's needs. For **v0.10.49 and above**, Fluentd has a pluggable system called Text Formatter that lets the user extend and re-use custom output formats.
+
+## How To Use
+
+For an output plugin that supports Text Formatter, the `format` parameter can be used to change the output format.
+
+For example, by default, [out_file](out_file) plugin outputs data as
+
+    :::text
+    2014-08-25 00:00:00 +0000<TAB>foo.bar<TAB>{"k1":"v1", "k2":"v2"}
+
+However, if you set `format json` like this
+
+    :::text
+    <match foo.bar>
+      type file
+      path /path/to/file
+      format json
+    </match>
+
+The output changes to
+
+    :::text
+    {"time": "2014-08-25 00:00:00 +0000", "tag":"foo.bar", "k1:"v1", "k2":"v2"}
+
+i.e., each line is a single JSON object with "time" and "tag fields to retain the event's timestamp and tag.
+
+See [this section](plugin-development#text-formatter-plugins) to learn how to develop a custom formatter.
+
+## List of Output Plugins with Text Formatter Support
+
+* [out_file](out_file)
+* [out_s3](out_s3)
+
