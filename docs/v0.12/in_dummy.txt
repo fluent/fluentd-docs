@@ -28,10 +28,10 @@ The dummy data to be generated. It should be either an array of JSON hashes or a
 #### auto_increment_key (optional, string type)
 If specified, each generated event has an auto-incremented key field. For example, with `auto_increment_key foo_key`, the first couple of events look like
 
-      :::term
-      2014-12-14 23:23:38 +0000 test: {"message":"dummy","foo_key":0}
-      2014-12-14 23:23:38 +0000 test: {"message":"dummy","foo_key":1}
-      2014-12-14 23:23:38 +0000 test: {"message":"dummy","foo_key":2}
+    :::term
+    2014-12-14 23:23:38 +0000 test: {"message":"dummy","foo_key":0}
+    2014-12-14 23:23:38 +0000 test: {"message":"dummy","foo_key":1}
+    2014-12-14 23:23:38 +0000 test: {"message":"dummy","foo_key":2}
 
 #### rate (optional, integer type)
 It configures how many events to generate per second. The default value is 1.
