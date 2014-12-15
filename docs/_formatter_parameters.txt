@@ -63,3 +63,22 @@ Output the value of a single field instead of the whole record. Often used in co
     add_newline false # Optional, defaults to true. If there is a trailing "\n" already, set it "false"
     message_key my_field # Optional, defaults to "message". The value of this field is outputted.
 
+#### csv
+
+Output the record as CSV/TSV:
+
+    :::text
+    "value1"[delimiter]"value2"[delimiter]"value3"\n
+
+`csv` format supports the `delimiter` and `force_quotes` options.
+
+    :::text
+    format csv
+    fields field1,field2,field3
+    delimiter \t   # Optional. "," is used by default.
+    force_quotes false # Optional. true is used by default. If false, value won't be framed by quotes.
+
+For this format, the following common parameters are also supported.
+
+INCLUDE: _formatter_common_parameters
+
