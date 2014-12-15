@@ -14,28 +14,28 @@ Filter plugins enables Fluentd to modify event streams. Example use cases are:
 
 It is used with the `<filter>` directive as follows:
 
-      :::term
-      <filter foo.bar>
-        type grep
-        regexp1 message cool
-      </filter>
+    :::term
+    <filter foo.bar>
+      type grep
+      regexp1 message cool
+    </filter>
 
 The above directive matches events with the tag "foo.bar", and if the "message" field's value contains "cool", the events go through the rest of the configuration.
 
 Like the `<match>` directive for output plugins, `<filter>` matches against a tag. Once the event is processed by the filter, the event proceeds through the configuration top-down. Hence, if there are multiple filters for the same tag, they are applied in descending order. Hence, in the following example,
 
-      :::term
-      <filter foo.bar>
-        type grep
-        regexep1 message cool
-      </filter>
+    :::term
+    <filter foo.bar>
+      type grep
+      regexep1 message cool
+    </filter>
 
-      <filter foo.bar>
-        type record_transformer
-        <record>
-          hostname ${Socket.gethostname}
-        </record>
-      </filter>
+    <filter foo.bar>
+      type record_transformer
+      <record>
+        hostname ${Socket.gethostname}
+      </record>
+    </filter>
 
 Only the events whose "message" field contain "cool" get the new field "hostname" with the machine's hostname as its value.
 
