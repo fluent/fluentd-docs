@@ -4,7 +4,15 @@
 
 To install a plugin, please put the ruby script in the ``/etc/fluent/plugin`` directory.
 
-Alternatively, you can create a Ruby Gem package that includes a ``lib/fluent/plugin/<TYPE>_<NAME>.rb`` file. The *TYPE* is ``in`` for input plugins, ``out`` for output plugins, ``buf`` for buffer plugins, ``parser`` for parser plugins,  and ``formatter`` for formatter plugins. For example, an email Output plugin would have the path: ``lib/fluent/plugin/out_mail.rb``. The packaged gem can be distributed and installed using RubyGems. For further information, please see the [list of Fluentd plugins](http://fluentd.org/plugins).
+Alternatively, you can create a Ruby Gem package that includes a ``lib/fluent/plugin/<TYPE>_<NAME>.rb`` file. The *TYPE* is:
+
+- ``in`` for input plugins
+- ``out`` for output plugins
+- ``buf`` for buffer plugins
+- ``parser`` for parser plugins
+- ``formatter`` for formatter plugins
+
+For example, an email Output plugin would have the path: ``lib/fluent/plugin/out_mail.rb``. The packaged gem can be distributed and installed using RubyGems. For further information, please see the [list of Fluentd plugins](http://www.fluentd.org/plugins) for third-party plugins.
 
 ## Overview
 
@@ -202,52 +210,6 @@ Extend the **Fluent::Output** class and implement the following methods. **Outpu
         }
       end
     end
-
-## Customizing the Tail Input Plugin Parser
-
-You can customize the text parser for the Tail Input plugin by extending the **Fluent::TailInput** class.
-
-Put the following file into **/etc/fluent/plugin/in_mytail.rb**.
-
-    :::ruby
-    class MyTailInput < Fluent::TailInput
-      Fluent::Plugin.register_input('mytail', self)
-    
-      # Override the 'configure_parser(conf)' method.
-      # You can get config parameters in this method.
-      def configure_parser(conf)
-        @time_format = conf['time_format'] || '%Y-%m-%d %H:%M:%S'
-      end
-    
-      # Override the 'parse_line(line)' method that returns the time and record.
-      # This example method assumes the following log format:
-      #   %Y-%m-%d %H:%M:%S\tkey1\tvalue1\tkey2\tvalue2...
-      #   %Y-%m-%d %H:%M:%S\tkey1\tvalue1\tkey2\tvalue2...
-      #   ...
-      def parse_line(line)
-        elements = line.split("\t")
-        
-        time = elements.shift
-        time = Time.strptime(time, @time_format).to_i
-        
-        # [k1, v1, k2, v2, ...] -> {k1=>v1, k2=>v2, ...}
-        record = {}
-        while (k = elements.shift) && (v = elements.shift)
-          record[k] = v
-        end
-        
-        return time, record
-      end
-    end
-
-Use the following configuration file:
-
-    :::text
-    <source>
-      type mytail
-      path /path/to/myformat_file
-      tag myapp.mytail
-    </source>
 
 ## Parser Plugins
 
