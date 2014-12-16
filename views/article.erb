@@ -1,6 +1,6 @@
 <div id="page">
 <div class="topic_content">
-<% if @current_version != @article_version %>
+<% if @current_version != @article_version and @has_default_version %>
   <h2 style="color:#FF3333;font-style:bold">
     This page is for <%=@article_version%>, not the latest stable version <%=@current_version%>.
     For the latest stable version of this article, click <a href="<%=@default_url%>">here</a>.

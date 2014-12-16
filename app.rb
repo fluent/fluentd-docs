@@ -286,6 +286,7 @@ helpers do
 
   def render_article(article, congrats, lang: $DEFAULT_LANGUAGE, ver: $DEFAULT_VERSION)
     @filepath = article_file(article, lang, ver)
+    @has_default_version = File.exists?(article_file(article, lang, $DEFAULT_VERSION))
     if not (avaiable_language?(article, lang) and File.exists?(@filepath))
       status 404
       return
