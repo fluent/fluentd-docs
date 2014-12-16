@@ -56,7 +56,7 @@ The format of the log. This option is used to parse non-standard syslog formats 
     <source>
       type syslog
       tag system
-      format /YOUR_LOG_FORMAT/
+      format FORMAT_PARAMETER
     </source>
 
 NOTE: Your `format` regexp should not consider the 'priority' prefix of the log.
@@ -68,7 +68,12 @@ then the format parser receives the following log:
 
      Feb 20 00:00:00 192.168.0.1 fluentd[11111]: [error] hogehoge
 
-If the `format` parameter is missing, then the log data is assumed to have the canonical syslog format (see with_priority)
+If the `format` parameter is missing, then the log data is assumed to have the canonical syslog format (see with_priority).
+
+FORMAT_PARAMETER supports the following options:
+
+INCLUDE: _in_parsers
+
 
 #### with_priority
 

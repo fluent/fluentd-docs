@@ -35,24 +35,8 @@ The payload is read up to this character. By default, it is "\n".
 #### format
 The format of the UDP payload. Required.
 
-* regexp
+INCLUDE: _in_parsers
 
-Specify body format by regular expression.
-
-    :::text
-    format /^(?<field1>\d+):(?<field2>\w+)$/
-
-If you execute following command:
-
-    :::term
-    $ echo '123456:awesome' | netcat -u 0.0.0.0 5160
-
-then got parsed result like below:
-
-    :::text
-    {"field1":"123456","field2":"awesome}
-
-`ltsv`, `tsv`, `csv`, `json` and `none` are also supported.
 
 #### source_host_key
 

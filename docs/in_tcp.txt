@@ -33,6 +33,9 @@ The payload is read up to this character. By default, it is "\n".
 #### format
 The format of the TCP payload. Required.
 
+INCLUDE: _in_parsers
+
+
 * regexp
 
 Specify body format by regular expression.
