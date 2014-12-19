@@ -22,3 +22,6 @@ there is no limit).  The default values are 17 and false (not disabled). If the 
 
 ### num_threads
 The number of threads to flush the buffer. This option can be used to parallelize writes into the output(s) designated by the output plugin. The default is 1.
+
+### flush_at_shutdown
+If set to true, Fluentd waits for the buffer to flush at shutdown. By default, it is set to true for Memory Buffer and false for File Buffer.
