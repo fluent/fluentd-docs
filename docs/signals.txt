@@ -14,7 +14,7 @@ Stops the daemon gracefully. Fluentd will try to flush the entire memory buffer 
 
 ### SIGUSR1
 
-Forces the buffered logs to be flushed and reopens Fluentd's log. All buffers (including memory and file) will be flushed. Fluentd will try to flush the entire memory buffer at once, but will not retry if the flush fails.
+Forces the buffered messages to be flushed and reopens Fluentd's log. Fluentd will try to flush the current buffer (both memory and file) immediately, and keep flushing at `flush_interval`.
 
 ### SIGHUP
 
