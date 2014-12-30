@@ -4,7 +4,7 @@
   <%= ::NewRelic::Agent.browser_timing_header rescue "" %>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta charset="utf-8">
-  <title><%=h @title %> | Fluentd</title>
+  <title><%=@title%> | Fluentd</title>
   <meta name="keywords" content="<%= find_keywords(params[:article], params[:category], @current_lang).join(',') %>">
   <meta name="description" content="<%= @desc %>">
   <meta name="google-site-verification" content="y_tydIQd6TZaoY-qR9geJSDX95h10_w4CXL6NznjgdI" />
