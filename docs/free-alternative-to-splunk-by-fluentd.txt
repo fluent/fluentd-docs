@@ -83,7 +83,7 @@ In this guide We'll install td-agent, the stable release of Fluentd. Please refe
 
 Next, we'll install the Elasticsearch plugin for Fluentd: fluent-plugin-elasticsearch.
 
-The latest version of fluent-plugin-elasticsearch requires `libcurl` and `make` (if your system has no `make`).
+NOTE: The latest version of fluent-plugin-elasticsearch requires <strong>libcurl</strong> and <strong>make</strong> (if your system has no "make"). For Ubuntu, run "sudo apt-get install libcurl4-gnutls-dev". For RedHat/CentOS, run "sudo yum install libcurl-devel".
 
 Then, install fluent-plugin-elasticsearch as follows.
 
