@@ -224,7 +224,7 @@ NOTE: Each parameter's type should be documented. If not, please let the plugin 
 - `array` type: the field is parsed as a JSON array (since v0.10.46)
 - `hash` type: the field is parsed as a JSON object (since v0.10.46)
 
-`array` and `hash` are JSON because almost programming languages and infrastructure tools
+`array` and `hash` are JSON because almost all programming languages and infrastructure tools
 can generate JSON value easily than unusual format.
 
 ## V1 Format
