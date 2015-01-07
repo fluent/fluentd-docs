@@ -232,8 +232,10 @@ Here is the code to parse this custom format (let's call it `time_key_value`). I
     :::ruby
     module Fluent
       class TextParser
-        class TimeKeyValueParser
-          include Configurable # This enables the use of config_param
+        class TimeKeyValueParser < Parser
+          # Register this parser as "time_key_value"
+          plugin.register_parser("time_key_value", self)
+
           config_param :delimiter, :string, :default => " " # delimiter is configurable with " " as default
           config_param :time_format, :string, :default => nil # time_format is configurable
           # This method is called after config_params have read configuration parameters
@@ -261,9 +263,6 @@ Here is the code to parse this custom format (let's call it `time_key_value`). I
             yield time, record
           end
         end
-        
-        # Add TimeKeyValueParser to the registry
-        register_template("time_key_value", Proc.new { TimeKeyValueParser.new })
       end
     end
 
@@ -288,10 +287,11 @@ Here is an example of a custom formatter that outputs events as CSVs. It takes a
     :::ruby
     module Fluent
       module TextFormatter
-        class MyCSVFormatter
-          include Configurable # This enables the use of config_param
-          include HandleTagAndTimeMixin # If you wish to use tag_key, time_key, etc.
-          
+        class MyCSVFormatter < Formatter
+          # Register MyCSVFormatter as "my_csv".
+          Plugin.register_formatter("my_csv", self)
+
+          include HandleTagAndTimeMixin # If you wish to use tag_key, time_key, etc.          
           config_param :csv_fields, :string
           
           # This method does further processing. Configuration parameters can be
@@ -302,8 +302,7 @@ Here is an example of a custom formatter that outputs events as CSVs. It takes a
           end
           
           # This is the method that formats the data output.
-          # For this example, 
-		  def format(tag, time, record)
+          def format(tag, time, record)
             values = []
             
             # Look up each required field and collect them from the record
@@ -318,10 +317,7 @@ Here is an example of a custom formatter that outputs events as CSVs. It takes a
             # Output by joining the fields with a comma
             values.join(",")
           end
-        end
-        
-        # Add MyCSVFormatter to the registry with the name "my_csv".
-        register_template("my_csv", Proc.new { MyCSVFormatter.new })
+        end        
       end
     end
 
