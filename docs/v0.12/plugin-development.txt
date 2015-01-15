@@ -384,30 +384,6 @@ Then, save this code in `formatter_my_csv.rb` in a loadable plugin path. Then, i
 
 and if the record `{"k1": 100, "k2": 200}` is matched, the output file should look like `100,200`
 
-## Logging
-
-In the past, Fluentd used `$log` objects to output logs. Fluentd (v0.10.43 and above) now provides the `log` method to support the plugin-specific `log_level` parameter. Newer plugins should use the `log` method instead of `$log` objects:
-
-    :::ruby
-    log.info "setup foo plugin"
-
-### Supporting Older Fluentd Versions
-
-The `log` method only works with Fluentd v0.10.43 or above. Please use the following code in your plugin to support older Fluentd versions:
-
-    :::ruby
-    module Fluent
-      module FooPluginOutput < Output
-        # Define `log` method for v0.10.42 or earlier
-        unless method_defined?(:log)
-          define_method(:log) { $log }
-        end
-        ...
-      end
-    end
-
-This code defines the `log` method using `$log` when the `log` method is not defined, so `log.error` becomes `$log.error` for older Fluentd versions.
-
 ## Debugging plugins
 
 Run ``fluentd`` with the ``-vv`` option to show debug messages:
