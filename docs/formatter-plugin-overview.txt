@@ -33,6 +33,10 @@ i.e., each line is a single JSON object with "time" and "tag fields to retain th
 
 See [this section](plugin-development#text-formatter-plugins) to learn how to develop a custom formatter.
 
+## Built-in format
+
+INCLUDE: _formatter_parameters
+
 ## List of Output Plugins with Text Formatter Support
 
 * [out_file](out_file)
