@@ -28,37 +28,39 @@ The following slides can help the user understand how Fluentd works before they 
 Extend the **Fluent::Input** class and implement the following methods.
 
     :::ruby
-    class SomeInput < Fluent::Input
-      # First, register the plugin. NAME is the name of this plugin
-      # and identifies the plugin in the configuration file.
-      Fluent::Plugin.register_input('NAME', self)
-
-      # config_param defines a parameter. You can refer a parameter via @port instance variable
-      # :default means this parameter is optional
-      config_param :port, :integer, :default => 8888
-
-      # This method is called before starting.
-      # 'conf' is a Hash that includes configuration parameters.
-      # If the configuration is invalid, raise Fluent::ConfigError.
-      def configure(conf)
-        super
-
-        # You can also refer to raw parameter via conf[name].
-        @port = conf['port']
-        ...
-      end
-
-      # This method is called when starting.
-      # Open sockets or files and create a thread here.
-      def start
-        super
-        ...
-      end
-
-      # This method is called when shutting down.
-      # Shutdown the thread and close sockets or files here.
-      def shutdown
-        ...
+    module Fluent
+      class SomeInput < Input
+        # First, register the plugin. NAME is the name of this plugin
+        # and identifies the plugin in the configuration file.
+        Fluent::Plugin.register_input('NAME', self)
+  
+        # config_param defines a parameter. You can refer a parameter via @port instance variable
+        # :default means this parameter is optional
+        config_param :port, :integer, :default => 8888
+  
+        # This method is called before starting.
+        # 'conf' is a Hash that includes configuration parameters.
+        # If the configuration is invalid, raise Fluent::ConfigError.
+        def configure(conf)
+          super
+  
+          # You can also refer to raw parameter via conf[name].
+          @port = conf['port']
+          ...
+        end
+  
+        # This method is called when starting.
+        # Open sockets or files and create a thread here.
+        def start
+          super
+          ...
+        end
+  
+        # This method is called when shutting down.
+        # Shutdown the thread and close sockets or files here.
+        def shutdown
+          ...
+        end
       end
     end
 
@@ -84,65 +86,67 @@ If you emit a symbol keyed record, it may cause a problem.
 Extend the **Fluent::BufferedOutput** class and implement the following methods.
 
     :::ruby
-    class SomeOutput < Fluent::BufferedOutput
-      # First, register the plugin. NAME is the name of this plugin
-      # and identifies the plugin in the configuration file.
-      Fluent::Plugin.register_output('NAME', self)
-
-      # config_param defines a parameter. You can refer a parameter via @path instance variable
-      # Without :default, a parameter is required.
-      config_param :path, :string
-
-      # This method is called before starting.
-      # 'conf' is a Hash that includes configuration parameters.
-      # If the configuration is invalid, raise Fluent::ConfigError.
-      def configure(conf)
-        super
-
-        # You can also refer raw parameter via conf[name].
-        @path = conf['path']
-        ...
+    module Fluent
+      class SomeOutput < BufferedOutput
+        # First, register the plugin. NAME is the name of this plugin
+        # and identifies the plugin in the configuration file.
+        Fluent::Plugin.register_output('NAME', self)
+  
+        # config_param defines a parameter. You can refer a parameter via @path instance variable
+        # Without :default, a parameter is required.
+        config_param :path, :string
+  
+        # This method is called before starting.
+        # 'conf' is a Hash that includes configuration parameters.
+        # If the configuration is invalid, raise Fluent::ConfigError.
+        def configure(conf)
+          super
+  
+          # You can also refer raw parameter via conf[name].
+          @path = conf['path']
+          ...
+        end
+  
+        # This method is called when starting.
+        # Open sockets or files here.
+        def start
+          super
+          ...
+        end
+  
+        # This method is called when shutting down.
+        # Shutdown the thread and close sockets or files here.
+        def shutdown
+          super
+          ...
+        end
+  
+        # This method is called when an event reaches to Fluentd.
+        # Convert the event to a raw string.
+        def format(tag, time, record)
+          [tag, time, record].to_json + "\n"
+          ## Alternatively, use msgpack to serialize the object.
+          # [tag, time, record].to_msgpack
+        end
+  
+        # This method is called every flush interval. Write the buffer chunk
+        # to files or databases here.
+        # 'chunk' is a buffer chunk that includes multiple formatted
+        # events. You can use 'data = chunk.read' to get all events and
+        # 'chunk.open {|io| ... }' to get IO objects.
+        #
+        # NOTE! This method is called by internal thread, not Fluentd's main thread. So IO wait doesn't affect other plugins.
+        def write(chunk)
+          data = chunk.read
+          print data
+        end
+  
+        ## Optionally, you can use chunk.msgpack_each to deserialize objects.
+        #def write(chunk)
+        #  chunk.msgpack_each {|(tag,time,record)|
+        #  }
+        #end
       end
-
-      # This method is called when starting.
-      # Open sockets or files here.
-      def start
-        super
-        ...
-      end
-
-      # This method is called when shutting down.
-      # Shutdown the thread and close sockets or files here.
-      def shutdown
-        super
-        ...
-      end
-
-      # This method is called when an event reaches to Fluentd.
-      # Convert the event to a raw string.
-      def format(tag, time, record)
-        [tag, time, record].to_json + "\n"
-        ## Alternatively, use msgpack to serialize the object.
-        # [tag, time, record].to_msgpack
-      end
-
-      # This method is called every flush interval. Write the buffer chunk
-      # to files or databases here.
-      # 'chunk' is a buffer chunk that includes multiple formatted
-      # events. You can use 'data = chunk.read' to get all events and
-      # 'chunk.open {|io| ... }' to get IO objects.
-      #
-      # NOTE! This method is called by internal thread, not Fluentd's main thread. So IO wait doesn't affect other plugins.
-      def write(chunk)
-        data = chunk.read
-        print data
-      end
-
-      ## Optionally, you can use chunk.msgpack_each to deserialize objects.
-      #def write(chunk)
-      #  chunk.msgpack_each {|(tag,time,record)|
-      #  }
-      #end
     end
 
 
@@ -155,18 +159,19 @@ Note that Time Sliced Output plugins use file buffer by default. Thus the ``buff
 To implement a Time Sliced Output plugin, extend the **Fluent::TimeSlicedOutput** class and implement the following methods.
 
     :::ruby
-    class SomeOutput < Fluent::TimeSlicedOutput
-      # configure(conf), start(), shutdown() and format(tag, time, record) are
-      # the same as BufferedOutput.
-      ...
-
-      # You can use 'chunk.key' to get sliced time. The format of 'chunk.key'
-      # can be configured by the 'time_format' option. The default format is %Y%m%d.
-      def write(chunk)
-        day = chunk.key
+    module Fluent
+      class SomeOutput < TimeSlicedOutput
+        # configure(conf), start(), shutdown() and format(tag, time, record) are
+        # the same as BufferedOutput.
         ...
+  
+        # You can use 'chunk.key' to get sliced time. The format of 'chunk.key'
+        # can be configured by the 'time_format' option. The default format is %Y%m%d.
+        def write(chunk)
+          day = chunk.key
+          ...
+        end
       end
-    end
 
 
 ## Writing Non-buffered Output Plugins
@@ -174,41 +179,43 @@ To implement a Time Sliced Output plugin, extend the **Fluent::TimeSlicedOutput*
 Extend the **Fluent::Output** class and implement the following methods. **Output** plugin is often used for implementing filter like plugin.
 
     :::ruby
-    class SomeOutput < Fluent::Output
-      # First, register the plugin. NAME is the name of this plugin
-      # and identifies the plugin in the configuration file.
-      Fluent::Plugin.register_output('NAME', self)
-
-      # This method is called before starting.
-      def configure(conf)
-        super
-        ...
-      end
-    
-      # This method is called when starting.
-      def start
-        super
-        ...
-      end
-    
-      # This method is called when shutting down.
-      def shutdown
-        super
-        ...
-      end
-    
-      # This method is called when an event reaches Fluentd.
-      # 'es' is a Fluent::EventStream object that includes multiple events.
-      # You can use 'es.each {|time,record| ... }' to retrieve events.
-      # 'chain' is an object that manages transactions. Call 'chain.next' at
-      # appropriate points and rollback if it raises an exception.
-      #
-      # NOTE! This method is called by Fluentd's main thread so you should not write slow routine here. It causes Fluentd's performance degression.
-      def emit(tag, es, chain)
-        chain.next
-        es.each {|time,record|
-          $stderr.puts "OK!"
-        }
+    module Fluent
+      class SomeOutput < Output
+        # First, register the plugin. NAME is the name of this plugin
+        # and identifies the plugin in the configuration file.
+        Fluent::Plugin.register_output('NAME', self)
+  
+        # This method is called before starting.
+        def configure(conf)
+          super
+          ...
+        end
+      
+        # This method is called when starting.
+        def start
+          super
+          ...
+        end
+      
+        # This method is called when shutting down.
+        def shutdown
+          super
+          ...
+        end
+      
+        # This method is called when an event reaches Fluentd.
+        # 'es' is a Fluent::EventStream object that includes multiple events.
+        # You can use 'es.each {|time,record| ... }' to retrieve events.
+        # 'chain' is an object that manages transactions. Call 'chain.next' at
+        # appropriate points and rollback if it raises an exception.
+        #
+        # NOTE! This method is called by Fluentd's main thread so you should not write slow routine here. It causes Fluentd's performance degression.
+        def emit(tag, es, chain)
+          chain.next
+          es.each {|time,record|
+            $stderr.puts "OK!"
+          }
+        end
       end
     end
 
@@ -275,8 +282,10 @@ Here is the code to parse this custom format (let's call it `time_key_value`). I
     :::ruby
     module Fluent
       class TextParser
-        class TimeKeyValueParser
-          include Configurable # This enables the use of config_param
+        class TimeKeyValueParser < Parser
+          # Register this parser as "time_key_value"
+          Plugin.register_parser("time_key_value", self)
+
           config_param :delimiter, :string, :default => " " # delimiter is configurable with " " as default
           config_param :time_format, :string, :default => nil # time_format is configurable
           # This method is called after config_params have read configuration parameters
@@ -304,9 +313,6 @@ Here is the code to parse this custom format (let's call it `time_key_value`). I
             yield time, record
           end
         end
-        
-        # Add TimeKeyValueParser to the registry
-        register_template("time_key_value", Proc.new { TimeKeyValueParser.new })
       end
     end
 
@@ -331,10 +337,11 @@ Here is an example of a custom formatter that outputs events as CSVs. It takes a
     :::ruby
     module Fluent
       module TextFormatter
-        class MyCSVFormatter
-          include Configurable # This enables the use of config_param
-          include HandleTagAndTimeMixin # If you wish to use tag_key, time_key, etc.
-          
+        class MyCSVFormatter < Formatter
+          # Register MyCSVFormatter as "my_csv".
+          Plugin.register_formatter("my_csv", self)
+
+          include HandleTagAndTimeMixin # If you wish to use tag_key, time_key, etc.          
           config_param :csv_fields, :string
           
           # This method does further processing. Configuration parameters can be
@@ -345,8 +352,7 @@ Here is an example of a custom formatter that outputs events as CSVs. It takes a
           end
           
           # This is the method that formats the data output.
-          # For this example, 
-		  def format(tag, time, record)
+          def format(tag, time, record)
             values = []
             
             # Look up each required field and collect them from the record
@@ -361,10 +367,7 @@ Here is an example of a custom formatter that outputs events as CSVs. It takes a
             # Output by joining the fields with a comma
             values.join(",")
           end
-        end
-        
-        # Add MyCSVFormatter to the registry with the name "my_csv".
-        register_template("my_csv", Proc.new { MyCSVFormatter.new })
+        end        
       end
     end
 
