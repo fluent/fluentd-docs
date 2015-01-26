@@ -67,3 +67,11 @@ You can use the `copy` [output plugin](/articles/out_copy) to send the same even
 ### How do I develop a custom plugin?
 
 Please refer to the [Plugin Development Guide](http://docs.fluentd.org/articles/plugin-development).
+
+## HOWTOs
+
+### How can I parse `<my complex text log>`?
+
+If you are willing to write Regexp, [Fluentular](http://fluentular.herokuapp.com) is a great tool to verify your Regexps.
+
+If you do NOT want to write any Regexp, look at [the Grok parser](https://github.com/kiyoto/fluent-plugin-grok-parser).
