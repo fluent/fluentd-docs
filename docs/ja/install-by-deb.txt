@@ -8,7 +8,7 @@ NOTE: 現在、Ubuntuは"Ubuntu 14.04 LTS / Trusty", "Ubuntu 12.04 LTS / Precise
 
 Fluentdは拡張しやすいようRubyで実装され、一部の性能に直結する部分はC言語で実装されています。しかしライトユーザーにとってRubyのデーモンをインストールし運用することは難しい場合があります。
 
-それが[Treasure Data社](http://www.treasuredata.com/)が **Fluentd安定版の配布パッケージ** を提供している理由であり、これは `td-agent` と呼ばれています。Fluentdとtd-agentの違いは[ここ](faq#what-is-the-difference-with-td-agent-and-fluentd)で確認することができます。
+それが[Treasure Data社](http://www.treasuredata.com/)が **Fluentd安定版の配布パッケージ** を提供している理由であり、これは `td-agent` と呼ばれています。Fluentdとtd-agentの違いは<a href="//www.fluentd.org/faqs#collapse-0-3">ここ</a>で確認することができます。
 
 NOTE: このインストールガイドは現在の安定バージョンであるtd-agent v2向けに書かれています。v1とv2の違いについては<a href="td-agent-v1-vs-v2">こちらのページ</a>をご覧ください。v1向けのインストールガイドは<a href="install-by-deb-v1">こちら</a>です。
 
