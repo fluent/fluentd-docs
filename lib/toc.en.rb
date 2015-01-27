@@ -85,7 +85,7 @@ section 'configuration', 'Configuration' do
           w.capitalize
         end
       }).join(" ")
-    end 
+    end
   end
 end
 section 'deployment', 'Deployment' do
@@ -235,6 +235,9 @@ end
 section 'developer', 'Developer' do
   category 'plugin-development', 'Plugin Development' do
     article 'plugin-development', 'Plugin Development'
+  end
+  category 'life-of-a-fluentd-event', 'Life of a FluentD Event' do
+    article 'life-of-a-fluentd-event', 'Life of a FluentD Event'
   end
   category 'community', 'Community' do
     article 'community', 'Community'
