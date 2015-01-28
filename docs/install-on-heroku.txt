@@ -2,7 +2,7 @@
 
 This article describes how to install Fluentd (td-agent) on [Heroku](http://www.heroku.com/).
 
-## Create Your App
+## With non-Treasure Data backend
 
 Heroku doesn't allow users to install separate processes within a single dyno. You will thus need to setup Fluentd as a separate Heroku application. This will become you central log aggregation server.
 
@@ -21,12 +21,59 @@ Treasure Data provides a boilerplate repository to get you started. Follow the s
     $ heroku create --stack cedar
     $ git push heroku master
 
-    # Modify your conf
+    # Update your config
     $ vi td-agent.conf
     $ git commit -a -m 'update config file'
     
     # Deploy
     $ git push heroku master
+
+
+
+## With Treasure Data as a Backend
+
+Since [Treasure Data](http://www.treasuredata.com), the primary sponsor of Fluentd, is a [Heroku Addons provider](https://addons.heroku.com/treasure-data), some of you came here to stream data to Treasure Data through Fluentd.
+
+If
+
+    :::text
+              http                          
+    Your App ------> Heroku-hosted Fluentd ------> Treasure Data
+
+is what you want, there are two ways to deploy it.
+
+### 1. Heroku Button
+
+Clicking on the following button automatically launched td-agent on Heroku:
+
+<a href="https://heroku.com/deploy?template=https://github.com/treasure-data/heroku-td-agent"><img src="https://www.herokucdn.com/deploy/button.png"/></a>
+
+You can read more about this approach [here](https://github.com/treasure-data/heroku-td-agent).
+
+### 2. Using Git
+
+This is similar to "With non-Treasure Data Backend", except you do not need to edit the config. Instead, simply update the configuration variable:
+
+    :::term
+    # Clone
+    $ git clone git://github.com/treasure-data/heroku-td-agent.git
+    $ cd heroku-td-agent
+    $ rm -fR .git
+    $ git init
+    $ git add .
+    $ git commit -m 'initial commit'
+    
+    # Create the app & deploy
+    $ heroku create --stack cedar
+    $ git push heroku master
+
+    # Set your config
+    $ heroku config:set TREASURE_DATA_API_KEY=you_treasure_data_api_key_value
+    
+    # Deploy
+    $ git push heroku master
+
+To retrieve your `treasure_data_api_key_value`, see [here](http://docs.treasuredata.com/articles/get-apikey).
 
 ## Test
 
