@@ -22,7 +22,7 @@ Please follow the [Preinstallation Guide](before-install) to configure your OS p
 
 ## Step 1: Install from rpm Repository
 
-CentOS and RHEL 5 and 6 are currently supported (The support for RHEL 7 is coming).
+CentOS and RHEL 5, 6 and 7 are currently supported.
 
 Executing [install-redhat-td-agent2.sh](http://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh) will automatically install td-agent on your machine. This shell script registers a new rpm repository at `/etc/yum.repos.d/td.repo` and installs the `td-agent` rpm package.
 
