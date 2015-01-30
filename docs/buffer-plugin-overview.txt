@@ -30,6 +30,8 @@ When the top chunk exceeds the specified size or time limit (`buffer_chunk_limit
 
 If the bottom chunk write out fails, it will remain in the queue and Fluentd will retry after waiting several seconds (`retry_wait`). If the retry limit has not been disabled (`disable_retry_limit` is false) and the retry count exceeds the specified limit (`retry_limit`), the chunk is trashed. The retry wait time doubles each time (1.0sec, 2.0sec, 4.0sec, ...). If the queue length exceeds the specified limit (`buffer_queue_limit`), new events are rejected.
 
+NOTE: writing out the bottom chunk is considered to be a failure if "Buffer#write" method throws an exception.
+
 All buffered output plugins support the following parameters:
 
     :::text
