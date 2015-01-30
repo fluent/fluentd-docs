@@ -1,10 +1,10 @@
-# Life of a FluentD Event
+# Life of a Fluentd Event
 
-The following article describe a global overview of how events are processed by [FluentD](http://fluentd.org) using examples. It covers the complete cycle including _Setup_, _Inputs_, _Filters_, _Matches_ and _Labels_.
+The following article describe a global overview of how events are processed by [Fluentd](http://fluentd.org) using examples. It covers the complete cycle including _Setup_, _Inputs_, _Filters_, _Matches_ and _Labels_.
 
 ## Basic Setup
 
-As described in the articles above, the _Setup_ in the configuration files is the fundamental piece to connect all things together, as it allows to define which _Inputs_ or listeners [FluentD](http://fluentd.org) will have and setup common matching rules to route the _Event_ data to a specific _Output_.
+As described in the articles above, the _Setup_ in the configuration files is the fundamental piece to connect all things together, as it allows to define which _Inputs_ or listeners [Fluentd](http://fluentd.org) will have and setup common matching rules to route the _Event_ data to a specific _Output_.
 
 We will use the [in_http](in_http) and the [out_stdout](out_stdout) plugins as examples to describe the events cycle. The following is a basic definition on the configuration file to specify an _http_ input, for short: we will be listening for __HTTP Requests__:
 
@@ -31,7 +31,7 @@ The _Match_ sets a rule where each _Incoming_ event that arrives with a __Tag__ 
     Connection: Keep-Alive
     Content-length: 0
 
-On the [FluentD](http://fluentd.org) server side the output should look like this:
+On the [Fluentd](http://fluentd.org) server side the output should look like this:
 
     :::text
     $ bin/fluentd -c in_http.conf
@@ -55,7 +55,7 @@ On the [FluentD](http://fluentd.org) server side the output should look like thi
 
 When a _Setup_ is defined, the _Router Engine_ already contains several rules to apply for different input data. Internally an _Event_ will to pass through a chain of procedures that may alter it cycle.
 
-NOTE: starting from FluentD v0.12 two new concepts were introduced to improve the routing behavior: Filters and Labels.
+NOTE: starting from Fluentd v0.12 two new concepts were introduced to improve the routing behavior: Filters and Labels.
 
 Now we will expand our previous basic example and we will add more steps in our _Setup_ to demonstrate how the _Events_ cycle can be altered. We will do this through the new _Filters_ implementation.
 
@@ -96,7 +96,7 @@ From a _Terminal_, run the following two _Curl_ commands, please note that each 
     Connection: Keep-Alive
     Content-length: 0
 
-Now looking at the [FluentD](http://fluentd.org) service output we can realize that just the one with the _action_ equals to _login_ just matched. The _logout_ _Event_ was discarded:
+Now looking at the [Fluentd](http://fluentd.org) service output we can realize that just the one with the _action_ equals to _login_ just matched. The _logout_ _Event_ was discarded:
 
     :::text
     $ bin/fluentd -c in_http.conf
@@ -121,7 +121,7 @@ Now looking at the [FluentD](http://fluentd.org) service output we can realize t
     2015-01-19 12:37:41 -0600 [info]: adding source type="http"
     2015-01-27 01:27:11 -0600 test.cycle: {"action":"login","user":2}
 
-As you can see, the _Events_ follow a _step by step cycle_ where they are processed in order from top to bottom. The new engine on [FluentD](http://fluentd.org) allows to integrate many _Filters_ as necessary, also considering that the configuration file will grow and start getting a bit complex for the readers, a new feature called _Labels_ have been added that aims to solve this possible problem.
+As you can see, the _Events_ follow a _step by step cycle_ where they are processed in order from top to bottom. The new engine on [Fluentd](http://fluentd.org) allows to integrate many _Filters_ as necessary, also considering that the configuration file will grow and start getting a bit complex for the readers, a new feature called _Labels_ have been added that aims to solve this possible problem.
 
 ### Labels
 
@@ -155,7 +155,7 @@ The new configuration contains a _@label_ key on the _source_ indicating that an
 
 ## Conclusion
 
-Once the events are reported by the [FluentD](http://fluend.org) engine on the _Source_, can be processed _step by step_ or inside a referenced _Label_, as well any _Event_ may be filtered out at any moment. The new _Routing_ engine behavior aims to provide more flexibility and makes easier the processing before reaching the _Output_ plugin.
+Once the events are reported by the [Fluentd](http://fluend.org) engine on the _Source_, can be processed _step by step_ or inside a referenced _Label_, as well any _Event_ may be filtered out at any moment. The new _Routing_ engine behavior aims to provide more flexibility and makes easier the processing before reaching the _Output_ plugin.
 
 ## Learn More
 

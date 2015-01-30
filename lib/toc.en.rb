@@ -236,8 +236,8 @@ section 'developer', 'Developer' do
   category 'plugin-development', 'Plugin Development' do
     article 'plugin-development', 'Plugin Development'
   end
-  category 'life-of-a-fluentd-event', 'Life of a FluentD Event' do
-    article 'life-of-a-fluentd-event', 'Life of a FluentD Event'
+  category 'life-of-a-fluentd-event', 'Life of a Fluentd Event' do
+    article 'life-of-a-fluentd-event', 'Life of a Fluentd Event'
   end
   category 'community', 'Community' do
     article 'community', 'Community'
