@@ -61,6 +61,15 @@ If you would like to find out more about plugin management, please take a look a
 
 You can use the `copy` [output plugin](/articles/out_copy) to send the same event to multiple output destinations.
 
+### How can I use environment variables to configure parameters dynamically?
+
+Use `"#{ENV['YOUR_ENV_VARIABLE']}"`. For example,
+
+    :::text
+    some_field "#{ENV['FOO_HOME']}"
+
+(Note that it must be double quotes and not single quotes)
+
 
 ## Plugin Development
 
