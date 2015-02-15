@@ -339,7 +339,15 @@ helpers do
   end
 
   def prefix
-    (@current_lang.nil? || @current_lang == $DEFAULT_LANGUAGE) ? '' : "#{@current_lang}/"
+    # currently, v0.12 docs only exists for English.
+    # So, the prefix is either
+    # 1. version/
+    # 2. lang/
+    if (@current_lang.nil? || @current_lang == $DEFAULT_LANGUAGE)
+      @article_version ? "#{@article_version}/" : "" 
+    else
+      "#{@current_lang}/"
+    end
   end
 
   def avaiable_language?(article, lang)
