@@ -199,6 +199,15 @@ get '/search' do
 end
 
 get '/categories/:category' do
+  redirect "/#{$DEFAULT_VERSION}/categories/#{params[:category]}"
+end
+
+get '/v0.10/categories/:category' do
+  cache_long
+  render_category params[:category]
+end
+
+get '/v0.12/categories/:category' do
   cache_long
   render_category params[:category]
 end
