@@ -270,7 +270,7 @@ Example2: map plugin::
 
     <match tag>
       type map
-      map '[["code." + tag, time, { "code"  = > record["code"].to_i}], ["time." + tag, time, { "time"  = > record["time"].to_i}]]'
+      map '[["code." + tag, time, { "code" => record["code"].to_i}], ["time." + tag, time, { "time" => record["time"].to_i}]]'
       multi true
     </match>
 
