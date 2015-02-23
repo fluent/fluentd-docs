@@ -88,7 +88,7 @@ def build_tocs
   }
   tocs
 end
-$TOCS = build_tocs
+$TOC = TOC.new($DEFAULT_LANGUAGE)
 
 #
 # Last update list for each article
@@ -142,15 +142,7 @@ get '/articles/users' do
   redirect 'http://www.fluentd.org/testimonials'
 end
 
-get '/:lang/articles/users' do
-  redirect 'http://www.fluentd.org/testimonials'
-end
-
 get '/articles/slides' do
-  redirect 'http://www.fluentd.org/slides'
-end
-
-get '/:lang/articles/slides' do
   redirect 'http://www.fluentd.org/slides'
 end
 
@@ -167,26 +159,15 @@ get '/robots.txt' do
 end
 
 get '/sitemap.xml' do
-  @articles = {}
-  $TOCS.each_pair { |lang, toc|
-    article_names = []
-    toc.sections.each { |_, _, categories|
-      categories.each { |_, _, articles|
-        articles.each { |name, _, _|
-          article_names << name
-        }
+  @article_names = []
+  $TOC.sections.each { |_, _, categories|
+    categories.each { |_, _, articles|
+      articles.each { |name, _, _|
+        @article_names << name
       }
     }
-    if lang == 'en'
-      @articles[lang] = article_names if lang == 'en'
-    else
-      translated_article_names = []
-      article_names.each { |a|
-        translated_article_names << a if !File.symlink?("./docs/#{lang}/#{a}.txt")
-      }
-      @articles[lang] = translated_article_names
-    end
   }
+
   content_type 'text/xml'
   erb :sitemap, :layout => false
 end
@@ -194,7 +175,6 @@ end
 get '/search' do
   page = params[:page].to_i
   search, prev_page, next_page = search_for(params[:q], page)
-  @current_lang = $DEFAULT_LANGUAGE
   erb :search, :locals => {:search => search, :query => params[:q], :prev_page => prev_page, :next_page => next_page}
 end
 
@@ -212,11 +192,6 @@ get '/v0.12/categories/:category' do
   render_category params[:category]
 end
 
-get '/:lang/categories/:category' do
-  cache_long
-  render_category params[:category], params[:lang]
-end
-
 get '/recipe/apache/:data_sink' do
   redirect "/recipe/apache-logs/#{params[:data_sink]}"
 end
@@ -226,13 +201,6 @@ get '/recipe/:data_source/:data_sink' do
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
   cache_long
   render_article params[:article], params[:congrats]
-end
-
-get '/:lang/recipe/:data_source/:data_sink' do
-  params[:article] = "recipe-#{params[:data_source]}-to-#{params[:data_sink]}"
-  puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
-  cache_long
-  render_article params[:article], params[:congrats], lang: params[:lang]
 end
 
 get '/articles/:article' do
@@ -250,18 +218,11 @@ get '/v0.12/articles/:article' do
   render_article params[:article], params[:congrats], ver: 'v0.12'
 end
 
-get '/:lang/articles/:article' do
-  puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
-  cache_long
-  render_article params[:article], params[:congrats], lang: params[:lang]
-end
-
-
 helpers do
   def render_category(category, lang = $DEFAULT_LANGUAGE)
     @articles = []
     @desc = ''
-    sections(lang).each { |_, _, categories|
+    sections.each { |_, _, categories|
       categories.each { |name, title, articles|
         if name == category
           @title = title
@@ -284,7 +245,6 @@ helpers do
       redirect redirect_path
     elsif !@articles.empty?
       @articles
-      @current_lang = lang
       erb :category
     else
       status 404
@@ -323,7 +283,6 @@ helpers do
       @outdated_from = $LAST_UPDATED[$DEFAULT_LANGUAGE][article]
     end
 
-    @current_lang = lang
     @available_langs = $AVAILABLE_LANGUAGES[article] || ['en'] # to support  new experimental articles
 
     erb :article
@@ -352,11 +311,7 @@ helpers do
     # So, the prefix is either
     # 1. version/
     # 2. lang/
-    if (@current_lang.nil? || @current_lang == $DEFAULT_LANGUAGE)
-      @article_version ? "#{@article_version}/" : "" 
-    else
-      "#{@current_lang}/"
-    end
+    @article_version ? "#{@article_version}/" : "" 
   end
 
   def avaiable_language?(article, lang)
@@ -376,7 +331,7 @@ helpers do
 
   def find_category(article, lang = $DEFAULT_LANGUAGE)
     return nil if article.nil?
-    sections(lang).each { |_, _, categories|
+    sections.each { |_, _, categories|
       categories.each { |category_name, _, articles|
         articles.each { |article_name, _, _|
           return category_name if article_name == article
@@ -388,7 +343,7 @@ helpers do
 
   def find_keywords(article, category, lang = $DEFAULT_LANGUAGE)
     default = ['Fluentd', 'log collector']
-    sections(lang).each { |_, _, categories|
+    sections.each { |_, _, categories|
       categories.each { |category_name, _, articles|
         return default + [category_name] if category_name == category
         articles.each { |article_name, title, keywords|
@@ -401,12 +356,8 @@ helpers do
     default
   end
 
-  def sections(lang = $DEFAULT_LANGUAGE)
-    if $TOCS.has_key?(lang)
-      $TOCS[lang].sections
-    else
-      $TOCS[$DEFAULT_LANGUAGE].sections
-    end
+  def sections
+    $TOC.sections
   end
 
   def next_section(current_slug, root=sections)
