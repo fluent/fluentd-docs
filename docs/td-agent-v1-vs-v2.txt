@@ -8,7 +8,7 @@
 	<th>
 		<td>v1</td><td>v2</td>
 	</th>
-	<tr><td>RedHat/CentOS 5/6</td><td>&#10003;</td><td>&#10003;</td></tr>
+	<tr><td>RedHat/CentOS 5/6/7</td><td>&#10003;</td><td>&#10003;</td></tr>
 	<tr><td>Ubuntu Lucid</td><td>&#10003;</td><td>&#10003;</td></tr>
 	<tr><td>Ubuntu Precise</td><td>&#10003;</td><td>&#10003;</td></tr>
 	<tr><td>Ubuntu Trusty (only 64 bit for now)</td><td></td><td>&#10003;</td></tr>
@@ -22,7 +22,7 @@
 Major feature updates to td-agent v2 are as follows.
 
 - Ruby 2.1
-- Updated for the core libraries, jemalloc 3.6.0, msgpack 0.5.8, Cool.io 1.2.4, etc.
+- Updated for the core libraries, msgpack, Cool.io, etc.
 - Changed the installation directory from `/usr/{lib,lib64}/fluent` to `/opt/td-agent`
 - `td-agent-gem` utility command was added
   - To install a third-party plugin, use /usr/sbin/td-agent-gem command
@@ -31,7 +31,7 @@ Major feature updates to td-agent v2 are as follows.
 
 ## Upgrading from v1 to v2
 
-Because v1 and v2 are not compatible, update commands provided by package managers (ex: `yum update`) cannot be used to migrate from v1 to v2. To upgrade from v1 to v2:
+Because v1 and v2 package structure are not compatible, update commands provided by package managers (ex: `yum update`) cannot be used to migrate from v1 to v2. To upgrade from v1 to v2:
 
 1. Uninstall v1.
 2. Install v2.

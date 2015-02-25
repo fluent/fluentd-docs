@@ -2,11 +2,7 @@
 
 This article explains how to install the td-agent rpm package, the stable Fluentd distribution package maintained by [Treasure Data, Inc](http://www.treasuredata.com/).
 
-NOTE: Currently, RedHat/CentOS 5 and 6 are supported with the support for 7 forthcoming. If you are interested in other versions/platforms, please contact us on the <a href="https://groups.google.com/d/forum/fluentd">mailing list</a>. If enough people express interest, we may consider supporting it.
-
-
-NOTE: Currently, Amazon Linux is NOT supported.
-
+NOTE: Currently, Amazon Linux is NOT supported officially because Amazon Linux doesn't guarantee ABI compatibility. RPM for CentOS 7 may work.
 
 ## What is td-agent?
 
