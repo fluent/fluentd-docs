@@ -18,7 +18,9 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 The value must be `file`.
 
 #### buffer_path (required)
-The path where buffer chunks are stored. The ‘*’ is replaced with random characters. This parameter is required.
+The path where buffer chunks are stored. The ‘*’ is replaced with random characters. This parameter is require
+
+This parameter must be unique in one fluentd instance. For example, you can't use fixed buffer_path parameter in fluent-plugin-forest. `${tag}` or similar placeholder is needed in buffer_path.
 
 #### buffer_chunk_limit
 The size of each buffer chunk. The default is 8m. The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used. Please see the [Buffer Plugin Overview](buffer-plugin-overview) article for the basic buffer structure. 
