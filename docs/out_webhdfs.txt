@@ -2,6 +2,8 @@
 
 The `out_webhdfs` TimeSliced Output plugin writes records into HDFS (Hadoop Distributed File System). By default, it creates files on an hourly basis. This means that when you first import records using the plugin, no file is created immediately. The file will be created when the `time_slice_format` condition has been met. To change the output frequency, please modify the `time_slice_format` value.
 
+NOTE: This document doesn't describe all parameters. If you want to know full features, check the Further Reading section.
+
 ## Install
 
 `out_webhdfs` is included in td-agent by default (v1.1.10 or later). Fluentd gem users will have to install the fluent-plugin-webhdfs gem using the following command.
