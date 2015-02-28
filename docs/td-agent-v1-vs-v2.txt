@@ -8,7 +8,8 @@
 	<th>
 		<td>v1</td><td>v2</td>
 	</th>
-	<tr><td>RedHat/CentOS 5/6/7</td><td>&#10003;</td><td>&#10003;</td></tr>
+	<tr><td>RedHat/CentOS 5/6</td><td>&#10003;</td><td>&#10003;</td></tr>
+	<tr><td>RedHat/CentOS 7</td><td></td><td>&#10003;</td></tr>
 	<tr><td>Ubuntu Lucid</td><td>&#10003;</td><td>&#10003;</td></tr>
 	<tr><td>Ubuntu Precise</td><td>&#10003;</td><td>&#10003;</td></tr>
 	<tr><td>Ubuntu Trusty (only 64 bit for now)</td><td></td><td>&#10003;</td></tr>
