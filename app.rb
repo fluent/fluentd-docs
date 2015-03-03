@@ -203,6 +203,11 @@ get '/recipe/:data_source/:data_sink' do
   render_article params[:article], params[:congrats]
 end
 
+get '/:lang/articles/:article' do
+  puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
+  redirect "/articles/#{params[:article]}"
+end
+
 get '/articles/:article' do
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
   cache_long
