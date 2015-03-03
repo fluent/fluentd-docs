@@ -41,14 +41,14 @@ If you use tsv or csv format, please also specify the `keys` parameter.
 
     :::text
     format tsv
-    keys key1, key2, key3
+    keys key1,key2,key3
     time_key key2
 
 If you specify the `time_key` parameter, it will be used to identify the timestamp of the record. The timestamp when Fluentd reads the record is used by default.
 
     :::text
     format csv
-    keys key1, key2, key3
+    keys key1,key2,key3
     time_key key3
 
 * `ltsv`
