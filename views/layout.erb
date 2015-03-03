@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta charset="utf-8">
   <title><%=@title%> | Fluentd</title>
-  <meta name="keywords" content="<%= find_keywords(params[:article], params[:category], @current_lang).join(',') %>">
+  <meta name="keywords" content="<%= find_keywords(params[:article], params[:category]).join(',') %>">
   <meta name="description" content="<%= @desc %>">
   <meta name="google-site-verification" content="y_tydIQd6TZaoY-qR9geJSDX95h10_w4CXL6NznjgdI" />
   <meta name="msvalidate.01" content="FA8C6A3FF6ADEE726950F238947D5295" />
@@ -95,7 +95,7 @@ var Swiftype = window.Swiftype || {};
           </section>
           <select id="quicknav">
             <option value="/">Home</option>
-            <% sections(@current_lang).each do |slug, title, categories| %>
+            <% sections.each do |slug, title, categories| %>
             <optgroup label="<%=title %>">
               <% categories.each do |slug, title, _| %>
               <option value="/<%=prefix %>categories/<%= slug %>"><%=h title %></option>
@@ -104,7 +104,7 @@ var Swiftype = window.Swiftype || {};
             <% end %>
           </select>
           <ul id="nav">
-            <% sections(@current_lang).each do |slug, title, categories| %>
+            <% sections.each do |slug, title, categories| %>
             <li class="category-group">
               <a class="category" href="#"><%= title %></a>
               <ul class="tags">
