@@ -17,10 +17,6 @@ class FluentdDocsTest < MiniTest::Unit::TestCase
     if not url_part.split("/").last.start_with?("_")
       url_part.gsub!(/.txt$/, '')
       method_name = url_part.gsub(/[-\/]/, '_')
-      define_method("test_ja_#{method_name}".to_s) do
-        get "/ja/articles/#{url_part.split("/", 2).last}"
-        assert last_response.ok?
-      end
       define_method("test_#{method_name}".to_s) do
         get "/articles/#{url_part.split("/", 2).last}"
         assert last_response.ok?
