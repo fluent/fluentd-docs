@@ -37,7 +37,10 @@ Fluentd enables your apps to insert records to MongoDB asynchronously with batch
       # authentication
       user michael
       password jordan
-
+      
+      # key name of timestamp
+      time_key time
+      
       # flush
       flush_interval 10s
     </match>
@@ -74,6 +77,9 @@ The username to use for authentication.
 
 ### password
 The password to use for authentication.
+
+### time_key
+The key name of timestamp. (default is "time")
 
 ### tag_mapped
 This option will allow out_mongo to use Fluentd's tag to determine the destination collection. For example, if you generate records with tags 'mongo.foo', the records will be inserted into the `foo` collection within the `fluentd` database.
