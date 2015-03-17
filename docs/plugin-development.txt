@@ -281,7 +281,7 @@ Then, save this code in `parser_time_key_value.rb` in a loadable plugin path. Th
     <source>
       type tail
       path /path/to/input/file
-      format time_key_parser
+      format time_key_value
     </source>
 
 Then, the log line like `2014-01-01T00:00:00 k=v a=b` is parsed as `2013-01-01 00:00:00 +0000 test: {"k":"v","a":"b"}`.
