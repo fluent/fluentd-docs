@@ -2,10 +2,6 @@
 
 [Splunk](http://www.splunk.com/) is a great tool for searching logs, but its high cost makes it prohibitive for many teams. In this article, we present a free and open source alternative to Splunk by combining three open source projects: Elasticsearch, Kibana, and Fluentd.
 
-<center>
-<a href="http://kibana.fluentd.org/" target="_blank"><img src="/images/kibana-screenshot.png" width="90%"/></a><br />
-</center><br/>
-
 <br/>
 
 [Elasticsearch](http://www.elasticsearch.org/) is an open source search engine known for its ease of use. [Kibana](http://kibana.org/) is an open source Web UI that makes Elasticsearch user friendly for marketers, engineers and data scientists alike.
