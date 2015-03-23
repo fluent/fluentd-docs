@@ -17,23 +17,25 @@ By default, Fluentd only uses a single CPU core on the system. The `in_multiproc
       type multiprocess
 
       <process>
-        cmdline -c /etc/fluent/fluentd_child1.conf
+        cmdline -c /etc/fluent/fluentd_child1.conf --log /var/log/fluent/fluentd_child1.log
         sleep_before_start 1s
         sleep_before_shutdown 5s
       </process>
       <process>
-        cmdline -c /etc/fluent/fluentd_child2.conf
+        cmdline -c /etc/fluent/fluentd_child2.conf --log /var/log/fluent/fluentd_child2.log
         sleep_before_start 1s
         sleep_before_shutdown 5s
       </process>
       <process>
-        cmdline -c /etc/fluent/fluentd_child3.conf
+        cmdline -c /etc/fluent/fluentd_child3.conf --log /var/log/fluent/fluentd_child3.log
         sleep_before_start 1s
         sleep_before_shutdown 5s
       </process>
     </source>
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+
+NOTE: Especially for daemonized fluentd (ex: td-agent), `--log` option MUST be specified to put logs of child processes.
 
 ### Parameters
 
