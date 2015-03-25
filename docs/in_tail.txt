@@ -51,6 +51,14 @@ If the date is 20140401, Fluentd starts to watch the files in /path/to/2014/04/0
 
 NOTE: You should not use '*' with log rotation because it may cause the log duplication. In such case, you should separate in_tail plugin configuration.
 
+#### exclude_path
+
+The paths to exclude the files from watcher list. For example, if you want to remove compressed files, you can use following pattern.
+
+    :::text
+    path /path/to/*
+    exclude_path ["/path/to/*.gz", "/path/to/*.zip"]
+
 #### refresh_interval
 The interval of refreshing the list of watch file. Default is 60 seconds.
 
