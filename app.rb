@@ -78,17 +78,17 @@ $DEFAULT_VERSION = 'v0.10'
 require 'toc'
 
 def build_tocs
-  toc_langs = Dir.glob("#{settings.root}/lib/toc.*.rb").map { |toc|
-    File.basename(toc, ".rb")["toc.".size..-1]
+  toc_vers = Dir.glob("#{settings.root}/lib/toc.#{$DEFAULT_LANGUAGE}.*.rb").map { |toc|
+    File.basename(toc, ".rb")["toc.#{$DEFAULT_LANGUAGE}.".size..-1]
   }
 
   tocs = {}
-  toc_langs.each { |lang|
-    tocs[lang] = TOC.new(lang)
+  toc_vers.each { |ver|
+    tocs[ver] = TOC.new($DEFAULT_LANGUAGE, ver)
   }
   tocs
 end
-$TOC = TOC.new($DEFAULT_LANGUAGE)
+$TOCS = build_tocs
 
 #
 # Last update list for each article
@@ -160,7 +160,7 @@ end
 
 get '/sitemap.xml' do
   @article_names = []
-  $TOC.sections.each { |_, _, categories|
+  $TOCS[$DEFAULT_VERSION].sections.each { |_, _, categories|
     categories.each { |_, _, articles|
       articles.each { |name, _, _|
         @article_names << name
@@ -184,12 +184,12 @@ end
 
 get '/v0.10/categories/:category' do
   cache_long
-  render_category params[:category]
+  render_category params[:category], 'v0.10'
 end
 
 get '/v0.12/categories/:category' do
   cache_long
-  render_category params[:category]
+  render_category params[:category], 'v0.12'
 end
 
 get '/recipe/apache/:data_sink' do
@@ -224,10 +224,10 @@ get '/:lang/articles/:article' do
 end
 
 helpers do
-  def render_category(category, lang = $DEFAULT_LANGUAGE)
+  def render_category(category, ver = $DEFAULT_VERSION)
     @articles = []
     @desc = ''
-    sections.each { |_, _, categories|
+    sections(ver).each { |_, _, categories|
       categories.each { |name, title, articles|
         if name == category
           @title = title
@@ -334,9 +334,9 @@ helpers do
     title.downcase.gsub(/[^a-z0-9 -]/, '').gsub(/ /, '-')
   end
 
-  def find_category(article, lang = $DEFAULT_LANGUAGE)
+  def find_category(article, ver = $DEFAULT_VERSION)
     return nil if article.nil?
-    sections.each { |_, _, categories|
+    sections(ver).each { |_, _, categories|
       categories.each { |category_name, _, articles|
         articles.each { |article_name, _, _|
           return category_name if article_name == article
@@ -346,9 +346,9 @@ helpers do
     nil
   end
 
-  def find_keywords(article, category, lang = $DEFAULT_LANGUAGE)
+  def find_keywords(article, category, ver = $DEFAULT_VERSION)
     default = ['Fluentd', 'log collector']
-    sections.each { |_, _, categories|
+    sections(ver).each { |_, _, categories|
       categories.each { |category_name, _, articles|
         return default + [category_name] if category_name == category
         articles.each { |article_name, title, keywords|
@@ -361,11 +361,12 @@ helpers do
     default
   end
 
-  def sections
-    $TOC.sections
+  def sections(ver)
+    v = ver.nil? ? $DEFAULT_VERSION : ver
+    $TOCS[v].sections
   end
 
-  def next_section(current_slug, root=sections)
+  def next_section(current_slug, root=sections($DEFAULT_VERSION))
     nil
   end
 

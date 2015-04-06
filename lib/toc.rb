@@ -1,6 +1,6 @@
 class TOC
-  def initialize(lang)
-    file = "#{File.dirname(__FILE__)}/toc.#{lang}.rb"
+  def initialize(lang, ver)
+    file = "#{File.dirname(__FILE__)}/toc.#{lang}.#{ver}.rb"
     eval(File.read(file), binding, file)
   end
 
