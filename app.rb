@@ -242,10 +242,10 @@ helpers do
       article_name = @articles.first.first
       redirect_path = if /^recipe-/.match(article_name)
                         article_name.split("-", 3).join("/")	
-                      elsif lang == $DEFAULT_LANGUAGE
+                      elsif ver == $DEFAULT_VERSION
                         "/articles/#{article_name}"
                       else
-                        "/#{lang}/articles/#{article_name}"
+                        "/#{ver}/articles/#{article_name}"
                       end
       redirect redirect_path
     elsif !@articles.empty?
@@ -261,10 +261,6 @@ helpers do
   def render_article(article, congrats, lang: $DEFAULT_LANGUAGE, ver: $DEFAULT_VERSION)
     @filepath = article_file(article, lang, ver)
     @has_default_version = File.exists?(article_file(article, lang, $DEFAULT_VERSION))
-    if not (avaiable_language?(article, lang) and File.exists?(@filepath))
-      status 404
-      return
-    end
 
     unless $IO_CACHE.has_key? @filepath
       $IO_CACHE[@filepath] = File.read(@filepath)
@@ -303,7 +299,7 @@ helpers do
         path_prefix += "#{ver}/"
       end
 
-      if lang != $DEFAULT_LANGUAGE
+      if $DEFAULT_LANGUAGE != 'en'
         path_prefix += "#{lang}/"
       end
 
