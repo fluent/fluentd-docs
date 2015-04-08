@@ -29,7 +29,7 @@ The Path of the file. The actual path is path + time + ”.log”. The time port
 
 The `path` parameter is used as `buffer_path` in this plugin.
 
-NOTE: Initially, you may see a file which looks like "/path/to/file.20140101.log.b4eea2c8166b147a0". This is an intermediate buffer file ("b4eea2c8166b147a0" identifies the buffer). Once the content of the buffer has been completely [flushed](buf_file), you will see the output file without the trailing identifier.
+NOTE: Initially, you may see a file which looks like "/path/to/file.20140101.log.b4eea2c8166b147a0". This is an intermediate buffer file ("b4eea2c8166b147a0" identifies the buffer). Once the content of the buffer has been completely <a href="buf_file">flushed</a>, you will see the output file without the trailing identifier.
 
 ### append
 The flushed chunk is appended to existence file or not. The default is `false`.
