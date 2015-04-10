@@ -14,9 +14,9 @@ The configuration file allows the user to control the input and output behavior 
 
 ## Config File Location
 
-#### RPM or Deb
+#### RPM, Deb or DMG
 
-If you installed Fluentd using the rpm or deb packages, the config file is located at /etc/td-agent/td-agent.conf. `sudo /etc/init.d/td-agent reload` will reload the config file.
+If you installed Fluentd using the td-agent packages, the config file is located at /etc/td-agent/td-agent.conf. `sudo /etc/init.d/td-agent reload` will reload the config file.
 
     :::term
     $ sudo vi /etc/td-agent/td-agent.conf
