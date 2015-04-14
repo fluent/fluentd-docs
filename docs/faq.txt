@@ -2,6 +2,10 @@
 
 ## Known Issue
 
+##W What version of Ruby does fluentd support?
+
+Fluentd v0.10 or v0.12 works on 1.9.3 or later. Since v0.14, 2.1 or later.
+
 ### I use Fluentd with Ruby 2.0 but Fluentd seems deadlocked. Why?
 
 The rubygems of Ruby 2.0-p353 has a deadlock problem ([#9224](https://bugs.ruby-lang.org/issues/9224)).
@@ -20,6 +24,8 @@ Using td-agent is another way to avoid this problem because td-agent includes ow
 The timestamps of Fluentd and its logger libraries depend on your system's clock. It's highly recommended that you set up NTP on your nodes so that your clocks remain synced with the correct clocks.
 
 ### I installed td-agent and want to add custom plugins. How do I do it?
+
+td-agent has own Ruby so you should install gems into td-agent's Ruby, not system Ruby.
 
 #### td-agent 2:
 
