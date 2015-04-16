@@ -286,10 +286,6 @@ helpers do
     @article_version = ver
     @default_url = "/articles/#{article}"
     @last_updated = $LAST_UPDATED[lang][article]
-    if ver == $DEFAULT_VERSION and $OUTDATED_SPAN < Time.parse($LAST_UPDATED[$DEFAULT_LANGUAGE][article]) - Time.parse($LAST_UPDATED[lang][article])
-      @outdated_from = $LAST_UPDATED[$DEFAULT_LANGUAGE][article]
-    end
-
     @available_langs = $AVAILABLE_LANGUAGES[article] || ['en'] # to support  new experimental articles
 
     erb :article
