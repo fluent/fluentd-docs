@@ -70,7 +70,7 @@ def build_available_languages
 end
 $AVAILABLE_LANGUAGES = build_available_languages
 $DEFAULT_LANGUAGE = 'en'
-$DEFAULT_VERSION = 'v0.10'
+$DEFAULT_VERSION = 'v0.12'
 
 #
 # For table-of-content
@@ -212,6 +212,12 @@ end
 # ver needs to come before /:lang/article/:article
 # otherwise, lang matches first.
 
+get '/v0.10/articles/:article' do
+  puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
+  cache_long
+  render_article params[:article], params[:congrats], ver: 'v0.10'
+end
+
 get '/v0.12/articles/:article' do
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
   cache_long
@@ -280,10 +286,6 @@ helpers do
     @article_version = ver
     @default_url = "/articles/#{article}"
     @last_updated = $LAST_UPDATED[lang][article]
-    if ver == $DEFAULT_VERSION and $OUTDATED_SPAN < Time.parse($LAST_UPDATED[$DEFAULT_LANGUAGE][article]) - Time.parse($LAST_UPDATED[lang][article])
-      @outdated_from = $LAST_UPDATED[$DEFAULT_LANGUAGE][article]
-    end
-
     @available_langs = $AVAILABLE_LANGUAGES[article] || ['en'] # to support  new experimental articles
 
     erb :article
@@ -295,11 +297,11 @@ helpers do
     else
       path_prefix = "#{settings.root}/docs/"
 
-      if ver != $DEFAULT_VERSION
+      if ver != 'v0.10'
         path_prefix += "#{ver}/"
       end
 
-      if $DEFAULT_LANGUAGE != 'en'
+      if lang != 'en'
         path_prefix += "#{lang}/"
       end
 
