@@ -2,7 +2,7 @@
 
 ## Known Issue
 
-##W What version of Ruby does fluentd support?
+## What version of Ruby does fluentd support?
 
 Fluentd v0.10 or v0.12 works on 1.9.3 or later. Since v0.14, 2.1 or later.
 
