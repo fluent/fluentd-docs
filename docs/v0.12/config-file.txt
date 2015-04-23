@@ -180,7 +180,7 @@ Let's add standard `record_transformer` filter to "match" example.
       <record>
         host_param "#{Socket.gethostname}"
       </record>
-    </match>
+    </filter>
 
     <match myapp.access>
       type file
