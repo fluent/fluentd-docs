@@ -255,11 +255,34 @@ Here is the implementation of the most basic filter that passes through all even
           #
           # Since our example is a pass-thru filter, it does nothing and just
           # returns the record as-is.
+          # If returns nil, that records are ignored.
           record
         end
       end
     end
 
+
+### filter_stream method
+
+Almost plugins could be implemented by overriding `filter` method. But if you want to mutate the event stream itself, you can override `filter_stream` method.
+
+Here is the default implementation of `filter_stream`.
+
+    :::ruby
+    def filter_stream(tag, es)
+      new_es = MultiEventStream.new
+      es.each { |time, record|
+        begin
+          filtered_record = filter(tag, time, record)
+          new_es.add(time, filtered_record) if filtered_record
+        rescue  = > e
+          router.emit_error_event(tag, time, record, e)
+        end
+      }
+      new_es
+    end
+
+`filter_stream` should return [EventStream](https://github.com/fluent/fluentd/blob/master/lib/fluent/event.rb) object.
 
 ## Parser Plugins
 
