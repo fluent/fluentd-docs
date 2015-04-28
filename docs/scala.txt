@@ -99,7 +99,7 @@ Various [output plugins](output-plugin-overview) are available for writing recor
   * [Output to File](out_file)
   * [etc...](http://fluentd.org/plugin/)
 
-### High-Availablability Configurations of Fluentd
+### High-Availability Configurations of Fluentd
 For high-traffic websites (more than 5 application nodes), we recommend using a high availability configuration of td-agent. This will improve data transfer reliability and query performance.
 
 * [High-Availability Configurations of Fluentd](high-availability)

@@ -73,9 +73,9 @@ In addition, each chunk is keyed by time and flushed when that chunk's timestamp
 
 <img style="display:block;" src="http://image.slidesharecdn.com/fluentdmeetup-diveintofluentplugin-120203210125-phpapp02/95/slide-60-728.jpg"/>
 
-## Seconday output
+## Secondary output
 
-The backup destination that is used when retry count exceeds `rety_limit`. Currently, primary plugin type or `file` plugin works.
+The backup destination that is used when retry count exceeds `retry_limit`. Currently, primary plugin type or `file` plugin works.
 
     <match pattern>
       type forward

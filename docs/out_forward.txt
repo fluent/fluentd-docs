@@ -52,7 +52,7 @@ The destination servers. Each server must have following information.
 * *name*: The name of the server. This parameter is used in error messages.
 * *host* (required): The IP address or host name of the server.
 * *port*: The port number of the host. The default is 24224. Note that both TCP packets (event stream) and UDP packets (heartbeat message) are sent to this port.
-* *weight*: The load balancing weight. If the weight of one server is 20 and the weight of the other server is 30, events are sent in a 2:3 raito. The default weight is 60.
+* *weight*: The load balancing weight. If the weight of one server is 20 and the weight of the other server is 30, events are sent in a 2:3 ratio. The default weight is 60.
 
 ### &lt;secondary&gt; (optional)
 The backup destination that is used when all servers are unavailable.

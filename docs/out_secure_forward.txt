@@ -294,7 +294,7 @@ This parameter is required. Its value must be `secure_forward`.
 ####port (integer)
 The default value is 24284.
 
-####bind (sring)
+####bind (string)
 The default value is 0.0.0.0.
 
 ####self_hostname (string)

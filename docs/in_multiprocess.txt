@@ -49,7 +49,7 @@ The interval to send the signal to gracefully shut down the process (default: 2s
 The increment time, when graceful shutdown fails (default: 3sec).
 
 #### graceful_kill_timeout
-The timeout, to identify the failure of gracefull shutdown (default: 60sec).
+The timeout, to identify the failure of graceful shutdown (default: 60sec).
 
 #### process (required)
 The `process` section sets the command line arguments of a child process. This plugin creates one child process for each <process> section.
