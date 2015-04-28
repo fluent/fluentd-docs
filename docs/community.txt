@@ -28,5 +28,5 @@ An Open Source project like Fluentd couldn’t exist without contributions from 
 
 We run the documentation as an open source project as well. We encourage and appreciate any improvements, big or small. Make a pull request!
 
-- [Documentation Souce Code](http://github.com/fluent/fluentd-docs)
+- [Documentation Source Code](http://github.com/fluent/fluentd-docs)
 

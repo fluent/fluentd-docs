@@ -8,7 +8,7 @@ There are three types of output plugins: Non-Buffered, Buffered, and Time Sliced
 
 * *Non-Buffered* output plugins do not buffer data and immediately write out results.
 * *Buffered* output plugins maintain a queue of chunks (a chunk is a collection of events), and its behavior can be tuned by the "chunk limit" and "queue limit" parameters (See the diagram  below).
-* *Time Sliced* output plugins are in fact a type of Bufferred plugin, but the chunks are keyed by time (See the diagram below).
+* *Time Sliced* output plugins are in fact a type of Buffered plugin, but the chunks are keyed by time (See the diagram below).
 
 <img style="display:block;" src="http://image.slidesharecdn.com/fluentdmeetup-diveintofluentplugin-120203210125-phpapp02/95/slide-60-728.jpg"/>
 

@@ -120,7 +120,7 @@ The monitoring server can then filter and send the logs to your notification sys
 
 Leaf server example:
 
-    # Add hostname for identifing the server and tag to filter by log level
+    # Add hostname for identifying the server and tag to filter by log level
     <match fluent.**>
       type record_modifier
       tag internal.message

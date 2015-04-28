@@ -9,7 +9,7 @@ If you'd like to propose an edit to the Fluentd docs, please fork this repo and 
 English article is maintained by Fluentd team.
 Another language article, e.g. ja, is maintained by the community.
 So some articles may be outdated.
-If you find outedated article, please send pull request to this repository.
+If you find outdated article, please send pull request to this repository.
 
 # Install
 

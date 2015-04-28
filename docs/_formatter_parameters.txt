@@ -15,7 +15,7 @@ Example:
     :::text
     delimiter SPACE   # Optional, SPACE or COMMA. "\t"(TAB) is used by default
     output_tag false  # Optional, defaults to true. Output the tag field if true.
-    output_time true  # Optional, defaults to true. OUtput the time field if true.
+    output_time true  # Optional, defaults to true. Output the time field if true.
 
 For this format, the following common parameters are also supported.
 
