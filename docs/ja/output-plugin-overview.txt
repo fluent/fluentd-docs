@@ -40,3 +40,7 @@ Fluentdには３種類のプラグイン(インプット、アウトプットお
 他のアウトプットプラグインを調べるためには、以下の利用可能なプラグインの一覧を参照してください。
 
 * [他のプラグイン](http://fluentd.org/plugin/)
+
+INCLUDE: _buffer_parameters
+
+INCLUDE: _timesliced_buffer_parameters

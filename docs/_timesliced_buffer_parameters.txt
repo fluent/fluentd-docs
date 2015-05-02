@@ -1,5 +1,22 @@
-## Buffer Parameters
+## Time Sliced Output Parameters
 For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
+
+### time_slice_format
+The time format used as part of the file name. The following characters are replaced with actual values when the file is created:
+
+* %Y: year including the century (at least 4 digits)
+* %m: month of the year (01..12)
+* %d: Day of the month (01..31)
+* %H: Hour of the day, 24-hour clock (00..23)
+* %M: Minute of the hour (00..59)
+* %S: Second of the minute (00..60)
+
+The default format is `%Y%m%d%H`, which creates one file per hour.
+
+### time_slice_wait
+The amount of time Fluentd will wait for old logs to arrive. This is used to account for delays in logs arriving to your Fluentd node. The default wait time is 10 minutes ('10m'), where Fluentd will wait until 10 minutes past the hour for any logs that occurred within the past hour.
+
+For example, when splitting files on an hourly basis, a log recorded at 1:59 but arriving at the Fluentd node between 2:00 and 2:10 will be uploaded together with all the other logs from 1:00 to 1:59 in one transaction, avoiding extra overhead. Larger values can be set as needed.
 
 ### buffer_type
 The buffer type is `file` by default ([buf_file](buf_file)). The `memory` ([buf_memory](buf_memory)) buffer type can be chosen as well. If you use `file` buffer type, `buffer_path` parameter is required.

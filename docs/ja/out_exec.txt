@@ -51,7 +51,7 @@ tsvフォーマットを使用したときは、カンマ区切りの`keys`パ�
 ### time_format
 `time_key`パラメータが指定されるとき、イベント時間のためフォーマットです。デフォルトはUNIX時間(整数)です。
 
-INCLUDE: _buffer_parameters
+INCLUDE: _timesliced_buffer_parameters
 
 INCLUDE: _log_level_params
 
