@@ -47,3 +47,5 @@ Users can create their own custom plugins with a bit of Ruby. See [this section]
 
 - [grep](filter_grep)
 - [record-transformer](filter_record_transformer)
+- [filter_stdout](filter_stdout)
+
