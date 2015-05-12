@@ -1,8 +1,8 @@
-## バッファパラメータ
+## Bufferedアウトプットパラメータ
 高度な使用方法については、次のパラメータでFluentdの内部バッファリング機構を調整できます。
 
 ### buffer_type
-バッファタイプはデフォルト([buf_memory](buf_memory))で`memory`です。
+バッファタイプはデフォルトで`memory`([buf_memory](buf_memory))です。
 `file` ([buf_file](buf_file))バッファタイプも選択することができます。
 `path`パラメータはこのプラグインで`buffer_path`として、使用されます。
 

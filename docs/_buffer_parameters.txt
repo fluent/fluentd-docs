@@ -1,4 +1,4 @@
-## Buffer Parameters
+## Buffered Output Parameters
 For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
 
 ### buffer_type
