@@ -16,7 +16,13 @@ Sometimes, the `format` parameter for input plugins (ex: [in_tail](in_tail), [in
           format my_custom_parser
         </source>
 
-## List of Core Input Plugins with Parser support (`format` parameter)
+## List of Built-in Parsers
+
+INCLUDE: _in_parsers
+
+## List of Core Input Plugins with Parser support
+
+with `format` parameter.
 
 * [in_tail](in_tail)
 * [in_tcp](in_tcp)
