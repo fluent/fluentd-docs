@@ -51,6 +51,8 @@ If you specify the `time_key` parameter, it will be used to identify the timesta
     keys key1,key2,key3
     time_key key3
 
+NOTE: keys parameter is ',' separated value and you should not add spaces between `,`. keys parameter keeps any characters. For example, "key1,key2" are parsed as ["key1", "key2"] but "key1, key2" are parsed as ["key1", " key2"]. We will support json array based parameter to avoid this problem.
+
 * `ltsv`
 
 ltsv (Labeled Tab-Separated Value) is a tab-delimited key-value pair format. You can learn more about it on [its webpage](http://ltsv.org).
