@@ -27,27 +27,27 @@ Debianは現在WheezyとSqueezeがサポートされています。
 For Trusty,
 
     :::term
-        curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent2.sh | sh
+        curl -L https://td-toolbelt.herokuapp.com/sh/install-ubuntu-trusty-td-agent2.sh | sh
 
 For Precise,
 
     :::term
-        curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-precise-td-agent2.sh | sh
+        curl -L https://td-toolbelt.herokuapp.com/sh/install-ubuntu-precise-td-agent2.sh | sh
 
 For Lucid,
 
     :::term
-        curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-lucid-td-agent2.sh | sh
+        curl -L https://td-toolbelt.herokuapp.com/sh/install-ubuntu-lucid-td-agent2.sh | sh
 
 For Debian Wheezy,
 
     :::term
-        curl -L http://toolbelt.treasuredata.com/sh/install-debian-wheezy-td-agent2.sh | sh
+        curl -L https://td-toolbelt.herokuapp.com/sh/install-debian-wheezy-td-agent2.sh | sh
 
 For Debian Squeeze,
 
     :::term
-        curl -L http://toolbelt.treasuredata.com/sh/install-debian-squeeze-td-agent2.sh | sh
+        curl -L https://td-toolbelt.herokuapp.com/sh/install-debian-squeeze-td-agent2.sh | sh
 
 NOTE: ログ内に無効なタイムスタンプが入ることを防ぐためにノード上で<b>ntpd</b>を設定することを強くお勧めします。
 

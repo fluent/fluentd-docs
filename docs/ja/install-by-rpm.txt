@@ -16,9 +16,9 @@ Fluentdは拡張しやすいようRubyで実装され、一部の性能に直結
 
 現在、CentOSとRHEL(5.0以降、7を含む)がサポートされています。
 
-[install-redhat.sh](http://toolbelt.treasuredata.com/sh/install-redhat.sh)を実行すると自動的にtd-agentがインストールされます。このシェルスクリプトは`/etc/yum.repos.d/td.repo`に新しいrpmリポジトリを登録し、 `td-agent` のrpmパッケージをインストールします。
+[install-redhat.sh](https://td-toolbelt.herokuapp.com/sh/install-redhat.sh)を実行すると自動的にtd-agentがインストールされます。このシェルスクリプトは`/etc/yum.repos.d/td.repo`に新しいrpmリポジトリを登録し、 `td-agent` のrpmパッケージをインストールします。
 
-    $ curl -L http://toolbelt.treasuredata.com/sh/install-redhat.sh | sh
+    $ curl -L https://td-toolbelt.herokuapp.com/sh/install-redhat.sh | sh
 
 NOTE: ログ内に無効なタイムスタンプが入ることを防ぐためにノード上で<b>ntpd</b>を設定することを強くお勧めします。
 

@@ -20,9 +20,9 @@ Please follow the [Preinstallation Guide](before-install) to configure your OS p
 
 CentOS and RHEL 5, 6 and 7 are currently supported.
 
-Executing [install-redhat-td-agent2.sh](http://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh) will automatically install td-agent on your machine. This shell script registers a new rpm repository at `/etc/yum.repos.d/td.repo` and installs the `td-agent` rpm package.
+Executing [install-redhat-td-agent2.sh](https://td-toolbelt.herokuapp.com/sh/install-redhat-td-agent2.sh) will automatically install td-agent on your machine. This shell script registers a new rpm repository at `/etc/yum.repos.d/td.repo` and installs the `td-agent` rpm package.
 
-    $ curl -L http://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh | sh
+    $ curl -L https://td-toolbelt.herokuapp.com/sh/install-redhat-td-agent2.sh | sh
 
 NOTE: It's HIGHLY recommended that you set up <b>ntpd</b> on the node to prevent invalid timestamps in your logs.
 
