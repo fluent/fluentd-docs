@@ -9,6 +9,8 @@ The `in_tcp` Input plugin enables Fluentd to accept TCP payload.
     :::text
     <source>
       type tcp
+      tag tcp.events # required
+      format /^(?<field1>\d+):(?<field2>\w+)$/ # required
       port 20001 # optional. 5170 by default
       bind 0.0.0.0 # optional. 0.0.0.0 by default
       delimiter \n # optional. \n (newline) by default
@@ -21,6 +23,9 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 #### type (required)
 The value must be `tcp`.
 
+#### tag (required)
+tag of output events.
+
 #### port
 The port to listen to. Default Value = 5170
 
@@ -30,8 +35,8 @@ The bind address to listen to. Default Value = 0.0.0.0
 #### delimiter
 The payload is read up to this character. By default, it is "\n".
 
-#### format
-The format of the TCP payload. Required.
+#### format (required)
+The format of the TCP payload.
 
 INCLUDE: _in_parsers
 
