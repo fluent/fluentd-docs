@@ -113,6 +113,9 @@ section 'deployment', 'Deployment' do
   category 'trouble-shooting', 'Trouble Shooting' do
     article 'trouble-shooting', 'Trouble Shooting'
   end
+  category 'fluentd-ui', 'Fluentd UI' do
+    article 'fluentd-ui', 'Fluentd UI'
+  end
 end
 section 'plugin', 'Input Plugins' do
   category 'input-plugin-overview', 'Overview' do
