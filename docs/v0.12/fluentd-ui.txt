@@ -2,6 +2,11 @@
 
 [fluentd-ui](https://github.com/fluent/fluentd-ui) is a browser-based [fluentd](http://fluentd.org/) and [td-agent](http://docs.treasuredata.com/articles/td-agent) manager that supports following operations.
 
+* Install, uninstall, and upgrade Fluentd plugins
+* start/stop/restart fluentd process
+* Configure Fluentd settings such as config file content, pid file path, etc
+* View Fluentd log with simple error viewer
+
 ## Getting Started
 
 If you've installed td-agent, you can start it by `td-agent-ui start` as below:
