@@ -6,7 +6,7 @@
 
 If you've installed td-agent, you can start it by `td-agent-ui start` as below:
 
-    $ sudo td-agent-ui start
+    $ sudo /usr/sbin/td-agent-ui start
     Puma 2.9.2 starting...
     * Min threads: 0, max threads: 16
     * Environment: production
