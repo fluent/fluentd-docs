@@ -86,6 +86,10 @@ When set to true, the full Ruby syntax is enabled in the `${...}` expression. Th
 
 By default, the record transformer filter mutates the incoming data. However, if this parameter is set to true, it modifies a new empty hash instead.
 
+### renew_time_key (optional, string type)
+
+`renew_time_key foo` overwrites the time of events with a value of the record field `foo` if exists. The value of `foo` must be a unix time.
+
 ### keep_keys (optional, string type)
 
 A comma-delimited list of keys to keep. Only relevant if `renew_record` is set to true.
@@ -97,4 +101,3 @@ A comma-delimited list of keys to delete.
 ## Learn More
 
 - [Filter Plugin Overview](filter-plugin-overview)
-- [grep Filter Plugin](filter_grep)
