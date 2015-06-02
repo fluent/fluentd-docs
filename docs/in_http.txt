@@ -69,7 +69,7 @@ then got parsed result like below:
     :::text
     {"field1":"123456","field2":"awesome}
 
-`ltsv`, `tsv`, `csv` and `none` are also supported.
+`json`, `ltsv`, `tsv`, `csv` and `none` are also supported.
 
 
 INCLUDE: _log_level_params
