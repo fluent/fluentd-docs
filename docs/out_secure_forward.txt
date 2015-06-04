@@ -18,6 +18,8 @@ This section provides some example configurations for `out_secure_forward`.
       type secure_forward
       shared_key secret_string
       self_hostname client.fqdn.local
+      secure true
+
       <server>
         host server.fqdn.local  # or IP
         # port 24284
@@ -30,6 +32,8 @@ NOTE: Without hostname ACL (not yet implemented), `self_hostname` is not checked
       type secure_forward
       shared_key secret_string
       self_hostname ${hostname}
+      secure true
+
       <server>
         host server.fqdn.local  # or IP
         # port 24284
@@ -46,6 +50,8 @@ NOTE: If a server requires username & password, set `username` and `password` in
       type secure_forward
       shared_key secret_string
       self_hostname client.fqdn.local
+      secure true
+
       <server>
         host first.fqdn.local
         username repeatedly
@@ -71,6 +77,8 @@ Use the `keepalive` parameter to specify keepalive timeouts. For example, the co
       shared_key secret_string
       self_hostname client.fqdn.local
       keepalive 3600
+      secure true
+
       <server>
         host server.fqdn.local  # or IP
         # port 24284
@@ -138,10 +146,12 @@ Example to send and receive several different kinds of logs (format is set to no
            shared_key Supers3cr3t
            allow_self_signed_certificate true
            self_hostname frontend01.dev.company.net
-            <server>
-              host logserver01.prd.company.net
-              port 2514
-            </server>
+           secure true
+
+           <server>
+             host logserver01.prd.company.net
+             port 2514
+           </server>
            <server>
              host logserver02.prd.company.net
              port 2514
@@ -156,10 +166,12 @@ Example to send and receive several different kinds of logs (format is set to no
            shared_key Supers3cr3t
            allow_self_signed_certificate true
            self_hostname frontend01.dev.company.net
-            <server>
-              host logserver01.prd.company.net
-              port 2514
-            </server>
+           secure true
+
+           <server>
+             host logserver01.prd.company.net
+             port 2514
+           </server>
            <server>
              host logserver02.prd.company.net
              port 2514
@@ -174,10 +186,12 @@ Example to send and receive several different kinds of logs (format is set to no
            shared_key Supers3cr3t
            allow_self_signed_certificate true
            self_hostname frontend01.dev.company.net
-            <server>
-              host logserver01.prd.company.net
-              port 2514
-            </server>
+           secure true
+
+           <server>
+             host logserver01.prd.company.net
+             port 2514
+           </server>
            <server>
              host logserver02.prd.company.net
              port 2514
@@ -199,6 +213,8 @@ Example to send and receive several different kinds of logs (format is set to no
        shared_key Supers3cr3t
        self_hostname frontend01.dev.company.net
        flush_interval 8s
+       secure true
+
        <server>
          host logserver01.prd.company.net
          port 2514
@@ -296,6 +312,9 @@ The default value is 24284.
 
 ####bind (string)
 The default value is 0.0.0.0.
+
+####secure (bool)
+Indicate published connection is secure or not.
 
 ####self_hostname (string)
 Default value of the auto-generated certificate common name (CN).
