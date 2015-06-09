@@ -2,7 +2,7 @@
 
 The `out_secure_forward` output plugin sends messages via **SSL with authentication** (cf. [in_secure_forward](in_secure_forward)).
 
-NOTE: This document doesn't describe all parameters. If you want to know full features, check the Further Reading section.
+NOTE: This document describes v0.2 but we strongly recommend to use v0.3 in production. Please check plugin <a href="https://github.com/tagomoris/fluent-plugin-secure-forward/blob/master/README.md">README</a> instead. We will update this article later.
 
 ## Installation
 
