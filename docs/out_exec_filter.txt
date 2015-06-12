@@ -59,6 +59,7 @@ When using the tsv format, please also specify the comma-separated `out_keys` pa
 
 NOTE: When using the json format, this plugin uses the Yajl library to parse the program output. Yajl buffers data internally so the output isn't always instantaneous.
 
+
 ### tag_key
 The name of the key to use as the event tag. This replaces the value in the event record.
 
