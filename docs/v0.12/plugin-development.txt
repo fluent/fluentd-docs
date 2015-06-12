@@ -334,7 +334,7 @@ Here is the code to parse this custom format (let's call it `time_key_value`). I
           # This is the main method. The input "text" is the unit of data to be parsed.
           # If this is the in_tail plugin, it would be a line. If this is for in_syslog,
           # it is a single syslog message.
-          def call(text)
+          def parse(text)
             time, key_values = text.split(" ", 2)
             time = @time_parser.parse(time)
             record = {}
