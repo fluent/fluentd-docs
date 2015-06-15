@@ -1,0 +1,60 @@
+# Fluentd command line option
+
+Here is supported options:
+
+    :::text
+    Usage: fluentd [options]
+        -s, --setup [DIR=/etc/fluent]    install sample configuration file to the directory`
+        -c, --config PATH                config file path (default: /etc/fluent/fluent.conf)
+            --dry-run                    Check fluentd setup is correct or not
+        -p, --plugin DIR                 add plugin directory
+        -I PATH                          add library path
+        -r NAME                          load library
+        -d, --daemon PIDFILE             daemonize fluent process
+            --no-supervisor              run without fluent supervisor
+            --user USER                  change user
+            --group GROUP                change group
+        -o, --log PATH                   log file path
+        -i CONFIG_STRING,                inline config which is appended to the config file on-fly
+            --inline-config
+            --emit-error-log-interval SECONDS
+                                         suppress interval seconds of emit error logs
+            --suppress-repeated-stacktrace [VALUE]
+                                         suppress repeated stacktrace
+            --without-source             invoke a fluentd without input plugins
+            --use-v1-config              Use v1 configuration format (default)
+            --use-v0-config              Use v0 configuration format
+        -v, --verbose                    increase verbose level (-v: debug, -vv: trace)
+        -q, --quiet                      decrease verbose level (-q: warn, -qq: error)
+            --suppress-config-dump       suppress config dumping when fluentd starts
+        -g, --gemfile GEMFILE            Gemfile path
+        -G, --gem-path GEM_INSTALL_PATH  Gemfile install path (default: $(dirname $gemfile)/vendor/bundle)
+
+## Important options
+
+### --suppress-config-dump
+
+Fluentd starts without configuration dump. If you don't want to show configuration in fluentd logs,
+e.g. don't show private keys, this options is useful.
+
+### --suppress-repeated-stacktrace
+
+If set true, suppress stacktrace in fluentd logs. Since v0.12, this option is true by default.
+
+### --without-source
+
+Fluentd starts without input plugins. This option is useful for flushing buffers with no new incoming events.
+
+### -i, --inline-config
+
+If you use fluentd on XaaS which doesn't support persistent disks, this option is useful.
+
+### --no-supervisor
+
+If you want to use your supervisor tools, this option avoids double supervisor.
+
+
+## Set via configuration file
+
+Several options could be set via `<system>` directive configuration file.
+See [configuration file article](http://docs.fluentd.org/articles/config-file#4-set-system-wide-configuration-the-ldquosystemrdquo-directive).
