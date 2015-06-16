@@ -2,7 +2,7 @@
 
 This article explains how to install the td-agent deb package, the stable Fluentd distribution package maintained by [Treasure Data, Inc](http://www.treasuredata.com/).
 
-NOTE: For Ubuntu, "14.04 LTS / Precise", "12.04 LTS / Lucid", "10.04 LTS / Lucid" are currently supported. For Debian, Squeeze and Wheezy are supported. If you are interested in other versions/platforms, please contact us on the <a href="https://groups.google.com/d/forum/fluentd">mailing list</a>. If enough people express interest, we may consider supporting it.
+NOTE: For Ubuntu, "14.04 LTS / Trusty", "12.04 LTS / Precise", "10.04 LTS / Lucid" are currently supported. For Debian, Squeeze and Wheezy are supported. If you are interested in other versions/platforms, please contact us on the <a href="https://groups.google.com/d/forum/fluentd">mailing list</a>. If enough people express interest, we may consider supporting it.
 
 ## What is td-agent?
 
