@@ -1,10 +1,10 @@
 # FAQ
 
-## Known Issue
-
 ## What version of Ruby does fluentd support?
 
 Fluentd v0.10 or v0.12 works on 1.9.3 or later. Since v0.14, 2.1 or later.
+
+## Known Issue
 
 ### I use Fluentd with Ruby 2.0 but Fluentd seems deadlocked. Why?
 
@@ -76,6 +76,9 @@ Use `"#{ENV['YOUR_ENV_VARIABLE']}"`. For example,
 
 (Note that it must be double quotes and not single quotes)
 
+### File buffer doesn't work properly, why?
+
+`file` buffer has limitations. Check [`buf_file` article](buf_file#limitation).
 
 ## Plugin Development
 
