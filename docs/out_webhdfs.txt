@@ -59,7 +59,52 @@ The namenode port number.
 ### path (required)
 The path on HDFS. Please include ${hostname} in your path to avoid writing into the same HDFS file from multiple Fluentd instances. This conflict could result in data loss.
 
-INCLUDE: _timesliced_buffer_parameters
+Path value can contain time placeholders (see `time_slice_format` section). If path contains time placeholders, webhdfs output configures `time_slice_format` automatically with these placeholders.
+
+## Time Sliced Output Parameters (and overwritten values by out_webhdfs)
+For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
+
+### time_slice_format
+The time format used as part of the file name. The following characters are replaced with actual values when the file is created:
+
+* %Y: year including the century (at least 4 digits)
+* %m: month of the year (01..12)
+* %d: Day of the month (01..31)
+* %H: Hour of the day, 24-hour clock (00..23)
+* %M: Minute of the hour (00..59)
+* %S: Second of the minute (00..60)
+
+The default format is `%Y%m%d%H`, which creates one file per hour. This parameter may be overwritten by `path` configuration.
+
+### time_slice_wait
+The amount of time Fluentd will wait for old logs to arrive. This is used to account for delays in logs arriving to your Fluentd node. The default wait time is 10 minutes ('10m'), where Fluentd will wait until 10 minutes past the hour for any logs that occurred within the past hour.
+
+For example, when splitting files on an hourly basis, a log recorded at 1:59 but arriving at the Fluentd node between 2:00 and 2:10 will be uploaded together with all the other logs from 1:00 to 1:59 in one transaction, avoiding extra overhead. Larger values can be set as needed.
+
+### buffer_type
+The buffer type is `memory` by default ([buf_memory](buf_memory)). The `file` ([buf_file](buf_file)) buffer type can be chosen as well. If you use `file` buffer type, `buffer_path` parameter is required.
+
+### buffer_queue_limit, buffer_chunk_limit
+The length of the chunk queue and the size of each chunk, respectively. Please see the [Buffer Plugin Overview](buffer-plugin-overview) article for the basic buffer structure. The default values are 64 and 8m, respectively. The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for buffer_chunk_limit.
+
+### flush_interval
+The interval between data flushes. The default is unspecified, and buffer chunks will be flushed at the end of time slices. The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.
+
+### flush_at_shutdown
+The boolean value to specify whether to flush buffer chunks at shutdown time, or not. The default is true. Specify true if you use `memory` buffer type.
+
+### retry_wait, max_retry_wait
+The initial and maximum intervals between write retries.  The default values are 1.0 and unset (no limit).  The interval doubles (with +/-12.5% randomness) every retry until `max_retry_wait` is reached.  In the default configuration the last retry waits for approximately 131072 sec, roughly 36 hours.
+
+### retry_limit, disable_retry_limit
+The limit on the number of retries before buffered data is discarded, and an
+option to disable that limit (if true, the value of `retry_limit` is ignored and
+there is no limit).  The default values are 17 and false (not disabled). If the limit is reached, buffered data is discarded and the retry interval is reset to its initial value (`retry_wait`).
+
+`disable_retry_limit` is available for v0.10.53 and above.
+
+### num_threads
+The number of threads to flush the buffer. This option can be used to parallelize writes into the output(s) designated by the output plugin. The default is 1.
 
 INCLUDE: _log_level_params
 
