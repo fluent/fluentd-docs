@@ -8,18 +8,21 @@ NOTE: This document doesn't describe all parameters. If you want to know full fe
 
 `out_secure_forward` is **not** included in either `td-agent` package or `fluentd` gem. In order to install it, please refer to the <a href="plugin-management">Plugin Management</a> article.
 
-##Example Configurations
+## Example Configurations
 
 This section provides some example configurations for `out_secure_forward`.
 
-###Minimalist Configuration
+### Minimalist Configuration
+
+At first, generate private CA file on side of input plugin by `secure-forward-ca-generate`, then copy that file to output plugin side by safe way (scp, or anyway else).
 
     <match secret.data.**>
       type secure_forward
       shared_key secret_string
       self_hostname client.fqdn.local
       secure true
-
+      ca_cert_path /path/to/certificate/ca_cert.pem
+      
       <server>
         host server.fqdn.local  # or IP
         # port 24284
@@ -33,14 +36,15 @@ NOTE: Without hostname ACL (not yet implemented), `self_hostname` is not checked
       shared_key secret_string
       self_hostname ${hostname}
       secure true
-
+      ca_cert_path /path/to/certificate/ca_cert.pem
+      
       <server>
         host server.fqdn.local  # or IP
         # port 24284
       </server>
     </match>
 
-###Multiple Forward Destinations over SSL
+### Multiple Forward Destinations over SSL
 
 When two or more `<server>...</server>` clauses are specified, `out_secure_forward` uses these server nodes in a round-robin order. The servers with `standby yes` are NOT selected until all non-standby servers go down.
 
@@ -51,7 +55,8 @@ NOTE: If a server requires username & password, set `username` and `password` in
       shared_key secret_string
       self_hostname client.fqdn.local
       secure true
-
+      ca_cert_path /path/to/certificate/ca_cert.pem
+      
       <server>
         host first.fqdn.local
         username repeatedly
@@ -78,7 +83,8 @@ Use the `keepalive` parameter to specify keepalive timeouts. For example, the co
       self_hostname client.fqdn.local
       keepalive 3600
       secure true
-
+      ca_cert_path /path/to/certificate/ca_cert.pem
+      
       <server>
         host server.fqdn.local  # or IP
         # port 24284
@@ -86,53 +92,53 @@ Use the `keepalive` parameter to specify keepalive timeouts. For example, the co
     </match>
 
 
-###Secure Sender-Receiver Setup
+### Secure Sender-Receiver Setup
 
 Example to send and receive several different kinds of logs (format is set to none for simplicity here).
 
-####Sender 
+#### Sender 
 
 
     # td-agent secured client (sender)
     
     <source>
-        type tail
-        path /appbase/logs/apache/apache_access_log
-        pos_file /var/log/td-agent/tmp/apache.access.pos
-        tag apache.access
-        format none
+      type tail
+      path /appbase/logs/apache/apache_access_log
+      pos_file /var/log/td-agent/tmp/apache.access.pos
+      tag apache.access
+      format none
     </source>
     
     <source>
-        type tail
-        path /appbase/logs/apache/apache_error_log
-        pos_file /var/log/td-agent/tmp/apache.error.pos
-        tag apache.error
-        format none
+      type tail
+      path /appbase/logs/apache/apache_error_log
+      pos_file /var/log/td-agent/tmp/apache.error.pos
+      tag apache.error
+      format none
     </source>
     
     <source>
-        type tail
-        path /appbase/logs/webapp/elastic_search.log
-        pos_file /var/log/td-agent/tmp/elastic.search.pos
-        tag elastic.search
-        format none
+      type tail
+      path /appbase/logs/webapp/elastic_search.log
+      pos_file /var/log/td-agent/tmp/elastic.search.pos
+      tag elastic.search
+      format none
     </source>
     
     <source>
-        type tail
-        path /appbase/logs/webapp/elastic_search_poller.log
-        pos_file /var/log/td-agent/tmp/elastic.search.poller.pos
-        tag elastic.poller
-        format none
+      type tail
+      path /appbase/logs/webapp/elastic_search_poller.log
+      pos_file /var/log/td-agent/tmp/elastic.search.poller.pos
+      tag elastic.poller
+      format none
     </source>
     
     <source>
-        type tail
-        path /appbase/logs/webapp/ldap.log
-        pos_file /var/log/td-agent/tmp/ldap.log.pos
-        tag ldap.log
-        format none
+      type tail
+      path /appbase/logs/webapp/ldap.log
+      pos_file /var/log/td-agent/tmp/ldap.log.pos
+      tag ldap.log
+      format none
     </source>
     
     
@@ -140,63 +146,66 @@ Example to send and receive several different kinds of logs (format is set to no
     #-- Application Logs
     
     <match apache.*>
-        type copy
-        <store>
-           type secure_forward
-           shared_key Supers3cr3t
-           allow_self_signed_certificate true
-           self_hostname frontend01.dev.company.net
-           secure true
-
-           <server>
-             host logserver01.prd.company.net
-             port 2514
-           </server>
-           <server>
-             host logserver02.prd.company.net
-             port 2514
-           </server>
-        </store>
+      type copy
+      <store>
+        type secure_forward
+        shared_key Supers3cr3t
+        allow_self_signed_certificate true
+        self_hostname frontend01.dev.company.net
+        secure true
+        ca_cert_path /path/to/certificate/ca_cert.pem
+        
+        <server>
+          host logserver01.prd.company.net
+          port 2514
+        </server>
+        <server>
+          host logserver02.prd.company.net
+          port 2514
+        </server>
+      </store>
     </match>
 
     <match elastic.*>
-        type copy
-        <store>
-           type secure_forward
-           shared_key Supers3cr3t
-           allow_self_signed_certificate true
-           self_hostname frontend01.dev.company.net
-           secure true
+      type copy
+      <store>
+        type secure_forward
+        shared_key Supers3cr3t
+        allow_self_signed_certificate true
+        self_hostname frontend01.dev.company.net
+        secure true
+        ca_cert_path /path/to/certificate/ca_cert.pem
 
-           <server>
-             host logserver01.prd.company.net
-             port 2514
-           </server>
-           <server>
-             host logserver02.prd.company.net
-             port 2514
-           </server>
-        </store>
+        <server>
+          host logserver01.prd.company.net
+          port 2514
+        </server>
+        <server>
+          host logserver02.prd.company.net
+          port 2514
+        </server>
+      </store>
     </match>
     
     <match ldap.*>
-        type copy
-        <store>
-           type secure_forward
-           shared_key Supers3cr3t
-           allow_self_signed_certificate true
-           self_hostname frontend01.dev.company.net
-           secure true
+      type copy
+      <store>
+        type secure_forward
+        shared_key Supers3cr3t
+        allow_self_signed_certificate true
+        self_hostname frontend01.dev.company.net
+        secure true
+        ca_cert_path /path/to/certificate/ca_cert.pem
 
-           <server>
-             host logserver01.prd.company.net
-             port 2514
-           </server>
-           <server>
-             host logserver02.prd.company.net
-             port 2514
-           </server>
-        </store>
+        <server>
+          host logserver01.prd.company.net
+          port 2514
+        </server>
+        <server>
+          host logserver02.prd.company.net
+          port 2514
+        </server>
+      </store>
     </match>
     
     #-- NOTE for troubleshooting any actions afer "type copy",
@@ -209,24 +218,25 @@ Example to send and receive several different kinds of logs (format is set to no
     #-- Fluent Internal Logs
     
     <match **>
-       type secure_forward
-       shared_key Supers3cr3t
-       self_hostname frontend01.dev.company.net
-       flush_interval 8s
-       secure true
+      type secure_forward
+      shared_key Supers3cr3t
+      self_hostname frontend01.dev.company.net
+      flush_interval 8s
+      secure true
+      ca_cert_path /path/to/certificate/ca_cert.pem
 
-       <server>
-         host logserver01.prd.company.net
-         port 2514
-       </server>
-       <server>
-         host logserver02.prd.company.net
-         port 2514
-       </server>
+      <server>
+        host logserver01.prd.company.net
+        port 2514
+      </server>
+      <server>
+        host logserver02.prd.company.net
+        port 2514
+      </server>
     </match>
 
 
-####Receiver
+#### Receiver
 
     # td-agent secured receiver (server)
     
@@ -234,116 +244,116 @@ Example to send and receive several different kinds of logs (format is set to no
       type secure_forward
       shared_key         Supers3cr3t
       self_hostname      logserver01.prd.company.net
-      cert_auto_generate yes
       port 2514
+      secure true
+      ca_cert_path        /path/to/certificate/ca_cert.pem
+      ca_private_key_path /path/to/certificate/ca_key.pem
+      ca_private_key_passphrase passphrase_for_private_CA_secret_key
     </source>
     
     
     #-- Application Logs
     
     <match *.access>
-        type file
-        append true
-        path /appbase/logs/received/access
-        time_slice_format %Y%m%d
-        time_slice_wait 5m
-        time_format %Y%m%dT%H:%M:%S%z
+      type file
+      append true
+      path /appbase/logs/received/access
+      time_slice_format %Y%m%d
+      time_slice_wait 5m
+      time_format %Y%m%dT%H:%M:%S%z
     </match>
     
     <match *.error>
-        type file
-        append true
-        path /appbase/logs/received/error
-        time_slice_format %Y%m%d
-        time_slice_wait 5m
-        time_format %Y%m%dT%H:%M:%S%z
+      type file
+      append true
+      path /appbase/logs/received/error
+      time_slice_format %Y%m%d
+      time_slice_wait 5m
+      time_format %Y%m%dT%H:%M:%S%z
     </match>
     
     <match elastic.search>
-        type file
-        append true
-        path /appbase/logs/received/elastic_search
-        time_slice_format %Y%m%d
-        time_slice_wait 5m
-        time_format %Y%m%dT%H:%M:%S%z
+      type file
+      append true
+      path /appbase/logs/received/elastic_search
+      time_slice_format %Y%m%d
+      time_slice_wait 5m
+      time_format %Y%m%dT%H:%M:%S%z
     </match>
     
     <match elastic.poller>
-        type file
-        append true
-        path /appbase/logs/received/elastic_search_poller
-        time_slice_format %Y%m%d
-        time_slice_wait 5m
-        time_format %Y%m%dT%H:%M:%S%z
+      type file
+      append true
+      path /appbase/logs/received/elastic_search_poller
+      time_slice_format %Y%m%d
+      time_slice_wait 5m
+      time_format %Y%m%dT%H:%M:%S%z
     </match>
     
     <match ldap.*>
-        type file
-        append true
-        path /appbase/logs/received/ldap
-        time_slice_format %Y%m%d
-        time_slice_wait 5m
-        time_format %Y%m%dT%H:%M:%S%z
+      type file
+      append true
+      path /appbase/logs/received/ldap
+      time_slice_format %Y%m%d
+      time_slice_wait 5m
+      time_format %Y%m%dT%H:%M:%S%z
     </match>
     
     
     #-- Fluent Internal Logs
 
     <match fluent.info>
-        type file
-        append true
-        path /appbase/logs/received/fluent-info
+      type file
+      append true
+      path /appbase/logs/received/fluent-info
     </match>
     
     <match fluent.warn>
-        type file
-        append true
-        path /appbase/logs/received/fluent-warn
+      type file
+      append true
+      path /appbase/logs/received/fluent-warn
     </match>
 
 
-##Parameters
+## Parameters
 
-####type
+#### type
 This parameter is required. Its value must be `secure_forward`.
 
-####port (integer)
+#### port (integer)
 The default value is 24284.
 
-####bind (string)
+#### bind (string)
 The default value is 0.0.0.0.
 
-####secure (bool)
-Indicate published connection is secure or not.
+#### secure (bool)
+Indicate published connection is secure or not. Specify `yes` (or `true`) if secure encryption needed.
 
-####self_hostname (string)
+#### ca_cert_path (string)
+The file path of private CA certificate file. This file must be shared with input plugin. The default is blank, but this parameter must be specified except for the case to use certificates signed by public CA.
+
+#### self_hostname (string)
 Default value of the auto-generated certificate common name (CN).
 
-####shared_key (string)
+#### shared_key (string)
 Optional shared key.
 
-####keepalive (time)
+#### keepalive (time)
 The duration for keepalive. If this parameter is not specified, keepalive is disabled.
 
-####send_timeout (time)
+#### send_timeout (time)
 The send timeout value for sockets. The default value is 60 seconds.
 
-####allow_self_signed_certificate (bool)
-Enables self-signed CA. The default is `true`.
-
-####ca_file_path (string)
-The path to the certificate file.
-
-####reconnect_interval (time)
+#### reconnect_interval (time)
 The interval between SSL reconnects. The default value is 5 seconds.
 
-####read_length (integer)
+#### read_length (integer)
 The number of bytes read per nonblocking read. The default value is 8MB=8*1024*1024 bytes.
 
-####read_interval_msec (integer)
+#### read_interval_msec (integer)
 The interval between the non-blocking reads, in milliseconds. The default value is 50.
 
-####socket_interval_msec (integer)
+#### socket_interval_msec (integer)
 The interval between SSL reconnects in milliseconds. The default value is 200.
 
 
