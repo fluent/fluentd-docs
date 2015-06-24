@@ -11,7 +11,7 @@ The length of the chunk queue and the size of each chunk, respectively. Please s
 The interval between data flushes. The default is 60s. The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.
 
 ### flush_at_shutdown
-The boolean value to specify whether to flush buffer chunks at shutdown time, or not. The default is true. Specify true if you use `memory` buffer type.
+If set to true, Fluentd waits for the buffer to flush at shutdown. By default, it is set to true for Memory Buffer and false for File Buffer.
 
 ### retry_wait, max_retry_wait
 The initial and maximum intervals between write retries.  The default values are 1.0 and unset (no limit).  The interval doubles (with +/-12.5% randomness) every retry until `max_retry_wait` is reached.  In the default configuration the last retry waits for approximately 131072 sec, roughly 36 hours.
@@ -26,5 +26,3 @@ there is no limit).  The default values are 17 and false (not disabled). If the 
 ### num_threads
 The number of threads to flush the buffer. This option can be used to parallelize writes into the output(s) designated by the output plugin. The default is 1.
 
-### flush_at_shutdown
-If set to true, Fluentd waits for the buffer to flush at shutdown. By default, it is set to true for Memory Buffer and false for File Buffer.
