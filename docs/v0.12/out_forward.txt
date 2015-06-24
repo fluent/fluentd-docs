@@ -110,6 +110,9 @@ Marks a node as the standby node for an Active-Standby model between Fluentd nod
       ...
     </match>
 
+### expire_dns_cache
+
+Set TTL to expire DNS cache in seconds. Set 0 not to use DNS Cache. The default is nil (which means the persistent cache). 
 
 INCLUDE: _buffer_parameters
 
