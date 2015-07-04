@@ -68,8 +68,8 @@ As of v10, Fluentd does NOT support Windows. However, there are times when you m
 
         <Output out>
           Module om_tcp
-          Host localhost
-          Port 9200
+          Host LINUX_MACHINE_RUNNING_FLUENTD
+          Port 5140
         </Output> 
 
         <Route r>
