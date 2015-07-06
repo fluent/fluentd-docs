@@ -79,7 +79,7 @@ You can add new input sources by writing your own plugins. For further informati
 
 ##(2) "match": Tell fluentd what to do!
 
-The "match" directive looks for events with _match_ing tags and processes them. The most common use of the match directive is to output events to other systems (for this reason, the plugins that correspond to the match directive are called "output plugins"). Fluentd's standard output plugins include ``file`` and ``forward``.  Let's add those to our configuration file.
+The "match" directive looks for events with __match__ing tags and processes them. The most common use of the match directive is to output events to other systems (for this reason, the plugins that correspond to the match directive are called "output plugins"). Fluentd's standard output plugins include ``file`` and ``forward``.  Let's add those to our configuration file.
 
     # Receive events from 24224/tcp
     # This is used by log forwarding and the fluent-cat command
