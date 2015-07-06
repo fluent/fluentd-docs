@@ -28,7 +28,9 @@ The buffer structure is a queue of chunks like the following:
 
 When the top chunk exceeds the specified size or time limit (`buffer_chunk_limit` and `flush_interval`, respectively), a new empty chunk is pushed to the top of the queue. The bottom chunk is written out immediately when new chunk is pushed.
 
-If the bottom chunk write out fails, it will remain in the queue and Fluentd will retry after waiting several seconds (`retry_wait`). If the retry limit has not been disabled (`disable_retry_limit` is false) and the retry count exceeds the specified limit (`retry_limit`), the chunk is trashed. The retry wait time doubles each time (1.0sec, 2.0sec, 4.0sec, ...). If the queue length exceeds the specified limit (`buffer_queue_limit`), new events are rejected.
+If the bottom chunk write out fails, it will remain in the queue and Fluentd will retry after waiting several seconds (`retry_wait`). If the retry limit has not been disabled (`disable_retry_limit` is false) and the retry count exceeds the specified limit (`retry_limit`), the chunk is trashed. The retry wait time doubles each time (1.0sec, 2.0sec, 4.0sec, ...) until `max_retry_wait` is reached. If the queue length exceeds the specified limit (`buffer_queue_limit`), new events are rejected.
+
+NOTE: writing out the bottom chunk is considered to be a failure if "Buffer#write" method throws an exception.
 
 All buffered output plugins support the following parameters:
 
@@ -70,6 +72,22 @@ In addition, each chunk is keyed by time and flushed when that chunk's timestamp
   Alternatively, you can also flush the chunks regularly using `flush_interval`. Note that `flush_interval` and `time_slice_wait` are mutually exclusive. If you set `flush_interval`, `time_slice_wait` will be ignored and fluentd would issue a warning.
 
 <img style="display:block;" src="http://image.slidesharecdn.com/fluentdmeetup-diveintofluentplugin-120203210125-phpapp02/95/slide-60-728.jpg"/>
+
+## Secondary output
+
+The backup destination that is used when retry count exceeds `retry_limit`. Currently, primary plugin type or `file` plugin works.
+
+    <match pattern>
+      type forward
+      ...
+
+      <secondary>
+        type file # or forward
+        path /var/log/fluent/forward-failed
+      </secondary>
+    </match>
+
+This is useful when primary destination or network condition is unstable.
 
 ##Notes
 
