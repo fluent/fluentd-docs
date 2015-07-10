@@ -318,7 +318,7 @@ can generate JSON value easily than unusual format.
 - `@label`: Specify label symbol. See [label](config-file#5-group-filter-and-output-the-ldquolabelrdquo-directive) section
 - `log_level`: Specify per plugin log level. See [Per Plugin Log](logging#per-plugin-log-fluentd-v01043-and-above) section
 
-`log_level` will be `@log_level`.
+`log_level` will be `@log_level`. `type` and `id` are supported for backward compatibility.
 
 ## Format tips
 
