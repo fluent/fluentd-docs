@@ -135,22 +135,22 @@ end
 # OLD URL REDIRECTS
 #
 get '/articles/architecture' do
-  redirect 'http://www.fluentd.org/architecture'
+  redirect 'http://www.fluentd.org/architecture', 301
 end
 
 get '/articles/users' do
-  redirect 'http://www.fluentd.org/testimonials'
+  redirect 'http://www.fluentd.org/testimonials', 301
 end
 
 get '/articles/slides' do
-  redirect 'http://www.fluentd.org/slides'
+  redirect 'http://www.fluentd.org/slides', 301
 end
 
 #
 # PATHS
 #
 get '/' do
-  redirect '/articles/quickstart'
+  redirect '/articles/quickstart', 301
 end
 
 get '/robots.txt' do
@@ -179,7 +179,7 @@ get '/search' do
 end
 
 get '/categories/:category' do
-  redirect "/#{$DEFAULT_VERSION}/categories/#{params[:category]}"
+  redirect "/#{$DEFAULT_VERSION}/categories/#{params[:category]}", 301
 end
 
 get '/v0.10/categories/:category' do
@@ -193,14 +193,13 @@ get '/v0.12/categories/:category' do
 end
 
 get '/recipe/apache/:data_sink' do
-  redirect "/recipe/apache-logs/#{params[:data_sink]}"
+  redirect "/recipe/apache-logs/#{params[:data_sink]}", 301
 end
 
 get '/recipe/:data_source/:data_sink' do
   params[:article] = "recipe-#{params[:data_source]}-to-#{params[:data_sink]}"
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
-  cache_long
-  render_article params[:article], params[:congrats]
+  redirect "/articles/#{params[:article]}", 301
 end
 
 get '/articles/:article' do
@@ -226,7 +225,7 @@ end
 
 get '/:lang/articles/:article' do
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
-  redirect "/articles/#{params[:article]}"
+  redirect "/articles/#{params[:article]}", 301
 end
 
 helpers do
@@ -253,7 +252,7 @@ helpers do
                       else
                         "/#{ver}/articles/#{article_name}"
                       end
-      redirect redirect_path
+      redirect redirect_path, 301
     elsif !@articles.empty?
       @articles
       erb :category
