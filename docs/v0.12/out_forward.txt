@@ -111,8 +111,11 @@ Marks a node as the standby node for an Active-Standby model between Fluentd nod
     </match>
 
 ### expire_dns_cache
-
 Set TTL to expire DNS cache in seconds. Set 0 not to use DNS Cache. The default is nil (which means the persistent cache). 
+
+### dns_round_robin
+Enable client-side DNS round robin. Uniform randomly pick an IP address to send data when a hostname has serveral IP addresses.
+NOTE: `heartbeat_type udp` is not available with `dns_round_robin true`.
 
 INCLUDE: _buffer_parameters
 
