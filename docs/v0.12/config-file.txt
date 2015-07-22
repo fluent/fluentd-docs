@@ -194,6 +194,8 @@ filtered event, `{"event":"data","host_param":"webserver1"}`, goes to `file` out
 
 You can also add new filters by writing your own plugins. For further information regarding Fluentd's filter destinations, please refer to the [Filter Plugin Overview](filter-plugin-overview) article.
 
+NOTE: Filter's match order is same as Output and we should put &lt;filter&gt; before &lt;match&gt;.
+
 ## (4) Set system wide configuration: the "system" directive
 
 Following configurations are set by *system* directive. You can set same configurations by fluentd options::
