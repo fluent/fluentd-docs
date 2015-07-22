@@ -74,7 +74,7 @@ The timeout time when sending event logs. The default is 60 seconds.
 The wait time before accepting a server fault recovery. The default is 10 seconds.
 
 ### heartbeat_type
-The transport protocol to use for heartbeats. The default is "udp", but you can select "tcp" as well.
+The transport protocol to use for heartbeats. The default is "udp", but you can select "tcp" as well. Set "none" to disable heartbeat. 
 
 ### heartbeat_interval
 The interval of the heartbeat packer. The default is 1 second.
@@ -111,8 +111,11 @@ Marks a node as the standby node for an Active-Standby model between Fluentd nod
     </match>
 
 ### expire_dns_cache
-
 Set TTL to expire DNS cache in seconds. Set 0 not to use DNS Cache. The default is nil (which means the persistent cache). 
+
+### dns_round_robin
+Enable client-side DNS round robin. Uniform randomly pick an IP address to send data when a hostname has serveral IP addresses.
+NOTE: `heartbeat_type udp` is not available with `dns_round_robin true`. Use `heartbeat_type tcp` or `heartbeat_type none`. 
 
 INCLUDE: _buffer_parameters
 
