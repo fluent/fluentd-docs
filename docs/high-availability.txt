@@ -56,6 +56,7 @@ Please add the following lines to your config file for log forwarders. This will
         host 192.168.0.1
         port 24224
       </server>
+
       # use secondary host
       <server>
         host 192.168.0.2
@@ -66,6 +67,19 @@ Please add the following lines to your config file for log forwarders. This will
       # use longer flush_interval to reduce CPU usage.
       # note that this is a trade-off against latency.
       flush_interval 60s
+
+      # expire DNS cache (required for cloud environment such as EC2)
+      expire_dns_cache 600
+
+      # use file buffer to buffer events on disks.
+      buffer_type file
+      buffer_path /path/to/buffer/forward
+
+      # in case aggregators are down and buffer is full, write down to files
+      <secondary>
+        type file
+        path /path/to/buffer/secondary
+      </secondary>
     </match>
 
 When the active aggregator (192.168.0.1) dies, the logs will instead be sent to the backup aggregator (192.168.0.2). If both servers die, the logs are buffered on-disk at the corresponding forwarder nodes.
