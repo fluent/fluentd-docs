@@ -114,4 +114,4 @@ You can learn more about Fluentd and its plugins by
 - exploring other [plugins](http://fluentd.org/plugin/)
 - browsing [recipes](/categories/recipes)
 - asking questions on the [mailing list](https://groups.google.com/forum/#!forum/fluentd)
-- [signing up for our newsletters](http://get.treasuredata.com/Fluentd_education.html)
+- <a href="//www.fluentd.org/newsletter_signup">signing up for our newsletters</a>
