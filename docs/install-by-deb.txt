@@ -18,9 +18,9 @@ Please follow the [Preinstallation Guide](before-install) to configure your OS p
 
 ## Step 1 : Install from Apt Repository
 
-For Ubuntu, "Ubuntu 14.04 LTS / Trusty", "Ubuntu 12.04 LTS / Precise" and "Ubuntu 10.04 LTS / Lucid" are currently supported.
+For Ubuntu, we currently support "Ubuntu 14.04 LTS / Trusty", "Ubuntu 12.04 LTS / Precise" and "Ubuntu 10.04 LTS / Lucid".
 
-For Debian, Jessie, Wheezy and Squeeze are currently supported.
+For Debian, we currently support Jessie, Wheezy and Squeeze.
 
 A shell script is provided to automate the installation process for each version. The shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
 
