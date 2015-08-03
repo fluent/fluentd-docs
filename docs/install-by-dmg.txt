@@ -12,9 +12,9 @@ For MacOS X, we're using the OS native .dmg Installer to distribute td-agent.
 
 ## Step1: Install td-agent
 
-Please download the `.dmg` file from [here](http://www.fluentd.org/download), and install the software.
+Please download the `.dmg` file from here, and install the software.
 
-- [Download](http://www.fluentd.org/download)
+- [Download](https://td-agent-package-browser.herokuapp.com/2/macosx)
 
 ## Step2: Launch td-agent
 
