@@ -2,8 +2,6 @@
 
 This article explains how to install the td-agent rpm package, the stable Fluentd distribution package maintained by [Treasure Data, Inc](http://www.treasuredata.com/).
 
-NOTE: Currently, Amazon Linux is NOT supported officially because Amazon Linux doesn't guarantee ABI compatibility. RPM for CentOS 7 may work.
-
 ## What is td-agent?
 
 Fluentd is written in Ruby for flexibility, with performance sensitive parts written in C. However, casual users may have difficulty installing and operating a Ruby daemon.
@@ -18,7 +16,7 @@ Please follow the [Preinstallation Guide](before-install) to configure your OS p
 
 ## Step 1: Install from rpm Repository
 
-CentOS and RHEL 5, 6 and 7 are currently supported.
+CentOS and RHEL 5, 6 and 7 are currently supported. Amazon Linux RPM is built on 2015.03 environment.
 
 Executing [install-redhat-td-agent2.sh](https://td-toolbelt.herokuapp.com/sh/install-redhat-td-agent2.sh) will automatically install td-agent on your machine. This shell script registers a new rpm repository at `/etc/yum.repos.d/td.repo` and installs the `td-agent` rpm package.
 
