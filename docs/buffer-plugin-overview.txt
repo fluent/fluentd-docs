@@ -71,7 +71,9 @@ In addition, each chunk is keyed by time and flushed when that chunk's timestamp
 
   Alternatively, you can also flush the chunks regularly using `flush_interval`. Note that `flush_interval` and `time_slice_wait` are mutually exclusive. If you set `flush_interval`, `time_slice_wait` will be ignored and fluentd would issue a warning.
 
-<img style="display:block;" src="http://image.slidesharecdn.com/fluentdmeetup-diveintofluentplugin-120203210125-phpapp02/95/slide-60-728.jpg"/>
+Here is the diagram shows the relation between buffers and parameters.
+
+<a href="/images/buffer-internal-and-parameters.png"><img src="/images/buffer-internal-and-parameters.png"/></a>
 
 ## Secondary output
 
