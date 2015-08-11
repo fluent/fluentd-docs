@@ -153,6 +153,14 @@ This new implementation called _Labels_, aims to solve the configuration file co
 
 The new configuration contains a _@label_ key on the _source_ indicating that any further steps takes place on the _STAGING_ _Label_ section. The expectation is that every _Event_ reported on the _Source_, the _Routing_ engine will continue processing on _STAGING_, for hence it will skip the old filter definition.
 
+### Buffers
+
+In this example, we use `stdout` non-buffered output. But in production, you use buffered outputs, e.g. `forward`, `mongodb`, `s3` and etc.
+Buffered output plugin stores received events into buffers first and write out buffers to a destination by meeting flush conditions.
+So using buffered output, you don't see recieved events immediately unlike `stdout` non-buffered output.
+
+Buffer is an important for reliability and throughput. See [Output](/articles/output-plugin-overview) and [Buffer](/articles/buffer-plugin-overview) articles.
+
 ## Conclusion
 
 Once the events are reported by the [Fluentd](http://fluend.org) engine on the _Source_, can be processed _step by step_ or inside a referenced _Label_, as well any _Event_ may be filtered out at any moment. The new _Routing_ engine behavior aims to provide more flexibility and makes easier the processing before reaching the _Output_ plugin.
