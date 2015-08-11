@@ -12,6 +12,8 @@ Here is a brief overview of the life of a Fluentd event to help you understand t
 
 The configuration file allows the user to control the input and output behavior of Fluentd by (1) selecting input and output plugins and (2) specifying the plugin parameters. The file is required for Fluentd to operate properly.
 
+See also [Life of a Fluentd Event](life-of-a-fluentd-event) article.
+
 ## Config File Location
 
 #### RPM, Deb or DMG

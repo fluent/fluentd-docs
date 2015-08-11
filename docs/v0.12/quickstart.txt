@@ -47,6 +47,7 @@ The articles shown below cover the typical use cases of Fluentd. Please refer to
 The articles shown below will provide detailed information for you to learn more about Fluentd.
 
   * [Architecture Overview](architecture)
+  * [Life of a Fluentd Event](life-of-a-fluentd-event)
   * Plugin Overview
     * [Input Plugins](input-plugin-overview)
     * [Output Plugins](output-plugin-overview)

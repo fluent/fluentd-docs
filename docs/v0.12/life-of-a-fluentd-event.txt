@@ -159,7 +159,7 @@ In this example, we use `stdout` non-buffered output. But in production, you use
 Buffered output plugin stores received events into buffers first and write out buffers to a destination by meeting flush conditions.
 So using buffered output, you don't see recieved events immediately unlike `stdout` non-buffered output.
 
-Buffer is an important for reliability and throughput. See [Output](/articles/output-plugin-overview) and [Buffer](/articles/buffer-plugin-overview) articles.
+Buffer is an important for reliability and throughput. See [Output](output-plugin-overview) and [Buffer](buffer-plugin-overview) articles.
 
 ## Conclusion
 
