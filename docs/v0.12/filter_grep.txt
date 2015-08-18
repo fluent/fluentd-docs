@@ -45,12 +45,12 @@ The "N" at the end should be replaced with an integer between 1 and 20 (ex: "reg
 For example, the following filters out events unless the field "price" is a positive integer.
 
     :::text
-    regexp1  [1-9]\d*
+    regexp1 price [1-9]\d*
 
 The grep filter filters out UNLESS all regexpN's are matched. Hence, if you have
 
     :::text
-    regexp1 price     [1-9]\d*
+    regexp1 price [1-9]\d*
     regexp2 item_name ^book_
 
 unless the event's "item_name" field starts with "book_" and the "price" field is an integer, it is filtered out.
