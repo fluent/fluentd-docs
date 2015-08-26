@@ -237,7 +237,9 @@ Here is the implementation of the most basic filter that passes through all even
     :::ruby
     module Fluent
       class PassThruFilter < Filter
-    
+        # Register this filter as "passthru"
+        Fluent::Plugin.register_filter('passthru', self)
+
         # config_param works like other plugins
 
         def configure(conf)
