@@ -124,3 +124,5 @@ It will be parsed as
 
     :::text
     {"method":"GET","path":"/users/123/","host":"127.0.0.1","controller":"UsersController","controller_method":"show","format":"HTML","parameters":"{ \"user_id\" = >\"123\"}", ...}
+
+NOTE: With `format_firstline`, in_tail delays record emit until next `format_firstline` matched.
