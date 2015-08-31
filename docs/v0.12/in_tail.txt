@@ -83,6 +83,8 @@ This parameter is highly recommended. Fluentd will record the position it last r
     :::text
     pos_file /var/log/td-agent/tmp/access.log.pos
 
+`pos_file` handles multiple positions in one file so no need multiple `pos_file`.
+
 #### time_format
 The format of the time field. This parameter is required only if the format includes a ‘time’ capture and it cannot be parsed automatically. Please see [Time#strftime](http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime) for additional information.
 
