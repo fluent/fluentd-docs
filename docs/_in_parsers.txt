@@ -125,4 +125,26 @@ It will be parsed as
     :::text
     {"method":"GET","path":"/users/123/","host":"127.0.0.1","controller":"UsersController","controller_method":"show","format":"HTML","parameters":"{ \"user_id\" = >\"123\"}", ...}
 
-NOTE: With `format_firstline`, in_tail delays record emit until next `format_firstline` matched.
+One more example, you can parse Java like stacktrace logs with `multiline`. Here is a configuration example.
+
+    :::text
+    format multiline
+    format_firstline /\d{4}-\d{1,2}-\d{1,2}/
+    format1 /^(?<time>\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}) \[(?<thread>.*)\] (?<level>[^\s]+)(?<message>.*)/
+
+If you have a following log:
+
+    :::text
+    2013-3-03 14:27:33 [main] INFO  Main - Start
+    2013-3-03 14:27:33 [main] ERROR Main - Exception
+    javax.management.RuntimeErrorException: null
+        at Main.main(Main.java:16) ~[bin/:na]
+    2013-3-03 14:27:33 [main] INFO  Main - End
+
+It will be parsed as:
+
+    2013-03-03 14:27:33 +0900 zimbra.mailbox: {"thread":"main","level":"INFO","message":"  Main - Start"}
+    2013-03-03 14:27:33 +0900 zimbra.mailbox: {"thread":"main","level":"ERROR","message":" Main - Exception\njavax.management.RuntimeErrorException: null\n    at Main.main(Main.java:16) ~[bin/:na]"}
+    2013-03-03 14:27:33 +0900 zimbra.mailbox: {"thread":"main","level":"INFO","message":"  Main - End"}
+
+NOTE: With `format_firstline`, in_tail delays record emit until next `format_firstline` matched because in_tail can't judge multiline logs are ended or not without `format_firstline` trigger. If your regexps represent log pattern correctly like above Rails example, you may remove `format_firstline` for emitting records immediately.
