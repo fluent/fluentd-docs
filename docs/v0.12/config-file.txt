@@ -271,7 +271,7 @@ Directives in separate configuration files can be imported using the **@include*
     # Include config files in the ./config.d directory
     @include config.d/*.conf
 
-The **include** directive supports regular file path, glob pattern, and http URL conventions::
+The **@include** directive supports regular file path, glob pattern, and http URL conventions::
 
     # absolute path
     @include /path/to/config.conf
@@ -285,6 +285,20 @@ The **include** directive supports regular file path, glob pattern, and http URL
 
     # http
     @include http://example.com/fluent.conf
+
+Note for glob pattern, files are expanded in the alphabetical order. If you have `a.conf` and `b.conf`, fluentd parses `a.conf` first.
+But you should not write the configuration depends on this order. It is so error prone. Please separate ``@include`` for safety.
+
+    :::text
+    # If you have a.conf,b.conf,...,z.conf and a.conf / z.conf are important...
+
+    # This is bad
+    @include *.conf
+
+    # This is good
+    @include a.conf
+    @include config.d/*.conf
+    @include z.conf
 
 ## Supported Data Types for Values
 
