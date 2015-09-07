@@ -3,11 +3,11 @@
 [Splunk](http://www.splunk.com/) is a great tool for searching logs, but its high cost makes it prohibitive for many teams. In this article, we present a free and open source alternative to Splunk by combining three open source projects: Elasticsearch, Kibana, and Fluentd.
 
 <center>
-<img src="/images/kibana-screenshot.png" width="90%"/><br />
+<img src="/images/kibana4-screenshot.png" width="90%"/><br />
 </center><br/>
 <br/>
 
-[Elasticsearch](http://www.elasticsearch.org/) is an open source search engine known for its ease of use. [Kibana](http://kibana.org/) is an open source Web UI that makes Elasticsearch user friendly for marketers, engineers and data scientists alike.
+[Elasticsearch](https://www.elastic.co/products/elasticsearch) is an open source search engine known for its ease of use. [Kibana](https://www.elastic.co/products/kibana) is an open source Web UI that makes Elasticsearch user friendly for marketers, engineers and data scientists alike.
 
 By combining these three tools (Fluentd + Elasticsearch + Kibana) we get a scalable, flexible, easy to use log search engine with a great Web UI that provides an open-source Splunk alternative, all for free.
 
@@ -33,9 +33,9 @@ Please confirm that your Java version is 6 or higher.
 
     :::term
     $ java -version
-    java version "1.6.0_45"
-    Java(TM) SE Runtime Environment (build 1.6.0_45-b06-451-11M4406)
-    Java HotSpot(TM) 64-Bit Server VM (build 20.45-b01-451, mixed mode)
+    java version "1.7.0_67"
+    Java(TM) SE Runtime Environment (build 1.7.0_67-b01)
+    Java HotSpot(TM) 64-Bit Server VM (build 24.65-b04, mixed mode)
 
 Now that we've checked for prerequisites, we're now ready to install and set up the three open source tools.
 
@@ -44,28 +44,29 @@ Now that we've checked for prerequisites, we're now ready to install and set up 
 To install Elasticsearch, please download and extract the Elasticsearch package as shown below.
 
     :::term
-    $ curl -O https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.0.RC2.tar.gz
-    $ tar zxvf elasticsearch-0.90.0.RC2.tar.gz
-    $ cd elasticsearch-0.90.0.RC2/
+    $ curl -O https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.tar.gz
+    $ tar zxvf elasticsearch-1.7.1.tar.gz
+    $ cd elasticsearch-1.7.1/
 
 Once installation is complete, start Elasticsearch.
 
     :::term
-    $ ./bin/elasticsearch -f
+    $ ./bin/elasticsearch
 
 ## Set Up Kibana
 
 To install Kibana, download it via the official webpage and extract it. Kibana is a HTML / CSS / JavaScript application.
+Dowload page is [here](https://www.elastic.co/downloads/kibana)
 
     :::term
-    $ curl -O https://download.elasticsearch.org/kibana/kibana/kibana-3.0.0milestone5.tar.gz
-    $ tar zxvf kibana-3.0.0milestone5.tar.gz
-    $ cd kibana-3.0.0milestone5/
+    $ curl -O https://download.elastic.co/kibana/kibana/kibana-4.1.1-darwin-x64.tar.gz
+    $ tar zxvf kibana-4.1.1-darwin-x64.tar.gz
+    $ cd kibana-4.1.1-darwin-x64/
 
-Once installation is complete, start Kibana and open `index.html`. You can modify Kibana's configuration via `config.js`.
+Once installation is complete, start Kibana and run `./bin/kibana`. You can modify Kibana's configuration via `config/kibana.yml`.
 
     :::term
-    $ open index.html
+    $ ./bin/kibana
 
 ## Set Up Fluentd (td-agent)
 
@@ -76,8 +77,6 @@ In this guide We'll install td-agent, the stable release of Fluentd. Please refe
 * [Ruby gem](install-by-gem)
 
 Next, we'll install the Elasticsearch plugin for Fluentd: fluent-plugin-elasticsearch.
-
-NOTE: The latest version of fluent-plugin-elasticsearch requires <strong>libcurl</strong> and <strong>make</strong> (if your system has no "make"). For Ubuntu, run "sudo apt-get install libcurl4-gnutls-dev". For RedHat/CentOS, run "sudo yum install libcurl-devel".
 
 Then, install fluent-plugin-elasticsearch as follows.
 
@@ -124,9 +123,9 @@ Please restart the rsyslog service once the modification is complete.
 
 ## Store and Search Event Logs
 
-Once Fluentd receives some event logs from rsyslog and has flushed them to Elasticsearch, you can search the stored logs using Kibana by accessing Kibana's index.html in your browser.
+Once Fluentd receives some event logs from rsyslog and has flushed them to Elasticsearch, you can search the stored logs using Kibana by accessing Kibana's index.html in your browser. Here is an image example.
 
-<center><img src="/images/kibana-screenshot.png" width="90%"/></center><br/><br/>
+<center><img src="/images/kibana4-screenshot.png" width="90%"/></center><br/><br/>
 
 To manually send logs to Elasticsearch, please use the `logger` command.
 
@@ -151,7 +150,7 @@ When debugging your td-agent configuration, using [out_copy](out_copy) + [out_st
 
 ## Demo Environment
 
-Please access the Kibana Demo Environment from the link below.
+If you want to know Elasticsearch and Kibana deeply, please check official documents.
 
 - [Kibana Demo Environment](http://kibana.fluentd.org/)
 
