@@ -29,7 +29,7 @@ In this guide, we will go over installation, setup, and basic use of this combin
 
 ### Java for Elasticsearch
 
-Please confirm that your Java version is 6 or higher.
+Please confirm that your Java version is 7 or higher.
 
     :::term
     $ java -version
@@ -56,7 +56,7 @@ Once installation is complete, start Elasticsearch.
 ## Set Up Kibana
 
 To install Kibana, download it via the official webpage and extract it. Kibana is a HTML / CSS / JavaScript application.
-Dowload page is [here](https://www.elastic.co/downloads/kibana)
+Dowload page is [here](https://www.elastic.co/downloads/kibana). In this article, we download Mac OS X binary.
 
     :::term
     $ curl -O https://download.elastic.co/kibana/kibana/kibana-4.1.1-darwin-x64.tar.gz
@@ -67,6 +67,8 @@ Once installation is complete, start Kibana and run `./bin/kibana`. You can modi
 
     :::term
     $ ./bin/kibana
+
+Access `http://localhost:5601` in your browser.
 
 ## Set Up Fluentd (td-agent)
 
