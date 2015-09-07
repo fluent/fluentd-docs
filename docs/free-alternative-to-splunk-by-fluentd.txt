@@ -148,12 +148,6 @@ When debugging your td-agent configuration, using [out_copy](out_copy) + [out_st
       </store>
     </match>
 
-## Demo Environment
-
-If you want to know Elasticsearch and Kibana deeply, please check official documents.
-
-- [Kibana Demo Environment](http://kibana.fluentd.org/)
-
 ## Conclusion
 
 This article introduced the combination of Fluentd and Kibana (with Elasticsearch) which achieves a free alternative to Splunk: storing and searching machine logs. The examples provided in this article have not been tuned.
