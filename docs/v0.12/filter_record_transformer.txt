@@ -4,7 +4,7 @@ The `filter_record_transformer` filter plugin mutates/transforms incoming event 
 
 ## Example Configurations
 
-`filter_record_modifier` is included in Fluentd's core. No installation required.
+`filter_record_transformer` is included in Fluentd's core. No installation required.
 
     :::text
     <filter foo.bar>
