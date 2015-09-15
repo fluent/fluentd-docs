@@ -20,7 +20,7 @@ Here is how:
     :::text
     <source>
       type tail
-      path /var/log/httpd-access.log #...or where you placed your Apache access log
+      path /var/log/httpd-access.log #...or where you placed your Nginx access log
       pos_file /var/log/td-agent/httpd-access.log.pos # This is where you record file position
       tag nginx.access #fluentd tag!
       format nginx # Do you have a custom format? You can write your own regex.
