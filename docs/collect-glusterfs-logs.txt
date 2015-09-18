@@ -22,7 +22,7 @@ The rest of this article explains how to set up Fluentd with GlusterFS. For this
 First, we'll install Fluentd using the following command:
 
     :::term
-    $ curl -L https://td-toolbelt.herokuapp.com/sh/install-redhat-td-agent2.sh | sh
+    $ curl -L https://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh | sh
 
 Next, we'll install the Fluentd plugin for GlusterFS:
 
@@ -95,7 +95,7 @@ Finally, start td-agent. Fluentd will started with the updated setup.
 We'll now set up a separate Fluentd instance to aggregate the logs. Again, the first step is to install Fluentd.
 
     :::term
-    $ curl -L https://td-toolbelt.herokuapp.com/sh/install-redhat.sh | sh
+    $ curl -L https://toolbelt.treasuredata.com/sh/install-redhat.sh | sh
 
 We'll set up the node to send data to Elasticsearch, where the logs will be indexed and written to local disk for backup.
 

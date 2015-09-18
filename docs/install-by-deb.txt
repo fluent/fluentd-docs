@@ -27,32 +27,32 @@ A shell script is provided to automate the installation process for each version
 For Trusty,
 
     :::term
-    curl -L https://td-toolbelt.herokuapp.com/sh/install-ubuntu-trusty-td-agent2.sh | sh
+    curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent2.sh | sh
 
 For Precise,
 
     :::term
-    curl -L https://td-toolbelt.herokuapp.com/sh/install-ubuntu-precise-td-agent2.sh | sh
+    curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-precise-td-agent2.sh | sh
 
 For Lucid,
 
     :::term
-    curl -L https://td-toolbelt.herokuapp.com/sh/install-ubuntu-lucid-td-agent2.sh | sh
+    curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-lucid-td-agent2.sh | sh
 
 For Debian Jessie,
 
     :::term
-    curl -L https://td-toolbelt.herokuapp.com/sh/install-debian-jessie-td-agent2.sh | sh
+    curl -L https://toolbelt.treasuredata.com/sh/install-debian-jessie-td-agent2.sh | sh
 
 For Debian Wheezy,
 
     :::term
-    curl -L https://td-toolbelt.herokuapp.com/sh/install-debian-wheezy-td-agent2.sh | sh
+    curl -L https://toolbelt.treasuredata.com/sh/install-debian-wheezy-td-agent2.sh | sh
 
 For Debian Squeeze,
 
     :::term
-    curl -L https://td-toolbelt.herokuapp.com/sh/install-debian-squeeze-td-agent2.sh | sh
+    curl -L https://toolbelt.treasuredata.com/sh/install-debian-squeeze-td-agent2.sh | sh
 
 NOTE: It's HIGHLY recommended that you set up <b>ntpd</b> on the node to prevent invalid timestamps in your logs.
 

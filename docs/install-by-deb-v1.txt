@@ -21,16 +21,16 @@ Please follow the [Preinstallation Guide](before-install) to configure your OS p
 "Ubuntu 12.04 LTS / Precise" and "Ubuntu 10.04 LTS / Lucid" are currently supported.
 
 #### Ubuntu Precise
-Executing [install-ubuntu-precise.sh](https://td-toolbelt.herokuapp.com/sh/install-ubuntu-precise.sh) will automatically install td-agent on your machine. This shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
+Executing [install-ubuntu-precise.sh](https://toolbelt.treasuredata.com/sh/install-ubuntu-precise.sh) will automatically install td-agent on your machine. This shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
 
     :::term
-    $ curl -L https://td-toolbelt.herokuapp.com/sh/install-ubuntu-precise.sh | sh
+    $ curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-precise.sh | sh
 
 #### Ubuntu Lucid
-Executing [install-ubuntu-lucid.sh](https://td-toolbelt.herokuapp.com/sh/install-ubuntu-lucid.sh) will automatically install td-agent on your machine. This shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
+Executing [install-ubuntu-lucid.sh](https://toolbelt.treasuredata.com/sh/install-ubuntu-lucid.sh) will automatically install td-agent on your machine. This shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
 
     :::term
-    $ curl -L https://td-toolbelt.herokuapp.com/sh/install-ubuntu-lucid.sh | sh
+    $ curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-lucid.sh | sh
 
 NOTE: It's HIGHLY recommended that you set up <b>ntpd</b> on the node to prevent invalid timestamps in your logs.
 
