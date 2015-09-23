@@ -12,6 +12,7 @@ gem 'coderay'
 gem 'rack-codehighlighter'
 gem 'sanitize'
 gem 'jemalloc', '~> 0.1.8'
+gem 'minitest'
 
 # Compressor
 gem 'yui-compressor', :require => 'yui/compressor'
