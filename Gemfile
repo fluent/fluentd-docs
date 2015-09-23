@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # https://devcenter.heroku.com/articles/ruby-versions
-ruby '2.1.4'
+ruby '2.2.2'
 
 gem 'sinatra', '1.3.3'
 gem 'sinatra-assetpack', '0.2.8', :require => 'sinatra/assetpack'
@@ -17,7 +17,7 @@ gem 'jemalloc', '~> 0.1.8'
 gem 'yui-compressor', :require => 'yui/compressor'
 
 # Webserver
-gem 'unicorn', '~> 4.2.1'
+gem 'unicorn', '~> 4.9.0'
 gem 'unicorn-worker-killer', '~> 0.2.0'
 
 # Addons
