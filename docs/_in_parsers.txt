@@ -148,3 +148,7 @@ It will be parsed as:
     2013-03-03 14:27:33 +0900 zimbra.mailbox: {"thread":"main","level":"INFO","message":"  Main - End"}
 
 NOTE: With `format_firstline`, in_tail delays record emit until next `format_firstline` matched because in_tail can't judge multiline logs are ended or not without `format_firstline` trigger. If your regexps represent log pattern correctly like above Rails example, you may remove `format_firstline` for emitting records immediately.
+
+#### keep_time_key
+
+Parser removes time field from event record by default. If you want to keep time field in record, set `true` to `keep_time_key`. Default is `false`.
