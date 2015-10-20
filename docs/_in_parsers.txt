@@ -77,6 +77,8 @@ The `time_key` parameter can also be specified.
     format json
     time_key key3
 
+Without `time_format`, `json` parser assumes time field is a second integer.
+
 * `none`
 
 You can use the `none` format to defer parsing/structuring the data. This will parse the line as-is with the key name "message". For example, if you had a line
