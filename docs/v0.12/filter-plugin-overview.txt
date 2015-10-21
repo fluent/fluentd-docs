@@ -33,7 +33,7 @@ Like the `<match>` directive for output plugins, `<filter>` matches against a ta
     <filter foo.bar>
       type record_transformer
       <record>
-        hostname ${Socket.gethostname}
+        hostname "#{Socket.gethostname}"
       </record>
     </filter>
 
