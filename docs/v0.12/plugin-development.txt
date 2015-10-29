@@ -452,10 +452,10 @@ The **copy** output plugin copies matched events to multiple output plugins. You
 
     :::text
     <source>
-      type tcp
+      type forward
     </source>
 
-    # Use the tcp Input plugin and the fluent-cat command to feed events:
+    # Use the forward Input plugin and the fluent-cat command to feed events:
     #  $ echo '{"event":"message"}' | fluent-cat test.tag
     <match test.tag>
       type copy
@@ -470,6 +470,22 @@ The **copy** output plugin copies matched events to multiple output plugins. You
         type your_custom_output_plugin
       </store>
     </match>
+
+You can use **stdout** filter instead of **copy** and **stdout** combination. The result is same as above but more simpler.
+
+    :::text
+    <source>
+      type forward
+    </source>
+
+    <filter>
+      type stdout
+    </filter>
+
+    <match test.tag>
+      type your_custom_output_plugin
+    </match>
+
 
 ## Writing test cases
 
