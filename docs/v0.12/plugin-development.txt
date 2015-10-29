@@ -362,6 +362,16 @@ Then, save this code in `parser_time_key_value.rb` in a loadable plugin path. Th
 
 Then, the log line like `2014-01-01T00:00:00 k=v a=b` is parsed as `2013-01-01 00:00:00 +0000 test: {"k":"v","a":"b"}`.
 
+### Parser API
+
+Current `Parser#parse` API is called with block. We will remove `Parser#parse` with return value API since v0.14 or later.
+
+    :::ruby
+    # OK
+    parser.parse(text) { |time, record| ... }
+    # NG. This API will be removed
+    time, record = parser.parse(text) # or parser.call(text)
+
 ## Text Formatter Plugins
 
 Fluentd supports [pluggable, customizable formats for output plugins](formatter-plugin-overview). The plugin files whose names start with "formatter_" are registered as Formatter Plugins.
