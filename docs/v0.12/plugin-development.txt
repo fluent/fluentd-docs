@@ -489,4 +489,4 @@ Please see Fluentd's source code for details.
 
 ## Further Reading
 
-* [Slides: Dive into Fluentd Plugin](http://www.slideshare.net/repeatedly/fluentd-meetup-dive-into-fluent-plugin)
+* [Slides: Dive into Fluentd Plugin](http://www.slideshare.net/repeatedly/dive-into-fluentd-plugin-v012)
