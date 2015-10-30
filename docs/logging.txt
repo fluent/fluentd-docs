@@ -40,7 +40,7 @@ The `-q` option sets the verbosity to `warn` while the `-qq` option sets the ver
     $ fluentd -q  ... # warn level
     $ fluentd -qq ... # error level
 
-## Per Plugin Log (Fluentd v0.10.43 and above)
+## Per Plugin Log
 
 The `log_level` option sets different levels of logging for each plugin. It can be set in each plugin's configuration file. 
 

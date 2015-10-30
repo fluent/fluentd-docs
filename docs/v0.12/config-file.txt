@@ -334,9 +334,9 @@ can generate JSON value easily than unusual format.
 - `@type`: Specify plugin type
 - `@id`: Specify plugin id. in_monitor_agent uses this value for plugin_id field
 - `@label`: Specify label symbol. See [label](config-file#5-group-filter-and-output-the-ldquolabelrdquo-directive) section
-- `log_level`: Specify per plugin log level. See [Per Plugin Log](logging#per-plugin-log-fluentd-v01043-and-above) section
+- `@log_level`: Specify per plugin log level. See [Per Plugin Log](logging#per-plugin-log) section
 
-`log_level` will be `@log_level`. `type` and `id` are supported for backward compatibility.
+`type`, `id` and `log_level` are supported for backward compatibility.
 
 ## Format tips
 

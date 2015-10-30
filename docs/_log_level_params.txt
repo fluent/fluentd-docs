@@ -1,4 +1,4 @@
-#### log_level option (Fluentd v0.10.43 and above)
+#### log_level option
 
 The `log_level` option allows the user to set different levels of logging for each plugin. The supported log levels are: `fatal`, `error`, `warn`, `info`, `debug`, and `trace`.
 

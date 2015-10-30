@@ -4,7 +4,7 @@ Fluentd has 6 types of plugins: [Input](input-plugin-overview), [Parser](parser-
 
 ## Overview
 
-Sometimes, the output format for an output plugin does not meet one's needs. For **v0.10.49 and above**, Fluentd has a pluggable system called Text Formatter that lets the user extend and re-use custom output formats.
+Sometimes, the output format for an output plugin does not meet one's needs. Fluentd has a pluggable system called Text Formatter that lets the user extend and re-use custom output formats.
 
 ## How To Use
 
