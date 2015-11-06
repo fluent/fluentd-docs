@@ -19,3 +19,8 @@ Forces the buffered messages to be flushed and reopens Fluentd's log. Fluentd wi
 ### SIGHUP
 
 Reloads the configuration file by gracefully restarting the worker process. Fluentd will try to flush the entire memory buffer at once, but will not retry if the flush fails. Fluentd will not flush the file buffer; the logs are persisted on the disk by default.
+
+### SIGCONT
+
+Call sigdump to dump fluentd internal status. See [trouble-shooting](trouble-shooting#dump-fluentd-internal-information) article.
+
