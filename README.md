@@ -4,13 +4,6 @@ Ultrasimple CMS and content for Fluentd documentation. The production site is [h
 
 If you'd like to propose an edit to the Fluentd docs, please fork this repo and send us a pull request.
 
-## Multiple language support
-
-English article is maintained by Fluentd team.
-Another language article, e.g. ja, is maintained by the community.
-So some articles may be outdated.
-If you find outdated article, please send pull request to this repository.
-
 # Install
 
     $ gem install bundler
@@ -36,16 +29,6 @@ When you have updated an article, please update config/last_updated.json too.
 
     $ bundle exec rake last_updated
     $ git add config/last_updated.json
-
-# Add Another Language
-
-0. First, please create a symlink to the English article in order to prevent a 404 response.
-
-    $ cd docs
-    $ make lang # e.g. de
-    $ for f in *.txt; do ls lang/$f || ln -s ../$f lang/$f; done
-
-After initialization, please remove the symlink and add the translated article. :)
 
 # Contributing docs for v1
 
