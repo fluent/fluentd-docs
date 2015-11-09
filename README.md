@@ -21,6 +21,9 @@ If you'd like to propose an edit to the Fluentd docs, please fork this repo and 
 
 # Deploy
 
+We delopy fluentd-docs by Circle-CI automatically.
+If you want to delopy it manually, run following command.
+
     $ git push heroku master
 
 ## NOTE
