@@ -42,23 +42,6 @@ v1 docs are under docs/v1. Currently, most articles are symlinked to the corresp
 
 Once v1 is released, this process will be updated.
 
-# Detect outdated documents
-
-    $ bundle exec rake outdated
-    docs/ja/config-file.txt    : 4 days, 10 hours
-    docs/ja/install-by-gem.txt : 13 hours
-    docs/ja/out_mongo.txt      : 153 days, 19 hours
-    docs/ja/quickstart.txt     : 14 hours
-    Following articles not to exist in "br":
-      changelog.txt
-      config-file.txt
-      faq.txt
-    Following article not to exist in "eu":
-      java.txt
-    Following articles not to exist in "la":
-      apache-to-mongodb.txt
-      apache-to-s3.txt
-
 # INCLUDE pragma
 
 You can use the "INCLUDE pragma" to avoid copy-and-pasting the same content or updates on multiple pages.
