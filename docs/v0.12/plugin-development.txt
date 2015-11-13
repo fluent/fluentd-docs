@@ -286,7 +286,7 @@ Here is the default implementation of `filter_stream`.
         begin
           filtered_record = filter(tag, time, record)
           new_es.add(time, filtered_record) if filtered_record
-        rescue  = > e
+        rescue => e
           router.emit_error_event(tag, time, record, e)
         end
       }
