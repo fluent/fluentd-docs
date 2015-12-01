@@ -16,7 +16,7 @@ It is used with the `<filter>` directive as follows:
 
     :::term
     <filter foo.bar>
-      type grep
+      @type grep
       regexp1 message cool
     </filter>
 
@@ -26,12 +26,12 @@ Like the `<match>` directive for output plugins, `<filter>` matches against a ta
 
     :::term
     <filter foo.bar>
-      type grep
+      @type grep
       regexep1 message cool
     </filter>
 
     <filter foo.bar>
-      type record_transformer
+      @type record_transformer
       <record>
         hostname "#{Socket.gethostname}"
       </record>

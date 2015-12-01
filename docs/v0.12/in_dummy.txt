@@ -8,7 +8,7 @@ The `in_dummy` input plugin generates dummy events. It is useful for testing, de
 
     :::text
     <source>
-      type dummy
+      @type dummy
       dummy {"hello":"world"}
     </source>
 

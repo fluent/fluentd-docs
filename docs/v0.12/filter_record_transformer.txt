@@ -8,7 +8,7 @@ The `filter_record_transformer` filter plugin mutates/transforms incoming event 
 
     :::text
     <filter foo.bar>
-      type record_transformer
+      @type record_transformer
       <record>
         hostname "#{Socket.gethostname}"
       </record>
@@ -28,7 +28,7 @@ Here is another example where the field "total" is divided by the field "count" 
 
     :::text
     <filter foo.bar>
-      type record_transformer
+      @type record_transformer
       enable_ruby
       <record>
         avg ${total/count}
@@ -51,7 +51,7 @@ Finally, this configuration embeds the value of the second part of the tag in th
 
     :::text
     <filter web.*>
-      type record_transformer
+      @type record_transformer
       <record>
         service_name ${tag_parts[1]}
       </record>

@@ -8,7 +8,7 @@ The `relabel` output plugin re-labels events.
 
     :::text
     <match pattern>
-      type relabel
+      @type relabel
       @label @foo
     </match>
 

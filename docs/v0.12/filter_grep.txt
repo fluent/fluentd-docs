@@ -8,7 +8,7 @@ The `filter_grep` filter plugin "greps" events by the values of specified fields
 
     :::text
     <filter foo.bar>
-      type grep
+      @type grep
       regexp1 message cool
       regexp2 hostname ^web\d+\.example\.com$
       exclude1 message uncool

@@ -9,7 +9,7 @@ with daemon mode). This filter plugin is useful for debugging purposes.
 
     :::text
     <filter pattern>
-      type stdout
+      @type stdout
     </filter>
 
 A sample output is as follows:
