@@ -98,6 +98,9 @@ section 'deployment', 'Deployment' do
   category 'signals', 'Signals' do
     article 'signals', 'Signal Handling', ['Signals']
   end
+  category 'rpc', 'RPC' do
+    article 'rpc', 'HTTP RPC'
+  end
   category 'high-availability', 'High Availability Config' do
     article 'high-availability', 'Fluentd High Availability Configuration'
   end
