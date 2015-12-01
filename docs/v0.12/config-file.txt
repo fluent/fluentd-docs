@@ -51,13 +51,13 @@ Fluentd's input sources are enabled by selecting and configuring the desired inp
     # Receive events from 24224/tcp
     # This is used by log forwarding and the fluent-cat command
     <source>
-      type forward
+      @type forward
       port 24224
     </source>
 
     # http://this.host:9880/myapp.access?json={"event":"data"}
     <source>
-      type http
+      @type http
       port 9880
     </source>
 
@@ -87,13 +87,13 @@ The "match" directive looks for events with __match__ing tags and processes them
     # Receive events from 24224/tcp
     # This is used by log forwarding and the fluent-cat command
     <source>
-      type forward
+      @type forward
       port 24224
     </source>
 
     # http://this.host:9880/myapp.access?json={"event":"data"}
     <source>
-      type http
+      @type http
       port 9880
     </source>
 
@@ -102,7 +102,7 @@ The "match" directive looks for events with __match__ing tags and processes them
     # Of course, you can control how you partition your data
     # with the time_slice_format option.
     <match myapp.access>
-      type file
+      @type file
       path /var/log/fluent/access
     </match>
 
@@ -141,24 +141,24 @@ So if you have the following configuration:
 
     # ** matches all tags. Bad :(
     <match **>
-      type blackhole_plugin
+      @type blackhole_plugin
     </match>
 
     <match myapp.access>
-      type file
+      @type file
       path /var/log/fluent/access
     </match>
 
 then `myapp.access` is never matched. Wider match patterns should be defined after tight match patterns.
 
     <match myapp.access>
-      type file
+      @type file
       path /var/log/fluent/access
     </match>
 
     # Capture all unmatched tags. Good :)
     <match **>
-      type blackhole_plugin
+      @type blackhole_plugin
     </match>
 
 If you want to send events to multiple outputs, consider [out_copy](out_copy) plugin.
@@ -174,19 +174,19 @@ Let's add standard `record_transformer` filter to "match" example.
 
     # http://this.host:9880/myapp.access?json={"event":"data"}
     <source>
-      type http
+      @type http
       port 9880
     </source>
 
     <filter myapp.access>
-      type record_transformer
+      @type record_transformer
       <record>
         host_param "#{Socket.gethostname}"
       </record>
     </filter>
 
     <match myapp.access>
-      type file
+      @type file
       path /var/log/fluent/access
     </match>
 
@@ -360,14 +360,14 @@ So if you want to set `[` or `{` started but non-json parameter, please use `'` 
 Example1: mail plugin::
 
     <match **>
-      type mail
+      @type mail
       subject "[CRITICAL] foo's alert system"
     </match>
 
 Example2: map plugin::
 
     <match tag>
-      type map
+      @type map
       map '[["code." + tag, time, { "code" => record["code"].to_i}], ["time." + tag, time, { "time" => record["time"].to_i}]]'
       multi true
     </match>

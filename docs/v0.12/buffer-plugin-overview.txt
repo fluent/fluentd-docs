@@ -80,11 +80,11 @@ Here is the diagram shows the relation between buffers and parameters.
 The backup destination that is used when retry count exceeds `retry_limit`. Currently, primary plugin type or `file` plugin works.
 
     <match pattern>
-      type forward
+      @type forward
       ...
 
       <secondary>
-        type file # or forward
+        @type file # or forward
         path /var/log/fluent/forward-failed
       </secondary>
     </match>

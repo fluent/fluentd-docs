@@ -8,7 +8,7 @@ The `in_tail` Input plugin allows Fluentd to read events from the tail of text f
 
     :::text
     <source>
-      type tail
+      @type tail
       path /var/log/httpd-access.log
       pos_file /var/log/td-agent/httpd-access.log.pos
       tag apache.access

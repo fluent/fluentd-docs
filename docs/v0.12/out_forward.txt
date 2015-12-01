@@ -14,7 +14,7 @@ NOTE: Do <b>NOT</b> use this plugin for inter-DC or public internet data transfe
 
     :::text
     <match pattern>
-      type forward
+      @type forward
       send_timeout 60s
       recover_wait 10s
       heartbeat_interval 1s
@@ -36,7 +36,7 @@ NOTE: Do <b>NOT</b> use this plugin for inter-DC or public internet data transfe
       ...
       
       <secondary>
-        type file
+        @type file
         path /var/log/fluent/forward-failed
       </secondary>
     </match>
@@ -93,7 +93,7 @@ Marks a node as the standby node for an Active-Standby model between Fluentd nod
 
     :::text
     <match pattern>
-      type forward
+      @type forward
       ...
       
       <server>

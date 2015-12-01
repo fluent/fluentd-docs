@@ -355,7 +355,7 @@ Then, save this code in `parser_time_key_value.rb` in a loadable plugin path. Th
     :::text
     # Other lines...
     <source>
-      type tail
+      @type tail
       path /path/to/input/file
       format time_key_parser
     </source>
@@ -420,7 +420,7 @@ Then, save this code in `formatter_my_csv.rb` in a loadable plugin path. Then, i
     :::text
     # Other lines...
     <match test>
-      type file
+      @type file
       path /path/to/output/file
       format my_csv
       csv_fields k1,k2
@@ -440,34 +440,34 @@ The **stdout** and **copy** output plugins are useful for debugging. The **stdou
     :::text
     # You want to debug this plugin.
     <source>
-      type your_custom_input_plugin
+      @type your_custom_input_plugin
     </source>
     
     # Dump all events to stdout.
     <match **>
-      type stdout
+      @type stdout
     </match>
 
 The **copy** output plugin copies matched events to multiple output plugins. You can use it in conjunction with the stdout plugin:
 
     :::text
     <source>
-      type forward
+      @type forward
     </source>
 
     # Use the forward Input plugin and the fluent-cat command to feed events:
     #  $ echo '{"event":"message"}' | fluent-cat test.tag
     <match test.tag>
-      type copy
+      @type copy
 
       # Dump the matched events.
       <store>
-        type stdout
+        @type stdout
       </store>
 
       # Feed the dumped events to your plugin.
       <store>
-        type your_custom_output_plugin
+        @type your_custom_output_plugin
       </store>
     </match>
 
@@ -475,15 +475,15 @@ You can use **stdout** filter instead of **copy** and **stdout** combination. Th
 
     :::text
     <source>
-      type forward
+      @type forward
     </source>
 
     <filter>
-      type stdout
+      @type stdout
     </filter>
 
     <match test.tag>
-      type your_custom_output_plugin
+      @type your_custom_output_plugin
     </match>
 
 

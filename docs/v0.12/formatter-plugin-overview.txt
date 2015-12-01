@@ -19,7 +19,7 @@ However, if you set `format json` like this
 
     :::text
     <match foo.bar>
-      type file
+      @type file
       path /path/to/file
       format json
     </match>

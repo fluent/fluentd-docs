@@ -10,7 +10,7 @@ We will use the [in_http](in_http) and the [out_stdout](out_stdout) plugins as e
 
     :::text
     <source>
-      type http
+      @type http
       port 8888
       bind 0.0.0.0
     </source>
@@ -19,7 +19,7 @@ The definition specify that a HTTP server will be listening on TCP port 8888. No
 
     :::text
     <match test.cycle>
-      type stdout
+      @type stdout
     </match>
 
 The _Match_ sets a rule where each _Incoming_ event that arrives with a __Tag__ equals to _test\_cycle_, will match and use the _Output_ plugin type called _stdout_. At this point we have an _Input_ type, a _Match_ and an _Output_. Let's test the setup using _Curl_:
@@ -39,12 +39,12 @@ On the [Fluentd](http://fluentd.org) server side the output should look like thi
     2015-01-19 12:37:41 -0600 [info]: starting fluentd-0.12.3
     2015-01-19 12:37:41 -0600 [info]: using configuration file: <ROOT>
       <source>
-        type http
+        @type http
         bind 0.0.0.0
         port 8888
       </source>
       <match test.cycle>
-        type stdout
+        @type stdout
       </match>
     </ROOT>
     2015-01-19 12:37:41 -0600 [info]: adding match pattern="test.cycle" type="stdout"
@@ -65,18 +65,18 @@ A _Filter_ aims to behave like a rule to pass or reject an event. The following 
 
     :::text
     <source>
-      type http
+      @type http
       port 8888
       bind 0.0.0.0
     </source>
 
     <filter test.cycle>
-      type grep
+      @type grep
       exclude1 action logout
     </filter>
 
     <match test.cycle>
-      type stdout
+      @type stdout
     </match>
 
 As you can see, the new _Filter_ definition added will be a mandatory step before to pass the control to the _Match_ section. The _Filter_ basically will accept or reject the _Event_ based on it _type_ and rule defined. For our example we want to discard any user _logout_ action, we will care just about the _logins_. The way to accomplish this, is doing a _grep_ inside the _Filter_ that states that will exclude any message on which _action_ key have the _logout_ string.
@@ -104,16 +104,16 @@ Now looking at the [Fluentd](http://fluentd.org) service output we can realize t
     2015-01-19 12:37:41 -0600 [info]: starting fluentd-0.12.4
     2015-01-19 12:37:41 -0600 [info]: using configuration file: <ROOT>
     <source>
-      type http
+      @type http
       bind 0.0.0.0
       port 9880
     </source>
     <filter test.cycle>
-      type grep
+      @type grep
       exclude1 action logout
     </filter>
     <match test.cycle>
-      type stdout
+      @type stdout
     </match>
     </ROOT>
     2015-01-19 12:37:41 -0600 [info]: adding filter pattern="test.cycle" type="grep"
@@ -129,25 +129,25 @@ This new implementation called _Labels_, aims to solve the configuration file co
 
     :::text
     <source>
-      type http
+      @type http
       bind 0.0.0.0
       port 8880
       @label @STAGING
     </source>
 
     <filter test.cycle>
-      type grep
+      @type grep
       exclude1 action login
     </filter>
 
     <label @STAGING>
       <filter test.cycle>
-        type grep
+        @type grep
         exclude1 action logout
       </filter>
 
       <match test.cycle>
-        type stdout
+        @type stdout
       </match>
     </label>
 
