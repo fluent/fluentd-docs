@@ -45,6 +45,11 @@ The timeout limit for keeping the connection alive. Default Value = 10 seconds
 #### add_http_headers
 Add `HTTP_` prefix headers to the record. The default is `false`
 
+#### cors_allow_origins
+White list domains for CORS. Default is no check.
+
+If you set `["domain1", "domain2"]` to `cors_allow_origins`, `in_http` returns `403` to access from othe domains.
+
 #### format
 The format of the HTTP body. The default is `default`.
 
