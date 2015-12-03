@@ -68,6 +68,12 @@ Start to read the logs from the head of file, not bottom. The default is `false`
 If you want to tail all contents with `*` or strftime dynamic path, set this parameter to `true`.
 Instead, you should guarantee that log rotation will not occur in `*` directory.
 
+#### read_lines_limit
+
+The number of reading lines at each IO. Default is 1000 lines.
+
+If you see "Size of the emitted data exceeds buffer_chunk_limit." log with in_tail, set smaller value.
+
 #### format (required)
 The format of the log. The following templates are supported:
 
