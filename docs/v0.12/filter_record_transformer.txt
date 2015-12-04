@@ -45,7 +45,27 @@ into
     :::text
     {"total":100, "count":10, "avg":"10"}
 
-With the `enable_ruby` option, an arbitrary Ruby expression can be used inside `${...}`. Note that the "avg" field is typed as string. Currently, `${...}` always returns strings.
+With the `enable_ruby` option, an arbitrary Ruby expression can be used inside `${...}`. Note that the "avg" field is typed as string in this example. You may use `auto_typecast true` option to treat the field as a float.
+
+You can also use this plugin to modify your existing fields as
+
+    :::text
+    <filter foo.bar>
+      @type record_transformer
+      <record>
+        message yay, ${message}
+      </record>
+    </filter>
+
+An input like
+
+    :::text
+    {"message":"hello world!"}
+
+is transformed into
+
+    :::text
+    {"message":"yay, hello world!"}
 
 Finally, this configuration embeds the value of the second part of the tag in the field "service_name". It might come in handy when aggregating data across many services.
 
@@ -81,6 +101,26 @@ For NEW_VALUE, a special syntax `${}` allows the user to generate a new field dy
 ### enable_ruby (optional)
 
 When set to true, the full Ruby syntax is enabled in the `${...}` expression. The default value is false.
+
+### auto_typecast (optional)
+
+Automatically cast the field types. Default is false.
+
+LIMITATION: This option is effective only for field values comprised of a single placeholder.
+
+Effective Examples:
+
+    :::text
+    foo ${foo}
+
+Non-Effective Examples:
+
+    :::text
+    foo ${foo}${bar}
+    foo ${foo}bar
+    foo 1
+
+Internally, this keeps the original value type only when a single placeholder is used. 
 
 ### renew_record (optional)
 
