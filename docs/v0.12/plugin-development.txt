@@ -25,7 +25,7 @@ The following slides can help the user understand how Fluentd works before they 
 
 ## Writing Input Plugins
 
-Extend the **Fluent::Input** class and implement the following methods.
+Extend the **Fluent::Input** class and implement the following methods. In `initialize`, `configure` and `start`, `super` should be called to call Input plugin default behaviour.
 
     :::ruby
     module Fluent
@@ -92,7 +92,7 @@ If you emit a symbol keyed record, it may cause a problem.
 
 ## Writing Buffered Output Plugins
 
-Extend the **Fluent::BufferedOutput** class and implement the following methods.
+Extend the **Fluent::BufferedOutput** class and implement the following methods. In `initialize`, `configure` and `start`, `super` should be called to call BufferedOutput plugin default behaviour.
 
     :::ruby
     module Fluent
@@ -185,7 +185,7 @@ To implement a Time Sliced Output plugin, extend the **Fluent::TimeSlicedOutput*
 
 ## Writing Non-buffered Output Plugins
 
-Extend the **Fluent::Output** class and implement the following methods. **Output** plugin is often used for implementing filter like plugin.
+Extend the **Fluent::Output** class and implement the following methods. **Output** plugin is often used for implementing filter like plugin. In `initialize`, `configure` and `start`, `super` should be called to call non-buffered Output plugin default behaviour.
 
     :::ruby
     module Fluent
@@ -272,6 +272,7 @@ Here is the implementation of the most basic filter that passes through all even
       end
     end
 
+In `initialize`, `configure`, `start` and `shutdown`, `super` should be called to call Filter plugin default behaviour.
 
 ### filter_stream method
 
@@ -311,7 +312,7 @@ e.g., something like this
 
 While it is not hard to write a regular expression to match this format, it is tricky to extract and save key names.
 
-Here is the code to parse this custom format (let's call it `time_key_value`). It takes one optional parameter called `delimiter`, which is the delimiter for key-value pairs. It also takes `time_format` to parse the time string.
+Here is the code to parse this custom format (let's call it `time_key_value`). It takes one optional parameter called `delimiter`, which is the delimiter for key-value pairs. It also takes `time_format` to parse the time string. In `initialize`, `configure` and `start`, `super` should be called to call Parser plugin default behaviour.
 
     :::ruby
     module Fluent
@@ -376,7 +377,7 @@ Current `Parser#parse` API is called with block. We will remove `Parser#parse` w
 
 Fluentd supports [pluggable, customizable formats for output plugins](formatter-plugin-overview). The plugin files whose names start with "formatter_" are registered as Formatter Plugins.
 
-Here is an example of a custom formatter that outputs events as CSVs. It takes a required parameter called "csv_fields" and outputs the fields. It assumes that the values of the fields are already valid CSV fields.
+Here is an example of a custom formatter that outputs events as CSVs. It takes a required parameter called "csv_fields" and outputs the fields. It assumes that the values of the fields are already valid CSV fields. In `initialize`, `configure` and `start`, `super` should be called to call Formatter plugin default behaviour.
 
     :::ruby
     module Fluent
