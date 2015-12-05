@@ -63,6 +63,8 @@ Extend the **Fluent::Input** class and implement the following methods.
       end
     end
 
+In `initialize`, `configure` and `start`, `super` should be called to call Input plugin default behaviour.
+
 To submit events, use the ``Fluent::Engine.emit(tag, time, record)`` method, where ``tag`` is the String, ``time`` is the UNIX time integer and ``record`` is a Hash object.
 
     :::ruby
@@ -148,6 +150,7 @@ Extend the **Fluent::BufferedOutput** class and implement the following methods.
       end
     end
 
+In `initialize`, `configure` and `start`, `super` should be called to call BufferedOutput plugin default behaviour.
 
 ## Writing Time Sliced Output Plugins
 
@@ -219,6 +222,8 @@ Extend the **Fluent::Output** class and implement the following methods. **Outpu
       end
     end
 
+In `initialize`, `configure` and `start`, `super` should be called to call non-buffered Output plugin default behaviour.
+
 ## Parser Plugins
 
 Starting with v0.10.46, Fluentd supports [pluggable, customizable formats for input plugins](parser-plugin-overview). The plugin files whose names start with "parser_" are registered as Parser Plugins.
@@ -235,7 +240,7 @@ e.g., something like this
 
 While it is not hard to write a regular expression to match this format, it is tricky to extract and save key names.
 
-Here is the code to parse this custom format (let's call it `time_key_value`). It takes one optional parameter called `delimiter`, which is the delimiter for key-value pairs. It also takes `time_format` to parse the time string.
+Here is the code to parse this custom format (let's call it `time_key_value`). It takes one optional parameter called `delimiter`, which is the delimiter for key-value pairs. It also takes `time_format` to parse the time string. In `initialize`, `configure` and `start`, `super` should be called to call Parser plugin default behaviour.
 
     :::ruby
     module Fluent
@@ -248,6 +253,8 @@ Here is the code to parse this custom format (let's call it `time_key_value`). I
           config_param :time_format, :string, :default => nil # time_format is configurable
           # This method is called after config_params have read configuration parameters
           def configure(conf)
+            super
+
             if @delimiter.length != 1
               raise ConfigError, "delimiter must be a single character. #{@delimiter} is not."
             end
@@ -300,7 +307,7 @@ Current `Parser#parse` API is called with block. We will remove `Parser#parse` w
 
 Starting with v0.10.49, Fluentd supports [pluggable, customizable formats for output plugins](formatter-plugin-overview). The plugin files whose names start with "formatter_" are registered as Formatter Plugins.
 
-Here is an example of a custom formatter that outputs events as CSVs. It takes a required parameter called "csv_fields" and outputs the fields. It assumes that the values of the fields are already valid CSV fields.
+Here is an example of a custom formatter that outputs events as CSVs. It takes a required parameter called "csv_fields" and outputs the fields. It assumes that the values of the fields are already valid CSV fields. In `initialize`, `configure` and `start`, `super` should be called to call Formatter plugin default behaviour.
 
     :::ruby
     module Fluent
@@ -311,7 +318,7 @@ Here is an example of a custom formatter that outputs events as CSVs. It takes a
 
           include HandleTagAndTimeMixin # If you wish to use tag_key, time_key, etc.          
           config_param :csv_fields, :string
-          
+
           # This method does further processing. Configuration parameters can be
           # accessed either via "conf" hash or member variables.
           def configure(conf)
