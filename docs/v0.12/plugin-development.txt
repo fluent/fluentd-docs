@@ -325,6 +325,8 @@ Here is the code to parse this custom format (let's call it `time_key_value`). I
           config_param :time_format, :string, :default => nil # time_format is configurable
           # This method is called after config_params have read configuration parameters
           def configure(conf)
+            super
+
             if @delimiter.length != 1
               raise ConfigError, "delimiter must be a single character. #{@delimiter} is not."
             end
@@ -388,18 +390,18 @@ Here is an example of a custom formatter that outputs events as CSVs. It takes a
 
           include HandleTagAndTimeMixin # If you wish to use tag_key, time_key, etc.          
           config_param :csv_fields, :string
-          
+
           # This method does further processing. Configuration parameters can be
           # accessed either via "conf" hash or member variables.
           def configure(conf)
             super
             @csv_fields = conf['csv_fields'].split(",")
           end
-          
+
           # This is the method that formats the data output.
           def format(tag, time, record)
             values = []
-            
+
             # Look up each required field and collect them from the record
             @csv_fields.each do |field|
               v = record[field]
@@ -408,7 +410,7 @@ Here is an example of a custom formatter that outputs events as CSVs. It takes a
               end
               values << v
             end
-            
+
             # Output by joining the fields with a comma
             values.join(",")
           end
