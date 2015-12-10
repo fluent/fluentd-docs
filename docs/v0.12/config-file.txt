@@ -264,6 +264,8 @@ In this configuration, `forward` events are routed to `record_transformer` filte
 
 `@ERROR` label is a built-in label used for error record emitted by plugin's `emit_error_event` API.
 
+If you set `<label @ERROR>` in the configuration, events are routed to this label when emit related error, e.g. buffer is full or invalid record.
+
 ## (6) Re-use your config: the "@include" directive
 
 Directives in separate configuration files can be imported using the **@include** directive::
