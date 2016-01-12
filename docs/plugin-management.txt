@@ -17,6 +17,32 @@ If you are using td-agent, please make sure to use td-agent's `td-agent-gem` com
 
 Please see [this FAQ](/articles/faq#i-installed-td-agent-and-want-to-add-custom-plugins-how-do-i-do-it) for more information.
 
+### Gem and native extension
+
+Some plugins depend on natvie extension library. It means you need to install development packages to build it, e.g. gcc, make, autoconf and etc.
+If you see logs like below, install development packages before plugin installation.
+
+    :::term
+    Building native extensions.  This could take a while...
+    ERROR:  Error installing fluent-plugin-twitter:
+            ERROR: Failed to build gem native extension.
+    
+        /opt/td-agent/embedded/bin/ruby extconf.rb
+    
+    checking for rb_str_scrub()... yes
+    creating Makefile
+    
+    make "DESTDIR = " clean
+    sh: 1: make: not found
+    
+    make "DESTDIR = "
+    sh: 1: make: not found
+    
+    make failed, exit code 127
+    
+    Gem files will remain installed in /opt/td-agent/embedded/lib/ruby/gems/2.1.0/gems/string-scrub-0.0.3 for inspection.
+    Results logged to /opt/td-agent/embedded/lib/ruby/gems/2.1.0/extensions/x86_64-linux/2.1.0/string-scrub-0.0.3/gem_make.out
+
 ## "-p" option
 
 Fluentd's `-p` option is used to add an extra plugin directory to the load path. For example,
