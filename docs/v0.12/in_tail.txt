@@ -19,8 +19,8 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 
 ### How it Works
 
-* When Fluentd is first configured with `in_tail`, it will start reading from the **tail** of that log, not the beggining.
-* Once the log is rotated, Fluentd starts reading the new file from the beggining. It keeps track of the current inode number.
+* When Fluentd is first configured with `in_tail`, it will start reading from the **tail** of that log, not the beginning.
+* Once the log is rotated, Fluentd starts reading the new file from the beginning. It keeps track of the current inode number.
 * If `td-agent` restarts, it starts reading from the last position td-agent read before the restart. This position is recorded in the position file specified by the pos_file parameter.
 
 ### Parameters
