@@ -74,6 +74,11 @@ The number of reading lines at each IO. Default is 1000 lines.
 
 If you see "Size of the emitted data exceeds buffer_chunk_limit." log with in_tail, set smaller value.
 
+#### multiline_flush_interval
+The interval of flushing the buffer for multiline format. The default is disabled.
+
+If you set `multiline_flush_interval 5s`, in_tail flushes buffered event after 5 seconds from last emit. This option is useful when you use `format_firstline` option. Since v0.12.20 or later.
+
 #### format (required)
 The format of the log. The following templates are supported:
 
