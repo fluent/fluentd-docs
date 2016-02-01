@@ -51,11 +51,30 @@ On the [Fluentd](http://fluentd.org) server side the output should look like thi
     2015-01-19 12:37:41 -0600 [info]: adding source type="http"
     2015-01-19 12:39:57 -0600 test.cycle: {"action":"login","user":2}
 
+## Event structure
+
+Fluentd event consists of tag, time and record.
+
+- tag: Where an event comes from. For message routing
+- time: When an event happens. Epoch time
+- record: Actual log content. JSON object
+
+The input plugin has responsibility for generating Fluentd event from data sources.<br />
+For example, in_tail generates events from text lines. If you have following line in apache logs:
+
+    :::text
+    192.168.0.1 - - [28/Feb/2013:12:00:00 +0900] "GET / HTTP/1.1" 200 777
+
+you got following event:
+
+    :::text
+    tag: apache.access # set by configuration
+    time: 1362020400   # 28/Feb/2013:12:00:00 +0900
+    record: {"user":"-","method":"GET","code":200,"size":777,"host":"192.168.0.1","path":"/"}
+
 ## Processing Events
 
 When a _Setup_ is defined, the _Router Engine_ already contains several rules to apply for different input data. Internally an _Event_ will to pass through a chain of procedures that may alter it cycle.
-
-NOTE: starting from Fluentd v0.12 two new concepts were introduced to improve the routing behavior: Filters and Labels.
 
 Now we will expand our previous basic example and we will add more steps in our _Setup_ to demonstrate how the _Events_ cycle can be altered. We will do this through the new _Filters_ implementation.
 
