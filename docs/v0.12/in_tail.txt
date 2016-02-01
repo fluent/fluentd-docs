@@ -68,6 +68,8 @@ Start to read the logs from the head of file, not bottom. The default is `false`
 If you want to tail all contents with `*` or strftime dynamic path, set this parameter to `true`.
 Instead, you should guarantee that log rotation will not occur in `*` directory.
 
+NOTE: When this is true, in_tail tries to read a file during start up phase. If target file is large, it takes long time and starting other plugins isn't executed until reading file is finished.
+
 #### read_lines_limit
 
 The number of reading lines at each IO. Default is 1000 lines.
