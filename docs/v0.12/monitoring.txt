@@ -19,6 +19,14 @@ Next, please restart the agent and get the metrics via HTTP.
     $ curl http://host:24220/api/plugins.json
     {"plugins":[{"plugin_id":"object:3fec669d6ac4","type":"forward","output_plugin":false,"config":{"type":"forward"}},{"plugin_id":"object:3fec669daf98","type":"http","output_plugin":false,"config":{"type":"http","port":"8888"}},{"plugin_id":"object:3fec669dfa48","type":"monitor_agent","output_plugin":false,"config":{"type":"monitor_agent","port":"24220"}},{"plugin_id":"object:3fec66a52e94","type":"debug_agent","output_plugin":false,"config":{"type":"debug_agent","port":"24230"}},{"plugin_id":"object:3fec66ae3dcc","type":"stdout","output_plugin":true,"config":{"type":"stdout"}},{"plugin_id":"object:3fec66aead48","type":"forward","output_plugin":true,"buffer_queue_length":0,"buffer_total_queued_size":0,"retry_count":0,"config":{"type":"forward","host":"192.168.0.11"}}]}%
 
+### Reuse plugins
+
+Since v0.12.17, `monitor_agent` plugin has `tag` parameter. If you set `tag monitor.metrics`, `monitor_agent` plugin emits internal metrics to `monitor.metrics` tag. Here is an example with `stdout` output.
+
+    :::term
+    2015-09-16 20:28:19 +0900 monitor.metrics: {"plugin_id":"object:3fc62f0e5d64","plugin_category":"input","type":"monitor_agent","output_plugin":false,"retry_count":null}
+    2015-09-16 20:28:19 +0900 monitor.metrics: {"plugin_id":"object:3fc62f0e9c84","plugin_category":"output","type":"stdout","output_plugin":true,"retry_count":null}
+
 ## Process Monitoring
 
 Two `ruby` processes (parent and child) are executed. Please make sure that these processes are running. The example for `td-agent` is shown below.
