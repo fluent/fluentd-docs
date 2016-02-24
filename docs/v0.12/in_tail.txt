@@ -108,5 +108,12 @@ in_tail takes care of this by keeping a reference to the old file (even after it
 
 The rotate_wait parameter accepts a single integer representing the number of seconds you want this time interval to be.
 
+#### enable_watch_timer
+Enable the additional watch timer.  Setting this parameter to `false` will significantly reduce CPU and I/O consumption when tailing a large number of files on systems with inotify support.  The default is `true` which results in an additional 1 second timer being used.
+
+`in_tail` (via Cool.io) uses inotify on systems which support it.  Earlier versions of libev on some platforms (eg Mac OS X) did not work properly; therefore, an explicit 1 second timer was used.  Even on systems with inotify support, this results in additional I/O each second, for every file being tailed.
+
+Early testing demonstrates that modern Cool.io and `in_tail` work properly without the additional watch timer.  At some point in the future, depending on feedback and testing, the additional watch timer may be disabled by default.
+
 INCLUDE: _log_level_params
 
