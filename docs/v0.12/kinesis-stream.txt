@@ -25,7 +25,7 @@ For simplicity, this article will describe how to set up an one-node configurati
 * [Fluentd](http://fluentd.org/)
 * Apache (with the Combined Log Format)
 
-The MongoDB Output plugin is included in the latest version of Fluentd’s deb/rpm package. If you want to use Ruby Gems to install the plugin, please use `gem install fluent-plugin-mongo`.
+You can install Fluentd via major packaging systems.
 
 * [Debian Package](install-by-deb)
 * [RPM Package](install-by-rpm)
