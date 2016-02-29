@@ -15,9 +15,6 @@ section 'overview', 'Overview' do
     article 'install-on-heroku', 'Installing Fluentd on Heroku'
     article 'install-on-beanstalk', 'Installing Fluentd on AWS Elastic Beanstalk'
   end
-  category 'life-of-a-fluentd-event', 'Life of a Fluentd Event' do
-    article 'life-of-a-fluentd-event', 'Life of a Fluentd Event'
-  end
   category 'support', 'Support' do
     article 'support', 'Support'
   end
@@ -35,42 +32,29 @@ section 'usecases', 'Use Cases' do
     article 'java',   'Import Logs from Java Applications'
     article 'scala',   'Import Logs from Scala Applications'
   end
-  category 'free-alternative-to-splunk-by-fluentd', 'Log Management & Search' do
-    article 'free-alternative-to-splunk-by-fluentd', 'Log Data Search', ['Splunk', 'Free Alternative']
-  end
-  category 'secure-log-forwarding', 'Secure Log Forwarding' do
-    article 'forwarding-over-ssl', 'SSL-Enabled Transport', ['Security', 'SSL']
-  end
-  category 'log-filtering-and-alerting', 'Log Filtering and Alerting' do
+  category 'log-management-and-search', 'Log Management & Search' do
+    article 'free-alternative-to-splunk-by-fluentd', 'Free Alternative to Splunk by Fluentd + Elasticsearch', ['Splunk', 'Free Alternative']
     article 'filter-modify-apache', 'Filter and Modify Data (Apache example)'
     article 'splunk-like-grep-and-alert-email', 'Email Alerts like Splunk', ['Splunk', 'Alerting']
   end
-  category 'http-to-td', 'Big Data Analytics' do
+  category 'data-analytics', 'Data Analytics' do
     article 'http-to-td', 'Data Analytics with Treasure Data', ['Treasure Data', 'Hadoop', 'Hive']
-  end
-  category 'apache-to-s3', 'Data Archiving to S3' do
-    article 'apache-to-s3', 'Store Apache Logs into Amazon S3', ['Amazon S3']
-  end
-  category 'apache-to-mongo', 'Data Collection to Mongo' do
+    article 'http-to-hdfs', 'Data Collection to Hadoop (HDFS)', ['Hadoop', 'HDFS']
     article 'apache-to-mongodb', 'Store Apache Logs into MongoDB', ['MongoDB']
   end
-  category 'http-to-hdfs', 'Data Collection to HDFS' do
-    article 'http-to-hdfs', 'Data Collection to HDFS', ['Hadoop', 'HDFS']
-  end
-  category 'apache-to-riak', 'Data Collection to Riak' do
+  category 'data-archiving', 'Data Archiving' do
+    article 'apache-to-s3', 'Store Apache Logs into Amazon S3', ['Amazon S3']
     article 'apache-to-riak', 'Store Apache Logs into Riak', ['Riak']
+    article 'collect-glusterfs-logs', 'Collecting GlusterFS Logs', ['GlusterFS']
+  end
+  category 'stream-processing', 'Stream Processing' do
+    article 'cep-norikra', 'Fluentd and Norikra: Complex Event Processing', ['cep-norikra']
   end
   category 'windows', 'Windows Event Collection' do
     article 'windows', 'Windows Event Collection'
   end
-  category 'cloud-data-logger', 'RapsberryPi Data Logger' do
+  category 'iot', 'IoT Data Logger' do
     article 'raspberrypi-cloud-data-logger', 'Raspberry Pi Cloud Data Logger', ['Raspberry Pi', 'Data Logger', 'Data Acquisition']
-  end
-  category 'GlusterFS', 'GlusterFS' do
-    article 'collect-glusterfs-logs', 'Collecting GlusterFS Logs', ['GlusterFS']
-  end
-  category 'cep-norikra', 'Fluentd and Norikra' do
-    article 'cep-norikra', 'Fluentd and Norikra: Complex Event Processing', ['cep-norikra']
   end
 end
 section 'configuration', 'Configuration' do
@@ -118,6 +102,9 @@ section 'deployment', 'Deployment' do
   end
   category 'trouble-shooting', 'Trouble Shooting' do
     article 'trouble-shooting', 'Trouble Shooting'
+  end
+  category 'security', 'Security' do
+    article 'forwarding-over-ssl', 'SSL-Enabled Transport', ['Security', 'SSL']
   end
   category 'fluentd-ui', 'Fluentd UI' do
     article 'fluentd-ui', 'Fluentd UI'
