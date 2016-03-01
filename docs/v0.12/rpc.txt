@@ -12,18 +12,16 @@ On signal unsupported environment, e.g. Windows, you can use RPC instead of sign
 
 RPC is off by default. If you want to enable RPC, set `rpc_endpoint` in `<system>` section.
 
-```
-<system>
-  rpc_endpoint 127.0.0.1:24444
-</system>
-```
+    :::text
+    <system>
+      rpc_endpoint 127.0.0.1:24444
+    </system>
 
 After that, you can access to RPC like below.
 
-```
-$ curl http://127.0.0.1:24444/api/plugins.flushBuffers
-{"ok":true}
-```
+    :::text
+    $ curl http://127.0.0.1:24444/api/plugins.flushBuffers
+    {"ok":true}
 
 ## RPCs
 
