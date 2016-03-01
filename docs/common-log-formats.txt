@@ -25,9 +25,9 @@ This page is a glossary of common log formats that can be parsed with the [Tail 
         </source>
 
     Depending on your particular error log format, you may need to adjust the regular expression above. You can test your format using [Fluentular](http://fluentular.herokuapp.com).
-    
+
 * Maillog
-    
+
     Use a regular expression. See the `format` field in the following sample configuration.
 
         <source>
@@ -49,12 +49,25 @@ This page is a glossary of common log formats that can be parsed with the [Tail 
         </source>
 
 * Nginx Error Log
-    
-    Use a regular expression. See the `format` field in the following sample configuration.
+
+    Use the `format*` and `multiline_flush_interval` fields in the following sample configuration. Applications running under Nginx can output multi-line errors including stack traces, so the multiline mode is a good fit.
 
         <source>
             type tail
-            format /^(?<time>[^ ]+ [^ ]+) \[(?<log_level>.*?)\] (?<pid>\d*).(?<tid>[^:]*): (?<message>.*)$/
+            tag nginx.error
+            path /var/log/nginx/error.log
+
+            format multiline
+            format_firstline /^\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2} \[\w+\] (?<pid>\d+).(?<tid>\d+): /
+            format1 /^(?<time>\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) \[(?<log_level>\w+)\] (?<pid>\d+).(?<tid>\d+): (?<message>.*)/
+            multiline_flush_interval 3s
+        </source>
+
+    If you know your error log will only contain single lines, you can use the below simpler configuration with just a `format`.
+
+        <source>
+            type tail
+            format /^(?<time>\d{4}/\d{2}/\d{2} \d{2}:\d{2}:\d{2}) \[(?<log_level>\w+)\] (?<pid>\d+).(?<tid>\d+): (?<message>.*)$/
             tag nginx.error
             path /var/log/nginx/error.log
         </source>
