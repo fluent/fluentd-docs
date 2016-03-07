@@ -54,7 +54,7 @@ This page is a glossary of common log formats that can be parsed with the [Tail 
 
         <source>
             type tail
-            format /^(?<time>[^ ]+ [^ ]+) \[(?<log_level>.*)\] (?<pid>\d*).(?<tid>[^:]*): (?<message>.*)$/
+            format /^(?<time>[^ ]+ [^ ]+) \[(?<log_level>.*?)\] (?<pid>\d*).(?<tid>[^:]*): (?<message>.*)$/
             tag nginx.error
             path /var/log/nginx/error.log
         </source>
