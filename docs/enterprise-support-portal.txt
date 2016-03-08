@@ -1,0 +1,17 @@
+# Fluentd Enterprise Support Portal
+
+This article describes how to access Fluentd's enterprise support portal.
+
+NOTE: This feature is limited to <a href="https://www.treasuredata.com/fluentd_enterprise">Fluentd Enterprise</a> customers.
+
+## Account Creation
+
+Treasure Data representative will create the access credential for you.
+
+## Support Portal Access
+
+Please access to [console.treasuredata.com/fluentd](https://console.treasuredata.com/fluentd), and type in your login credential.
+
+<center>
+<a href="https://console.treasuredata.com/fluentd"><img src="/images/fluentd-enterprise-support.png" width="100%" /></a>
+</center>
