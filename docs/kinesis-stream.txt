@@ -1,4 +1,4 @@
-# Stream Data Collection to Kinesis Stream
+# Collect Log Files into Kinesis Stream in Real-Time
 
 This article explains how to use [Fluentd](http://fluentd.org/)'s [Amazon Kinesis](https://aws.amazon.com/kinesis/) Output plugin ([out_kinesis](https://github.com/awslabs/aws-fluent-plugin-kinesis)) to aggregate semi-structured logs in real-time. Kinesis plugin is developed and published by Amazon Web Services officially.
 
@@ -122,6 +122,12 @@ To test the configuration, just have a couple of accesses to your Apache server.
 
     :::term
     $ ab -n 100 -c 10 http://localhost/
+
+## FAQs
+
+#### Why we need Fluentd, while Kinesis also offers client libraries?
+
+A lot of people use Fluentd + Kinesis, simply because they want to have more choice for [inputs](http://www.fluentd.org/datasources) and [outputs](http://www.fluentd.org/dataoutputs). For inputs, Fluentd has a lot more community contributed plugins and libraries. For outputs, you can send not only Kinesis, but multiple destinations like Amazon S3, local file storage, etc.
 
 ## Conclusion
 
