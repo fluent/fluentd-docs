@@ -56,7 +56,15 @@ All buffered output plugins support the following parameters:
 
 The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used for `flush_interval` and `retry_wait`. `retry_wait` can also be a decimal value.
 
-The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for `buffer_chunk_limit`.
+The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for `buffer_chunk_l
+
+### buffer_queue_full_action
+
+Control the buffer behaviour when the queue becomes full. The default mode is `exception`. It raises `BufferQueueLimitError` exception to input plugin. How handle `BufferQueueLimitError` depends on input plugins, e.g. tail input plugin stops reading new lines. This action fits for streaming manner.
+
+Other mode is `block`. It stops input plugin thread until buffer full is resolved. This is good for batch-like use-case.
+
+We don't recommend to use `block` action first to avoid `BufferQueueLimitError`. Please consider improving destination setting to resolve `BufferQueueLimitError` or use `@ERROR` label for routing overflowed events to another backup destination(or `secondary`). If you hit `BufferQueueLimitError` frequently, it means your destination capacity is not fit for your traffic.
 
 ## Time Sliced Plugin Overview
 
