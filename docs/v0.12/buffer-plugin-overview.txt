@@ -60,11 +60,11 @@ The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for `buffe
 
 ### buffer_queue_full_action
 
-Control the buffer behaviour when the queue becomes full. The default mode is `exception`. It raises `BufferQueueLimitError` exception to input plugin. How handle `BufferQueueLimitError` depends on input plugins, e.g. tail input plugin stops reading new lines. This action fits for streaming manner.
+Control the buffer behaviour when the queue becomes full. The default mode is `exception`. It raises `BufferQueueLimitError` exception to input plugin. How handle `BufferQueueLimitError` depends on input plugins, e.g. tail input stops reading new lines, forward input returns an error to forward output. This action fits for streaming manner.
 
-Other mode is `block`. It stops input plugin thread until buffer full is resolved. This is good for batch-like use-case.
+Other mode is `block`. It stops input plugin thread until buffer full is resolved. This action is good for batch-like use-case.
 
-We don't recommend to use `block` action first to avoid `BufferQueueLimitError`. Please consider improving destination setting to resolve `BufferQueueLimitError` or use `@ERROR` label for routing overflowed events to another backup destination(or `secondary`). If you hit `BufferQueueLimitError` frequently, it means your destination capacity is not fit for your traffic.
+We don't recommend to use `block` action to avoid `BufferQueueLimitError` first. Please consider improving destination setting to resolve `BufferQueueLimitError` or use `@ERROR` label for routing overflowed events to another backup destination(or `secondary`). If you hit `BufferQueueLimitError` frequently, it means your destination capacity is not fit for your traffic.
 
 ## Time Sliced Plugin Overview
 
