@@ -22,13 +22,17 @@ NOTE: This document doesn't describe all parameters. If you want to know full fe
       s3_bucket YOUR_S3_BUCKET_NAME
       s3_region ap-northeast-1
       path logs/
-      buffer_path /var/log/fluent/s3
 
       time_slice_format %Y%m%d%H
       time_slice_wait 10m
       utc
 
-      buffer_chunk_limit 256m
+      buffer_type file
+      buffer_path /var/log/fluent/s3
+      buffer_chunk_limit 32m
+      buffer_queue_limit 1024
+
+      num_threads 16
     </match>
 
 Please see the [Store Apache Logs into Amazon S3](apache-to-s3) article for real-world use cases.
