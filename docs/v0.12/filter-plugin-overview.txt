@@ -27,7 +27,7 @@ Like the `<match>` directive for output plugins, `<filter>` matches against a ta
     :::term
     <filter foo.bar>
       @type grep
-      regexep1 message cool
+      regexp1 message cool
     </filter>
 
     <filter foo.bar>
