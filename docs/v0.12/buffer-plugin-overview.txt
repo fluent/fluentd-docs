@@ -30,7 +30,7 @@ When the top chunk exceeds the specified size or time limit (`buffer_chunk_limit
 
 If the bottom chunk write out fails, it will remain in the queue and Fluentd will retry after waiting several seconds (`retry_wait`). If the retry limit has not been disabled (`disable_retry_limit` is false) and the retry count exceeds the specified limit (`retry_limit`), the chunk is trashed. The retry wait time doubles each time (1.0sec, 2.0sec, 4.0sec, ...) until `max_retry_wait` is reached. If the queue length exceeds the specified limit (`buffer_queue_limit`), new events are rejected.
 
-NOTE: writing out the bottom chunk is considered to be a failure if "Buffer#write" method throws an exception.
+NOTE: writing out the bottom chunk is considered to be a failure if "BufferedOutput#write" method throws an exception.
 
 All buffered output plugins support the following parameters:
 
@@ -63,9 +63,9 @@ The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for `buffe
 
 Control the buffer behaviour when the queue becomes full. The default mode is `exception`. It raises `BufferQueueLimitError` exception to input plugin. How handle `BufferQueueLimitError` depends on input plugins, e.g. tail input stops reading new lines, forward input returns an error to forward output. This action fits for streaming manner.
 
-Other mode is `block`. It stops input plugin thread until buffer full is resolved. This action is good for batch-like use-case.
+Another mode is `block`. It stops input plugin thread until buffer full is resolved. This action is good for batch-like use-case.
 
-We don't recommend to use `block` action to avoid `BufferQueueLimitError` first. Please consider improving destination setting to resolve `BufferQueueLimitError` or use `@ERROR` label for routing overflowed events to another backup destination(or `secondary`). If you hit `BufferQueueLimitError` frequently, it means your destination capacity is not fit for your traffic.
+We don't recommend to use `block` action to avoid `BufferQueueLimitError`. Please consider improving destination setting to resolve `BufferQueueLimitError` or use `@ERROR` label for routing overflowed events to another backup destination(or `secondary`). If you hit `BufferQueueLimitError` frequently, it means your destination capacity is insufficient for your traffic.
 
 ## Time Sliced Plugin Overview
 
