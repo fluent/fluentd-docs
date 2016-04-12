@@ -43,6 +43,7 @@ All buffered output plugins support the following parameters:
       disable_retry_limit false
       retry_limit 17
       retry_wait 1s
+      max_retry_wait 10s # default is infinite
     </match>
 
 `buffer_type` specifies the buffer plugin to use. The `memory` Buffer plugin is used by default. You can also specify `file` as the buffer type alongside the `buffer_path` parameter as follows:
