@@ -11,10 +11,11 @@ The `filter_record_transformer` filter plugin mutates/transforms incoming event 
       @type record_transformer
       <record>
         hostname "#{Socket.gethostname}"
+        tag ${tag}
       </record>
     </filter>
 
-The above filter adds the new field "hostname" with the server's hostname as its value (It is taking advantage of Ruby's string interpolation). So, an input like
+The above filter adds the new field "hostname" with the server's hostname as its value (It is taking advantage of Ruby's string interpolation) and the new field "tag" with tag value. So, an input like
 
     :::text
     {"message":"hello world!"}
@@ -22,7 +23,7 @@ The above filter adds the new field "hostname" with the server's hostname as its
 is transformed into
 
     :::text
-    {"message":"hello world!", "hostname":"db001.internal.example.com"}
+    {"message":"hello world!", "hostname":"db001.internal.example.com", "tag":"foo.bar"}
 
 Here is another example where the field "total" is divided by the field "count" to create a new field "avg":
 
@@ -97,10 +98,25 @@ For NEW_FIELD and NEW_VALUE, a special syntax `${}` allows the user to generate 
 - `tag_prefix[N]` refers to the first N parts of the tag. It works like the usual zero-based array accessor.
 - `tag_suffix[N]` refers to the last N parts of the tag. It works like the usual zero-based array accessor.
 - `tag` refers to the whole tag.
+- `time` refers to stringanized event time.
 
 ### enable_ruby (optional)
 
 When set to true, the full Ruby syntax is enabled in the `${...}` expression. The default value is false.
+
+With `true`, additional variables could be used inside `${}`.
+
+- `record` refers to the whole record.
+- `time` refers to event time as Time object, not stringanized event time.
+
+Here is the examples:
+
+    :::text
+    jsonized_record ${record.to_json}
+    avg ${record["total"] / record["count"]}
+    formatted_time ${time.strftime('%Y-%m-%dT%H:%M:%S%z')}
+    escaped_tag ${tag.gsub('.', '-')}
+    last_tag ${tag_parts.last}
 
 ### auto_typecast (optional)
 
