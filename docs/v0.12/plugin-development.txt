@@ -28,6 +28,8 @@ The following slides can help the user understand how Fluentd works before they 
 Extend the **Fluent::Input** class and implement the following methods. In `initialize`, `configure` and `start`, `super` should be called to call Input plugin default behaviour.
 
     :::ruby
+    require 'fluent/input'
+
     module Fluent
       class SomeInput < Input
         # First, register the plugin. NAME is the name of this plugin
@@ -95,6 +97,8 @@ If you emit a symbol keyed record, it may cause a problem.
 Extend the **Fluent::BufferedOutput** class and implement the following methods. In `initialize`, `configure` and `start`, `super` should be called to call BufferedOutput plugin default behaviour.
 
     :::ruby
+    require 'fluent/output'
+
     module Fluent
       class SomeOutput < BufferedOutput
         # First, register the plugin. NAME is the name of this plugin
@@ -168,6 +172,8 @@ Note that Time Sliced Output plugins use file buffer by default. Thus the ``buff
 To implement a Time Sliced Output plugin, extend the **Fluent::TimeSlicedOutput** class and implement the following methods.
 
     :::ruby
+    require 'fluent/output'
+
     module Fluent
       class SomeOutput < TimeSlicedOutput
         # configure(conf), start(), shutdown() and format(tag, time, record) are
@@ -181,6 +187,7 @@ To implement a Time Sliced Output plugin, extend the **Fluent::TimeSlicedOutput*
           ...
         end
       end
+    end
 
 
 ## Writing Non-buffered Output Plugins
@@ -188,6 +195,8 @@ To implement a Time Sliced Output plugin, extend the **Fluent::TimeSlicedOutput*
 Extend the **Fluent::Output** class and implement the following methods. **Output** plugin is often used for implementing filter like plugin. In `initialize`, `configure` and `start`, `super` should be called to call non-buffered Output plugin default behaviour.
 
     :::ruby
+    require 'fluent/output'
+
     module Fluent
       class SomeOutput < Output
         # First, register the plugin. NAME is the name of this plugin
@@ -235,6 +244,8 @@ This section shows how to write custom filters in addition to [the core filter p
 Here is the implementation of the most basic filter that passes through all events as-is:
 
     :::ruby
+    require 'fluent/filter'
+
     module Fluent
       class PassThruFilter < Filter
         # Register this filter as "passthru"
@@ -315,6 +326,8 @@ While it is not hard to write a regular expression to match this format, it is t
 Here is the code to parse this custom format (let's call it `time_key_value`). It takes one optional parameter called `delimiter`, which is the delimiter for key-value pairs. It also takes `time_format` to parse the time string. In `initialize`, `configure` and `start`, `super` should be called to call Parser plugin default behaviour.
 
     :::ruby
+    require 'fluent/parser'
+
     module Fluent
       class TextParser
         class TimeKeyValueParser < Parser
@@ -382,6 +395,8 @@ Fluentd supports [pluggable, customizable formats for output plugins](formatter-
 Here is an example of a custom formatter that outputs events as CSVs. It takes a required parameter called "csv_fields" and outputs the fields. It assumes that the values of the fields are already valid CSV fields. In `initialize`, `configure` and `start`, `super` should be called to call Formatter plugin default behaviour.
 
     :::ruby
+    require 'fluent/formatter'
+
     module Fluent
       module TextFormatter
         class MyCSVFormatter < Formatter
