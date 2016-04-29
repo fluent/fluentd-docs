@@ -20,6 +20,8 @@ Sometimes, the `format` parameter for input plugins (ex: [in_tail](in_tail), [in
 
 INCLUDE: _in_parsers
 
+INCLUDE: _in_types
+
 ## List of Core Input Plugins with Parser support
 
 with `format` parameter.
