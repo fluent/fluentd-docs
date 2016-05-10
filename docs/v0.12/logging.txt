@@ -22,7 +22,9 @@ The default log level is `info`, and Fluentd outputs `info`, `warn`, `error` and
 Global logging is used by Fluentd core and plugins that don't set their own log levels.
 The global log level can be adjusted up or down.
 
-### Increase Verbosity Level
+### By Command Line Option
+
+#### Increase Verbosity Level
 
 The `-v` option sets the verbosity to `debug` while the `-vv` option sets the verbosity to `trace`.
 
@@ -32,13 +34,23 @@ The `-v` option sets the verbosity to `debug` while the `-vv` option sets the ve
 
 These options are useful for debugging purposes.
 
-### Decrease Verbosity Level
+#### Decrease Verbosity Level
 
 The `-q` option sets the verbosity to `warn` while the `-qq` option sets the verbosity to `error`.
 
     :::term
     $ fluentd -q  ... # warn level
     $ fluentd -qq ... # error level
+
+### By Config File
+
+You can also change the logging level with `<system>` section in the config file like below.
+
+    :::term
+    <system>
+      # equal to -qq option
+      log_level error
+    </system>
 
 ## Per Plugin Log
 
