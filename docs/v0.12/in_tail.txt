@@ -81,6 +81,16 @@ The interval of flushing the buffer for multiline format. The default is disable
 
 If you set `multiline_flush_interval 5s`, in_tail flushes buffered event after 5 seconds from last emit. This option is useful when you use `format_firstline` option. Since v0.12.20 or later.
 
+#### pos_file (highly recommended)
+This parameter is highly recommended. Fluentd will record the position it last read into this file.
+
+    :::text
+    pos_file /var/log/td-agent/tmp/access.log.pos
+
+`pos_file` handles multiple positions in one file so no need multiple `pos_file` parameters per `source`.
+
+NOTE: Don't share pos_file between in_tail configurations. It causes unexpected behavior, e.g. corrupt pos_file content.
+
 #### format (required)
 The format of the log. The following templates are supported:
 
@@ -89,14 +99,6 @@ INCLUDE: _in_parsers
 
 INCLUDE: _in_types
 
-
-### pos_file (highly recommended)
-This parameter is highly recommended. Fluentd will record the position it last read into this file.
-
-    :::text
-    pos_file /var/log/td-agent/tmp/access.log.pos
-
-`pos_file` handles multiple positions in one file so no need multiple `pos_file`.
 
 #### time_format
 The format of the time field. This parameter is required only if the format includes a ‘time’ capture and it cannot be parsed automatically. Please see [Time#strftime](http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime) for additional information.
