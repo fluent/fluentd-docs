@@ -73,11 +73,11 @@ The Amazon S3 region name. Please select the appropriate region name from the li
 
 The most recent versions of the endpoints can be found [here](http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region).
 
-### s3_enpoint
+### s3_endpoint
 
 This option is deprecated because latest aws-sdk ignores this option. Please use `s3_region` instead.
 
-The Amazon S3 enpoint name. Please select the appropriate endpoint name from the list below and confirm that your bucket has been created in the correct region.
+The Amazon S3 endpoint name. Please select the appropriate endpoint name from the list below and confirm that your bucket has been created in the correct region.
 
 * s3.amazonaws.com
 * s3-us-west-1.amazonaws.com
