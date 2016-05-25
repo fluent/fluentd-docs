@@ -73,7 +73,7 @@ One JSON map, per line. This is the most straight forward format :).
     :::text
     format json
 
-The `time_key` parameter can also be specified.
+The `time_key` parameter can also be specified. The default is 'time' and if there is no time field in the record, `json` parser uses current time as an event time.
 
     :::text
     format json
