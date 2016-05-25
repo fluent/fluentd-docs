@@ -39,13 +39,13 @@
       end
     end
 
-イベントを送信するために、``Fluent::Engine.emit(tag, time, record)``メソッドを使用します。``tag``は文字列、``time``はUNIX時間(整数)および``record``はハッシュオブジェクトになります。
+イベントを送信するために、``router.emit(tag, time, record)``メソッドを使用します。``tag``は文字列、``time``はUNIX時間(整数)および``record``はハッシュオブジェクトになります。
 
     :::ruby
     tag = "myapp.access"
     time = Engine.now
     record = {"message"=>"body"}
-    Fluent::Engine.emit(tag, time, record)
+    router.emit(tag, time, record)
 
 
 ## バッファドアウトプットプラグインを書く
