@@ -26,7 +26,7 @@ This article introduces how to transport sensor data from Raspberry Pi to the cl
 
 ## Install Fluentd
 
-Next, we'll install Fluentd on Raspbian. Raspbian bundles Ruby 1.9.3 by default, but we need the extra development package to install Fluentd.
+Next, we'll install Fluentd on Raspbian. Raspbian bundles Ruby 2.1.5 by default, but we need the extra development package to install Fluentd.
 
     :::term
     $ sudo aptitude install ruby-dev
