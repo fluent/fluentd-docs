@@ -1,1 +1,1 @@
-../before-install.txt
+../v0.10/before-install.txt

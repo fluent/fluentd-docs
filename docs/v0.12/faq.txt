@@ -1,1 +1,1 @@
-../faq.txt
+../v0.10/faq.txt

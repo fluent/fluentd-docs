@@ -1,1 +1,1 @@
-../trouble-shooting.txt
+../v0.10/trouble-shooting.txt

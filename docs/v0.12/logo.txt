@@ -1,1 +1,1 @@
-../logo.txt
+../v0.10/logo.txt

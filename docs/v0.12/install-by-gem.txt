@@ -1,1 +1,1 @@
-../install-by-gem.txt
+../v0.10/install-by-gem.txt

@@ -1,1 +1,1 @@
-../kinesis-stream.txt
+../v0.10/kinesis-stream.txt
