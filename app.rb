@@ -195,6 +195,14 @@ get '/v0.12/articles/:article' do
 end
 
 helpers do
+  def link_to(page)
+    if @article_version_specified
+      "/#{@article_version}" + page
+    else
+      page
+    end
+  end
+
   def render_category(category, ver = $DEFAULT_VERSION)
     @articles = []
     @desc = ''
@@ -229,7 +237,10 @@ helpers do
     status 404
   end
 
-  def render_article(article, congrats, ver: $DEFAULT_VERSION)
+  def render_article(article, congrats, ver: nil)
+    @article_version_specified = !ver.nil?
+    ver ||= $DEFAULT_VERSION
+
     @filepath = article_file(article, ver)
     @has_default_version = File.exists?(article_file(article, $DEFAULT_VERSION))
 
