@@ -1,9 +1,12 @@
 <div id="page">
 <div class="topic_content">
-<% if @current_version != @article_version and @has_default_version %>
+  <div style="text-align:right">
+  Document version: <%= @article_version %>
+  </div>
+<% if @deprecated_article_version %>
   <h2 style="color:#FF3333;font-style:bold">
     This page is for <%=@article_version%>, not the latest stable version <%=@current_version%>.
-    For the latest stable version of this article, click <a href="<%=@default_url%>">here</a>.
+    For the latest stable version of this article, click <a href="<%= @default_url %>">here</a>.
   </h2>
 <% end %>
 <article>
@@ -36,7 +39,7 @@
   </div>
   <hr size="1" style="margin-top: 10px; margin-bottom: 10px; color: rgba(0, 0, 0, .15);">
 
-  <%= erb :languages %>
+  <%= erb :versions %>
 
   <hr size="1" style="margin-top: 10px; margin-bottom: 10px; color: rgba(0, 0, 0, .15);">
 

@@ -47,30 +47,9 @@ configure :production do
   end
 end
 
-#
-# For i18n
-#
-def build_available_languages
-  articles = Dir.glob("#{settings.root}/docs/*.txt").map { |a|
-    a["#{settings.root}/docs/".size..-(1 + ".txt".size)]
-  }
-
-  languages = {}
-  articles.each { |article|
-    langs = ['en']
-    Dir.glob("#{settings.root}/docs/*/#{article}.txt").each { |a|
-      # skipping versions
-      unless /^v\d+/.match(a.split("/")[-2])
-        langs << a["#{settings.root}/docs/".size..-(1 + 1 + "#{article}.txt".size)]
-      end
-    }
-    languages[article] = langs.sort
-  }
-  languages
-end
-$AVAILABLE_LANGUAGES = build_available_languages
 $DEFAULT_LANGUAGE = 'en'
 $DEFAULT_VERSION = 'v0.12'
+$DEPRECATED_VERSIONS = ['v0.10']
 
 #
 # For table-of-content
@@ -94,11 +73,6 @@ $TOCS = build_tocs
 # Last update list for each article
 #
 $LAST_UPDATED = JSON.parse(File.read("#{settings.root}/config/last_updated.json"))
-
-#
-# Outdated span for translated articles
-#
-$OUTDATED_SPAN = 30 * 24 * 60 * 60
 
 #
 # NOT FOUND
@@ -208,9 +182,6 @@ get '/articles/:article' do
   render_article params[:article], params[:congrats]
 end
 
-# ver needs to come before /:lang/article/:article
-# otherwise, lang matches first.
-
 get '/v0.10/articles/:article' do
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
   cache_long
@@ -221,11 +192,6 @@ get '/v0.12/articles/:article' do
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
   cache_long
   render_article params[:article], params[:congrats], ver: 'v0.12'
-end
-
-get '/:lang/articles/:article' do
-  puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
-  redirect "/articles/#{params[:article]}", 301
 end
 
 helpers do
@@ -246,7 +212,7 @@ helpers do
     if @articles.length == 1
       article_name = @articles.first.first
       redirect_path = if /^recipe-/.match(article_name)
-                        article_name.split("-", 3).join("/")	
+                        article_name.split("-", 3).join("/")
                       elsif ver == $DEFAULT_VERSION
                         "/articles/#{article_name}"
                       else
@@ -263,9 +229,9 @@ helpers do
     status 404
   end
 
-  def render_article(article, congrats, lang: $DEFAULT_LANGUAGE, ver: $DEFAULT_VERSION)
-    @filepath = article_file(article, lang, ver)
-    @has_default_version = File.exists?(article_file(article, lang, $DEFAULT_VERSION))
+  def render_article(article, congrats, ver: $DEFAULT_VERSION)
+    @filepath = article_file(article, ver)
+    @has_default_version = File.exists?(article_file(article, $DEFAULT_VERSION))
 
     unless $IO_CACHE.has_key? @filepath
       $IO_CACHE[@filepath] = File.read(@filepath)
@@ -281,46 +247,22 @@ helpers do
     @toc     = @article.toc
     @body    = @article.body
     @congrats = congrats ? true : false
+    @available_versions = $LAST_UPDATED.keys.select{|v| $LAST_UPDATED[v].has_key?(article) }.sort
     @current_version = $DEFAULT_VERSION
     @article_version = ver
+    @deprecated_article_version = $DEPRECATED_VERSIONS.include?(@article_version)
     @default_url = "/articles/#{article}"
-    @last_updated = $LAST_UPDATED[lang][article]
-    @available_langs = $AVAILABLE_LANGUAGES[article] || ['en'] # to support  new experimental articles
+    @last_updated = $LAST_UPDATED[ver][article]
 
     erb :article
   end
 
-  def article_file(article, lang, ver)
+  def article_file(article, ver)
     if article.include?('/')
       article
     else
-      path_prefix = "#{settings.root}/docs/"
-
-      if ver != 'v0.10'
-        path_prefix += "#{ver}/"
-      end
-
-      if lang != 'en'
-        path_prefix += "#{lang}/"
-      end
-
-      path_prefix + article + ".txt"
+      "#{settings.root}/docs/#{ver}/#{article}.txt"
     end
-  end
-
-  def prefix
-    # currently, v0.12 docs only exists for English.
-    # So, the prefix is either
-    # 1. version/
-    # 2. lang/
-    @article_version ? "#{@article_version}/" : "" 
-  end
-
-  def avaiable_language?(article, lang)
-    return true if lang == $DEFAULT_LANGUAGE
-    return false unless $AVAILABLE_LANGUAGES.has_key?(article)
-
-    $AVAILABLE_LANGUAGES[article].include?(lang)
   end
 
   def cache_long
