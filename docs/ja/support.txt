@@ -1,6 +1,0 @@
-# サポート
-
-<script src="//app-ab04.marketo.com/js/forms2/js/forms2.js"></script>
-<form id="mktoForm_1046"></form>
-<script>MktoForms2.loadForm("//app-ab04.marketo.com", "714-XIJ-402", 1046);</script>
-

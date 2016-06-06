@@ -1,9 +1,0 @@
-# 変更履歴
-
-## Fluentdの変更履歴
-
-Fluentdの変更履歴は[こちら](https://github.com/fluent/fluentd/blob/master/ChangeLog)で確認できます。
-
-## td-agent変更履歴
-
-td-agentの変更履歴は[こちら](http://docs.treasuredata.com/articles/td-agent-changelog)で確認できます。

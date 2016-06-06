@@ -1,1 +1,0 @@
-../recipe-nginx-to-s3.txt
