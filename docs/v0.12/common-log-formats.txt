@@ -24,7 +24,7 @@ This page is a glossary of common log formats that can be parsed with the [Tail 
             path /var/log/apache2/error.log
         </source>
 
-    Depending on your particular error log format, you may need to adjust the regular expression above. You can test your format using [fluentd-ui's in_tail editor](/articles/fluentd-ui#intail-setting) or [Fluentular](http://fluentular.herokuapp.com).
+    Depending on your particular error log format, you may need to adjust the regular expression above. You can test your format using LINK:[fluentd-ui's in_tail editor](/articles/fluentd-ui#intail-setting) or [Fluentular](http://fluentular.herokuapp.com).
 
 * Maillog
 

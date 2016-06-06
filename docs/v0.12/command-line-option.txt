@@ -57,4 +57,4 @@ If you want to use your supervisor tools, this option avoids double supervisor.
 ## Set via configuration file
 
 Several options could be set via `<system>` directive configuration file.
-See [configuration file article](http://docs.fluentd.org/articles/config-file#4-set-system-wide-configuration-the-ldquosystemrdquo-directive).
+See LINK:[configuration file article](/articles/config-file#4-set-system-wide-configuration-the-ldquosystemrdquo-directive).

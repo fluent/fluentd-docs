@@ -1,7 +1,7 @@
 Storing CloudStack Logs into MongoDB
 ====================================
 
-[Fluentd](http://fluentd.org) is an open source software to collect events and logs in JSON format. It has hundred of plugins that allows you to store the logs/events in your favorite data store like AWS S3, MongoDB and even elasticsearch. A CloudStack plugin has been written to be able to listen to CloudStack events and store these events in a chosen storage backend. In this chapter we will show how to store CloudStack logs in MongoDB using Fluentd. The [documentation](http://docs.fluentd.org/articles/quickstart) quite straightforward, but here are the basic steps.
+[Fluentd](http://fluentd.org) is an open source software to collect events and logs in JSON format. It has hundred of plugins that allows you to store the logs/events in your favorite data store like AWS S3, MongoDB and even elasticsearch. A CloudStack plugin has been written to be able to listen to CloudStack events and store these events in a chosen storage backend. In this chapter we will show how to store CloudStack logs in MongoDB using Fluentd. The LINK:[documentation](/articles/quickstart) quite straightforward, but here are the basic steps.
 
 You will need a working `fluentd` installed on your machine. Pick your package manager of choice and install `fluentd`, for instance with `gem` we would do:
 
@@ -131,7 +131,7 @@ We then need to install the `fluent-plugin-mongodb`. Still using `gem` this will
     :::text
     $sudo gem install fluent-plugin-mongo.
 
-The complete [documentation](http://docs.fluentd.org/articles/out_mongo) also explains how to modify the configuration of `fluentd` to use this backend. Previously we used `stdout` as the output backend, to use `mongodb` we just need to write a different `<match>` section like so:
+The complete LINK:[documentation](/articles/out_mongo) also explains how to modify the configuration of `fluentd` to use this backend. Previously we used `stdout` as the output backend, to use `mongodb` we just need to write a different `<match>` section like so:
 	
     :::text
     # Single MongoDB
