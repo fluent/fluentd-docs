@@ -1,1 +1,1 @@
-../bug-tracking.txt
+../v0.10/bug-tracking.txt

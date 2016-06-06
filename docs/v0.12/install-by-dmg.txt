@@ -1,1 +1,1 @@
-../install-by-dmg.txt
+../v0.10/install-by-dmg.txt

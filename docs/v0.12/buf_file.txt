@@ -1,1 +1,1 @@
-../buf_file.txt
+../v0.10/buf_file.txt

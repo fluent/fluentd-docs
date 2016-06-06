@@ -1,1 +1,1 @@
-../buf_memory.txt
+../v0.10/buf_memory.txt

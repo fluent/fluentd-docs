@@ -1,3 +1,0 @@
-# バグ管理
-
-[Github Issues](https://github.com/fluent/fluentd/issues)をバグ管理のために使っています。こちらにバグ報告やプルリクエストを送ってください。
