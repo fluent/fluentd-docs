@@ -230,11 +230,20 @@ helpers do
     @article_version_specified = !ver.nil?
     ver ||= $DEFAULT_VERSION
 
+    @default_url = "/articles/#{article}"
     @filepath = article_file(article, ver)
     @has_default_version = File.exists?(article_file(article, $DEFAULT_VERSION))
 
-    unless $IO_CACHE.has_key? @filepath
-      $IO_CACHE[@filepath] = File.read(@filepath)
+    begin
+      unless $IO_CACHE.has_key? @filepath
+        $IO_CACHE[@filepath] = File.read(@filepath)
+      end
+    rescue Errno::ENOENT
+      if ver != $DEFAULT_VERSION && @has_default_version
+        return redirect(@default_url, 301)
+      else
+        return status(404)
+      end
     end
 
     doc_path = File.dirname(@filepath)
@@ -250,7 +259,6 @@ helpers do
     @current_version = $DEFAULT_VERSION
     @article_version = ver
     @deprecated_article_version = $DEPRECATED_VERSIONS.include?(@article_version)
-    @default_url = "/articles/#{article}"
     @last_updated = ($LAST_UPDATED[ver] || {})[article] || Time.now.to_s
 
     erb :article
