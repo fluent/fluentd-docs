@@ -9,21 +9,21 @@ class Article
     @body = @body.gsub(/\<[^\<]+\>/,'')
     self
   end
-  
+
   def self.load(topic, source, prefix)
     topic = new(topic, source, prefix)
     topic.parse
     return topic
   end
-  
+
   attr_reader :topic, :title, :desc, :content, :toc, :intro, :body
-  
+
   def initialize(name, source, prefix)
     @topic = name
     @source = source
     @prefix = prefix
   end
-  
+
   def parse
     @topic = topic
     @content = markdown(source)
@@ -37,13 +37,13 @@ class Article
       @intro, @body = '', @content
     end
   end
-  
+
   protected
-  
+
   def source
     @source
   end
-  
+
   def notes(source)
     source.gsub(
                 /NOTE: (.*?)\n\n/m,
@@ -56,13 +56,13 @@ class Article
       includes(File.read("#{@prefix}/#{$1}.txt")) + "\n\n"
     }
   end
-  
+
   def markdown(source)
     html = RDiscount.new(notes(includes(source)), :smart).to_html
     # parse custom {lang} definitions to support syntax highlighting
     html.gsub(/<pre><code>\{(\w+)\}/, '<pre><code class="brush: \1;">')
   end
-  
+
   def topic_file(topic)
     if topic.include?('/')
       topic
