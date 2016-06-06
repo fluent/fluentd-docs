@@ -10,18 +10,21 @@ class Article
     self
   end
 
-  def self.load(topic, source, prefix)
+  def self.load(topic, source, prefix, specified_document_version: nil)
     topic = new(topic, source, prefix)
+    topic.specified_document_version = specified_document_version
     topic.parse
     return topic
   end
 
   attr_reader :topic, :title, :desc, :content, :toc, :intro, :body
+  attr_accessor :specified_document_version
 
   def initialize(name, source, prefix)
     @topic = name
     @source = source
     @prefix = prefix
+    @specified_document_version = nil
   end
 
   def parse
@@ -44,6 +47,26 @@ class Article
     @source
   end
 
+  def rewrite_link(source)
+    # LINK(v0.14):[link text](/path/to/page) => <a href="/v0.14/path/to/page">link text</a>
+    # LINK:[link text](/path/to/page)
+    #    when current path without version prefix      => <a href="/path/to/page">link text</a>
+    #    when current path with version prefix (v0.12) => <a href="/v0.12/path/to/page">link text</a>
+    source.gsub(/LINK(?:\((v\d+\.\d+)\))?:\[([^\]]+?)\]\(([^\)]+?)\)/) do
+      link_doc_version = $1
+      link_text = $2
+      raw_path = $3
+      link_path = if link_doc_version
+                    "/#{link_doc_version}#{raw_path}"
+                  elsif @specified_document_version
+                    "/#{@specified_document_version}#{raw_path}"
+                  else
+                    raw_path
+                  end
+      "<a href=\"#{link_path}\">#{link_text}</a>"
+    end
+  end
+
   def notes(source)
     source.gsub(
                 /NOTE: (.*?)\n\n/m,
@@ -58,7 +81,7 @@ class Article
   end
 
   def markdown(source)
-    html = RDiscount.new(notes(includes(source)), :smart).to_html
+    html = RDiscount.new(notes(includes(rewrite_link(source))), :smart).to_html
     # parse custom {lang} definitions to support syntax highlighting
     html.gsub(/<pre><code>\{(\w+)\}/, '<pre><code class="brush: \1;">')
   end
