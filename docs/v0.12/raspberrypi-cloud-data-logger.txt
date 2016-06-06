@@ -11,7 +11,7 @@ This article introduces how to transport sensor data from Raspberry Pi to the cl
 
 <center>
 <div class="btn-look" style="width: 300px;">
-<a href="http://docs.fluentd.org/articles/architecture">What is Fluentd?</a>
+LINK:[What is Fluentd?](/articles/architecture)
 </div>
 </center>
 <br/>
