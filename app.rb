@@ -156,7 +156,7 @@ get '/categories/:category' do
   redirect "/#{$DEFAULT_VERSION}/categories/#{params[:category]}", 301
 end
 
-get %r{/(v\d+\.\d+)/categories/(\w+)} do |version, category|
+get %r{/(v\d+\.\d+)/categories/(\S+)} do |version, category|
   cache_long
   render_category category, version
 end
@@ -177,7 +177,7 @@ get '/articles/:article' do
   render_article params[:article]
 end
 
-get %r{/(v\d+\.\d+)/articles/(\w+)} do |version, article|
+get %r{/(v\d+\.\d+)/articles/(\S+)} do |version, article|
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ name: article }.to_json}"
   cache_long
   render_article article, ver: version
