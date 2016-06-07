@@ -207,6 +207,7 @@ Following configurations are set by *system* directive. You can set same configu
 * emit_error_log_interval
 * suppress_config_dump
 * without_source
+* process_name (only available in *system* directive. No fluentd option)
 
 Here is an example::
 
@@ -218,6 +219,21 @@ Here is an example::
       # ...
     </system>
 
+### process_name
+
+If set this parameter, fluentd's supervisor and worker process names are changed.
+
+    <system>
+      process_name fluentd1
+    </system>
+
+If we have this configuration, `ps` command shows the following result:
+
+    % ps aux | grep fluentd1
+    foo      45673   0.4  0.2  2523252  38620 s001  S+    7:04AM   0:00.44 worker:fluentd1
+    foo      45647   0.0  0.1  2481260  23700 s001  S+    7:04AM   0:00.40 supervisor:fluentd1
+
+This feature requires ruby 2.1 or later.
 
 ## (5) Group filter and output: the "label" directive
 
