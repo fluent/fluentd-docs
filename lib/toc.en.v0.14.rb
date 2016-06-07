@@ -249,6 +249,11 @@ section 'formatter-plugins', 'Formatter Plugins' do
     article 'formatter-plugin-overview', 'Formatter Plugin Overview'
   end
 end
+section 'storage-plugins', 'Storage Plugins' do
+  category 'storage-plugin-overview', 'Overview' do
+    article 'storage-plugin-overview', 'Storage Plugin Overview'
+  end
+end
 section 'developer', 'Developer' do
   category 'plugin-development', 'Plugin Development' do
     article 'plugin-development', 'Plugin Development'
