@@ -2,21 +2,21 @@
 
 ## What version of Ruby does fluentd support?
 
-Fluentd v0.10 or v0.12 works on 1.9.3 or later. Since v0.14, 2.1 or later.
+Fluentd v0.14 works on Ruby 2.1 or later. See LINK(v0.12):[v0.12 document](/articles/faq#what-version-of-ruby-does-fluentd-support) for earlier versions.
+
+### I use Linux distribution which uses Ruby 2.0, how can I use Fluentd?
+
+Ruby 2.0 is not supported by Fluentd v0.14. You can install specified Ruby version using [rbenv](https://github.com/sstephenson/rbenv).
+
+Using td-agent is another way to avoid this problem because td-agent includes own Ruby.
+
+### When will td-agent be released with Fluentd v0.14?
+
+It's not fixed yet. td-agent is the package including stable version of Fluentd, and we're thinking that Fluentd v0.14 is unstable right now.
 
 ## Known Issue
 
-### I use Fluentd with Ruby 2.0 but Fluentd seems deadlocked. Why?
-
-The rubygems of Ruby 2.0-p353 has a deadlock problem ([#9224](https://bugs.ruby-lang.org/issues/9224)).
-If you use Ruby 2.0-p353, upgrading Ruby to latest patch level or Ruby 2.1 resolve this problem.
-
-Please make sure that you are using either RHEL 7.1 and ruby-2.0.0.598-25.el7_1 package or alternatively you can choose more recent Ruby provided by Red Hat Software Collections (https://access.redhat.com/documentation/en/red-hat-software-collections/)
-
-Unfortunately, Ruby 2.0 package of Ubuntu 14.04 use Ruby 2.0-p353. So don't use Fluentd with Ruby 2.0 package on this environment.
-You can install specified Ruby version using [rbenv](https://github.com/sstephenson/rbenv).
-
-Using td-agent is another way to avoid this problem because td-agent includes own Ruby.
+(To be added after reported)
 
 ## Operations
 
@@ -28,41 +28,9 @@ The timestamps of Fluentd and its logger libraries depend on your system's clock
 
 td-agent has own Ruby so you should install gems into td-agent's Ruby, not system Ruby.
 
-#### td-agent 2:
+#### td-agent 3:
 
-Please use `td-agent-gem` as shown below.
-
-    :::term
-    $ /usr/sbin/td-agent-gem install <plugin name>
-
-For example, issue the following command if you are adding `fluent-plugin-twitter`.
-
-    :::term
-    $ /usr/sbin/td-agent-gem install fluent-plugin-twitter
-
-#### td-agent 1:
-
-Please use `fluent-gem` as shown below.
-
-    :::term
-    $ /usr/lib/fluent/ruby/bin/fluent-gem install <plugin name>
-
-For example, issue the following command if you are adding `fluent-plugin-twitter`.
-
-    :::term
-    $ /usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-twitter
-
-(If you can't find fluent-gem in the above directory, try looking in `/usr/lib64/fluent/ruby/bin/fluent-gem`)
-
-Now you might be wondering, "Why do I need to specify the full path?" The reason is that td-agent does not modify any host environment variable, including `PATH`. If you want to make all td-agent/fluentd related programs available without writing "/usr/lib/..." every time, you can add
-
-    :::bash
-    export PATH=$PATH:/opt/td-agent/embedded/bin/ # td-agent 2
-    export PATH=$PATH:/usr/lib/fluent/ruby/bin/   # td-agent 1
-
-to your `~/.bash_profile`.
-
-If you would like to find out more about plugin management, please take a look at the [Plugin Management](/articles/plugin-management) article.
+(To be added after release of td-agent 3)
 
 ### How can I match (send) an event to multiple outputs?
 
