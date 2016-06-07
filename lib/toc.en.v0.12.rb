@@ -64,7 +64,7 @@ section 'configuration', 'Configuration' do
   end
   category 'recipes', 'Recipes' do
     article "common-log-formats", "Parsing Common Log Formats"
-    for recipe in Dir.entries("#{settings.root}/docs").grep(/^recipe-/)
+    for recipe in Dir.entries("#{settings.root}/docs/v0.12").grep(/^recipe-/)
       recipe.chomp!(".txt")
       article recipe, (recipe.split("-").map {|w|
         if /json|csv|tsv/.match(w)
