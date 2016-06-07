@@ -64,7 +64,7 @@ end
 #   end
 #   category 'recipes', 'Recipes' do
 #     article "common-log-formats", "Parsing Common Log Formats"
-#     for recipe in Dir.entries("#{settings.root}/docs").grep(/^recipe-/)
+#     for recipe in Dir.entries("#{settings.root}/docs/v0.14").grep(/^recipe-/)
 #       recipe.chomp!(".txt")
 #       article recipe, (recipe.split("-").map {|w|
 #         if /json|csv|tsv/.match(w)
@@ -89,9 +89,9 @@ section 'deployment', 'Deployment' do
   category 'rpc', 'RPC' do
     article 'rpc', 'HTTP RPC'
   end
-  category 'high-availability', 'High Availability Config' do
-    article 'high-availability', 'Fluentd High Availability Configuration'
-  end
+  # category 'high-availability', 'High Availability Config' do
+  #   article 'high-availability', 'Fluentd High Availability Configuration'
+  # end
   category 'failure-scenarios', 'Failure Scenarios' do
     article 'failure-scenarios', 'Failure Scenarios'
   end
@@ -104,15 +104,15 @@ section 'deployment', 'Deployment' do
   category 'trouble-shooting', 'Trouble Shooting' do
     article 'trouble-shooting', 'Trouble Shooting'
   end
-  category 'security', 'Security' do
-    article 'forwarding-over-ssl', 'SSL-Enabled Transport', ['Security', 'SSL']
-  end
+  # category 'security', 'Security' do
+  #   article 'forwarding-over-ssl', 'SSL-Enabled Transport', ['Security', 'SSL']
+  # end
   category 'fluentd-ui', 'Fluentd UI' do
     article 'fluentd-ui', 'Fluentd UI'
   end
-  category 'command-line-option', 'Command Line Option' do
-    article 'command-line-option', 'Fluentd command line option'
-  end
+  # category 'command-line-option', 'Command Line Option' do
+  #   article 'command-line-option', 'Fluentd command line option'
+  # end
 end
 section 'plugin', 'Input Plugins' do
   category 'input-plugin-overview', 'Overview' do
@@ -252,6 +252,24 @@ end
 section 'developer', 'Developer' do
   category 'plugin-development', 'Plugin Development' do
     article 'plugin-development', 'Plugin Development'
+    article 'plugin-update-from-v12', 'Updating plugins from v0.12 to v0.14' # TODO: add article file
+  end
+  category 'plugin-apis', 'Plugin API details' do
+    # TODO: Plugin API: input plugin
+    # TODO: Plugin API: filter plugin
+    # TODO: Plugin API: output plugin
+    # TODO: Plugin API: parser plugin
+    # TODO: Plugin API: formatter plugin
+    # TODO: Plugin API: storage plugin
+    # TODO: Plugin API: buffer plugin
+    # TODO: Plugin Helpers: thread
+    # TODO: Plugin Helpers: timer
+    # TODO: Plugin Helpers: child process
+    # TODO: Plugin Helpers: event_loop
+    # TODO: Plugin Helpers: parser
+    # TODO: Plugin Helpers: formatter
+    # TODO: Plugin Helpers: storage
+    # TODO: Plugin Helpers: compat_parameters
   end
   category 'life-of-a-fluentd-event', 'Life of a Fluentd Event' do
     article 'life-of-a-fluentd-event', 'Life of a Fluentd Event'
