@@ -174,8 +174,8 @@ The new configuration contains a _@label_ key on the _source_ indicating that an
 
 ### Buffers
 
-In this example, we use `stdout` non-buffered output. But in production, you use buffered outputs, e.g. `forward`, `mongodb`, `s3` and etc.
-Buffered output plugin stores received events into buffers first and write out buffers to a destination by meeting flush conditions.
+In this example, we use `stdout` non-buffered output. But in production, you use outputs in buffered mode, e.g. `forward`, `mongodb`, `s3` and etc.
+Output plugin in buffered mode stores received events into buffers first and write out buffers to a destination by meeting flush conditions.
 So using buffered output, you don't see recieved events immediately unlike `stdout` non-buffered output.
 
 Buffer is an important for reliability and throughput. See [Output](output-plugin-overview) and [Buffer](buffer-plugin-overview) articles.
@@ -187,3 +187,4 @@ Once the events are reported by the [Fluentd](http://fluend.org) engine on the _
 ## Learn More
 
 * [Fluentd v0.12 Blog Announcement](http://www.fluentd.org/blog/fluentd-v0.12-is-released)
+* [Fluentd v0.14 Blog Announcement](http://www.fluentd.org/blog/fluentd-v0.14.0-has-been-released)

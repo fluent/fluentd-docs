@@ -1,36 +1,54 @@
 # Buffer Plugin Overview
 
-Fluentd has 6 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Buffer Plugin.
+NOTE: This page is simply copied from LINK(v0.12):[v0.12 documents](/articles/buffer-plugin-overview), and will be updated later.
 
-We will first explain how Buffer Plugin works in general. Then, we will explain the mechanism of Time Sliced Plugin, a subclass of Buffer Plugin used by several core plugins. 
+Fluentd has 6 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview), [Storage](storage-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Buffer Plugin.
 
 ## Buffer Plugin Overview
 
-Buffer plugins are used by buffered output plugins, such as `out_file`, `out_forward`, etc. Users can choose the buffer plugin that best suits their performance and reliability needs.
+Buffer plugins are used by output plugins in buffered mode, typically by `file`, `forward`, etc. Users can choose the buffer plugin that best suits their performance and reliability needs.
 
 ## Buffer Structure
 
-The buffer structure is a queue of chunks like the following:
+The buffer plugins have 2 internal structures: stage and queue. Buffer plugins append events to the chunks in stage ("staged" chunks), and put chunks, which are full or expired, into queue ("queued" chunks). Queued chunks will be flushed by output plugins next to next (in FIFO way: first-in, first-out).
+
+![Fluentd v0.14 Plugin API Overview](//docs.fluentd.org/images/fluentd-v0.14-plugin-api-overview.png)
 
     :::text
-    queue
-    +---------+
-    |         |
-    |  chunk <-- write events to the top chunk
-    |         |
-    |  chunk  |
-    |         |
-    |  chunk  |
-    |         |
-    |  chunk --> write out the bottom chunk
-    |         |
-    +---------+
+                                   stage
+                                   +---------+
+                                   |         |
+    write events to staged chunks --> chunk  |
+                                   |         |
+                           events --> chunk  |
+                                   |         |
+                           events --> chunk  |
+                                   |         |
+                           events --> chunk  |
+                                   |         |
+                                   +---------+
 
-When the top chunk exceeds the specified size or time limit (`buffer_chunk_limit` and `flush_interval`, respectively), a new empty chunk is pushed to the top of the queue. The bottom chunk is written out immediately when new chunk is pushed.
+All chunks on stage are writable, and events will be appended into these chunks. Once chunk size reaches the limit of bytesize or records, or it exceeds time limit, that chunk will be removed from stage and pushed into queue.
 
-If the bottom chunk write out fails, it will remain in the queue and Fluentd will retry after waiting several seconds (`retry_wait`). If the retry limit has not been disabled (`disable_retry_limit` is false) and the retry count exceeds the specified limit (`retry_limit`), the chunk is trashed. The retry wait time doubles each time (1.0sec, 2.0sec, 4.0sec, ...) until `max_retry_wait` is reached. If the queue length exceeds the specified limit (`buffer_queue_limit`), new events are rejected.
+    :::text
+                  queue
+                 +---------+
+                 |         |
+    push chunk  --> chunk  |
+     from stage  |         |
+                 |  chunk  |
+                 |         |
+                 |  chunk  |
+                 |         |
+                 |  chunk --> write out the chunk
+                 |         |    queued at first
+                 +---------+
 
-NOTE: writing out the bottom chunk is considered to be a failure if "BufferedOutput#write" method throws an exception.
+Buffer plugins control size limits of each chunks, and size limits of whole buffer plugin. Output plugin referres these limits, and controls flushing and retrying.
+
+## Configuration Parameters
+
+TODO: parameters and descriptions below are copied from v0.12 documents, and must be updated with v0.14 features.
 
 All buffered output plugins support the following parameters:
 
@@ -83,26 +101,6 @@ In addition, each chunk is keyed by time and flushed when that chunk's timestamp
 Here is the diagram shows the relation between buffers and parameters.
 
 <a href="/images/buffer-internal-and-parameters.png"><img src="/images/buffer-internal-and-parameters.png"/></a>
-
-## Secondary output
-
-The backup destination that is used when retry count exceeds `retry_limit`. Currently, primary plugin type or `file` plugin works.
-
-    <match pattern>
-      @type forward
-      ...
-
-      <secondary>
-        @type file # or forward
-        path /var/log/fluent/forward-failed
-      </secondary>
-    </match>
-
-This is useful when primary destination or network condition is unstable.
-
-##Notes
-
-If you are curious which core output plugin use Buffered and which are Time Sliced, please see LINK:[the list here](/articles/output-plugin-overview#overview)
 
 ## List of Buffer Plugins
 

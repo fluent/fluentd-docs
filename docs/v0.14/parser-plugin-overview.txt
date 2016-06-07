@@ -1,6 +1,10 @@
 # Parser Plugin Overview
 
-Fluentd has 6 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Parser Plugin.
+NOTE: This page is simply copied from LINK(v0.12):[v0.12 documents](/articles/parser-plugin-overview), and will be updated later.
+
+TODO: This document site should have pages for each parser plugins, and input/filter plugins should refer these pages, instead of using INCLUDE.
+
+Fluentd has 6 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview), [Storage](storage-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Parser Plugin.
 
 ## Overview
 

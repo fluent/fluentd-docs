@@ -1,6 +1,10 @@
 # Text Formatter Overview
 
-Fluentd has 6 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Formatter Plugin.
+NOTE: This page is simply copied from LINK(v0.12):[v0.12 documents](/articles/formatter-plugin-overview), and will be updated later.
+
+TODO: This document site should have pages for each formatter plugins, and filter/output plugins should refer these pages, instead of using INCLUDE.
+
+Fluentd has 6 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview), [Storage](storage-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Formatter Plugin.
 
 ## Overview
 
@@ -37,8 +41,9 @@ See [this section](plugin-development#text-formatter-plugins) to learn how to de
 
 INCLUDE: _formatter_parameters
 
-## List of Output Plugins with Text Formatter Support
+## List of Filter/Output Plugins with Text Formatter Support
 
+* [filter_stdout](filter_stdout)
 * [out_file](out_file)
 * [out_s3](out_s3)
 
