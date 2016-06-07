@@ -1,1 +1,1 @@
-../signals.txt
+../v0.10/signals.txt

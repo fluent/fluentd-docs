@@ -1,1 +1,1 @@
-../td-agent-v1-vs-v2.txt
+../v0.10/td-agent-v1-vs-v2.txt

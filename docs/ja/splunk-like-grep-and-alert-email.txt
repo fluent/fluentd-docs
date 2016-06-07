@@ -1,1 +1,0 @@
-../splunk-like-grep-and-alert-email.txt

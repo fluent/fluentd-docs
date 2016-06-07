@@ -1,1 +1,1 @@
-../install-by-rpm-v1.txt
+../v0.10/install-by-rpm-v1.txt

@@ -1,1 +1,1 @@
-../community.txt
+../v0.10/community.txt

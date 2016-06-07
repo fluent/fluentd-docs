@@ -1,1 +1,1 @@
-../mailing-list.txt
+../v0.10/mailing-list.txt

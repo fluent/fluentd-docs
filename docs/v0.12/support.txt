@@ -1,1 +1,1 @@
-../support.txt
+../v0.10/support.txt

@@ -1,0 +1,9 @@
+<div style="text-align:right">
+Available versions <% @available_versions.each { |ver| %>
+  <% if @article_version == ver %>
+  | <b><i><%= ver %></i><b>
+  <% else %>
+  | <a href="<%= "/#{ver}/articles/#{@article.topic}" %>"><%= ver %></a>
+  <% end %>
+<% } %> |
+</div>

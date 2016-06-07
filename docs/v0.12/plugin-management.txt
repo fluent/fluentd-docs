@@ -1,1 +1,1 @@
-../plugin-management.txt
+../v0.10/plugin-management.txt
