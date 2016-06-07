@@ -1,5 +1,7 @@
 # Writing plugins
 
+NOTE: This page is simply copied from LINK(v0.12):[v0.12 documents](/articles/plugin-development), and will be updated later.
+
 ## Installing custom plugins
 
 To install a plugin, please put the ruby script in the ``/etc/fluent/plugin`` directory.

@@ -158,15 +158,16 @@ Monitoring server example:
     </match>
 
     <match filtered.internal.message>
-      # your notification setup. This example uses irc plugin
-      @type irc
-      host irc.domain
+      # your notification setup. This example uses Slack plugin
+      @type slack
+      webhook_url https://hooks.slack.com/services/XXX/XXX/XXX
       channel notify
+      username fluentd
       message notice: %s [%s] @%s %s
-      out_keys original_tag,time,host,message
+      message_keys original_tag,time,host,message
     </match>
 
-If an error occurs, you will get a notification message in your irc `notify` channel.
+If an error occurs, you will get a notification message in your Slack `notify` channel.
 
     01:01  fluentd: [11:10:24] notice: fluent.warn [2014/02/27 01:00:00] @leaf.server.domain detached forwarding server 'server.name'
 
