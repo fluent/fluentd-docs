@@ -180,7 +180,7 @@ end
 
 get '/articles/:article' do
   @version_num = @article_name = @category_name = @query_string = nil
-  @article_name = article
+  @article_name = params[:article]
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
   cache_long
   render_article params[:article]
