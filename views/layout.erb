@@ -119,7 +119,6 @@ var Swiftype = window.Swiftype || {};
               <a class="category" href="#"><%= title %></a>
               <ul class="tags">
                 <% categories.each do |slug, title, _| %>
-                <% p({category: @category_name, article: @article_name, slug: slug}) %>
                 <% if (@category_name == slug) || (find_category(@article_name, @current_lang) == slug) %>
                 <li class="active"><a href="<%= link_to "/categories/#{slug}" %>"><%=h title %></a></li>
                 <% else %>
