@@ -147,16 +147,23 @@ get '/sitemap.xml' do
 end
 
 get '/search' do
+  @version_num = @article_name = @category_name = @query_string = nil
+  @query_string = params[:q]
   page = params[:page].to_i
   search, prev_page, next_page = search_for(params[:q], page)
   erb :search, :locals => {:search => search, :query => params[:q], :prev_page => prev_page, :next_page => next_page}
 end
 
 get '/categories/:category' do
+  @version_num = @article_name = @category_name = @query_string = nil
+  @category_name = params[:category]
   redirect "/#{$DEFAULT_VERSION}/categories/#{params[:category]}", 301
 end
 
 get %r{/(v\d+\.\d+)/categories/(\S+)} do |version, category|
+  @version_num = @article_name = @category_name = @query_string = nil
+  @version_num = version
+  @category_name = category
   cache_long
   render_category category, version
 end
@@ -172,12 +179,17 @@ get '/recipe/:data_source/:data_sink' do
 end
 
 get '/articles/:article' do
+  @version_num = @article_name = @category_name = @query_string = nil
+  @article_name = article
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
   cache_long
   render_article params[:article]
 end
 
 get %r{/(v\d+\.\d+)/articles/(\S+)} do |version, article|
+  @version_num = @article_name = @category_name = @query_string = nil
+  @version_num = version
+  @article_name = article
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ name: article }.to_json}"
   cache_long
   render_article article, ver: version
