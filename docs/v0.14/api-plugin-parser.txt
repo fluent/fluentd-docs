@@ -1,0 +1,84 @@
+# Writing Parser Plugins
+
+Fluentd supports [pluggable, customizable formats for input plugins](parser-plugin-overview). The plugin files whose names start with "parser_" are registered as Parser Plugins.
+
+Here is an example of a custom parser that parses the following newline-delimited log format:
+
+    :::text
+    <timestamp><SPACE>key1=value1<DELIMITER>key2=value2<DELIMITER>key3=value...
+
+e.g., something like this
+
+    :::text
+    2014-04-01T00:00:00 name=jake age=100 action=debugging
+
+While it is not hard to write a regular expression to match this format, it is tricky to extract and save key names.
+
+Here is the code to parse this custom format (let's call it `time_key_value`). It takes one optional parameter called `delimiter`, which is the delimiter for key-value pairs. It also takes `time_format` to parse the time string. In `initialize`, `configure` and `start`, `super` should be called to call Parser plugin default behaviour.
+
+    :::ruby
+    require 'fluent/plugin/parser'
+
+    module Fluent::Plugin
+      class TextParser
+        class TimeKeyValueParser < Parser
+          # Register this parser as "time_key_value"
+          Plugin.register_parser("time_key_value", self)
+
+          config_param :delimiter, :string, default: " " # delimiter is configurable with " " as default
+          config_param :time_format, :string, default: nil # time_format is configurable
+          # This method is called after config_params have read configuration parameters
+          def configure(conf)
+            super
+
+            if @delimiter.length != 1
+              raise ConfigError, "delimiter must be a single character. #{@delimiter} is not."
+            end
+
+            # TimeParser class is already given. It takes a single argument as the time format
+            # to parse the time string with.
+            @time_parser = TimeParser.new(@time_format)
+          end
+          
+          # This is the main method. The input "text" is the unit of data to be parsed.
+          # If this is the in_tail plugin, it would be a line. If this is for in_syslog,
+          # it is a single syslog message.
+          def parse(text)
+            time, key_values = text.split(" ", 2)
+            time = @time_parser.parse(time)
+            record = {}
+            key_values.split(@delimiter).each { |kv|
+              k, v = kv.split("=", 2)
+              record[k] = v
+            }
+            yield time, record
+          end
+        end
+      end
+    end
+
+Then, save this code in `parser_time_key_value.rb` in a loadable plugin path. Then, if in_tail is configured as
+
+    :::text
+    # Other lines...
+    <source>
+      @type tail
+      path /path/to/input/file
+      format time_key_value
+    </source>
+
+Then, the log line like `2014-01-01T00:00:00 k=v a=b` is parsed as `2013-01-01 00:00:00 +0000 test: {"k":"v","a":"b"}`.
+
+### Parser API
+
+Current `Parser#parse` API is called with block. We will remove `Parser#parse` with return value API since v0.14 or later.
+
+    :::ruby
+    # OK
+    parser.parse(text) { |time, record| ... }
+    # NG. This API will be removed
+    time, record = parser.parse(text) # or parser.call(text)
+
+## Methods
+
+TODO: write

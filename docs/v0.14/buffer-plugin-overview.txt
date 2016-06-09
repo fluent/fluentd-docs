@@ -12,7 +12,7 @@ Buffer plugins are used by output plugins in buffered mode, typically by `file`,
 
 The buffer plugins have 2 internal structures: stage and queue. Buffer plugins append events to the chunks in stage ("staged" chunks), and put chunks, which are full or expired, into queue ("queued" chunks). Queued chunks will be flushed by output plugins next to next (in FIFO way: first-in, first-out).
 
-![Fluentd v0.14 Plugin API Overview](//docs.fluentd.org/images/fluentd-v0.14-plugin-api-overview.png)
+![Fluentd v0.14 Plugin API Overview](/images/fluentd-v0.14-plugin-api-overview.png)
 
     :::text
                                    stage
