@@ -2,54 +2,71 @@
 
 NOTE: This page is simply copied from LINK(v0.12):[v0.12 documents](/articles/plugin-development), and will be updated later.
 
-Extend the **Fluent::BufferedOutput** class and implement the following methods. In `initialize`, `configure` and `start`, `super` should be called to call BufferedOutput plugin default behaviour.
+Extend the **Fluent::Plugin::Output** class and implement the following methods. See LINK:[Plugin Base Class API](/articles/api-plugin-base) to show details of common API for all plugin types.
+
+TODO: fill this synopsis
 
     :::ruby
-    require 'fluent/output'
+    require 'fluent/plugin/output'
 
-    module Fluent
-      class SomeOutput < BufferedOutput
-        # First, register the plugin. NAME is the name of this plugin
-        # and identifies the plugin in the configuration file.
-        Fluent::Plugin.register_output('NAME', self)
+    module Fluent::Plugin
+      class SomeOutput < Output
+        Fluent::Plugin.register_output('some', self)
   
-        # config_param defines a parameter. You can refer a parameter via @path instance variable
-        # Without :default, a parameter is required.
         config_param :path, :string
   
-        # This method is called before starting.
-        # 'conf' is a Hash that includes configuration parameters.
-        # If the configuration is invalid, raise Fluent::ConfigError.
-        def configure(conf)
-          super
-  
-          # You can also refer raw parameter via conf[name].
-          @path = conf['path']
-          ...
+        def process(tag, es)
         end
-  
-        # This method is called when starting.
-        # Open sockets or files here.
-        def start
-          super
-          ...
+
+        def write(chunk)
         end
-  
-        # This method is called when shutting down.
-        # Shutdown the thread and close sockets or files here.
-        def shutdown
-          super
-          ...
+
+        def try_write(chunk)
         end
-  
-        # This method is called when an event reaches to Fluentd.
-        # Convert the event to a raw string.
+
         def format(tag, time, record)
-          [tag, time, record].to_json + "\n"
-          ## Alternatively, use msgpack to serialize the object.
-          # [tag, time, record].to_msgpack
         end
-  
+      end
+    end
+
+## Modes of Output Plugins
+
+TODO: write
+
+http://www.slideshare.net/tagomoris/fluentd-v014-plugin-api-details/25
+
+### How To Control Buffering
+
+TODO: write
+
+### How To Use Delayed Commit
+
+TODO: write
+
+### Understanding Chunk Metadata
+
+TODO: write
+
+### Formatting Buffer Chunks
+
+TODO: write
+
+### Changing Parameter Defaults of Buffer Plugins
+
+TODO: write
+
+## Methods
+
+TODO: write
+
+#### #process(tag, es)
+
+TODO: write
+
+#### #write(chunk)
+
+TODO: write
+
         # This method is called every flush interval. Write the buffer chunk
         # to files or databases here.
         # 'chunk' is a buffer chunk that includes multiple formatted
@@ -57,94 +74,50 @@ Extend the **Fluent::BufferedOutput** class and implement the following methods.
         # 'chunk.open {|io| ... }' to get IO objects.
         #
         # NOTE! This method is called by internal thread, not Fluentd's main thread. So IO wait doesn't affect other plugins.
-        def write(chunk)
-          data = chunk.read
-          print data
-        end
-  
-        ## Optionally, you can use chunk.msgpack_each to deserialize objects.
-        #def write(chunk)
-        #  chunk.msgpack_each {|(tag,time,record)|
-        #  }
-        #end
-      end
-    end
 
-
-## Writing Time Sliced Output Plugins
-
-Time Sliced Output plugins are extended versions of buffered output plugins. One example of a time sliced output is the ``out_file`` plugin.
-
-Note that Time Sliced Output plugins use file buffer by default. Thus the ``buffer_path`` option is required.
-
-To implement a Time Sliced Output plugin, extend the **Fluent::TimeSlicedOutput** class and implement the following methods.
-
-    :::ruby
-    require 'fluent/output'
-
-    module Fluent
-      class SomeOutput < TimeSlicedOutput
-        # configure(conf), start(), shutdown() and format(tag, time, record) are
-        # the same as BufferedOutput.
-        ...
-  
         # You can use 'chunk.key' to get sliced time. The format of 'chunk.key'
         # can be configured by the 'time_format' option. The default format is %Y%m%d.
         def write(chunk)
           day = chunk.key
           ...
         end
-      end
-    end
 
+#### #try_write(chunk)
 
-## Writing Non-buffered Output Plugins
+TODO: write
 
-Extend the **Fluent::Output** class and implement the following methods. **Output** plugin is often used for implementing filter like plugin. In `initialize`, `configure` and `start`, `super` should be called to call non-buffered Output plugin default behaviour.
+#### #format(tag, time, record)
 
-    :::ruby
-    require 'fluent/output'
+TODO: write
 
-    module Fluent
-      class SomeOutput < Output
-        # First, register the plugin. NAME is the name of this plugin
-        # and identifies the plugin in the configuration file.
-        Fluent::Plugin.register_output('NAME', self)
-  
-        # This method is called before starting.
-        def configure(conf)
-          super
-          ...
+        # This method is called when an event reaches to Fluentd.
+        # Convert the event to a raw string.
+        def format(tag, time, record)
+          [tag, time, record].to_json + "\n"
+          ## Alternatively, use msgpack to serialize the object.
+          # [tag, time, record].to_msgpack
         end
-      
-        # This method is called when starting.
-        def start
-          super
-          ...
-        end
-      
-        # This method is called when shutting down.
-        def shutdown
-          super
-          ...
-        end
-      
-        # This method is called when an event reaches Fluentd.
-        # 'es' is a Fluent::EventStream object that includes multiple events.
-        # You can use 'es.each {|time,record| ... }' to retrieve events.
-        # 'chain' is an object that manages transactions. Call 'chain.next' at
-        # appropriate points and rollback if it raises an exception.
-        #
-        # NOTE! This method is called by Fluentd's main thread so you should not write slow routine here. It causes Fluentd's performance degression.
-        def emit(tag, es, chain)
-          chain.next
-          es.each {|time,record|
-            $stderr.puts "OK!"
-          }
-        end
-      end
-    end
 
-## Methods
+#### #prefer_buffered_processing
+
+TODO: write
+
+#### #prefer_delayed_commit
+
+TODO: write
+
+#### #extract_placeholders(str, metadata)
+
+TODO: write
+
+#### #commit_write(chunk_id, delayed: boolean)
+
+TODO: write
+
+#### #rollback_write(chunk_id)
+
+TODO: write
+
+## Writing Tests
 
 TODO: write

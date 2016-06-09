@@ -12,12 +12,58 @@ Fluentd core team strongly recommend to use v0.14 API to make your plugins stabl
 
 ## Updating Plugins Overview
 
-step1 release one more current version with `Fluentd ~> 0.12.x`
-step2 update code
-step3 update tests
-step4 update CI environments
-step5 update dependency
-step3 release latest version increment minor or major version with `Fluentd >= 0.14.0`
+These are steps to update your plugins safely.
+
+1. release a latest version for Fluentd v0.12.x
+2. update dependency
+3. update code and tests
+4. upate CI environments
+5. release the newer version for Fluentd v0.14.x and later
+
+### 1. release a latest version
+
+At first, you should make a git branch named as `fluentd-v0.12` (if you are using git for that plugin), and release a latest patch version from that branch without any changes, except for fixing dependency about `Fluentd ~> 0.12.0`.
+This makes you possible to fix bugs and release newer versions for Fluentd v0.12 users without breaking anything.
+
+* make a branch for Fluentd v0.12 versions
+* fix dependency about `Fluentd` to `~> 0.12.0` (or later: `~> 0.12.26`)
+* bump your gem's version up to next patch version (for example: `0.4.1` -> `0.4.2`)
+* release it to rubygems.org
+
+### 2. update dependency
+
+Following updates are on master branch.
+You should update dependency in gemspec at first to depend on Fluentd v0.14.
+
+* fix dependency about `Fluentd` to `>= 0.14.0`
+* execute `bundle install`
+
+Is it correct to use `>= 0.14.0` instead of `~> 0.14.0`? Yes. Fluentd v1 will be compatible with v0.14.0 (especially for plugin APIs), so you should use `>= 0.14.0`.
+Let's think about v2 few years later.
+
+### 3. update code and tests
+
+There are many difference between plugin types about updating code and tests. See "Updating xxx Plugins" sections for each types of plugins.
+
+* update code and tests
+* confirm to run `bundle exec rake test`
+
+### 4. update CI environments
+
+If you have CI configurations like `.travis.yml` and `appvayor.yml`, these should be updated to support Fluentd v0.14.
+Fluentd v0.14 supports Ruby 2.1 or later. CI environments should not include Ruby 2.0 or earlier. It's good idea to add latest Ruby (2.3 at Jun 2016).
+
+* remove Ruby 2.0 or ealier from CI environments
+* add Ruby 2.3 (or other latest version) to CI environments
+
+### 5. release new version
+
+This is last step. The new version should be major or minor version up, not patch version up.
+If the current major version of your gem is equal or larger than 1, you should bump major version up (e.g., from 1 to 2). If the current major version is 0, you should bump minor version up (e.g., from `0.4.2` to `0.5.0`).
+Then, you can publish a new release which is available with Fluentd v0.14.
+
+* bump the version up
+* release it to rubygems.org
 
 ## Updating Input Plugins
 
