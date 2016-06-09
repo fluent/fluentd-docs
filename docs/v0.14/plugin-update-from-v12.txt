@@ -1,3 +1,39 @@
 # Updating plugin for v0.14 from v0.12
 
-TBD
+This guide is for plugin authors to show how to update input/output/filter plugins written for Fluentd v0.12 or earlier.
+
+There are something to be considered (see following "Updating Plugins Overview" section for details):
+
+* Plugins which uses v0.12 API will be supported between Fluentd v0.14 and v1 (will be obsoleted at v2).
+* Users can use new features of Fluentd v0.14 only with plugins using v0.14 API.
+* Plugins which uses v0.14 API don't work on Fluentd v0.12.x.
+
+Fluentd core team strongly recommend to use v0.14 API to make your plugins stable, consistent and easy to test.
+
+## Updating Plugins Overview
+
+step1 release one more current version with `Fluentd ~> 0.12.x`
+step2 update code
+step3 update tests
+step4 update CI environments
+step5 update dependency
+step3 release latest version increment minor or major version with `Fluentd >= 0.14.0`
+
+## Updating Input Plugins
+
+## Updating Filter Plugins
+
+## Updating Output Plugins
+
+### Non-buffered Output Plugins
+
+### Buffered Output Plugins
+
+### ObjectBuffered Output Plugins
+
+### TimeSliced Output Plugins
+
+## Updating Parser Plugins
+
+## Updating Formatter Plugins
+

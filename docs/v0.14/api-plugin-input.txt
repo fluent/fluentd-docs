@@ -1,0 +1,79 @@
+# Writing Input Plugins
+
+Extend the **Fluent::Plugin::Input** class and implement the following methods. In `initialize`, `configure`, `start` and `shutdown`, `super` should be called to call Input plugin default behaviour.
+
+    :::ruby
+    require 'fluent/plugin/input'
+
+    module Fluent::Plugin
+      class SomeInput < Input
+        # First, register the plugin. NAME is the name of this plugin
+        # and identifies the plugin in the configuration file.
+        Fluent::Plugin.register_input('NAME', self)
+  
+        # config_param defines a parameter. You can refer a parameter via @port instance variable
+        # :default means this parameter is optional
+        config_param :port, :integer, default: 8888
+  
+        # This method is called before starting.
+        # 'conf' is a Hash that includes configuration parameters.
+        # If the configuration is invalid, raise Fluent::ConfigError.
+        def configure(conf)
+          super
+  
+          # configured "port" is referred by `@port` or instance method #port
+          if @port < 1024
+            raise Fluent::ConfigError, "well known ports cannot be used for this purpose."
+          end
+
+          # You can also refer to raw parameter via conf[name].
+          @port = conf['port']
+          ...
+        end
+  
+        # This method is called when starting.
+        # Open sockets or files and create a thread here.
+        def start
+          super
+
+          # my own start-up code
+        end
+  
+        # This method is called when shutting down.
+        def shutdown
+          # my own shutdown code
+
+          super
+        end
+      end
+    end
+
+To submit events, use the ``router.emit(tag, time, record)`` method, where ``tag`` is the String, ``time`` is the Fluent::EventTime (or Integer as unix time) and ``record`` is a Hash object.
+
+    :::ruby
+    tag = "myapp.access"
+    time = Engine.now
+    record = {"message"=>"body"}
+    router.emit(tag, time, record)
+
+To submit multiple events in one call, use the ``router.emit_stream(tag, es)`` and ``MultiEventStream`` combo instead.
+
+    :::ruby
+    es = MultiEventStream.new
+    records.each { |record|
+      es.add(time, record)
+    }
+    router.emit_stream(tag, es)
+
+### Record format
+
+Fluentd plugins assume the record is a JSON so the key should be the String, not Symbol.
+If you emit a symbol keyed record, it may cause a problem.
+
+    :::ruby
+    router.emit(tag, time, {'foo' => 'bar'})  # OK!
+    router.emit(tag, time, {:foo => 'bar'})   # NG!
+
+## Methods
+
+TODO: write

@@ -1,0 +1,61 @@
+## Writing Formatter Plugins
+
+Fluentd supports [pluggable, customizable formats for output plugins](formatter-plugin-overview). The plugin files whose names start with "formatter_" are registered as Formatter Plugins.
+
+Here is an example of a custom formatter that outputs events as CSVs. It takes a required parameter called "csv_fields" and outputs the fields. It assumes that the values of the fields are already valid CSV fields. In `initialize`, `configure`, `start` and `shutdown`, `super` should be called to call Formatter plugin default behaviour.
+
+    :::ruby
+    require 'fluent/plugin/formatter'
+
+    module Fluent::Plugin
+      module TextFormatter
+        class MyCSVFormatter < Formatter
+          # Register MyCSVFormatter as "my_csv".
+          Plugin.register_formatter("my_csv", self)
+
+          include HandleTagAndTimeMixin # If you wish to use tag_key, time_key, etc.          
+          config_param :csv_fields, :string
+
+          # This method does further processing. Configuration parameters can be
+          # accessed either via "conf" hash or member variables.
+          def configure(conf)
+            super
+            @csv_fields = conf['csv_fields'].split(",")
+          end
+
+          # This is the method that formats the data output.
+          def format(tag, time, record)
+            values = []
+
+            # Look up each required field and collect them from the record
+            @csv_fields.each do |field|
+              v = record[field]
+              if not v
+                $log.error "#{field} is missing."
+              end
+              values << v
+            end
+
+            # Output by joining the fields with a comma
+            values.join(",")
+          end
+        end        
+      end
+    end
+
+Then, save this code in `formatter_my_csv.rb` in a loadable plugin path. Then, if out_file is configured as
+
+    :::text
+    # Other lines...
+    <match test>
+      @type file
+      path /path/to/output/file
+      format my_csv
+      csv_fields k1,k2
+    </match>
+
+and if the record `{"k1": 100, "k2": 200}` is matched, the output file should look like `100,200`
+
+## Methods
+
+TODO: write
