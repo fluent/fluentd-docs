@@ -267,6 +267,8 @@ section 'developer', 'Developer' do
     article 'api-plugin-formatter', 'Writing Formatter Plugins'
     article 'api-plugin-storage', 'Writing Storage Plugins'
     article 'api-plugin-buffer', 'Writing Buffer Plugins'
+    article 'api-plugin-base', 'Plugin Base Class API'
+    article 'api-config-types', 'Types of Configuration Parameters'
     # article 'api-plugin-helper-thread', 'Thread Plugin Helper API'
     # article 'api-plugin-helper-timer', 'Timer Plugin Helper API'
     # article 'api-plugin-helper-child_process', 'ChildProcess Plugin Helper API'

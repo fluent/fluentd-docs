@@ -1,6 +1,6 @@
 # Writing Filter Plugins
 
-This section shows how to write custom filters in addition to [the core filter plugins](filter-plugin-overview). The plugin files whose names start with "filter_" are registered as filter plugins.
+This section shows how to write custom filters in addition to [the core filter plugins](filter-plugin-overview). The plugin files whose names start with "filter_" are registered as filter plugins. See LINK:[Plugin Base Class API](/articles/api-plugin-base) to show details of common API for all plugin types.
 
 Here is the implementation of the most basic filter that passes through all events as-is:
 
@@ -19,23 +19,17 @@ Here is the implementation of the most basic filter that passes through all even
           # do the usual configuration here
         end
 
-        def start
-          super
-          # This is the first method to be called when it starts running
-          # Use it to allocate resources, etc.
-        end
+        # def start
+        #   super
+        #   # Override this method if anything needed as startup.
+        # end
 
-        def shutdown
-          super
-          # This method is called when Fluentd is shutting down.
-          # Use it to free up resources, etc.
-        end
+        # def shutdown
+        #   # Override this method to use it to free up resources, etc.
+        #   super
+        # end
 
         def filter(tag, time, record)
-          # This method implements the filtering logic for individual filters
-          # It is internal to this class and called by filter_stream unless
-          # the user overrides filter_stream.
-          #
           # Since our example is a pass-thru filter, it does nothing and just
           # returns the record as-is.
           # If returns nil, that records are ignored.
@@ -44,30 +38,17 @@ Here is the implementation of the most basic filter that passes through all even
       end
     end
 
-In `initialize`, `configure`, `start` and `shutdown`, `super` should be called to call Filter plugin default behaviour.
-
-### filter_stream method
-
-Almost plugins could be implemented by overriding `filter` method. But if you want to mutate the event stream itself, you can override `filter_stream` method.
-
-Here is the default implementation of `filter_stream`.
-
-    :::ruby
-    def filter_stream(tag, es)
-      new_es = MultiEventStream.new
-      es.each { |time, record|
-        begin
-          filtered_record = filter(tag, time, record)
-          new_es.add(time, filtered_record) if filtered_record
-        rescue => e
-          router.emit_error_event(tag, time, record, e)
-        end
-      }
-      new_es
-    end
-
-`filter_stream` should return [EventStream](https://github.com/fluent/fluentd/blob/master/lib/fluent/event.rb) object.
 
 ## Methods
+
+Filter plugins have a method to be implemented.
+
+#### #filter(tag, time, record)
+
+This method implements the filtering logic for individual filters. ``tag`` is a String, ``time`` is a Fluent::EventTime or an Integer and ``record`` is a Hash with String keys.
+
+The return value of this method should be a Hash of modified record, or nil. Fluentd will ignore the event which the filter returns nil.
+
+## Writing Tests
 
 TODO: write

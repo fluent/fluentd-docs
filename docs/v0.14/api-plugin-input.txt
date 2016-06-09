@@ -1,6 +1,8 @@
 # Writing Input Plugins
 
-Extend the **Fluent::Plugin::Input** class and implement the following methods. In `initialize`, `configure`, `start` and `shutdown`, `super` should be called to call Input plugin default behaviour.
+Extend the **Fluent::Plugin::Input** class and implement the following methods. See LINK:[Plugin Base Class API](/articles/api-plugin-base) to show details of common API for all plugin types.
+
+In most cases, input plugins start timers, threads or network servers to listen any ports in `#start`, then call `router.emit` to emit events in callbacks of timers, threads or network servers.
 
     :::ruby
     require 'fluent/plugin/input'
@@ -52,7 +54,7 @@ To submit events, use the ``router.emit(tag, time, record)`` method, where ``tag
 
     :::ruby
     tag = "myapp.access"
-    time = Engine.now
+    time = Fluent::Engine.now
     record = {"message"=>"body"}
     router.emit(tag, time, record)
 
@@ -75,5 +77,9 @@ If you emit a symbol keyed record, it may cause a problem.
     router.emit(tag, time, {:foo => 'bar'})   # NG!
 
 ## Methods
+
+There are no specific method for Input plugins.
+
+## Writing Tests
 
 TODO: write
