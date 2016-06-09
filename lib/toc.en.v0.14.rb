@@ -260,21 +260,21 @@ section 'developer', 'Developer' do
     article 'plugin-update-from-v12', 'Updating plugins from v0.12 to v0.14' # TODO: add article file
   end
   category 'plugin-apis', 'Plugin API details' do
-    # TODO: Plugin API: input plugin
-    # TODO: Plugin API: filter plugin
-    # TODO: Plugin API: output plugin
-    # TODO: Plugin API: parser plugin
-    # TODO: Plugin API: formatter plugin
-    # TODO: Plugin API: storage plugin
-    # TODO: Plugin API: buffer plugin
-    # TODO: Plugin Helpers: thread
-    # TODO: Plugin Helpers: timer
-    # TODO: Plugin Helpers: child process
-    # TODO: Plugin Helpers: event_loop
-    # TODO: Plugin Helpers: parser
-    # TODO: Plugin Helpers: formatter
-    # TODO: Plugin Helpers: storage
-    # TODO: Plugin Helpers: compat_parameters
+    article 'api-plugin-input', 'Writing Input Plugins'
+    article 'api-plugin-output', 'Writing Output Plugins'
+    article 'api-plugin-filter', 'Writing Filter Plugins'
+    article 'api-plugin-parser', 'Writing Parser Plugins'
+    article 'api-plugin-formatter', 'Writing Formatter Plugins'
+    article 'api-plugin-storage', 'Writing Storage Plugins'
+    article 'api-plugin-buffer', 'Writing Buffer Plugins'
+    # article 'api-plugin-helper-thread', 'Thread Plugin Helper API'
+    # article 'api-plugin-helper-timer', 'Timer Plugin Helper API'
+    # article 'api-plugin-helper-child_process', 'ChildProcess Plugin Helper API'
+    # article 'api-plugin-helper-event_loop', 'EventLoop Plugin Helper API'
+    # article 'api-plugin-helper-parser', 'Parser Plugin Helper API'
+    # article 'api-plugin-helper-formatter', 'Formatter Plugin Helper API'
+    # article 'api-plugin-helper-storage', 'Storage Plugin Helper API'
+    # article 'api-plugin-helper-compat_parameters', 'CompatParameters Plugin Helper API'
   end
   category 'life-of-a-fluentd-event', 'Life of a Fluentd Event' do
     article 'life-of-a-fluentd-event', 'Life of a Fluentd Event'
