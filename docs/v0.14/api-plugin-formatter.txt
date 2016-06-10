@@ -56,6 +56,26 @@ and if the record `{"k1": 100, "k2": 200}` is matched, the output file should lo
 
 TODO: add description about ``<format>`` section.
 
+## How To Use Formatters From Plugins
+
+Formatter plugins are designed to be used from other plugins, like Input, Filter and Output.
+There is a Formatter plugin helper for that purpose (v0.14.1 or later):
+
+    :::ruby
+    # in class definition
+    helpers :formatter
+
+    # in #start
+    @formatter = formatter_create(type: 'json')
+
+    # in #filter, #format or ...
+    es.each do |time, record|
+      row = @formatter.format(@tag, time, record)
+      # ...
+    end
+
+See LINK:[Formatter Plugin Helper API](/articles/api-plugin-helper-formatter) for details.
+
 ## Methods
 
 Formatter plugins have a method to format input record (Hash) into a String object.

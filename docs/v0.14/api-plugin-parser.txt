@@ -66,6 +66,25 @@ Then, the log line like `2014-01-01T00:00:00 k=v a=b` is parsed as `2013-01-01 0
 
 TODO: add description about ``<parse>`` section.
 
+## How To Use Parsers From Plugins
+
+Parser plugins are designed to be used from other plugins, like Input, Filter and Output.
+There is a Parser plugin helper for that purpose (v0.14.1 or later):
+
+    :::ruby
+    # in class definition
+    helpers :parser
+
+    # in #start
+    @parser = parser_create(type: 'json')
+
+    # in input loop or #filter or ...
+    @parser.parse do |time, record|
+      # ...
+    end
+
+See LINK:[Parser Plugin Helper API](/articles/api-plugin-helper-parser) for details.
+
 ## Methods
 
 Parser plugins have a method to parse input (text) data to a structured record (Hash) with time.
