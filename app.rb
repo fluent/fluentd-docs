@@ -157,7 +157,8 @@ end
 get '/categories/:category' do
   @version_num = @article_name = @category_name = @query_string = nil
   @category_name = params[:category]
-  redirect "/#{$DEFAULT_VERSION}/categories/#{params[:category]}", 301
+  cache_long
+  render_category category
 end
 
 get %r{/(v\d+\.\d+)/categories/(\S+)} do |version, category|
@@ -165,7 +166,7 @@ get %r{/(v\d+\.\d+)/categories/(\S+)} do |version, category|
   @version_num = version
   @category_name = category
   cache_long
-  render_category category, version
+  render_category category, ver: version
 end
 
 get '/recipe/apache/:data_sink' do
@@ -204,7 +205,11 @@ helpers do
     end
   end
 
-  def render_category(category, ver = $DEFAULT_VERSION)
+  def render_category(category, ver: nil)
+    @article_version_specified = !ver.nil?
+    ver ||= $DEFAULT_VERSION
+    @article_version = ver
+
     @articles = []
     @desc = ''
     sections(ver).each { |_, _, categories|
