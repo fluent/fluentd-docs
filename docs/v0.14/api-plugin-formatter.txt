@@ -1,4 +1,4 @@
-## Writing Formatter Plugins
+# Writing Formatter Plugins
 
 Fluentd supports [pluggable, customizable formats for output plugins](formatter-plugin-overview). The plugin files whose names start with "formatter_" are registered as Formatter Plugins. See LINK:[Plugin Base Class API](/articles/api-plugin-base) to show details of common API for all plugin types.
 
