@@ -277,6 +277,7 @@ section 'developer', 'Developer' do
     # article 'api-plugin-helper-formatter', 'Formatter Plugin Helper API'
     # article 'api-plugin-helper-storage', 'Storage Plugin Helper API'
     # article 'api-plugin-helper-compat_parameters', 'CompatParameters Plugin Helper API'
+    # article 'api-plugin-test', 'Testing API for plugins'
   end
   category 'life-of-a-fluentd-event', 'Life of a Fluentd Event' do
     article 'life-of-a-fluentd-event', 'Life of a Fluentd Event'
