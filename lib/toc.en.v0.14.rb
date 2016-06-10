@@ -257,6 +257,7 @@ end
 section 'developer', 'Developer' do
   category 'plugin-development', 'Plugin Development' do
     article 'plugin-development', 'Plugin Development'
+    # article 'plugin-helper-overview', 'Plugin Helper Overview'
     article 'plugin-update-from-v12', 'Updating plugins from v0.12 to v0.14' # TODO: add article file
   end
   category 'plugin-apis', 'Plugin API details' do
