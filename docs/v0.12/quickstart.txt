@@ -21,7 +21,7 @@ Please follow the installation/quickstart guides below that matches your environ
 * [Install Fluentd by Chef](install-by-chef)
 * [Install Fluentd from source](install-from-source)
 
-NOTE: Fluentd is currently not supported on Windows. Please see LINK:[Collecting Log Data from Windows](/articles/windows) for details.
+NOTE: Fluentd is currently not supported on Windows. Please see <a href="/articles/windows">Collecting Log Data from Windows</a> for details.
 
 ## Step2: Use Cases
 

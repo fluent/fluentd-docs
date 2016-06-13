@@ -1,3 +1,0 @@
-# Writing Buffer Plugins
-
-TODO: write
