@@ -147,26 +147,23 @@ get '/sitemap.xml' do
 end
 
 get '/search' do
-  @version_num = @article_name = @category_name = @query_string = nil
-  @query_string = params[:q]
   page = params[:page].to_i
   search, prev_page, next_page = search_for(params[:q], page)
   erb :search, :locals => {:search => search, :query => params[:q], :prev_page => prev_page, :next_page => next_page}
 end
 
 get '/categories/:category' do
-  @version_num = @article_name = @category_name = @query_string = nil
-  @category_name = params[:category]
-  cache_long
-  render_category category
+  redirect "/#{$DEFAULT_VERSION}/categories/#{params[:category]}", 301
 end
 
-get %r{/(v\d+\.\d+)/categories/(\S+)} do |version, category|
-  @version_num = @article_name = @category_name = @query_string = nil
-  @version_num = version
-  @category_name = category
+get '/v0.10/categories/:category' do
   cache_long
-  render_category category, ver: version
+  render_category params[:category], 'v0.10'
+end
+
+get '/v0.12/categories/:category' do
+  cache_long
+  render_category params[:category], 'v0.12'
 end
 
 get '/recipe/apache/:data_sink' do
@@ -180,20 +177,21 @@ get '/recipe/:data_source/:data_sink' do
 end
 
 get '/articles/:article' do
-  @version_num = @article_name = @category_name = @query_string = nil
-  @article_name = params[:article]
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
   cache_long
-  render_article params[:article]
+  render_article params[:article], params[:congrats]
 end
 
-get %r{/(v\d+\.\d+)/articles/(\S+)} do |version, article|
-  @version_num = @article_name = @category_name = @query_string = nil
-  @version_num = version
-  @article_name = article
-  puts "@[#{ENV['RACK_ENV']}.articles] #{{ name: article }.to_json}"
+get '/v0.10/articles/:article' do
+  puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
   cache_long
-  render_article article, ver: version
+  render_article params[:article], params[:congrats], ver: 'v0.10'
+end
+
+get '/v0.12/articles/:article' do
+  puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
+  cache_long
+  render_article params[:article], params[:congrats], ver: 'v0.12'
 end
 
 helpers do
@@ -205,11 +203,7 @@ helpers do
     end
   end
 
-  def render_category(category, ver: nil)
-    @article_version_specified = !ver.nil?
-    ver ||= $DEFAULT_VERSION
-    @article_version = ver
-
+  def render_category(category, ver = $DEFAULT_VERSION)
     @articles = []
     @desc = ''
     sections(ver).each { |_, _, categories|
@@ -243,40 +237,33 @@ helpers do
     status 404
   end
 
-  def render_article(article, ver: nil)
+  def render_article(article, congrats, ver: nil)
     @article_version_specified = !ver.nil?
     ver ||= $DEFAULT_VERSION
 
-    @default_url = "/articles/#{article}"
     @filepath = article_file(article, ver)
     @has_default_version = File.exists?(article_file(article, $DEFAULT_VERSION))
 
-    begin
-      unless $IO_CACHE.has_key? @filepath
-        $IO_CACHE[@filepath] = File.read(@filepath)
-      end
-    rescue Errno::ENOENT
-      if ver != $DEFAULT_VERSION && @has_default_version
-        return redirect(@default_url, 301)
-      else
-        return status(404)
-      end
+    unless $IO_CACHE.has_key? @filepath
+      $IO_CACHE[@filepath] = File.read(@filepath)
     end
 
     doc_path = File.dirname(@filepath)
 
-    @article = Article.load(article, $IO_CACHE[@filepath], doc_path, specified_document_version: @article_version_specified && ver)
+    @article = Article.load(article, $IO_CACHE[@filepath], doc_path)
     @title   = @article.title
     @desc    = @article.desc
     @content = @article.content
     @intro   = @article.intro
     @toc     = @article.toc
     @body    = @article.body
+    @congrats = congrats ? true : false
     @available_versions = $LAST_UPDATED.keys.select{|v| $LAST_UPDATED[v].has_key?(article) }.sort
     @current_version = $DEFAULT_VERSION
     @article_version = ver
     @deprecated_article_version = $DEPRECATED_VERSIONS.include?(@article_version)
-    @last_updated = ($LAST_UPDATED[ver] || {})[article] || Time.now.to_s
+    @default_url = "/articles/#{article}"
+    @last_updated = $LAST_UPDATED[ver][article]
 
     erb :article
   end

@@ -102,7 +102,7 @@ This is useful when primary destination or network condition is unstable.
 
 ##Notes
 
-If you are curious which core output plugin use Buffered and which are Time Sliced, please see LINK:[the list here](/articles/output-plugin-overview#overview)
+If you are curious which core output plugin use Buffered and which are Time Sliced, please see [the list here](http://docs.fluentd.org/articles/output-plugin-overview#overview)
 
 ## List of Buffer Plugins
 

@@ -19,7 +19,7 @@ In this guide, we will go over installation, setup, and basic use of this combin
 
 <center>
 <div class="btn-look" style="width: 300px;">
-LINK:[What is Fluentd?](/articles/architecture)
+<a href="http://docs.fluentd.org/articles/architecture">What is Fluentd?</a>
 </div>
 </center>
 <br/>

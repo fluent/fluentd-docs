@@ -12,7 +12,7 @@ As of v10, Fluentd does NOT support Windows. However, there are times when you m
 
 <center>
 <div class="btn-look" style="width: 300px;">
-LINK:[What is Fluentd?](/articles/architecture)
+<a href="http://docs.fluentd.org/articles/architecture">What is Fluentd?</a>
 </div>
 </center>
 <br/>
@@ -29,7 +29,7 @@ LINK:[What is Fluentd?](/articles/architecture)
 
 1. Get hold of a Linux server. In this example, we assume it is Ubuntu.
 2. **Make sure it has ports open for TCP. In the following example, we assume port 5140 is open.**
-3. LINK:[Install td-agent](/articles/install-by-deb). (See [here](/categories/installation) for various ways to install Fluentd/Treasure Agent)
+3. [Install td-agent](http://docs.fluentd.org/articles/install-by-deb). (See [here](/categories/installation) for various ways to install Fluentd/Treasure Agent)
 4. Edit td-agent's configuration file located at `/etc/td-agent/td-agent.conf` and add the following lines
 
         <source>
