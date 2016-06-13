@@ -1,0 +1,114 @@
+# Writing plugins
+
+NOTE: This page is simply copied from LINK(v0.12):[v0.12 documents](/articles/plugin-development), and will be updated later.
+
+## Installing custom plugins
+
+To install a plugin, please put the ruby script in the ``/etc/fluent/plugin`` directory.
+
+Alternatively, you can create a Ruby Gem package that includes a ``lib/fluent/plugin/<TYPE>_<NAME>.rb`` file. The *TYPE* is:
+
+- ``in`` for input plugins
+- ``out`` for output plugins
+- ``filter`` for filter plugins
+- ``parser`` for parser plugins
+- ``formatter`` for formatter plugins
+- ``storage`` for storage plugins
+- ``buf`` for buffer plugins
+
+For example, an email Output plugin would have the path: ``lib/fluent/plugin/out_mail.rb``. The packaged gem can be distributed and installed using RubyGems. For further information, please see the [list of Fluentd plugins](http://www.fluentd.org/plugins) for third-party plugins.
+
+## Overview
+
+The following slides can help the user understand how Fluentd works before they dive into writing their own plugins.
+
+<iframe src="//www.slideshare.net/slideshow/embed_code/39324320?startSlide=9" width="427" height="356" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe>
+
+(The slides are taken from <a href="//github.com/sonots">Naotoshi Seo's</a> <a href="//rubykaigi.org/2014/presentation/S-NaotoshiSeo">RubyKaigi 2014 talk</a>.)
+
+NOTE: This slide is based on Fluentd v0.12. There are many difference between v0.12 and v0.14, but it may help our understanding about Fluent's total design.
+
+## Writing plugins
+
+TBD
+
+## Debugging plugins
+
+Run ``fluentd`` with the ``-vv`` option to show debug messages:
+
+    :::term
+    $ fluentd -vv
+
+The **stdout** and **copy** output plugins are useful for debugging. The **stdout** output plugin dumps matched events to the console. It can be used as follows:
+
+    :::text
+    # You want to debug this plugin.
+    <source>
+      @type your_custom_input_plugin
+    </source>
+    
+    # Dump all events to stdout.
+    <match **>
+      @type stdout
+    </match>
+
+The **copy** output plugin copies matched events to multiple output plugins. You can use it in conjunction with the stdout plugin:
+
+    :::text
+    <source>
+      @type forward
+    </source>
+
+    # Use the forward Input plugin and the fluent-cat command to feed events:
+    #  $ echo '{"event":"message"}' | fluent-cat test.tag
+    <match test.tag>
+      @type copy
+
+      # Dump the matched events.
+      <store>
+        @type stdout
+      </store>
+
+      # Feed the dumped events to your plugin.
+      <store>
+        @type your_custom_output_plugin
+      </store>
+    </match>
+
+You can use **stdout** filter instead of **copy** and **stdout** combination. The result is same as above but more simpler.
+
+    :::text
+    <source>
+      @type forward
+    </source>
+
+    <filter>
+      @type stdout
+    </filter>
+
+    <match test.tag>
+      @type your_custom_output_plugin
+    </match>
+
+## Writing tests for plugins
+
+Fluentd provides unit test frameworks for plugins:
+
+    :::text
+    Fluent::Test::Driver::Input
+      Test driver for input plugins.
+    
+    Fluent::Test::Driver::Output
+      Test driver for output plugins.
+    
+    Fluent::Test::Driver::Filter
+      Test driver for filter plugins
+
+Please see Fluentd's source code for details.
+
+TODO: This section will be updated with detailed guide and APIs.
+
+## Further Reading
+
+* [Slides: Fluentd v0.14 Plugin API Details](http://www.slideshare.net/tagomoris/fluentd-v014-plugin-api-details)
+* [Slides: Dive into Fluentd Plugin](http://www.slideshare.net/repeatedly/dive-into-fluentd-plugin-v012) (outdated)

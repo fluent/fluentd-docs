@@ -1,0 +1,3 @@
+# Types of Configuration Parameters
+
+TODO: write this article later

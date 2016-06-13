@@ -1,0 +1,22 @@
+# Input Plugin Overview
+
+Fluentd has 6 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview), [Storage](storage-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Input Plugin.
+
+## Overview
+
+Input plugins extend Fluentd to retrieve and pull event logs from external sources. An input plugin typically creates a thread socket and a listen socket. It can also be written to periodically pull data from data sources.
+
+## List of Input Plugins
+
+* [in_forward](in_forward)
+* [in_http](in_http)
+* [in_tail](in_tail)
+* [in_exec](in_exec)
+* [in_syslog](in_syslog)
+* [in_scribe](in_scribe)
+
+## Other Input Plugins
+
+Please refer to this list of available plugins to find out about other Input plugins.
+
+* [Fluentd plugins](http://fluentd.org/plugin/)
