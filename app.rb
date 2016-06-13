@@ -158,7 +158,7 @@ get '/categories/:category' do
   @version_num = @article_name = @category_name = @query_string = nil
   @category_name = params[:category]
   cache_long
-  render_category category
+  render_category params[:category]
 end
 
 get %r{/(v\d+\.\d+)/categories/(\S+)} do |version, category|
