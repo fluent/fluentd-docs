@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta charset="utf-8">
   <title><%=@title%> | Fluentd</title>
-  <meta name="keywords" content="<%= find_keywords(params[:article], params[:category]).join(',') %>">
+  <meta name="keywords" content="<%= find_keywords(@article_name, @category_name).join(',') %>">
   <meta name="description" content="<%= @desc %>">
   <meta name="google-site-verification" content="y_tydIQd6TZaoY-qR9geJSDX95h10_w4CXL6NznjgdI" />
   <meta name="msvalidate.01" content="FA8C6A3FF6ADEE726950F238947D5295" />
@@ -80,13 +80,13 @@
   </div>
   <div id="sheet">
     <div class="wrapper">
-      <div class="pie-clearfix" id=<% if params.include?("category")%>"<%='category'%>"<% else %>"<%='article'%>"<% end %>>
+      <div class="pie-clearfix" id="<%= @category_name.nil? ? 'category' : 'article' %>">
         <aside id="sidebar">
           <section class="pie-clearfix pie-clearfix-ie" id="search">
             <div id="search">
               <form>
                 <p>
-                  <input id="st-search-input" name="q" placeholder="search" required="required" type="text" style="background-color: white; color: black;" value="<%=h params[:q] || '' %>" />
+                  <input id="st-search-input" name="q" placeholder="search" required="required" type="text" style="background-color: white; color: black;" value="<%=h @query_string || '' %>" />
                 </p>
               </form>
 <script type="text/javascript">
@@ -119,7 +119,7 @@ var Swiftype = window.Swiftype || {};
               <a class="category" href="#"><%= title %></a>
               <ul class="tags">
                 <% categories.each do |slug, title, _| %>
-                <% if (params[:category] == slug) || (find_category(params[:article], @current_lang) == slug) %>
+                <% if (@category_name == slug) || (find_category(@article_name, @current_lang) == slug) %>
                 <li class="active"><a href="<%= link_to "/categories/#{slug}" %>"><%=h title %></a></li>
                 <% else %>
                 <li><a href="<%= link_to "/categories/#{slug}" %>"><%=h title %></a></li>

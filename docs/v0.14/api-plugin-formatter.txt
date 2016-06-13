@@ -1,0 +1,91 @@
+# Writing Formatter Plugins
+
+Fluentd supports [pluggable, customizable formats for output plugins](formatter-plugin-overview). The plugin files whose names start with "formatter_" are registered as Formatter Plugins. See LINK:[Plugin Base Class API](/articles/api-plugin-base) to show details of common API for all plugin types.
+
+Here is an example of a custom formatter that outputs events as CSVs. It takes a required parameter called "csv_fields" and outputs the fields. It assumes that the values of the fields are already valid CSV fields.
+
+    :::ruby
+    require 'fluent/plugin/formatter'
+
+    module Fluent::Plugin
+      class MyCSVFormatter < Formatter
+        # Register MyCSVFormatter as "my_csv".
+        Plugin.register_formatter("my_csv", self)
+
+        include HandleTagAndTimeMixin # If you wish to use tag_key, time_key, etc.
+        config_param :csv_fields, :string
+
+        # This method does further processing. Configuration parameters can be
+        # accessed either via "conf" hash or member variables.
+        def configure(conf)
+          super
+          @csv_fields = conf['csv_fields'].split(",")
+        end
+
+        # This is the method that formats the data output.
+        def format(tag, time, record)
+          values = []
+
+          # Look up each required field and collect them from the record
+          @csv_fields.each do |field|
+            v = record[field]
+            unless v
+              log.error "#{field} is missing."
+            end
+            values << v.to_s
+          end
+
+          # Output by joining the fields with a comma
+          values.join(",")
+        end        
+      end
+    end
+
+Then, save this code in `formatter_my_csv.rb` in a loadable plugin path. Then, if out_file is configured as
+
+    :::text
+    # Other lines...
+    <match test>
+      @type file
+      path /path/to/output/file
+      format my_csv
+      csv_fields k1,k2
+    </match>
+
+and if the record `{"k1": 100, "k2": 200}` is matched, the output file should look like `100,200`
+
+TODO: add description about ``<format>`` section.
+
+## How To Use Formatters From Plugins
+
+Formatter plugins are designed to be used from other plugins, like Input, Filter and Output.
+There is a Formatter plugin helper for that purpose (v0.14.1 or later):
+
+    :::ruby
+    # in class definition
+    helpers :formatter
+
+    # in #start
+    @formatter = formatter_create(type: 'json')
+
+    # in #filter, #format or ...
+    es.each do |time, record|
+      row = @formatter.format(@tag, time, record)
+      # ...
+    end
+
+See LINK:[Formatter Plugin Helper API](/articles/api-plugin-helper-formatter) for details.
+
+## Methods
+
+Formatter plugins have a method to format input record (Hash) into a String object.
+
+#### #format(tag, time, record)
+
+``Formatter#format`` gets an event represented with tag (String), time (Fluent::EventTime or Integer) and record (Hash with String keys), and should return a String object, the result of formatting.
+
+Formatter plugins must implement this method.
+
+## Writing Tests
+
+TODO: write

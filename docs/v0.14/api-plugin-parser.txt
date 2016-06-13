@@ -1,0 +1,100 @@
+# Writing Parser Plugins
+
+Fluentd supports [pluggable, customizable formats for input plugins](parser-plugin-overview). The plugin files whose names start with "parser_" are registered as Parser Plugins. See LINK:[Plugin Base Class API](/articles/api-plugin-base) to show details of common API for all plugin types.
+
+Here is an example of a custom parser that parses the following newline-delimited log format:
+
+    :::text
+    <timestamp><SPACE>key1=value1<DELIMITER>key2=value2<DELIMITER>key3=value...
+
+e.g., something like this
+
+    :::text
+    2014-04-01T00:00:00 name=jake age=100 action=debugging
+
+While it is not hard to write a regular expression to match this format, it is tricky to extract and save key names.
+
+Here is the code to parse this custom format (let's call it `time_key_value`). It takes one optional parameter called `delimiter`, which is the delimiter for key-value pairs. It also takes `time_format` to parse the time string.
+
+    :::ruby
+    require 'fluent/plugin/parser'
+
+    module Fluent::Plugin
+      class TimeKeyValueParser < Parser
+        # Register this parser as "time_key_value"
+        Plugin.register_parser("time_key_value", self)
+
+        config_param :delimiter, :string, default: " "   # delimiter is configurable with " " as default
+        config_param :time_format, :string, default: nil # time_format is configurable
+
+        def configure(conf)
+          super
+
+          if @delimiter.length != 1
+            raise ConfigError, "delimiter must be a single character. #{@delimiter} is not."
+          end
+
+          # TimeParser class is already given. It takes a single argument as the time format
+          # to parse the time string with.
+          @time_parser = TimeParser.new(@time_format)
+        end
+          
+        def parse(text)
+          time, key_values = text.split(" ", 2)
+          time = @time_parser.parse(time)
+          record = {}
+          key_values.split(@delimiter).each { |kv|
+            k, v = kv.split("=", 2)
+            record[k] = v
+          }
+          yield time, record
+        end
+      end
+    end
+
+Then, save this code in `parser_time_key_value.rb` in a loadable plugin path. Then, if in_tail is configured as
+
+    :::text
+    # Other lines...
+    <source>
+      @type tail
+      path /path/to/input/file
+      format time_key_value
+    </source>
+
+Then, the log line like `2014-01-01T00:00:00 k=v a=b` is parsed as `2013-01-01 00:00:00 +0000 test: {"k":"v","a":"b"}`.
+
+TODO: add description about ``<parse>`` section.
+
+## How To Use Parsers From Plugins
+
+Parser plugins are designed to be used from other plugins, like Input, Filter and Output.
+There is a Parser plugin helper for that purpose (v0.14.1 or later):
+
+    :::ruby
+    # in class definition
+    helpers :parser
+
+    # in #start
+    @parser = parser_create(type: 'json')
+
+    # in input loop or #filter or ...
+    @parser.parse do |time, record|
+      # ...
+    end
+
+See LINK:[Parser Plugin Helper API](/articles/api-plugin-helper-parser) for details.
+
+## Methods
+
+Parser plugins have a method to parse input (text) data to a structured record (Hash) with time.
+
+#### #parse(text, &block)
+
+``Parser#parse`` gets input data as an argument, and call callback block to feed results of parser. The input text may contain 2 or more records, so the parser plugin might call block 2 or more times for an argument.
+
+Parser plugins must implement this method.
+
+## Writing Tests
+
+TODO: write

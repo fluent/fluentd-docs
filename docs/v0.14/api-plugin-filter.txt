@@ -1,0 +1,54 @@
+# Writing Filter Plugins
+
+This section shows how to write custom filters in addition to [the core filter plugins](filter-plugin-overview). The plugin files whose names start with "filter_" are registered as filter plugins. See LINK:[Plugin Base Class API](/articles/api-plugin-base) to show details of common API for all plugin types.
+
+Here is the implementation of the most basic filter that passes through all events as-is:
+
+    :::ruby
+    require 'fluent/plugin/filter'
+
+    module Fluent::Plugin
+      class PassThruFilter < Filter
+        # Register this filter as "passthru"
+        Fluent::Plugin.register_filter('passthru', self)
+
+        # config_param works like other plugins
+
+        def configure(conf)
+          super
+          # do the usual configuration here
+        end
+
+        # def start
+        #   super
+        #   # Override this method if anything needed as startup.
+        # end
+
+        # def shutdown
+        #   # Override this method to use it to free up resources, etc.
+        #   super
+        # end
+
+        def filter(tag, time, record)
+          # Since our example is a pass-thru filter, it does nothing and just
+          # returns the record as-is.
+          # If returns nil, that records are ignored.
+          record
+        end
+      end
+    end
+
+
+## Methods
+
+Filter plugins have a method to be implemented.
+
+#### #filter(tag, time, record)
+
+This method implements the filtering logic for individual filters. ``tag`` is a String, ``time`` is a Fluent::EventTime or an Integer and ``record`` is a Hash with String keys.
+
+The return value of this method should be a Hash of modified record, or nil. Fluentd will ignore the event which the filter returns nil.
+
+## Writing Tests
+
+TODO: write

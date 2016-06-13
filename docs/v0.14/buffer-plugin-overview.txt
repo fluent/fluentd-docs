@@ -1,0 +1,108 @@
+# Buffer Plugin Overview
+
+NOTE: This page is simply copied from LINK(v0.12):[v0.12 documents](/articles/buffer-plugin-overview), and will be updated later.
+
+Fluentd has 6 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview), [Storage](storage-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Buffer Plugin.
+
+## Buffer Plugin Overview
+
+Buffer plugins are used by output plugins in buffered mode, typically by `file`, `forward`, etc. Users can choose the buffer plugin that best suits their performance and reliability needs.
+
+## Buffer Structure
+
+The buffer plugins have 2 internal structures: stage and queue. Buffer plugins append events to the chunks in stage ("staged" chunks), and put chunks, which are full or expired, into queue ("queued" chunks). Queued chunks will be flushed by output plugins next to next (in FIFO way: first-in, first-out).
+
+![Fluentd v0.14 Plugin API Overview](/images/fluentd-v0.14-plugin-api-overview.png)
+
+    :::text
+                                   stage
+                                   +---------+
+                                   |         |
+    write events to staged chunks --> chunk  |
+                                   |         |
+                           events --> chunk  |
+                                   |         |
+                           events --> chunk  |
+                                   |         |
+                           events --> chunk  |
+                                   |         |
+                                   +---------+
+
+All chunks on stage are writable, and events will be appended into these chunks. Once chunk size reaches the limit of bytesize or records, or it exceeds time limit, that chunk will be removed from stage and pushed into queue.
+
+    :::text
+                  queue
+                 +---------+
+                 |         |
+    push chunk  --> chunk  |
+     from stage  |         |
+                 |  chunk  |
+                 |         |
+                 |  chunk  |
+                 |         |
+                 |  chunk --> write out the chunk
+                 |         |    queued at first
+                 +---------+
+
+Buffer plugins control size limits of each chunks, and size limits of whole buffer plugin. Output plugin referres these limits, and controls flushing and retrying.
+
+## Configuration Parameters
+
+TODO: parameters and descriptions below are copied from v0.12 documents, and must be updated with v0.14 features.
+
+All buffered output plugins support the following parameters:
+
+    :::text
+    <match pattern>
+      buffer_type memory
+      buffer_chunk_limit 256m
+      buffer_queue_limit 128
+      flush_interval 60s
+      disable_retry_limit false
+      retry_limit 17
+      retry_wait 1s
+      max_retry_wait 10s # default is infinite
+    </match>
+
+`buffer_type` specifies the buffer plugin to use. The `memory` Buffer plugin is used by default. You can also specify `file` as the buffer type alongside the `buffer_path` parameter as follows:
+
+    :::text
+    <match pattern>
+      buffer_type file
+      buffer_path /var/fluentd/buffer/ #make sure fluentd has write access to the directory!
+      ...
+    </match>
+
+The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used for `flush_interval` and `retry_wait`. `retry_wait` can also be a decimal value.
+
+The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for `buffer_chunk_l
+
+### buffer_queue_full_action
+
+Control the buffer behaviour when the queue becomes full. The default mode is `exception`. It raises `BufferQueueLimitError` exception to input plugin. How handle `BufferQueueLimitError` depends on input plugins, e.g. tail input stops reading new lines, forward input returns an error to forward output. This action fits for streaming manner.
+
+Another mode is `block`. It stops input plugin thread until buffer full is resolved. This action is good for batch-like use-case.
+
+We don't recommend to use `block` action to avoid `BufferQueueLimitError`. Please consider improving destination setting to resolve `BufferQueueLimitError` or use `@ERROR` label for routing overflowed events to another backup destination(or `secondary`). If you hit `BufferQueueLimitError` frequently, it means your destination capacity is insufficient for your traffic.
+
+## Time Sliced Plugin Overview
+
+Time Sliced Plugin is a type of Buffer Plugin, so, it has the same basic buffer structure as Buffer Plugin.
+
+In addition, each chunk is keyed by time and flushed when that chunk's timestamp has passed. This is different from This immediately raises a couple of questions.
+
+1. How do we specify the granularity of time chunks? This is done through the `time_slice_format` option, which is set to "%Y%m%d" (daily) by default. If you want your chunks to be hourly, "%Y%m%d%H" will do the job.
+2. What if new logs come after the time corresponding the current chunk? For example, what happens to an event, timestamped at 2013-01-01 02:59:45 UTC, comes in at 2013-01-01 03:00:15 UTC? Would it make into the 2013-01-01 02:00:00-02:59:59 chunk?
+  
+  This issue is addressed by setting the `time_slice_wait` parameter. `time_slice_wait` sets, in seconds, how long fluentd waits to accept "late" events into the chunk *past the max time corresponding to that chunk*. The default value is 600, which means it waits for 10 minutes before moving on. So, in the current example, as long as the events come in before 2013-01-01 03:10:00, it will make it in to the 2013-01-01 02:00:00-02:59:59 chunk.
+
+  Alternatively, you can also flush the chunks regularly using `flush_interval`. Note that `flush_interval` and `time_slice_wait` are mutually exclusive. If you set `flush_interval`, `time_slice_wait` will be ignored and fluentd would issue a warning.
+
+Here is the diagram shows the relation between buffers and parameters.
+
+<a href="/images/buffer-internal-and-parameters.png"><img src="/images/buffer-internal-and-parameters.png"/></a>
+
+## List of Buffer Plugins
+
+* [buf_memory](buf_memory)
+* [buf_file](buf_file)
