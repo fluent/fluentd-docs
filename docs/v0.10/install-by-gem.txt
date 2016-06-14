@@ -15,7 +15,7 @@ Please install Ruby >= 1.9.3 on your local environment.
 Fetch and install the `fluentd` Ruby gem using the `gem` command. The official ruby gem page is [here](https://rubygems.org/gems/fluentd).
 
     :::term
-    $ gem install fluentd --no-ri --no-rdoc
+    $ gem install fluentd -v "~> 0.10.0" --no-ri --no-rdoc
 
 ## Step3: Run
 
