@@ -24,7 +24,7 @@ If your console shows `1024`, it is insufficient. Please add following lines to 
 
 ## Optimize Network Kernel Parameters
 
-For high load environments consisting of many Fluentd instances, please add these parameters to your `/etc/sysctl.conf` file. Please either type `sysctl -w` or reboot your node to have the changes take effect. If your environment doesn't have a problem with TCP_WAIT, then these changes are not needed.
+For high load environments consisting of many Fluentd instances, please add these parameters to your `/etc/sysctl.conf` file. Please either type `sysctl -p` or reboot your node to have the changes take effect. If your environment doesn't have a problem with TCP_WAIT, then these changes are not needed.
 
     :::term
     net.ipv4.tcp_tw_recycle = 1
