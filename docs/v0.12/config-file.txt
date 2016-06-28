@@ -356,6 +356,12 @@ can generate JSON value easily than unusual format.
 
 `type`, `id` and `log_level` are supported for backward compatibility.
 
+## Check configuration file
+
+You can check your configuration without plugins start by specifying `--dry-run` option.
+
+    $ fluentd --dry-run -c fluent.conf
+
 ## Format tips
 
 This section describes useful features in configuration format.
