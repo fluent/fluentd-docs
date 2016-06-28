@@ -115,7 +115,7 @@ Please restart td-agent process first, to make the configuration change availabl
 
     :::term
     $ sudo /etc/init.d/td-agent stop
-    $ td-agent --dry-run -c /etc/td-agent/td-agent.conf
+    $ sudo /etc/init.d/td-agent configtest
     $ sudo /etc/init.d/td-agent start
 
 To test the configuration, just have a couple of accesses to your Apache server. This example uses the `ab` (Apache Bench) program.
