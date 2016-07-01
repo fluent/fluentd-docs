@@ -112,7 +112,7 @@ NOTE: Fluentd doesn't support log rotation yet.
 
 ## Capture Fluentd logs
 
-Fluentd marks its own logs with the `fluent` tag. You can process Fluentd logs by using `<match fluent.**>`. If you define `<match fluent.**>` in your configuration, then Fluentd will send its own logs to this match destination. This is useful for monitoring Fluentd logs.
+Fluentd marks its own logs with the `fluent` tag. You can process Fluentd logs by using `<match fluent.**>` or `<match **>`(Of course, `**` captures other logs). If you define `<match fluent.**>` in your configuration, then Fluentd will send its own logs to this match destination. This is useful for monitoring Fluentd logs.
 
 For example, if you have the following `<match fluent.**>`:
 
