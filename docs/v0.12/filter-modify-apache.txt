@@ -77,7 +77,7 @@ then we can add a new field with the hostname information as follows:
     :::text
     <match foo.bar>
         @type record_modifier
-        gen_host ${hostname}
+        gen_host "#{Socket.gethostname}"
         tag with_hostname
     </match>
     ...
@@ -89,4 +89,4 @@ The modified events now look like
 
     {"gen_host": "our_server", code":200, "url":"http://yourdomain.com", "size":1232}
 
-NOTE: The `${hostname}` placeholder is powered by [fluent-mixin-config-placeholder](https://github.com/tagomoris/fluent-mixin-config-placeholders). It inlines the host name of the server that the Fluentd instance is running on (in this example, our server's name is "our_server").
+NOTE: The `"#{Socket.gethostname}"` placeholder is interpreted at configuration parsing phase. It inlines the host name of the server that the Fluentd instance is running on (in this example, our server's name is "our_server").
