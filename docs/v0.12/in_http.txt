@@ -45,6 +45,9 @@ The timeout limit for keeping the connection alive. Default Value = 10 seconds
 #### add_http_headers
 Add `HTTP_` prefix headers to the record. The default is `false`
 
+#### add_remote_addr
+Add `REMOTE_ADDR` field to the record. The value of `REMOTE_ADDR` is the client's address. The default is `false`
+
 #### cors_allow_origins
 White list domains for CORS. Default is no check.
 
