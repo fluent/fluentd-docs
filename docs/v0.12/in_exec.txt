@@ -59,7 +59,7 @@ The key to use as the event time instead of the value in the event record. If th
 The format of the event time used for the time_key parameter. The default is UNIX time (integer).
 
 #### run_interval
-The interval time between periodic program runs.
+The interval time between periodic program runs. If no specify value, command script runs only once.
 
 INCLUDE: _log_level_params
 
