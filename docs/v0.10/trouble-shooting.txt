@@ -40,4 +40,4 @@ Please add `-vv` to your command line.
 ## Dump fluentd internal information
 
 Fluentd uses [sigdump](https://github.com/frsyuki/sigdump) for dumping fluentd internal information to local file, e.g. thread dump, object allocation and etc.
-If you have a problem with fluentd like process hang, please send `SIGCONT` to fluentd process.
+If you have a problem with fluentd like process hang, please send `SIGCONT` to fluentd parent and child processes.
