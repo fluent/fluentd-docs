@@ -122,3 +122,10 @@ Early testing demonstrates that modern Cool.io and `in_tail` work properly witho
 
 INCLUDE: _log_level_params
 
+### FAQ
+
+#### logrotate setting
+
+`logrotate` has `nocreate` parameter and it doesn't create new file after triggered log rotation. It means `in_tail` can't find new file to tail.
+
+This parameter doesn't fit typical application log cases, so check your `logrotate` setting which doesn't include `nocreate` parameter.
