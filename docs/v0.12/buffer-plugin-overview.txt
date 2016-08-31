@@ -61,11 +61,21 @@ The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for `buffe
 
 ### buffer_queue_full_action
 
-Control the buffer behaviour when the queue becomes full. The default mode is `exception`. It raises `BufferQueueLimitError` exception to input plugin. How handle `BufferQueueLimitError` depends on input plugins, e.g. tail input stops reading new lines, forward input returns an error to forward output. This action fits for streaming manner.
+Control the buffer behaviour when the queue becomes full. 3 modes are supported:
 
-Another mode is `block`. It stops input plugin thread until buffer full is resolved. This action is good for batch-like use-case.
+- exception
 
-We don't recommend to use `block` action to avoid `BufferQueueLimitError`. Please consider improving destination setting to resolve `BufferQueueLimitError` or use `@ERROR` label for routing overflowed events to another backup destination(or `secondary`). If you hit `BufferQueueLimitError` frequently, it means your destination capacity is insufficient for your traffic.
+This is default mode. This mode raises `BufferQueueLimitError` exception to input plugin. How handle `BufferQueueLimitError` depends on input plugins, e.g. tail input stops reading new lines, forward input returns an error to forward output. This action fits for streaming manner.
+
+- block
+
+This mode stops input plugin thread until buffer full is resolved. This action is good for batch-like use-case.
+
+We don't recommend to use `block` action to avoid `BufferQueueLimitError`. Please consider improving destination setting to resolve `BufferQueueLimitError` or use `@ERROR` label for routing overflowed events to another backup destination(or `secondary` with lower `retry_limit`). If you hit `BufferQueueLimitError` frequently, it means your destination capacity is insufficient for your traffic.
+
+- drop_oldest_chunk
+
+This mode drops oldest chunks. This mode is useful for monitoring system destinations. For monitoring, newer events are important than older.
 
 ## Time Sliced Plugin Overview
 
