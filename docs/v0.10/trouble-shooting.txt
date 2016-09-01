@@ -14,10 +14,11 @@ You can get more information about the logs if verbose logging is turned on. Ple
 2. add `-vv` to TD_AGENT_ARGS
 3. restart td-agent
 
-        # at /etc/init.d/td-agent
-        ...
-        TD_AGENT_ARGS="... -vv"
-        ...
+    :::text
+    # at /etc/init.d/td-agent
+    ...
+    TD_AGENT_ARGS="... -vv"
+    ...
 
 ### deb
 
@@ -25,10 +26,11 @@ You can get more information about the logs if verbose logging is turned on. Ple
 2. add `-vv` to DAEMON_ARGS
 3. restart td-agent
 
-        # at /etc/init.d/td-agent
-        ...
-        DAEMON_ARGS="... -vv"
-        ...
+    :::text
+    # at /etc/init.d/td-agent
+    ...
+    DAEMON_ARGS="... -vv"
+    ...
 
 ### gem
 
@@ -46,18 +48,16 @@ If you have a problem with fluentd like process hang, please send `SIGCONT` to f
 
 You sometimes hit unexpected shutdown with non-zero exit status like below.
 
-```
-2016-01-01 00:00:00 +0800 [info]: starting fluentd-0.12.28
-2016-01-01 00:00:00 +0800 [info]: reading config file path="/etc/td-agent/td-agent.conf"
-[...snip...]
-2016-01-01 00:00:02 +0800 [info]: process finished code=6
-```
+    :::text
+    2016-01-01 00:00:00 +0800 [info]: starting fluentd-0.12.28
+    2016-01-01 00:00:00 +0800 [info]: reading config file path="/etc/td-agent/td-agent.conf"
+    [...snip...]
+    2016-01-01 00:00:02 +0800 [info]: process finished code=6
 
 If the problem happens inside ruby, e.g. segmentation fault, C extension bug, etc,
 you can't get entire log when fluentd process is daemonized.
 For example, td-agent launches fluentd with `--daemon` option. In td-agent case,
 you can get entire log using following command to simulate `/etc/init.d/td-agent start` without daemonize.
 
-```
-$ sudo LD_PRELOAD=/opt/td-agent/embedded/lib/libjemalloc.so /usr/sbin/td-agent -c /etc/td-agent/td-agent.conf --user td-agent --group td-agent
-```
+    :::text
+    $ sudo LD_PRELOAD=/opt/td-agent/embedded/lib/libjemalloc.so /usr/sbin/td-agent -c /etc/td-agent/td-agent.conf --user td-agent --group td-agent
