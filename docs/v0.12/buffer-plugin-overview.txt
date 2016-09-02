@@ -36,6 +36,8 @@ All buffered output plugins support the following parameters:
 
     :::text
     <match pattern>
+      # omit the part about @type and other output parameters
+
       buffer_type memory
       buffer_chunk_limit 256m
       buffer_queue_limit 128
@@ -50,6 +52,8 @@ All buffered output plugins support the following parameters:
 
     :::text
     <match pattern>
+      # omit the part about @type and other output parameters
+
       buffer_type file
       buffer_path /var/fluentd/buffer/ #make sure fluentd has write access to the directory!
       ...
