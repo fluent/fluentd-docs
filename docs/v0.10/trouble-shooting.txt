@@ -44,6 +44,18 @@ Please add `-vv` to your command line.
 Fluentd uses [sigdump](https://github.com/frsyuki/sigdump) for dumping fluentd internal information to local file, e.g. thread dump, object allocation and etc.
 If you have a problem with fluentd like process hang, please send `SIGCONT` to fluentd parent and child processes.
 
+## High CPU usage issue
+
+If fluentd suddenly hits unexpected high CPU usage problem, there are several reasons:
+
+- a plugin has a race condition or similar bug
+- dependent gems have a bug
+- regular expression with broken data
+- system calls has a bug, e.g. `inotify` with lots of files
+
+In such cases, you can use `perf` tool on recent Linux to investigate the problem. See [Linux perf Examples](http://www.brendangregg.com/perf.html) page.<br />
+If you want to know which call causes the problem, [pid2line.rb](https://gist.github.com/nurse/0619b6af90df140508c2) is useful.
+
 ## Check uncaught logs
 
 You sometimes hit unexpected shutdown with non-zero exit status like below.
