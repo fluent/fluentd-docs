@@ -23,6 +23,28 @@ The following slides can help the user understand how Fluentd works before they 
 
 (The slides are taken from <a href="//github.com/sonots">Naotoshi Seo's</a> <a href="//rubykaigi.org/2014/presentation/S-NaotoshiSeo">RubyKaigi 2014 talk</a>.)
 
+### Fluentd version and Plugin API
+
+Fluentd now has two active versions, v0.12 and v0.14.
+v0.12 is stable and many users use this version on production.
+v0.14 is edge version and this version has brand-new Plugin API.
+
+Plugin for v0.12 works with v0.12 and v0.14, but
+new v0.14 Plugin API doesn't work with v0.12.
+So if you want to release new plugin, using v0.12 API is better for now.
+
+This document based on v0.12 Plugin API.
+
+## Plugin versioning policy
+
+If you don't have a your policy, following semantic versioning is better.
+
+[Semantic Versioning 2.0.0 - Semantic Versioning](http://semver.org/)
+
+The important thing is if your plugin breaks the backward compatibiliy, update major version to avoid user troubles.
+For example, new v0.14 API based plugin doesn't work with fluentd v0.12. So if you release your existing plugin with new v0.14 API,
+please update major version, `0.5.0` -> `1.0.0`, `1.2.0` -> `2.0.0`.
+
 ## Writing Input Plugins
 
 Extend the **Fluent::Input** class and implement the following methods. In `initialize`, `configure` and `start`, `super` should be called to call Input plugin default behaviour.
