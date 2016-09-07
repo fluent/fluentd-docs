@@ -468,6 +468,68 @@ Then, save this code in `formatter_my_csv.rb` in a loadable plugin path. Then, i
 
 and if the record `{"k1": 100, "k2": 200}` is matched, the output file should look like `100,200`
 
+## config_param
+
+`config_param` helper defines plugin parameter. You don't need to parse parameters manually.
+`config_param` syntax is `config_param :name, :type, options`. Here is simple example:
+
+    :::text
+    config_param :param1, :string
+    config_param :param2, :integer, default: 10
+
+In this example, `param1` is required string parameter. If a user doesn't specify `param1`, fluentd raises an `ConfigError`.<br />
+On the other hand, `param2` is optional integer parameter. If a user doesn't specify `param2`, fluentd set `10` to `param2` automatically.
+If a user sets "5" to `param2` parameter, fluentd converts it into integer type automatically.
+
+### Access parameter value
+
+`config_param` sets parsed result to `:name` instance variable after `configure` call. See example below:
+
+    :::text
+    config_param :param, :string
+    
+    def configure(conf)
+      super # This super is needed to parse conf by config_param
+      
+      p @param # You can access parsed result via instance variable. :param is used for variable name
+    end
+
+### Supported types
+
+Fluentd supports following built-in types for plugin parameter:
+
+    :::text
+    # hello, /path/to/file, etc
+    config_param :str_param, :string
+    # -1, 100, 100000, etc
+    config_param :int_param, :integer
+    # 0.1, 999.9, etc
+    config_param :float_param, :float
+    # true: yes / true, false: no / false
+    config_param :bool_param, :bool
+    # json object: {"k":"v"}, {"k", 10}
+    config_param :hash_param, :hash
+    # json array: [1, 10], ["foo", "bar"]
+    config_param :array_param, :array, value_type: :integer
+    # integer with size unit: 1k, 2m, 3g, 4t
+    config_param :size_param, :size
+    # integer with time unit: 1s, 2m, 3h, 4d
+    config_param :time_param, :time
+    # fixed list with `list` option: [:text, :gzip]
+    config_param :enum_param, :enum, list: [:tcp, :udp]
+
+### Supported options
+
+- `default`: Specified parameter becomes optional. `type` value or `nil` are available: `default: 10`, `default: nil`.
+- `secret`: Specified parameter is masked when dump a configuration, e.g. start logs, in_monitor_agent result: `secret: true`
+- `deprecated`: Specified parameter is showed in warning log. Need deprecated message for value: `deprecated: "Use xxx instead"`
+- `obsoleted`: Specified parameter is showed in error log with configuration error. Need obsoleted message for value: `obsoleted: "Use xxx instead"`
+
+These options can be combined.
+
+    :::text
+    config_param :param, :array, default: [1, 2], secret: true, deprecated: "Use new_param instead"
+
 ## Debugging plugins
 
 Run ``fluentd`` with the ``-vv`` option to show debug messages:
