@@ -235,6 +235,9 @@ section 'filter-plugins', 'Filter Plugins' do
   category 'filter_grep', 'filter_grep' do
     article 'filter_grep', 'grep Filter Plugin'
   end
+  category 'filter_parser', 'filter_parser' do
+    article 'filter_parser', 'parser Filter Plugin'
+  end
   category 'filter_stdout', 'filter_stdout' do
     article 'filter_stdout', 'stdout Filter Plugin'
   end
