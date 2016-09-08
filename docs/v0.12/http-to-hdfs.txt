@@ -54,7 +54,7 @@ The output destination will be WebHDFS. The output configuration should look lik
       @type webhdfs
       host namenode.your.cluster.local
       port 50070
-      path /log/%Y%m%d_%H/access.log.${hostname}
+      path "/log/%Y%m%d_%H/access.log.#{Socket.gethostname}"
       flush_interval 10s
     </match>
 

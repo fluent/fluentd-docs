@@ -37,7 +37,7 @@ Append operations are not enabled by default on CDH. Please put these configurat
       @type webhdfs
       host namenode.your.cluster.local
       port 50070
-      path /path/on/hdfs/access.log.%Y%m%d_%H.${hostname}.log
+      path "/path/on/hdfs/access.log.%Y%m%d_%H.#{Socket.gethostname}.log"
       flush_interval 10s
     </match>
 
@@ -57,7 +57,7 @@ The namenode hostname.
 The namenode port number.
 
 ### path (required)
-The path on HDFS. Please include ${hostname} in your path to avoid writing into the same HDFS file from multiple Fluentd instances. This conflict could result in data loss.
+The path on HDFS. Please include `"#{Socket.gethostname}"` in your path to avoid writing into the same HDFS file from multiple Fluentd instances. This conflict could result in data loss.
 
 Path value can contain time placeholders (see `time_slice_format` section). If path contains time placeholders, webhdfs output configures `time_slice_format` automatically with these placeholders.
 

@@ -29,12 +29,12 @@ At first, generate private CA file on side of input plugin by `secure-forward-ca
       </server>
     </match>
 
-NOTE: Without hostname ACL (not yet implemented), `self_hostname` is not checked in any state. The `${hostname}` placeholder is available for such cases.
+NOTE: Without hostname ACL (not yet implemented), `self_hostname` is not checked in any state. The `"#{Socket.gethostname}"` placeholder is available for such cases.
 
     <match secret.data.**>
       @type secure_forward
       shared_key secret_string
-      self_hostname ${hostname}
+      self_hostname "#{Socket.gethostname}"
       secure true
       ca_cert_path /path/to/certificate/ca_cert.pem
       
