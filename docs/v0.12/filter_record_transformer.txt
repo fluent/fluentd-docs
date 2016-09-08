@@ -32,7 +32,7 @@ Here is another example where the field "total" is divided by the field "count" 
       @type record_transformer
       enable_ruby
       <record>
-        avg ${total/count}
+        avg ${record["total"] / record["count"]}
       </record>
     </filter>        
 
@@ -54,7 +54,7 @@ You can also use this plugin to modify your existing fields as
     <filter foo.bar>
       @type record_transformer
       <record>
-        message yay, ${message}
+        message yay, ${record["message"]}
       </record>
     </filter>
 
@@ -117,6 +117,7 @@ Here is the examples:
     formatted_time ${time.strftime('%Y-%m-%dT%H:%M:%S%z')}
     escaped_tag ${tag.gsub('.', '-')}
     last_tag ${tag_parts.last}
+    foo_${record["key"]} bar_${record["value"]}
 
 ### auto_typecast (optional)
 
@@ -127,13 +128,13 @@ LIMITATION: This option is effective only for field values comprised of a single
 Effective Examples:
 
     :::text
-    foo ${foo}
+    foo ${record["foo"]}
 
 Non-Effective Examples:
 
     :::text
-    foo ${foo}${bar}
-    foo ${foo}bar
+    foo ${record["foo"]}${record["bar"]}
+    foo ${record["foo"]}bar
     foo 1
 
 Internally, this keeps the original value type only when a single placeholder is used. 
@@ -153,6 +154,10 @@ A comma-delimited list of keys to keep. Only relevant if `renew_record` is set t
 ### remove_keys (optional, string type)
 
 A comma-delimited list of keys to delete.
+
+## Need more performance?
+
+[filter_record_modifier](https://github.com/repeatedly/fluent-plugin-record-modifier) is light-weight and faster version of `filter_record_transformer`. `filter_record_modifier` doesn't provide several `filter_record_transformer` features, but it covers popular cases. If you need better performace for mutating records, consider `filter_record_modifier` instead.
 
 ## Learn More
 
