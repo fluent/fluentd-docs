@@ -124,6 +124,10 @@ INCLUDE: _log_level_params
 
 ### FAQ
 
+#### in_tail doesn't start to read log file, why?
+
+`in_tail` follows `tail -F` command behaviour by default, so `in_tail` reads only newer logs. If you want to read existing lines for batch use case, set `read_from_head true`.
+
 #### logrotate setting
 
 `logrotate` has `nocreate` parameter and it doesn't create new file after triggered log rotation. It means `in_tail` can't find new file to tail.
