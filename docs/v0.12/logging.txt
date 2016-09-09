@@ -136,7 +136,7 @@ Leaf server example:
     <match fluent.**>
       @type record_modifier
       tag internal.message
-      host ${hostname}
+      host "#{Socket.gethostname}"
       include_tag_key
       tag_key original_tag
     </match>

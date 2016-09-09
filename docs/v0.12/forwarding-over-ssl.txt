@@ -49,7 +49,7 @@ Then, set up the configuration file as follows:
         <match secure.**>
           @type secure_forward
           shared_key YOUR_SHARED_KEY
-          self_hostname ${hostname}
+          self_hostname "#{Socket.gethostname}"
           <server>
             host RECEIVER_IP
             port 24284
