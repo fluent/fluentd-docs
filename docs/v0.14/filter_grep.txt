@@ -55,6 +55,15 @@ The grep filter filters out UNLESS all regexpN's are matched. Hence, if you have
 
 unless the event's "item_name" field starts with "book_" and the "price" field is an integer, it is filtered out.
 
+For OR condition, you can use `|` operator of regular expressions. For example, if you have
+
+    :::text
+    regexp1 item_name (^book_|^article)
+
+unless the event's "item_name" field starts with "book_" or "article_", it is filtered out.
+
+Learn regular expressions for more patterns.
+
 ### excludeN (optional)
 
 The "N" at the end should be replaced with an integer between 1 and 20 (ex: "exclude1"). excludeN takes two whitespace-delimited arguments.
