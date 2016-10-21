@@ -94,3 +94,7 @@ INCLUDE: _in_types
 
 INCLUDE: _log_level_params
 
+### TCP protocol and message delimiter
+
+This plugin assumes `\n` for delimiter character between syslog messages in one TCP connection. If you use syslog library in your application with `protocol_type tcp`, add `\n` to your syslog message.<br />
+See also [rfc6587](https://tools.ietf.org/html/rfc6587#section-3.4.2).
