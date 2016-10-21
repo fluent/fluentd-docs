@@ -40,6 +40,15 @@ By default, `/etc/td-agent/td-agent.conf` is configured to take logs from HTTP a
     $ tail -n 1 /var/log/td-agent/td-agent.log
     2013-04-19 16:51:47 -0700 debug.test: {"json":"message"}
 
+## Uninstall td-agent
+
+td-agent for Mac doesn't provide uninstallation app unlike rpm / deb. If you want to uninstall td-agent from your Mac, remove these files / directories.
+
+- /Library/LaunchDaemons/td-agent.plist
+- /etc/td-agent
+- /opt/td-agent
+- /var/log/td-agent
+
 ## Next Steps
 
 You're now ready to collect your real logs using Fluentd. Please see the following tutorials to learn how to collect your data from various data sources.
