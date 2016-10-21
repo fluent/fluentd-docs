@@ -2,7 +2,7 @@
 
 The `file` buffer plugin provides a persistent buffer implementation. It uses files to store buffer chunks on disk.
 
-### Example Config
+## Example Config
 
     :::text
     <match pattern>
@@ -12,7 +12,7 @@ The `file` buffer plugin provides a persistent buffer implementation. It uses fi
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
-### Parameters
+## Parameters
 
 #### buffer_type (required)
 The value must be `file`.
@@ -61,7 +61,7 @@ If true, queued chunks are flushed at shutdown process. The default is `false`.
 #### retry_wait
 The interval between retries. The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.
 
-### Limitation
+## Limitation
 
 `file` buffer implementation depends on the characteristics of local filesystem.
 Don't use `file` buffer on remote filesytem, e.g. NFS, GlusterFS, HDFS and etc.

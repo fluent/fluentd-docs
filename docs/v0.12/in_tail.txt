@@ -2,7 +2,7 @@
 
 The `in_tail` Input plugin allows Fluentd to read events from the tail of text files. Its behavior is similar to the `tail -F` command.
 
-### Example Configuration
+## Example Configuration
 
 `in_tail` is included in Fluentd's core. No additional installation process is required.
 
@@ -23,12 +23,12 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 * Once the log is rotated, Fluentd starts reading the new file from the beginning. It keeps track of the current inode number.
 * If `td-agent` restarts, it starts reading from the last position td-agent read before the restart. This position is recorded in the position file specified by the pos_file parameter.
 
-### Parameters
+## Parameters
 
-#### type (required)
+### type (required)
 The value must be `tail`.
 
-#### tag (required)
+### tag (required)
 The tag of the event.
 
 `*` can be used as a placeholder that expands to the actual file path, replacing '/' with '.'. For example, if you have the following configuration
@@ -39,7 +39,7 @@ The tag of the event.
 
 in_tail emits the parsed events with the 'foo.path.to.file' tag.
 
-#### path (required)
+### path (required)
 The paths to read. Multiple paths can be specified, separated by ‘,’.
 
 `*` and strftime format can be included to add/remove watch file dynamically. At interval of `refresh_interval`, Fluentd refreshes the list of watch file.
@@ -51,7 +51,7 @@ If the date is 20140401, Fluentd starts to watch the files in /path/to/2014/04/0
 
 NOTE: You should not use '*' with log rotation because it may cause the log duplication. In such case, you should separate in_tail plugin configuration.
 
-#### exclude_path
+### exclude_path
 
 The paths to exclude the files from watcher list. For example, if you want to remove compressed files, you can use following pattern.
 
@@ -59,10 +59,10 @@ The paths to exclude the files from watcher list. For example, if you want to re
     path /path/to/*
     exclude_path ["/path/to/*.gz", "/path/to/*.zip"]
 
-#### refresh_interval
+### refresh_interval
 The interval of refreshing the list of watch file. Default is 60 seconds.
 
-#### read_from_head
+### read_from_head
 Start to read the logs from the head of file, not bottom. The default is `false`.
 
 If you want to tail all contents with `*` or strftime dynamic path, set this parameter to `true`.
@@ -70,18 +70,18 @@ Instead, you should guarantee that log rotation will not occur in `*` directory.
 
 NOTE: When this is true, in_tail tries to read a file during start up phase. If target file is large, it takes long time and starting other plugins isn't executed until reading file is finished.
 
-#### read_lines_limit
+### read_lines_limit
 
 The number of reading lines at each IO. Default is 1000 lines.
 
 If you see "Size of the emitted data exceeds buffer_chunk_limit." log with in_tail, set smaller value.
 
-#### multiline_flush_interval
+### multiline_flush_interval
 The interval of flushing the buffer for multiline format. The default is disabled.
 
 If you set `multiline_flush_interval 5s`, in_tail flushes buffered event after 5 seconds from last emit. This option is useful when you use `format_firstline` option. Since v0.12.20 or later.
 
-#### pos_file (highly recommended)
+### pos_file (highly recommended)
 This parameter is highly recommended. Fluentd will record the position it last read into this file.
 
     :::text
@@ -94,7 +94,7 @@ NOTE: Don't share pos_file between in_tail configurations. It causes unexpected 
 NOTE: in_tail removes untracked file position during startup phase. It means the content of pos_file is growing until restart
 when you tails lots of files with dynamic path setting. I will fix this problem in the future. Check <a href="https://github.com/fluent/fluentd/issues/1126">this issue</a>.
 
-#### format (required)
+### format (required)
 The format of the log. The following templates are supported:
 
 INCLUDE: _in_parsers
@@ -103,17 +103,17 @@ INCLUDE: _in_parsers
 INCLUDE: _in_types
 
 
-#### time_format
+### time_format
 The format of the time field. This parameter is required only if the format includes a ‘time’ capture and it cannot be parsed automatically. Please see [Time#strftime](http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime) for additional information.
 
-#### rotate_wait
+### rotate_wait
 in_tail actually does a bit more than `tail -F` itself. When rotating a file, some data may still need to be written to the old file as opposed to the new one.
 
 in_tail takes care of this by keeping a reference to the old file (even after it has been rotated) for some time before transitioning completely to the new file. This helps prevent data designated for the old file from getting lost. By default, this time interval is 5 seconds.
 
 The rotate_wait parameter accepts a single integer representing the number of seconds you want this time interval to be.
 
-#### enable_watch_timer
+### enable_watch_timer
 Enable the additional watch timer.  Setting this parameter to `false` will significantly reduce CPU and I/O consumption when tailing a large number of files on systems with inotify support.  The default is `true` which results in an additional 1 second timer being used.
 
 `in_tail` (via Cool.io) uses inotify on systems which support it.  Earlier versions of libev on some platforms (eg Mac OS X) did not work properly; therefore, an explicit 1 second timer was used.  Even on systems with inotify support, this results in additional I/O each second, for every file being tailed.
@@ -122,13 +122,13 @@ Early testing demonstrates that modern Cool.io and `in_tail` work properly witho
 
 INCLUDE: _log_level_params
 
-### FAQ
+## FAQ
 
-#### in_tail doesn't start to read log file, why?
+### in_tail doesn't start to read log file, why?
 
 `in_tail` follows `tail -F` command behaviour by default, so `in_tail` reads only newer logs. If you want to read existing lines for batch use case, set `read_from_head true`.
 
-#### logrotate setting
+### logrotate setting
 
 `logrotate` has `nocreate` parameter and it doesn't create new file after triggered log rotation. It means `in_tail` can't find new file to tail.
 

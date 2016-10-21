@@ -44,7 +44,7 @@ Skip an event if incoming event is invalid. The default is false.
 
 This option is useful at forwarder, not aggragator. v0.12.20 or later.
 
-### source_hostname_key (v0.12.28 or later)
+#### source_hostname_key (v0.12.28 or later)
 The field name of the client's hostname. If set the value, the client's hostname will be set to its key. The default is nil (no adding hostname).
 
 This iterates incoming events. So if you sends larger chunks to `in_forward`, it needs additional processing time.
@@ -53,7 +53,7 @@ This iterates incoming events. So if you sends larger chunks to `in_forward`, it
 INCLUDE: _log_level_params
 
 
-### Protocol
+## Protocol
 
 This plugin accepts both JSON or [MessagePack](http://msgpack.org/) messages and automatically detects which is used.  Internally, Fluent uses MessagePack as it is more efficient than JSON.
 
