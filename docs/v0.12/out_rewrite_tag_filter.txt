@@ -76,11 +76,11 @@ INCLUDE: _log_level_params
 It is supported these placeholder for new_tag (rewrited tag). See more details at <a href="https://github.com/fluent/fluent-plugin-rewrite-tag-filter#tag-placeholder">README.md</a>
 
 * ${tag}
-* __TAG__
+* \__TAG__
 * {$tag_parts[n]}
-* __TAG_PARTS[n]__
+* \__TAG_PARTS[n]__
 * ${hostname}
-* __HOSTNAME__
+* \__HOSTNAME__
 
 ## Use cases
 
