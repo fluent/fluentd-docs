@@ -73,3 +73,11 @@ Multiple messages may be sent in the same connection.
     example:
       ["myapp.access", 1308466941, {"a":1}]["myapp.messages", 1308466942, {"b":2}]
       ["myapp.access", [[1308466941, {"a":1}], [1308466942, {"b":2}]]]
+
+
+## FAQ
+
+### How to parse incoming events?
+
+`in_forward` doesn't provide parsing mechanizm unlike `in_tail` or `in_tcp` because `in_forward` is mainly for efficient log transfer. If you want to parse incoming event, use [parser filter](https://github.com/tagomoris/fluent-plugin-parser) in your pipeline.<br />
+See Docker logging driver usecase: [Docker Logging](http://www.fluentd.org/guides/recipes/docker-logging)
