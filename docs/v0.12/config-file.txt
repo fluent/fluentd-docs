@@ -349,6 +349,8 @@ can generate JSON value easily than unusual format.
 
 ## Common plugin parameter
 
+These parameters are system reserved and it has `@` prefix.
+
 - `@type`: Specify plugin type
 - `@id`: Specify plugin id. in_monitor_agent uses this value for plugin_id field
 - `@label`: Specify label symbol. See [label](config-file#5-group-filter-and-output-the-ldquolabelrdquo-directive) section
