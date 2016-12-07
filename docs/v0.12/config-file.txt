@@ -400,7 +400,6 @@ Example2: map plugin:
 
 NOTE: We will remove this restriction with configuration parser improvement.
 
-
 ### `"foo"` is interpreted as `foo`, not `"foo"`
 
 `"` is a quote character of string value.
@@ -417,6 +416,7 @@ You can evaluate the Ruby code with `#{}` in `"` quoted string.
 This is useful for setting machine information like hostname.
 
     host_param "#{Socket.gethostname}" # host_param is actual hostname like `webserver1`.
+    env_param "foo-#{ENV["FOO_BAR"]}" # NOTE that foo-"#{ENV["FOO_BAR"]}" doesn't work.
 
 NOTE: config-xxx mixins use "${}", not "#{}". These embedded configurations are two different things.
 
