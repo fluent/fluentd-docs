@@ -22,7 +22,7 @@ The path where buffer chunks are stored. The ‘*’ is replaced with random cha
 
 This parameter must be unique to avoid race condition problem. For example, you can't use fixed buffer_path parameter in fluent-plugin-forest. `${tag}` or similar placeholder is needed. Of course, this parameter must also be unique between fluentd instances.
 
-In addition, `buffer_path` should not be an other `buffer_path` prefix. For example, following conf doesn't work well. `/var/log/fluent/foo` resumes `/var/log/fluent/foo.bar`'s buffer files during start phase and it causes `No such file or directory` in `/var/log/fluent/foo.bar` side.
+In addition, `buffer_path` should not be an other `buffer_path` prefix. For example, the following conf doesn't work well. `/var/log/fluent/foo` resumes `/var/log/fluent/foo.bar`'s buffer files during start phase and it causes `No such file or directory` in `/var/log/fluent/foo.bar` side.
 
     :::text
     <match pattern1>
