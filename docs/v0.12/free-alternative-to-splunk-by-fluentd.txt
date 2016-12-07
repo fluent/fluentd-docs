@@ -3,7 +3,7 @@
 [Splunk](http://www.splunk.com/) is a great tool for searching logs, but its high cost makes it prohibitive for many teams. In this article, we present a free and open source alternative to Splunk by combining three open source projects: Elasticsearch, Kibana, and Fluentd.
 
 <center>
-<img src="/images/kibana4-screenshot.png" width="90%"/><br />
+<img src="/images/kibana5-screenshot.png" width="90%"/><br />
 </center><br/>
 <br/>
 
@@ -29,13 +29,13 @@ LINK:[What is Fluentd?](/articles/architecture)
 
 ### Java for Elasticsearch
 
-Please confirm that your Java version is 7 or higher.
+Please confirm that your Java version is 8 or higher.
 
     :::term
     $ java -version
-    java version "1.7.0_67"
-    Java(TM) SE Runtime Environment (build 1.7.0_67-b01)
-    Java HotSpot(TM) 64-Bit Server VM (build 24.65-b04, mixed mode)
+    java version "1.8.0_111"
+    Java(TM) SE Runtime Environment (build 1.8.0_111-b14)
+    Java HotSpot(TM) 64-Bit Server VM (build 25.111-b14, mixed mode)
 
 Now that we've checked for prerequisites, we're now ready to install and set up the three open source tools.
 
@@ -44,9 +44,9 @@ Now that we've checked for prerequisites, we're now ready to install and set up 
 To install Elasticsearch, please download and extract the Elasticsearch package as shown below.
 
     :::term
-    $ curl -O https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-1.7.1.tar.gz
-    $ tar zxvf elasticsearch-1.7.1.tar.gz
-    $ cd elasticsearch-1.7.1/
+    $ curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.0.2.tar.gz
+    $ tar zxvf elasticsearch-5.0.2.tar.gz
+    $ cd elasticsearch-5.0.2
 
 Once installation is complete, start Elasticsearch.
 
@@ -59,9 +59,9 @@ To install Kibana, download it via the official webpage and extract it. Kibana i
 Dowload page is [here](https://www.elastic.co/downloads/kibana). In this article, we download Mac OS X binary.
 
     :::term
-    $ curl -O https://download.elastic.co/kibana/kibana/kibana-4.1.1-darwin-x64.tar.gz
-    $ tar zxvf kibana-4.1.1-darwin-x64.tar.gz
-    $ cd kibana-4.1.1-darwin-x64/
+    $ curl -O https://artifacts.elastic.co/downloads/kibana/kibana-5.0.2-darwin-x86_64.tar.gz
+    $ tar zxvf kibana-5.0.2-darwin-x86_64.tar.gz
+    $ cd kibana-5.0.2-darwin-x86_64
 
 Once installation is complete, start Kibana and run `./bin/kibana`. You can modify Kibana's configuration via `config/kibana.yml`.
 
@@ -79,21 +79,21 @@ In this guide We'll install td-agent, the stable release of Fluentd. Please refe
 * [Ruby gem](install-by-gem)
 
 Next, we'll install the Elasticsearch plugin for Fluentd: fluent-plugin-elasticsearch.
-
 Then, install fluent-plugin-elasticsearch as follows.
 
-* td-agent v2: `/usr/sbin/td-agent-gem install fluent-plugin-elasticsearch`
-* td-agent v1: `/usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-elasticsearch`
+    $ sudo /usr/sbin/td-agent-gem install fluent-plugin-elasticsearch --no-document
 
 We'll configure td-agent (Fluentd) to interface properly with Elasticsearch. Please modify `/etc/td-agent/td-agent.conf` as shown below:
 
     :::text
+    # get logs from syslog
     <source>
       @type syslog
       port 42185
       tag syslog
     </source>
 
+    # get logs from fluent-logger, fluent-cat or other fluentd instances
     <source>
       @type forward
     </source>
@@ -127,27 +127,24 @@ Please restart the rsyslog service once the modification is complete.
 
 Once Fluentd receives some event logs from rsyslog and has flushed them to Elasticsearch, you can search the stored logs using Kibana by accessing Kibana's index.html in your browser. Here is an image example.
 
-<center><img src="/images/kibana4-screenshot.png" width="90%"/></center><br/><br/>
+<center><img src="/images/kibana5-screenshot.png" width="90%"/></center><br/><br/>
 
 To manually send logs to Elasticsearch, please use the `logger` command.
 
     :::text
     $ logger -t test foobar
 
-When debugging your td-agent configuration, using [out_copy](out_copy) + [out_stdout](out_stdout) will be useful. All the logs including errors can be found at `/etc/td-agent/td-agent.log`.
+When debugging your td-agent configuration, using [filter_stdout](filter_stdout) will be useful. All the logs including errors can be found at `/etc/td-agent/td-agent.log`.
 
     :::text
+    <filter syslog.**>
+      @type stdout
+    </filter>
+
     <match syslog.**>
-      @type copy
-      <store>
-        # for debug (see /var/log/td-agent.log)
-        @type stdout
-      </store>
-      <store>
-        @type elasticsearch
-        logstash_format true
-        flush_interval 10s # for testing
-      </store>
+      @type elasticsearch
+      logstash_format true
+      flush_interval 10s # for testing
     </match>
 
 ## Conclusion
