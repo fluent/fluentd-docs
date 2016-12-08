@@ -89,6 +89,14 @@ If true, add source host to event record. The default is `false`.
 
 Change key of source host when `include_source_host` is true. The default is `source_host`
 
+#### priority_key
+
+The field name of the priority. If set the value, the priority will be set to its key. The default is nil (no adding priority).
+
+#### facility_key
+
+The field name of the facility. If set the value, the facility will be set to its key. The default is nil (no adding facility).
+
 
 INCLUDE: _in_types
 
