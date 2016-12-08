@@ -62,6 +62,9 @@ section 'configuration', 'Configuration' do
   category 'config-file', 'Config File' do
     article 'config-file', 'Config File'
   end
+  category 'routing-examples', 'Routing Examples' do
+    article 'routing-examples', 'Routing Examples'
+  end
   category 'recipes', 'Recipes' do
     article "common-log-formats", "Parsing Common Log Formats"
     for recipe in Dir.entries("#{settings.root}/docs/v0.12").grep(/^recipe-/)
