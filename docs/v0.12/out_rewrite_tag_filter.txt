@@ -286,3 +286,32 @@ Note: These plugins are required to be installed.
     <match clear>
       @type null
     </match>
+
+## FAQ
+
+### With rewrite-tag-filter, logs are not forwarded. Why?
+
+If you have following configuration, it doesn't work:
+
+    <match app.**>
+      @type rewrite_tag_filter
+      rewriterule1 level (.+) app.$1
+    <match>
+
+    <match app.**>
+      @type forward
+      # ...
+    </match>
+
+In this case, `rewrite_tag_filter` causes infinite loop because fluentd's routing is executed from top to bottom.
+So you need to change tag like below:
+
+    <match app.**>
+      @type rewrite_tag_filter
+      rewriterule1 level (.+) level.app.$1
+    <match>
+
+    <match level.app.**>
+      @type forward
+      # ...
+    </match>
