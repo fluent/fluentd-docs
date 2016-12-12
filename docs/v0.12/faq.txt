@@ -63,6 +63,15 @@ Use `"#{ENV['YOUR_ENV_VARIABLE']}"`. For example,
 
 (Note that it must be double quotes and not single quotes)
 
+### Fluentd raises an error for `host:port`. Why?
+
+There are several reasons:
+
+* If you get `Address already in use` error, other process has already used `host:port`. Check port conflict between processes / plugins.
+* If you get `Permission denied` error, you try to use well-known port. Search `well-known port` for how to use well-known port.
+
+If you get other errors, google it.
+
 ### File buffer doesn't work properly, why?
 
 `file` buffer has limitations. Check [`buf_file` article](buf_file#limitation).
