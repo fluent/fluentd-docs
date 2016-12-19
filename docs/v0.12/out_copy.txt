@@ -62,7 +62,9 @@ Specifies the storage destinations. The format is the same as the &lt;match&gt; 
 
 INCLUDE: _log_level_params
 
-## Ignore each error
+## FAQ
+
+### How to ignore each error in \<store\>?
 
 If one `store` raises an error, it affects other `<store>`. If you want to ignore an exception from less important `<store>`,
 you can use 3rd party [out_copy_ex](https://github.com/sonots/fluent-plugin-copy_ex) instead.
