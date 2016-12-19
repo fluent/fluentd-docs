@@ -25,6 +25,8 @@ there is no limit).  The default values are 17 and false (not disabled). If the 
 The number of threads to flush the buffer. This option can be used to parallelize writes into the output(s) designated by the output plugin. Increasing the number of threads improves the flush throughput to hide write / network latency. The default is 1.
 
 ### slow_flush_log_threshold
-The threshold for checking chunk flush performance. The default value is 20.0 seconds. If chunk flush takes longer time than this threshold, fluentd logs warning message like below:
+The threshold for checking chunk flush performance. The default value is `20.0` seconds. Note that parameter type is `float`, not `time`.
+
+If chunk flush takes longer time than this threshold, fluentd logs warning message like below:
 
     2016-12-19 12:00:00 +0000 [warn]: buffer flush took longer time than slow_flush_log_threshold: elapsed_time = 15.0031226690043695 slow_flush_log_threshold=10.0 plugin_id="foo"
