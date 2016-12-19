@@ -60,3 +60,15 @@ INCLUDE: _in_parsers
 
 INCLUDE: _log_level_params
 
+## FAQ
+
+### How to prevent request drop?
+
+If in_udp gots lots of packets within 1 sec, some packets are dropped.
+For example, you can see bigger RcvbufErrors number via `netstat -su`.
+
+This means in_udp with one process can't handle such traffic.
+Try [fluent-plugin-multiprocess](https://github.com/fluent/fluent-plugin-multiprocess) to resolve the problem. See [issue 1334](https://github.com/fluent/fluentd/issues/1334) for more detail.
+
+
+
