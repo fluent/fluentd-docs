@@ -52,7 +52,7 @@ Next, please restart the agent and get the metrics via HTTP.
       ]
     }
 
-### Monitoring buffered plugin retries
+### Monitoring the number of flush retries of buffered plugin
 
 Since v0.14.11, `monitor_agent` plugin has an option `include_retry` whose value is true by default. In case of a flush failure, `monitor_agent` metrics will be similar to this:
 
