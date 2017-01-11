@@ -35,6 +35,12 @@ So if you want to release new plugin, using v0.12 API is better for now.
 
 This document based on v0.12 Plugin API.
 
+### Send a patch or fork?
+
+If you have a problem with existing plugins or new feature idea, sending a patch is better.
+If the plugin author is non-active, try to become new plugin maintainer first.
+Forking a plugin and release alternative plugin, e.g. fluent-plugin-xxx-alt, is final approach.
+
 ## Plugin versioning policy
 
 If you don't have a your policy, following semantic versioning is better.
