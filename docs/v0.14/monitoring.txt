@@ -1,0 +1,144 @@
+# Monitoring Fluentd
+
+This article explains how to monitor the `Fluentd` daemon.
+
+## Monitoring Agent
+
+Fluentd has a monitoring agent to retrieve internal metrics in JSON via HTTP. Please add the following lines to your configuration file.
+
+    :::text
+    <source>
+      @type monitor_agent
+      bind 0.0.0.0
+      port 24220
+    </source>
+
+Next, please restart the agent and get the metrics via HTTP.
+
+    :::term
+    $ curl http://host:24220/api/plugins.json
+    {
+      "plugins":[
+        {
+          "plugin_id":"object:3fec669d6ac4",
+          "type":"forward",
+          "output_plugin":false,
+          "config":{
+            "type":"forward"
+          }
+        },
+        {
+          "plugin_id":"object:3fec669dfa48",
+          "type":"monitor_agent",
+          "output_plugin":false,
+          "config":{
+            "type":"monitor_agent",
+            "port":"24220"
+          }
+        },
+        {
+          "plugin_id":"object:3fec66aead48",
+          "type":"forward",
+          "output_plugin":true,
+          "buffer_queue_length":0,
+          "buffer_total_queued_size":0,
+          "retry_count":0,
+          "config":{
+            "type":"forward",
+            "host":"192.168.0.11"
+          },
+          "retry":{}
+        }
+      ]
+    }
+
+### Monitoring the number of flush retries of buffered plugin
+
+Since v0.14.11, `monitor_agent` plugin has an option `include_retry` whose value is true by default. In case of a flush failure, `monitor_agent` metrics will be similar to this:
+
+    :::term
+    $ curl http://host:24220/api/plugins.json
+    {
+      "plugins":[
+        {
+          "plugin_id":"object:3fec669d6ac4",
+          "type":"forward",
+          "output_plugin":false,
+          "config":{
+            "type":"forward"
+          }
+        },
+        {
+          "plugin_id":"object:3fec669dfa48",
+          "type":"monitor_agent",
+          "output_plugin":false,
+          "config":{
+            "type":"monitor_agent",
+            "port":"24220"
+          }
+        },
+        {
+          "plugin_id":"object:3fec66aead48",
+          "type":"forward",
+          "output_plugin":true,
+          "buffer_queue_length":1,
+          "buffer_total_queued_size":0,
+          "retry_count":2,
+          "config":{
+            "type":"forward",
+            "host":"192.168.0.11"
+          },
+          "retry":{
+            "start":"2016-12-27 07:36:14 +0700",
+            "steps":1,
+            "next_time":"2016-12-27 07:37:16 +0700"
+          }
+        }
+      ]
+    }
+
+After successful flush, `retry` will become empty.
+
+### Reuse plugins
+
+Since v0.12.17, `monitor_agent` plugin has `tag` parameter. If you set `tag monitor.metrics`, `monitor_agent` plugin emits internal metrics to `monitor.metrics` tag. Here is an example with `stdout` output.
+
+    :::term
+    2015-09-16 20:28:19 +0900 monitor.metrics: {"plugin_id":"object:3fc62f0e5d64","plugin_category":"input","type":"monitor_agent","output_plugin":false,"retry_count":null}
+    2015-09-16 20:28:19 +0900 monitor.metrics: {"plugin_id":"object:3fc62f0e9c84","plugin_category":"output","type":"stdout","output_plugin":true,"retry_count":null}
+
+## Process Monitoring
+
+Two `ruby` processes (parent and child) are executed. Please make sure that these processes are running. The example for `td-agent` is shown below.
+
+    :::term
+    /opt/td-agent/embedded/bin/ruby /usr/sbin/td-agent
+      --daemon /var/run/td-agent/td-agent.pid
+      --log /var/log/td-agent/td-agent.log
+
+For td-agent on Linux, you can check the process statuses with the following command. Two processes should be shown if there are no issues.
+
+    $ ps w -C ruby -C td-agent --no-heading
+    32342 ?        Sl     0:00 /opt/td-agent/embedded/bin/ruby /usr/sbin/td-agent --daemon /var/run/td-agent/td-agent.pid --log /var/log/td-agent/td-agent.log
+    32345 ?        Sl     0:01 /opt/td-agent/embedded/bin/ruby /usr/sbin/td-agent --daemon /var/run/td-agent/td-agent.pid --log /var/log/td-agent/td-agent.log
+
+## Port Monitoring
+
+Fluentd opens several ports according to the configuration file. We recommend checking the availability of these ports. The default port settings are shown below:
+
+* TCP 0.0.0.0 9880 (HTTP by default)
+* TCP 0.0.0.0 24224 (Forward by default)
+
+### Debug Port
+
+A debug port for local communication is recommended for trouble shooting. Please note that the configuration below will be required.
+
+    :::text
+    <source>
+      @type debug_agent
+      bind 127.0.0.1
+      port 24230
+    </source>
+
+You can attach the process using the `fluent-debug` command through dRuby.
+
