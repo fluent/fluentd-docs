@@ -57,6 +57,8 @@ You can specify the `-p` option more than once.
 
 Fluentd adds the `/etc/fluent/plugin` directory to its load path by default. Thus, any additional plugins that are placed in `/etc/fluent/plugin` will be loaded automatically.
 
+For example, if `/etc/fluent/plugin/out_foo.rb` exists, you can use `@type foo` in `<match>`.
+
 ### If Using td-agent, Use /etc/td-agent/plugin
 
 If you are using td-agent, Fluentd uses the `/etc/td-agent/plugin` directory instead of `/etc/fluent/plugin`. Please put your plugins here instead.
