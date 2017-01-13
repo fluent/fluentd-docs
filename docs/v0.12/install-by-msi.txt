@@ -1,0 +1,92 @@
+# Installing Fluentd using .msi Installer (Windows)
+
+This article explains how to install td-agent, the stable Fluentd distribution package maintained by [Treasure Data, Inc](http://www.treasuredata.com/), on Windows.
+
+NOTE: <b>Windows version is in 'alpha' release stage</b>, and needs a lot of testing from the community. Please report if you encounter any problems.
+
+## What is td-agent?
+
+Fluentd is written in Ruby for flexibility, with performance sensitive parts written in C. However, casual users may have difficulty installing and operating a Ruby daemon.
+
+That's why [Treasure Data, Inc](http://www.treasuredata.com/) is providing **the stable distribution of Fluentd**, called `td-agent`. The differences between Fluentd and td-agent can be found [here](http://www.fluentd.org/faqs).
+
+For Windows, we're using the OS native .msi Installer to distribute td-agent.
+
+## Step1: Install td-agent
+
+Please download the `.msi` file from here, and install the software.
+
+- [Download](https://td-agent-package-browser.herokuapp.com/3/windows)
+
+## Step2: Run td-agent from Command Prompt
+
+First, please prepare your config file located at `C:/opt/td-agent/conf/td-agent.conf`. The config below is the simplest example to output any incoming records to td-agent's log file.
+
+    :::xml
+    <source>
+      @type forward
+    </source>
+    <match test.**>
+      @type stdout
+    </match>
+
+After you've installed .msi package, you'll see the program called `Td-agent Command Prompt` installed. Please double click this icon in the Windows menu (below is how it looks like on Windows Server 2012).
+
+<img src="/images/msi-td-agent-command-prompt.png" />
+
+In the prompt, please execute the command below to launch td-agent process.
+
+    :::command
+    > fluentd -c conf\td-agent.conf
+
+Then, please launch another `Td-agent Command Prompt` and type the command below. This will send a record to td-agent process.
+
+    :::command
+    > echo {"message":"hello"} | fluent-cat test.event
+
+It's working properly if td-agent process outputs the message `test.foo: {"k", "v"}`.
+
+<a href="/images/td-agent-windows-prompt.png">
+ <img src="/images/td-agent-windows-prompt.png" />
+</a>
+
+## Step3: Register td-agent to Windows service
+
+Next, let's register td-agent to Windows service to permanently run as a server process. Please execute `Td-agent Command Prompt` again, and type the two commands below.
+
+    :::term
+    > fluentd --reg-winsvc i
+    > fluentd --reg-winsvc-fluentdopt '-c C:/opt/td-agent/conf/td-agent.conf -o C:/opt/td-agent/td-agent.log'
+
+## Step4: Run td-agent as Windows service
+
+Please guide yourself to `Control Panel -> System and Security -> Administrative Tools -> Services`, and you'll see `Fluentd Windows Service` is listed.
+
+Please double click `Fluentd Window Service`, and click `Start` button. Then the process will be executed as Windows Service.
+
+The log file will be located at `C:/opt/td-agent/td-agent.log` as we specified in Step 3.
+
+## Step5: Install Plugins
+
+Open `Td-agent Command Prompt` and use `fluent-gem` command.
+
+    :::term
+    > fluent-gem install fluent-plugin-xyz --version=1.2.3
+
+## Next Steps
+
+You're now ready to collect your real logs using Fluentd. Please see the following tutorials to learn how to collect your data from various data sources.
+
+  * Basic Configuration
+    * [Config File](config-file)
+  * Application Logs
+    * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
+  * Examples
+    * [Store Apache Log into Amazon S3](apache-to-s3)
+    * [Store Apache Log into MongoDB](apache-to-mongodb)
+    * [Data Collection into HDFS](http-to-hdfs)
+
+Please refer to the resources below for further steps.
+
+* [ChangeLog of td-agent](http://docs.treasuredata.com/articles/td-agent-changelog)
+* [Chef Cookbook](https://github.com/treasure-data/chef-td-agent/)
