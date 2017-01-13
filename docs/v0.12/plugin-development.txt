@@ -259,7 +259,7 @@ Extend the **Fluent::Output** class and implement the following methods. **Outpu
         def emit(tag, es, chain)
           chain.next
           es.each {|time,record|
-            $stderr.puts "OK!"
+            log.info "OK!"
           }
         end
       end
@@ -364,6 +364,7 @@ Here is the code to parse this custom format (let's call it `time_key_value`). I
 
           config_param :delimiter, :string, :default => " " # delimiter is configurable with " " as default
           config_param :time_format, :string, :default => nil # time_format is configurable
+
           # This method is called after config_params have read configuration parameters
           def configure(conf)
             super
@@ -432,13 +433,12 @@ Here is an example of a custom formatter that outputs events as CSVs. It takes a
           Plugin.register_formatter("my_csv", self)
 
           include HandleTagAndTimeMixin # If you wish to use tag_key, time_key, etc.          
-          config_param :csv_fields, :string
+          config_param :csv_fields, :array, value_type: :string
 
           # This method does further processing. Configuration parameters can be
           # accessed either via "conf" hash or member variables.
           def configure(conf)
             super
-            @csv_fields = conf['csv_fields'].split(",")
           end
 
           # This is the method that formats the data output.
