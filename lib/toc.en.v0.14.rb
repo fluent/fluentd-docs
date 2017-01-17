@@ -9,6 +9,7 @@ section 'overview', 'Overview' do
     # article 'install-by-rpm', 'Installing Fluentd using RPM Package (Redhat Linux)'
     # article 'install-by-deb', 'Installing Fluentd using DEB Package (Debian / Ubuntu Linux)'
     # article 'install-by-dmg', 'Installing Fluentd using .dmg Package (MacOS X)'
+    article 'install-by-msi', 'Installing Fluentd using .msi Package (Windows)'
     article 'install-by-gem', 'Installing Fluentd using Ruby Gem'
     # article 'install-by-chef', 'Installing Fluentd using Chef'
     article 'install-from-source', 'Installing Fluentd from Source'
