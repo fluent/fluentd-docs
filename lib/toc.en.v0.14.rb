@@ -6,8 +6,8 @@ section 'overview', 'Overview' do
   end
   category 'installation', 'Installation' do
     article 'before-install', 'Before Installing Fluentd'
-    # article 'install-by-rpm', 'Installing Fluentd using RPM Package (Redhat Linux)'
-    # article 'install-by-deb', 'Installing Fluentd using DEB Package (Debian / Ubuntu Linux)'
+    article 'install-by-rpm', 'Installing Fluentd using RPM Package (Redhat Linux)'
+    article 'install-by-deb', 'Installing Fluentd using DEB Package (Debian / Ubuntu Linux)'
     # article 'install-by-dmg', 'Installing Fluentd using .dmg Package (MacOS X)'
     article 'install-by-msi', 'Installing Fluentd using .msi Package (Windows)'
     article 'install-by-gem', 'Installing Fluentd using Ruby Gem'

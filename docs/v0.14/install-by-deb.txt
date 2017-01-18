@@ -1,0 +1,70 @@
+# Installing Fluentd Using deb Package
+
+This article explains how to install the [td-agent](https://docs.treasuredata.com/articles/td-agent) deb package, the stable Fluentd distribution package maintained by [Treasure Data, Inc](http://www.treasuredata.com/).
+
+INCLUDE: _what_is_td_agent
+
+## Step 0: Before Installation
+
+Please follow the [Preinstallation Guide](before-install) to configure your OS properly. This will prevent many unnecessary problems.
+
+## Step 1 : Install from Apt Repository
+
+For Ubuntu, we currently support "Ubuntu 16.04 LTS / Xenial 64bit", "Ubuntu 14.04 LTS / Trusty 64bit".
+
+A shell script is provided to automate the installation process for each version. The shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
+
+For Xenial,
+
+    :::term
+    curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-xenial-td-agent3.sh | sh
+
+For Trusty,
+
+    :::term
+    curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent3.sh | sh
+
+NOTE: It's HIGHLY recommended that you set up <b>ntpd</b> on the node to prevent invalid timestamps in your logs.
+
+## Step2: Launch Daemon
+
+The `/etc/init.d/td-agent` script is provided to start, stop, or restart the agent.
+
+    $ /etc/init.d/td-agent restart
+    $ /etc/init.d/td-agent status
+    td-agent (pid  21678) is running...
+
+The following commands are supported:
+
+    :::term
+    $ /etc/init.d/td-agent start
+    $ /etc/init.d/td-agent stop
+    $ /etc/init.d/td-agent restart
+    $ /etc/init.d/td-agent status
+
+Please make sure **your configuration file** is located at `/etc/td-agent/td-agent.conf`.
+
+## Step3: Post Sample Logs via HTTP
+
+By default, `/etc/td-agent/td-agent.conf` is configured to take logs from HTTP and route them to stdout (`/var/log/td-agent/td-agent.log`). You can post sample log records using the curl command.
+
+    :::term
+    $ curl -X POST -d 'json={"json":"message"}' http://localhost:8888/debug.test
+
+## Next Steps
+
+You're now ready to collect your real logs using Fluentd. Please see the following tutorials to learn how to collect your data from various data sources.
+
+  * Basic Configuration
+    * [Config File](config-file)
+  * Application Logs
+    * [Ruby](ruby), [Java](java), [Python](python), [PHP](php), [Perl](perl), [Node.js](nodejs), [Scala](scala)
+  * Examples
+    * [Store Apache Log into Amazon S3](apache-to-s3)
+    * [Store Apache Log into MongoDB](apache-to-mongodb)
+    * [Data Collection into HDFS](http-to-hdfs)
+
+Please refer to the resources below for further steps.
+
+* [ChangeLog of td-agent](http://docs.treasuredata.com/articles/td-agent-changelog)
+* [Chef Cookbook](https://github.com/treasure-data/chef-td-agent/)

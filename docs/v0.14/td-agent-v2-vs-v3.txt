@@ -1,0 +1,42 @@
+# td-agent v2 vs. td-agent v3
+
+## Supported Platforms
+
+[Treasure Data, Inc.](http://www.treasuredata.com) maintains stable packages for Fluentd and canonical plugins as Treasure Agent (the package is called `td-agent`). td-agent has v2 and v3. td-agent v2 is current stable for the production and v3 is beta version for testing ruby 2.4 and fluetnd v0.14 serise.
+
+<table>
+	<th>
+		<td>v2</td><td>v3</td>
+	</th>
+	<tr><td>RedHat/CentOS 5</td><td>&#10003;</td><td></td></tr>
+	<tr><td>RedHat/CentOS 6/7</td><td>&#10003;</td><td>&#10003;</td></tr>
+	<tr><td>Ubuntu Precise</td><td>&#10003;</td><td></td></tr>
+	<tr><td>Ubuntu Trusty</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td>Ubuntu Xenial</td><td>&#10003;</td><td>&#10003;</td></tr>
+	<tr><td>Debian Wheezy</td><td>&#10003;</td><td></td></tr>
+       	<tr><td>Debian Jessie</td><td>&#10003;</td><td></td></tr>
+	<tr><td>MacOSX</td><td>&#10003;</td><td></td></tr>
+       	<tr><td>Windows</td><td></td><td>&#10003;</td></tr>
+</table>
+
+## Features
+
+Major feature updates to td-agent v3 are as follows.
+
+- Ruby 2.4
+- Fluentd v0.14
+- Updated for the core libraries, msgpack, Cool.io, etc.
+- Windows support
+- Drop older distributions and non-popular plugins
+
+## td-agent v3 is still the beta version
+
+Fluentd v0.14 is still development version, so td-agent 3 is also not stable. After fluentd v0.14 becomes stable, td-agent 3 will become "stable".
+
+**If using Fluentd/td-agent for the first time/a new project, td-agent v2 is strongly recommended.**
+
+##How to Install
+
+* [Ubuntu/Debian](install-by-deb)
+* [RedHat/CentOS](install-by-rpm)
+* [MacOSX](install-by-dmg)

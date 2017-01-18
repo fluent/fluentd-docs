@@ -12,9 +12,11 @@
 	<tr><td>RedHat/CentOS 7</td><td></td><td>&#10003;</td></tr>
 	<tr><td>Ubuntu Lucid</td><td>&#10003;</td><td>&#10003;</td></tr>
 	<tr><td>Ubuntu Precise</td><td>&#10003;</td><td>&#10003;</td></tr>
-	<tr><td>Ubuntu Trusty (only 64 bit for now)</td><td></td><td>&#10003;</td></tr>
+	<tr><td>Ubuntu Trusty</td><td></td><td>&#10003;</td></tr>
+        <tr><td>Ubuntu Xenial</td><td></td><td>&#10003;</td></tr>
 	<tr><td>Debian Squeeze</td><td></td><td>&#10003;</td></tr>
 	<tr><td>Debian Wheezy</td><td></td><td>&#10003;</td></tr>
+       	<tr><td>Debian Jessie</td><td></td><td>&#10003;</td></tr>
 	<tr><td>MacOSX</td><td></td><td>&#10003;</td></tr>
 </table>
 
@@ -23,6 +25,7 @@
 Major feature updates to td-agent v2 are as follows.
 
 - Ruby 2.1
+- Fluentd v0.12
 - Updated for the core libraries, msgpack, Cool.io, etc.
 - Changed the installation directory from `/usr/{lib,lib64}/fluent` to `/opt/td-agent`
 - `td-agent-gem` utility command was added
