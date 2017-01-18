@@ -41,4 +41,4 @@ Fluentd v0.14 is still development version, so td-agent 3 is also not stable. Af
 
 * [Ubuntu/Debian](install-by-deb)
 * [RedHat/CentOS](install-by-rpm)
-* [MacOSX](install-by-dmg)
+* [Windows](install-by-msi)
