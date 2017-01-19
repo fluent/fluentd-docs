@@ -26,6 +26,7 @@
 Major feature updates to td-agent v3 are as follows.
 
 - Ruby 2.4
+  - Note: msi package now uses ruby 2.3 due to windows related gems don't work with ruby 2.4
 - Fluentd v0.14
 - Updated for the core libraries, msgpack, Cool.io, etc.
 - Windows support
