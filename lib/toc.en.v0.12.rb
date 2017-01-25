@@ -114,7 +114,7 @@ section 'deployment', 'Deployment' do
     article 'fluentd-ui', 'Fluentd UI'
   end
   category 'command-line-option', 'Command Line Option' do
-    article 'command-line-option', 'Fluentd command line option'
+    article 'command-line-option', 'Fluentd commands and options'
   end
 end
 section 'plugin', 'Input Plugins' do
