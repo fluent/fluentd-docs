@@ -50,6 +50,8 @@ end
 $DEFAULT_LANGUAGE = 'en'
 $DEFAULT_VERSION = 'v0.12'
 $DEPRECATED_VERSIONS = ['v0.10']
+$ALL_VERSIONS = ['v0.14', 'v0.12', 'v0.10']
+$TD_AGENT_VERSIONS = {'v0.14' => 'td-agent3', 'v0.12' => 'td-agent2', 'v0.10' => 'td-agent1'}
 
 #
 # For table-of-content
@@ -106,21 +108,6 @@ unless ENV['RACK_ENV'] == 'test'
 end
 
 #
-# OLD URL REDIRECTS
-#
-get '/articles/architecture' do
-  redirect 'http://www.fluentd.org/architecture', 301
-end
-
-get '/articles/users' do
-  redirect 'http://www.fluentd.org/testimonials', 301
-end
-
-get '/articles/slides' do
-  redirect 'http://www.fluentd.org/slides', 301
-end
-
-#
 # PATHS
 #
 get '/' do
@@ -134,31 +121,22 @@ end
 
 get '/sitemap.xml' do
   @article_names = []
-  $TOCS[$DEFAULT_VERSION].sections.each { |_, _, categories|
-    categories.each { |_, _, articles|
-      articles.each { |name, _, _|
-        @article_names << name
+  $ALL_VERSIONS.each { |version|
+    $TOCS[version].sections.each { |_, _, categories|
+      categories.each { |_, _, articles|
+        articles.each { |name, _, _|
+          @article_names << [version, name]
+        }
       }
     }
   }
-
   content_type 'text/xml'
   erb :sitemap, :layout => false
 end
 
-get '/search' do
-  @version_num = @article_name = @category_name = @query_string = nil
-  @query_string = params[:q]
-  page = params[:page].to_i
-  search, prev_page, next_page = search_for(params[:q], page)
-  erb :search, :locals => {:search => search, :query => params[:q], :prev_page => prev_page, :next_page => next_page}
-end
-
 get '/categories/:category' do
-  @version_num = @article_name = @category_name = @query_string = nil
   @category_name = params[:category]
-  cache_long
-  render_category params[:category]
+  redirect "/#{$DEFAULT_VERSION}/categories/#{@category_name}", 301
 end
 
 get %r{/(v\d+\.\d+)/categories/(\S+)} do |version, category|
@@ -166,25 +144,12 @@ get %r{/(v\d+\.\d+)/categories/(\S+)} do |version, category|
   @version_num = version
   @category_name = category
   cache_long
-  render_category category, ver: version
-end
-
-get '/recipe/apache/:data_sink' do
-  redirect "/recipe/apache-logs/#{params[:data_sink]}", 301
-end
-
-get '/recipe/:data_source/:data_sink' do
-  params[:article] = "recipe-#{params[:data_source]}-to-#{params[:data_sink]}"
-  puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
-  redirect "/articles/#{params[:article]}", 301
+  render_category category, version
 end
 
 get '/articles/:article' do
-  @version_num = @article_name = @category_name = @query_string = nil
   @article_name = params[:article]
-  puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
-  cache_long
-  render_article params[:article]
+  redirect "/#{$DEFAULT_VERSION}/articles/#{@article_name}", 301
 end
 
 get %r{/(v\d+\.\d+)/articles/(\S+)} do |version, article|
@@ -193,7 +158,7 @@ get %r{/(v\d+\.\d+)/articles/(\S+)} do |version, article|
   @article_name = article
   puts "@[#{ENV['RACK_ENV']}.articles] #{{ name: article }.to_json}"
   cache_long
-  render_article article, ver: version
+  render_article article, version
 end
 
 helpers do
@@ -205,9 +170,8 @@ helpers do
     end
   end
 
-  def render_category(category, ver: nil)
+  def render_category(category, ver)
     @article_version_specified = !ver.nil?
-    ver ||= $DEFAULT_VERSION
     @article_version = ver
 
     @articles = []
@@ -225,14 +189,7 @@ helpers do
 
     if @articles.length == 1
       article_name = @articles.first.first
-      redirect_path = if /^recipe-/.match(article_name)
-                        article_name.split("-", 3).join("/")
-                      elsif ver == $DEFAULT_VERSION
-                        "/articles/#{article_name}"
-                      else
-                        "/#{ver}/articles/#{article_name}"
-                      end
-      redirect redirect_path, 301
+      redirect "/#{ver}/articles/#{article_name}", 301
     elsif !@articles.empty?
       @articles
       erb :category
@@ -243,11 +200,9 @@ helpers do
     status 404
   end
 
-  def render_article(article, ver: nil)
+  def render_article(article, ver)
     @article_version_specified = !ver.nil?
-    ver ||= $DEFAULT_VERSION
-
-    @default_url = "/articles/#{article}"
+    @default_url = "/#{$DEFAULT_VERSION}/articles/#{article}"
     @filepath = article_file(article, ver)
     @has_default_version = File.exists?(article_file(article, $DEFAULT_VERSION))
 
@@ -272,7 +227,7 @@ helpers do
     @intro   = @article.intro
     @toc     = @article.toc
     @body    = @article.body
-    @available_versions = $LAST_UPDATED.keys.select{|v| $LAST_UPDATED[v].has_key?(article) }.sort
+    @available_versions = $LAST_UPDATED.keys.select{|v| $LAST_UPDATED[v].has_key?(article) }.sort.reverse
     @current_version = $DEFAULT_VERSION
     @article_version = ver
     @deprecated_article_version = $DEPRECATED_VERSIONS.include?(@article_version)
@@ -309,21 +264,6 @@ helpers do
     nil
   end
 
-  def find_keywords(article, category, ver = $DEFAULT_VERSION)
-    default = ['Fluentd', 'log collector']
-    sections(ver).each { |_, _, categories|
-      categories.each { |category_name, _, articles|
-        return default + [category_name] if category_name == category
-        articles.each { |article_name, title, keywords|
-          if article_name == article
-            return default + [title] + keywords
-          end
-        }
-      }
-    }
-    default
-  end
-
   def sections(ver)
     v = ver.nil? ? $DEFAULT_VERSION : ver
     $TOCS[v].sections
@@ -331,21 +271,6 @@ helpers do
 
   def next_section(current_slug, root=sections($DEFAULT_VERSION))
     nil
-  end
-
-  def search_for(query, page = 0)
-    client = IndexTank::Client.new(ENV['SEARCHIFY_API_URL'])
-    index = client.indexes('td-docs')
-    search = index.search(query, :start => page * 10, :len => 10, :fetch => 'title', :snippet => 'text')
-    next_page =
-        if search['matches'] > (page + 1) * 10
-          page + 1
-        end
-    prev_page =
-        if page > 0
-          page - 1
-        end
-    [search, prev_page, next_page]
   end
 
   alias_method :h, :escape_html

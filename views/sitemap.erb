@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.google.com/schemas/sitemap/0.84">
   <url>
-    <loc>http://docs.fluentd.org/</loc>
+    <loc>https://docs.fluentd.org/</loc>
     <lastmod><%= Time.now.strftime("%Y-%m-%d") %></lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
-  <% @article_names.each do |article| %>
-    <% if File.exist?("#{settings.root}/docs/#{prefix}#{article}.txt") %>
-      <url>
-    <% if /^recipe-/.match(article) %>
-        <loc>http://docs.fluentd.org/<%=prefix %><%= article.gsub("recipe-", "recipe/").gsub("-to-", "/") %></loc>
-    <% else %>
-        <loc>http://docs.fluentd.org/<%=prefix %>articles/<%= article %></loc>
-    <% end %>
-        <lastmod><%= File::mtime("#{settings.root}/docs/#{prefix}#{article}.txt").strftime("%Y-%m-%d") %></lastmod>
-        <changefreq>daily</changefreq>
-        <priority>0.8</priority>
-      </url>
+  <% @article_names.each do |version, article| %>
+    <% if File.exist?("#{settings.root}/docs/#{version}/#{article}.txt") %>
+    <url>
+      <loc>https://docs.fluentd.org/<%=version %>/articles/<%= article %></loc>
+      <lastmod><%= File::mtime("#{settings.root}/docs/#{version}/#{article}.txt").strftime("%Y-%m-%d") %></lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.8</priority>
+    </url>
     <% end %>
   <% end %>
 </urlset>
