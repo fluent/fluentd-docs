@@ -10,7 +10,7 @@ Let's get started with **Fluentd**! **Fluentd** is a fully free and fully open-s
 
 Fluentd treats logs as JSON, a popular machine-readable format. It is written primarily in C with a thin-Ruby wrapper that gives users flexibility.
 
-Fluentd's performance has been proven in the field: its largest user currently collects logs from **5000+ servers**, 5 TB of daily data, handling 50,000 msgs/sec at peak time.
+Fluentd's scalability has been proven in the field: its largest user currently collects logs from **50,000+ servers**.
 
 ## Step1: Installing Fluentd
 
