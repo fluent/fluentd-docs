@@ -163,15 +163,10 @@ end
 
 helpers do
   def link_to(page)
-    if @article_version_specified
-      "/#{@article_version}" + page
-    else
-      page
-    end
+    "/#{@article_version}" + page
   end
 
   def render_category(category, ver)
-    @article_version_specified = !ver.nil?
     @article_version = ver
 
     @articles = []
@@ -201,7 +196,6 @@ helpers do
   end
 
   def render_article(article, ver)
-    @article_version_specified = !ver.nil?
     @default_url = "/#{$DEFAULT_VERSION}/articles/#{article}"
     @filepath = article_file(article, ver)
     @has_default_version = File.exists?(article_file(article, $DEFAULT_VERSION))
@@ -220,14 +214,14 @@ helpers do
 
     doc_path = File.dirname(@filepath)
 
-    @article = Article.load(article, $IO_CACHE[@filepath], doc_path, specified_document_version: @article_version_specified && ver)
+    @article = Article.load(article, $IO_CACHE[@filepath], doc_path, specified_document_version: ver)
     @title   = @article.title
     @desc    = @article.desc
     @content = @article.content
     @intro   = @article.intro
     @toc     = @article.toc
     @body    = @article.body
-    @available_versions = $LAST_UPDATED.keys.select{|v| $LAST_UPDATED[v].has_key?(article) }.sort.reverse
+    @available_versions = $ALL_VERSIONS
     @current_version = $DEFAULT_VERSION
     @article_version = ver
     @deprecated_article_version = $DEPRECATED_VERSIONS.include?(@article_version)
@@ -252,7 +246,7 @@ helpers do
     title.downcase.gsub(/[^a-z0-9 -]/, '').gsub(/ /, '-')
   end
 
-  def find_category(article, ver = $DEFAULT_VERSION)
+  def find_category(article, ver)
     return nil if article.nil?
     sections(ver).each { |_, _, categories|
       categories.each { |category_name, _, articles|
@@ -265,8 +259,7 @@ helpers do
   end
 
   def sections(ver)
-    v = ver.nil? ? $DEFAULT_VERSION : ver
-    $TOCS[v].sections
+    $TOCS[ver].sections
   end
 
   def next_section(current_slug, root=sections($DEFAULT_VERSION))

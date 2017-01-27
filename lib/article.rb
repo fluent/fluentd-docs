@@ -10,7 +10,7 @@ class Article
     self
   end
 
-  def self.load(topic, source, prefix, specified_document_version: nil)
+  def self.load(topic, source, prefix, specified_document_version)
     topic = new(topic, source, prefix)
     topic.specified_document_version = specified_document_version
     topic.parse

@@ -9,13 +9,7 @@
   <h2>Articles</h2>
   <% @articles.each do |name, title, _| %>
     <ul class="articles results">
-      <li>
-      <% if /^recipe-/.match(name) %>
-        <a href="<%= link_to "/#{ name.gsub("recipe-", "recipe/").gsub("-to-", "/") }" %>"><%= title %></a>
-      <% else %>
-        <a href="<%= link_to "/articles/#{slugify(name)}" %>"><%= title %></a>
-      <% end %>
-      </li>
+      <li><a href="<%= link_to "/articles/#{slugify(name)}" %>"><%= title %></a></li>
     </ul>
   <% end %>
 </div>
