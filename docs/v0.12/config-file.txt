@@ -161,6 +161,8 @@ then `myapp.access` is never matched. Wider match patterns should be defined aft
       @type blackhole_plugin
     </match>
 
+Of course, if you use two same patterns, second `match` is never matched.
+
 If you want to send events to multiple outputs, consider [out_copy](out_copy) plugin.
 
 ## (3) "filter": Event processing pipeline
