@@ -313,6 +313,8 @@ Here is the implementation of the most basic filter that passes through all even
 
 In `initialize`, `configure`, `start` and `shutdown`, `super` should be called to call Filter plugin default behaviour.
 
+See [Writing Input plugins](/articles/plugin-development#writing-input-plugins) section for the details of `tag`, `time` and `record`.
+
 ### filter_stream method
 
 Almost plugins could be implemented by overriding `filter` method. But if you want to mutate the event stream itself, you can override `filter_stream` method.
