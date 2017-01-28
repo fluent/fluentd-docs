@@ -35,7 +35,15 @@
   });
   var activeNav = false;
   </script>
-  <script src="//cdn.optimizely.com/js/75134705.js"></script>
+
+  <script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  _st('install','ByEiskaip9Hbrt-jAdTA','2.0.0');
+  </script>
+
   <!-- Treasure Data -->
   <script type="text/javascript">
     !function(t,e){if(void 0===e[t]){e[t]=function(){e[t].clients.push(this),this._init=[Array.prototype.slice.call(arguments)]},e[t].clients=[];for(var r=function(t){return function(){return this["_"+t]=this["_"+t]||[],this["_"+t].push(Array.prototype.slice.call(arguments)),this}},s=["addRecord","set","trackEvent","trackPageview","ready"],n=0;n<s.length;n++){var i=s[n];e[t].prototype[i]=r(i)}var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=("https:"===document.location.protocol?"https:":"http:")+"//s3.amazonaws.com/td-cdn/sdk/td-1.2.0.js";var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(a,c)}}("Treasure",this);
@@ -85,21 +93,9 @@
             <div id="search">
               <form>
                 <p>
-                  <input id="st-search-input" name="q" placeholder="search" required="required" type="text" style="background-color: white; color: black;" value="<%=h @query_string || '' %>" />
+                  <input class="st-default-search-input" name="q" type="text" value="<%=h @query_string || '' %>" />
                 </p>
               </form>
-<script type="text/javascript">
-var Swiftype = window.Swiftype || {};
-  (function() {
-    Swiftype.key = 'fxqyKZ6ijDifm8yjw2an';
-
-    /** DO NOT EDIT BELOW THIS LINE **/
-    var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-    script.src = "//s.swiftypecdn.com/embed.js";
-    var entry = document.getElementsByTagName('script')[0];
-    entry.parentNode.insertBefore(script, entry);
-  }());
-</script>
             </div>
           </section>
           <select id="quicknav">
