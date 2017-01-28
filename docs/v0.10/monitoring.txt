@@ -88,3 +88,12 @@ A debug port for local communication is recommended for trouble shooting. Please
 
 You can attach the process using the `fluent-debug` command through dRuby.
 
+## Datadog (dd-agent) Integration
+
+[Datadog](https://www.datadoghq.com/) is a cloud monitoring service, and its monitoring agent `dd-agent` has native integration with Fluentd.
+
+<img src="http://docs.datadoghq.com/static/images/snapshot-fluentd.png" />
+
+Please refer this documentation for more details.
+
+- [Datadog-Fluentd Integration](http://docs.datadoghq.com/integrations/fluentd/)
