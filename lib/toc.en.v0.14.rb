@@ -60,8 +60,8 @@ end
 #   end
 # end
 # section 'configuration', 'Configuration' do
-#   category 'config-file', 'Config File' do
-#     article 'config-file', 'Config File'
+#   category 'config-file', 'Config File Syntax' do
+#     article 'config-file', 'Config File Syntax'
 #   end
 #   category 'recipes', 'Recipes' do
 #     article "common-log-formats", "Parsing Common Log Formats"

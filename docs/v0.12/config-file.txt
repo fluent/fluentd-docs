@@ -1,6 +1,6 @@
-# Configuration File
+# Configuration File Syntax
 
-This article describes the basic concepts of Fluentd's configuration file.
+This article describes the basic concepts of Fluentd's configuration file syntax.
 
 If you want to know V1 configuration format, please jump to [V1 Format](config-file#v1-format) section.
 

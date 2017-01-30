@@ -64,8 +64,8 @@ section 'usecases', 'Use Cases' do
   end
 end
 section 'configuration', 'Configuration' do
-  category 'config-file', 'Config File' do
-    article 'config-file', 'Config File'
+  category 'config-file', 'Config File Syntax' do
+    article 'config-file', 'Config File Syntax'
   end
   category 'routing-examples', 'Routing Examples' do
     article 'routing-examples', 'Routing Examples'
