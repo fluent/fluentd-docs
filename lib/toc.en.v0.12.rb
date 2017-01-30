@@ -6,6 +6,7 @@ section 'overview', 'Overview' do
   end
   category 'installation', 'Installation' do
     article 'before-install', 'Before Installing Fluentd'
+    article 'install-by-docker', 'Installing Fluentd with Docker'
     article 'install-by-rpm', 'Installing Fluentd using RPM Package (Redhat Linux)'
     article 'install-by-deb', 'Installing Fluentd using DEB Package (Debian / Ubuntu Linux)'
     article 'install-by-dmg', 'Installing Fluentd using .dmg Package (MacOS X)'
