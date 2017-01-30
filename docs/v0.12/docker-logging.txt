@@ -133,7 +133,7 @@ Filtered events:
 
 ## Driver options
 
-The Fluentd logging driver support more options through the _--log-opt_ Docker command line argument:
+The [Fluentd logging driver](https://docs.docker.com/engine/admin/logging/fluentd/) support more options through the _--log-opt_ Docker command line argument:
 
 - fluentd-address
 - fluentd-tag

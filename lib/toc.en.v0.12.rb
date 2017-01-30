@@ -28,13 +28,13 @@ section 'usecases', 'Use Cases' do
     article 'docker-logging-efk-compose', 'Collect Docker Logs via EFK (Elasticsearch + Fluentd + Kibana) with Docker Compose'
   end
   category 'logging-from-apps', 'Centralized App Logging' do
-    article 'ruby',   'Import Logs from Ruby Applications'
-    article 'python', 'Import Logs from Python Applications'
-    article 'php',    'Import Logs from PHP Applications'
-    article 'perl',   'Import Logs from Perl Applications'
-    article 'nodejs', 'Import Logs from Node.js Applications'
-    article 'java',   'Import Logs from Java Applications'
-    article 'scala',   'Import Logs from Scala Applications'
+    article 'java',   'Centralize Logs from Java Applications'
+    article 'ruby',   'Centralize Logs from Ruby Applications'
+    article 'python', 'Centralize Logs from Python Applications'
+    article 'php',    'Centralize Logs from PHP Applications'
+    article 'perl',   'Centralize Logs from Perl Applications'
+    article 'nodejs', 'Centralize Logs from Node.js Applications'
+    article 'scala',   'Centralize Logs from Scala Applications'
   end
   category 'log-management-and-search', 'Log Management & Search' do
     article 'free-alternative-to-splunk-by-fluentd', 'Free Alternative to Splunk by Fluentd + Elasticsearch', ['Splunk', 'Free Alternative']

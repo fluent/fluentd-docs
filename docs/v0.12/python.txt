@@ -1,4 +1,4 @@
-# Data Import from Python Applications
+# Centralize Logs from Python Applications
 
 The '[fluent-logger-python](http://github.com/fluent/fluent-logger-python)', library is used to post records from Python applications to Fluentd.
 
