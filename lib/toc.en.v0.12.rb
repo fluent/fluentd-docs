@@ -24,6 +24,7 @@ section 'overview', 'Overview' do
 end
 section 'usecases', 'Use Cases' do
   category 'container-logging', 'Container Logging' do
+    article 'docker-logging', 'Docker Logging Driver and Fluentd'
     article 'docker-logging-efk-compose', 'Collect Docker Logs via EFK (Elasticsearch + Fluentd + Kibana) with Docker Compose'
   end
   category 'logging-from-apps', 'Centralized App Logging' do
