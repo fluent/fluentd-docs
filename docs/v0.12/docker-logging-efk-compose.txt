@@ -69,7 +69,7 @@ With the YAML file below, you can create and start all the services (in this cas
         ports:
           - "5601:5601"
 
-`logging` section of `web` container specifies [Docker Fluentd Logging Driver](https://docs.docker.com/engine/admin/logging/fluentd/) as a default container logging mechanism. All of the logs from `web` container will be automatically forwarded to host:port specified by `fluentd-address`.
+`logging` section (check [Docker Compose documentation](https://docs.docker.com/compose/compose-file/#/logging)) of `web` container specifies [Docker Fluentd Logging Driver](https://docs.docker.com/engine/admin/logging/fluentd/) as a default container logging driver. All of the logs from `web` container will be automatically forwarded to host:port specified by `fluentd-address`.
 
 ## Step 1: Prepare Fluentd image with your Config + Plugin
 
