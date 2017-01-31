@@ -183,6 +183,78 @@ If the plugin uses ``<store>`` sections and instantiates plugins per each store 
 
 Otherwise, your plugin does something curious for Fluentd. Read code of ``lib/fluent/plugin/output.rb`` and ``lib/fluent/plugin/bare_output.rb``, and consider which is better for your plugin. But it is strongly unrecommended to use ``Fluent::Plugin::BareOutput`` for most use cases.
 
+### Output plugins using mixins
+
+#### Fluent::HandleTagAndTimeMixin, Fluent::SetTagKeyMixin, Fluent::SetTimeKeyMixin
+
+Use `inject` and `compat_parameters` plugin helper in plugin code.
+
+Old configuration will be converted to new style configuration automatically if plugin code uses proper plugin helpers.
+So plugin users will not need to rewrite configuration immediately.
+
+Fluentd shows converted new style configuration in startup log if user provides old style configuration.
+User can rewrite configuration refer to the log.
+
+Before:
+```
+<match **>
+  @type some_output
+  include_tag_key true
+  tag_key tag
+  include_time_key true
+  time_key time
+  time_format %Y-%m-%d
+</match>
+```
+
+After:
+```
+<match **>
+  @type some_output
+  <inject>
+    tag_key tag
+    time_key time
+    time_format %Y-%m-%d
+  </inject>
+</match>
+```
+
+#### Fluent::HandleTagNameMixin
+
+Related configurations:
+
+* `remove_tag_prefix`
+* `remove_tag_suffix`
+* `add_tag_prefix`
+* `add_tag_suffix`
+
+Use `extract_placeholders(template, chunk.metadata)` in plugin code.
+
+Use placeholders `${tag}, ${tag[0]}, ${tag[1]}` in configuration.
+
+Before:
+```
+<match input.access>
+  @type some_output
+  remove_tag_prefix input.
+  tag               some.${tag}
+  <record>
+    ...
+  </record>
+</match>
+```
+
+After:
+```
+<match input.access>
+  @type some_output
+  tag some.${tag[1]}
+  <record>
+    ...
+  </record>
+</match>
+```
+
 ### Parser plugins
 
 TODO: write
