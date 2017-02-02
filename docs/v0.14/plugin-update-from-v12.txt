@@ -196,6 +196,7 @@ Fluentd shows converted new style configuration in startup log if user provides 
 User can rewrite configuration refer to the log.
 
 Before:
+
 ```
 <match **>
   @type some_output
@@ -208,6 +209,7 @@ Before:
 ```
 
 After:
+
 ```
 <match **>
   @type some_output
@@ -233,6 +235,7 @@ Use `extract_placeholders(template, chunk.metadata)` in plugin code.
 Use placeholders `${tag}, ${tag[0]}, ${tag[1]}` in configuration.
 
 Before:
+
 ```
 <match input.access>
   @type some_output
@@ -245,6 +248,7 @@ Before:
 ```
 
 After:
+
 ```
 <match input.access>
   @type some_output
