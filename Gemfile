@@ -5,7 +5,7 @@ ruby '2.4.0'
 
 gem 'sinatra', '1.3.6'
 gem 'sinatra-assetpack', '0.3.5', :require => 'sinatra/assetpack'
-gem 'rdiscount', '1.6.8'
+gem 'rdiscount', '~> 2.2.0'
 gem 'rest-client', '1.2.0'
 gem 'sass'
 gem 'haml'
