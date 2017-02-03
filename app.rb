@@ -238,6 +238,10 @@ helpers do
     end
   end
 
+  def article_file_exists?(article, ver)
+    File.exists?(article_file(article, ver))
+  end
+
   def cache_long
     response['Cache-Control'] = "public, max-age=#{60 * 60 * 6}" unless development?
   end
