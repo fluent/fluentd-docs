@@ -16,7 +16,9 @@ Please download and install [Docker](https://www.docker.com/) from here.
 Then, please download Fluentd v0.12's image by `docker pull` command.
 
     :::term
-    $ docker pull fluent/fluentd:v0.12
+    $ docker pull fluent/fluentd:v0.12-debian
+
+NOTE: Debian and Alpine Linux version is available for Fluentd image. Debian version is recommended officially since it has jemalloc support, however Alpine image is smaller.
 
 ## Step 2: Launch Fluentd Container
 

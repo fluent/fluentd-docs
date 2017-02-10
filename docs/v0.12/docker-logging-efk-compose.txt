@@ -77,7 +77,7 @@ Then, please prepare `fluentd/Dockerfile` with the following content, to use Flu
 
     :::docker
     # fluentd/Dockerfile
-    FROM fluent/fluentd:v0.12
+    FROM fluent/fluentd:v0.12-debian
     RUN ["gem", "install", "fluent-plugin-elasticsearch", "--no-rdoc", "--no-ri", "--version", "1.9.2"]
 
 Then, please prepare Fluentd's configuration file `fluentd/conf/fluent.conf`. [in_forward](in_forward) plugin is used for receive logs from Docker logging driver, and out_elasticsearch is for forwarding logs to Elasticsearch.
