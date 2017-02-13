@@ -24,10 +24,6 @@ section 'overview', 'Overview' do
   end
 end
 section 'usecases', 'Use Cases' do
-  category 'container-logging', 'Container Logging' do
-    article 'docker-logging', 'Docker Logging Driver and Fluentd'
-    article 'docker-logging-efk-compose', 'Collect Docker Logs via EFK (Elasticsearch + Fluentd + Kibana) with Docker Compose'
-  end
   category 'logging-from-apps', 'Centralized App Logging' do
     article 'java',   'Centralize Logs from Java Applications'
     article 'ruby',   'Centralize Logs from Ruby Applications'
@@ -120,6 +116,20 @@ section 'deployment', 'Deployment' do
   end
   category 'command-line-option', 'Command Line Option' do
     article 'command-line-option', 'Fluentd commands and options'
+  end
+end
+section 'continer-deployment', 'Container Deployment' do
+  category 'install-by-docker', 'Docker Image' do
+    article 'install-by-docker', 'Installing Fluentd with Docker'
+  end
+  category 'docker-logging-driver', 'Docker Logging Driver' do
+    article 'docker-logging', 'Docker Logging Driver and Fluentd'
+  end
+  category 'docker-compose', 'Docker Compose' do
+    article 'docker-logging-efk-compose', 'Collect Docker Logs via EFK (Elasticsearch + Fluentd + Kibana) with Docker Compose'
+  end
+  category 'kubernetes', 'Kubernetes' do
+    article 'kubernetes-fluentd', 'Kubernetes Logging with Fluentd'
   end
 end
 section 'plugin', 'Input Plugins' do
