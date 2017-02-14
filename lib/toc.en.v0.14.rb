@@ -240,6 +240,12 @@ section 'filter-plugins', 'Filter Plugins' do
     article 'filter_stdout', 'stdout Filter Plugin'
   end
 end
+section 'common-sections', 'Common Sections' do
+  category 'plugin-common-parameters', 'Common Parameters' do
+    article 'plugin-common-parameters', 'Common Parameters'
+  end
+end
+
 section 'parser-plugins', 'Parser Plugins' do
   category 'parser-plugin-overview', 'Overview' do
     article 'parser-plugin-overview', 'Parser Plugin Overview'
