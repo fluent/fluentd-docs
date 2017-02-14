@@ -260,6 +260,7 @@ section 'developer', 'Developer' do
     article 'plugin-development', 'Plugin Development'
     # article 'plugin-helper-overview', 'Plugin Helper Overview'
     article 'plugin-update-from-v12', 'Updating plugins from v0.12 to v0.14' # TODO: add article file
+    article 'plugin-test-code', 'Writing Plugin Test Code'
   end
   category 'plugin-apis', 'Plugin API details' do
     article 'api-plugin-input', 'Writing Input Plugins'

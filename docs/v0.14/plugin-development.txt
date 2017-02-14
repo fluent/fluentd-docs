@@ -1,7 +1,5 @@
 # Writing plugins
 
-NOTE: This page is simply copied from LINK(v0.12):[v0.12 documents](/articles/plugin-development), and will be updated later.
-
 ## Installing custom plugins
 
 To install a plugin, please put the ruby script in the ``/etc/fluent/plugin`` directory.
@@ -30,7 +28,36 @@ NOTE: This slide is based on Fluentd v0.12. There are many difference between v0
 
 ## Writing plugins
 
-TBD
+NOTE: This section should be updated when Fluentd provides LINK:[plugin generator](https://github.com/fluent/fluentd/pull/1427).
+
+To create a plugin as a ruby script (to put it on ``/etc/fluent/plugin``), just write a ``<TYPE>_<NAME>.rb`` file by editor, IDE or anything you prefer.
+
+    :::ruby
+    # in_my_awesome.rb
+    require 'fluent/plugin/input'
+    
+    module Fluent
+      module Plugin
+        class MyAwesomeInput < Input
+          Fluent::Plugin.register_input('my_awesome', self) # for "@type my_awesome" in configuration
+          
+          def configure(conf)
+            super
+          end
+          
+          def start
+            super
+            # ...
+          end
+        end
+      end
+    end
+
+See the LINK:[Plugin API details](/categories/plugin-apis) for what should be written / API details of each plugin types.
+
+Single ruby script is easy to write, but hard to test, to manage versions and to publish it. If you want to publish a plugin uder version control, you should use ``bundle gem`` to create the plugin source tree and init it as git repository (it requires ``bundler`` gem in your ruby environment): ``bundle gem fluent-plugin-my_awesome``. It generates source code directory tree under ``lib``, the simple ``fluent-plugin-my_awesome.gemspec`` file, ``README.md`` and some other files.
+
+Fluentd plugin projects use a bit different code tree under ``lib`` from typical ruby projects. Take care about to keep ``lib/fluent/plugin/<TYPE>_<NAME>.rb`` paths.
 
 ## Debugging plugins
 
@@ -104,9 +131,28 @@ Fluentd provides unit test frameworks for plugins:
     Fluent::Test::Driver::Filter
       Test driver for filter plugins
 
-Please see Fluentd's source code for details.
+Fluentd core project strongly recommends to use ``test-unit`` as a unit test library. Fluentd's test drivers assume that the test code uses it. Add ``test-unit`` into the development dependency in your gemspec, add Rake task to run tests in your Rakefile and write test code in ``test/plugin/test_in_my_awesome.rb``.
 
-TODO: This section will be updated with detailed guide and APIs.
+    :::ruby
+    # in gemspec
+    Gem::Specification.new do |gem|
+      gem.name = "fluent-plugin-my_awesome"
+      # ...
+      gem.add_runtime_dependency     "fluentd"
+      gem.add_development_dependency "test-unit"
+    end
+    
+    # in Rakefile
+    require 'rake/testtask'
+      Rake::TestTask.new(:test) do |test|
+      test.libs << 'lib' << 'test'
+      test.pattern = 'test/**/test_*.rb'
+      test.verbose = true
+    end
+
+Then, run ``bundle exec rake test`` to run all tests in your test code.
+
+See LINK:[Writing Plugin Test Code](/article/plugin-test-code) for more details about writing tests.
 
 ## Further Reading
 
