@@ -1,0 +1,5 @@
+# System Configuration
+
+This article describes Fluentd's system configuraitons configured via ``<system>`` section and command line options.
+
+TBD

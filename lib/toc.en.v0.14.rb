@@ -78,6 +78,9 @@ end
 #   end
 # end
 section 'deployment', 'Deployment' do
+  category 'system-config', 'System Configuration' do
+    article 'system-config', 'System Configuration'
+  end
   category 'logging', 'Logging' do
     article 'logging', 'Logging'
   end
@@ -215,17 +218,6 @@ section 'output-plugins', 'Output Plugins' do
   #   article 'out_others', 'Other Output Plugins'
   # end
 end
-section 'buffer-plugins', 'Buffer Plugins' do
-  category 'buffer-plugin-overview', 'Overview' do
-    article 'buffer-plugin-overview', 'Buffer Plugin Overview'
-  end
-  # category 'buf_memory', 'buf_memory' do
-  #   article 'buf_memory', 'memory Buffer Plugin'
-  # end
-  # category 'buf_file', 'buf_file' do
-  #   article 'buf_file', 'file Buffer Plugin'
-  # end
-end
 section 'filter-plugins', 'Filter Plugins' do
   category 'filter-plugin-overview', 'Overview' do
     article 'filter-plugin-overview', 'Filter Plugin Overview'
@@ -244,6 +236,15 @@ section 'common-sections', 'Common Sections' do
   category 'plugin-common-parameters', 'Common Parameters' do
     article 'plugin-common-parameters', 'Common Parameters'
   end
+  category 'plugin-helper-sections', 'Sections' do
+    article 'buffer-section', 'Buffer section'
+    article 'parse-section', 'Parse section'
+    article 'format-section', 'Format section'
+    article 'inject-section', 'Inject section'
+    article 'extract-section', 'Extract section'
+    article 'storage-section', 'Storage section'
+    article 'transport-section', 'Transport section'
+  end
 end
 
 section 'parser-plugins', 'Parser Plugins' do
@@ -255,6 +256,17 @@ section 'formatter-plugins', 'Formatter Plugins' do
   category 'formatter-plugin-overview', 'Overview' do
     article 'formatter-plugin-overview', 'Formatter Plugin Overview'
   end
+end
+section 'buffer-plugins', 'Buffer Plugins' do
+  category 'buffer-plugin-overview', 'Overview' do
+    article 'buffer-plugin-overview', 'Buffer Plugin Overview'
+  end
+  # category 'buf_memory', 'buf_memory' do
+  #   article 'buf_memory', 'memory Buffer Plugin'
+  # end
+  # category 'buf_file', 'buf_file' do
+  #   article 'buf_file', 'file Buffer Plugin'
+  # end
 end
 section 'storage-plugins', 'Storage Plugins' do
   category 'storage-plugin-overview', 'Overview' do
