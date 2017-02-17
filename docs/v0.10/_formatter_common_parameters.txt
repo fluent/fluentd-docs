@@ -1,6 +1,6 @@
 * **include_time_key** (Boolean, Optional, defaults to false)
   If true, the time field (as specified by the `time_key` parameter) is kept in the record.
-* **time_key** (String, xOptional, defaults to "time")
+* **time_key** (String, Optional, defaults to "time")
   The field name for the time key.
 * **time_format** (String. Optional)
   By default, the output format is iso8601 (e.g. "2008-02-01T21:41:49"). One can specify their own format with this parameter. 
