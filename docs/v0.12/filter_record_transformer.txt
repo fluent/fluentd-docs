@@ -82,7 +82,7 @@ So, if an event with the tag "web.auth" and record `{"user_id":1, "status":"ok"}
 
 ## Parameters
 
-### <record> directive
+### &lt;record&gt; directive
 
 Parameters inside `<record>` directives are considered to be new key-value pairs:
 
@@ -99,6 +99,7 @@ For NEW_FIELD and NEW_VALUE, a special syntax `${}` allows the user to generate 
 - `tag_suffix[N]` refers to the last N parts of the tag. It works like the usual zero-based array accessor.
 - `tag` refers to the whole tag.
 - `time` refers to stringanized event time.
+- `hostname` refers to machine's hostname. The actual value is result of [Socket.gethostname](https://docs.ruby-lang.org/en/trunk/Socket.html#method-c-gethostname).
 
 ### enable_ruby (optional)
 
