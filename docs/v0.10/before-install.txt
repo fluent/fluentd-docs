@@ -22,6 +22,13 @@ If your console shows `1024`, it is insufficient. Please add following lines to 
     * soft nofile 65536
     * hard nofile 65536
 
+This `65536` is safer value for large deployment. The required number of file descriptors depends on your fluentd plugins and setting. Here are the estimation examples:
+
+- in_tail: The number of watching files
+- in_forward: The number of incoming access
+- buf_file: The number of buffer chunks. It is configured via [buffer parameters](/articles/buffer-plugin-overview)
+- output: The used file descriptors are less than others. Temporary file for upload, connection pooling in the client library, etc
+
 ## Optimize Network Kernel Parameters
 
 For high load environments consisting of many Fluentd instances, please add these parameters to your `/etc/sysctl.conf` file. Please either type `sysctl -p` or reboot your node to have the changes take effect. If your environment doesn't have a problem with TCP_WAIT, then these changes are not needed.
