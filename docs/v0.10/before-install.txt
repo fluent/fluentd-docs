@@ -26,7 +26,7 @@ This `65536` is safer value for large deployment. The required number of file de
 
 - in_tail: The number of watching files
 - in_forward: The number of incoming access
-- buf_file: The number of buffer chunks. It is configured via [buffer parameters](/articles/buffer-plugin-overview)
+- buf_file: The number of buffer chunks. It is configured via [buffer parameters](buffer-plugin-overview)
 - output: The used file descriptors are less than others. Temporary file for upload, connection pooling in the client library, etc
 
 ## Optimize Network Kernel Parameters
