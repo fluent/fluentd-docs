@@ -1,4 +1,189 @@
 # Buffer section configurations
 
-TBD: The whole page is to be written.
+Fluentd's output plugins support the ``<buffer>`` section to specify how to buffer events (handled by Fluentd core), and other parameters for buffer plugins.
+
+## Buffer section overview
+
+Buffer section must be in ``<match>`` sections. It's enabled for output plugins which supports buffered output features.
+
+    <match tag.*>
+      @type file
+      
+      # ... parameters for output plugin
+      
+      <buffer>
+        # buffer section parameters ...
+      </buffer>
+      
+      # <buffer> section can be configured just once
+    </match>
+
+## buffer plugin type
+
+``<buffer>`` section accepts ``@type`` parameter to specify the type of buffer plugin. Fluentd core bundles ``memory`` and ``file`` plugins. 3rd party plugins are also available when installed.
+
+    <buffer>
+      @type file
+    </buffer>
+
+``@type`` can be omitted. When ``@type`` parameter is not configured, the default buffer plugin specified by output plugin will be used (if possible), or ``memory`` buffer plugin in default.
+
+## Chunk keys
+
+Output plugins create buffer chunks by gathering events. Chunk keys, specified as argument of ``<buffer>`` section, controls how to gather events into chunks.
+
+    <buffer ARGUMENT_CHUNK_KEYS>
+      # ...
+    </buffer>
+
+The valid value of argument chunk keys is comma-separated strings, or blank.
+
+### Blank chunk keys
+
+When the blank chunk keys is specified (and output plugin doesn't specify default chunk keys), output plugin writes all matched events into a chunk, until its size becomes full.
+
+    <match tag.**>
+      # ...
+      <buffer>
+        # ...
+      </buffer>
+    </match>
+    
+    # No chunk keys: All events will be appended into the same chunk.
+    
+    11:59:30 web.access {"key1":"yay","key2":100}  --|
+                                                     |
+    12:00:01 web.access {"key1":"foo","key2":200}  --|---> CHUNK_A
+                                                     |
+    12:00:25 ssh.login  {"key1":"yay","key2":100}  --|
+
+### Tag
+
+When ``tag`` is specified as buffer chunk key, output plugin writes events into chunks separately per tags. Events with different tags will be written in different chunks.
+
+    <match tag.**>
+      # ...
+      <buffer tag>
+        # ...
+      </buffer>
+    </match>
+    
+    # Tag chunk key: events will be separated per tags
+    
+    11:59:30 web.access {"key1":"yay","key2":100}  --|
+                                                     |---> CHUNK_A
+    12:00:01 web.access {"key1":"foo","key2":200}  --|
+    
+    12:00:25 ssh.login  {"key1":"yay","key2":100}  ------> CHUNK_B
+
+### Time
+
+When ``time`` and ``timekey`` in buffer section(required) are specified, output plugin writes events into chunks separately per time key. Time key is calculated as ``time(unix time) / timekey(seconds)``.
+
+For example:
+
+* timekey   60: ``["12:00:00", ..., "12:00:59"]``, ``["12:01:00", ..., "12:01:59"]``, ...
+* timekey  180: ``["12:00:00", ..., "12:02:59"]``, ``["12:03:00", ..., "12:05:59"]``, ...
+* timekey 3600: ``["12:00:00", ..., "12:59:59"]``, ``["13:00:00", ..., "13:59:59"]``, ...
+
+So the events will be separated into chunks by time range, and will be flushed (to be written) by output plugin after expiration for the time key range.
+
+    <match tag.**>
+      # ...
+      <buffer time>
+        timekey      1h # chunks per hours ("3600" also available)
+        timekey_wait 5m # 5mins delay for flush ("300" also available)
+      </buffer>
+    </match>
+    
+    # Time chunk key: events will be separated for hours (by timekey 3600)
+    
+    11:59:30 web.access {"key1":"yay","key2":100}  ------> CHUNK_A
+                                                     
+    12:00:01 web.access {"key1":"foo","key2":200}  --|
+                                                     |---> CHUNK_B
+    12:00:25 ssh.login  {"key1":"yay","key2":100}  --|
+
+``timekey_wait`` is to determine when the chunks will be flushed. The event time is normally delayed time from current timestamp, so Fluentd will wait to flushing buffer chunks for delayed events. Delay is configured via ``timekey_wait``.
+For example, the figure below shows when the chunks (timekey: 3600) will be flushed actually, for some ``timekey_wait`` values. The default value of ``timekey_wait`` is 600 (10minutes).
+
+     timekey: 3600
+     -------------------------------------------------------
+     time range for chunk | timekey_wait | actual flush time
+      12:00:00 - 12:59:59 |           0s |          13:00:00
+      12:00:00 - 12:59:59 |     60s (1m) |          13:01:00
+      12:00:00 - 12:59:59 |   600s (10m) |          13:10:00
+
+### Other keys
+
+When the other (non-time/tag) keys are specified, these are handled as field names of records. The output plugin will separate events into chunks by the value of these fields.
+
+    <match tag.**>
+      # ...
+      <buffer key1>
+        # ...
+      </buffer>
+    </match>
+    
+    # Chunk keys: events will be separated by values of "key1"
+    
+    11:59:30 web.access {"key1":"yay","key2":100}  --|---> CHUNK_A
+                                                     |
+    12:00:01 web.access {"key1":"foo","key2":200}  -)|(--> CHUNK_B
+                                                     |
+    12:00:25 ssh.login  {"key1":"yay","key2":100}  --|
+
+### Combination of chunk keys
+
+Buffer chunk keys can be specified 2 or more keys - events will be separated into chunks by the combination of values of chunk keys.
+
+    # <buffer tag,time>
+    
+    11:58:01 ssh.login  {"key1":"yay","key2":100}  ------> CHUNK_A
+                                                 
+    11:59:13 web.access {"key1":"yay","key2":100}  --|
+                                                     |---> CHUNK_B
+    11:59:30 web.access {"key1":"yay","key2":100}  --|
+                                                 
+    12:00:01 web.access {"key1":"foo","key2":200}  ------> CHUNK_C
+                                                  
+    12:00:25 ssh.login  {"key1":"yay","key2":100}  ------> CHUNK_D
+
+There are no solid limitation about the number of chunk keys, but too many chunk keys may degrade the I/O performance and/or increase the total resource usage.
+
+## Placeholders
+
+When the chunk keys are specified, these values can be extracted in configuration parameter values. It depends on whether the plugin applies a method (``extract_placeholders``) on configuration values or not.
+
+This example is about ``file`` output plugin (file output plugin applies ``extract_placeholders`` on ``path``).
+
+    # chunk_key: tag
+    # ${tag} will be replaced with actual tag string
+    <match log.*>
+      @type file
+      path  /data/${tag}/access.log  #=> "/data/log.map/access.log"
+      <buffer tag>
+        # ...
+      </buffer>
+    </match>
+
+For timekey in buffer chunk keys, that time value can be extracted using ``strptime`` placeholders. The extracted time value is the first second of the timekey range.
+
+    # chunk_key: tag and time
+    # ${tag[1]} will be replaced with 2nd part of tag ("map" of "log.map"), zero-origin index
+    # %Y, %m, %d, %H, %M, %S: strptime placeholder are available when "time" chunk key specified
+    <match log.*>
+      @type file
+      path  /data/${tag[1]/access.%Y-%m-%d.%H%M.log #=> "/data/map/access.2017-02-28.20:48.log"
+      <buffer tag,time>
+        timekey 1m
+      </buffer>
+    </match>
+
+Any keys specified in chunk keys are acceptable. If keys not in chunk keys were specified, Fluentd raises configuration errors for it.
+
+## Parameters
+
+TBD
+
 
