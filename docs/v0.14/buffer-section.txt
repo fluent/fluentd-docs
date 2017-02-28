@@ -174,7 +174,7 @@ For timekey in buffer chunk keys, that time value can be extracted using ``strpt
     # %Y, %m, %d, %H, %M, %S: strptime placeholder are available when "time" chunk key specified
     <match log.*>
       @type file
-      path  /data/${tag[1]/access.%Y-%m-%d.%H%M.log #=> "/data/map/access.2017-02-28.20:48.log"
+      path  /data/${tag[1]}/access.%Y-%m-%d.%H%M.log #=> "/data/map/access.2017-02-28.20:48.log"
       <buffer tag,time>
         timekey 1m
       </buffer>
@@ -182,8 +182,93 @@ For timekey in buffer chunk keys, that time value can be extracted using ``strpt
 
 Any keys specified in chunk keys are acceptable. If keys not in chunk keys were specified, Fluentd raises configuration errors for it.
 
+    <match log.*>
+      @type file
+      path  /data/${tag}/access.${key1}.log #=> "/data/log.map/access.yay.log"
+      <buffer tag,key1>
+        # ...
+      </buffer>
+    </match>
+
 ## Parameters
 
-TBD
+### Argument
+
+Argument is an array of chunk keys, comma-separated strings. Blank is also available.
+
+    <buffer>
+      # ...
+    </buffer>
+    
+    <buffer tag, time, key1>
+      # ...
+    </buffer>
+
+``tag`` and ``time`` are of tag and time, not field names of records. Others are to refer fields of records.
+
+When ``time`` is specified, parameters below are available:
+
+* ``timekey`` [time]
+  * Required (no default value)
+* ``timekey_wait`` [time]
+* ``timekey_use_utc`` [bool]
+* ``timekey_zone`` [string]
+
+### @type
+
+``@type`` key is to specify the type of buffer plugin. The default type is ``memory`` of bare output plugin, but it may be overwritten by output plugin implementations. For example: the default buffer plugin is ``file`` buffer plugin for ``file`` output plugin.
+
+    <buffer>
+      @type file
+      # ...
+    </buffer>
+
+### Buffering parameters
+
+These parameters below are to configure buffer plugins and its chunks.
+
+* ``chunk_limit_size`` [size]
+  * Default: 8MB (memory) / 256MB (file)
+  * The max size of each chunks: events will be written into chunks until the size of chunks become this size
+* ``chunk_limit_records`` [integer]
+  * Optional
+  * The max number of events that each chunks can store in it
+* ``total_limit_size`` [size]
+  * Default: 512MB (memory) / 64GB (file)
+  * The size limitation of this buffer plugin instance
+  * Once the total size of stored buffer reached this threshold, all append operations will fail with error (and data will be lost)
+* ``chunk_full_threshold`` [float]
+  * Default: 0.95
+  * The percentage of chunk size threshold for flushing
+  * output plugin will flush the chunk when actual size reaches ``chunk_size_limit * chunk_full_threshold (== 8MB * 0.95 in default)``
+* ``compress`` [enum: text/gzip]
+  * Default: text
+  * The option to specify compression of each chunks, during events are buffered
+  * ``text`` means no compression, and ``gzip`` compression for it
+
+### Flushing parameters
+
+These parameters are to configure how to flush chunks to optimize performance (latency and throughput).
+
+* ``flush_at_shutdown`` [bool]
+* ``flush_mode`` [enum: default/lazy/interval/immediate]
+* ``flush_interval`` [time]
+* ``flush_thread_count`` [integer]
+* ``flush_thread_interval`` [float]
+* ``flush_thread_burst_interval`` [float]
+* ``delayed_commit_timeout`` [time]
+* ``overflow_action`` [enum: throw\_exception/block/drop\_oldest\_chunk]
+
+### Retries parameters
+
+* ``retry_forever``
+* ``retry_timeout``
+* ``retry_max_times``
+* ``retry_secondary_threshold``
+* ``retry_type``
+* ``retry_wait``
+* ``retry_exponential_backoff_base``
+* ``retry_max_interval``
+* ``retry_randomize``
 
 
