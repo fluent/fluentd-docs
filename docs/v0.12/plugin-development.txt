@@ -89,6 +89,7 @@ Extend the **Fluent::Input** class and implement the following methods. In `init
         # This method is called when shutting down.
         # Shutdown the thread and close sockets or files here.
         def shutdown
+          super
           ...
         end
       end
