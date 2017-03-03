@@ -374,10 +374,12 @@ You can check your configuration without plugins start by specifying `--dry-run`
 
 This section describes useful features in configuration format.
 
-### Multi line support for array and hash values
+### Multi line support for " quoted string, array and hash values
 
-You can write multi line value for array and hash values.
+You can write multi line value for `"` quoted string, array and hash values.
 
+    str_param "foo  # This line is converted to "foo\nbar". NL is kept in the parameter
+    bar"
     array_param [
       "a", "b"
     ]
@@ -413,8 +415,7 @@ It causes the different behaviour between v0.12 and old format in v0.10.
 
     str_param "foo"
 
-- In v0.12, str_param is `foo`
-- In v0.10 without `--use-v1-config`, str_param is `"foo"`
+str_param is `foo`.
 
 ### Embedded Ruby code
 
