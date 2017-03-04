@@ -2,7 +2,7 @@
 
 This article explains how to install td-agent, the stable Fluentd distribution package maintained by [Treasure Data, Inc](http://www.treasuredata.com/), on Windows.
 
-NOTE: <b>Windows version is in 'alpha' release stage</b>, and needs a lot of testing from the community. Please report if you encounter any problems.
+NOTE: <b>Windows version is in 'beta' release stage</b>, and needs a lot of testing from the community. Please report if you encounter any problems.
 
 ## What is td-agent?
 
