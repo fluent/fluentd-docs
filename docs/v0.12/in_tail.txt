@@ -106,6 +106,15 @@ INCLUDE: _in_types
 ### time_format
 The format of the time field. This parameter is required only if the format includes a ‘time’ capture and it cannot be parsed automatically. Please see [Time#strftime](http://www.ruby-doc.org/core-1.9.3/Time.html#method-i-strftime) for additional information.
 
+### path_key
+Add watching file path to `path_key` field.
+
+    :::text
+    path /path/to/access.log
+    path_key tailed_path
+
+With this config, generated events are like `{"tailed_path":"/path/to/access.log","k1":"v1",...,"kN":"vN"}`.
+
 ### rotate_wait
 in_tail actually does a bit more than `tail -F` itself. When rotating a file, some data may still need to be written to the old file as opposed to the new one.
 
