@@ -122,6 +122,9 @@ section 'plugin', 'Input Plugins' do
   category 'input-plugin-overview', 'Overview' do
     article 'input-plugin-overview', 'Input Plugin Overview'
   end
+  category 'in_windows_eventlog', 'in_windows_eventlog' do
+    article 'in_windows_eventlog', 'Windows Event Log Input Plugin'
+  end
   # category 'in_udp', 'in_udp' do
   #   article 'in_udp', 'UDP Input Plugin'
   # end

@@ -1,0 +1,73 @@
+# windows_eventlog Input Plugin
+
+The `in_windows_eventlog` Input plugin allows Fluentd to read events from the Windows Event Log.
+
+## Installation
+
+`in_windows_eventlog` is included in td-agent 3 msi by default. Fluentd gem users will need to install the `fluent-plugin-windows-eventlog` gem using the following command.
+
+    :::term
+    $ fluent-gem install fluent-plugin-windows-eventlog
+
+## Example Configuration
+
+    :::text
+    <source>
+      @type windows_eventlog
+      channels application,system,security
+      pos_file C:\temp/fluentd-windows-eventlog.pos
+      tag winevt.raw
+    </source>
+
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+
+### Event example
+
+Here are generated event examples. `in_windows_eventlog` set corresponding channel to `channel` field.
+
+    :::text
+    # system
+    {"channel":"system","record_number":"40432","time_generated":"2017-03-07 09:15:39 +0000","time_written":"2017-03-07 09:15:39 +0000","event_id":"7036","event_type":"information","event_category":"0","source_name":"Service Control Manager","computer_name":"WIN-7IMHK7EQ5T3","user":"","description":"The Windows Installer service entered the stopped state.\r\n"}
+    # security
+    {"channel":"security","record_number":"26735","time_generated":"2017-03-07 09:14:43 +0000","time_written":"2017-03-07 09:14:43 +0000","event_id":"4726","event_type":"audit_success","event_category":"13824","source_name":"Microsoft-Windows-Security-Auditing","computer_name":"WIN-7IMHK7EQ5T3","user":"","description":"A user account was deleted.\r\n\r\nSubject:\r\n\tSecurity ID:\t\tS-1-5-21-1367273608-854253166-2945741587-500\r\n\tAccount Name:\t\tAdministrator\r\n\tAccount Domain:\t\tWIN-7IMHK7EQ5T3\r\n\tLogon ID:\t\t0x39e29\r\n\r\nTarget Account:\r\n\tSecurity ID:\t\tS-1-5-21-1367273608-854253166-2945741587-1004\r\n\tAccount Name:\t\tabc\r\n\tAccount Domain:\t\tWIN-7IMHK7EQ5T3\r\n\r\nAdditional Information:\r\n\tPrivileges\t-\r\n"}
+
+## Parameters
+
+### @type (required)
+The value must be `windows_eventlog`.
+
+### tag (required)
+The tag of the event.
+
+### channels
+The event log channels to read. Multiple channels can be specified, separated by ‘' or array type
+
+    :::text
+    # , separated
+    channels application,system,security
+    # array
+    channels ["application", "system", "security"]
+
+Default is `["application"]`.
+
+### read_interval
+The interval of reading windowd event log. Default is `2` seconds.
+
+### pos_file (highly recommended)
+This parameter is highly recommended. Fluentd will record the position it last read into this file.
+
+    :::text
+    pos_file C:\temp/fluentd-windows-eventlog.pos
+
+NOTE: Don't share pos_file between `in_windows_eventlog` configurations. It causes unexpected behavior, e.g. corrupt pos_file content.
+
+## FAQ
+
+### in_windows_eventlog can't read `setup` or `security` events, why?
+
+You need administrator privilege to read these channels. Launch fluentd/td-agent as an administrator.
+
+## Further Reading
+This page doesn't describe all the possible configurations. If you want to know about other configurations, please check the link below.
+
+- [fluent-plugin-windows-eventlog repository](https://github.com/fluent/fluent-plugin-windows-eventlog)
