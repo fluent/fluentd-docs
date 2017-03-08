@@ -14,9 +14,14 @@ The `in_windows_eventlog` Input plugin allows Fluentd to read events from the Wi
     :::text
     <source>
       @type windows_eventlog
+      @id windows_eventlog
       channels application,system,security
-      pos_file C:\temp/fluentd-windows-eventlog.pos
       tag winevt.raw
+      <storage>
+        @type local
+        persistent true
+        path C:\opt\td-agent\winevt.pos
+      </storage>
     </source>
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
@@ -53,13 +58,26 @@ Default is `["application"]`.
 ### read_interval
 The interval of reading windowd event log. Default is `2` seconds.
 
-### pos_file (highly recommended)
-This parameter is highly recommended. Fluentd will record the position it last read into this file.
+### <storage>
+`<storage>` section is the configuration for storage plugin.
+`in_windows_eventlog` plugin uses storage plugin for recording the position it last read into this file.
+
+The default is using local file. If you want to use on memory storage, set `persistent false`.
 
     :::text
-    pos_file C:\temp/fluentd-windows-eventlog.pos
+    <storage>
+      persistent false
+    </storage>
 
-NOTE: Don't share pos_file between `in_windows_eventlog` configurations. It causes unexpected behavior, e.g. corrupt pos_file content.
+If you set `root_dir` in `<section>` and set `@id` in plugin configuration,
+`path` parameter is automatically generated. If not, you need to set `path` in `<storage>` section.
+
+    :::text
+    <storage>
+      persistent true
+      path C:\opt\td-agent\winevt.pos # This is required when persistent is true.
+                                      # Or, use <system> section's root_dir parameter.      
+    </storage>
 
 ## FAQ
 
