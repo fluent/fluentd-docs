@@ -1,7 +1,5 @@
 # Quickstart Guide
 
-NOTE: This page is simply copied from LINK(v0.12):[v0.12 documents](/articles/quickstart), and will be updated later.
-
 Let's get started with **Fluentd**! **Fluentd** is a fully free and fully open-source log collector that instantly enables you to have a '**Log Everything**' architecture with <a href="http://fluentd.org/plugin/">125+ types of systems</a>.
 
 <center>
@@ -22,8 +20,6 @@ Please follow the installation/quickstart guides below that matches your environ
 * [Install Fluentd by Ruby Gem](install-by-gem)
 * [Install Fluentd by Chef](install-by-chef)
 * [Install Fluentd from source](install-from-source)
-
-NOTE: Fluentd is currently not supported on Windows. Please see LINK:[Collecting Log Data from Windows](/articles/windows) for details.
 
 ## Step2: Use Cases
 
