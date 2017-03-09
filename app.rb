@@ -153,12 +153,19 @@ get '/articles/:article' do
 end
 
 get %r{/(v\d+\.\d+)/articles/(\S+)} do |version, article|
-  @version_num = @article_name = @category_name = @query_string = nil
-  @version_num = version
-  @article_name = article
-  puts "@[#{ENV['RACK_ENV']}.articles] #{{ name: article }.to_json}"
-  cache_long
-  render_article article, version
+  case article
+  when 'users'
+    redirect 'http://www.fluentd.org/testimonials'
+  when 'architecture'
+    redirect 'http://www.fluentd.org/architecture'
+  else
+    @version_num = @article_name = @category_name = @query_string = nil
+    @version_num = version
+    @article_name = article
+    puts "@[#{ENV['RACK_ENV']}.articles] #{{ name: article }.to_json}"
+    cache_long
+    render_article article, version
+  end
 end
 
 helpers do
