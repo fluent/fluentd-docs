@@ -62,6 +62,16 @@ The paths to exclude the files from watcher list. For example, if you want to re
 ### refresh_interval
 The interval of refreshing the list of watch file. Default is 60 seconds.
 
+### limit_recently_modified
+This parameter is available since v0.12.33.
+
+Limit the watching files that the modification time is within the specified time range when use `*` in `path` parameter.
+
+### skip_refresh_on_startup
+This parameter is available since v0.12.33.
+
+Skip the refresh of watching list on startup. This reduces the start up time when use `*` in `path`.
+
 ### read_from_head
 Start to read the logs from the head of file, not bottom. The default is `false`.
 
