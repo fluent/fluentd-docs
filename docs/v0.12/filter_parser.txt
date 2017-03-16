@@ -90,6 +90,18 @@ With above configuration, result is below:
 
 If false, time parsing is disabled in the parser. Default is true.
 
+### emit_invalid_record_to_error
+
+Emit invalid record to `@ERROR`. Default is `false`. Invalid cases are
+
+- key not exist
+- format is not matched
+- unexpected error
+
+### ignore_key_not_exist
+
+Ignore "key not exist" log. Default is `false`.
+
 ## Learn More
 
 - [Filter Plugin Overview](filter-plugin-overview)
