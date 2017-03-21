@@ -99,7 +99,19 @@ If you use `default` format, then you can send array type of json / msgpack to i
     $ curl -X POST -d 'json=[{"action":"login","user":2,"time":1392021185},{"action":"logout","user":2,"time":1392027356}]'
       http://localhost:8888/test.tag.here;
 
-Non `default` format doesn't support batch mode yet.
+This improves the input performance by reducing HTTP access. Non `default` format doesn't support batch mode yet.
+Here is a simple bechmark result on MacBook Pro with ruby 2.3:
+
+<table>
+  <tr>
+    <td>json</td><td>msgpack</td><td>msgpack array(10 items)</td>
+  </tr>
+  <tr>
+    <td>2100 events/sec</td><td>2400 events/sec</td><td>10000 events/sec</td>
+  </tr>
+</table>
+
+Tested configuration and ruby script is [here](https://gist.github.com/repeatedly/672ac73abf7cbcb629aaec791838cf6d).
 
 ## FAQ
 
