@@ -49,7 +49,7 @@ The bind address to listen to. Default Value = 0.0.0.0 (all addresses)
 #### protocol_type
 The transport protocol used to receive logs. "udp" and "tcp" are supported. "udp" by default.
 
-#### message_size_limit
+#### message_length_limit
 The max bytes of syslog message. Default is `2048`. If you send larger message, change this parameter.
 
 #### message_format
