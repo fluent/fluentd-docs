@@ -93,7 +93,7 @@ Parameters inside `<record>` directives are considered to be new key-value pairs
 
 For NEW_FIELD and NEW_VALUE, a special syntax `${}` allows the user to generate a new field dynamically. Inside the curly braces, the following variables are available:
 
-- The incoming event's existing values can be referred by their field names. So, if the record is `{"total":100, "count":10}`, then `record["total"]=10` and `record["count"]=10`.
+- The incoming event's existing values can be referred by their field names. So, if the record is `{"total":100, "count":10}`, then `record["total"]=100` and `record["count"]=10`.
 - `tag_parts[N]` refers to the Nth part of the tag. It works like the usual zero-based array accessor.
 - `tag_prefix[N]` refers to the first N parts of the tag. It works like the usual zero-based array accessor.
 - `tag_suffix[N]` refers to the last N parts of the tag. It works like the usual zero-based array accessor.
