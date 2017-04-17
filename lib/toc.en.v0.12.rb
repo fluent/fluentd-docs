@@ -4,6 +4,9 @@ section 'overview', 'Overview' do
   category 'getting-started', 'Getting Started' do
     article 'quickstart', 'Getting Started with Fluentd'
   end
+  category 'life-of-a-fluentd-event', 'Life of a Fluentd Event' do
+    article 'life-of-a-fluentd-event', 'Life of a Fluentd Event'
+  end
   category 'installation', 'Installation' do
     article 'before-install', 'Before Installing Fluentd'
     article 'install-by-docker', 'Installing Fluentd with Docker'
@@ -276,9 +279,6 @@ end
 section 'developer', 'Developer' do
   category 'plugin-development', 'Plugin Development' do
     article 'plugin-development', 'Plugin Development'
-  end
-  category 'life-of-a-fluentd-event', 'Life of a Fluentd Event' do
-    article 'life-of-a-fluentd-event', 'Life of a Fluentd Event'
   end
   category 'community', 'Community' do
     article 'community', 'Community'
