@@ -9,11 +9,11 @@ Input plugins extend Fluentd to retrieve and pull event logs from external sourc
 ## List of Input Plugins
 
 * [in_forward](in_forward)
+* [in_unix](in_unix)
 * [in_http](in_http)
 * [in_tail](in_tail)
 * [in_exec](in_exec)
 * [in_syslog](in_syslog)
-* [in_scribe](in_scribe)
 
 ## Other Input Plugins
 
