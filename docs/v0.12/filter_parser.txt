@@ -21,6 +21,12 @@ See document page for more details: [Parser Plugin Overview](/articles/parser-pl
 
 ## Parameters
 
+### format
+This is required parameter. Specify parser format or regexp pattern.
+
+### key_name
+This is required parameter. Specify field name in the record to parse.
+
 ### reserve_data
 
 Keep original key-value pair in parsed result.
