@@ -210,9 +210,17 @@ When ``time`` is specified, parameters below are available:
 
 * ``timekey`` [time]
   * Required (no default value)
+  * Output plugin will flush chunks per specified time (enabled when ``time`` is specified in chunk keys)
 * ``timekey_wait`` [time]
+  * Default: 600 (10m)
+  * Output plugin writes chunks after ``timekey_wait`` seconds later after ``timekey`` expiration
+  * If an user configures ``timekey 60m``, output plugin will wait delayed events for flushed timekey, and write the chunk at 10 minutes of each hour
 * ``timekey_use_utc`` [bool]
+  * Default: false (to use local timezone)
+  * Output plugin decides to use UTC or not to format placeholders using timekey
 * ``timekey_zone`` [string]
+  * Default: local timezone
+  * The timezone (``-0700`` or ``Asia/Tokyo``) string for formatting timekey placeholders
 
 ### @type
 
@@ -251,24 +259,70 @@ These parameters below are to configure buffer plugins and its chunks.
 These parameters are to configure how to flush chunks to optimize performance (latency and throughput).
 
 * ``flush_at_shutdown`` [bool]
+  * Default: false (, but true for file buffer plugin)
+  * The value to specify to flush/write all buffer chunks at shutdown, or not
 * ``flush_mode`` [enum: default/lazy/interval/immediate]
+  * Default: default (equals to ``lazy`` if ``time`` is specified as chunk key, ``interval`` otherwise)
+  * ``lazy``: flush/write chunks once per timekey
+  * ``interval``: flush/write chunks per specified time via ``flush_interval``
+  * ``immediate``: flush/write chunks immediately after events are appended into chunks
 * ``flush_interval`` [time]
+  * Default: 60s
 * ``flush_thread_count`` [integer]
+  * Default: 1
+  * The number of threads of output plugins, which is used to write chunks in parallel
 * ``flush_thread_interval`` [float]
+  * Default: 1.0
+  * The sleep interval seconds of threads to wait next flush trial (when no chunks are waiting)
 * ``flush_thread_burst_interval`` [float]
+  * Default: 1.0
+  * The sleep interval seconds of threads between flushes when output plugin flushes waiting chunks next to next
 * ``delayed_commit_timeout`` [time]
+  * Default: 60
+  * The timeout seconds until output plugin decides that async write operation fails
 * ``overflow_action`` [enum: throw\_exception/block/drop\_oldest\_chunk]
+  * Default: throw\_exception
+  * How output plugin behaves when its buffer queue is full
+  * ``throw_exception``: raise exception to show this error in log
+  * ``block``: block processing of input plugin to emit events into that buffer
+  * ``drop_oldest_chunk``: drop/purge oldest chunk to accept newly incoming chunk
 
 ### Retries parameters
 
-* ``retry_forever``
-* ``retry_timeout``
-* ``retry_max_times``
-* ``retry_secondary_threshold``
-* ``retry_type``
-* ``retry_wait``
-* ``retry_exponential_backoff_base``
-* ``retry_max_interval``
-* ``retry_randomize``
+* ``retry_timeout`` [time]
+  * Default: 72h
+  * The maximum seconds to retry to flush while failing, until plugin discards buffer chunks
+* ``retry_forever`` [bool]
+  * Default: false
+  * If true, plugin will ignore retry\_timeout and retry\_max\_times options and retry flushing forever
+* ``retry_max_times`` [integer]
+  * Default: none
+  * The maximum number of times to retry to flush while failing
+* ``retry_secondary_threshold`` [float]
+  * Default: 0.8
+  * The ratio of retry\_timeout to switch to use secondary while failing (Maximum valid value is 1.0)
+* ``retry_type`` [enum: exponential\_backoff/periodic]
+  * Default: exponential\_backoff
+  * ``exponential_backoff``: wait seconds will become large exponentially per failures
+  * ``periodic``: output plugin will retry periodically with fixed intervals (configured via ``retry_wait``)
+* ``retry_wait`` [time]
+  * Default: 1s
+  * Seconds to wait before next retry to flush, or constant factor of exponential backoff
+* ``retry_exponential_backoff_base`` [float]
+  * Default: 2
+  * The base number of exponencial backoff for retries
+* ``retry_max_interval`` [time]
+  * Default: none
+  * The maximum interval seconds for exponencial backoff between retries while failing
+* ``retry_randomize`` [bool]
+  * Default: true
+  * If true, output plugin will retry after randomized interval not to do burst retries
 
+With exponential backoff, retry wait interval will be calculated as below:
+
+* k is number of retry times
+* c: constant factor, ``@retry_wait``
+* b: base factor, ``@retry_exponential_backoff_base``
+* k: times
+* total retry time: ``c + c * b^1 + (...) + c*b^k = c*b^(k+1) - 1``
 
