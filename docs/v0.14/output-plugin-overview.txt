@@ -71,7 +71,7 @@ For Fluentd v0.12, configuration parameters for buffer plugins were written in s
 
 ## Buffering/Retrying Parameters
 
-TODO: list parameters available in `<buffer>` section
+See [Buffer section configurations](buffer-section).
 
 ### Control Flushing
 
@@ -86,7 +86,6 @@ If the bottom chunk write out fails, it will remain in the queue and Fluentd wil
 NOTE: writing out the bottom chunk is considered to be a failure if "BufferedOutput#write" method throws an exception.
 
 ### Control Retrying
-
 
 For other configuration parameters available in `<buffer>` sections, see [Buffer plugin overview](buffer-plugin-overview) and each plugins.
 
