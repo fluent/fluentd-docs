@@ -44,11 +44,6 @@
   })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
   _st('install','ByEiskaip9Hbrt-jAdTA','2.0.0');
   </script>
-
-  <!-- Treasure Data -->
-  <script type="text/javascript">
-    !function(t,e){if(void 0===e[t]){e[t]=function(){e[t].clients.push(this),this._init=[Array.prototype.slice.call(arguments)]},e[t].clients=[];for(var r=function(t){return function(){return this["_"+t]=this["_"+t]||[],this["_"+t].push(Array.prototype.slice.call(arguments)),this}},s=["addRecord","set","trackEvent","trackPageview","ready"],n=0;n<s.length;n++){var i=s[n];e[t].prototype[i]=r(i)}var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=("https:"===document.location.protocol?"https:":"http:")+"//s3.amazonaws.com/td-cdn/sdk/td-1.2.0.js";var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(a,c)}}("Treasure",this);
-  </script>
 </head>
 <body>
   <!-- Google Tag Manager -->
@@ -190,14 +185,6 @@
           $('#anchored-stargazer-count').css('opacity', link_opacity);
         });
     })
-  </script>
-  <script>
-    var td_client = new Treasure({
-      writeKey: "3867/9da79963a7a77270ae75eceb9f35893c56bd6073",
-      database: "fluentd_website"
-    });
-    td_client.set('$global', 'td_global_id', 'td_global_id');
-    td_client.trackPageview('views_docs_v1_2_0', function() {}, function(err) { if (err) console.log(err) });
   </script>
   <%= ::NewRelic::Agent.browser_timing_footer rescue "" %>
 </body>
