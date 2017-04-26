@@ -48,6 +48,14 @@ Add `HTTP_` prefix headers to the record. The default is `false`
 #### add_remote_addr
 Add `REMOTE_ADDR` field to the record. The value of `REMOTE_ADDR` is the client's address. The default is `false`
 
+If your system set multiple `X-Forwarded-For` headers in the request, `in_http` uses first one. For example:
+
+    :::text
+    X-Forwarded-For: host1, host2
+    X-Forwarded-For: host3
+
+If send above multiple headers, `REMOTE_ADDR` value is `host1`.
+
 #### cors_allow_origins
 White list domains for CORS. Default is no check.
 
