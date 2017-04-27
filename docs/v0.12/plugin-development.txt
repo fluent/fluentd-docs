@@ -614,6 +614,19 @@ Fluentd provides unit test frameworks for plugins:
 
 Please see Fluentd's source code for details.
 
+### Run test
+
+Fluentd test follows standard gem way and uses test-unit library. Use rake command.
+
+    :::text
+    $ bundle install --path vendor/bundle # Install related libraries.
+    $ bundle exec rake test
+
+If you want to run only one file, use `TEST` environment variable:
+
+    :::text
+    $ bundle exec rake test TEST=test/plugin/test_out_foo.rb
+
 ## Further Reading
 
 * [Slides: Dive into Fluentd Plugin](http://www.slideshare.net/repeatedly/dive-into-fluentd-plugin-v012)
