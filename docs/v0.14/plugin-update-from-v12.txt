@@ -88,7 +88,7 @@ For input plugins, points to be fixed are:
 Plugins will work well only with changes above.
 
 Moreover, most input plugins create threads, timers, network serevers and/or parsers. It's better to use plugin helpers to simplify code and to make tests stable.
-For more details, see LINK:[Plugin Helper Overview](/articles/plugin-helper-overview).
+For more details, see LINK:[Plugin Helper Overview](plugin-helper-overview).
 
 ### Filter plugins
 
@@ -119,7 +119,7 @@ If your output plugin emits events into Fluentd, follow these points too:
 * use ``Fluent::Engine.now`` or ``Fluent::EventTime.now`` to create current time object instead of ``Time.now.to_i``
 
 It's recommended to use plugin helpers if your plugin creates any of thread, timer socket, child process and/or parsers/formatters. It's better to use plugin helpers to simplify code and to make tests stable.
-For more details, see LINK:[Plugin Helper Overview](/articles/plugin-helper-overview).
+For more details, see LINK:[Plugin Helper Overview](plugin-helper-overview).
 
 TODO: add example of before / after
 
@@ -136,7 +136,7 @@ For buffered output plugins (subclass of ``Fluent::BufferedOutput``), points to 
 * update test code
 
 It's recommended to use plugin helpers if your plugin creates any of thread, timer socket, child process and/or parsers/formatters. It's better to use plugin helpers to simplify code and to make tests stable.
-For more details, see LINK:[Plugin Helper Overview](/articles/plugin-helper-overview).
+For more details, see LINK:[Plugin Helper Overview](plugin-helper-overview).
 
 TODO: add example of before / after
 
@@ -153,7 +153,7 @@ For object buffered output plugins (subclass of ``Fluent::ObjectBufferedOutput``
 * update test code
 
 It's recommended to use plugin helpers if your plugin creates any of thread, timer socket, child process and/or parsers/formatters. It's better to use plugin helpers to simplify code and to make tests stable.
-For more details, see LINK:[Plugin Helper Overview](/articles/plugin-helper-overview).
+For more details, see LINK:[Plugin Helper Overview](plugin-helper-overview).
 
 TODO: add example of before / after
 
@@ -171,7 +171,7 @@ For time sliced output plugins (subclass of ``Fluent::TimeSlicedOutput``), point
 * update test code
 
 It's recommended to use plugin helpers if your plugin creates any of thread, timer socket, child process and/or parsers/formatters. It's better to use plugin helpers to simplify code and to make tests stable.
-For more details, see LINK:[Plugin Helper Overview](/articles/plugin-helper-overview).
+For more details, see LINK:[Plugin Helper Overview](plugin-helper-overview).
 
 TODO: add example of before / after
 

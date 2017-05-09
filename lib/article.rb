@@ -59,7 +59,11 @@ class Article
       link_path = if link_doc_version
                     "/#{link_doc_version}/#{raw_path}"
                   else
-                    raw_path
+                    if raw_path.include?('/categories/')
+                      "/#{specified_document_version}#{raw_path}"
+                    else
+                      raw_path
+                    end
                   end
       "<a href=\"#{link_path}\">#{link_text}</a>"
     end
