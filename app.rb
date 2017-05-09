@@ -221,7 +221,7 @@ helpers do
 
     doc_path = File.dirname(@filepath)
 
-    @article = Article.load(article, $IO_CACHE[@filepath], doc_path, specified_document_version: ver)
+    @article = Article.load(article, $IO_CACHE[@filepath], doc_path, ver)
     @title   = @article.title
     @desc    = @article.desc
     @content = @article.content

@@ -57,9 +57,7 @@ class Article
       link_text = $2
       raw_path = $3
       link_path = if link_doc_version
-                    "/#{link_doc_version}#{raw_path}"
-                  elsif @specified_document_version
-                    "/#{@specified_document_version}#{raw_path}"
+                    "/#{link_doc_version}/#{raw_path}"
                   else
                     raw_path
                   end
