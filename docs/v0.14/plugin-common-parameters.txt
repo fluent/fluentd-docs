@@ -29,7 +29,7 @@ The ``@id`` parameter is used to add the unique name of plugin configuration, wh
 
 This parameter should be specified for all plugins to enable ``root_dir`` and ``workers`` feature globally.
 
-See also: LINK:[System Configuration](/articles/system-config).
+See also: LINK:[System Configuration](system-config).
 
 ### @log_level
 

@@ -1,6 +1,6 @@
 # Writing Parser Plugins
 
-Fluentd supports [pluggable, customizable formats for input plugins](parser-plugin-overview). The plugin files whose names start with "parser_" are registered as Parser Plugins. See LINK:[Plugin Base Class API](/articles/api-plugin-base) to show details of common API for all plugin types.
+Fluentd supports [pluggable, customizable formats for input plugins](parser-plugin-overview). The plugin files whose names start with "parser_" are registered as Parser Plugins. See LINK:[Plugin Base Class API](api-plugin-base) to show details of common API for all plugin types.
 
 Here is an example of a custom parser that parses the following newline-delimited log format:
 
@@ -83,7 +83,7 @@ There is a Parser plugin helper for that purpose (v0.14.1 or later):
       # ...
     end
 
-See LINK:[Parser Plugin Helper API](/articles/api-plugin-helper-parser) for details.
+See LINK:[Parser Plugin Helper API](api-plugin-helper-parser) for details.
 
 ## Methods
 

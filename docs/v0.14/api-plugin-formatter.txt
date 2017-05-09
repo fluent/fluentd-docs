@@ -1,6 +1,6 @@
 # Writing Formatter Plugins
 
-Fluentd supports [pluggable, customizable formats for output plugins](formatter-plugin-overview). The plugin files whose names start with "formatter_" are registered as Formatter Plugins. See LINK:[Plugin Base Class API](/articles/api-plugin-base) to show details of common API for all plugin types.
+Fluentd supports [pluggable, customizable formats for output plugins](formatter-plugin-overview). The plugin files whose names start with "formatter_" are registered as Formatter Plugins. See LINK:[Plugin Base Class API](api-plugin-base) to show details of common API for all plugin types.
 
 Here is an example of a custom formatter that outputs events as CSVs. It takes a required parameter called "csv_fields" and outputs the fields. It assumes that the values of the fields are already valid CSV fields.
 
@@ -74,7 +74,7 @@ There is a Formatter plugin helper for that purpose (v0.14.1 or later):
       # ...
     end
 
-See LINK:[Formatter Plugin Helper API](/articles/api-plugin-helper-formatter) for details.
+See LINK:[Formatter Plugin Helper API](api-plugin-helper-formatter) for details.
 
 ## Methods
 

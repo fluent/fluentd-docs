@@ -1,6 +1,6 @@
 # Writing Filter Plugins
 
-This section shows how to write custom filters in addition to [the core filter plugins](filter-plugin-overview). The plugin files whose names start with "filter_" are registered as filter plugins. See LINK:[Plugin Base Class API](/articles/api-plugin-base) to show details of common API for all plugin types.
+This section shows how to write custom filters in addition to [the core filter plugins](filter-plugin-overview). The plugin files whose names start with "filter_" are registered as filter plugins. See LINK:[Plugin Base Class API](api-plugin-base) to show details of common API for all plugin types.
 
 Here is the implementation of the most basic filter that passes through all events as-is:
 

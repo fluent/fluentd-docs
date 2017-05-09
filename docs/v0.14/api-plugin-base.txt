@@ -59,7 +59,7 @@ Base class has some methods to create configurable parameters for plugins, or to
 
 TODO: write this section later
 
-About types, see LINK:[Types of Configuration Parameters](/articles/api-config-types).
+About types, see LINK:[Types of Configuration Parameters](api-config-types).
 
 #### .config_set_default(name, default_value)
 
