@@ -20,6 +20,12 @@ Using td-agent is another way to avoid this problem because td-agent includes ow
 
 ## Operations
 
+### I have millisecond timestamp log but fluentd drops subsecond. Why?
+
+In v0.12 or earlier, fluentd's event time is second unit. It means fluentd converts millisecond/nanosecond timestamp into second timestamp.
+
+Since v0.14, event tims has nanosecond resolution, so fluentd can handle millisecond/nanosecond timestamp properly.
+
 ### I have a weird timestamp value, what happened?
 
 The timestamps of Fluentd and its logger libraries depend on your system's clock. It's highly recommended that you set up NTP on your nodes so that your clocks remain synced with the correct clocks.
