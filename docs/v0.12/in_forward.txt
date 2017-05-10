@@ -81,3 +81,8 @@ Multiple messages may be sent in the same connection.
 
 `in_forward` doesn't provide parsing mechanizm unlike `in_tail` or `in_tcp` because `in_forward` is mainly for efficient log transfer. If you want to parse incoming event, use [parser filter](https://github.com/tagomoris/fluent-plugin-parser) in your pipeline.<br />
 See Docker logging driver usecase: [Docker Logging](http://www.fluentd.org/guides/recipes/docker-logging)
+
+### I got MessagePack::UnknownExtTypeError error. Why?
+
+This error happens when forwarder's fluentd is v0.14 and receiver's fluentd is 0.12.
+To avoid this problem, set `time_as_integer` to `out_forward` setting in v0.14 fluentd.
