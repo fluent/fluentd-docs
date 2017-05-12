@@ -80,6 +80,19 @@ Instead, you should guarantee that log rotation will not occur in `*` directory.
 
 NOTE: When this is true, in_tail tries to read a file during start up phase. If target file is large, it takes long time and starting other plugins isn't executed until reading file is finished.
 
+### encoding, from_encoding
+Specify the encoding of reading lines. The default is ASCII-8BIT.
+
+By default, in_tail emits string value as ASCII-8BIT encoding. These options change it.
+
+- If specify only `encoding`, in_tail changes string to `encoding`. This use ruby's [String#force_encoding](https://docs.ruby-lang.org/en/trunk/String.html#method-i-force_encoding)
+- If specify `encoding` and `from_encoding`, in_tail tries to encode string from `from_encoding` to `encoding`. This uses ruby's [String#encode](https://docs.ruby-lang.org/en/trunk/String.html#method-i-encode)
+
+You can get supported encoding list by typing following command:
+
+    :::text
+    $ ruby -e 'p Encoding.name_list.sort'
+
 ### read_lines_limit
 
 The number of reading lines at each IO. Default is 1000 lines.
