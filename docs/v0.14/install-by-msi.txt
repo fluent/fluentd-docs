@@ -46,7 +46,7 @@ Then, please launch another `Td-agent Command Prompt` and type the command below
     :::command
     > echo {"message":"hello"} | fluent-cat test.event
 
-It's working properly if td-agent process outputs the message `test.foo: {"k", "v"}`.
+It's working properly if td-agent process outputs the message `test.event: {"k", "v"}`.
 
 <a href="/images/td-agent-windows-prompt.png">
  <img src="/images/td-agent-windows-prompt.png" />
