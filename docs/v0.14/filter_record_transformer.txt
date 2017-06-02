@@ -32,7 +32,7 @@ Here is another example where the field "total" is divided by the field "count" 
       @type record_transformer
       enable_ruby
       <record>
-        avg ${total/count}
+        avg ${record["total"] / record["count"]}
       </record>
     </filter>        
 
@@ -54,7 +54,7 @@ You can also use this plugin to modify your existing fields as
     <filter foo.bar>
       @type record_transformer
       <record>
-        message yay, ${message}
+        message yay, ${record["message"]}
       </record>
     </filter>
 
@@ -82,7 +82,7 @@ So, if an event with the tag "web.auth" and record `{"user_id":1, "status":"ok"}
 
 ## Parameters
 
-### <record> directive
+### &lt;record&gt; directive
 
 Parameters inside `<record>` directives are considered to be new key-value pairs:
 
@@ -93,12 +93,13 @@ Parameters inside `<record>` directives are considered to be new key-value pairs
 
 For NEW_FIELD and NEW_VALUE, a special syntax `${}` allows the user to generate a new field dynamically. Inside the curly braces, the following variables are available:
 
-- The incoming event's existing values can be referred by their field names. So, if the record is `{"total":100, "count":10}`, then `total=100` and `count=10`.
+- The incoming event's existing values can be referred by their field names. So, if the record is `{"total":100, "count":10}`, then `record["total"]=100` and `record["count"]=10`.
 - `tag_parts[N]` refers to the Nth part of the tag. It works like the usual zero-based array accessor.
 - `tag_prefix[N]` refers to the first N parts of the tag. It works like the usual zero-based array accessor.
 - `tag_suffix[N]` refers to the last N parts of the tag. It works like the usual zero-based array accessor.
 - `tag` refers to the whole tag.
 - `time` refers to stringanized event time.
+- `hostname` refers to machine's hostname. The actual value is result of [Socket.gethostname](https://docs.ruby-lang.org/en/trunk/Socket.html#method-c-gethostname).
 
 ### enable_ruby (optional)
 
@@ -117,6 +118,7 @@ Here is the examples:
     formatted_time ${time.strftime('%Y-%m-%dT%H:%M:%S%z')}
     escaped_tag ${tag.gsub('.', '-')}
     last_tag ${tag_parts.last}
+    foo_${record["key"]} bar_${record["value"]}
 
 ### auto_typecast (optional)
 
@@ -127,13 +129,13 @@ LIMITATION: This option is effective only for field values comprised of a single
 Effective Examples:
 
     :::text
-    foo ${foo}
+    foo ${record["foo"]}
 
 Non-Effective Examples:
 
     :::text
-    foo ${foo}${bar}
-    foo ${foo}bar
+    foo ${record["foo"]}${record["bar"]}
+    foo ${record["foo"]}bar
     foo 1
 
 Internally, this keeps the original value type only when a single placeholder is used. 
@@ -153,6 +155,15 @@ A comma-delimited list of keys to keep. Only relevant if `renew_record` is set t
 ### remove_keys (optional, string type)
 
 A comma-delimited list of keys to delete.
+
+## FAQ
+
+### What are the differences between `${record["key"]}` and `${key}`?
+
+`${key}` is short-cut for `${record["key"]}`. This is error prone because `${tag}` is unclear for event tag or `record["tag"]`.
+So the `${key}` syntax is now deprecated for avoiding this problem. Don't use `${key}` short-cut syntax on the production.
+
+Since v0.14, `${key}` short-cut syntax is removed.
 
 ## Learn More
 
