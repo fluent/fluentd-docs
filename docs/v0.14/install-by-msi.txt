@@ -20,6 +20,8 @@ Please download the `.msi` file from here, and install the software.
 
 - [Download](https://td-agent-package-browser.herokuapp.com/3/windows)
 
+NOTE: If you need <b>Security Tested Binary</b> with a clear life cycle management, please check the <a href="http://www.fluentd.org/enterprise">Enterprise Offering</a>.
+
 ## Step2: Run td-agent from Command Prompt
 
 First, please prepare your config file located at `C:/opt/td-agent/conf/td-agent.conf`. The config below is the simplest example to output any incoming records to td-agent's log file.
