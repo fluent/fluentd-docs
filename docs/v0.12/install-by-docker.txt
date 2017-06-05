@@ -20,6 +20,8 @@ Then, please download Fluentd v0.12's image by `docker pull` command.
 
 NOTE: Debian and Alpine Linux version is available for Fluentd image. Debian version is recommended officially since it has jemalloc support, however Alpine image is smaller.
 
+NOTE: If you need <b>Security Tested Docker Image</b> with a clear life cycle management, please check the <a href="http://www.fluentd.org/enterprise">Enterprise Offering</a>.
+
 ## Step 2: Launch Fluentd Container
 
 To make the test simple, create the example config below at `/tmp/fluentd/conf`. This example accepts records from http, and output to stdout.
