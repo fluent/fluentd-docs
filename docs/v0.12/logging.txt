@@ -151,13 +151,12 @@ Leaf server example:
 Monitoring server example:
 
     # Ignore trace, debug and info log
-    <match internal.message>
+    <filter internal.message>
       @type grep
       regexp1 original_tag fluent.(warn|error|fatal)
-      add_tag_prefix filtered
     </match>
 
-    <match filtered.internal.message>
+    <match internal.message>
       # your notification setup. This example uses irc plugin
       @type irc
       host irc.domain
