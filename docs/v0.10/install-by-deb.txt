@@ -54,7 +54,9 @@ For Debian Squeeze,
     :::term
     curl -L https://toolbelt.treasuredata.com/sh/install-debian-squeeze-td-agent2.sh | sh
 
-NOTE: It's HIGHLY recommended that you set up <b>ntpd</b> on the node to prevent invalid timestamps in your logs.
+It's HIGHLY recommended that you set up <b>ntpd</b> on the node to prevent invalid timestamps in your logs. Please check the [Preinstallation Guide](before-install).
+
+NOTE: If you need <b>Security Tested Binary</b> with a clear life cycle management, please check the <a href="http://www.fluentd.org/enterprise">Enterprise Offering</a>.
 
 ## Step2: Launch Daemon
 
