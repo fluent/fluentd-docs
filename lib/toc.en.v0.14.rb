@@ -4,6 +4,9 @@ section 'overview', 'Overview' do
   category 'getting-started', 'Getting Started' do
     article 'quickstart', 'Getting Started with Fluentd'
   end
+  category 'life-of-a-fluentd-event', 'Config File' do
+    article 'life-of-a-fluentd-event', 'Config File'
+  end
   category 'installation', 'Installation' do
     article 'before-install', 'Before Installing Fluentd'
     article 'install-by-rpm', 'Installing Fluentd using RPM Package (Redhat Linux)'
@@ -302,9 +305,6 @@ section 'developer', 'Developer' do
     # article 'api-plugin-helper-storage', 'Storage Plugin Helper API'
     # article 'api-plugin-helper-compat_parameters', 'CompatParameters Plugin Helper API'
     # article 'api-plugin-test', 'Testing API for plugins'
-  end
-  category 'life-of-a-fluentd-event', 'Life of a Fluentd Event' do
-    article 'life-of-a-fluentd-event', 'Life of a Fluentd Event'
   end
   category 'community', 'Community' do
     article 'community', 'Community'

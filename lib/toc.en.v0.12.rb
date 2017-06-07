@@ -4,9 +4,6 @@ section 'overview', 'Overview' do
   category 'getting-started', 'Getting Started' do
     article 'quickstart', 'Getting Started with Fluentd'
   end
-  category 'life-of-a-fluentd-event', 'Life of a Fluentd Event' do
-    article 'life-of-a-fluentd-event', 'Life of a Fluentd Event'
-  end
   category 'installation', 'Installation' do
     article 'before-install', 'Before Installing Fluentd'
     article 'install-by-docker', 'Installing Fluentd with Docker'
@@ -18,6 +15,9 @@ section 'overview', 'Overview' do
     article 'install-from-source', 'Installing Fluentd from Source'
     article 'install-on-heroku', 'Installing Fluentd on Heroku'
     article 'install-on-beanstalk', 'Installing Fluentd on AWS Elastic Beanstalk'
+  end
+  category 'life-of-a-fluentd-event', 'Config File' do
+    article 'life-of-a-fluentd-event', 'Config File'
   end
   category 'support', 'Support' do
     article 'support', 'Support'
@@ -111,7 +111,7 @@ section 'deployment', 'Deployment' do
   category 'trouble-shooting', 'Trouble Shooting' do
     article 'trouble-shooting', 'Trouble Shooting'
   end
-  category 'security', 'Security' do
+  category 'secure-forwarder', 'Secure Forwarding' do
     article 'forwarding-over-ssl', 'SSL-Enabled Transport', ['Security', 'SSL']
   end
   category 'fluentd-ui', 'Fluentd UI' do

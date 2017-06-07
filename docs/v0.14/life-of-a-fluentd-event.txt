@@ -1,10 +1,10 @@
-# Life of a Fluentd Event
+# Configuration File
 
 The following article describe a global overview of how events are processed by [Fluentd](http://fluentd.org) using examples. It covers the complete cycle including _Setup_, _Inputs_, _Filters_, _Matches_ and _Labels_.
 
 ## Basic Setup
 
-As described in the articles above, the _Setup_ in the configuration files is the fundamental piece to connect all things together, as it allows to define which _Inputs_ or listeners [Fluentd](http://fluentd.org) will have and setup common matching rules to route the _Event_ data to a specific _Output_.
+The configuration files is the fundamental piece to connect all things together, as it allows to define which _Inputs_ or listeners [Fluentd](http://fluentd.org) will have and setup common matching rules to route the _Event_ data to a specific _Output_.
 
 We will use the [in_http](in_http) and the [out_stdout](out_stdout) plugins as examples to describe the events cycle. The following is a basic definition on the configuration file to specify an _http_ input, for short: we will be listening for __HTTP Requests__:
 

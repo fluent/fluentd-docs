@@ -1,5 +1,19 @@
 # Support
 
-Treasure Data, the original inventor of Fluentd, offers the enterprise edition of Fluentd, with 24/7 support. Please visit the link below.
+## Mailing List (Google Groups)
 
-- [Fluentd Enterprise Edition](http://www.treasuredata.com/fluentd_enterprise)
+Got a question? Have some cool Fluentd-related projects? The mailing list is the place to be.
+
+- [Mailing List](https://groups.google.com/forum/#!forum/fluentd)
+
+## Slack
+
+Join our Slack channel and talk with Fluentd developers and users directly, now.
+
+- [Slack](http://slack.fluentd.org/)
+
+## Enterprise Support
+
+Treasure Data, the original inventor of Fluentd, offers 24/7 support with SLA. Please visit the link below for more details.
+
+- [Fluentd Enterprise Edition](https://fluentd.treasuredata.com/)
