@@ -162,6 +162,9 @@ section 'output-plugins', 'Output Plugins' do
   category 'output-plugin-overview', 'Overview' do
     article 'output-plugin-overview', 'Output Plugin Overview'
   end
+  category 'out_splunk', 'out_splunk' do
+    article 'out_splunk', 'Splunk Output Plugin Overview'
+  end
   category 'out_file', 'out_file' do
     article 'out_file', 'file Output Plugin'
   end
