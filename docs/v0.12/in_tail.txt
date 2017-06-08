@@ -152,6 +152,11 @@ Enable the additional watch timer.  Setting this parameter to `false` will signi
 
 Early testing demonstrates that modern Cool.io and `in_tail` work properly without the additional watch timer.  At some point in the future, depending on feedback and testing, the additional watch timer may be disabled by default.
 
+### ignore_repeated_permission_error
+
+If you hard to exclude non-permision files from watching list, set this parameter to `true`.
+It suppress repeated permission error logs.
+
 INCLUDE: _log_level_params
 
 ## FAQ
