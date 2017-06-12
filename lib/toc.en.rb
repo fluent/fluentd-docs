@@ -162,9 +162,6 @@ section 'output-plugins', 'Output Plugins' do
   category 'output-plugin-overview', 'Overview' do
     article 'output-plugin-overview', 'Output Plugin Overview'
   end
-  category 'out_splunk', 'out_splunk' do
-    article 'out_splunk', 'Splunk Output Plugin Overview'
-  end
   category 'out_file', 'out_file' do
     article 'out_file', 'file Output Plugin'
   end
@@ -197,6 +194,9 @@ section 'output-plugins', 'Output Plugins' do
   end
   category 'out_s3', 'out_s3' do
     article 'out_s3', 'S3 Output Plugin', ['Amazon S3', 'AWS', 'Simple Storage Service']
+  end
+   category 'out_splunk', 'out_splunk' do
+    article 'out_splunk', 'Splunk Output Plugin Overview'
   end
   category 'out_mongo', 'out_mongo' do
     article 'out_mongo', 'MongoDB Output Plugin', ['MongoDB']
