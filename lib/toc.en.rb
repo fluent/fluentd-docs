@@ -173,6 +173,7 @@ section 'output-plugins', 'Output Plugins' do
   end
   category 'out_exec', 'out_exec' do
     article 'out_exec', 'exec Output Plugin'
+  end
   category 'out_exec_filter', 'out_exec_filter' do
     article 'out_exec_filter', 'exec_filter Output Plugin'
   end
