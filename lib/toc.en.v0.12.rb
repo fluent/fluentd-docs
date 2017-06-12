@@ -216,6 +216,9 @@ section 'output-plugins', 'Output Plugins' do
   category 'out_s3', 'out_s3' do
     article 'out_s3', 'S3 Output Plugin', ['Amazon S3', 'AWS', 'Simple Storage Service']
   end
+   category 'out_splunk', 'out_splunk' do
+    article 'out_splunk', 'Splunk Output Plugin Overview'
+  end
   category 'out_kafka', 'out_kafka' do
     article 'out_kafka', 'Kafka Output Plugin'
   end
