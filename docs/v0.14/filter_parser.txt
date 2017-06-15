@@ -1,0 +1,118 @@
+# parser Filter Plugin
+
+The `filter_parser` filter plugin "parses" string field in event records and mutates its event record with parsed result.
+
+## Example Configurations
+
+`filter_parser` is included in Fluentd's core. No installation required.
+
+    :::text
+    <filter foo.bar>
+      @type parser
+      key_name message
+      <parse>
+        @type regexp
+        format /^(?<host>[^ ]*) [^ ]* (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^ ]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)$/
+        time_format %d/%b/%Y:%H:%M:%S %z
+      </parse>
+    </filter>
+
+`filter_parser` uses built-in parser plugins and your own customized parser plugin, so you can re-use pre-defined format like `apache`, `json` and etc.
+See document page for more details: [Parser Plugin Overview](/articles/parser-plugin-overview)
+
+## Parameters
+
+### &lt;parse&gt; section
+This is required sub section. Specify parser type and related parameter.
+
+### key_name
+This is required parameter. Specify field name in the record to parse.
+
+### reserve_time
+
+Keep original event time in parsed result.
+
+### reserve_data
+
+Keep original key-value pair in parsed result.
+
+    :::text
+    <filter foo.bar>
+      @type parser
+      key_name log
+      reserve_data true
+      <parse>
+        @type json
+      </parse>
+    </filter>
+
+With above configuration, result is below:
+
+    # input data:  {"key":"value","log":"{\"user\":1,\"num\":2}"}
+    # output data: {"key":"value","log":"{\"user\":1,\"num\":2}","user":1,"num":2}
+
+Without `reserve_data`, result is below
+
+    # input data:  {"key":"value","log":"{\"user\":1,\"num\":2}"}
+    # output data: {"user":1,"num":2}
+
+### replace_invalid_sequence
+
+If `true`, invalid string is replaced with safe characters and re-parse it. Default is `false`.
+
+### inject_key_prefix
+
+Store parsed values with specified key name prefix. Default is `nil`.
+
+    :::text
+    <filter foo.bar>
+      @type parser
+      key_name log
+      reserve_data true
+      inject_key_prefix data.
+      <parse>
+        @type json
+      </parse>
+    </filter>
+
+With above configuration, result is below:
+
+    # input data:  {"log": "{\"user\":1,\"num\":2}"}
+    # output data: {"log":"{\"user\":1,\"num\":2}","data.user":1, "data.num":2}
+
+### hash_value_field
+
+Store parsed values as a hash value in a field. Default is `nil`.
+
+    :::text
+    <filter foo.bar>
+      @type parser
+      key_name log
+      hash_value_field parsed
+      <parse>
+        @type json
+      </parse>
+    </filter>
+
+With above configuration, result is below:
+
+    # input data:  {"log": "{\"user\":1,\"num\":2}"}
+    # output data: {"parsed":{"user":1,"num":2}}
+
+### emit_invalid_record_to_error
+
+Emit invalid record to `@ERROR` label. Default is `true`. Invalid cases are
+
+- key not exist
+- format is not matched
+- unexpected error
+
+You can rescue unexpected format logs in `@ERROR` label.
+
+## NOTE
+
+In v0.14, `emit_invalid_record_to_error` is `true` by default unlike v0.12.
+
+## Learn More
+
+- [Filter Plugin Overview](filter-plugin-overview)
