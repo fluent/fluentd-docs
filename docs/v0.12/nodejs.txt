@@ -42,7 +42,7 @@ Please restart your agent once these lines are in place.
 
 ### Obtaining the Most Recent Version
 
-The most recent version of fluent-logger-node can be found [here](http://search.npmjs.org/#/fluent-logger).
+The most recent version of fluent-logger-node can be found [here](https://www.npmjs.com/package/fluent-logger).
 
 ### A Sample Application
 
