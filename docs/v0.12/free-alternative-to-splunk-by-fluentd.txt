@@ -153,6 +153,10 @@ This article introduced the combination of Fluentd and Kibana (with Elasticsearc
 
 If you will be using these components in production, you may want to modify some of the configurations (e.g. JVM, Elasticsearch, Fluentd buffer, etc.) according to your needs.
 
+## Fluentd Enterprise for Splunk Users
+
+Treasure Data, the creator of Fluentd, offers Fluentd Enterprise. If you are looking to optimize your Splunk setup, [learn more here](https://fluentd.treasuredata.com/splunk-optimize/).
+
 ## Learn More
 
 - [Fluentd Architecture](architecture)
