@@ -14,9 +14,11 @@ Specify protocol format. Supported values are `rfc3164`, `rfc5424` and `auto`. D
 
 `auto` is useful when this parser receives both `rfc3164` and `rfc5424` message. `syslog` parser detects message format by using message prefix.
 
+This parameter is used inside `in_syslog` plugin because the file logs via syslog don't have `<9>` like priority prefix.
+
 ### with_priority
 
-If the incoming logs don't have priority prefix, e.g. <9>, set `true`. Default is `false`.
+If the incoming logs have priority prefix, e.g. <9>, set `true`. Default is `false`.
 
 ### keep_time_key
 
@@ -33,6 +35,8 @@ If you want to keep time field in the record, set `true`. Default is `false`.
 `pri`, `host`, `ident`, `pid` and `message` are included in the event record. `time` is used for the event time.
 
 `pri` value is converted into integer type.
+
+If `with_priority` is `false`, `^\<(?<pri>[0-9]+)\>` is removed from the pattern.
 
 ### rfc5424 pattern
 
