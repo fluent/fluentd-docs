@@ -276,6 +276,31 @@ section 'parser-plugins', 'Parser Plugins' do
   category 'parser-plugin-overview', 'Overview' do
     article 'parser-plugin-overview', 'Parser Plugin Overview'
   end
+  category 'parser_regexp', 'parser_regexp' do
+    article 'parser_regexp', 'regexp Filter Plugin'
+  end
+  category 'parser_apache2', 'parser_apache2' do
+    article 'parser_apache2', 'apache2 Filter Plugin'
+  end
+  category 'parser_apache_error', 'parser_apache_error' do
+    article 'parser_apache_error', 'apache_error Filter Plugin'
+  end
+  category 'parser_nginx', 'parser_nginx' do
+    article 'parser_nginx', 'nginx Filter Plugin'
+  end
+  category 'parser_syslog', 'parser_syslog' do
+    article 'parser_syslog', 'syslog Filter Plugin'
+  end
+  category 'parser_json', 'parser_json' do
+    article 'parser_json', 'json Filter Plugin'
+  end
+  category 'parser_multiline', 'parser_multiline' do
+    article 'parser_multiline', 'multiline Filter Plugin'
+  end
+  category 'parser_none', 'parser_none' do
+    article 'parser_none', 'none Filter Plugin'
+  end
+
 end
 section 'formatter-plugins', 'Formatter Plugins' do
   category 'formatter-plugin-overview', 'Overview' do

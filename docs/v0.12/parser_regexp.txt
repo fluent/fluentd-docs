@@ -1,0 +1,49 @@
+# regexp Parser Plugin
+
+The `regexp` parser plugin parses logs by given regexp pattern. If the parameter value starts and ends with "/", it is considered to be a regexp. The regexp must have at least one named capture (?&lt;NAME&gt;PATTERN). If the regexp has a capture named `time`, this is configurable, it is used as the time of the event. You can specify the time format using the time_format parameter.
+
+    :::text
+    format /.../ # regexp parser is used
+    format json  # json parser is used 
+
+## Parameters
+
+### time_key
+
+Specify the field for event time. Default is `time`.
+
+### time_format
+
+Specify time format for `time_key`.
+
+### keep_time_key
+
+If you want to keep time field in the record, set `true`. Default is `false`.
+
+INCLUDE: _types_parameters
+
+## Example
+
+    :::text
+    format /^\[(?<logtime>[^\]]*)\] (?<name>[^ ]*) (?<title>[^ ]*) (?<id>\d*)$/
+    time_key logtime
+    time_format %Y-%m-%d %H:%M:%S %z
+    types id:integer
+
+With this config:
+
+    :::text
+    [2013-02-28 12:00:00 +0900] alice engineer 1
+
+This incoming log is parsed as:
+
+    :::text
+    time:
+    1362020400 (22013-02-28 12:00:00 +0900)
+
+    record:
+    {
+      "name" : "alice",
+      "title": "engineer",
+      "id"   : 1
+    }

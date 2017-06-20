@@ -1,6 +1,6 @@
 * regexp
 
-The regexp for the format parameter can be specified. If the parameter value starts and ends with "/", it is considered to be a regexp. The regexp must have at least one named capture (?&lt;NAME&gt;PATTERN). If the regexp has a capture named ‘time’, it is used as the time of the event. You can specify the time format using the time_format parameter.
+The regexp for the format parameter can be specified. If the parameter value starts and ends with "/", it is considered to be a regexp. The regexp must have at least one named capture (?&lt;NAME&gt;PATTERN). If the regexp has a capture named 'time', it is used as the time of the event. You can specify the time format using the time_format parameter.
 
 [fluentd-ui's in_tail editor](/articles/fluentd-ui#intail-setting) helps your regexp testing. Another way, [Fluentular](http://fluentular.herokuapp.com/) is a great website to test your regexp for Fluentd configuration.
 
