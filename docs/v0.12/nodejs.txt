@@ -55,8 +55,8 @@ A sample [Express](http://expressjs.com/) app using fluent-logger-node is shown 
       "name": "node-example",
       "version": "0.0.1",
       "dependencies": {
-        "express": "2.5.9",
-        "fluent-logger": "0.1.0"
+        "express": "^4.15.3",
+        "fluent-logger": "^2.4.0"
       }
     }
 
@@ -64,23 +64,23 @@ Now use *npm* to install your dependencies locally:
 
     :::term
     $ npm install
-    fluent-logger@0.1.0 ./node_modules/fluent-logger
-    express@2.5.9 ./node_modules/express
-    |-- qs@0.4.2
-    |-- mime@1.2.4
-    |-- mkdirp@0.3.0
-    |-- connect@1.8.6 (formidable@1.0.9)
 
-#### web.js
+#### index.js
 
 This is the simplest web app.
 
     :::js
     var express = require('express');
-    var app = express.createServer(express.logger());
-
     var logger = require('fluent-logger');
-    logger.configure('fluentd.test', {host: 'localhost', port: 24224});
+    var app = express();
+
+    // The 2nd argument can be omitted. Here is a default value for options.
+    logger.configure('fluentd.test', {
+      host: 'localhost',
+      port: 24224,
+      timeout: 3.0,
+      reconnectInterval: 600000 // 10 minutes
+    });
 
     app.get('/', function(request, response) {
       logger.emit('follow', {from: 'userA', to: 'userB'});
@@ -91,10 +91,10 @@ This is the simplest web app.
       console.log("Listening on " + port);
     });
 
-Execute the app and go to `http://localhost:3000/` in your browser. This will send the logs to Fluentd.
+Run the app and go to `http://localhost:3000/` in your browser. This will send the logs to Fluentd.
 
     :::term
-    $ node web.js
+    $ node index.js
 
 The logs should be output to `/var/log/td-agent/td-agent.log` or stdout of the Fluentd process via the [stdout Output plugin](out_stdout).
 
