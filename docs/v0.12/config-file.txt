@@ -2,8 +2,6 @@
 
 This article describes the basic concepts of Fluentd's configuration file syntax.
 
-If you want to know V1 configuration format, please jump to [V1 Format](config-file#v1-format) section.
-
 ## Introduction: The Life of a Fluentd Event
 
 Here is a brief overview of the life of a Fluentd event to help you understand the rest of this page:
@@ -18,7 +16,7 @@ See also [Life of a Fluentd Event](life-of-a-fluentd-event) article.
 
 #### RPM, Deb or DMG
 
-If you installed Fluentd using the td-agent packages, the config file is located at /etc/td-agent/td-agent.conf. `sudo /etc/init.d/td-agent reload` will reload the config file.
+If you installed Fluentd using the td-agent packages, the config file is located at /etc/td-agent/td-agent.conf.
 
     :::term
     $ sudo vi /etc/td-agent/td-agent.conf
@@ -407,15 +405,6 @@ Example2: map plugin:
     </match>
 
 NOTE: We will remove this restriction with configuration parser improvement.
-
-### `"foo"` is interpreted as `foo`, not `"foo"`
-
-`"` is a quote character of string value.
-It causes the different behaviour between v0.12 and old format in v0.10.
-
-    str_param "foo"
-
-str_param is `foo`.
 
 ### Embedded Ruby code
 
