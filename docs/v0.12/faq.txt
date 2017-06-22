@@ -74,7 +74,7 @@ Use `"#{ENV['YOUR_ENV_VARIABLE']}"`. For example,
 There are several reasons:
 
 * If you get `Address already in use` error, other process has already used `host:port`. Check port conflict between processes / plugins.
-* If you get `Permission denied` error, you try to use well-known port. Search `well-known port` for how to use well-known port.
+* If you get `Permission denied` error, you try to use well-known port. Search `well-known port` for how to use well-known port. Use `capabilities` or something
 
 If you get other errors, google it.
 
