@@ -71,7 +71,7 @@ then got parsed result like below:
     :::text
     {"field1":"123456","field2":"awesome}
 
-INCLUDE: _in_parsers
+`in_tail` uses parser plugin to parse the payload. See [parser article](parser-plugin-overview) for more detail.
 
 INCLUDE: _log_level_params
 

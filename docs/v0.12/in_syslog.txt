@@ -68,7 +68,7 @@ Here is an example of message:
 `auto` is useful when `in_syslog` receives both `rfc3164` and `rfc5424` message per source. `in_syslog` detects message format by using message prefix and parse it.
 
 #### format
-The format of the log. This option is used to parse non-standard syslog formats using a regexp.
+The format of the log. This option is used to parse non-standard syslog formats using [parser plugins](parser-plugin-overview).
 
     :::text
     <source>
@@ -87,11 +87,6 @@ then the format parser receives the following log:
      Feb 20 00:00:00 192.168.0.1 fluentd[11111]: [error] hogehoge
 
 If the `format` parameter is missing, then the log data is assumed to have the canonical syslog format (see with_priority).
-
-FORMAT_PARAMETER supports the following options:
-
-INCLUDE: _in_parsers
-
 
 #### with_priority
 

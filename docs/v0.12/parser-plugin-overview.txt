@@ -4,23 +4,35 @@ Fluentd has 6 types of plugins: [Input](input-plugin-overview), [Parser](parser-
 
 ## Overview
 
-Sometimes, the `format` parameter for input plugins (ex: [in_tail](in_tail), [in_syslog](in_syslog), [in_tcp](in_tcp) and [in_udp](in_udp)) cannot parse the user's custom data format (for example, a context-dependent grammar that can't be parsed with a regular expression). To address such cases, for **v0.10.46 and above**, Fluentd has a pluggable system that enables the user to create their own parser formats.
+Sometimes, the `format` parameter for input plugins (ex: [in_tail](in_tail), [in_syslog](in_syslog), [in_tcp](in_tcp) and [in_udp](in_udp)) cannot parse the user's custom data format (for example, a context-dependent grammar that can't be parsed with a regular expression). To address such cases. Fluentd has a pluggable system that enables the user to create their own parser formats.
 
 ## How To Use
 
 * Write a custom format plugin. [See here for more information](plugin-development#parser-plugins).
-* From any input plugin that supports the "format" field, call the custom plugin by its name. Here is an example with in_tail.
-        <source>
-          @type tail
-          path /path/to/input/file
-          format my_custom_parser
-        </source>
+* From any input plugin that supports the "format" field, call the custom plugin by its name. 
+
+Here is an example with in_tail:
+
+    :::text
+    <source>
+      @type tail
+      path /path/to/input/file
+      format my_custom_parser
+    </source>
 
 ## List of Built-in Parsers
 
-INCLUDE: _in_parsers
-
-INCLUDE: _in_types
+* [regexp](parser_regexp)
+* [apache2](parser_apache2)
+* [apache_error](parser_apache_error)
+* [nginx](parser_nginx)
+* [syslog](parser_syslog)
+* [csv](parser_csv)
+* [tsv](parser_tsv)
+* [ltsv](parser_ltsv)
+* [json](parser_json)
+* [multiline](parser_multiline)
+* [none](parser_none)
 
 ## List of Core Input Plugins with Parser support
 

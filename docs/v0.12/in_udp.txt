@@ -54,9 +54,8 @@ then the client's hostname is set to `client_host` field.
     }
 
 #### format (required)
-The format of the UDP payload.
+The format of the UDP payload. `in_udp` uses parser plugin to parse the payload. See [parser article](parser-plugin-overview) for more detail.
 
-INCLUDE: _in_parsers
 
 INCLUDE: _log_level_params
 
