@@ -291,6 +291,15 @@ section 'parser-plugins', 'Parser Plugins' do
   category 'parser_syslog', 'parser_syslog' do
     article 'parser_syslog', 'syslog Filter Plugin'
   end
+  category 'parser_ltsv', 'parser_ltsv' do
+    article 'parser_ltsv', 'LTSV Filter Plugin'
+  end
+  category 'parser_csv', 'parser_csv' do
+    article 'parser_csv', 'CSV Filter Plugin'
+  end
+  category 'parser_tsv', 'parser_tsv' do
+    article 'parser_tsv', 'TSV Filter Plugin'
+  end
   category 'parser_json', 'parser_json' do
     article 'parser_json', 'json Filter Plugin'
   end

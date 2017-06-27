@@ -1,0 +1,42 @@
+# TSV Parser Plugin
+
+The `tsv` parser plugin parses TSV format.
+
+## Parameters
+
+### time_key
+
+Specify time field for event time. Default is `nil`.
+
+If there is no time field in the record, this parser uses current time as an event time.
+
+INCLUDE: _values_parser_parameters
+
+INCLUDE: _types_parameters
+
+## Example
+
+    :::text
+    format tsv
+    keys time,host,req_id,user
+    time_key time
+
+With this configuration:
+
+    :::text
+    2013/02/28 12:00:00\t192.168.0.1\t111\t-
+
+This incoming event is parsed as:
+
+    :::text
+    time:
+    1362020400 (2013/02/28/ 12:00:00)
+
+    record:
+    {
+      "host"   : "192.168.0.1",
+      "req_id" : "111",
+      "user"   : "-"
+    }
+
+If you set `null_value_pattern '-'` in the configuration, `user` field becomes `nil` instead of `"-"`.
