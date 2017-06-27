@@ -16,6 +16,8 @@ If time field value is formatted string, e.g. "28/Feb/2013:12:00:00 +0900", you 
 
 Default is `nil` and it means time field value is a second integer like `1497915137`.
 
+See [Time#strptime](http://ruby-doc.org/stdlib-2.4.1/libdoc/time/rdoc/Time.html#method-c-strptime) for additional format information.
+
 ### keep_time_key
 
 If you want to keep time field in the record, set `true`. Default is `false`.

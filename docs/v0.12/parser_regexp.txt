@@ -16,6 +16,8 @@ Specify the field for event time. Default is `time`.
 
 Specify time format for `time_key`.
 
+See [Time#strptime](http://ruby-doc.org/stdlib-2.4.1/libdoc/time/rdoc/Time.html#method-c-strptime) for additional format information.
+
 ### keep_time_key
 
 If you want to keep time field in the record, set `true`. Default is `false`.
