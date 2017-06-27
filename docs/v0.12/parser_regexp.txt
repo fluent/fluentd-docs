@@ -4,7 +4,7 @@ The `regexp` parser plugin parses logs by given regexp pattern. If the parameter
 
     :::text
     format /.../ # regexp parser is used
-    format json  # json parser is used 
+    format json  # json parser is used
 
 ## Parameters
 
@@ -47,3 +47,11 @@ This incoming log is parsed as:
       "title": "engineer",
       "id"   : 1
     }
+
+## FAQ
+
+### How to debug my regexp pattern?
+
+[fluentd-ui's in_tail editor](/articles/fluentd-ui#intail-setting) helps your regexp testing. Another way, [Fluentular](http://fluentular.herokuapp.com/) is a great website to test your regexp for Fluentd configuration.
+
+NOTE: You may hit Application Error at Fluentular due to <a href="https://www.heroku.com/pricing">heroku free plan limitation</a>. Retry a few hours later or use fluentd-ui instead.
