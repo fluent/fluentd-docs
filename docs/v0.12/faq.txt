@@ -82,6 +82,20 @@ If you get other errors, google it.
 
 `file` buffer has limitations. Check [`buf_file` article](buf_file#limitation).
 
+### I got enconding error inside plugin. How to fix it?
+
+You may hit `"\xC3" from ASCII-8BIT to UTF-8"` like `UndefinedConversionError` in the plugin.
+This error happens when string encoding is set to `ASCII-8BIT` but actual content is `UTF-8`.
+Fluentd and almost plugins treat the logs as a `ASCII-8BIT` by default but
+some libraries assume the log encoding is `UTF-8`. This is why this error happens.
+
+There are several approaches to avoid this problem.
+
+- Set encoding correctly.
+-- `tail` input has encoding related parameters to change the log encoding
+-- Use `record_modifier` filter to change the encoding: https://github.com/repeatedly/fluent-plugin-record-modifier#char_encoding
+- Use `yajl` instead of `json` when error happens inside `JSON.parse/JSON.dump`
+
 ## Plugin Development
 
 ### How do I develop a custom plugin?
