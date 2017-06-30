@@ -92,8 +92,8 @@ some libraries assume the log encoding is `UTF-8`. This is why this error happen
 There are several approaches to avoid this problem.
 
 - Set encoding correctly.
--- `tail` input has encoding related parameters to change the log encoding
--- Use `record_modifier` filter to change the encoding: https://github.com/repeatedly/fluent-plugin-record-modifier#char_encoding
+  - `tail` input has encoding related parameters to change the log encoding
+  - Use `record_modifier` filter to change the encoding. See [fluent-plugin-record-modifier README](https://github.com/repeatedly/fluent-plugin-record-modifier#char_encoding)
 - Use `yajl` instead of `json` when error happens inside `JSON.parse/JSON.dump`
 
 ## Plugin Development
