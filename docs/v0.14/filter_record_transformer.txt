@@ -156,15 +156,6 @@ A comma-delimited list of keys to keep. Only relevant if `renew_record` is set t
 
 A comma-delimited list of keys to delete.
 
-## FAQ
-
-### What are the differences between `${record["key"]}` and `${key}`?
-
-`${key}` is short-cut for `${record["key"]}`. This is error prone because `${tag}` is unclear for event tag or `record["tag"]`.
-So the `${key}` syntax is now deprecated for avoiding this problem. Don't use `${key}` short-cut syntax on the production.
-
-Since v0.14, `${key}` short-cut syntax is removed.
-
 ## Learn More
 
 - [Filter Plugin Overview](filter-plugin-overview)
