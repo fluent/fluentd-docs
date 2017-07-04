@@ -87,3 +87,7 @@ The Yaml file have two relevant environment variables that are used by Fluentd w
 | FLUENT\_ELASTICSEARCH\_PORT    | Elasticsearch TCP port             | 9200                 |
 
 Any relevant change needs to be done to the Yaml file before to deploy it. Using the default values assumes that at least an Elasticsearch Pod __elasticsearch-logging__ exists in the cluster.
+
+## Enterprise Support by Treasure Data
+
+Treasure Data, the original creator of Fluentd, [offers commercial support for Fluentd on Kubernetes](https://fluentd.treasuredata.com/kubernetes-logging/).
