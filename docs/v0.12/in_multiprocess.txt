@@ -39,28 +39,28 @@ NOTE: Especially for daemonized fluentd (ex: td-agent), `--log` option MUST be s
 
 ## Parameters
 
-#### type (required)
+### @type (required)
 The value must be `multiprocess`.
 
-#### graceful_kill_interval
+### graceful_kill_interval
 The interval to send the signal to gracefully shut down the process (default: 2sec).
 
-#### graceful_kill_interval_increment
+### graceful_kill_interval_increment
 The increment time, when graceful shutdown fails (default: 3sec).
 
-#### graceful_kill_timeout
+### graceful_kill_timeout
 The timeout, to identify the failure of graceful shutdown (default: 60sec).
 
-#### process (required)
+### process (required)
 The `process` section sets the command line arguments of a child process. This plugin creates one child process for each <process> section.
 
-#### cmdline (required)
+### cmdline (required)
 The `cmdline` option is required in a <process> section
 
-#### sleep_before_start
+### sleep_before_start
 This parameter sets the wait time before starting the process (default: 0sec).
 
-#### sleep_before_shutdown
+### sleep_before_shutdown
 This parameter sets the wait time before shutting down the process (default: 0sec).
 
 INCLUDE: _log_level_params

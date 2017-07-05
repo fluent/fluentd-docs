@@ -21,30 +21,30 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 
 ## Parameters
 
-#### type (required)
+### @type (required)
 The value must be `forward`.
 
-#### port
+### port
 The port to listen to. Default Value = 24224
 
-#### bind
+### bind
 The bind address to listen to. Default Value = 0.0.0.0 (all addresses)
 
-#### linger_timeout
+### linger_timeout
 The timeout time used to set linger option. The default is 0
 
-#### chunk_size_limit
+### chunk_size_limit
 The size limit of the the received chunk. If the chunk size is larger than this value, then the received chunk is dropped. The default is nil (no limit).
 
-#### chunk_size_warn_limit
+### chunk_size_warn_limit
 The warning size limit of the received chunk. If the chunk size is larger than this value, a warning message will be sent. The default is nil (no warning).
 
-#### skip_invalid_event (v0.12.20 or later)
+### skip_invalid_event (v0.12.20 or later)
 Skip an event if incoming event is invalid. The default is false.
 
 This option is useful at forwarder, not aggragator. v0.12.20 or later.
 
-#### source_hostname_key (v0.12.28 or later)
+### source_hostname_key (v0.12.28 or later)
 The field name of the client's hostname. If set the value, the client's hostname will be set to its key. The default is nil (no adding hostname).
 
 This iterates incoming events. So if you sends larger chunks to `in_forward`, it needs additional processing time.

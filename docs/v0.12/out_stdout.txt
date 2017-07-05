@@ -15,10 +15,10 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 
 ## Parameters
 
-#### type (required)
+### @type (required)
 The value must be `stdout`.
 
-#### output_type
+### output_type
 Output format. The following formats are supported:
 
 * json

@@ -23,13 +23,13 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 
 ## Parameters
 
-#### type (required)
+### @type (required)
 The value must be `exec`.
 
-#### command (required)
+### command (required)
 The command (program) to execute.
 
-#### format
+### format
 The format used to map the program output to the incoming event.
 
 The following formats are supported:
@@ -46,19 +46,19 @@ When using the tsv format, please also specify the comma-separated `keys` parame
 NOTE: When using the json format, this plugin uses the Yajl library to parse the program output. Yajl buffers data internally so the output isn't always instantaneous.
 
 
-#### tag (required if tag_key is not specified)
+### tag (required if tag_key is not specified)
 tag of the output events.
 
-#### tag_key
+### tag_key
 The key to use as the event tag instead of the value in the event record. If this parameter is not specified, the `tag` parameter will be used instead.
 
-#### time_key
+### time_key
 The key to use as the event time instead of the value in the event record. If this parameter is not specified, the current time will be used instead.
 
-#### time_format
+### time_format
 The format of the event time used for the time_key parameter. The default is UNIX time (integer).
 
-#### run_interval
+### run_interval
 The interval time between periodic program runs. If no specify value, command script runs only once.
 
 INCLUDE: _log_level_params

@@ -39,7 +39,7 @@ NOTE: Please make sure that you have <b>enough space in the buffer_path director
 
 ## Parameters
 
-### type (required)
+### @type (required)
 The value must be `s3`.
 
 ### aws_key_id (required/optional)

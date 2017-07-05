@@ -22,29 +22,29 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 
 ## Parameters
 
-#### type (required)
+### @type (required)
 The value must be `tcp`.
 
-#### tag (required)
+### tag (required)
 tag of output events.
 
-#### port
+### port
 The port to listen to. Default Value = 5170
 
-#### bind
+### bind
 The bind address to listen to. Default Value = 0.0.0.0
 
-#### delimiter
+### delimiter
 The payload is read up to this character. By default, it is "\n".
 
-#### source_host_key
+### source_hostname_key
 
 The field name of the client's hostname. If set the value, the client's hostname will be set to its key. The default is nil (no adding hostname).
 
 If you set following configuration:
 
     :::text
-    source_host_key client_host
+    source_hostname_key client_host
 
 then the client's hostname is set to `client_host` field.
 
@@ -55,7 +55,7 @@ then the client's hostname is set to `client_host` field.
         "client_host": "client.hostname.org"
     }
 
-#### format (required)
+### format (required)
 The format of the TCP payload. Here is the example by regular expression.
 
     :::text
@@ -71,7 +71,7 @@ then got parsed result like below:
     :::text
     {"field1":"123456","field2":"awesome}
 
-`in_tail` uses parser plugin to parse the payload. See [parser article](parser-plugin-overview) for more detail.
+`in_tcp` uses parser plugin to parse the payload. See [parser article](parser-plugin-overview) for more detail.
 
 INCLUDE: _log_level_params
 

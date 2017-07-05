@@ -49,7 +49,7 @@ Here is an example set up to send events to both a local file under `/var/log/fl
 
 ## Parameters
 
-### type (required)
+### @type (required)
 The value must be `copy`.
 
 ### deep_copy

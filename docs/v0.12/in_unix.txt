@@ -16,13 +16,13 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 
 ## Parameters
 
-#### type (required)
+### @type (required)
 The value must be `unix`.
 
-#### path (required)
+### path (required)
 The path to your Unix Domain Socket.
 
-#### backlog
+### backlog
 The backlog of Unix Domain Socket. The default is `1024`.
 
 

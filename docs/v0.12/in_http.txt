@@ -27,25 +27,25 @@ The example below posts a record using the `curl` command.
 
 ## Parameters
 
-#### type (required)
+### @type (required)
 The value must be `http`.
 
-#### port
+### port
 The port to listen to. Default Value = 9880
 
-#### bind
+### bind
 The bind address to listen to. Default Value = 0.0.0.0 (all addresses)
 
-#### body_size_limit
+### body_size_limit
 The size limit of the POSTed element. Default Value = 32MB
 
-#### keepalive_timeout
+### keepalive_timeout
 The timeout limit for keeping the connection alive. Default Value = 10 seconds
 
-#### add_http_headers
+### add_http_headers
 Add `HTTP_` prefix headers to the record. The default is `false`
 
-#### add_remote_addr
+### add_remote_addr
 Add `REMOTE_ADDR` field to the record. The value of `REMOTE_ADDR` is the client's address. The default is `false`
 
 If your system set multiple `X-Forwarded-For` headers in the request, `in_http` uses first one. For example:
@@ -56,12 +56,12 @@ If your system set multiple `X-Forwarded-For` headers in the request, `in_http` 
 
 If send above multiple headers, `REMOTE_ADDR` value is `host1`.
 
-#### cors_allow_origins
+### cors_allow_origins
 White list domains for CORS. Default is no check.
 
 If you set `["domain1", "domain2"]` to `cors_allow_origins`, `in_http` returns `403` to access from othe domains.
 
-#### format
+### format
 The format of the HTTP body. The default is `default`.
 
 * default
@@ -87,9 +87,9 @@ then got parsed result like below:
 
 `json`, `ltsv`, `tsv`, `csv` and `none` are also supported. Check [parser plugin overview](parser-plugin-overview) for more details.
 
-
 INCLUDE: _log_level_params
 
+## Additional Features
 
 ### time query parameter
 
