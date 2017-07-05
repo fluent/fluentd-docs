@@ -315,6 +315,27 @@ section 'formatter-plugins', 'Formatter Plugins' do
   category 'formatter-plugin-overview', 'Overview' do
     article 'formatter-plugin-overview', 'Formatter Plugin Overview'
   end
+  category 'formatter_out_file', 'formatter_out_file' do
+    article 'formatter_out_file', 'out_file Formatter Plugin'
+  end
+  category 'formatter_json', 'formatter_json' do
+    article 'formatter_json', 'json Formatter Plugin'
+  end
+  category 'formatter_ltsv', 'formatter_ltsv' do
+    article 'formatter_ltsv', 'ltsv Formatter Plugin'
+  end
+  category 'formatter_csv', 'formatter_csv' do
+    article 'formatter_csv', 'csv Formatter Plugin'
+  end
+  category 'formatter_msgpack', 'formatter_msgpack' do
+    article 'formatter_msgpack', 'msgpack Formatter Plugin'
+  end
+  category 'formatter_hash', 'formatter_hash' do
+    article 'formatter_hash', 'hash Formatter Plugin'
+  end
+  category 'formatter_single_value', 'formatter_single_value' do
+    article 'formatter_single_value', 'single_value Formatter Plugin'
+  end
 end
 section 'developer', 'Developer' do
   category 'plugin-development', 'Plugin Development' do

@@ -1,0 +1,34 @@
+# ltsv Formatter Plugin
+
+The `ltsv` formatter plugin output an event as [LTSV](http://ltsv.org).
+
+    :::text
+    field1[label_delimiter]value1[delimiter]field2[label_delimiter]value2\n
+
+## Parameters
+
+### delimiter (String, Optional. defaults to "\t"(TAB))
+
+Delimiter for fields.
+
+### label_delimiter (String, Optional. defaults to ":")
+
+Delimiter for key value field.
+
+### add_newline (Boolean, Optional, defaults to true)
+
+Add `\n` to the result.
+
+INCLUDE: _formatter_plugin_common_parameters
+
+## Example
+
+    :::text
+    tag:    app.event
+    time:   1362020400
+    record: {"host":"192.168.0.1","size":777,"method":"PUT"}
+
+This incoming event is formatted to:
+
+    :::text
+    host:192.168.0.1\tsize:777\tmethod:PUT\n
