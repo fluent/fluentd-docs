@@ -277,37 +277,37 @@ section 'parser-plugins', 'Parser Plugins' do
     article 'parser-plugin-overview', 'Parser Plugin Overview'
   end
   category 'parser_regexp', 'parser_regexp' do
-    article 'parser_regexp', 'regexp Filter Plugin'
+    article 'parser_regexp', 'regexp Parser Plugin'
   end
   category 'parser_apache2', 'parser_apache2' do
-    article 'parser_apache2', 'apache2 Filter Plugin'
+    article 'parser_apache2', 'apache2 Parser Plugin'
   end
   category 'parser_apache_error', 'parser_apache_error' do
-    article 'parser_apache_error', 'apache_error Filter Plugin'
+    article 'parser_apache_error', 'apache_error Parser Plugin'
   end
   category 'parser_nginx', 'parser_nginx' do
-    article 'parser_nginx', 'nginx Filter Plugin'
+    article 'parser_nginx', 'nginx Parser Plugin'
   end
   category 'parser_syslog', 'parser_syslog' do
-    article 'parser_syslog', 'syslog Filter Plugin'
+    article 'parser_syslog', 'syslog Parser Plugin'
   end
   category 'parser_ltsv', 'parser_ltsv' do
-    article 'parser_ltsv', 'LTSV Filter Plugin'
+    article 'parser_ltsv', 'LTSV Parser Plugin'
   end
   category 'parser_csv', 'parser_csv' do
-    article 'parser_csv', 'CSV Filter Plugin'
+    article 'parser_csv', 'CSV Parser Plugin'
   end
   category 'parser_tsv', 'parser_tsv' do
-    article 'parser_tsv', 'TSV Filter Plugin'
+    article 'parser_tsv', 'TSV Parser Plugin'
   end
   category 'parser_json', 'parser_json' do
-    article 'parser_json', 'json Filter Plugin'
+    article 'parser_json', 'json Parser Plugin'
   end
   category 'parser_multiline', 'parser_multiline' do
-    article 'parser_multiline', 'multiline Filter Plugin'
+    article 'parser_multiline', 'multiline Parser Plugin'
   end
   category 'parser_none', 'parser_none' do
-    article 'parser_none', 'none Filter Plugin'
+    article 'parser_none', 'none Parser Plugin'
   end
 
 end
