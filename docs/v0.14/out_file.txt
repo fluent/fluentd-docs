@@ -1,0 +1,98 @@
+# file Output Plugin
+
+The `out_file` Output plugin writes events to files. By default, it creates files on a daily basis (around 00:10). This means that when you first import records using the plugin, no file is created immediately. The file will be created when the `timekey` condition has been met. To change the output frequency, please modify the `timekey` value.
+
+## Example Configuration
+
+`out_file` is included in Fluentd's core. No additional installation process is required.
+
+    :::text
+    <match pattern>
+      @type file
+      path /var/log/fluent/myapp
+      compress gzip
+      <buffer>
+        timekey 1d
+        timekey_use_utc true
+        timekey_wait 10m
+      </buffer>
+    </match>
+
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+
+## Parameters
+
+### @type (required)
+The value must be `file`.
+
+### path (required)
+The Path of the file. The actual path is path + time + ".log" by default.<br />
+The `path` parameter supports placeholders, so you can embed time, tag and record fields in the path. Here is an example:
+
+    :::text
+    path /path/to/${tag}/${key1}/file.%Y%m%d.log
+    <buffer tag,time,key1>
+      # buffer parameters
+    </buffer>
+
+See [Buffer section configurations](http://docs.fluentd.org/v0.14/articles/buffer-section) for more detail.
+
+The `path` parameter is used as `buffer_path` in this plugin.
+
+NOTE: Initially, you may see a file which looks like "/path/to/file.20140101.log.b4eea2c8166b147a0". This is an intermediate buffer file ("b4eea2c8166b147a0" identifies the buffer). Once the content of the buffer has been completely <a href="buf_file">flushed</a>, you will see the output file without the trailing identifier.
+
+### append
+The flushed chunk is appended to existence file or not. The default is `false`.
+By default, out_file flushes each chunk to different path.
+
+    :::text
+    # append false
+    log.20140608_0.log
+    log.20140608_1.log
+    log.20140609_0.log
+    log.20140609_1.log
+
+This makes parallel file processing easy. But if you want to disable this behaviour,
+you can disable it by setting `append true`.
+
+    :::text
+    # append true
+    log.20140608.log
+    log.20140609.log
+
+### &lt;format&gt; directive
+The format of the file content. The default is `out_file`.
+
+Here is json example:
+
+    :::text
+    <format>
+      @type json
+    </format>
+
+See [formatter article](formatter-plugin-overview) for more detail.
+
+### format
+Deprecated parameter. Use `<format>` instead.
+
+### utc
+Deprecated parameter. Use `timekey_use_utc` in `<buffer>` instead.
+
+### compress
+Compresses flushed files using `gzip`. No compression is performed by default.
+
+### recompress
+Execute compression again even when buffer chunk is already compressed. Default is `false`
+
+### symlink_path
+
+Create symlink to temporary buffered file when `buffer_type` is `file`. No symlink is created by default.
+This is useful for tailing file content to check logs.
+
+This is disabled on Windows.
+
+INCLUDE: _log_level_params
+
+## Common Buffer / Output parameters
+
+See [Buffer Plugin Overview](buffer-plugin-overview) and [Output Plugin Overview](output-plugin-overview)
