@@ -477,6 +477,26 @@ Then, save this code in `formatter_my_csv.rb` in a loadable plugin path. Then, i
 
 and if the record `{"k1": 100, "k2": 200}` is matched, the output file should look like `100,200`
 
+## Error stream
+
+`router` has `emit_error_event` API to rescue invalid events.
+Emitted events via `emit_error_event` are routed to `@ERROR` label.
+
+There are several use cases:
+
+- Rescue invalid event which hard to apply filter routine, e.g. don't have geoip target field.
+- Rescue invalid event which hard to serialize in the output, e.g. can't convert a record into BSON.
+
+### API
+
+     :::text
+     router.emit_error_event(tag, time, record, error)
+
+- tag: String: recommend to use incoming event tag
+- time: Integer: recommend to use incoming event time
+- record: Hash: recommend to use incoming event record
+- error: Exception: use a raised exception
+
 ## config_param
 
 `config_param` helper defines plugin parameter. You don't need to parse parameters manually.
