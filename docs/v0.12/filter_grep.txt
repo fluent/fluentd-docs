@@ -9,9 +9,18 @@ The `filter_grep` filter plugin "greps" events by the values of specified fields
     :::text
     <filter foo.bar>
       @type grep
-      regexp1 message cool
-      regexp2 hostname ^web\d+\.example\.com$
-      exclude1 message uncool
+      <regexp>
+        key message
+        pattern cool
+      </regexp>
+      <regexp>
+        key hostname
+        pattern ^web\d+\.example\.com$
+      </regexp>
+      <exclude>
+        key message
+        pattern uncool
+      </exclude>
     </filter>
 
 The above example matches any event that satisfies the following conditions:
@@ -35,57 +44,107 @@ whereas the following examples are filtered out:
 
 ## Parameters
 
-### regexpN (optional)
+### &lt;regexp&gt; directive (optional)
+Specify filtering rule. This directive contains two parameters.
 
-The "N" at the end should be replaced with an integer between 1 and 20 (ex: "regexp1"). regexpN takes two whitespace-delimited arguments.
+- key
 
-- The first argument is the field name to which the regular expression is applied.
-- The second argument is the regular expression.
+The field name to which the regular expression is applied.
+
+- pattern
+
+The regular expression.
 
 For example, the following filters out events unless the field "price" is a positive integer.
 
     :::text
-    regexp1 price [1-9]\d*
+    <regexp>
+      key price
+      pattern [1-9]\d*
+    </regexp>
 
-The grep filter filters out UNLESS all regexpN's are matched. Hence, if you have
+The grep filter filters out UNLESS all `<regexp>`s are matched. Hence, if you have
 
     :::text
-    regexp1 price [1-9]\d*
-    regexp2 item_name ^book_
+    <regexp>
+      key price
+      pattern [1-9]\d*
+    </regexp>
+    <regexp>
+      key item_name
+      pattern ^book_
+    </regexp>
 
 unless the event's "item_name" field starts with "book_" and the "price" field is an integer, it is filtered out.
 
 For OR condition, you can use `|` operator of regular expressions. For example, if you have
 
     :::text
-    regexp1 item_name (^book_|^article)
+    <regexp>
+      key item_name
+      pattern (^book_|^article)
+    </regexp>
 
 unless the event's "item_name" field starts with "book_" or "article_", it is filtered out.
 
 Learn regular expressions for more patterns.
 
-### excludeN (optional)
+### regexpN (optional)
+This is deprecated parameter. Use `<regexp>` instead.
 
-The "N" at the end should be replaced with an integer between 1 and 20 (ex: "exclude1"). excludeN takes two whitespace-delimited arguments.
+The "N" at the end should be replaced with an integer between 1 and 20 (ex: "regexp1"). regexpN takes two whitespace-delimited arguments.
 
-- The first argument is the field name to which the regular expression is applied.
-- The second argument is the regular expression.
+Here is `regexpN` version of `<regexp>` example:
+
+    :::text
+    regexp1 price [1-9]\d*
+    regexp2 item_name ^book_
+
+### &lt;exclude&gt; directive (optional)
+Specify filtering rule to reject events. This directive contains two parameters.
+
+- key
+
+The field name to which the regular expression is applied.
+
+- pattern
+
+The regular expression.
 
 For example, the following filters out events whose "status_code" field is 5xx.
 
     :::text
-    exclude1 status_code ^5\d\d$
+    <exclude>
+      key status_code
+      pattern ^5\d\d$
+    </exclude>
 
-The grep filter filters out if any excludeN is matched. Hence, if you have
+The grep filter filters out if any `<exclude>` is matched. Hence, if you have
+
+    :::text
+    <exclude>
+      key status_code
+      pattern ^5\d\d$
+    </exclude>
+    <exclude>
+      key url
+      pattern \.css$
+    </exclude>
+
+Then, any event whose "status_code" is 5xx OR "url" ends with ".css" is filtered out.
+
+### excludeN (optional)
+This is deprecated parameter. Use `<exclude>` instead.
+
+The "N" at the end should be replaced with an integer between 1 and 20 (ex: "exclude1"). excludeN takes two whitespace-delimited arguments.
+
+Here is `excludeN` version of `<exclude>` example:
 
     :::text
     exclude1 status_code ^5\d\d$
     exclude2 url \.css$
 
-Then, any event whose "status_code" is 5xx OR "url" ends with ".css" is filtered out.
-
-NOTE: If <code>regexpN</code> and <code>excludeN</code> are used together, both are applied.
-
+NOTE: If <code>&lt;regexp&gt;</code> and <code>&lt;exclude&gt;</code> are used together, both are applied.
 
 ## Learn More
 
