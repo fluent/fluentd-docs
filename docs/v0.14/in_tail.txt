@@ -181,6 +181,6 @@ INCLUDE: _log_level_params
 
 This parameter doesn't fit typical application log cases, so check your `logrotate` setting which doesn't include `nocreate` parameter.
 
-### What heppens when in_tail receives BufferQueueLimitError?
+### What happens when in_tail receives BufferQueueLimitError?
 
 in_tail stops reading new lines and pos file update until BufferQueueLimitError is resolved. After resolved BufferQueueLimitError, restart emitting new lines and pos file update.
