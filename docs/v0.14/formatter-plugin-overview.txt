@@ -1,31 +1,29 @@
-# Text Formatter Overview
+# Formatter Overview
 
-NOTE: This page is simply copied from LINK(v0.12):[v0.12 documents](/articles/formatter-plugin-overview), and will be updated later.
-
-TODO: This document site should have pages for each formatter plugins, and filter/output plugins should refer these pages, instead of using INCLUDE.
-
-Fluentd has 6 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview), [Storage](storage-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Formatter Plugin.
+Fluentd has 7 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview), [Storage](storage-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Formatter Plugin.
 
 ## Overview
 
-Sometimes, the output format for an output plugin does not meet one's needs. Fluentd has a pluggable system called Text Formatter that lets the user extend and re-use custom output formats.
+Sometimes, the output format for an output plugin does not meet one's needs. Fluentd has a pluggable system called Formatter that lets the user extend and re-use custom output formats.
 
 ## How To Use
 
-For an output plugin that supports Text Formatter, the `format` parameter can be used to change the output format.
+For an output plugin that supports Formatter, the `<format>` directive can be used to change the output format.
 
 For example, by default, [out_file](out_file) plugin outputs data as
 
     :::text
     2014-08-25 00:00:00 +0000<TAB>foo.bar<TAB>{"k1":"v1", "k2":"v2"}
 
-However, if you set `format json` like this
+However, if you set `@type json` in `<format>` like this
 
     :::text
     <match foo.bar>
       @type file
       path /path/to/file
-      format json
+      <format>
+        @type json
+      </format>
     </match>
 
 The output changes to
@@ -39,11 +37,16 @@ See [this section](plugin-development#text-formatter-plugins) to learn how to de
 
 ## List of Built-in Formatters
 
-INCLUDE: _formatter_parameters
+* [out_file](formatter_out_file)
+* [json](formatter_json)
+* [ltsv](formatter_ltsv)
+* [csv](formatter_csv)
+* [msgpack](formatter_msgpack)
+* [hash](formatter_hash)
+* [single_value](formatter_single_value)
 
-## List of Filter/Output Plugins with Text Formatter Support
+## List of Output/Filter Plugins with Formatter Support
 
 * [filter_stdout](filter_stdout)
 * [out_file](out_file)
 * [out_s3](out_s3)
-
