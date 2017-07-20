@@ -37,6 +37,7 @@ The following formats are supported:
 * tsv (default)
 * json
 * msgpack
+* [parser plugin formats](parser-plugin-overview), e.g. ltsv, none.
 
 When using the tsv format, please also specify the comma-separated `keys` parameter.
 
@@ -44,7 +45,6 @@ When using the tsv format, please also specify the comma-separated `keys` parame
     keys k1,k2,k3
 
 NOTE: When using the json format, this plugin uses the Yajl library to parse the program output. Yajl buffers data internally so the output isn't always instantaneous.
-
 
 ### tag (required if tag_key is not specified)
 tag of the output events.
