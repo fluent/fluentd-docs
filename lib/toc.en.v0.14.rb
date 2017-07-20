@@ -140,15 +140,15 @@ section 'plugin', 'Input Plugins' do
   # category 'in_secure_forward', 'in_secure_forward' do
   #   article 'in_secure_forward', 'secure_forward Intput Plugin', ['SSL', 'authentication']
   # end
-  # category 'in_http', 'in_http' do
-  #   article 'in_http', 'http Input Plugin'
-  # end
+  category 'in_http', 'in_http' do
+    article 'in_http', 'http Input Plugin'
+  end
   # category 'in_unix', 'in_unix' do
   #   article 'in_unix', 'UDS Input Plugin'
   # end
-  # category 'in_tail', 'in_tail' do
-  #   article 'in_tail', 'tail Input Plugin'
-  # end
+  category 'in_tail', 'in_tail' do
+    article 'in_tail', 'tail Input Plugin'
+  end
   # category 'in_exec', 'in_exec' do
   #   article 'in_exec', 'exec Input Plugin'
   # end
@@ -172,9 +172,9 @@ section 'output-plugins', 'Output Plugins' do
   category 'output-plugin-overview', 'Overview' do
     article 'output-plugin-overview', 'Output Plugin Overview'
   end
-  # category 'out_file', 'out_file' do
-  #   article 'out_file', 'file Output Plugin'
-  # end
+  category 'out_file', 'out_file' do
+    article 'out_file', 'file Output Plugin'
+  end
   # category 'out_forward', 'out_forward' do
   #   article 'out_forward', 'forward Output Plugin'
   # end
@@ -259,6 +259,39 @@ end
 section 'parser-plugins', 'Parser Plugins' do
   category 'parser-plugin-overview', 'Overview' do
     article 'parser-plugin-overview', 'Parser Plugin Overview'
+  end
+  category 'parser_regexp', 'parser_regexp' do
+    article 'parser_regexp', 'regexp Parser Plugin'
+  end
+  category 'parser_apache2', 'parser_apache2' do
+    article 'parser_apache2', 'apache2 Parser Plugin'
+  end
+  category 'parser_apache_error', 'parser_apache_error' do
+    article 'parser_apache_error', 'apache_error Parser Plugin'
+  end
+  category 'parser_nginx', 'parser_nginx' do
+    article 'parser_nginx', 'nginx Parser Plugin'
+  end
+  category 'parser_syslog', 'parser_syslog' do
+    article 'parser_syslog', 'syslog Parser Plugin'
+  end
+  category 'parser_ltsv', 'parser_ltsv' do
+    article 'parser_ltsv', 'LTSV Parser Plugin'
+  end
+  category 'parser_csv', 'parser_csv' do
+    article 'parser_csv', 'CSV Parser Plugin'
+  end
+  category 'parser_tsv', 'parser_tsv' do
+    article 'parser_tsv', 'TSV Parser Plugin'
+  end
+  category 'parser_json', 'parser_json' do
+    article 'parser_json', 'json Parser Plugin'
+  end
+  category 'parser_multiline', 'parser_multiline' do
+    article 'parser_multiline', 'multiline Parser Plugin'
+  end
+  category 'parser_none', 'parser_none' do
+    article 'parser_none', 'none Parser Plugin'
   end
 end
 section 'formatter-plugins', 'Formatter Plugins' do
