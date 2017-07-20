@@ -1,0 +1,76 @@
+# regexp Parser Plugin
+
+The `regexp` parser plugin parses logs by given regexp pattern. The regexp must have at least one named capture (?&lt;NAME&gt;PATTERN). If the regexp has a capture named `time`, this is configurable, it is used as the time of the event. You can specify the time format using the time_format parameter.
+
+    :::text
+    <parse>
+      @type regexp
+      expression /.../
+    </parse>
+
+## Parameters
+
+### expression (required)
+
+Regular expression for matching logs.
+
+### ignorecase
+
+Ignore case in matching.
+
+### multiline
+
+Build regular expression as a multline mode. `.` matches newline. See [Ruby's Regexp document](https://ruby-doc.org/core-2.4.1/Regexp.html#class-Regexp-label-Options)
+
+### time_key
+
+Specify the field for event time. Default is `time`.
+
+### time_format
+
+Specify time format for `time_key`.
+
+See [Time#strptime](http://ruby-doc.org/stdlib-2.4.1/libdoc/time/rdoc/Time.html#method-c-strptime) for additional format information.
+
+### keep_time_key
+
+If you want to keep time field in the record, set `true`. Default is `false`.
+
+INCLUDE: _types_parameters
+
+## Example
+
+    :::text
+    <parse>
+      @type regexp
+      expression /^\[(?<logtime>[^\]]*)\] (?<name>[^ ]*) (?<title>[^ ]*) (?<id>\d*)$/
+      time_key logtime
+      time_format %Y-%m-%d %H:%M:%S %z
+      types id:integer
+    </parse>
+
+With this config:
+
+    :::text
+    [2013-02-28 12:00:00 +0900] alice engineer 1
+
+This incoming log is parsed as:
+
+    :::text
+    time:
+    1362020400 (22013-02-28 12:00:00 +0900)
+
+    record:
+    {
+      "name" : "alice",
+      "title": "engineer",
+      "id"   : 1
+    }
+
+## FAQ
+
+### How to debug my regexp pattern?
+
+[fluentd-ui's in_tail editor](/articles/fluentd-ui#intail-setting) helps your regexp testing. Another way, [Fluentular](http://fluentular.herokuapp.com/) is a great website to test your regexp for Fluentd configuration.
+
+NOTE: You may hit Application Error at Fluentular due to <a href="https://www.heroku.com/pricing">heroku free plan limitation</a>. Retry a few hours later or use fluentd-ui instead.

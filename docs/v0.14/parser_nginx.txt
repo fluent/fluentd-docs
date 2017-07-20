@@ -1,0 +1,45 @@
+# nginx Parser Plugin
+
+The `nginx` parser plugin parses default nginx logs.
+
+## Parameters
+
+### keep_time_key
+
+If you want to keep time field in the record, set `true`. Default is `false`.
+
+INCLUDE: _types_parameters
+
+## Regexp patterns
+
+This is regexp and time format patterns of this plugin:
+
+    :::text
+    expression /^(?<remote>[^ ]*) (?<host>[^ ]*) (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^\"]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")?$/
+    time_format %d/%b/%Y:%H:%M:%S %z
+
+`remote`, `user`, `method`, `path`, `code`, `size`, `referer` and `agent` are included in the event record. `time` is used for the event time.
+
+## Example
+
+    :::text
+    127.0.0.1 192.168.0.1 - [28/Feb/2013:12:00:00 +0900] "GET / HTTP/1.1" 200 777 "-" "Opera/12.0"
+
+This incoming event is parsed as:
+
+    :::text
+    time:
+    1362020400 (28/Feb/2013:12:00:00 +0900)
+
+    record:
+    {
+      "remote" : "127.0.0.1",
+      "host"   : "192.168.0.1",
+      "user"   : "-",
+      "method" : "GET",
+      "path"   : "/",
+      "code"   : "200",
+      "size"   : "777",
+      "referer": "-",
+      "agent"  : "Opera/12.0"
+    }
