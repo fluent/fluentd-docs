@@ -61,7 +61,7 @@ White list domains for CORS. Default is no check.
 
 If you set `["domain1", "domain2"]` to `cors_allow_origins`, `in_http` returns `403` to access from othe domains.
 
-### &lt;parse&gt; directive (required)
+### &lt;parse&gt; directive
 The format of the HTTP body. The default is `in_http`.
 
 * in_http
