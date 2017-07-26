@@ -24,7 +24,7 @@ NOTE: If you need <b>Security Tested Docker Image</b> with a clear life cycle ma
 
 ## Step 2: Launch Fluentd Container
 
-To make the test simple, create the example config below at `/tmp/fluentd/conf`. This example accepts records from http, and output to stdout.
+To make the test simple, create the example config below at `/tmp/fluentd.conf`. This example accepts records from http, and output to stdout.
 
     :::term
     # /tmp/fluentd.conf
