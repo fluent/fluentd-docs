@@ -32,9 +32,6 @@ The port to listen to. Default Value = 5160
 ### bind
 The bind address to listen to. Default Value = 0.0.0.0
 
-### delimiter
-The payload is read up to this character. By default, it is "\n".
-
 ### source_hostname_key
 
 The field name of the client's hostname. If set the value, the client's hostname will be set to its key. The default is nil (no adding hostname).
