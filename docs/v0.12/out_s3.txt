@@ -123,8 +123,8 @@ The compression type. The default is "gzip", but you can also choose "lzo", "jso
 ### proxy_uri
 The proxy url. The default is nil.
 
-### use_ssl
-Enable/disable SSL for data transfers between Fluentd and S3. The default is "yes".
+### ssl_verify_peer
+Verify SSL certificate of the endpoint. The default is true. Set false when you want to ignore the endpoint SSL certificate.
 
 INCLUDE: _timesliced_buffer_parameters
 
