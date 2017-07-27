@@ -65,7 +65,7 @@ The Amazon S3 region name. Please select the appropriate region name and confirm
 
 The full list can be found [official AWS document](http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region).
 
-### s3_enpoint
+### s3_endpoint
 
 This option is deprecated because latest aws-sdk ignores this option. Please use `s3_region` instead.
 
