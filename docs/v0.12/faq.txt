@@ -26,6 +26,8 @@ In v0.12 or earlier, fluentd's event time is second unit. It means fluentd conve
 
 Since v0.14, event tims has nanosecond resolution, so fluentd can handle millisecond/nanosecond timestamp properly.
 
+Visit [v0.14 document](https://docs.fluentd.org/v0.14/articles/quickstart)
+
 ### I have a weird timestamp value, what happened?
 
 The timestamps of Fluentd and its logger libraries depend on your system's clock. It's highly recommended that you set up NTP on your nodes so that your clocks remain synced with the correct clocks.
