@@ -132,7 +132,7 @@ Here is ruby example:
     URI.encode_www_form({json: {"message" => "foo+bar"}.to_json})
 
     # NG
-    "json=#{"message" => "foo+bar"}.to_json}"
+    "json=#{{"message" => "foo+bar"}.to_json}"
 
 curl command example:
 

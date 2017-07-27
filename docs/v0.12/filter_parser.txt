@@ -29,7 +29,7 @@ This is required parameter. Specify field name in the record to parse.
 
 ### reserve_data
 
-Keep original key-value pair in parsed result.
+Keep original key-value pair in parsed result. Default is `false`.
 
     :::text
     <filter foo.bar>

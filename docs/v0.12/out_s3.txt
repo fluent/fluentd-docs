@@ -65,7 +65,7 @@ The Amazon S3 region name. Please select the appropriate region name and confirm
 
 The full list can be found [official AWS document](http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region).
 
-### s3_enpoint
+### s3_endpoint
 
 This option is deprecated because latest aws-sdk ignores this option. Please use `s3_region` instead.
 
@@ -123,8 +123,8 @@ The compression type. The default is "gzip", but you can also choose "lzo", "jso
 ### proxy_uri
 The proxy url. The default is nil.
 
-### use_ssl
-Enable/disable SSL for data transfers between Fluentd and S3. The default is "yes".
+### ssl_verify_peer
+Verify SSL certificate of the endpoint. The default is true. Set false when you want to ignore the endpoint SSL certificate.
 
 INCLUDE: _timesliced_buffer_parameters
 
