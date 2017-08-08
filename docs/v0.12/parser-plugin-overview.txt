@@ -34,6 +34,12 @@ Here is an example with in_tail:
 * [multiline](parser_multiline)
 * [none](parser_none)
 
+### 3rd party Parsers
+
+* [grok](https://github.com/fluent/fluent-plugin-grok-parser)
+
+If you are familiar with grok patterns, grok-parser plugin is useful. Use `< 1.0.0` versions for fluentd v0.12.
+
 ## List of Core Input Plugins with Parser support
 
 with `format` parameter.
