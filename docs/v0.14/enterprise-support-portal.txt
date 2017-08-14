@@ -1,6 +1,10 @@
 # Fluentd Enterprise Support Portal
 
-This article describes how to access Fluentd's enterprise support portal.
+This article describes the Enterprise support program provided by [Treasure Data](http://fluentd.treasuredata.com).
+
+> If you are a Fluentd Service provider wanting to get listed here, please refer to the [ENTERPRISE PROVIDER](https://github.com/fluent/fluentd/blob/master/ENTERPRISE_PROVIDERS.md) guidelines
+
+how to access Fluentd's enterprise support portal.
 
 NOTE: This feature is limited to <a href="https://www.treasuredata.com/fluentd_enterprise">Fluentd Enterprise</a> customers.
 
@@ -29,4 +33,3 @@ Then, please input your inquiry's `Subject`, `Description`, `Priority`, and `Att
 <center>
 <a href="https://console.treasuredata.com/fluentd"><img src="/images/fluentd-support-portal2.png" width="70%" /></a>
 </center>
-
