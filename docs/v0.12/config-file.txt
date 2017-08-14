@@ -29,6 +29,15 @@ If you installed Fluentd using the Ruby Gem, you can create the configuration fi
     $ sudo fluentd --setup /etc/fluent
     $ sudo vi /etc/fluent/fluent.conf
 
+#### FLUENT_CONF environment variable
+
+You can change default configuration file location via `FLUENT_CONF`.
+For example, `/etc/td-agent/td-agent.conf` is specified via `FLUENT_CONF` inside td-agent scripts.
+
+#### -c option
+
+See [Command Line Option article](command-line-option).
+
 ## Character encoding
 
 Fluentd assumes configuration file is UTF-8 or ASCII.
