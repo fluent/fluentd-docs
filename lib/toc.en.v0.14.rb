@@ -152,9 +152,9 @@ section 'plugin', 'Input Plugins' do
   # category 'in_exec', 'in_exec' do
   #   article 'in_exec', 'exec Input Plugin'
   # end
-  # category 'in_syslog', 'in_syslog' do
-  #   article 'in_syslog', 'syslog Input Plugin', ['Syslog']
-  # end
+  category 'in_syslog', 'in_syslog' do
+    article 'in_syslog', 'syslog Input Plugin', ['Syslog']
+  end
   # category 'in_scribe', 'in_scribe' do
   #   article 'in_scribe', 'scribe Input Plugin', ['Scribe', 'Facebook']
   # end
