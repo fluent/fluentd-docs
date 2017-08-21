@@ -1,6 +1,6 @@
 # json Parser Plugin
 
-The `json` parser plugin parses json logs. One JSON map, par line.
+The `json` parser plugin parses JSON logs. One JSON map per line.
 
 ## Parameters
 
