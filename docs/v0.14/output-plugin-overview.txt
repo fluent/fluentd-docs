@@ -68,24 +68,128 @@ For Fluentd v0.12, configuration parameters for buffer plugins were written in s
       time_slice_wait   1m
     </source>
 
-
 ## Buffering/Retrying Parameters
 
 See [Buffer section configurations](buffer-section).
 
 ### Control Flushing
 
-TODO: This description is copied from buffer overview of v0.12, and must be updated with v0.14 features.
+See [Buffer Plugin Overview](buffer-plugin-overview) for the basic behaviour of buffer.
 
-If queue is empty when chunks are pushed into queue, queued chunk will be flushed immediately.
+#### flush_mode
 
-When the top chunk exceeds the specified size or time limit (`buffer_chunk_limit` and `flush_interval`, respectively), a new empty chunk is pushed to the top of the queue. The bottom chunk is written out immediately when new chunk is pushed.
+The default is `default`. Supported types are `default`, `lazy`, `interval` or `immediate`
 
-If the bottom chunk write out fails, it will remain in the queue and Fluentd will retry after waiting several seconds (`retry_wait`). If the retry limit has not been disabled (`disable_retry_limit` is false) and the retry count exceeds the specified limit (`retry_limit`), the chunk is trashed. The retry wait time doubles each time (1.0sec, 2.0sec, 4.0sec, ...) until `max_retry_wait` is reached. If the queue length exceeds the specified limit (`buffer_queue_limit`), new events are rejected.
+How to enqueue chunks to be flushed. "interval" flushes per flush_interval, "immediate" flushes just after event arrival.
 
-NOTE: writing out the bottom chunk is considered to be a failure if "BufferedOutput#write" method throws an exception.
+#### flush_interval
+
+the default is 60
+
+The interval between buffer chunk flushes.
+
+#### flush_thread_count
+
+The default is 1.
+
+The number of threads to flush the buffer.
+
+#### flush_thread_interval
+
+The default is `1.0`
+
+Seconds to sleep between checks for buffer flushes in flush threads.
+
+#### flush_thread_burst_interval
+
+The default is `1.0`
+
+Seconds to sleep between flushes when many buffer chunks are queued.
+
+#### delayed_commit_timeout
+
+The default is 60.
+
+Seconds of timeout for buffer chunks to be committed by plugins later
+
+#### overflow_action
+
+Control the buffer behaviour when the queue becomes full. 3 modes are supported:
+
+- throw_exception
+
+This is default mode. This mode raises `BufferQueueLimitError` exception to input plugin. How handle `BufferQueueLimitError` depends on input plugins, e.g. tail input stops reading new lines, forward input returns an error to forward output. This action fits for streaming manner.
+
+- block
+
+This mode stops input plugin thread until buffer full is resolved. This action is good for batch-like use-case.
+
+We don't recommend to use `block` action to avoid `BufferQueueLimitError`. Please consider improving destination setting to resolve `BufferQueueLimitError` or use `@ERROR` label for routing overflowed events to another backup destination(or `secondary` with lower `retry_limit`). If you hit `BufferQueueLimitError` frequently, it means your destination capacity is insufficient for your traffic.
+
+- drop_oldest_chunk
+
+This mode drops oldest chunks. This mode is useful for monitoring system destinations. For monitoring, newer events are important than older.
+
 
 ### Control Retrying
+
+If the bottom chunk write out fails, it will remain in the queue and Fluentd will retry after waiting several seconds (`retry_wait`). If the retry limit has not been disabled (`retry_forever` is true) and the retry count exceeds the specified limit (`retry_max_times`), the chunk is trashed. The retry wait time doubles each time (1.0sec, 2.0sec, 4.0sec, ...) until `retry_max_interval` is reached. If the queue length exceeds the specified limit (`queue_limit_length`), new events are rejected.
+
+NOTE: writing out the bottom chunk is considered to be a failure if "Output#write" or `Output#try_write` method throws an exception.
+
+#### retry_type
+
+The default is `exponential_backoff`.
+
+How to wait next retry to flush buffer. Supported types are `exponential_backoff` or `periodic`
+
+#### retry_forever
+
+The default is false.
+
+If true, plugin will ignore retry_timeout and retry_max_times options and retry flushing forever.
+
+#### retry_timeout
+
+The default is 72 hours.
+
+The maximum seconds to retry to flush while failing, until plugin discards buffer chunks.
+
+#### retry_max_times
+
+The default is `nil`
+
+The maximum number of times to retry to flush while failing. If `retry_timeout` is the default, the number is 17 with exponential backoff.
+
+#### retry_secondary_threshold
+
+The default is `0.8`
+
+The ratio of retry_timeout to switch to use secondary while failing.
+
+#### retry_wait
+
+The default is 1
+
+Seconds to wait before next retry to flush, or constant factor of exponential backoff.
+
+#### retry_exponential_backoff_base
+
+The default is 2
+
+The base number of exponencial backoff for retries.
+
+#### retry_max_interval
+
+The default is `nil`.
+
+The maximum interval seconds for exponential backoff between retries while failing.
+
+#### retry_randomize, :bool, default: true
+
+The default is `true`.
+
+If true, output plugin will retry after randomized interval not to do burst retries.
 
 For other configuration parameters available in `<buffer>` sections, see [Buffer plugin overview](buffer-plugin-overview) and each plugins.
 
@@ -94,6 +198,6 @@ For other configuration parameters available in `<buffer>` sections, see [Buffer
 In buffered mode, the user can specify `<secondary>` with any output plugin in `<match>` configuration.
 If plugins continue to fail writing buffer chunks and exceeds the timeout threshold for retries, then output plugins will delegate to write the buffer chunk to secondary plugin.
 
-`<secondary>` is useful for backup when destination servers are unavailable, e.g. forward, mongo and other plugins. We strongly recommend `out_file` plugin for `<secondary>`.
+`<secondary>` is useful for backup when destination servers are unavailable, e.g. forward, mongo and other plugins. We strongly recommend `out_secondary_file` plugin for `<secondary>`.
 
 TODO: add examples for secondary output
