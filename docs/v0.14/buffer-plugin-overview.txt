@@ -48,34 +48,31 @@ Buffer plugins control size limits of each chunks, and size limits of whole buff
 
 ## Configuration Parameters
 
-TODO: parameters and descriptions below are copied from v0.12 documents, and must be updated with v0.14 features.
-
-All buffered output plugins support the following parameters:
+All output plugins support the following buffer parameters:
 
     :::text
     <match pattern>
-      buffer_type memory
-      buffer_chunk_limit 256m
-      buffer_queue_limit 128
-      flush_interval 60s
-      disable_retry_limit false
-      retry_limit 17
-      retry_wait 1s
-      max_retry_wait 10s # default is infinite
+      <buffer>
+        @type memory
+        chunk_limit_size 256m
+        total_limit_size 4G
+        queue_limit_length 100
+        chunk_limit_records 10000
+        chunk_full_threshold 0.9
+        compress gzip
+      </buffer>
     </match>
 
-`buffer_type` specifies the buffer plugin to use. The `memory` Buffer plugin is used by default. You can also specify `file` as the buffer type alongside the `buffer_path` parameter as follows:
+`@type` specifies the buffer plugin to use. The `memory` Buffer plugin is used by default. You can also specify `file` as the buffer type alongside the `path` parameter as follows:
 
     :::text
     <match pattern>
-      buffer_type file
-      buffer_path /var/fluentd/buffer/ #make sure fluentd has write access to the directory!
-      ...
+      <buffer>
+        @type file
+        path /var/fluentd/buffer/ #make sure fluentd has write access to the directory!
+        ...
+      </buffer>
     </match>
-
-The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used for `flush_interval` and `retry_wait`. `retry_wait` can also be a decimal value.
-
-The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for `buffer_chunk_l
 
 ### buffer_queue_full_action
 
