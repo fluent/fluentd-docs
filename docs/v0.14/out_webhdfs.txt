@@ -38,7 +38,9 @@ Append operations are not enabled by default on CDH. Please put these configurat
       host namenode.your.cluster.local
       port 50070
       path "/path/on/hdfs/access.log.%Y%m%d_%H.#{Socket.gethostname}.log"
-      flush_interval 10s
+      <buffer>
+        flush_interval 10s
+      </buffer>
     </match>
 
 Please see the [Fluentd + HDFS: Instant Big Data Collection](http-to-hdfs) article for real-world use cases.
