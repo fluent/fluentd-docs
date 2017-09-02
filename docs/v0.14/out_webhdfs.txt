@@ -105,6 +105,8 @@ The number of threads to flush the buffer. This option can be used to paralleliz
 
 INCLUDE: _log_level_params
 
+## Common Buffer / Output parameters
+See [Buffer Plugin Overview](buffer-plugin-overview) and [Output Plugin Overview](output-plugin-overview)
 
 ## Further Reading
 - [fluent-plugin-webhdfs repository](https://github.com/fluent/fluent-plugin-webhdfs)
