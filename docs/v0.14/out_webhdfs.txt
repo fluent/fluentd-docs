@@ -61,13 +61,7 @@ The namenode port number.
 ### path (required)
 The path on HDFS. Please include `"#{Socket.gethostname}"` in your path to avoid writing into the same HDFS file from multiple Fluentd instances. This conflict could result in data loss.
 
-Path value can contain time placeholders (see `time_slice_format` section). If path contains time placeholders, webhdfs output configures `time_slice_format` automatically with these placeholders.
-
-## Time Sliced Output Parameters (and overwritten values by out_webhdfs)
-For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
-
-### time_slice_format
-The time format used as part of the file name. The following characters are replaced with actual values when the file is created:
+Path value can contain time placeholders. The following characters are replaced with actual values when the file is created:
 
 * %Y: year including the century (at least 4 digits)
 * %m: month of the year (01..12)
@@ -76,7 +70,8 @@ The time format used as part of the file name. The following characters are repl
 * %M: Minute of the hour (00..59)
 * %S: Second of the minute (00..60)
 
-The default format is `%Y%m%d%H`, which creates one file per hour. This parameter may be overwritten by `path` configuration.
+## Time Sliced Output Parameters (and overwritten values by out_webhdfs)
+For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
 
 ### time_slice_wait
 The amount of time Fluentd will wait for old logs to arrive. This is used to account for delays in logs arriving to your Fluentd node. The default wait time is 10 minutes ('10m'), where Fluentd will wait until 10 minutes past the hour for any logs that occurred within the past hour.
