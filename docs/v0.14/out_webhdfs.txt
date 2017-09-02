@@ -73,6 +73,11 @@ Path value can contain time placeholders. The following characters are replaced 
 ## Time Sliced Output Parameters (and overwritten values by out_webhdfs)
 For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
 
+### timekey
+This plugin will flush chunks per specified time by `timekey` parameter. The default value is `86400` (when path don't contain time placeholders), which creates one file per day.
+
+This parameter is specified by `path` configuration. For exmaple, when path contain `%H`, the value is `3600` and create one file per hourly.
+
 ### time_slice_wait
 The amount of time Fluentd will wait for old logs to arrive. This is used to account for delays in logs arriving to your Fluentd node. The default wait time is 10 minutes ('10m'), where Fluentd will wait until 10 minutes past the hour for any logs that occurred within the past hour.
 
