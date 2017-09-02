@@ -100,7 +100,7 @@ The limit on the number of retries before buffered data is discarded, and an
 option to disable that limit (if true, the value of `retry_max_times` is ignored and
 there is no limit).  The default values are 17 and false (not disabled). If the limit is reached, buffered data is discarded and the retry interval is reset to its initial value (`retry_wait`).
 
-### num_threads
+### flush_thread_count
 The number of threads to flush the buffer. This option can be used to parallelize writes into the output(s) designated by the output plugin. The default is 1.
 
 INCLUDE: _log_level_params
