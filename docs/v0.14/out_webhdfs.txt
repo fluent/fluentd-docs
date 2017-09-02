@@ -92,8 +92,8 @@ The interval between data flushes. The default is unspecified, and buffer chunks
 ### flush_at_shutdown
 The boolean value to specify whether to flush buffer chunks at shutdown time, or not. The default is true. Specify true if you use `memory` buffer type.
 
-### retry_wait, max_retry_wait
-The initial and maximum intervals between write retries.  The default values are 1.0 and unset (no limit).  The interval doubles (with +/-12.5% randomness) every retry until `max_retry_wait` is reached.  In the default configuration the last retry waits for approximately 131072 sec, roughly 36 hours.
+### retry_wait, retry_max_interval
+The initial and maximum intervals between write retries.  The default values are 1.0 and unset (no limit).  The interval doubles (with +/-12.5% randomness) every retry until `retry_max_interval` is reached.  In the default configuration the last retry waits for approximately 131072 sec, roughly 36 hours.
 
 ### retry_limit, disable_retry_limit
 The limit on the number of retries before buffered data is discarded, and an
