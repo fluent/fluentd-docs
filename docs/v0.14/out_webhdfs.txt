@@ -83,7 +83,7 @@ The amount of time Fluentd will wait for old logs to arrive. This is used to acc
 
 For example, when splitting files on an hourly basis, a log recorded at 1:59 but arriving at the Fluentd node between 2:00 and 2:10 will be uploaded together with all the other logs from 1:00 to 1:59 in one transaction, avoiding extra overhead. Larger values can be set as needed.
 
-### buffer_queue_limit, buffer_chunk_limit
+### queue_limit_length, buffer_chunk_limit
 The length of the chunk queue and the size of each chunk, respectively. Please see the [Buffer Plugin Overview](buffer-plugin-overview) article for the basic buffer structure. The default values are 64 and 8m, respectively. The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for buffer_chunk_limit.
 
 ### flush_interval
