@@ -354,8 +354,12 @@ NOTE: Each parameter's type should be documented. If not, please let the plugin 
     * If the value matches `<INTEGER>h`, then the value is the INTEGER hours. 
     * If the value matches `<INTEGER>d`, then the value is the INTEGER days. 
     * Otherwise, the field is parsed as float, and that float is the number of seconds. This option is useful for specifying sub-second time durations such as "0.1" (=0.1 second = 100ms).
-- `array` type: the field is parsed as a JSON array
-- `hash` type: the field is parsed as a JSON object
+- `array` type: the field is parsed as a JSON array. It also supports shorthand syntax. These are same values.
+    * normal: `["key1", "key2"]`
+    * shorthand: `key1,key2`
+- `hash` type: the field is parsed as a JSON object. It also supports shorthand syntax. These are same values.
+    * normal: `{"key1":"value1", "key2":"value2"}`
+    * shorthand: `key1:value1,key2:value2`
 
 `array` and `hash` are JSON because almost all programming languages and infrastructure tools
 can generate JSON value easily than unusual format.
