@@ -136,7 +136,7 @@ Filtered events:
 The [Fluentd logging driver](https://docs.docker.com/engine/admin/logging/fluentd/) support more options through the _--log-opt_ Docker command line argument:
 
 - fluentd-address
-- fluentd-tag
+- tag
 
 #### fluentd-address
 
@@ -145,17 +145,17 @@ Specify an optional address for Fluentd, it allows to set the host and TCP port,
     :::term
     $ docker run --log-driver=fluentd --log-opt fluentd-address=192.168.2.4:24225 ubuntu echo "..."
 
-#### fluentd-tag
+#### tag
 
-Tags are a major requirement on Fluentd, they allows to identify the incoming data and take routing decisions. By default the Fluentd logging driver uses the container\_id as a tag (64 character ID), you can change it value with the _fluentd-tag_ option as follows:
+[Tags](https://docs.docker.com/engine/admin/logging/log_tags/) are a major requirement on Fluentd, they allows to identify the incoming data and take routing decisions. By default the Fluentd logging driver uses the container\_id as a tag (64 character ID), you can change it value with the _tag_ option as follows:
 
     :::term
-    $ docker run --log-driver=fluentd --log-opt fluentd-tag=docker.my_new_tag ubuntu echo "..."
+    $ docker run --log-driver=fluentd --log-opt tag=docker.my_new_tag ubuntu echo "..."
 
 Additionally this option allows to specify some internal variables: {{.ID}}, {{.FullID}} or {{.Name}}. e.g:
 
     :::term
-    $ docker run --log-driver=fluentd --log-opt fluentd-tag=docker.{{.ID}} ubuntu echo "..."
+    $ docker run --log-driver=fluentd --log-opt tag=docker.{{.ID}} ubuntu echo "..."
 
 ## Development Environments
 
