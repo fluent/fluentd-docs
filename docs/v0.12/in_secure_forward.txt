@@ -127,7 +127,7 @@ Indicate published connection is secure or not. Specify `yes` (or `true`) if sec
 Default value of the auto-generated certificate common name (CN).
 
 ### shared_key (string)
-Optional shared key.
+Shared key between nodes.
 
 ### allow_keepalive (bool)
 Accept keepalive connection. The default value is `true`.

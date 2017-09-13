@@ -336,7 +336,7 @@ The file path of private CA certificate file. This file must be shared with inpu
 Default value of the auto-generated certificate common name (CN).
 
 ### shared_key (string)
-Optional shared key.
+Shared key between nodes..
 
 ### keepalive (time)
 The duration for keepalive. If this parameter is not specified, keepalive is disabled.
