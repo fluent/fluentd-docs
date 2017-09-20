@@ -70,6 +70,8 @@ Path value can contain time placeholders. The following characters are replaced 
 * %M: Minute of the hour (00..59)
 * %S: Second of the minute (00..60)
 
+Although it is possible to contain time placeholder with `path` configuration, it is recommended to specify the format using `<format>` section.
+
 ## Output Parameters (and overwritten values by out_webhdfs)
 For advanced usage, you can tune Fluentd's internal buffering mechanism with these parameters.
 
