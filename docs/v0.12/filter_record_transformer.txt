@@ -34,7 +34,7 @@ Here is another example where the field "total" is divided by the field "count" 
       <record>
         avg ${record["total"] / record["count"]}
       </record>
-    </filter>        
+    </filter>
 
 It transforms an event like
 
@@ -138,7 +138,7 @@ Non-Effective Examples:
     foo ${record["foo"]}bar
     foo 1
 
-Internally, this keeps the original value type only when a single placeholder is used. 
+Internally, this keeps the original value type only when a single placeholder is used.
 
 ### renew_record (optional)
 
@@ -148,13 +148,13 @@ By default, the record transformer filter mutates the incoming data. However, if
 
 `renew_time_key foo` overwrites the time of events with a value of the record field `foo` if exists. The value of `foo` must be a unix time.
 
-### keep_keys (optional, string type)
+### keep_keys (optional, array type)
 
-A comma-delimited list of keys to keep. Only relevant if `renew_record` is set to true.
+A list of keys to keep. Only relevant if `renew_record` is set to true.
 
-### remove_keys (optional, string type)
+### remove_keys (optional, array type)
 
-A comma-delimited list of keys to delete.
+A list of keys to delete.
 
 ## Need more performance?
 
