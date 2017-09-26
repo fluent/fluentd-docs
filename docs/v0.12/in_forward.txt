@@ -77,6 +77,10 @@ Multiple messages may be sent in the same connection.
 
 ## FAQ
 
+### Why in_forward doesn't have tag parameter?
+
+`in_forward` uses `tag` of incoming events so no fixed `tag` parameter. See above "Protocol" section.
+
 ### How to parse incoming events?
 
 `in_forward` doesn't provide parsing mechanism unlike `in_tail` or `in_tcp` because `in_forward` is mainly for efficient log transfer. If you want to parse incoming event, use [parser filter](https://github.com/tagomoris/fluent-plugin-parser) in your pipeline.<br />
