@@ -45,7 +45,7 @@ whereas the following examples are filtered out:
 ## Parameters
 
 ### &lt;regexp&gt; directive (optional)
-Specify filtering rule. This directive contains two parameters.
+Specify filtering rule. This directive contains two parameters. This parameter is available since v0.12.38.
 
 - key
 
@@ -90,7 +90,7 @@ unless the event's "item_name" field starts with "book_" or "article_", it is fi
 Learn regular expressions for more patterns.
 
 ### regexpN (optional)
-This is deprecated parameter. Use `<regexp>` instead.
+This is deprecated parameter. Use `<regexp>` instead if you use v0.12.38 or later.
 
 The "N" at the end should be replaced with an integer between 1 and 20 (ex: "regexp1"). regexpN takes two whitespace-delimited arguments.
 
@@ -101,7 +101,7 @@ Here is `regexpN` version of `<regexp>` example:
     regexp2 item_name ^book_
 
 ### &lt;exclude&gt; directive (optional)
-Specify filtering rule to reject events. This directive contains two parameters.
+Specify filtering rule to reject events. This directive contains two parameters.  This parameter is available since v0.12.38.
 
 - key
 
@@ -134,7 +134,7 @@ The grep filter filters out if any `<exclude>` is matched. Hence, if you have
 Then, any event whose "status_code" is 5xx OR "url" ends with ".css" is filtered out.
 
 ### excludeN (optional)
-This is deprecated parameter. Use `<exclude>` instead.
+This is deprecated parameter. Use `<exclude>` instead if you use v0.12.38 or later.
 
 The "N" at the end should be replaced with an integer between 1 and 20 (ex: "exclude1"). excludeN takes two whitespace-delimited arguments.
 
