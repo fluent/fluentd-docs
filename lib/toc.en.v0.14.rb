@@ -217,9 +217,9 @@ section 'output-plugins', 'Output Plugins' do
   # category 'out_rewrite_tag_filter', 'out_rewrite_tag_filter' do
   #   article 'out_rewrite_tag_filter', 'rewrite_tag_filter Output Plugin'
   # end
-  # category 'out_webhdfs', 'out_webhdfs' do
-  #   article 'out_webhdfs', 'WebHDFS Output Plugin', ['Hadoop', 'HDFS']
-  # end
+  category 'out_webhdfs', 'out_webhdfs' do
+    article 'out_webhdfs', 'WebHDFS Output Plugin', ['Hadoop', 'HDFS']
+  end
   # category 'out_others', 'Others' do
   #   article 'out_others', 'Other Output Plugins'
   # end
