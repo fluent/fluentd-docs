@@ -353,15 +353,20 @@ section 'developer', 'Developer' do
     article 'api-plugin-buffer', 'Writing Buffer Plugins'
     article 'api-plugin-base', 'Plugin Base Class API'
     article 'api-config-types', 'Types of Configuration Parameters'
-    # article 'api-plugin-helper-thread', 'Thread Plugin Helper API'
-    # article 'api-plugin-helper-timer', 'Timer Plugin Helper API'
+    # article 'api-plugin-test', 'Testing API for plugins'
+  end
+  category 'plugin-helpers', 'Plugin Helper APIs' do
     # article 'api-plugin-helper-child_process', 'ChildProcess Plugin Helper API'
     # article 'api-plugin-helper-event_loop', 'EventLoop Plugin Helper API'
     # article 'api-plugin-helper-parser', 'Parser Plugin Helper API'
     # article 'api-plugin-helper-formatter', 'Formatter Plugin Helper API'
     # article 'api-plugin-helper-storage', 'Storage Plugin Helper API'
     # article 'api-plugin-helper-compat_parameters', 'CompatParameters Plugin Helper API'
-    # article 'api-plugin-test', 'Testing API for plugins'
+    article 'api-plugin-helper-record_accessor', 'Record Accessor Plugin Helper API'
+    #article 'api-plugin-helper-server', 'Server Plugin Helper API'
+    #article 'api-plugin-helper-socket', 'Socket Plugin Helper API'
+    article 'api-plugin-helper-thread', 'Thread Plugin Helper API'
+    article 'api-plugin-helper-timer', 'Timer Plugin Helper API'
   end
   category 'community', 'Community' do
     article 'community', 'Community'

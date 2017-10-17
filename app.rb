@@ -254,7 +254,7 @@ helpers do
   end
 
   def slugify(title)
-    title.downcase.gsub(/[^a-z0-9 -]/, '').gsub(/ /, '-')
+    title.downcase.gsub(/[^a-z0-9 -_]/, '').gsub(/ /, '-')
   end
 
   def find_category(article, ver)
