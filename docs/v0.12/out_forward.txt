@@ -53,8 +53,9 @@ The destination servers. Each server must have following information.
 
 * *name*: The name of the server. This parameter is used in error messages.
 * *host* (required): The IP address or host name of the server.
-* *port*: The port number of the host. The default is 24224. Note that both TCP packets (event stream) and UDP packets (heartbeat message) are sent to this port.
+* *port*: The port number of the host. The default is `24224`. Note that both TCP packets (event stream) and UDP packets (heartbeat message) are sent to this port.
 * *weight*: The load balancing weight. If the weight of one server is 20 and the weight of the other server is 30, events are sent in a 2:3 ratio. The default weight is 60.
+* *standby*: Set the destination to standby node. The default is `false`. standby servers will be selected when all non-standby servers went down.
 
 ### require_ack_response
 Change the protocol to at-least-once. The plugin waits the ack from destination's in_forward plugin.
