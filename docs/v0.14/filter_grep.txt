@@ -51,6 +51,8 @@ Specify filtering rule. This directive contains two parameters.
 
 The field name to which the regular expression is applied.
 
+This parameter supports nested field access via [record_accessor syntax](api-plugin-helper-record_accessor#syntax).
+
 - pattern
 
 The regular expression.
@@ -106,6 +108,8 @@ Specify filtering rule to reject events. This directive contains two parameters.
 - key
 
 The field name to which the regular expression is applied.
+
+This parameter supports nested field access via [record_accessor syntax](api-plugin-helper-record_accessor#syntax).
 
 - pattern
 

@@ -28,6 +28,8 @@ This is required sub section. Specify parser type and related parameter.
 ### key_name
 This is required parameter. Specify field name in the record to parse.
 
+This parameter supports nested field access via [record_accessor syntax](api-plugin-helper-record_accessor#syntax).
+
 ### reserve_time
 
 Keep original event time in parsed result.
