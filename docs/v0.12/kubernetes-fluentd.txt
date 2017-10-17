@@ -42,11 +42,11 @@ Please grab a copy of the repository from the command line using GIT:
 
 ### DaemonSet Content
 
-The cloned repository contains the [configuration](https://github.com/fluent/fluentd-kubernetes-daemonset/tree/master/docker-image/conf) that allows to deploy Fluentd as a DaemonSet, the Docker container image distributed on the repository also comes pre-configured so Fluentd can gather all logs from the Kubernetes node environment and also it appends the proper metadata to the logs.
+The cloned repository contains the several configurations that allow to deploy Fluentd as a DaemonSet, the Docker container image distributed on the repository also comes pre-configured so Fluentd can gather all logs from the Kubernetes node environment and also it appends the proper metadata to the logs.
 
-By default, this configuration will send all incoming logs to Elasticsearch, but you can customize for any outputs as well.
+This repository has several presets for alpine/debian with popular outputs.
 
-- [DaemonSet Configuration](https://github.com/fluent/fluentd-kubernetes-daemonset/tree/master/docker-image/conf)
+- [DaemonSet preset settings](https://github.com/fluent/fluentd-kubernetes-daemonset/tree/master/docker-image/v0.12)
 
 ## Logging to Elasticsearch
 
