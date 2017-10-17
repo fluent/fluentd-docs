@@ -108,7 +108,7 @@ class Article
   end
 
   def slugify(title)
-    title.downcase.gsub(/[^a-z0-9 -]/, '').gsub(/ /, '-')
+    title.downcase.gsub(/[^a-z0-9 -_]/, '').gsub(/ /, '-')
   end
 
   H2_RE = /<h2>([^<]+)<\/h2>/m
