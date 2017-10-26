@@ -44,6 +44,11 @@ For Lucid,
     :::term
     curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-lucid-td-agent2.sh | sh
 
+For Debian Stretch,
+
+    :::term
+    curl -L https://toolbelt.treasuredata.com/sh/install-debian-stretch-td-agent2.sh | sh
+
 For Debian Jessie,
 
     :::term
