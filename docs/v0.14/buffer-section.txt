@@ -151,6 +151,19 @@ Buffer chunk keys can be specified 2 or more keys - events will be separated int
 
 There are no solid limitation about the number of chunk keys, but too many chunk keys may degrade the I/O performance and/or increase the total resource usage.
 
+### Empty keys
+
+Buffer chunk keys can be empy by specifying `[]` in `buffer` section.
+
+    <match tag.**>
+      # ...
+      <buffer []>
+        # ...
+      </buffer>
+    </match>
+
+This is useful when output plugin has default chunk keys and disable it.
+
 ## Placeholders
 
 When the chunk keys are specified, these values can be extracted in configuration parameter values. It depends on whether the plugin applies a method (``extract_placeholders``) on configuration values or not.
