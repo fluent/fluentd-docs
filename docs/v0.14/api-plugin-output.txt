@@ -26,7 +26,7 @@ This example implements all methods for all output modes. In most cases, output 
 
         # method for sync buffered output mode
         def write(chunk)
-          real_path = extract_placeholders(@path, chunk.metadata)
+          real_path = extract_placeholders(@path, chunk)
 
           log.debug "writing data to file", chunk_id: dump_unique_id_hex(chunk.unique_id)
 
@@ -46,7 +46,7 @@ This example implements all methods for all output modes. In most cases, output 
 
         # method for async buffered output mode
         def try_write(chunk)
-          real_path = extract_placeholders(@path, chunk.metadata)
+          real_path = extract_placeholders(@path, chunk)
 
           log.debug "sending data to server", chunk_id: dump_unique_id_hex(chunk.unique_id)
 
@@ -195,13 +195,14 @@ If user specifies ``flush_mode`` explicitly, the plugin works as specified.
 
 ### Understanding Chunking and Metadata
 
-TODO: move some of below to users guide
+See [Buffer section](buffer-section) article for basic knowledage.
 
 Fluentd creates buffer chunks to store events. Each buffer chunks should be written at once, without any re-chunking in methods to write.
 In Fluentd v0.14, users can specify chunk keys by themselves using ``<buffer CHUNK_KEYS>`` section.
 
     :::text
-    <buffer>         # without any chunk keys: all events will be appended into a chunk
+    <buffer>         # Use pre-configured chunk keys by plugin
+    <buffer []>      # without any chunk keys: all events will be appended into a chunk
     <buffer time>    # events in a time unit will be appended into a chunk
                      #  (using ``timekey`` parameter)
     <buffer tag>     # events with same tag will be appended into a chunk
@@ -224,7 +225,7 @@ In most cases, plugin authors don't need to consider these values. If you want t
 
     :::ruby
     @path = "/mydisk/mydir/${tag}/purchase.%Y-%m-%d.%H.log" # this value might come from configurations
-    extract_placeholders(@path, chunk.metadata) # => "/mydisk/mydir/service.cart/purshase.2016-06-10.23.log"
+    extract_placeholders(@path, chunk) # => "/mydisk/mydir/service.cart/purshase.2016-06-10.23.log"
 
 This method call should be done by code of plugins, so plugins which supports this feature should explain which configuration parameter accepts placeholders in documents.
 
@@ -296,12 +297,12 @@ The method to specify whether to use asynchronous or synchronous output mode whe
 
 Return value must be ``true`` or ``false``.
 
-#### #extract_placeholders(str, metadata)
+#### #extract_placeholders(str, chunk)
 
-This method extract placeholders in given string, using values in metadata.
+This method extract placeholders in given string, using values in chunk.
 
 * ``str``: a String which contains placeholders
-* ``metadata``: a Fluent::Plugin::Buffer::Metadata, brought by ``chunk.metadata``
+* ``chunk``: a Fluent::Plugin::Buffer::Chunk via `write`/`try_write`
 
 Return value is a String.
 

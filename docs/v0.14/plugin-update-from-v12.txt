@@ -230,7 +230,7 @@ Related configurations:
 * `add_tag_prefix`
 * `add_tag_suffix`
 
-Use `extract_placeholders(template, chunk.metadata)` in plugin code.
+Use `extract_placeholders(template, chunk)` in plugin code.
 
 Use placeholders `${tag}, ${tag[0]}, ${tag[1]}` in configuration.
 
