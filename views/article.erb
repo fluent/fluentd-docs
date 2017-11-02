@@ -5,15 +5,6 @@
   <div style="text-align:right">
     <%= erb :versions %>
   </div>
-  <% if @article_version != @current_version %>
-  <div>
-    <br/>
-    <h4 style="color:#FF3333;font-style:bold">
-    This page is for <%=@article_version%>, not the latest stable version which is <%=@current_version%>.
-    For the latest stable version of this article, click <a href="<%= @default_url %>">here</a>.
-    </h4>
-  </div>
-  <% end %>
 
   <hr size="1" style="margin-top: 10px; margin-bottom: 10px; color: rgba(0, 0, 0, .15);">
 
