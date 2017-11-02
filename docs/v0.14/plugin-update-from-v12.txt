@@ -488,4 +488,115 @@ After:
 
 ### Test code
 
-TODO: write
+* organize ``test_helper.rb``
+* require "fluent/test/driver/output" and "fluent/test"
+* replace test driver from ``Fluent::Test::OutputTestDrive`` to ``Fluent::Test::Driver::Output``
+* use new test driver API
+
+For example, an output plugin's test code.
+For more details, see [Writing Plugin Test Code](plugin-test-code)
+
+Before:
+
+test/test_helper.rb
+
+    :::ruby
+    require 'rubygems'
+    require 'bundler'
+    begin
+      Bundler.setup(:default, :development)
+    rescue Bundler::BundlerError => e
+      $stderr.puts e.message
+      $stderr.puts "Run `bundle install` to install missing gems"
+      exit e.status_code
+    end
+    require 'test/unit'
+     
+    $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+    $LOAD_PATH.unshift(File.dirname(__FILE__))
+    require 'fluent/test'
+    unless ENV.has_key?('VERBOSE')
+      nulllogger = Object.new
+      nulllogger.instance_eval {|obj|
+        def method_missing(method, *args)
+          # pass
+        end
+      }
+      $log = nulllogger
+    end
+     
+    class Test::Unit::TestCase
+    end
+
+test/plugin/test_some_output.rb
+
+    :::ruby
+    require 'test_helper'
+    require 'fluent/plugin/out_some'
+
+    class SomeOutputTest < Test::Unit::TestCase
+      def create_driver(conf, tag = "test")
+        Fluent::Test::OutputTestDriver.new(Fluent::SomeOutput, tag).configure(conf)
+      end
+
+      def setup
+        Fluent::Test.setup
+      end
+
+      def test_configure
+        # many configuration related test cases
+      end
+    end
+    
+
+After:
+
+test_helper.rb
+
+    :::ruby
+    require "bundler/setup"
+    require "test/unit"
+    $LOAD_PATH.unshift(File.join(__dir__, "..", "lib"))
+    $LOAD_PATH.unshift(__dir__)
+    require "fluent/test"
+
+test/plugin/test_some_output.rb
+
+    :::ruby
+    require "test_helper"
+    require "fluent/test/driver/output"
+    require "fluent/plugin/out_some"
+
+    class SomeOutputTest < Test::Unit::TestCase
+      def create_driver(conf)
+        Fluent::Test::Driver::Output.new(Fluent::Plugin::SomeOutput).configure(conf)
+      end
+
+      def setup
+        Fluent::Test.setup
+      end
+
+      sub_test_case "configure" do
+        # configuration related tests goes here
+        test "empty" do
+          assert_raise(Fluent::ConfigError) do
+            create_driver("")
+          end
+        end
+        ...
+      end
+
+      sub_test_case "emit events" do
+        # emit events related tests goes here
+        test "emit 2 simple records" do
+          d = create_driver(conf)
+          d.run(default_tag: "test") do
+            d.feed(time, record1)
+            d.feed(time, record2)
+          end
+          events = d.events
+          assert_equal(...)
+        end
+      end
+    end
+
