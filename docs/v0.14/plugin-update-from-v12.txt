@@ -41,6 +41,16 @@ You should update dependency in gemspec at first to depend on Fluentd v0.14.
 Is it correct to use `>= 0.14.0` instead of `~> 0.14.0`? Yes. Fluentd v1 will be compatible with v0.14.0 (especially for plugin APIs), so you should use `>= 0.14.0`.
 Let's think about v2 few years later.
 
+Recommended dependency in gemspec:
+
+    :::ruby
+    # in gemspec
+    Gem::Specification.new do |gem|
+      gem.name = "fluent-plugin-my_awesome"
+      # ...
+      gem.add_runtime_dependency "fluentd", ">= 0.14.0", "< 2"
+    end
+
 ### 3. update code and tests
 
 There are many difference between plugin types about updating code and tests. See "Updating Plugin Code" section below for each types of plugins.
