@@ -474,11 +474,17 @@ After:
 
 ### Parser plugins
 
-TODO: write
+* require "fluent/plugin/parser" instead of "fluent/parser"
+* fix superclass from ``Fluent::Parser`` to ``Fluent::Plugin::Parser``
+* use ``compat_parameters`` plugin helper to keep compatibility of configurations to v0.12 style
+* update test code
 
 ### Formatter plugins
 
-TODO: write
+* require "fluent/plugin/formatter" instead of "fluent/formatter"
+* fix superclass from ``Fluent::Formatter`` to ``Fluent::Plugin::Formatter``
+* use ``compat_parameters`` plugin helper to keep compatibility of configurations to v0.12 style
+* update test code
 
 ### Test code
 
