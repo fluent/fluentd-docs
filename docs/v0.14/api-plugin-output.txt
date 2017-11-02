@@ -376,7 +376,7 @@ NOTE: this method doesn't get any arguments, unlinke Ruby's IO object.
 
 ``Chunk#open`` receives a block, and call it with an IO argument which provides reade operations.
 
-    ::ruby
+    :::ruby
     chunk.open do |io|
       while data = io.read(100)
         # ...
