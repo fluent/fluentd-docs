@@ -11,7 +11,7 @@ Here is the code example with `timer` helper:
       class ExampleInput < Input
         Fluent::Plugin.register_input('example', self)
 
-        # 1. load thread helper
+        # 1. load timer helper
         helpers :timer
 
         # omit configure, shutdown and other plugin API
