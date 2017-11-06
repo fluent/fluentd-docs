@@ -235,13 +235,13 @@ There are many configuration parameters in ``fluent/plugin/output.rb``, and some
 
 If you want to change the default chunk keys and the limit of buffer chunk bytesize for your own plugin, you can do it like this:
 
-   :::ruby
-   class MyAwesomeOutput < Output
-     config_section :buffer do
-       config_set_default :chunk_keys, ['tag']
-       config_set_default :chunk_limit_size, 2 * 1024 * 1024 # 2MB
-     end
-   end
+    :::ruby
+    class MyAwesomeOutput < Output
+      config_section :buffer do
+        config_set_default :chunk_keys, ['tag']
+        config_set_default :chunk_limit_size, 2 * 1024 * 1024 # 2MB
+      end
+    end
 
 This default value overriding is valid only for your plugin, and doesn't have any effect for others.
 
