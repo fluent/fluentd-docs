@@ -19,6 +19,7 @@ Here is the code example with `parser` helper:
         def configure(conf)
           super
           
+          # 2. Create parser plugin instance
           @parser = parser_create
         end
 
@@ -28,7 +29,7 @@ Here is the code example with `parser` helper:
           # use parser helper in combination with other plugin helpers usually
           timer_execute(:example_timer, 10) do
             read_raw_data do |text|
-              # 2. call @parser.parse(text) to parse raw data
+              # 3. call @parser.parse(text) to parse raw data
               @parser.parse(text) do |time, record|
                 router.emit(tag, time, record)
               end
