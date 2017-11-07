@@ -59,7 +59,7 @@ Code examples:
 
     # Create JSON parser
     @json_parser = parser_create(usage: 'parser_in_example_json', type: 'json')
-    @json_parser.parse do |time, record|
+    @json_parser.parse(json) do |time, record|
       ...
     end
     
