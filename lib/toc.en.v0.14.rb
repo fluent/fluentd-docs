@@ -358,7 +358,7 @@ section 'developer', 'Developer' do
   category 'plugin-helpers', 'Plugin Helper APIs' do
     article 'api-plugin-helper-child_process', 'ChildProcess Plugin Helper API'
     article 'api-plugin-helper-event_loop', 'Event Loop Plugin Helper API'
-    # article 'api-plugin-helper-parser', 'Parser Plugin Helper API'
+    article 'api-plugin-helper-parser', 'Parser Plugin Helper API'
     # article 'api-plugin-helper-formatter', 'Formatter Plugin Helper API'
     # article 'api-plugin-helper-storage', 'Storage Plugin Helper API'
     article 'api-plugin-helper-compat_parameters', 'CompatParameters Plugin Helper API'
