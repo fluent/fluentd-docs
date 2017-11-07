@@ -40,7 +40,6 @@ This method executes child_process with given parameters and routine
 - `immediate`: `true`/`false`. Default is `false`.
 - `parallel`: `true`/`false`. Default is `false`.
 - `mode`: [`:read`, `:write`]. Default is [`:read`, `:write`].
-- `repeat`: `true`/`false`. Default is `true`. If pass `false`, child_process is one-shot.
 - `stderr`: Connect stderr or not. Default is `:discard`.
 - `env`: Environment valuables. Default is {}.
 - `unsetenv`: `true`/`false`. Default is `false`
