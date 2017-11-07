@@ -43,6 +43,8 @@ Here is the code example with `parser` helper:
 
 ### parser\_create(usage: "", type: nil, conf: nil, default_type: nil)
 
+This method creates parser plugin instance with given parameters.
+
 - `usage`: unique name. This is required when multiple parsers are used in the plugin
 - `type`: parser type
 - `conf`: parser plugin configuration
