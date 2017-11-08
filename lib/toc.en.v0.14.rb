@@ -363,7 +363,7 @@ section 'developer', 'Developer' do
     # article 'api-plugin-helper-storage', 'Storage Plugin Helper API'
     article 'api-plugin-helper-compat_parameters', 'CompatParameters Plugin Helper API'
     article 'api-plugin-helper-record_accessor', 'Record Accessor Plugin Helper API'
-    #article 'api-plugin-helper-server', 'Server Plugin Helper API'
+    article 'api-plugin-helper-server', 'Server Plugin Helper API'
     article 'api-plugin-helper-socket', 'Socket Plugin Helper API'
     article 'api-plugin-helper-thread', 'Thread Plugin Helper API'
     article 'api-plugin-helper-timer', 'Timer Plugin Helper API'
