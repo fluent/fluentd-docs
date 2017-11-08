@@ -30,6 +30,11 @@ Here is the code example with `formatter` helper:
       end
     end
 
+For more details about formatter plugin, see following articles:
+
+- [Formatter Plugin Overview](formatter-plugin-overview)
+- [Writing Formatter Plugins](api-plugin-formatter)
+
 ## Methods
 
 ### formatter\_create(usage: "", type: nil, conf: nil, default_type: nil)
