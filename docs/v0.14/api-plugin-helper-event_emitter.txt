@@ -1,0 +1,54 @@
+# Event Emitter Plugin Helper API
+
+`event_emitter` helper introduces `router` method to the plugin.
+
+Here is the code example with `event_emitter` helper:
+
+    :::ruby
+    require 'fluent/plugin/output'
+    
+    module Fluent::Plugin
+      class RelabelOutput < Output
+        Fluent::Plugin.register_output('relabel', self)
+        helpers :event_emitter
+    
+        def multi_workers_ready?
+          true
+        end
+    
+        def process(tag, es)
+          router.emit_stream(tag, es)
+        end
+      end
+    end
+
+## Methods
+
+### router
+
+This method returns `Fluent::EventRouter` instance
+
+Code example:
+
+    :::ruby
+    # emit event
+    router.emit(tag, time, record)
+
+    # emit event stream
+    router.emit_stream(tag, es)
+
+    # emit error event
+    begin
+      # do something
+    rescue => error
+      router.emit_error_event(tag, time, record, error)
+    end
+
+## event_emitter used plugins
+
+- All input plugins
+- All filter plugins
+- [Exec output](out_exec)
+- [Relabel output](out_relabel)
+- [Copy output](out_copy)
+- [Roundrobin output](out_roundrobin)
