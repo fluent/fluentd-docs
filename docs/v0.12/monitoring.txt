@@ -94,6 +94,10 @@ A debug port for local communication is recommended for trouble shooting. Please
 
 You can attach the process using the `fluent-debug` command through dRuby.
 
+## Monitoring the event flow
+
+Use [flowcounter](https://github.com/tagomoris/fluent-plugin-flowcounter) or [flowcounter_simple](https://github.com/sonots/fluent-plugin-flowcounter-simple) plugin.
+
 ## Datadog (dd-agent) Integration
 
 [Datadog](https://www.datadoghq.com/) is a cloud monitoring service, and its monitoring agent `dd-agent` has native integration with Fluentd.
