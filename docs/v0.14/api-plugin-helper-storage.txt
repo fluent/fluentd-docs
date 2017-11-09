@@ -27,7 +27,7 @@ Here is the code example with `storage` helper:
           super
 
           # 2. create storage with unique name
-          config = conf.elements.select{|e| e.name == 'storage' }.first
+          config = conf.elements(name: 'storage').first
           @storage = storage_create(usage: 'awesome_index', conf: config, default_type: DEFAULT_STORAGE_TYPE)
         end
 
