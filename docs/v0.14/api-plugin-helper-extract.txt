@@ -1,0 +1,57 @@
+# Extract Plugin Helper API
+
+`extract` helper extracts tag or time from event record according to the configuration.
+
+For details about configuration, see [Extract section](extract-section).
+
+Here is the code example with `extract` helper:
+
+    :::ruby
+    require 'fluent/plugin/output'
+    
+    module Fluent::Plugin
+      class ExampleOutput > Output
+        Fluent::Plugin.register_output('Example')
+        
+      end
+      
+      def process(tag, es)
+        es.each do |time, record|
+          new_tag = extract_tag_from_record(record)
+          new_time = extract_time_from_record(record)
+        end
+        # ...
+      end
+    end
+
+## Methods
+
+### extract\_tag\_from\_record(record)
+
+This method extracts tag from given record
+
+- `record`: event record
+
+Code example:
+
+    :::ruby
+    new_tag = extract_tag_from_record(record)
+
+### extract\_time\_from\_record(record)
+
+This method extracts time from given record
+
+- `record`: event record
+
+Code example:
+
+    :::ruby
+    new_time = extract_time_from_record(record)
+
+## extract used plugins
+
+- [Exec input](in_exec)
+- [TCP input](in_tcp)
+- [UDP input](in_udp)
+- [Exec filter output](out_exec_filter)
+

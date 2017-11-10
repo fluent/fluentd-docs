@@ -363,6 +363,7 @@ section 'developer', 'Developer' do
     article 'api-plugin-helper-formatter', 'Formatter Plugin Helper API'
     article 'api-plugin-helper-storage', 'Storage Plugin Helper API'
     article 'api-plugin-helper-inject', 'Inject Plugin Helper API'
+    article 'api-plugin-helper-extract', 'Extract Plugin Helper API'
     article 'api-plugin-helper-compat_parameters', 'CompatParameters Plugin Helper API'
     article 'api-plugin-helper-record_accessor', 'Record Accessor Plugin Helper API'
     article 'api-plugin-helper-server', 'Server Plugin Helper API'
