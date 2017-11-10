@@ -1,0 +1,70 @@
+# Inject Plugin Helper API
+
+`inject` helper injects values to events according to the configuration.
+
+For details about configuration, see [Inject section](inject-section).
+
+Here is the code example with `inject` helper:
+
+    :::ruby
+    require 'fluent/plugin/filter'
+    
+    module Fluent::Plugin
+      class ExampleFilter < Filter
+        Fluent::Plugin.register_filter('example', self)
+        
+        # 1. load inject helper
+        helpers :inject
+
+        # omit configure, shutdown and other plugin API
+        
+        def filter(tag, time, record)
+          # 2. inject values to record
+          new_record = inject_values_to_record(tag, time, record)
+          # edit new_record ...
+          new_record
+        end
+      end
+    end
+
+## Methods
+
+### inject\_values\_to\_recort(tag, time, record)
+
+This method injects values to given record and returns new record
+
+- `tag`: the tag of the event
+- `time`: event timestampe
+- `record`: event record
+
+Code example:
+
+    :::ruby
+    def filter(tag, time, record)
+      new_record = inject_values_to_record(tag, time, record)
+      # edit new_record ...
+      new_record
+    end
+
+### inject\_values\_to\_event\_stream(tag, es)
+
+This method injects values to given event stream and returns new event stream
+
+- `tag`: the tag of the event
+- `es`: event stream
+
+Code example:
+
+    :::ruby
+    def process(tag, es)
+      new_es = inject_values_to_event_stream(tag, es)
+      # do something using new_es
+    end
+
+## inject used plugins
+
+- [Stdout filter](filter_stdout)
+- [Exec output](out_exec)
+- [Exec filter output](out_exec_filter)
+- [File output](out_file)
+- [Stdout output](out_stdout)
