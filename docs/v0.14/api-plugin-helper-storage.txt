@@ -61,7 +61,7 @@ Created storage is managed by the plugin. No need storage shutdown code in plugi
 
 ### storage_create(usage: '', type: nil, conf: nil, default_type: nil)
 
-This method executes timer with given parameters and routine
+This method executes storage with given parameters and routine
 
 - `usage`: unique string value. Default is `''`.
 - `type`: storage plugin type. Default is `nil`.
