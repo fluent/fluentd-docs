@@ -220,6 +220,9 @@ section 'output-plugins', 'Output Plugins' do
   category 'out_webhdfs', 'out_webhdfs' do
     article 'out_webhdfs', 'WebHDFS Output Plugin', ['Hadoop', 'HDFS']
   end
+  category 'out_elasticsearch', 'out_elasticsearch' do
+    article 'out_elasticsearch', 'Elasticsearch Output Plugin', ['Elasticsearch']
+  end
   # category 'out_others', 'Others' do
   #   article 'out_others', 'Other Output Plugins'
   # end
