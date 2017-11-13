@@ -335,6 +335,9 @@ section 'storage-plugins', 'Storage Plugins' do
   category 'storage-plugin-overview', 'Overview' do
     article 'storage-plugin-overview', 'Storage Plugin Overview'
   end
+  category 'storage_local', 'storage_local' do
+    article 'storage_local', 'local Storage Plugin'
+  end
 end
 section 'developer', 'Developer' do
   category 'plugin-development', 'Plugin Development' do
