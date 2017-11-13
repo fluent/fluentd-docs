@@ -25,7 +25,7 @@ This definition specifies that a HTTP server will be listening on TCP port 8888.
 The _Match_ directive sets a rule that matches each _Incoming_ event that arrives with a __Tag__ equal to _test.cycle_ will use the _Output_ plugin type called _stdout_. At this point we have an _Input_ type, a _Match_ and an _Output_. Let's test the setup using _curl_:
 
     :::text
-    $ curl -i -X POST -d 'json={"action":"login","user":2}' http://localhost:9880/test.cycle
+    $ curl -i -X POST -d 'json={"action":"login","user":2}' http://localhost:8888/test.cycle
     HTTP/1.1 200 OK
     Content-type: text/plain
     Connection: Keep-Alive
@@ -103,13 +103,13 @@ As you can see, the new _Filter_ definition added will be a mandatory step befor
 From a _Terminal_, run the following two `curl` commands (please note that each one contains a different `action` value):
 
     :::text
-    $ curl -i -X POST -d 'json={"action":"login","user":2}' http://localhost:8880/test.cycle
+    $ curl -i -X POST -d 'json={"action":"login","user":2}' http://localhost:8888/test.cycle
     HTTP/1.1 200 OK
     Content-type: text/plain
     Connection: Keep-Alive
     Content-length: 0
 
-    $ curl -i -X POST -d 'json={"action":"logout","user":2}' http://localhost:8880/test.cycle
+    $ curl -i -X POST -d 'json={"action":"logout","user":2}' http://localhost:8888/test.cycle
     HTTP/1.1 200 OK
     Content-type: text/plain
     Connection: Keep-Alive
@@ -125,7 +125,7 @@ Now looking at the [Fluentd](http://fluentd.org) service output we can see that 
     <source>
       @type http
       bind 0.0.0.0
-      port 9880
+      port 8888
     </source>
     <filter test.cycle>
       @type grep
@@ -150,7 +150,7 @@ The _Labels_ implementation aims to reduce configuration file complexity and all
     <source>
       @type http
       bind 0.0.0.0
-      port 8880
+      port 8888
       @label @STAGING
     </source>
 
