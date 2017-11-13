@@ -1,22 +1,31 @@
 # Storage Plugin Overview
 
-TODO: write this page
-
-Fluentd has 6 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview), [Storage](storage-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Storage Plugin.
+Fluentd has 7 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview), [Storage](storage-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Storage Plugin.
 
 ## Overview
 
-TBD
+Sometimes, the plugin states for an output, a filter, and an input plugin should save into in-memory or storage or other key-value stores. Fluentd has a pluggable system called Storage that lets the plugin internal states extract to in-memory or storage or other key-value stores and re-use stored key-value pair value.
 
 ## How To Use
 
-TBD
+For an input, an output, and filter plugin that supports Storage, the `<storage>` directive can be used to store key-value pair into the key-vaule store such as json file, MongoDB, Redis and so on.
 
-## List of Built-in Parsers
+Here is an example with in_dummy:
 
-TBD
+    :::text
+    <source>
+      @type dummy
+      tag docs.fluentd.storage
+      <storage awesome_path>
+        @type my_custom_storage
+      </storage>
+    </source>
+
+
+## List of Built-in Storage
+
+* [local](storage_local)
 
 ## List of Core Plugins with Storage support
 
 * [in_dummy](in_dummy)
-
