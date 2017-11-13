@@ -1,3 +1,26 @@
 # Format section configurations
 
-TBD: The whole page is to be written.
+Some of Fluentd's plugins support the ``<format>`` section to specify how to format record.
+
+## Format section overview
+
+Format section can be in ``<match>`` or ``<filter>`` sections.
+
+    <match tag.*>
+      @type file
+      # paramters for output plugin
+      <format>
+        # format section paramters
+      </format>
+    </match>
+
+## format plugin type
+
+``<format>`` section requires ``@type`` parameter to specify the type of formatter plugin.
+Fluentd core bundles [some useful formatter plugins](formatter-plugin-overview). 3rd party plugins are also available when installed.
+
+    <format>
+      @type json
+    </format>
+
+For more details, see plugins documentation.
