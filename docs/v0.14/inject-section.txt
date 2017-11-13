@@ -1,3 +1,31 @@
 # Inject section configurations
 
-TBD: The whole page is to be written.
+## Inject section overview
+
+Inject section can be in ``<match>`` or ``<filter>`` sections. It's enabled for plugins which support injecting values to the event record.
+
+    <match>
+      @type file
+      # parameters for output plugin
+      <inject>
+        # inject section parameters
+      </inject>
+    </match>
+
+## inject section parameter
+
+### Inject parameters
+
+* **hostname_key** (string) (optional): the field name to inject hostname
+  * Default: `nil`
+* **hostname** (string) (optional): hostname value
+  * Default: `Socket.gethostname`
+* **worker_id_key** (string) (optional): the field name to inject worker_id
+  * Default: `nil`
+* **tag_key** (string) (optional): the field name to inject tag
+  * Default: `nil`
+* **time_key**  (string) (optional): the field name to inject time
+  * Default: `nil`
+
+INCLUDE: _time_parameters
+
