@@ -82,23 +82,6 @@ Another mode is `block`. It stops input plugin thread until buffer full is resol
 
 We don't recommend to use `block` action to avoid `BufferQueueLimitError`. Please consider improving destination setting to resolve `BufferQueueLimitError` or use `@ERROR` label for routing overflowed events to another backup destination(or `secondary`). If you hit `BufferQueueLimitError` frequently, it means your destination capacity is insufficient for your traffic.
 
-## Time Sliced Plugin Overview
-
-Time Sliced Plugin is a type of Buffer Plugin, so, it has the same basic buffer structure as Buffer Plugin.
-
-In addition, each chunk is keyed by time and flushed when that chunk's timestamp has passed. This is different from This immediately raises a couple of questions.
-
-1. How do we specify the granularity of time chunks? This is done through the `time_slice_format` option, which is set to "%Y%m%d" (daily) by default. If you want your chunks to be hourly, "%Y%m%d%H" will do the job.
-2. What if new logs come after the time corresponding the current chunk? For example, what happens to an event, timestamped at 2013-01-01 02:59:45 UTC, comes in at 2013-01-01 03:00:15 UTC? Would it make into the 2013-01-01 02:00:00-02:59:59 chunk?
-  
-  This issue is addressed by setting the `time_slice_wait` parameter. `time_slice_wait` sets, in seconds, how long fluentd waits to accept "late" events into the chunk *past the max time corresponding to that chunk*. The default value is 600, which means it waits for 10 minutes before moving on. So, in the current example, as long as the events come in before 2013-01-01 03:10:00, it will make it in to the 2013-01-01 02:00:00-02:59:59 chunk.
-
-  Alternatively, you can also flush the chunks regularly using `flush_interval`. Note that `flush_interval` and `time_slice_wait` are mutually exclusive. If you set `flush_interval`, `time_slice_wait` will be ignored and fluentd would issue a warning.
-
-Here is the diagram shows the relation between buffers and parameters.
-
-<a href="/images/buffer-internal-and-parameters.png"><img src="/images/buffer-internal-and-parameters.png"/></a>
-
 ## List of Buffer Plugins
 
 * [buf_memory](buf_memory)
