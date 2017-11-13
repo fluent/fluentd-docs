@@ -1,0 +1,103 @@
+# Elasticsearch Output Plugin
+
+The `out_elasticsearch` Output plugin writes records into Elasticsearch. By default, it creates records by bulk write operaion. This means that when you first import records using the plugin, no record is created immediately. The record will be created when the `chunk_keys` condition has been met. To change the output frequency, please specify the `time` in chunk_keys and specify `timekey` value in conf.
+
+NOTE: This document doesn't describe all parameters. If you want to know full features, check the Further Reading section.
+
+## Install
+
+`out_elasticsearch` is included in td-agent by default (v3.0.1 or later). Fluentd gem users will have to install the fluent-plugin-elasticsearch gem using the following command.
+
+    :::term
+    $ fluent-gem install fluent-plugin-elasticsearch
+
+## Example Configuration
+
+Additional configurations are optional.
+
+    :::text
+    <match my.logs>
+      @type elasticsearch
+      host localhost
+      port 9200
+      index_name fluentd
+      type_name fluentd
+    </match>
+
+Some of configuration values are described the following section.
+
+## Parameters
+
+### @type (required)
+
+The value must be `elasticsearch`.
+
+### host (optional)
+
+The namenode hostname.
+
+### port (optional)
+
+The namenode port number.
+
+### hosts (optional)
+
+The nodename and its port pairs.
+
+    :::text
+    hosts host1:port1,host2:port2,host3:port3
+    # or
+    hosts https://customhost.com:443/path,https://username:password@host-failover.com:443
+
+are accepted.
+
+### user, password, path, scheme, ssl_verify (optional)
+
+If you specify this option, host and port options are ignored.
+
+    :::text
+    user fluent
+    password fluentd
+    path /elastic_search/
+    scheme https
+
+### logstash_format (optional)
+
+Defaults to false.
+
+If you specify this option, fluent-plugin-elasticsearch will use `logstash-%Y.%m.%d` style indices.
+
+### index_name (optional)
+
+If you specify this option, fluent-plugin-elasticsearch will use `fluentd` style index.
+
+INCLUDE: _log_level_params
+
+## Miscellaneous
+
+You can use `%{}` style placehodlers to escape for URL encoding needed characters.
+
+    :::text
+    user %{demo+}
+    password %{@secret}
+
+are valid configuration.
+
+    :::text
+    hosts https://%{j+hn}:%{passw@rd}@host1:443/elastic/,http://host2
+
+are also valid configuration.
+
+But,
+
+    :::text
+    user demo+
+    password @secret
+
+are invalid configuration.
+
+## Common Buffer / Output parameters
+See [Buffer Plugin Overview](buffer-plugin-overview) and [Output Plugin Overview](output-plugin-overview)
+
+## Further Reading
+- [fluent-plugin-elasticsearch repository](https://github.com/uken/fluent-plugin-elasticsearch)
