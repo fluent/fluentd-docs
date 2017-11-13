@@ -24,6 +24,7 @@ The methods listed below are considered as public methods, and will be maintaine
           desc "Username for authentication"
           config_param :username, :string
           desc "Password for authentication"
+          config_param :password, :string, secret: true
         end
   
         def configure(conf)
