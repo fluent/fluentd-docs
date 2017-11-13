@@ -1,3 +1,26 @@
 # Parse section configurations
 
-TBD: The whole page is to be written.
+Some of Fluentd's plugins support the ``<parse>`` section to specify how to parse raw data.
+
+## Parse section overview
+
+Parse section can be in ``<source>``, ``<match>`` or ``<filter>`` sections. It's enabled for plugins which support parser plugin features.
+
+    <source>
+      @type tail
+      # parameters for input plugin
+      <parse>
+        # parse section parameters
+      </parse>
+    </source>
+
+## parser plugin type
+
+``<parse>`` section requires ``@type`` parameter to specify the type of parser plugin.
+Fluentd core bundles [a lot of useful parser plugins](parser-plugin-overview). 3rd party plugins are also available when installed.
+
+    <parse>
+      @type apache2
+    </parse>
+
+For more details, see plugins documentation.
