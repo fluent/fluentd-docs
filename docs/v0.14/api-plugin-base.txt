@@ -15,13 +15,15 @@ The methods listed below are considered as public methods, and will be maintaine
         # The second argument is class of plugin itself, ``self`` in most cases.
         Fluent::Plugin.register_output('my_example', self)
   
+        desc "The port number"
         # config_param defines a parameter. You can refer a parameter via @port instance variable.
         # Without :default, a parameter is required.
         config_param :port, :integer
 
         config_section :user, param_name: :users, multi: true, required: false do
+          desc "Username for authentication"
           config_param :username, :string
-          config_param :password, :string
+          desc "Password for authentication"
         end
   
         def configure(conf)
