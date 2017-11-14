@@ -15,13 +15,16 @@ The methods listed below are considered as public methods, and will be maintaine
         # The second argument is class of plugin itself, ``self`` in most cases.
         Fluent::Plugin.register_output('my_example', self)
   
+        desc "The port number"
         # config_param defines a parameter. You can refer a parameter via @port instance variable.
         # Without :default, a parameter is required.
         config_param :port, :integer
 
         config_section :user, param_name: :users, multi: true, required: false do
+          desc "Username for authentication"
           config_param :username, :string
-          config_param :password, :string
+          desc "Password for authentication"
+          config_param :password, :string, secret: true
         end
   
         def configure(conf)
@@ -57,43 +60,170 @@ Base class has some methods to create configurable parameters for plugins, or to
 
 #### .config_param(name, type = nil, **options, &block)
 
-TODO: write this section later
+Define a parameter.
 
-About types, see LINK:[Types of Configuration Parameters](api-config-types).
+* `name`: parameter name as symbol
+* `type`: parameter type
+* `options`: options for parameter
+* `block`: if block is given, convert value via given block
+
+About types and options, see LINK:[Types of Configuration Parameters](api-config-types).
+
+Code Example:
+
+    :::ruby
+    config_param :name, :string, default: "John Doe", alias: :full_name
+
+    config_param :pattern, do |value|
+      Regexp.compile(value)
+    end
+
+    config_param :delimiter, default: "\t" do |value|
+      case value
+      when /SPACE/i then " "
+      when /COMMA/i then ","
+      else "\t"
+      end
+    end
 
 #### .config_set_default(name, default_value)
 
-TODO: write this section later
+Set default value to `name`. If the default value has already been existed, raise `ArgumentError`.
+
+* `name`: The name of parameter
+* `default_value`: Default value for the parameter
+
+Code Example:
+
+    :::ruby
+    # lib/fluent/plugin/buffer.rb
+    config_param :chunk_limit_size, :size, default: DEFAULT_CHUNK_LIMIT_SIZE
+
+    # lib/fluent/plugin/buf_file.rb
+    config_set_default :chunk_limit_size, DEFAULT_CHUNK_LIMIT_SIZE
 
 #### .config_set_desc(name, description)
 
-TODO: write this section later
+Set description to `name`. If the description has already been existed, raise `ArgumentError`.
+This is for internal API. Use `desc` instead.
+
+* `name`: The name of parameter
+* `description`: Description about the parameter
 
 #### .desc(description)
 
-TODO: write this section later
+Set description to immediately following parameter.
+
+* `description`: Description about the parameter
+
+Code Example:
+
+    :::ruby
+    desc "description about following parameter"
+    config_param :user, :string
 
 #### .config_section(name, **options, &block)
 
-TODO: write this section later
+Define a section to construct structured configuration.
+
+* `name`: The name of section
+* `options`
+  * `root`: If true, this section is root section. This is only for internal use.
+  * `param_name`: This section name
+  * `final`: If true, subclass of this class cannot overwrite this section. e.g. 3rd party plugins cannot overwrite buffer section
+  * `init`: If true, parameters in this section must have default value. 3rd party plugins don't have to be conscious about this option.
+  * `required`: If true, this section is required. Fluentd will raise `Fluent::ConfigError` when this section is missing in configuration.
+  * `multi`: If true, users can write this section in configuration.
+  * `alias`: Alias of this section
+
+Code Example:
+
+    :::ruby
+    config_section :user, multi: true do
+      config_param :name, :string
+      config_param :password, :string, secret: true
+    end
+    
+    # nested sections
+    config_section :child, :param_name: "children", required: false, multi: true do
+      config_param :name, :string
+      config_param :power, :integer, default: nil
+      config_section :item, multi: true do
+        config_param :name, :string
+        config_param :flavor, :string
+      end
+    end
+
+Configuration Example:
+
+    :::text
+    <user>
+      name Alice
+      password very-secret-password
+    </user>
+    
+    # nested sections
+    <child>
+      name Bob
+      power 1000
+      <item>
+        name potion
+        flavor very sour orange
+      </item>
+      <item>
+        name gumi
+        flavor super delicious apple
+      </item>
+    </child>
 
 #### .configured_in(section_name)
 
-TODO: write this section later
+Inherit section `section_name` defined in super class.
+
+* `section_name`: section name as Symbol
 
 #### .system_config
 
-TODO: write this section later
+Returns `Fluent::SystemConfig` instance.
+
+For more details, see [System Configuration](system-config).
+
+Code Example:
+
+    :::ruby
+    def configure(conf)
+      super
+      root_dir = system_config.root_dir
+    end
 
 #### .system_config_override(options = {})
 
-TODO: write this section later
+Overwrite system config
+
+This is for internal use and plugin testing.
+
+For more details, see [System Configuration](system-config).
+
+* `options`: system configuration as Hash
+
+Code Example:
+
+    :::ruby
+    test "plugin instance can overwrite system_config if needed" do
+      plugin = ExampleInput.new
+      plugin.configure(conf)
+      # ...
+      plugin.system_config_override("workers" => 3)
+      # ...
+    end
 
 ## Instance methods
 
 #### #initialize
 
 This method is used to initialize internal states (instance variables). Call ``super`` if the plugin overrides this method.
+
+Code Example:
 
     :::ruby
     def initialize
@@ -109,6 +239,8 @@ So instance variables or accessor methods are available after ``super`` in ``#co
 
 The code to configure the plugin by itself should be after ``super``.
 
+Code Example:
+
     :::ruby
     def configure(conf)
       super
@@ -121,7 +253,30 @@ The return value of this method will be ignored.
 
 #### #log
 
-TODO: write this section later with list of logger methods
+Returns `Fluent::Log` instance
+
+* Log levels:
+  * `trace`
+  * `debug`
+  * `info`
+  * `warn`
+  * `error`
+  * `fatal`
+
+For more details about Fluentd's logging mechanism, see [Logging of Fluentd](logging).
+
+Code Example:
+
+    :::ruby
+    def start
+      ...
+      log.info("This is info level log")
+      # evaluate blog only when log level is trace
+      log.trace do
+        # heavy calculation to trace plugin behavior
+        "This is trace level log"
+      end
+    end
 
 #### #has_router?
 
@@ -135,6 +290,8 @@ NOTE: Input plugin enables ``event_emitter`` plugin helper in default.
 This method is called when Fluentd starts, after all configuration steps. Call ``super`` if the plugin overrides this method.
 
 Creating/Opening timers, threads, listening sockets, file handles and others should be done in this method after ``super``. Many of these may be provided as plugin helpers. See API details of each plugin helpers.
+
+Code Example:
 
     :::ruby
     def start
@@ -151,6 +308,8 @@ Creating/Opening timers, threads, listening sockets, file handles and others sho
 This method is called at first in shutdown sequence of Fluentd. Call ``super`` if the plugin overrides this method.
 
 This method should be used to enable flag to stop loops, network servers or something else, gracefully. This method SHOULD NOT do anything which may raise errors.
+
+Code Example:
 
     :::ruby
     def start # example
@@ -180,6 +339,8 @@ There are no need to implement this method by 3rd party plugins in most cases. T
 This method is called when shutting down. Call ``super`` if the plugin overrides this method.
 
 The plugin should close file handles, network connections, listening servers and other resources. The plugin can emit events in this method, and cannot emit events after this method is called.
+
+Code Example:
 
     :::ruby
     def shutdown
@@ -214,6 +375,8 @@ The methods below are available in subclass of Input, Filter and Output. Other t
 #### .helpers(*symbols)
 
 The plugin can include features of plugin helpers by calling this method with symbol arguments.
+
+Code Example:
 
     :::ruby
     module Fluent::Plugin
