@@ -217,7 +217,28 @@ The return value of this method will be ignored.
 
 #### #log
 
-TODO: write this section later with list of logger methods
+Returns `Fluent::Log` instance
+
+* Log levels:
+  * `trace`
+  * `debug`
+  * `info`
+  * `warn`
+  * `error`
+  * `fatal`
+
+For more details about Fluentd's logging mechanism, see [Logging of Fluentd](logging).
+
+    :::ruby
+    def start
+      ...
+      log.info("This is info level log")
+      # evaluate blog only when log level is trace
+      log.trace do
+        # heavy calculation to trace plugin behavior
+        "This is trace level log"
+      end
+    end
 
 #### #has_router?
 
