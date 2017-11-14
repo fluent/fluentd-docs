@@ -86,7 +86,17 @@ About types and options, see LINK:[Types of Configuration Parameters](api-config
 
 #### .config_set_default(name, default_value)
 
-TODO: write this section later
+Set default value to `name`. If the default value has already been existed, raise `ArgumentError`.
+
+* `name`: The name of parameter
+* `default_value`: Default value for the parameter
+
+    :::ruby
+    # lib/fluent/plugin/buffer.rb
+    config_param :chunk_limit_size, :size, default: DEFAULT_CHUNK_LIMIT_SIZE
+
+    # lib/fluent/plugin/buf_file.rb
+    config_set_default :chunk_limit_size, DEFAULT_CHUNK_LIMIT_SIZE
 
 #### .config_set_desc(name, description)
 
