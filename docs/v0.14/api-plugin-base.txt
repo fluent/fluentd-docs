@@ -148,6 +148,28 @@ Code Example:
       end
     end
 
+Configuration Example:
+
+    :::text
+    <user>
+      name Alice
+      password very-secret-password
+    </user>
+    
+    # nested sections
+    <child>
+      name Bob
+      power 1000
+      <item>
+        name potion
+        flavor very sour orange
+      </item>
+      <item>
+        name gumi
+        flavor super delicious apple
+      </item>
+    </child>
+
 #### .configured_in(section_name)
 
 Inherit section `section_name` defined in super class.
