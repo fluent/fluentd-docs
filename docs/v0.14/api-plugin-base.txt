@@ -168,7 +168,22 @@ For more details, see [System Configuration](system-config).
 
 #### .system_config_override(options = {})
 
-TODO: write this section later
+Overwrite system config
+
+This is for internal use and plugin testing.
+
+For more details, see [System Configuration](system-config).
+
+* `options`: system configuration as Hash
+
+    :::ruby
+    test "plugin instance can overwrite system_config if needed" do
+      plugin = ExampleInput.new
+      plugin.configure(conf)
+      # ...
+      plugin.system_config_override("workers" => 3)
+      # ...
+    end
 
 ## Instance methods
 
