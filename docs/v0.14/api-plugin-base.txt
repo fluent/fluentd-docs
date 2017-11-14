@@ -91,6 +91,8 @@ Set default value to `name`. If the default value has already been existed, rais
 * `name`: The name of parameter
 * `default_value`: Default value for the parameter
 
+Code Example:
+
     :::ruby
     # lib/fluent/plugin/buffer.rb
     config_param :chunk_limit_size, :size, default: DEFAULT_CHUNK_LIMIT_SIZE
@@ -111,6 +113,8 @@ This is for internal API. Use `desc` instead.
 Set description to immediately following parameter.
 
 * `description`: Description about the parameter
+
+Code Example:
 
     :::ruby
     desc "description about following parameter"
@@ -197,6 +201,8 @@ This is for internal use and plugin testing.
 For more details, see [System Configuration](system-config).
 
 * `options`: system configuration as Hash
+
+Code Example:
 
     :::ruby
     test "plugin instance can overwrite system_config if needed" do
