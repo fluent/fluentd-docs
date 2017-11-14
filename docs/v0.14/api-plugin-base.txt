@@ -60,9 +60,29 @@ Base class has some methods to create configurable parameters for plugins, or to
 
 #### .config_param(name, type = nil, **options, &block)
 
-TODO: write this section later
+Define a parameter.
 
-About types, see LINK:[Types of Configuration Parameters](api-config-types).
+* `name`: parameter name as symbol
+* `type`: parameter type
+* `options`: options for parameter
+* `block`: if block is given, convert value via given block
+
+About types and options, see LINK:[Types of Configuration Parameters](api-config-types).
+
+    :::ruby
+    config_param :name, :string, default: "John Doe", alias: :full_name
+
+    config_param :pattern, do |value|
+      Regexp.compile(value)
+    end
+
+    config_param :delimiter, default: "\t" do |value|
+      case value
+      when /SPACE/i then " "
+      when /COMMA/i then ","
+      else "\t"
+      end
+    end
 
 #### .config_set_default(name, default_value)
 
