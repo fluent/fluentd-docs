@@ -100,11 +100,21 @@ Set default value to `name`. If the default value has already been existed, rais
 
 #### .config_set_desc(name, description)
 
-TODO: write this section later
+Set description to `name`. If the description has already been existed, raise `ArgumentError`.
+This is for internal API. Use `desc` instead.
+
+* `name`: The name of parameter
+* `description`: Description about the parameter
 
 #### .desc(description)
 
-TODO: write this section later
+Set description to immediately following parameter.
+
+* `description`: Description about the parameter
+
+    :::ruby
+    desc "description about following parameter"
+    config_param :user, :string
 
 #### .config_section(name, **options, &block)
 
