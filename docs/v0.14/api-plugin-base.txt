@@ -150,7 +150,9 @@ Code Example:
 
 #### .configured_in(section_name)
 
-TODO: write this section later
+Inherit section `section_name` defined in super class.
+
+* `section_name`: section name as Symbol
 
 #### .system_config
 
