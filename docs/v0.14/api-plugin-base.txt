@@ -156,7 +156,15 @@ Inherit section `section_name` defined in super class.
 
 #### .system_config
 
-TODO: write this section later
+Returns `Fluent::SystemConfig` instance.
+
+For more details, see [System Configuration](system-config).
+
+    :::ruby
+    def configure(conf)
+      super
+      root_dir = system_config.root_dir
+    end
 
 #### .system_config_override(options = {})
 
