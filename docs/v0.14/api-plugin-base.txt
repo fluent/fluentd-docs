@@ -118,7 +118,35 @@ Set description to immediately following parameter.
 
 #### .config_section(name, **options, &block)
 
-TODO: write this section later
+Define a section to construct structured configuration.
+
+* `name`: The name of section
+* `options`
+  * `root`: If true, this section is root section. This is only for internal use.
+  * `param_name`: This section name
+  * `final`: If true, subclass of this class cannot overwrite this section. e.g. 3rd party plugins cannot overwrite buffer section
+  * `init`: If true, parameters in this section must have default value. 3rd party plugins don't have to be conscious about this option.
+  * `required`: If true, this section is required. Fluentd will raise `Fluent::ConfigError` when this section is missing in configuration.
+  * `multi`: If true, users can write this section in configuration.
+  * `alias`: Alias of this section
+
+Code Example:
+
+    :::ruby
+    config_section :user, multi: true do
+      config_param :name, :string
+      config_param :password, :string, secret: true
+    end
+    
+    # nested sections
+    config_section :child, :param_name: "children", required: false, multi: true do
+      config_param :name, :string
+      config_param :power, :integer, default: nil
+      config_section :item, multi: true do
+        config_param :name, :string
+        config_param :flavor, :string
+      end
+    end
 
 #### .configured_in(section_name)
 
