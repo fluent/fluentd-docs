@@ -66,7 +66,21 @@ Fluentd v0.14 supports Ruby 2.1 or later. CI environments should not include Rub
 * remove Ruby 2.0 or ealier from CI environments
 * add Ruby 2.3 (or other latest version) to CI environments
 
-### 5. release new version
+### 5. add requirements section
+
+Add requirements section to `README.md` like following:
+
+    :::text
+    ## Requirements
+    
+    | fluent-plugin-may_awesome | Fluentd     | Ruby   |
+    |---------------------------|-------------|--------|
+    | >= 1.0.0                  | >= v0.14.0  | >= 2.1 |
+    | < 1.0.0                   | >= v0.12.0  | >= 1.9 |
+
+This helps that plugin users can understand plugin requirements.
+
+### 6. release new version
 
 This is last step. The new version should be major or minor version up, not patch version up.
 If the current major version of your gem is equal or larger than 1, you should bump major version up (e.g., from 1 to 2). If the current major version is 0, you should bump minor version up (e.g., from `0.4.2` to `0.5.0`).
