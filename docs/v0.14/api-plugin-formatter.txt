@@ -125,7 +125,7 @@ Fluentd also provides test driver for plugins. You can write tests of your own p
         test 'record has a field' do
           d = create_driver(CONFIG)
           tag = "test"
-          time = FLuent::EventTime.now
+          time = event_time
           record = { "message" => "This is message" }
           formatted = d.instance.format(tag, time, record)
           expected = "..."
