@@ -28,8 +28,6 @@ NOTE: This slide is based on Fluentd v0.12. There are many difference between v0
 
 ## Writing plugins
 
-NOTE: This section should be updated when Fluentd provides LINK:[plugin generator](https://github.com/fluent/fluentd/pull/1427).
-
 To create a plugin as a ruby script (to put it on ``/etc/fluent/plugin``), just write a ``<TYPE>_<NAME>.rb`` file by editor, IDE or anything you prefer.
 
     :::ruby
@@ -58,6 +56,46 @@ See the LINK:[Plugin API details](/categories/plugin-apis) for what should be wr
 Single ruby script is easy to write, but hard to test, to manage versions and to publish it. If you want to publish a plugin uder version control, you should use ``bundle gem`` to create the plugin source tree and init it as git repository (it requires ``bundler`` gem in your ruby environment): ``bundle gem fluent-plugin-my_awesome``. It generates source code directory tree under ``lib``, the simple ``fluent-plugin-my_awesome.gemspec`` file, ``README.md`` and some other files.
 
 Fluentd plugin projects use a bit different code tree under ``lib`` from typical ruby projects. Take care about to keep ``lib/fluent/plugin/<TYPE>_<NAME>.rb`` paths.
+
+### Generating plugin project skeleton
+
+Generate a project skeleton for creating a Fluentd plugin as a Gem package.
+
+For example generate input http2 plugin project skeleton:
+
+    :::term
+    $ fluent-plugin-generate input http2
+    License: Apache-2.0
+            create Gemfile
+            create README.md
+            create Rakefile
+            create fluent-plugin-http2.gemspec
+            create lib/fluent/plugin/in_http2.rb
+            create test/helper.rb
+            create test/plugin/test_in_http2.rb
+    Initialized empty Git repository in /path/to/fluent-plugin-http2/.git/
+    $ tree
+    fluent-plugin-http2/
+    ├── Gemfile
+    ├── LICENSE
+    ├── README.md
+    ├── Rakefile
+    ├── fluent-plugin-http2.gemspec
+    ├── lib
+    │   └── fluent
+    │       └── plugin
+    │           └── in_http2.rb
+    └── test
+        ├── helper.rb
+        └── plugin
+            └── test_in_http2.rb
+     
+    5 directories, 8 files
+
+If you want to generate a project skeleton without LICENSE, use `--no-license` option.
+For more details, see `fluent-plugin-generate --help`.
+
+It is very easy to start developing Fluentd plugins using `fluent-plugin-generate` command.
 
 ## Debugging plugins
 
