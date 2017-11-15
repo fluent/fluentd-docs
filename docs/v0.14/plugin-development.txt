@@ -95,7 +95,7 @@ For example generate input http2 plugin project skeleton:
 If you want to generate a project skeleton without LICENSE, use `--no-license` option.
 For more details, see `fluent-plugin-generate --help`.
 
-It is very easy to start developing Fluentd plugins using `fluent-plugin-generate` command.
+Using `fluent-plugin-generate` command is good starting point to develop Fluentd plugins.
 
 ## Debugging plugins
 
