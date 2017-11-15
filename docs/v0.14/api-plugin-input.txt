@@ -146,7 +146,7 @@ Fluentd also provides test driver for plugins. You can write tests of your own p
 
 ### Overview of Tests
 
-Testing for output plugins are mainly for:
+Testing for input plugins are mainly for:
 
 * Configuration/Validation checks for invalid configurations (about ``#configure``)
 * Checks for emitted events by input plugins
