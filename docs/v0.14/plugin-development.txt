@@ -192,6 +192,86 @@ Then, run ``bundle exec rake test`` to run all tests in your test code.
 
 See LINK:[Writing Plugin Test Code](/article/plugin-test-code) for more details about writing tests.
 
+## Writing documents for plugins
+
+You have a snippet of README.md if you generate project skeleton using `fluent-plugin-generate`.
+
+For example:
+
+    :::text
+    # fluent-plugin-http2
+    
+    [Fluentd](https://fluentd.org/) input plugin to do something.
+    
+    TODO: write description for you plugin.
+    
+    ## Installation
+    
+    ### RubyGems
+    
+    ```
+    $ gem install fluent-plugin-http2
+    ```
+    
+    ### Bundler
+    
+    Add following line to your Gemfile:
+    
+    ```ruby
+    gem "fluent-plugin-http2"
+    ```
+    
+    And then execute:
+    
+    ```
+    $ bundle
+    ```
+    
+    ## Configuration
+    
+    You can generate configuration template:
+    
+    ```
+    $ fluent-plugin-config-format input http2
+    ```
+    
+    You can copy and paste generated documents here.
+    
+    ## Copyright
+    
+    * Copyright(c) 2017- John Doe
+    * License
+      * Apache License, Version 2.0
+
+You should write plugin description and configurations.
+
+You can generate documents for configuration using `fluent-plugin-config-format` command.
+
+Example (input dummy):
+
+    :::term
+    $ fluent-plugin-config-format -c input dummy
+    ## Plugin helpers
+    
+    * thread
+    * storage
+    
+    * See also: Fluent::Plugin::Input
+    
+    ## Fluent::Plugin::DummyInput
+    
+    * **tag** (string) (required): The value is the tag assigned to the generated events.
+    * **size** (integer) (optional): The number of events in event stream of each emits.
+      * Default value: `1`.
+    * **rate** (integer) (optional): It configures how many events to generate per second.
+      * Default value: `1`.
+    * **auto_increment_key** (string) (optional): If specified, each generated event has an auto-incremented key field.
+    * **suspend** (bool) (optional): The boolean to suspend-and-resume incremental value after restart
+    * **dummy** () (optional): The dummy data to be generated. An array of JSON hashes or a single JSON hash.
+      * Default value: `[{"message"=>"dummy"}]`.
+
+For more details, see `fluent-plugin-config-format --help`.
+
 ## Further Reading
 
 * [Slides: Fluentd v0.14 Plugin API Details](http://www.slideshare.net/tagomoris/fluentd-v014-plugin-api-details)
