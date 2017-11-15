@@ -59,12 +59,14 @@ Then, save this code in `parser_time_key_value.rb` in a loadable plugin path. Th
     <source>
       @type tail
       path /path/to/input/file
-      format time_key_value
+      <parse>
+        @type time_key_value
+      </parse>
     </source>
 
 Then, the log line like `2014-01-01T00:00:00 k=v a=b` is parsed as `2013-01-01 00:00:00 +0000 test: {"k":"v","a":"b"}`.
 
-TODO: add description about ``<parse>`` section.
+For more details about ``<parse>`` section, see [Parse section configurations](parse-section).
 
 ## How To Use Parsers From Plugins
 
@@ -75,7 +77,7 @@ There is a Parser plugin helper for that purpose (v0.14.1 or later):
     # in class definition
     helpers :parser
 
-    # in #start
+    # in #configure
     @parser = parser_create(type: 'json')
 
     # in input loop or #filter or ...
