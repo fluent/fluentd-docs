@@ -195,7 +195,7 @@ If user specifies ``flush_mode`` explicitly, the plugin works as specified.
 
 ### Understanding Chunking and Metadata
 
-See [Buffer section](buffer-section) article for basic knowledage.
+See [Buffer section](buffer-section) article for basic knowledge.
 
 Fluentd creates buffer chunks to store events. Each buffer chunks should be written at once, without any re-chunking in methods to write.
 In Fluentd v0.14, users can specify chunk keys by themselves using ``<buffer CHUNK_KEYS>`` section.
