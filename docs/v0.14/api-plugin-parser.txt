@@ -99,4 +99,76 @@ Parser plugins must implement this method.
 
 ## Writing Tests
 
-TODO: write
+Fluentd parser plugin has just one or some points to be tested. Others (parsing configurations, controlling buffers, retries, flushes and many others) are controlled by Fluentd core.
+
+Fluentd also provides test driver for plugins. You can write tests of your own plugins very easily:
+
+    ::ruby
+    # test/plugin/test_parser_your_own.rb
+
+    require 'test/unit'
+    require 'fluent/test/driver/parser
+    
+    # your own plugin
+    require 'fluent/plugin/parser_your_own'
+    
+    class FormatterYourOwnTest < Test::Unit::TestCase
+      def setup
+        # common setup
+      end
+      
+      COPNFIG = %[
+        pattern apache
+      ]
+      
+      def create_driver(conf = CONF)
+        Fluent::Test::Driver::Parser.new(Fluent::Plugin::YourOwnFormatter).configure(conf)
+      end
+      
+      sub_test_case 'configured with invalid configurations' do
+        test 'empty' do
+          assert_raise(Fluent::ConfigError) do
+            create_driver('')
+          end
+        end
+        # ...
+      end
+      
+      sub_test_case 'plugin will format record' do
+        test 'record has a field' do
+          d = create_driver(CONFIG)
+          tag = "test"
+          text = '192.168.0.1 - - [28/Feb/2013:12:00:00 +0900] "GET / HTTP/1.1" 200 777'
+          expected_time = event_time('28/Feb/2013:12:00:00 +0900', format: '%d/%b/%Y:%H:%M:%S %z')
+          expected_record = {
+            "method" => "GET",
+            # ...
+          }
+          d.instance.parse(text) do |time, record|
+            assert_equal(expected_time, time)
+            assert_equal(expected_record, record)
+          end
+        end
+      end
+    end
+
+### Overview of Tests
+
+Testing for formatter plugins are mainly for:
+
+* Configuration/Validation checks for invalid configurations (about ``#configure``)
+* Checks for parsed time and record by parser plugins
+
+Plugin test driver provides logger and feature to override system configurations, and configuration parser and others to make it easy to test configuration errors or others.
+
+Lifecycle of plugins and test drivers is:
+
+1. Instantiate plugin driver (and it instantiates plugin)
+2. Configure plugin
+3. Run test code
+4. Assert results of tests by data provided from driver
+
+Test drivers instantiate the plugin. See LINK:[Testing API for plugins](api-plugin-test) for details.
+
+For configuration tests, repeat 1-2. For full feature tests, repeat 1-4. Test drivers and helper methods will support it.
+
