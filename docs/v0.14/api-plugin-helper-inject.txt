@@ -34,7 +34,7 @@ Here is the code example with `inject` helper:
 This method injects values to given record and returns new record
 
 - `tag`: the tag of the event
-- `time`: event timestampe
+- `time`: event timestamp
 - `record`: event record
 
 Code example:
