@@ -176,7 +176,7 @@ This new configuration contains a `@label` key on the `source` indicating that a
 
 In this example, we use `stdout` non-buffered output, but in production buffered outputs are often necessary, e.g. `forward`, `mongodb`, `s3` and etc.
 Buffered output plugins store received events into buffers and are then written out to a destination after meeting flush conditions.
-Using buffered output you don't see recieved events immediately, unlike `stdout` non-buffered output.
+Using buffered output you don't see received events immediately, unlike `stdout` non-buffered output.
 
 Buffers are important for reliability and throughput. See [Output](output-plugin-overview) and [Buffer](buffer-plugin-overview) articles.
 
