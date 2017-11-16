@@ -27,6 +27,8 @@ Here is the code example with `inject` helper:
       end
     end
 
+For more details about configuration, see [Inject section](inject-section).
+
 ## Methods
 
 ### inject\_values\_to\_recort(tag, time, record)
