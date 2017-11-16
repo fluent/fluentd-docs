@@ -58,6 +58,10 @@ to your `~/.bash_profile`.
 
 If you would like to find out more about plugin management, please take a look at the [Plugin Management](/articles/plugin-management) article.
 
+### I installed the plugin and it updates fluentd from v0.12 to v0.14. Why?
+
+You installed v0.14 based plugin. See [Plugin Management](/articles/plugin-management#plugin-version-management).
+
 ### How can I match (send) an event to multiple outputs?
 
 You can use the `copy` [output plugin](/articles/out_copy) to send the same event to multiple output destinations.
