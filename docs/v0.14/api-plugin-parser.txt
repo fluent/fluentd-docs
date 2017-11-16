@@ -112,7 +112,7 @@ Fluentd also provides test driver for plugins. You can write tests of your own p
     # your own plugin
     require 'fluent/plugin/parser_your_own'
     
-    class FormatterYourOwnTest < Test::Unit::TestCase
+    class ParserYourOwnTest < Test::Unit::TestCase
       def setup
         # common setup
       end
@@ -122,7 +122,7 @@ Fluentd also provides test driver for plugins. You can write tests of your own p
       ]
       
       def create_driver(conf = CONF)
-        Fluent::Test::Driver::Parser.new(Fluent::Plugin::YourOwnFormatter).configure(conf)
+        Fluent::Test::Driver::Parser.new(Fluent::Plugin::YourOwnParser).configure(conf)
       end
       
       sub_test_case 'configured with invalid configurations' do
@@ -134,10 +134,9 @@ Fluentd also provides test driver for plugins. You can write tests of your own p
         # ...
       end
       
-      sub_test_case 'plugin will format record' do
+      sub_test_case 'plugin will parse text' do
         test 'record has a field' do
           d = create_driver(CONFIG)
-          tag = "test"
           text = '192.168.0.1 - - [28/Feb/2013:12:00:00 +0900] "GET / HTTP/1.1" 200 777'
           expected_time = event_time('28/Feb/2013:12:00:00 +0900', format: '%d/%b/%Y:%H:%M:%S %z')
           expected_record = {
@@ -154,7 +153,7 @@ Fluentd also provides test driver for plugins. You can write tests of your own p
 
 ### Overview of Tests
 
-Testing for formatter plugins are mainly for:
+Testing for parser plugins are mainly for:
 
 * Configuration/Validation checks for invalid configurations (about ``#configure``)
 * Checks for parsed time and record by parser plugins
