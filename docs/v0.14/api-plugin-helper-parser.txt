@@ -43,6 +43,7 @@ For more details about parser plugin, see following articles:
 
 - [Parser Plugin Overview](parser-plugin-overview)
 - [Writing Parser Plugins](api-plugin-parser)
+- [Parser plugin](parse-section)
 
 ## Methods
 

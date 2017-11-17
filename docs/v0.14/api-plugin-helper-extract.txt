@@ -24,6 +24,8 @@ Here is the code example with `extract` helper:
       end
     end
 
+For more details about configuration, see [Extract section](extract-section).
+
 ## Methods
 
 ### extract\_tag\_from\_record(record)

@@ -57,6 +57,8 @@ Here is the code example with `storage` helper:
 
 Created storage is managed by the plugin. No need storage shutdown code in plugin's `shutdown`. The plugin shutdowns created storages automatically.
 
+For more details about configuration, see [Storage section](storage-section).
+
 ## Methods
 
 ### storage_create(usage: '', type: nil, conf: nil, default_type: nil)

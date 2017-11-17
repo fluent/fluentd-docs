@@ -27,6 +27,8 @@ Here is the code example with `server` helper:
 
 Launched server is managed by the plugin. No need server shutdown code in plugin's `shutdown`. The plugin shutdowns launched servers automatically.
 
+For more details about configuration, see [Transport section](transport-section).
+
 ## Methods
 
 ### server\_create\_connection(title, port, proto: nil, bind: '0.0.0.0', shared: true, backlog: nil, tls_options: nil, **socket_options, &block)
