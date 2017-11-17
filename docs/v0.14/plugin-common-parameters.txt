@@ -49,6 +49,8 @@ The main purposes of this parameter are:
 * Suppress too many logs only for that plugin
 * Show debug logs while debugging that plugin
 
+Please see the [logging article](logging) for further details.
+
 ## Parameters for plugins which emit events
 
 ### @label
