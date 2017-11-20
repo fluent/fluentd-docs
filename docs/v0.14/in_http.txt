@@ -25,7 +25,15 @@ The example below posts a record using the `curl` command.
     $ curl -X POST -d 'json={"action":"login","user":2}'
       http://localhost:8888/test.tag.here;
 
+## Plugin helpers
+
+* [parser](api-plugin-helper-parser)
+* [compat_parameters](api-plugin-helper-compat_parameters)
+* [event_loop](api-plugin-helper-event_loop)
+
 ## Parameters
+
+[Common Parameters](plugin-common-parameters)
 
 ### @type (required)
 The value must be `http`.
@@ -126,6 +134,10 @@ Here is a simple bechmark result on MacBook Pro with ruby 2.3:
 </table>
 
 Tested configuration and ruby script is [here](https://gist.github.com/repeatedly/672ac73abf7cbcb629aaec791838cf6d).
+
+## Learn More
+
+* [Input Plugin Overview](input-plugin-overview)
 
 ## FAQ
 
