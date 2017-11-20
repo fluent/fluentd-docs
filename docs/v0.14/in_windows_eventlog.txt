@@ -36,7 +36,14 @@ Here are generated event examples. `in_windows_eventlog` set corresponding chann
     # security
     {"channel":"security","record_number":"26735","time_generated":"2017-03-07 09:14:43 +0000","time_written":"2017-03-07 09:14:43 +0000","event_id":"4726","event_type":"audit_success","event_category":"13824","source_name":"Microsoft-Windows-Security-Auditing","computer_name":"WIN-7IMHK7EQ5T3","user":"","description":"A user account was deleted.\r\n\r\nSubject:\r\n\tSecurity ID:\t\tS-1-5-21-1367273608-854253166-2945741587-500\r\n\tAccount Name:\t\tAdministrator\r\n\tAccount Domain:\t\tWIN-7IMHK7EQ5T3\r\n\tLogon ID:\t\t0x39e29\r\n\r\nTarget Account:\r\n\tSecurity ID:\t\tS-1-5-21-1367273608-854253166-2945741587-1004\r\n\tAccount Name:\t\tabc\r\n\tAccount Domain:\t\tWIN-7IMHK7EQ5T3\r\n\r\nAdditional Information:\r\n\tPrivileges\t-\r\n"}
 
+## Plugin helpers
+
+* [timer](api-plugin-helper-timer)
+* [storage](api-plugin-helper-storage)
+
 ## Parameters
+
+[Common Parameters](plugin-common-parameters)
 
 ### @type (required)
 The value must be `windows_eventlog`.
@@ -78,6 +85,10 @@ If you set `root_dir` in `<section>` and set `@id` in plugin configuration,
       path C:\opt\td-agent\winevt.pos # This is required when persistent is true.
                                       # Or, use <system> section's root_dir parameter.      
     </storage>
+
+## Learn More
+
+* [Input Plugin Overview](input-plugin-overview)
 
 ## FAQ
 
