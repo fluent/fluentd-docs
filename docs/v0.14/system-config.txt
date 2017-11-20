@@ -2,4 +2,203 @@
 
 This article describes Fluentd's system configuraitons configured via ``<system>`` section and command line options.
 
-TBD
+## Overview
+
+System Configuration is one way to set up system-wide configuration such as enabling RPC, multiple workers, to obtain dump.
+
+## Parameters
+
+### workers (optional)
+
+Specify number of workers. Default is 1.
+
+### root_dir (optinal)
+
+Specify root directory. Default is `nil`.
+
+### log_level (optional)
+
+Specify log_level. Default is `nil`
+Users can choose `trace`, `debug`, `info`, `warn`, `error`, and `fatal` level.
+
+### suppress_repeated_stacktrace (optional)
+
+Suppress repeated stacktrace. Default is `nil`.
+
+### emit_error_log_interval (optional)
+
+Specify time value of emitting error log interval. Default is `nil`.
+
+### suppress_config_dump (optional)
+
+Suppress config dump. Default is `nil`.
+
+### log_event_verbose (optional)
+
+Log event verbose. Default is `nil`.
+
+### without_source (optional)
+
+Invoke a fluentd without input plugins. Default is `nil`.
+
+### rpc_endpoint (optional)
+
+Specify RPC endpoint. Default is `nil`.
+In more detail, please refer to [RPC document](rpc).
+
+### enable_get_dump (optional)
+
+Enabling to get dump. Default is `nil`.
+
+### process_name (optional)
+
+Specify process name. Default is `nil`.
+
+### file_permission (optional)
+
+Specify file permission with octal. Default is `nil`.
+
+### dir_permission (optional)
+
+Specify directory permission with octal. Default is `nil`.
+
+### &lt;log&gt; section (optional)
+
+#### format (optional)
+
+Specify logging format. Default is `text`.
+Users can choose `text` and `json` format.
+
+#### time_format (optional)
+
+Specify time format. Default is `%Y-%m-%d %H:%M:%S %z`.
+
+### Fluent::SystemConfig::Mixin methods
+
+#### .system_config
+
+Returns `Fluent::SystemConfig` instance.
+
+For code example, please refer to [api-plugin-base](api-plugin-base)'s `.system_config` description.
+
+#### .system_config_override(options = {})
+
+Overwrite system config.
+
+This is for internal use and plugin testing.
+
+For code example, please refer to [api-plugin-base](api-plugin-base)'s `.system_config_override` description.
+
+## Command Line Options
+
+### -s, -\-setup [DIR=/etc/fluent]
+
+Install sample configuration file to the directory
+
+### -c, -\-config PATH
+
+Config file path (default: /etc/fluent/fluent.conf)
+
+### -\-dry-run
+
+Check fluentd setup is correct or not
+
+### -\-show-plugin-config=PLUGIN (obsoleted)
+
+Use `fluent-plugin-config-format` command instead.
+
+### -p, -\-plugin DIR
+
+Add plugin directory.
+
+### -I PATH
+
+Add library path.
+
+### -r NAME
+
+Load library.
+
+### -d, -\-daemon PIDFILE
+
+Daemonize fluent process.
+
+### -\-under-supervisor
+
+Run fluent worker under supervisor (this option is NOT for users).
+
+### -\-no-supervisor
+
+Run fluent worker without supervisor.
+
+### -\-workers NUM
+
+Specify the number of workers under supervisor.
+
+### -\-user USER
+
+Change user.
+
+### -\-group GROUP
+
+Change group.
+
+### -o, -\-log PATH
+
+Log file path.
+
+### -\-log-rotate-age AGE
+
+Generations to keep rotated log files.
+
+### -\-log-rotate-size BYTES
+
+Sets the byte size to rotate log files.
+
+### -\-log-event-verbose
+
+Enable log events during process startup/shutdown.
+
+### -i CONFIG_STRING, -\-inline-config CONFIG_STRING
+
+Inline config which is appended to the config file on-the-fly.
+
+### -\-emit-error-log-interval SECONDS
+
+Suppress interval seconds of emit error logs.
+
+### -\-suppress-repeated-stacktrace [VALUE]
+
+Suppress repeated stacktrace.
+
+### -\-without-source
+
+Invoke a fluentd without input plugins.
+
+### -\-use-v1-config
+
+Use v1 configuration format (default).
+
+### -\-use-v0-config
+
+Use v0 configuration format.
+
+### -v, -\-verbose
+
+Increase verbose level (-v: debug, -vv: trace).
+
+### -q, -\-quiet
+
+Decrease verbose level (-q: warn, -qq: error).
+
+### -\-suppress-config-dump
+
+Suppress config dumping when fluentd starts.
+
+### -g, -\-gemfile GEMFILE
+
+Gemfile path.
+
+### -G, -\-gem-path GEM_INSTALL_PATH
+
+Gemfile install path (default: $(dirname $gemfile)/vendor/bundle).
