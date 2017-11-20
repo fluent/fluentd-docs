@@ -47,7 +47,15 @@ Please see the [Fluentd + HDFS: Instant Big Data Collection](http-to-hdfs) artic
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
+## Plugin helpers
+
+* [inject](api-plugin-helper-inject)
+* [formatter](api-plugin-helper-formatter)
+* [compat_parameters](api-plugin-helper-compat_parameters)
+
 ## Parameters
+
+[Common Parameters](plugin-common-parameters)
 
 ### @type (required)
 The value must be `webhfds`.
