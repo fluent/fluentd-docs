@@ -20,7 +20,15 @@ The `out_file` Output plugin writes events to files. By default, it creates file
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
+## Plugin helpers
+
+* [formatter](api-plugin-helper-formatter)
+* [inject](api-plugin-helper-inject)
+* [compat_parameters](api-plugin-helper-compat_parameters)
+
 ## Parameters
+
+[Common Parameters](plugin-common-parameters)
 
 ### @type (required)
 The value must be `file`.

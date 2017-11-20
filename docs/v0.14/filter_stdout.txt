@@ -26,15 +26,21 @@ and the third part shows the record.
 NOTE: The first part shows the **output** time, not the time attribute
 of message event structure as `out_stdout` does.
 
-### Parameters
+## Plugin helpers
 
-#### type (required)
+* [formatter](api-plugin-helper-formatter)
+* [compat_parameters](api-plugin-helper-compat_parameters)
+* [inject](api-plugin-helper-inject)
+
+## Parameters
+
+### @type (required)
 The value must be `stdout`.
 
-#### format
+### format
 The format of the output. The default is `stdout`.
 
-#### output_type
+### output_type
 This is the option of `stdout` format. Configure the format of record (third
 part). Any formatter plugins can be specified. The default is `json`.
 

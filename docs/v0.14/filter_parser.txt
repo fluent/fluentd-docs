@@ -20,7 +20,15 @@ The `filter_parser` filter plugin "parses" string field in event records and mut
 `filter_parser` uses built-in parser plugins and your own customized parser plugin, so you can re-use pre-defined format like `apache`, `json` and etc.
 See document page for more details: [Parser Plugin Overview](/articles/parser-plugin-overview)
 
+## Plugin helpers
+
+* [parser](api-plugin-helper-parser)
+* [record_accessor](api-plugin-helper-record_accessor)
+* [compat_parameters](api-plugin-helper-compat_parameters)
+
 ## Parameters
+
+[Common Parameters](plugin-common-parameters)
 
 ### &lt;parse&gt; section
 This is required sub section. Specify parser type and related parameter.
