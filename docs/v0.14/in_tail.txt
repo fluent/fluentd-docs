@@ -30,7 +30,12 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 ### @type (required)
 The value must be `tail`.
 
-### tag (required)
+### tag
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| string | required parameter | 0.14.0  |
+
 The tag of the event.
 
 `*` can be used as a placeholder that expands to the actual file path, replacing '/' with '.'. For example, if you have the following configuration
@@ -41,7 +46,12 @@ The tag of the event.
 
 in_tail emits the parsed events with the 'foo.path.to.file' tag.
 
-### path (required)
+### path
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| string | required parameter | 0.14.0  |
+
 The paths to read. Multiple paths can be specified, separated by ‘,’.
 
 `*` and strftime format can be included to add/remove watch file dynamically. At interval of `refresh_interval`, Fluentd refreshes the list of watch file.
@@ -55,6 +65,10 @@ NOTE: You should not use '*' with log rotation because it may cause the log dupl
 
 ### exclude_path
 
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| array | [] (empty) | 0.14.0  |
+
 The paths to exclude the files from watcher list. For example, if you want to remove compressed files, you can use following pattern.
 
     :::text
@@ -62,20 +76,36 @@ The paths to exclude the files from watcher list. For example, if you want to re
     exclude_path ["/path/to/*.gz", "/path/to/*.zip"]
 
 ### refresh_interval
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| time | 60 (seconds) | 0.14.0  |
+
 The interval of refreshing the list of watch file. Default is 60 seconds.
 
 ### limit_recently_modified
-This parameter is available since v0.12.33.
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| time | nil (disabled) | 0.14.13  |
 
 Limit the watching files that the modification time is within the specified time range when use `*` in `path` parameter.
 
 ### skip_refresh_on_startup
-This parameter is available since v0.12.33.
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false | 0.14.13  |
 
 Skip the refresh of watching list on startup. This reduces the start up time when use `*` in `path`.
 
 ### read_from_head
-Start to read the logs from the head of file, not bottom. The default is `false`.
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false | 0.14.0 |
+
+Start to read the logs from the head of file, not bottom.
 
 If you want to tail all contents with `*` or strftime dynamic path, set this parameter to `true`.
 Instead, you should guarantee that log rotation will not occur in `*` directory.
@@ -83,7 +113,12 @@ Instead, you should guarantee that log rotation will not occur in `*` directory.
 NOTE: When this is true, in_tail tries to read a file during start up phase. If target file is large, it takes long time and starting other plugins isn't executed until reading file is finished.
 
 ### encoding, from_encoding
-Specify the encoding of reading lines. The default is ASCII-8BIT.
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| string | nil (string eoncoding is `ASCII-8BIT`) | 0.14.0 |
+
+Specify the encoding of reading lines.
 
 By default, in_tail emits string value as ASCII-8BIT encoding. These options change it.
 
@@ -97,16 +132,30 @@ You can get supported encoding list by typing following command:
 
 ### read_lines_limit
 
-The number of reading lines at each IO. Default is 1000 lines.
+| type | default | version |
+|:----:|:-------:|:-------:|
+| integer | 1000 | 0.14.0 |
+
+The number of reading lines at each IO.
 
 If you see "Size of the emitted data exceeds buffer_chunk_limit." log with in_tail, set smaller value.
 
 ### multiline_flush_interval
-The interval of flushing the buffer for multiline format. The default is disabled.
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| time | nil (disabled)| 0.14.0 |
+
+The interval of flushing the buffer for multiline format.
 
 If you set `multiline_flush_interval 5s`, in_tail flushes buffered event after 5 seconds from last emit. This option is useful when you use `format_firstline` option. Since v0.12.20 or later.
 
 ### pos_file (highly recommended)
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| string | nil | 0.14.0  |
+
 This parameter is highly recommended. Fluentd will record the position it last read into this file.
 
     :::text
@@ -140,6 +189,11 @@ Here are several examples:
 Deprecated parameter. Use `<parse>` instead.
 
 ### path_key
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| string | nil (no assign) | 0.14.0 |
+
 Add watching file path to `path_key` field.
 
     :::text
@@ -149,6 +203,11 @@ Add watching file path to `path_key` field.
 With this config, generated events are like `{"tailed_path":"/path/to/access.log","k1":"v1",...,"kN":"vN"}`.
 
 ### rotate_wait
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| time | 5 (seconds) | 0.14.0  |
+
 in_tail actually does a bit more than `tail -F` itself. When rotating a file, some data may still need to be written to the old file as opposed to the new one.
 
 in_tail takes care of this by keeping a reference to the old file (even after it has been rotated) for some time before transitioning completely to the new file. This helps prevent data designated for the old file from getting lost. By default, this time interval is 5 seconds.
@@ -156,13 +215,38 @@ in_tail takes care of this by keeping a reference to the old file (even after it
 The rotate_wait parameter accepts a single integer representing the number of seconds you want this time interval to be.
 
 ### enable_watch_timer
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 0.14.0  |
+
 Enable the additional watch timer.  Setting this parameter to `false` will significantly reduce CPU and I/O consumption when tailing a large number of files on systems with inotify support.  The default is `true` which results in an additional 1 second timer being used.
 
 `in_tail` (via Cool.io) uses inotify on systems which support it.  Earlier versions of libev on some platforms (eg Mac OS X) did not work properly; therefore, an explicit 1 second timer was used.  Even on systems with inotify support, this results in additional I/O each second, for every file being tailed.
 
 Early testing demonstrates that modern Cool.io and `in_tail` work properly without the additional watch timer.  At some point in the future, depending on feedback and testing, the additional watch timer may be disabled by default.
 
+### open_on_every_update
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 0.14.12 |
+
+Open and close the file on every update instead of leaving it open until it gets rotated.
+
+### emit_unmatched_lines
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 0.14.12 |
+
+Emit unmatched lines with configured pattern.
+
 ### ignore_repeated_permission_error
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false | 0.14.0  |
 
 If you hard to exclude non-permision files from watching list, set this parameter to `true`.
 It suppress repeated permission error logs.
