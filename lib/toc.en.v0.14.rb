@@ -137,9 +137,6 @@ section 'plugin', 'Input Plugins' do
   # category 'in_forward', 'in_forward' do
   #   article 'in_forward', 'forward Input Plugin'
   # end
-  # category 'in_secure_forward', 'in_secure_forward' do
-  #   article 'in_secure_forward', 'secure_forward Intput Plugin', ['SSL', 'authentication']
-  # end
   category 'in_http', 'in_http' do
     article 'in_http', 'http Input Plugin'
   end
@@ -155,12 +152,6 @@ section 'plugin', 'Input Plugins' do
   category 'in_syslog', 'in_syslog' do
     article 'in_syslog', 'syslog Input Plugin', ['Syslog']
   end
-  # category 'in_scribe', 'in_scribe' do
-  #   article 'in_scribe', 'scribe Input Plugin', ['Scribe', 'Facebook']
-  # end
-  # category 'in_multiprocess', 'in_multiprocess' do
-  #   article 'in_multiprocess', 'Multi-Process Input Plugin'
-  # end
   # category 'in_dummy', 'in_dummy' do
   #   article 'in_dummy', 'Dummy Input Plugin'
   # end
