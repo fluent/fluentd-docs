@@ -61,6 +61,24 @@ Here is the code example with `compat_parameters` helper:
 | localtime                   | timekey_use_utc             | exclusive with utc           |
 | utc                         | timekey_use_utc             | exclusive with localtime     |
 
+This converts following flat configuration:
+
+    buffer_type file
+    buffer_path /path/to/buffer
+    retry_limit 10
+    flush_interval 30s
+    buffer_queue_limit 256
+
+into:
+
+    <buffer>
+      @type file
+      path /path/to/buffer
+      retry_max_times 10
+      flush_interval 30s
+      queue_limit_length 256
+    </buffer>
+
 For more details, see [Buffer section configuration](buffer-section)
 
 #### inject
@@ -76,6 +94,19 @@ For more details, see [Buffer section configuration](buffer-section)
 | localtime        | localtime   | exclusive with utc       |
 | utc              | localtime   | exclusive with localtime |
 
+This converts following flat configuration:
+
+    include_time_key
+    time_key event_time
+    utc
+
+into:
+
+    <inject>
+      time_key event_time
+      localtime false
+    </inject>
+
 For more details, see [Inject Plugin Helper API](api-plugin-helper-inject)
 
 #### extract
@@ -88,6 +119,19 @@ For more details, see [Inject Plugin Helper API](api-plugin-helper-inject)
 | tag_key     | tag_key     |                          |
 | localtime   | localtime   | exclusive with utc       |
 | utc         | localtime   | exclusive with localtime |
+
+This converts following flat configuration:
+
+    include_time_key
+    time_key event_time
+    utc
+
+into:
+
+    <extract>
+      time_key event_time
+      localtime false
+    </extract>
 
 For more details, see [Extract Plugin Helper API](api-plugin-helper-extract)
 
@@ -116,6 +160,23 @@ For more details, see [Extract Plugin Helper API](api-plugin-helper-extract)
 | message_format        | message_format      |                          | SyslogParser                            |
 | rfc5424_time_format   | rfc5424_time_format |                          | SyslogParser                            |
 
+This converts following configuration:
+
+    format /^(?<log_time>[^ ]*) (?<message>)+*/
+    time_key log_time
+    time_format %Y%m%d%H%M%S
+    keep_time_key
+
+into:
+
+    <parse>
+      @type regexp
+      pattern /^(?<log_time>[^ ]*) (?<message>)+*/
+      time_key log_time
+      time_format %Y%m%d%H%M%S
+      keep_time_key
+    </parse>
+
 For more details, see [Parser Plugin Overview](parser-plugin-overview) and [Writing Parser Plugins](api-plugin-parser).
 
 #### formatter
@@ -137,6 +198,16 @@ For more details, see [Parser Plugin Overview](parser-plugin-overview) and [Writ
 | message_key     | message_key     |                          | SingleValueFormatter |
 | add_newline     | add_newline     |                          | SingleValueFormatter |
 | output_type     | output_type     |                          | StdoutFormatter      |
+
+This converts following configuration:
+
+    format json
+
+into:
+
+    <format>
+      @type json
+    </format>
 
 For more details, see [Formatter Plugin Overview](formatter-plugin-overview) and [Writing Formatter Plugins](api-plugin-formatter).
 
