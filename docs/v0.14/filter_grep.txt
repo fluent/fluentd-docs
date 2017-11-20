@@ -42,7 +42,13 @@ whereas the following examples are filtered out:
     {"hostname":"web001.example.com"}
     {"message":"It's cool outside today"}
 
+## Plugin helpers
+
+* [record_accessor](api-plugin-helper-record_accessor)
+
 ## Parameters
+
+[Common Parameters](plugin-common-parameters)
 
 ### &lt;regexp&gt; directive (optional)
 Specify filtering rule. This directive contains two parameters.
