@@ -25,7 +25,16 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 * Once the log is rotated, Fluentd starts reading the new file from the beginning. It keeps track of the current inode number.
 * If `td-agent` restarts, it starts reading from the last position td-agent read before the restart. This position is recorded in the position file specified by the pos_file parameter.
 
+## Plugin helpers
+
+* [timer](api-plugin-helper-timer)
+* [event_loop](api-plugin-helper-event_loop)
+* [parser](api-plugin-helper-parser)
+* [compat_parameters](api-plugin-helper-compat_parameters)
+
 ## Parameters
+
+[Common Parameters](plugin-common-parameters)
 
 ### @type (required)
 The value must be `tail`.
@@ -168,6 +177,10 @@ If you hard to exclude non-permision files from watching list, set this paramete
 It suppress repeated permission error logs.
 
 INCLUDE: _log_level_params
+
+## Learn More
+
+* [Input Plugin Overview](input-plugin-overview)
 
 ## FAQ
 
