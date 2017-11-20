@@ -1,0 +1,60 @@
+# null Output Plugin
+
+The `null` output plugin just throws away events.
+
+## Example Configuration
+
+`out_null` is included in Fluentd's core. No additional installation process is required.
+
+    :::text
+    <match pattern>
+      @type null
+    </match>
+
+NOTE: Please see the LINK:[Config File](config-file) article for the basic structure and syntax of the configuration file.
+
+## Supported modes
+
+* Non-Buffered
+* Synchronous
+* Asynchronous
+
+See [Output Plugin Overview](output-plugin-overview) for more details.
+
+## Parameters
+
+[Common Parameters](plugin-common-parameters)
+
+### @type (required)
+
+The value must be `null`.
+
+### never_flush (bool) (optional)
+
+The parameter for testing to simulate output plugin which never succeed to flush.
+
+### &lt;buffer&gt; section (optional) (multiple)
+
+See [Buffer section configurations](buffer-section) for more details.
+
+#### chunk_keys (optional)
+
+Overwrite default value in this plugin.
+
+Default value: `["tag"]`.
+
+#### flush\_at\_shutdown (bool) (optional)
+
+Overwrite default value in this plugin.
+
+Default value: `true`.
+
+#### chunk\_limit\_size (size) (optional)
+
+Overwrite default value in this plugin.
+
+Default value: `10240`.
+
+## Common Buffer / Output parameters
+
+See [Buffer Plugin Overview](buffer-plugin-overview) and [Output Plugin Overview](output-plugin-overview)
