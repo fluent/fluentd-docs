@@ -26,7 +26,14 @@ Additional configurations are optional.
 
 Some of configuration values are described the following section.
 
+## Plugin helpers
+
+* [event_emitter](api-plugin-helper-event_emitter)
+* [compat_parameters](api-plugin-helper-compat_parameters)
+
 ## Parameters
+
+[Common Parameters](plugin-common-parameters)
 
 ### @type (required)
 
