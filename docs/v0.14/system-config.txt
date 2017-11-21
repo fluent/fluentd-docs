@@ -2,4 +2,263 @@
 
 This article describes Fluentd's system configuraitons configured via ``<system>`` section and command line options.
 
-TBD
+## Overview
+
+System Configuration is one way to set up system-wide configuration such as enabling RPC, multiple workers, to obtain dump.
+
+## Parameters
+
+### workers
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| integer | 1       | 0.14.12 |
+
+Specify number of workers.
+
+### root_dir
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| string  |  nil    | 0.14.11 |
+
+Specify root directory.
+
+### log_level
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| enum    |  nil    | 0.14.0  |
+
+Specify log_level.
+Users can choose `trace`, `debug`, `info`, `warn`, `error`, and `fatal` level.
+
+### suppress_repeated_stacktrace
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| bool    |  nil    | 0.14.0  |
+
+Suppress repeated stacktrace.
+
+### emit_error_log_interval
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| time    |  nil    | 0.14.0  |
+
+Specify time value of emitting error log interval.
+
+### suppress_config_dump
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| bool    |  nil    | 0.14.0  |
+
+Suppress config dump.
+
+### log_event_verbose
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| bool    |  nil    | 0.14.12 |
+
+Log event verbose.
+
+### without_source
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| bool    |  nil    | 0.14.0  |
+
+Invoke a fluentd without input plugins.
+
+### rpc_endpoint
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| string  |  nil    | 0.14.0  |
+
+Specify RPC endpoint.
+In more detail, please refer to [RPC document](rpc).
+
+### enable_get_dump
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| bool    |  nil    | 0.14.0  |
+
+Enabling to get dump.
+
+### process_name
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| string  |  nil    | 0.14.0  |
+
+Specify process name.
+
+### file_permission
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| string  |  nil    | 0.14.0  |
+
+Specify file permission with octal.
+
+### dir_permission
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| string  |  nil    | 0.14.0  |
+
+Specify directory permission with octal.
+
+### &lt;log&gt; section
+
+#### format
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| enum    |  text   | 0.14.20  |
+
+Specify logging format.
+Users can choose `text` and `json` format.
+
+#### time_format
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| string  | `%Y-%m-%d %H:%M:%S %z` | 0.14.20 |
+
+Specify time format.
+
+### Fluent::SystemConfig::Mixin methods
+
+#### .system_config
+
+Returns `Fluent::SystemConfig` instance.
+
+For code example, please refer to [api-plugin-base](api-plugin-base)'s `.system_config` description.
+
+#### .system_config_override(options = {})
+
+Overwrite system config.
+
+This is for internal use and plugin testing.
+
+For code example, please refer to [api-plugin-base](api-plugin-base)'s `.system_config_override` description.
+
+## Command Line Options
+
+### -s, -\-setup [DIR=/etc/fluent]
+
+Install sample configuration file to the directory
+
+### -c, -\-config PATH
+
+Config file path (default: /etc/fluent/fluent.conf)
+
+### -\-dry-run
+
+Check fluentd setup is correct or not
+
+### -\-show-plugin-config=PLUGIN (obsoleted)
+
+Use `fluent-plugin-config-format` command instead.
+
+### -p, -\-plugin DIR
+
+Add plugin directory.
+
+### -I PATH
+
+Add library path.
+
+### -r NAME
+
+Load library.
+
+### -d, -\-daemon PIDFILE
+
+Daemonize fluent process.
+
+### -\-under-supervisor
+
+Run fluent worker under supervisor (this option is NOT for users).
+
+### -\-no-supervisor
+
+Run fluent worker without supervisor.
+
+### -\-workers NUM
+
+Specify the number of workers under supervisor.
+
+### -\-user USER
+
+Change user.
+
+### -\-group GROUP
+
+Change group.
+
+### -o, -\-log PATH
+
+Log file path.
+
+### -\-log-rotate-age AGE
+
+Generations to keep rotated log files.
+
+### -\-log-rotate-size BYTES
+
+Sets the byte size to rotate log files.
+
+### -\-log-event-verbose
+
+Enable log events during process startup/shutdown.
+
+### -i CONFIG_STRING, -\-inline-config CONFIG_STRING
+
+Inline config which is appended to the config file on-the-fly.
+
+### -\-emit-error-log-interval SECONDS
+
+Suppress interval seconds of emit error logs.
+
+### -\-suppress-repeated-stacktrace [VALUE]
+
+Suppress repeated stacktrace.
+
+### -\-without-source
+
+Invoke a fluentd without input plugins.
+
+### -\-use-v1-config
+
+Use v1 configuration format (default).
+
+### -\-use-v0-config
+
+Use v0 configuration format.
+
+### -v, -\-verbose
+
+Increase verbose level (-v: debug, -vv: trace).
+
+### -q, -\-quiet
+
+Decrease verbose level (-q: warn, -qq: error).
+
+### -\-suppress-config-dump
+
+Suppress config dumping when fluentd starts.
+
+### -g, -\-gemfile GEMFILE
+
+Gemfile path.
+
+### -G, -\-gem-path GEM_INSTALL_PATH
+
+Gemfile install path (default: $(dirname $gemfile)/vendor/bundle).
