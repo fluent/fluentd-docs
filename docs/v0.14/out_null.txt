@@ -29,7 +29,11 @@ See [Output Plugin Overview](output-plugin-overview) for more details.
 
 The value must be `null`.
 
-### never_flush (bool) (optional)
+### never_flush
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 0.14.12 |
 
 The parameter for testing to simulate output plugin which never succeed to flush.
 
@@ -37,23 +41,29 @@ The parameter for testing to simulate output plugin which never succeed to flush
 
 See [Buffer section configurations](buffer-section) for more details.
 
-#### chunk_keys (optional)
+#### chunk_keys
+
+| type  | default | version |
+|:-----:|:-------:|:-------:|
+| array | tag     | 0.14.5  |
 
 Overwrite default value in this plugin.
 
-Default value: `["tag"]`.
+#### flush\_at\_shutdown
 
-#### flush\_at\_shutdown (bool) (optional)
-
-Overwrite default value in this plugin.
-
-Default value: `true`.
-
-#### chunk\_limit\_size (size) (optional)
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | true    | 0.14.5  |
 
 Overwrite default value in this plugin.
 
-Default value: `10240`.
+#### chunk\_limit\_size
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| size | 10240   | 0.14.5  |
+
+Overwrite default value in this plugin.
 
 ## Common Buffer / Output parameters
 
