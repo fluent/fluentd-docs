@@ -25,7 +25,7 @@ See [Output Plugin Overview](output-plugin-overview) for more details.
 
 [Common Parameters](plugin-common-parameters)
 
-### @type (required)
+### @type
 
 The value must be `null`.
 
