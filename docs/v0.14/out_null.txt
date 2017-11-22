@@ -37,7 +37,7 @@ The value must be `null`.
 
 The parameter for testing to simulate output plugin which never succeed to flush.
 
-### &lt;buffer&gt; section (optional) (multiple)
+### &lt;buffer&gt; section
 
 See [Buffer section configurations](buffer-section) for more details.
 
