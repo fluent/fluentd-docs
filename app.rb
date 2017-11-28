@@ -155,9 +155,9 @@ end
 get %r{/(v\d+\.\d+)/articles/(\S+)} do |version, article|
   case article
   when 'users'
-    redirect 'http://www.fluentd.org/testimonials'
+    redirect 'https://www.fluentd.org/testimonials'
   when 'architecture'
-    redirect 'http://www.fluentd.org/architecture'
+    redirect 'https://www.fluentd.org/architecture'
   else
     @version_num = @article_name = @category_name = @query_string = nil
     @version_num = version
