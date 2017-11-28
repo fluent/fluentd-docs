@@ -48,11 +48,11 @@ Here is an example set up to send events to both a local file under `/var/log/fl
         </inject>
       </store>
       <store>
-        @type mongo
+        @type elasticsearch
         host fluentd
-        port 27017
-        database fluentd
-        collection test
+        port 9200
+        index_name fluentd
+        type_name fluentd
       </store>
     </match>
 
