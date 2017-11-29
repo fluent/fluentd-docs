@@ -39,6 +39,7 @@ Run the following commands to to confirm that Fluentd was installed successfully
     $ fluentd -c ./fluent/fluent.conf -vv &
     $ echo '{"json":"message"}' | fluent-cat debug.test
 
+The second command start Fluentd daemon in background. If you want to stop daemon, you can use `$ pkill -f fluentd`.
 The last command sends Fluentd a message ‘{“json”:”message”}’ with a “debug.test” tag. If the installation was successful, Fluentd will output the following message:
 
     :::term
