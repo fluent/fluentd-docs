@@ -175,9 +175,9 @@ section 'output-plugins', 'Output Plugins' do
   category 'out_exec', 'out_exec' do
     article 'out_exec', 'exec Output Plugin'
   end
-  # category 'out_exec_filter', 'out_exec_filter' do
-  #   article 'out_exec_filter', 'exec_filter Output Plugin'
-  # end
+  category 'out_exec_filter', 'out_exec_filter' do
+    article 'out_exec_filter', 'exec_filter Output Plugin'
+  end
   category 'out_copy', 'out_copy' do
     article 'out_copy', 'copy Output Plugin'
   end
