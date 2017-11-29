@@ -7,19 +7,32 @@ The `ltsv` formatter plugin output an event as [LTSV](http://ltsv.org).
 
 ## Parameters
 
-### delimiter (String, Optional. defaults to "\t"(TAB))
+* [Common Parameters](plugin-common-parameters)
+* [Format section configurations](format-section)
+
+### delimiter
+
+| type   | default   | version |
+|:------:|:---------:|:-------:|
+| string | "\t"(TAB) | 0.14.0  |
 
 Delimiter for fields.
 
-### label_delimiter (String, Optional. defaults to ":")
+### label_delimiter
+
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | :       | 0.14.0  |
 
 Delimiter for key value field.
 
-### add_newline (Boolean, Optional, defaults to true)
+### add_newline
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | true    | 0.14.12 |
 
 Add `\n` to the result.
-
-INCLUDE: _formatter_plugin_common_parameters
 
 ## Example
 

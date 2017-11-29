@@ -4,11 +4,8 @@ The `msgpack` formatter plugin converts an event to msgpack binary.
 
 ## Parameters
 
-INCLUDE: _formatter_plugin_common_parameters
-
-### time_as_epoch (Boolean, Optional, defaults to false)
-
-Set integer event time instead of stringanized time to `time_key`.
+* [Common Parameters](plugin-common-parameters)
+* [Format section configurations](format-section)
 
 ## Example
 
