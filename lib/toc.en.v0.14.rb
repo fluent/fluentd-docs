@@ -187,9 +187,9 @@ section 'output-plugins', 'Output Plugins' do
   category 'out_roundrobin', 'out_roundrobin' do
     article 'out_roundrobin', 'roundrobin Output Plugin'
   end
-  # category 'out_stdout', 'out_stdout' do
-  #   article 'out_stdout', 'stdout Output Plugin'
-  # end
+  category 'out_stdout', 'out_stdout' do
+    article 'out_stdout', 'stdout Output Plugin'
+  end
   category 'out_null', 'out_null' do
     article 'out_null', 'null Output Plugin'
   end
