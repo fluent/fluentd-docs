@@ -152,9 +152,9 @@ section 'plugin', 'Input Plugins' do
   category 'in_syslog', 'in_syslog' do
     article 'in_syslog', 'syslog Input Plugin', ['Syslog']
   end
-  # category 'in_dummy', 'in_dummy' do
-  #   article 'in_dummy', 'Dummy Input Plugin'
-  # end
+  category 'in_dummy', 'in_dummy' do
+    article 'in_dummy', 'Dummy Input Plugin'
+  end
   # category 'in_others', 'Others' do
   #   article 'in_others', 'Other Input Plugins'
   # end
@@ -172,24 +172,24 @@ section 'output-plugins', 'Output Plugins' do
   # category 'out_secure_forward', 'out_secure_forward' do
   #   article 'out_secure_forward', 'secure_forward Output Plugin', ['SSL', 'authentication']
   # end
-  # category 'out_exec', 'out_exec' do
-  #   article 'out_exec', 'exec Output Plugin'
-  # end
+  category 'out_exec', 'out_exec' do
+    article 'out_exec', 'exec Output Plugin'
+  end
   category 'out_exec_filter', 'out_exec_filter' do
     article 'out_exec_filter', 'exec_filter Output Plugin'
   end
-  # category 'out_copy', 'out_copy' do
-  #   article 'out_copy', 'copy Output Plugin'
-  # end
+  category 'out_copy', 'out_copy' do
+    article 'out_copy', 'copy Output Plugin'
+  end
   # category 'out_geoip', 'out_geoip' do
   #   article 'out_geoip', 'GeoIP Output Plugin'
   # end
-  # category 'out_roundrobin', 'out_roundrobin' do
-  #   article 'out_roundrobin', 'roundrobin Output Plugin'
-  # end
-  # category 'out_stdout', 'out_stdout' do
-  #   article 'out_stdout', 'stdout Output Plugin'
-  # end
+  category 'out_roundrobin', 'out_roundrobin' do
+    article 'out_roundrobin', 'roundrobin Output Plugin'
+  end
+  category 'out_stdout', 'out_stdout' do
+    article 'out_stdout', 'stdout Output Plugin'
+  end
   category 'out_null', 'out_null' do
     article 'out_null', 'null Output Plugin'
   end
