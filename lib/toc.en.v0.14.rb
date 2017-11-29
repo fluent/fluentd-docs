@@ -178,9 +178,9 @@ section 'output-plugins', 'Output Plugins' do
   # category 'out_exec_filter', 'out_exec_filter' do
   #   article 'out_exec_filter', 'exec_filter Output Plugin'
   # end
-  # category 'out_copy', 'out_copy' do
-  #   article 'out_copy', 'copy Output Plugin'
-  # end
+  category 'out_copy', 'out_copy' do
+    article 'out_copy', 'copy Output Plugin'
+  end
   # category 'out_geoip', 'out_geoip' do
   #   article 'out_geoip', 'GeoIP Output Plugin'
   # end
