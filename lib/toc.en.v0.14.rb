@@ -152,9 +152,9 @@ section 'plugin', 'Input Plugins' do
   category 'in_syslog', 'in_syslog' do
     article 'in_syslog', 'syslog Input Plugin', ['Syslog']
   end
-  # category 'in_dummy', 'in_dummy' do
-  #   article 'in_dummy', 'Dummy Input Plugin'
-  # end
+  category 'in_dummy', 'in_dummy' do
+    article 'in_dummy', 'Dummy Input Plugin'
+  end
   # category 'in_others', 'Others' do
   #   article 'in_others', 'Other Input Plugins'
   # end
