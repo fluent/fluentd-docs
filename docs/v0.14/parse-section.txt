@@ -24,3 +24,36 @@ Fluentd core bundles [a lot of useful parser plugins](parser-plugin-overview). 3
     </parse>
 
 For more details, see plugins documentation.
+
+## Parameters
+
+### @type
+
+``@type`` key is to specify the type of parser plugin.
+
+    <parse>
+      @type regexp
+      # ...
+    </parse>
+
+### Parse parameters
+
+These parameters default value will be overwritten by individual parser plugins.
+
+* **types** (hash) (optional): Specify types as string-based hash style or JSON format.
+  * Default: `nil`
+  * string-based hash: `field1:type, field2:type, field3:type:option, field4:type:option`
+  * JSON format:  `{"field1":"type", "field2":"type", "field3":"type:option", "field4":"type:option"}`
+* **time_key** (strint) (optional): Specify time field for event time.
+  * Default: `nil`
+* **null_value_pattern** (string) (optional): Specify null value pattern.
+  * Default: `nil`
+* **null_empty_string** (bool) (optional): If `true`, empty string field is replaced with `nil`.
+  * Default: `false`
+* **estimate_cutternt_enet** (bool) (optional): If `true`, use `Fluent::EventTime.now` as a timestamp when `time_key` is specified.
+  * Default: `false`
+* **keep_time_key** (bool) (optional): If `true`, keep time field in the record.
+  * Default: `false`
+
+INCLUDE: _time_parameters
+

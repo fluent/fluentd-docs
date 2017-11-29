@@ -24,3 +24,17 @@ Fluentd core bundles [some useful formatter plugins](formatter-plugin-overview).
     </format>
 
 For more details, see plugins documentation.
+
+## Parameters
+
+### @type
+
+``@type`` key is to specify the type of formatter plugin.
+
+    <format>
+      @type csv
+      # ...
+    </format>
+
+INCLUDE: _time_parameters
+
