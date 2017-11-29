@@ -50,7 +50,7 @@ These parameters default value will be overwritten by individual parser plugins.
   * Default: `nil`
 * **null_empty_string** (bool) (optional): If `true`, empty string field is replaced with `nil`.
   * Default: `false`
-* **estimate_cutternt_enet** (bool) (optional): If `true`, use `Fluent::EventTime.now` as a timestamp when `time_key` is specified.
+* **estimate_current_event** (bool) (optional): If `true`, use `Fluent::EventTime.now` as a timestamp when `time_key` is specified.
   * Default: `false`
 * **keep_time_key** (bool) (optional): If `true`, keep time field in the record.
   * Default: `false`
