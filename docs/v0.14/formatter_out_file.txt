@@ -9,19 +9,48 @@ This format is a default format of `out_file` plugin.
 
 ## Parameters
 
-### delimiter (String, Optional, default to "\t"(TAB))
+* [Common Parameters](plugin-common-parameters)
+* [Format section configurations](format-section)
+
+### delimiter
+
+| type   | default   | version |
+|:------:|:---------:|:-------:|
+| string | "\t"(TAB) | 0.14.0  |
 
 Delimiter for each field. "SPACE"(' ') and "COMMA"(',') are supported.
 
-### output_tag (Boolean, Optional, defaults to true)
+### output_tag
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | true    | 0.14.0  |
 
 Output tag field if true,
 
-### output_time (Boolean, Optional, defaults to true)
+### output_time
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | true    | 0.14.0  |
 
 Output time field if true,
 
-INCLUDE: _formatter_plugin_common_parameters
+### time_type
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| enum | string  | 0.14.7  |
+
+Overwrite default value in this plugin.
+
+### time_format
+
+| type   | default      | version |
+|:------:|:------------:|:-------:|
+| string | nil(iso8601) | 0.14.7  |
+
+Overwrite default value in this plugin.
 
 ## Example
 

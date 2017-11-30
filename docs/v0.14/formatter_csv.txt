@@ -7,23 +7,42 @@ The `csv` formatter plugin output an event as CSV.
 
 ## Parameters
 
-### fields (Array of String, Required. defaults to "\t"(TAB))
+* [Common Parameters](plugin-common-parameters)
+* [Format section configurations](format-section)
+
+### fields
+
+| type            | default            | version |
+|:---------------:|:------------------:|:-------:|
+| array of string | required parameter | 0.14.0  |
 
 Specify output fields
 
 ### delimiter (String, Optional. defaults to ",")
 
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | ,       | 0.14.0  |
+
 Delimiter for values.
 
-### force_quotes (Boolean, Optional, defaults to true)
+Use `\t` or `TAB` to specify tab character.
+
+### force_quotes
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | true    | 0.14.0  |
 
 If false, value won't be framed by quotes.
 
-### add_newline (Boolean, Optional, defaults to true)
+### add_newline
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | true    | 0.14.12 |
 
 Add `\n` to the result.
-
-INCLUDE: _formatter_plugin_common_parameters
 
 ## Example
 

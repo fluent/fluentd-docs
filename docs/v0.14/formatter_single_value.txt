@@ -6,11 +6,22 @@ This formatter is often used in conjunction with [in_tail](in_tail)'s `format no
 
 ## Parameters
 
-### add_newline (Boolean, Optional, defaults to true)
+* [Common Parameters](plugin-common-parameters)
+* [Format section configurations](format-section)
+
+### add_newline
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | true    | 0.14.0  |
 
 Add `\n` to the result. If there is a trailing "\n" already, set it "false"
 
-### message_key (String, Optional, defaults to "message")
+### message_key
+
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | message | 0.14.0  |
 
 The value of this field is outputted.
 
