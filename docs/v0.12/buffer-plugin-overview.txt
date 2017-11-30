@@ -59,9 +59,9 @@ All buffered output plugins support the following parameters:
       ...
     </match>
 
-The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used for `flush_interval` and `retry_wait`. `retry_wait` can also be a decimal value.
+The suffixes "s" (seconds), "m" (minutes), and "h" (hours) can be used for `flush_interval` and `retry_wait`. `retry_wait` can also be a decimal value.
 
-The suffixes “k” (KB), “m” (MB), and “g” (GB) can be used for `buffer_chunk_l
+The suffixes "k" (KB), "m" (MB), and "g" (GB) can be used for `buffer_chunk_limit`.
 
 ### buffer_queue_full_action
 
