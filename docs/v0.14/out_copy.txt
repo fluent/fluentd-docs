@@ -1,0 +1,96 @@
+# copy Output Plugin
+
+The `copy` output plugin copies events to multiple outputs.
+
+## Example Configuration
+
+`out_copy` is included in Fluentd's core. No additional installation process is required.
+
+    :::text
+    <match pattern>
+      @type copy
+      <store>
+        @type file
+        path /var/log/fluent/myapp1
+        ...
+      </store>
+      <store>
+        ...
+      </store>
+      <store>
+        ...
+      </store>
+    </match>
+
+NOTE: Please see the LINK:[Config File](config-file) article for the basic structure and syntax of the configuration file.
+
+Here is an example set up to send events to both a local file under `/var/log/fluent/myapp` and the collection `fluentd.test` in a Elasticsearch instance (Please see the LINK:[out_file](/articles/out_file) and LINK:[out_elasticsearch](/articles/out_elasticsearch) articles for more details about the respective plugins.)
+
+    :::text
+    <match myevent.file_and_elasticsearch>
+      @type copy
+      <store>
+        @type file
+        path /var/log/fluent/myapp
+        compress gzip
+        <format>
+          localtime false
+        </format>
+        <buffer time>
+          timekey_wait 10m
+          timekey 86400
+          timekey_use_utc true
+          path /var/log/fluent/myapp
+        </buffer>
+        <inject>
+          time_format %Y%m%dT%H%M%S%z
+          localtime false
+        </inject>
+      </store>
+      <store>
+        @type elasticsearch
+        host fluentd
+        port 9200
+        index_name fluentd
+        type_name fluentd
+      </store>
+    </match>
+
+## Plugin helpers
+
+* [formatter](api-plugin-helper-formatter)
+* [inject](api-plugin-helper-inject)
+* [compat_parameters](api-plugin-helper-compat_parameters)
+
+* See also: [Output Plugin Overview](output-plugin-overview)
+
+## Parameters
+
+[Common Parameters](plugin-common-parameters)
+
+### @type
+
+The value must be `copy`.
+
+### deep_copy
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 0.14.0  |
+
+`out_copy` shares a record between `store` plugins by default.
+
+When `deep_copy` is true, `out_copy` passes different record to each `store` plugin.
+
+### &lt;store&gt; section
+
+Specifies the storage destinations. The format is the same as the &lt;match&gt; directive.
+
+This section is required at least once.
+
+## FAQ
+
+### How to ignore each error in \<store\>?
+
+If one `store` raises an error, it affects other `<store>`. If you want to ignore an exception from less important `<store>`,
+you can use 3rd party [out_copy_ex](https://github.com/sonots/fluent-plugin-copy_ex) instead.
