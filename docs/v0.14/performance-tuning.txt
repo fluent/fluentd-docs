@@ -15,7 +15,10 @@ If the destination for your logs is a remote storage or service, adding a `num_t
     :::text
     <match test>
       @type output_plugin
-      num_threads 8
+      <buffer ...>
+        flush_thread_count 8
+        ...
+      </buffer>
       ...
     </match>
 
@@ -32,7 +35,10 @@ The new version of S3/Treasure Data plugin allows compression outside of the Flu
     <match ...>
       @type s3
       store_as gzip_command
-      num_threads 8
+      <buffer ...>
+        flush_thread_count 8
+        ...
+      </buffer>
       ...
     </match>
 
@@ -40,7 +46,10 @@ The new version of S3/Treasure Data plugin allows compression outside of the Flu
     <match ...>
       @type tdlog
       use_gzip_command
-      num_threads 8
+      <buffer ...>
+        flush_thread_count 8
+        ...
+      </buffer>
       ...
     </match>
 
