@@ -102,9 +102,9 @@ section 'deployment', 'Deployment' do
   category 'failure-scenarios', 'Failure Scenarios' do
     article 'failure-scenarios', 'Failure Scenarios'
   end
-  # category 'performance-tuning', 'Performance Tuning' do
-  #   article 'performance-tuning', 'Performance Tuning'
-  # end
+  category 'performance-tuning', 'Performance Tuning' do
+    article 'performance-tuning', 'Performance Tuning'
+  end
   category 'plugin-management', 'Plugin Management' do
     article 'plugin-management', 'Plugin Management'
   end
