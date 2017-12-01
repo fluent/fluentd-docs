@@ -28,7 +28,7 @@ The important point is this option doesn't improve the processing performance, e
 
 Ruby has GIL (Global Interpreter Lock), which allows only one thread to execute at a time. While I/O tasks can be multiplexed, CPU-intensive tasks will block other jobs. One of the CPU-intensive tasks in Fluentd is compression.
 
-The new version of S3/Treasure Data plugin allows compression outside of the Fluentd process, using gzip. This frees up the Ruby interpreter while allowing Fluentd to process other tasks.
+The S3/Treasure Data plugin allows compression outside of the Fluentd process, using gzip. This frees up the Ruby interpreter while allowing Fluentd to process other tasks.
 
     :::text
     # S3
