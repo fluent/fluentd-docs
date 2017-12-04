@@ -199,9 +199,9 @@ section 'output-plugins', 'Output Plugins' do
   category 'out_null', 'out_null' do
     article 'out_null', 'null Output Plugin'
   end
-  # category 'out_s3', 'out_s3' do
-  #   article 'out_s3', 'S3 Output Plugin', ['Amazon S3', 'AWS', 'Simple Storage Service']
-  # end
+  category 'out_s3', 'out_s3' do
+    article 'out_s3', 'S3 Output Plugin', ['Amazon S3', 'AWS', 'Simple Storage Service']
+  end
   # category 'out_mongo', 'out_mongo' do
   #   article 'out_mongo', 'MongoDB Output Plugin', ['MongoDB']
   # end
