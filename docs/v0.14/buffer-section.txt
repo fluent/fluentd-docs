@@ -261,7 +261,7 @@ These parameters below are to configure buffer plugins and its chunks.
 * ``chunk_full_threshold`` [float]
   * Default: 0.95
   * The percentage of chunk size threshold for flushing
-  * output plugin will flush the chunk when actual size reaches ``chunk_size_limit * chunk_full_threshold (== 8MB * 0.95 in default)``
+  * output plugin will flush the chunk when actual size reaches ``chunk_limit_size * chunk_full_threshold (== 8MB * 0.95 in default)``
 * ``compress`` [enum: text/gzip]
   * Default: text
   * The option to specify compression of each chunks, during events are buffered
