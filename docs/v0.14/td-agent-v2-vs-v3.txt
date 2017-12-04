@@ -2,7 +2,7 @@
 
 ## Supported Platforms
 
-[Treasure Data, Inc.](http://www.treasuredata.com) maintains stable packages for Fluentd and canonical plugins as Treasure Agent (the package is called `td-agent`). td-agent has v2 and v3. td-agent v2 is current stable for the production and v3 is beta version for testing ruby 2.4 and fluetnd v0.14 serise.
+[Treasure Data, Inc.](http://www.treasuredata.com) maintains stable packages for Fluentd and canonical plugins as Treasure Agent (the package is called `td-agent`). td-agent has v2 and v3. td-agent v2 for the production and v3 is the new stable version for working with ruby 2.4 and fluetnd v0.14/v1.0 series.
 
 <table>
 	<th>
@@ -26,17 +26,15 @@
 Major feature updates to td-agent v3 are as follows.
 
 - Ruby 2.4
-  - Note: msi package now uses ruby 2.3 due to windows related gems don't work with ruby 2.4
-- Fluentd v0.14
+- Fluentd v0.14/v1.0
 - Updated for the core libraries, msgpack, Cool.io, etc.
 - Windows support
 - Drop older distributions and non-popular plugins
 
-## td-agent v3 is still the beta version
+## td-agent v3 is now stable version
 
-Fluentd v0.14 is still development version, so td-agent 3 is also not stable. After fluentd v0.14 becomes stable, td-agent 3 will become "stable".
+Fluentd v0.14/v1.0 is the new stable version.
 
-**If using Fluentd/td-agent for the first time/a new project, td-agent v2 is strongly recommended.**
 
 ##How to Install
 
