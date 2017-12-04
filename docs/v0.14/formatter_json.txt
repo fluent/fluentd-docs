@@ -6,15 +6,16 @@ By default, `json` formatter result doesn't contain `tag` and `time` field.
 
 ## Parameters
 
-### add_newline (Boolean, Optional, defaults to true)
+* [Common Parameters](plugin-common-parameters)
+* [Format section configurations](format-section)
+
+### add_newline
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | true    | 0.14.12 |
 
 Add `\n` to the result.
-
-INCLUDE: _formatter_plugin_common_parameters
-
-### time_as_epoch (Boolean, Optional, defaults to false)
-
-Set integer event time instead of stringanized time to `time_key`.
 
 ## Example
 

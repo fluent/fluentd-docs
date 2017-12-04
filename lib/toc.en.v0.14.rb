@@ -108,9 +108,9 @@ section 'deployment', 'Deployment' do
   category 'failure-scenarios', 'Failure Scenarios' do
     article 'failure-scenarios', 'Failure Scenarios'
   end
-  # category 'performance-tuning', 'Performance Tuning' do
-  #   article 'performance-tuning', 'Performance Tuning'
-  # end
+  category 'performance-tuning', 'Performance Tuning' do
+    article 'performance-tuning', 'Performance Tuning'
+  end
   category 'plugin-management', 'Plugin Management' do
     article 'plugin-management', 'Plugin Management'
   end
@@ -318,6 +318,9 @@ section 'formatter-plugins', 'Formatter Plugins' do
   end
   category 'formatter_single_value', 'formatter_single_value' do
     article 'formatter_single_value', 'single_value Formatter Plugin'
+  end
+  category 'formatter_stdout', 'formatter_stdout' do
+    article 'formatter_stdout', 'stdout Formatter Plugin'
   end
 end
 section 'buffer-plugins', 'Buffer Plugins' do
