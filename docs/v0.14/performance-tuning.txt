@@ -8,9 +8,9 @@ If Fluentd doesn't perform as well as you had expected, please check the `top` c
 
 This is more like a general recommendation, but it’s always better **NOT TO HAVE** extra computation inside Fluentd. Fluentd is flexible to do quite a bit internally, but adding too much logic to Fluentd’s configuration file makes it difficult to read and maintain, while making it also less robust. The configuration file should be as simple as possible.
 
-## Use num_threads parameter
+## Use flush_thread_count parameter
 
-If the destination for your logs is a remote storage or service, adding a `num_threads` option will parallelize your outputs (the default is 1). Using multiple threads can hide the IO/network latency. This parameter is available for all output plugins.
+If the destination for your logs is a remote storage or service, adding a `flush_thread_count` option will parallelize your outputs (the default is 1). Using multiple threads can hide the IO/network latency. This parameter is available for all output plugins.
 
     :::text
     <match test>
@@ -53,7 +53,7 @@ The S3/Treasure Data plugin allows compression outside of the Fluentd process, u
       ...
     </match>
 
-While not a perfect solution to leverage multiple CPU cores, this can be effective for most Fluentd deployments. As before, you can run this with `num_threads` option as well.
+While not a perfect solution to leverage multiple CPU cores, this can be effective for most Fluentd deployments. As before, you can run this with `flush_thread_count` option as well.
 
 ## Reduce memory usage
 
