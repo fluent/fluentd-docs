@@ -4,6 +4,9 @@ section 'overview', 'Overview' do
   category 'getting-started', 'Getting Started' do
     article 'quickstart', 'Getting Started with Fluentd'
   end
+  category 'life-of-a-fluentd-event', 'Life of a Fluentd event' do
+    article 'life-of-a-fluentd-event', 'Life of a Fluentd event'
+  end
   category 'life-of-a-fluentd-event', 'Config File' do
     article 'life-of-a-fluentd-event', 'Config File'
   end
@@ -62,10 +65,13 @@ end
 #     article 'raspberrypi-cloud-data-logger', 'Raspberry Pi Cloud Data Logger', ['Raspberry Pi', 'Data Logger', 'Data Acquisition']
 #   end
 # end
-# section 'configuration', 'Configuration' do
-#   category 'config-file', 'Config File Syntax' do
-#     article 'config-file', 'Config File Syntax'
-#   end
+section 'configuration', 'Configuration' do
+  category 'config-file', 'Config File Syntax' do
+    article 'config-file', 'Config File Syntax'
+  end
+  category 'routing-examples', 'Routing Examples' do
+    article 'routing-examples', 'Routing Examples'
+  end
 #   category 'recipes', 'Recipes' do
 #     article "common-log-formats", "Parsing Common Log Formats"
 #     for recipe in Dir.entries("#{settings.root}/docs/v0.14").grep(/^recipe-/)
@@ -79,7 +85,7 @@ end
 #       }).join(" ")
 #     end
 #   end
-# end
+end
 section 'deployment', 'Deployment' do
   category 'system-config', 'System Configuration' do
     article 'system-config', 'System Configuration'
