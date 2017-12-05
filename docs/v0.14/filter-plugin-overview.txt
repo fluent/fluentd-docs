@@ -43,9 +43,19 @@ Only the events whose "message" field contain "cool" get the new field "hostname
 
 Users can create their own custom plugins with a bit of Ruby. See [this section](plugin-development#filter-plugins) for more information.
 
+## Filter chain optimization
+
+If you have multiple filters in the pipeline, fluentd tries to optimize filter calls to improve the performance.
+The condition for optimization is all plugins in the pipeline use `filter` method. If the plugin which uses `filter_stream` exists,
+chain optimization is disabled. If you see following message in the log, the optimization is disabled.
+
+    :::term
+    disable filter chain optimization because [Fluent::Plugin::XXXFilter] uses `#filter_stream` method
+
+This is not critical log message and you can ignore it.
+
 ## List of Filter Plugins
 
 - [grep](filter_grep)
 - [record-transformer](filter_record_transformer)
 - [filter_stdout](filter_stdout)
-
