@@ -17,7 +17,7 @@ with daemon mode). This filter plugin is useful for debugging purposes.
 A sample output is as follows:
 
 ```
-2015-05-02 12:12:17 +0900 tag: {"field1":"value1","field2":"value2"}
+2017-11-28 11:43:13.814351757 +0900 tag: {"field1":"value1","field2":"value2"}
 ```
 
 where the first part shows the output time, the second part shows the tag,
