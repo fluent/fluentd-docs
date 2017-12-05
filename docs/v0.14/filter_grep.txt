@@ -50,16 +50,24 @@ whereas the following examples are filtered out:
 
 [Common Parameters](plugin-common-parameters)
 
-### &lt;regexp&gt; directive (optional)
+### &lt;regexp&gt; directive
 Specify filtering rule. This directive contains two parameters.
 
-- key
+#### key
+
+| type   | default            | version  |
+|:------:|:------------------:|:--------:|
+| string | required parameter | 0.14.19  |
 
 The field name to which the regular expression is applied.
 
 This parameter supports nested field access via [record_accessor syntax](api-plugin-helper-record_accessor#syntax).
 
-- pattern
+#### pattern
+
+| type   | default            | version  |
+|:------:|:------------------:|:--------:|
+| string | required parameter | 0.14.19  |
 
 The regular expression.
 
@@ -97,7 +105,12 @@ unless the event's "item_name" field starts with "book_" or "article_", it is fi
 
 Learn regular expressions for more patterns.
 
-### regexpN (optional)
+### regexpN
+
+| type   | version  |
+|:------:|:--------:|
+| string | 0.14.0   |
+
 This is deprecated parameter. Use `<regexp>` instead.
 
 The "N" at the end should be replaced with an integer between 1 and 20 (ex: "regexp1"). regexpN takes two whitespace-delimited arguments.
@@ -108,16 +121,24 @@ Here is `regexpN` version of `<regexp>` example:
     regexp1 price [1-9]\d*
     regexp2 item_name ^book_
 
-### &lt;exclude&gt; directive (optional)
+### &lt;exclude&gt; directive
 Specify filtering rule to reject events. This directive contains two parameters.
 
-- key
+#### key
+
+| type   | default            | version  |
+|:------:|:------------------:|:--------:|
+| string | required parameter | 0.14.19  |
 
 The field name to which the regular expression is applied.
 
 This parameter supports nested field access via [record_accessor syntax](api-plugin-helper-record_accessor#syntax).
 
-- pattern
+#### pattern
+
+| type   | default            | version  |
+|:------:|:------------------:|:--------:|
+| string | required parameter | 0.14.19  |
 
 The regular expression.
 
@@ -143,7 +164,12 @@ The grep filter filters out if any `<exclude>` is matched. Hence, if you have
 
 Then, any event whose "status_code" is 5xx OR "url" ends with ".css" is filtered out.
 
-### excludeN (optional)
+### excludeN
+
+| type   | version  |
+|:------:|:--------:|
+| string | 0.14.0   |
+
 This is deprecated parameter. Use `<exclude>` instead.
 
 The "N" at the end should be replaced with an integer between 1 and 20 (ex: "exclude1"). excludeN takes two whitespace-delimited arguments.
