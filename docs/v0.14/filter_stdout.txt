@@ -17,14 +17,14 @@ with daemon mode). This filter plugin is useful for debugging purposes.
 A sample output is as follows:
 
 ```
-2015-05-02 12:12:17 +0900 tag: {"field1":"value1","field2":"value2"}
+2017-11-28 11:43:13.814351757 +0900 tag: {"field1":"value1","field2":"value2"}
 ```
 
 where the first part shows the output time, the second part shows the tag,
 and the third part shows the record.
 
-NOTE: The first part shows the **output** time, not the time attribute
-of message event structure as `out_stdout` does.
+NOTE: The first part shows the <strong>output</strong> time, not the time attribute
+of message event structure as <code>out_stdout</code> does.
 
 ## Plugin helpers
 
@@ -34,19 +34,32 @@ of message event structure as `out_stdout` does.
 
 ## Parameters
 
+[Common Parameters](plugin-common-parameters)
+
 ### @type (required)
+
 The value must be `stdout`.
 
-### format
-The format of the output. The default is `stdout`.
+### &lt;format&gt; section
 
-### output_type
+See [Format section configurations](format-section) for more details.
+
+#### @type
+
+| type   | default  | version |
+|:------:|:--------:|:-------:|
+| string | stdout   | 0.14.5  |
+
+The format of output.
+
+#### output_type
+
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | json    | 0.14.5  |
+
 This is the option of `stdout` format. Configure the format of record (third
-part). Any formatter plugins can be specified. The default is `json`.
-
-INCLUDE: _formatter_parameters
-
-INCLUDE: _log_level_params
+part). Any formatter plugins can be specified.
 
 ## Learn More
 
