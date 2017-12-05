@@ -327,12 +327,12 @@ section 'buffer-plugins', 'Buffer Plugins' do
   category 'buffer-plugin-overview', 'Overview' do
     article 'buffer-plugin-overview', 'Buffer Plugin Overview'
   end
-  # category 'buf_memory', 'buf_memory' do
-  #   article 'buf_memory', 'memory Buffer Plugin'
-  # end
-  # category 'buf_file', 'buf_file' do
-  #   article 'buf_file', 'file Buffer Plugin'
-  # end
+  category 'buf_memory', 'buf_memory' do
+    article 'buf_memory', 'memory Buffer Plugin'
+  end
+  category 'buf_file', 'buf_file' do
+    article 'buf_file', 'file Buffer Plugin'
+  end
 end
 section 'storage-plugins', 'Storage Plugins' do
   category 'storage-plugin-overview', 'Overview' do
