@@ -82,6 +82,12 @@ So, if an event with the tag "web.auth" and record `{"user_id":1, "status":"ok"}
 
 ## Parameters
 
+[Common Parameters](plugin-common-parameters)
+
+### @type
+
+The value must be `record_transformer`.
+
 ### &lt;record&gt; directive
 
 Parameters inside `<record>` directives are considered to be new key-value pairs:
@@ -101,7 +107,11 @@ For NEW_FIELD and NEW_VALUE, a special syntax `${}` allows the user to generate 
 - `time` refers to stringanized event time.
 - `hostname` refers to machine's hostname. The actual value is result of [Socket.gethostname](https://docs.ruby-lang.org/en/trunk/Socket.html#method-c-gethostname).
 
-### enable_ruby (optional)
+### enable_ruby
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 0.14.0  |
 
 When set to true, the full Ruby syntax is enabled in the `${...}` expression. The default value is false.
 
@@ -120,7 +130,11 @@ Here is the examples:
     last_tag ${tag_parts.last}
     foo_${record["key"]} bar_${record["value"]}
 
-### auto_typecast (optional)
+### auto_typecast
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 0.14.0  |
 
 Automatically cast the field types. Default is false.
 
@@ -140,19 +154,37 @@ Non-Effective Examples:
 
 Internally, this keeps the original value type only when a single placeholder is used.
 
-### renew_record (optional)
+### renew_record
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 0.14.0  |
 
 By default, the record transformer filter mutates the incoming data. However, if this parameter is set to true, it modifies a new empty hash instead.
 
-### renew_time_key (optional, string type)
+### renew_time_key
+
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | nil     | 0.14.0  |
 
 `renew_time_key foo` overwrites the time of events with a value of the record field `foo` if exists. The value of `foo` must be a unix time.
 
-### keep_keys (optional, array type)
+### keep_keys
+
+| type  | default | version |
+|:-----:|:-------:|:-------:|
+| array | nil     | 0.14.0  |
 
 A list of keys to keep. Only relevant if `renew_record` is set to true.
 
-### remove_keys (optional, array type)
+NOTE: keep_keys has been supported since 0.14.0
+
+### remove_keys
+
+| type  | default | version |
+|:-----:|:-------:|:-------:|
+| array | nil     | 0.14.0  |
 
 A list of keys to delete.
 
