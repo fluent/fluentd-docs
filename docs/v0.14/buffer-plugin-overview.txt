@@ -2,7 +2,7 @@
 
 NOTE: This page is simply copied from LINK(v0.12):[v0.12 documents](/articles/buffer-plugin-overview), and will be updated later.
 
-Fluentd has 6 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview), [Storage](storage-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Buffer Plugin.
+Fluentd has 7 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview), [Storage](storage-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Buffer Plugin.
 
 ## Buffer Plugin Overview
 
