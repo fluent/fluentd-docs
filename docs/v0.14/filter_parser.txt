@@ -31,7 +31,10 @@ See document page for more details: [Parser Plugin Overview](/articles/parser-pl
 [Common Parameters](plugin-common-parameters)
 
 ### &lt;parse&gt; section
+
 This is required sub section. Specify parser type and related parameter.
+
+For more details, see [Parse section configurations](parse-section).
 
 ### key_name
 
