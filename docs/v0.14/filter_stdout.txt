@@ -34,19 +34,32 @@ of message event structure as <code>out_stdout</code> does.
 
 ## Parameters
 
+[Common Parameters](plugin-common-parameters)
+
 ### @type (required)
+
 The value must be `stdout`.
 
-### format
-The format of the output. The default is `stdout`.
+### &lt;format&gt; section
 
-### output_type
+See [Format section configurations](format-section) for more details.
+
+#### @type
+
+| type   | default  | version |
+|:------:|:--------:|:-------:|
+| string | stdout   | 0.14.5  |
+
+The format of output.
+
+#### output_type
+
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | json    | 0.14.5  |
+
 This is the option of `stdout` format. Configure the format of record (third
-part). Any formatter plugins can be specified. The default is `json`.
-
-INCLUDE: _formatter_parameters
-
-INCLUDE: _log_level_params
+part). Any formatter plugins can be specified.
 
 ## Learn More
 
