@@ -46,41 +46,10 @@ All chunks on stage are writable, and events will be appended into these chunks.
 
 Buffer plugins control size limits of each chunks, and size limits of whole buffer plugin. Output plugin referres these limits, and controls flushing and retrying.
 
-## Configuration Parameters
+## Parameters
 
-All output plugins support the following buffer parameters:
-
-    :::text
-    <match pattern>
-      <buffer>
-        @type memory
-        chunk_limit_size 256m
-        total_limit_size 4G
-        queue_limit_length 100
-        chunk_limit_records 10000
-        chunk_full_threshold 0.9
-        compress gzip
-      </buffer>
-    </match>
-
-`@type` specifies the buffer plugin to use. The `memory` Buffer plugin is used by default. You can also specify `file` as the buffer type alongside the `path` parameter as follows:
-
-    :::text
-    <match pattern>
-      <buffer>
-        @type file
-        path /var/fluentd/buffer/ #make sure fluentd has write access to the directory!
-        ...
-      </buffer>
-    </match>
-
-### buffer_queue_full_action
-
-Control the buffer behaviour when the queue becomes full. The default mode is `exception`. It raises `BufferQueueLimitError` exception to input plugin. How handle `BufferQueueLimitError` depends on input plugins, e.g. tail input stops reading new lines, forward input returns an error to forward output. This action fits for streaming manner.
-
-Another mode is `block`. It stops input plugin thread until buffer full is resolved. This action is good for batch-like use-case.
-
-We don't recommend to use `block` action to avoid `BufferQueueLimitError`. Please consider improving destination setting to resolve `BufferQueueLimitError` or use `@ERROR` label for routing overflowed events to another backup destination(or `secondary`). If you hit `BufferQueueLimitError` frequently, it means your destination capacity is insufficient for your traffic.
+* [Common Parameters](plugin-common-parameters)
+* [Buffer section configurations](buffer-section)
 
 ## List of Buffer Plugins
 
