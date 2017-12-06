@@ -51,10 +51,10 @@ section 'usecases', 'Use Cases' do
 #     article 'apache-to-riak', 'Store Apache Logs into Riak', ['Riak']
 #     article 'collect-glusterfs-logs', 'Collecting GlusterFS Logs', ['GlusterFS']
   end
-#   category 'stream-processing', 'Stream Processing' do
-#     article 'kinesis-stream', 'Stream Data Collection to Kinesis Stream', ['kinesis', 'amazon kinesis', 'aws kinesis']
-#     article 'cep-norikra', 'Fluentd and Norikra: Complex Event Processing', ['cep-norikra']
-#   end
+  category 'stream-processing', 'Stream Processing' do
+    article 'kinesis-stream', 'Stream Data Collection to Kinesis Stream', ['kinesis', 'amazon kinesis', 'aws kinesis']
+    article 'cep-norikra', 'Fluentd and Norikra: Complex Event Processing', ['cep-norikra']
+  end
 #   category 'windows', 'Windows Event Collection' do
 #     article 'windows', 'Windows Event Collection'
 #   end
