@@ -18,7 +18,6 @@ Please follow the installation/quickstart guides below that matches your environ
 * [Install Fluentd by Deb package](install-by-deb) (Ubuntu/Debian Linux)
 * [Install Fluentd by MSI package](install-by-msi) (Windows msi)
 * [Install Fluentd by Ruby Gem](install-by-gem)
-* [Install Fluentd by Chef](install-by-chef)
 * [Install Fluentd from source](install-from-source)
 
 ## Step2: Use Cases
@@ -32,7 +31,6 @@ The articles shown below cover the typical use cases of Fluentd. Please refer to
     * [Data Collection to MongoDB](apache-to-mongodb)
     * [Data Collection to HDFS](http-to-hdfs)
     * [Data Archiving to Amazon S3](apache-to-s3)
-    * [Windows Event Collection](windows)
   * Basic Configuration
     * [Config File](config-file)
   * Application Logs
