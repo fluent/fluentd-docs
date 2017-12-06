@@ -181,8 +181,10 @@ Note: These plugins are required to be installed.
     <source>
       @type tail
       path /var/log/httpd/access_log
-      format apache2
-      time_format %d/%b/%Y:%H:%M:%S %z
+      <parse>
+        @type apache2
+        time_format %d/%b/%Y:%H:%M:%S %z
+      </parse>
       tag apache.access
       pos_file /var/log/td-agent/apache_access.pos
     </source>
@@ -258,8 +260,10 @@ Note: These plugins are required to be installed.
     <source>
       @type tail
       path /var/log/httpd/access_log
-      format apache2
-      time_format %d/%b/%Y:%H:%M:%S %z
+      <parse>
+        @type apache2
+        time_format %d/%b/%Y:%H:%M:%S %z
+      </parse>
       tag apache.access
       pos_file /var/log/td-agent/apache_access.pos
     </source>
