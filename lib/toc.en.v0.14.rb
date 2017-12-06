@@ -172,12 +172,9 @@ section 'output-plugins', 'Output Plugins' do
   category 'out_file', 'out_file' do
     article 'out_file', 'file Output Plugin'
   end
-  # category 'out_forward', 'out_forward' do
-  #   article 'out_forward', 'forward Output Plugin'
-  # end
-  # category 'out_secure_forward', 'out_secure_forward' do
-  #   article 'out_secure_forward', 'secure_forward Output Plugin', ['SSL', 'authentication']
-  # end
+  category 'out_forward', 'out_forward' do
+    article 'out_forward', 'forward Output Plugin'
+  end
   category 'out_exec', 'out_exec' do
     article 'out_exec', 'exec Output Plugin'
   end
