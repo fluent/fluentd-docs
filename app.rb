@@ -51,7 +51,7 @@ $DEFAULT_LANGUAGE = 'en'
 $DEFAULT_VERSION = 'v1.0'
 $DEPRECATED_VERSIONS = ['v0.10']
 $ALL_VERSIONS = ['v1.0', 'v0.14', 'v0.12', 'v0.10']
-$TD_AGENT_VERSIONS = {'v1.0' => 'td-agent3', 'v0.14' => 'td-agent3', 'v0.12' => 'td-agent2', 'v0.10' => 'td-agent1'}
+$TD_AGENT_VERSIONS = {'v1.0' => 'td-agent3', 'v0.12' => 'td-agent2', 'v0.10' => 'td-agent1'}
 
 #
 # For table-of-content

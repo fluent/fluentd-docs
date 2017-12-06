@@ -2,17 +2,15 @@
 
 ## What version of Ruby does fluentd support?
 
-Fluentd v0.14 works on Ruby 2.1 or later. See LINK(v0.12):[v0.12 document](/articles/faq#what-version-of-ruby-does-fluentd-support) for earlier versions.
+Fluentd v1.0 works on Ruby 2.1 or later. See LINK(v0.12):[v0.12 document](/articles/faq#what-version-of-ruby-does-fluentd-support) for earlier versions.
 
-### I use Linux distribution which uses Ruby 2.0, how can I use Fluentd?
+### When will td-agent be released with Fluentd v1.0?
 
-Ruby 2.0 is not supported by Fluentd v0.14. You can install specified Ruby version using [rbenv](https://github.com/sstephenson/rbenv).
+Use td-agent 3. It includes v1.0/v0.14 serise.
 
-Using td-agent is another way to avoid this problem because td-agent includes own Ruby.
+## What is the differences between v1.0 or v0.14?
 
-### When will td-agent be released with Fluentd v0.14?
-
-It's not fixed yet. td-agent is the package including stable version of Fluentd, and we're thinking that Fluentd v0.14 is unstable right now.
+No differences. v1.0 is built on top of v0.14. Use v1.0 for newer installation.
 
 ## Known Issue
 
@@ -27,10 +25,6 @@ The timestamps of Fluentd and its logger libraries depend on your system's clock
 ### I installed td-agent and want to add custom plugins. How do I do it?
 
 td-agent has own Ruby so you should install gems into td-agent's Ruby, not system Ruby.
-
-#### td-agent 3:
-
-(To be added after release of td-agent 3)
 
 ### How can I match (send) an event to multiple outputs?
 
