@@ -137,9 +137,9 @@ section 'plugin', 'Input Plugins' do
   # category 'in_tcp', 'in_tcp' do
   #   article 'in_tcp', 'TCP Input Plugin'
   # end
-  # category 'in_forward', 'in_forward' do
-  #   article 'in_forward', 'forward Input Plugin'
-  # end
+  category 'in_forward', 'in_forward' do
+    article 'in_forward', 'forward Input Plugin'
+  end
   category 'in_http', 'in_http' do
     article 'in_http', 'http Input Plugin'
   end
@@ -169,9 +169,9 @@ section 'output-plugins', 'Output Plugins' do
   category 'out_file', 'out_file' do
     article 'out_file', 'file Output Plugin'
   end
-  # category 'out_forward', 'out_forward' do
-  #   article 'out_forward', 'forward Output Plugin'
-  # end
+  category 'out_forward', 'out_forward' do
+    article 'out_forward', 'forward Output Plugin'
+  end
   # category 'out_secure_forward', 'out_secure_forward' do
   #   article 'out_secure_forward', 'secure_forward Output Plugin', ['SSL', 'authentication']
   # end
