@@ -140,9 +140,9 @@ section 'plugin', 'Input Plugins' do
   # category 'in_tcp', 'in_tcp' do
   #   article 'in_tcp', 'TCP Input Plugin'
   # end
-  # category 'in_forward', 'in_forward' do
-  #   article 'in_forward', 'forward Input Plugin'
-  # end
+  category 'in_forward', 'in_forward' do
+    article 'in_forward', 'forward Input Plugin'
+  end
   category 'in_http', 'in_http' do
     article 'in_http', 'http Input Plugin'
   end
