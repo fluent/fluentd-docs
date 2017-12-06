@@ -26,31 +26,31 @@ section 'overview', 'Overview' do
     article 'faq', 'FAQ'
   end
 end
-# section 'usecases', 'Use Cases' do
-#   category 'logging-from-apps', 'Centralized App Logging' do
-#     article 'java',   'Centralize Logs from Java Applications'
-#     article 'ruby',   'Centralize Logs from Ruby Applications'
-#     article 'python', 'Centralize Logs from Python Applications'
-#     article 'php',    'Centralize Logs from PHP Applications'
-#     article 'perl',   'Centralize Logs from Perl Applications'
-#     article 'nodejs', 'Centralize Logs from Node.js Applications'
-#     article 'scala',   'Centralize Logs from Scala Applications'
-#   end
-#   category 'log-management-and-search', 'Log Management & Search' do
-#     article 'free-alternative-to-splunk-by-fluentd', 'Free Alternative to Splunk by Fluentd + Elasticsearch', ['Splunk', 'Free Alternative']
+section 'usecases', 'Use Cases' do
+  category 'logging-from-apps', 'Centralized App Logging' do
+    article 'java',   'Centralize Logs from Java Applications'
+    article 'ruby',   'Centralize Logs from Ruby Applications'
+    article 'python', 'Centralize Logs from Python Applications'
+    article 'php',    'Centralize Logs from PHP Applications'
+    article 'perl',   'Centralize Logs from Perl Applications'
+    article 'nodejs', 'Centralize Logs from Node.js Applications'
+    article 'scala',   'Centralize Logs from Scala Applications'
+  end
+  category 'log-management-and-search', 'Log Management & Search' do
+    article 'free-alternative-to-splunk-by-fluentd', 'Free Alternative to Splunk by Fluentd + Elasticsearch', ['Splunk', 'Free Alternative']
 #     article 'filter-modify-apache', 'Filter and Modify Data (Apache example)'
-#     article 'splunk-like-grep-and-alert-email', 'Email Alerts like Splunk', ['Splunk', 'Alerting']
-#   end
-#   category 'data-analytics', 'Data Analytics' do
-#     article 'http-to-td', 'Data Analytics with Treasure Data', ['Treasure Data', 'Hadoop', 'Hive']
-#     article 'http-to-hdfs', 'Data Collection to Hadoop (HDFS)', ['Hadoop', 'HDFS']
-#     article 'apache-to-mongodb', 'Store Apache Logs into MongoDB', ['MongoDB']
-#   end
-#   category 'data-archiving', 'Data Archiving' do
-#     article 'apache-to-s3', 'Store Apache Logs into Amazon S3', ['Amazon S3']
+    article 'splunk-like-grep-and-alert-email', 'Email Alerts like Splunk', ['Splunk', 'Alerting']
+  end
+  category 'data-analytics', 'Data Analytics' do
+    article 'http-to-td', 'Data Analytics with Treasure Data', ['Treasure Data', 'Hadoop', 'Hive']
+    article 'http-to-hdfs', 'Data Collection to Hadoop (HDFS)', ['Hadoop', 'HDFS']
+    article 'apache-to-mongodb', 'Store Apache Logs into MongoDB', ['MongoDB']
+  end
+  category 'data-archiving', 'Data Archiving' do
+    article 'apache-to-s3', 'Store Apache Logs into Amazon S3', ['Amazon S3']
 #     article 'apache-to-riak', 'Store Apache Logs into Riak', ['Riak']
 #     article 'collect-glusterfs-logs', 'Collecting GlusterFS Logs', ['GlusterFS']
-#   end
+  end
 #   category 'stream-processing', 'Stream Processing' do
 #     article 'kinesis-stream', 'Stream Data Collection to Kinesis Stream', ['kinesis', 'amazon kinesis', 'aws kinesis']
 #     article 'cep-norikra', 'Fluentd and Norikra: Complex Event Processing', ['cep-norikra']
@@ -61,7 +61,7 @@ end
 #   category 'iot', 'IoT Data Logger' do
 #     article 'raspberrypi-cloud-data-logger', 'Raspberry Pi Cloud Data Logger', ['Raspberry Pi', 'Data Logger', 'Data Acquisition']
 #   end
-# end
+end
 section 'configuration', 'Configuration' do
   category 'config-file', 'Config File Syntax' do
     article 'config-file', 'Config File Syntax'
@@ -99,9 +99,9 @@ section 'deployment', 'Deployment' do
   category 'rpc', 'RPC' do
     article 'rpc', 'HTTP RPC'
   end
-  # category 'high-availability', 'High Availability Config' do
-  #   article 'high-availability', 'Fluentd High Availability Configuration'
-  # end
+  category 'high-availability', 'High Availability Config' do
+    article 'high-availability', 'Fluentd High Availability Configuration'
+  end
   category 'failure-scenarios', 'Failure Scenarios' do
     article 'failure-scenarios', 'Failure Scenarios'
   end
