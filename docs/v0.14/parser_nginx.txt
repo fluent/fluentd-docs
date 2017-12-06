@@ -4,11 +4,7 @@ The `nginx` parser plugin parses default nginx logs.
 
 ## Parameters
 
-### keep_time_key
-
-If you want to keep time field in the record, set `true`. Default is `false`.
-
-INCLUDE: _types_parameters
+See [Parse section configurations](parse-section)
 
 ## Regexp patterns
 

@@ -10,33 +10,31 @@ The `regexp` parser plugin parses logs by given regexp pattern. The regexp must 
 
 ## Parameters
 
-### expression (required)
+See [Parse section configurations](parse-section)
+
+### expression
+
+| type   | default            | version |
+|:------:|:------------------:|:-------:|
+| string | required parameter | 0.14.2  |
 
 Regular expression for matching logs.
 
 ### ignorecase
 
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 0.14.2  |
+
 Ignore case in matching.
 
 ### multiline
 
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 0.14.2  |
+
 Build regular expression as a multline mode. `.` matches newline. See [Ruby's Regexp document](https://ruby-doc.org/core-2.4.1/Regexp.html#class-Regexp-label-Options)
-
-### time_key
-
-Specify the field for event time. Default is `time`.
-
-### time_format
-
-Specify time format for `time_key`.
-
-See [Time#strptime](http://ruby-doc.org/stdlib-2.4.1/libdoc/time/rdoc/Time.html#method-c-strptime) for additional format information.
-
-### keep_time_key
-
-If you want to keep time field in the record, set `true`. Default is `false`.
-
-INCLUDE: _types_parameters
 
 ## Example
 

@@ -6,15 +6,23 @@ This plugin uses [CSV.parse_line](http://ruby-doc.org/stdlib-2.4.1/libdoc/csv/rd
 
 ## Parameters
 
-### time_key
+See [Parse section configurations](parse-section)
 
-Specify time field for event time. Default is `nil`.
+### keys
 
-If there is no time field in the record, this parser uses current time as an event time.
+| type            | default            | version |
+|:---------------:|:------------------:|:-------:|
+| array of string | required parameter | 0.14.9  |
 
-INCLUDE: _values_parser_parameters
+Names of fields included in each lines.
 
-INCLUDE: _types_parameters
+### delimiter
+
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | ,       | 0.14.2  |
+
+The delimiter character (or string) of CSV values.
 
 ## Example
 
