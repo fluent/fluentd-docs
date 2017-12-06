@@ -48,10 +48,10 @@ configure :production do
 end
 
 $DEFAULT_LANGUAGE = 'en'
-$DEFAULT_VERSION = 'v0.12'
+$DEFAULT_VERSION = 'v1.0'
 $DEPRECATED_VERSIONS = ['v0.10']
-$ALL_VERSIONS = ['v0.14', 'v0.12', 'v0.10']
-$TD_AGENT_VERSIONS = {'v0.14' => 'td-agent3', 'v0.12' => 'td-agent2', 'v0.10' => 'td-agent1'}
+$ALL_VERSIONS = ['v1.0', 'v0.14', 'v0.12', 'v0.10']
+$TD_AGENT_VERSIONS = {'v1.0' => 'td-agent3', 'v0.14' => 'td-agent3', 'v0.12' => 'td-agent2', 'v0.10' => 'td-agent1'}
 
 #
 # For table-of-content
@@ -142,6 +142,7 @@ end
 get %r{/(v\d+\.\d+)/categories/(\S+)} do |version, category|
   @version_num = @article_name = @category_name = @query_string = nil
   @version_num = version
+  @version_num = 'v1.0' if version == 'v0.14'
   @category_name = category
   cache_long
   render_category category, version
@@ -161,6 +162,7 @@ get %r{/(v\d+\.\d+)/articles/(\S+)} do |version, article|
   else
     @version_num = @article_name = @category_name = @query_string = nil
     @version_num = version
+    @version_num = 'v1.0' if version == 'v0.14'
     @article_name = article
     puts "@[#{ENV['RACK_ENV']}.articles] #{{ name: article }.to_json}"
     cache_long
