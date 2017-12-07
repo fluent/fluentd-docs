@@ -188,6 +188,23 @@ NOTE: keep_keys has been supported since 0.14.0
 
 A list of keys to delete.
 
+## Need more performance?
+
+[filter_record_modifier](https://github.com/repeatedly/fluent-plugin-record-modifier) is light-weight and faster version of `filter_record_transformer`. `filter_record_modifier` doesn't provide several `filter_record_transformer` features, but it covers popular cases. If you need better performace for mutating records, consider `filter_record_modifier` instead.
+
+## FAQ
+
+### What are the differences between `${record["key"]}` and `${key}`?
+
+`${key}` is short-cut for `${record["key"]}`. This is error prone because `${tag}` is unclear for event tag or `record["tag"]`.
+So the `${key}` syntax is now deprecated for avoiding this problem. Don't use `${key}` short-cut syntax on the production.
+
+Since v0.14, `${key}` short-cut syntax is removed.
+
+### I got `unknown placeholder `${record['msg']}` found` error, why?
+
+Without `enable_ruby`, `${}` placeholder doesn't support fully ruby syntax. So use `${record["key"]}` instead. `'key'` string is not supported for now.
+
 ## Learn More
 
 - [Filter Plugin Overview](filter-plugin-overview)
