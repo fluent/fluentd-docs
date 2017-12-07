@@ -4,9 +4,7 @@ The `apache2` parser plugin parses apache2 logs.
 
 ## Parameters
 
-### keep_time_key
-
-If you want to keep time field in the record, set `true`. Default is `false`.
+See [Parse section configurations](parse-section)
 
 ## Regexp patterns
 

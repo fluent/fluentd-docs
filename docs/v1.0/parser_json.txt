@@ -4,23 +4,15 @@ The `json` parser plugin parses JSON logs. One JSON map per line.
 
 ## Parameters
 
-### time_key
+See [Parse section configurations](parse-section)
 
-Specify time field for event time. Default is `time`.
+### json_parser
 
-If there is no time field in the record, this parser uses current time as an event time.
+| type | default | available      | version |
+|:----:|:-------:|:--------------:|:-------:|
+| enum | oj      | oj, yajl, json | 0.14.0  |
 
-### time_format
-
-If time field value is formatted string, e.g. "28/Feb/2013:12:00:00 +0900", you need to specify this parameter to parse it.
-
-Default is `nil` and it means time field value is a second integer like `1497915137`.
-
-See [Time#strptime](http://ruby-doc.org/stdlib-2.4.1/libdoc/time/rdoc/Time.html#method-c-strptime) for additional format information.
-
-### keep_time_key
-
-If you want to keep time field in the record, set `true`. Default is `false`.
+Set JSON parser.
 
 ## Example
 
