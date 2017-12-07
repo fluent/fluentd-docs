@@ -131,9 +131,9 @@ section 'plugin', 'Input Plugins' do
   category 'in_windows_eventlog', 'in_windows_eventlog' do
     article 'in_windows_eventlog', 'Windows Event Log Input Plugin'
   end
-  # category 'in_udp', 'in_udp' do
-  #   article 'in_udp', 'UDP Input Plugin'
-  # end
+  category 'in_udp', 'in_udp' do
+    article 'in_udp', 'UDP Input Plugin'
+  end
   # category 'in_tcp', 'in_tcp' do
   #   article 'in_tcp', 'TCP Input Plugin'
   # end
