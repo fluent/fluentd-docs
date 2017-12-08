@@ -40,11 +40,15 @@ For more details, see [Plugin Management](plugin-management).
       user michael
       password jordan
 
-      # key name of timestamp
-      time_key time
+      <inject>
+        # key name of timestamp
+        time_key time
+      </inject>
 
-      # flush
-      flush_interval 10s
+      <buffer>
+        # flush
+        flush_interval 10s
+      </buffer>
     </match>
 
 Please see the [Store Apache Logs into MongoDB](apache-to-mongodb) article for real-world use cases.
