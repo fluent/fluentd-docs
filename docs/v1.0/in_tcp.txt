@@ -97,6 +97,10 @@ then the client's hostname is set to `client_host` field.
 
 ### &lt;parse&gt; section
 
+| required | multi | version |
+|:--------:|:-----:|:-------:|
+| true     | false | 0.14.10 |
+
 `in_tcp` uses parser plugin to parse the payload.
 
 For more details about parser plugin, see followings:
