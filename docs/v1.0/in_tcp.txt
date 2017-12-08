@@ -73,14 +73,6 @@ The port to listen to.
 
 The bind address to listen to.
 
-### delimiter
-
-| type   | default | version |
-|:------:|:-------:|:-------:|
-| string | "\n"    | 0.14.0  |
-
-The payload is read up to this character. By default, it is "\n".
-
 ### source_hostname_key
 
 | type   | default                  | version |
