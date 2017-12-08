@@ -15,7 +15,7 @@ Fluentd enables your apps to insert records to MongoDB asynchronously with batch
 
 ## Install
 
-`out_geoip` is not included in td-agent by default. Fluentd gem users will need to install the fluent-plugin-mongo gem using the following command.
+`out_mongo_replset` is not included in td-agent by default. Fluentd gem users will need to install the fluent-plugin-mongo gem using the following command.
 
     :::term
     $ fluent-gem install fluent-plugin-mongo
