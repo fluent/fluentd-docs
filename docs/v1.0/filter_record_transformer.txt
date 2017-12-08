@@ -201,9 +201,9 @@ So the `${key}` syntax is now deprecated for avoiding this problem. Don't use `$
 
 Since v0.14, `${key}` short-cut syntax is removed.
 
-### I got `unknown placeholder `${record['msg']}` found` error, why?
+### I got `unknown placeholder ${record['msg']} found` error, why?
 
-Without `enable_ruby`, `${}` placeholder doesn't support fully ruby syntax. So use `${record["key"]}` instead. `'key'` string is not supported for now.
+Without `enable_ruby`, `${}` placeholder supports only double quoted string for record field access. So use `${record["key"]}` instead of `${record['key']}`.
 
 ## Learn More
 
