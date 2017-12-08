@@ -149,9 +149,9 @@ section 'plugin', 'Input Plugins' do
   category 'in_tail', 'in_tail' do
     article 'in_tail', 'tail Input Plugin'
   end
-  # category 'in_exec', 'in_exec' do
-  #   article 'in_exec', 'exec Input Plugin'
-  # end
+  category 'in_exec', 'in_exec' do
+    article 'in_exec', 'exec Input Plugin'
+  end
   category 'in_syslog', 'in_syslog' do
     article 'in_syslog', 'syslog Input Plugin', ['Syslog']
   end
