@@ -22,6 +22,31 @@ NOTE: If you need <b>Security Tested Binary</b> with a clear life cycle manageme
 
 ## Step2: Launch Daemon
 
+td-agent provides 2 scripts:
+
+### systemd
+
+The `/usr/lib/systemd/system/td-agent` script is provided to start, stop, or restart the agent.
+
+    $ sudo systemctl start td-agent.service
+    $ sudo systemctl status td-agent.service
+    ● td-agent.service - td-agent: Fluentd based data collector for Treasure Data
+       Loaded: loaded (/lib/systemd/system/td-agent.service; disabled; vendor preset: enabled)
+       Active: active (running) since Thu 2017-12-07 15:12:27 PST; 6min ago
+         Docs: https://docs.treasuredata.com/articles/td-agent
+      Process: 53192 ExecStart = /opt/td-agent/embedded/bin/fluentd --log /var/log/td-agent/td-agent.log --daemon /var/run/td-agent/td-agent.pid (code = exited, statu
+     Main PID: 53198 (fluentd)
+       CGroup: /system.slice/td-agent.service
+               ├─53198 /opt/td-agent/embedded/bin/ruby /opt/td-agent/embedded/bin/fluentd --log /var/log/td-agent/td-agent.log --daemon /var/run/td-agent/td-agent
+               └─53203 /opt/td-agent/embedded/bin/ruby -Eascii-8bit:ascii-8bit /opt/td-agent/embedded/bin/fluentd --log /var/log/td-agent/td-agent.log --daemon /v
+    
+    Dec 07 15:12:27 ubuntu systemd[1]: Starting td-agent: Fluentd based data collector for Treasure Data...
+    Dec 07 15:12:27 ubuntu systemd[1]: Started td-agent: Fluentd based data collector for Treasure Data.
+
+If you want to customize systemd behaviour, put your `td-agent.service` into `/etc/systemd/system`
+
+### init.d
+
 The `/etc/init.d/td-agent` script is provided to start, stop, or restart the agent.
 
     $ /etc/init.d/td-agent start 

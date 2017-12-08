@@ -131,9 +131,9 @@ section 'plugin', 'Input Plugins' do
   category 'in_windows_eventlog', 'in_windows_eventlog' do
     article 'in_windows_eventlog', 'Windows Event Log Input Plugin'
   end
-  # category 'in_udp', 'in_udp' do
-  #   article 'in_udp', 'UDP Input Plugin'
-  # end
+  category 'in_udp', 'in_udp' do
+    article 'in_udp', 'UDP Input Plugin'
+  end
   # category 'in_tcp', 'in_tcp' do
   #   article 'in_tcp', 'TCP Input Plugin'
   # end
@@ -199,9 +199,9 @@ section 'output-plugins', 'Output Plugins' do
   category 'out_s3', 'out_s3' do
     article 'out_s3', 'S3 Output Plugin', ['Amazon S3', 'AWS', 'Simple Storage Service']
   end
-  # category 'out_mongo', 'out_mongo' do
-  #   article 'out_mongo', 'MongoDB Output Plugin', ['MongoDB']
-  # end
+  category 'out_mongo', 'out_mongo' do
+     article 'out_mongo', 'MongoDB Output Plugin', ['MongoDB']
+  end
   category 'out_mongo_replset', 'out_mongo_replset' do
     article 'out_mongo_replset', 'MongoDB ReplicaSet Output Plugin', ['MongoDB', 'Mongo']
   end

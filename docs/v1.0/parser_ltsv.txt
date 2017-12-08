@@ -4,23 +4,23 @@ The `ltsv` parser plugin parses [LTSV](http://ltsv.org/) format.
 
 ## Parameters
 
+See [Parse section configurations](parse-section)
+
 ### delimiter
 
-Specify field delimiter. Default is `\t`.
+| type   | default  | version |
+|:------:|:--------:|:-------:|
+| string | "\t"     | 0.14.0  |
+
+The delimiter character (or string) of TSV values
 
 ### label_delimiter
 
-Specify key-value delimiter. Default is `:`.
+| type   | default  | version |
+|:------:|:--------:|:-------:|
+| string | :        | 0.14.0  |
 
-### time_key
-
-Specify time field for event time. Default is `time`.
-
-If there is no time field in the record, this parser uses current time as an event time.
-
-INCLUDE: _values_parser_parameters
-
-INCLUDE: _types_parameters
+The delimiter character between field name and value
 
 ## Example
 

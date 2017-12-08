@@ -4,9 +4,15 @@ The `none` parser plugin parses the line as-is with single field. This format is
 
 ## Parameters
 
+See [Parse section configurations](parse-section)
+
 ### message_key
 
-Specify field name to contain logs. Default is `message`.
+| type   | default  | version |
+|:------:|:--------:|:-------:|
+| string | message  | 0.14.0  |
+
+Specify field name to contain logs.
 
 ## Example
 

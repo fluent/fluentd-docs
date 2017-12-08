@@ -4,11 +4,29 @@ The `syslog` parser plugin parses syslog generated logs. This plugin supports tw
 
 ## Parameters
 
+See [Parse section configurations](parse-section)
+
 ### time_format
+
+| type   | default        | version |
+|:------:|:--------------:|:-------:|
+| string | %b %d %H:%M:%S | 0.14.10 |
 
 Specify time format for event time. Default is "%b %d %H:%M:%S" for rfc3164 protocol.
 
+### rfc5424_time_format
+
+| type   | default                | version |
+|:------:|:----------------------:|:-------:|
+| string | %Y-%m-%dT%H:%M:%S.%L%z | 0.14.14 |
+
+Specify time format for event time for rfc5424 protocol.
+
 ### message_format
+
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | rfc3164 | 0.14.14 |
 
 Specify protocol format. Supported values are `rfc3164`, `rfc5424` and `auto`. Default is `rfc3164`. If your syslog uses `rfc5424`, use `rfc5424` instead.
 
@@ -18,11 +36,11 @@ This parameter is used inside `in_syslog` plugin because the file logs via syslo
 
 ### with_priority
 
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 0.14.0  |
+
 If the incoming logs have priority prefix, e.g. <9>, set `true`. Default is `false`.
-
-### keep_time_key
-
-If you want to keep time field in the record, set `true`. Default is `false`.
 
 ## Regexp patterns
 

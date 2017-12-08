@@ -10,15 +10,7 @@ NOTE: Unlike other parser plugins, this plugin needs special code in input plugi
 
 ## Parameters
 
-### time_key
-
-Specify the field for event time. Default is `time`.
-
-### time_format
-
-Specify time format for `time_key`.
-
-See [Time#strptime](http://ruby-doc.org/stdlib-2.4.1/libdoc/time/rdoc/Time.html#method-c-strptime) for additional format information.
+See [Parse section configurations](parse-section)
 
 ### format_firstline
 
@@ -28,11 +20,11 @@ If `format_firstline` is not specified, input plugin should store unmatched new 
 
 ### formatN
 
+| type   | default            | version |
+|:------:|:------------------:|:-------:|
+| string | required parameter | 0.14.0  |
+
 Specify regexp patterns. For readability, you can separate regexp patterns into multiple regexpN parameters, See "Rails log" example. These patterns are joined and constructs regexp pattern with multiline mode.
-
-### keep_time_key
-
-If you want to keep time field in the record, set `true`. Default is `false`.
 
 ## Example
 
