@@ -134,9 +134,9 @@ section 'plugin', 'Input Plugins' do
   category 'in_udp', 'in_udp' do
     article 'in_udp', 'UDP Input Plugin'
   end
-  # category 'in_tcp', 'in_tcp' do
-  #   article 'in_tcp', 'TCP Input Plugin'
-  # end
+  category 'in_tcp', 'in_tcp' do
+    article 'in_tcp', 'TCP Input Plugin'
+  end
   category 'in_forward', 'in_forward' do
     article 'in_forward', 'forward Input Plugin'
   end
