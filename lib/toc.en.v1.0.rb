@@ -120,9 +120,9 @@ section 'deployment', 'Deployment' do
   category 'fluentd-ui', 'Fluentd UI' do
     article 'fluentd-ui', 'Fluentd UI'
   end
-  # category 'command-line-option', 'Command Line Option' do
-  #   article 'command-line-option', 'Fluentd command line option'
-  # end
+  category 'command-line-option', 'Command Line Option' do
+    article 'command-line-option', 'Fluentd command line option'
+  end
 end
 section 'plugin', 'Input Plugins' do
   category 'input-plugin-overview', 'Overview' do
