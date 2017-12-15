@@ -129,6 +129,7 @@ Here is the examples:
     escaped_tag ${tag.gsub('.', '-')}
     last_tag ${tag_parts.last}
     foo_${record["key"]} bar_${record["value"]}
+    nested_value ${record["payload"]["key"]}
 
 ### auto_typecast
 
