@@ -24,10 +24,9 @@ Please refer to the following documents to install fluentd.
 Next, please configure Fluentd to use the [forward Input plugin](in_forward) as its data source.
 
     :::text
-    # Unix Domain Socket Input
     <source>
-      @type unix
-      path /var/run/td-agent/td-agent.sock
+      @type forward
+      port 24224
     </source>
     <match fluentd.test.**>
       @type stdout
@@ -43,20 +42,22 @@ Please restart your agent once these lines are in place.
 
 ## Using fluent-logger-php
 
-To use fluent-logger-php, copy the library into your project directory.
+First, add the 'fluent/logger' package to your composer.json.
 
-    :::term
-    $ git clone https://github.com/fluent/fluent-logger-php.git
-    $ cp -r src/Fluent <path/to/your_project>
+    :::json
+    {
+        "require": {
+            "fluent/logger": "1.0.*"
+        }
+    }
 
-Next, initialize and post the records as shown below.
+Next, create a php file containing the following code:
 
     :::php
     <?php
-    require_once __DIR__.'/src/Fluent/Autoloader.php';
+    require_once __DIR__.'/vendor/autoload.php';
     use Fluent\Logger\FluentLogger;
-    Fluent\Autoloader::register();
-    $logger = new FluentLogger("unix:///var/run/td-agent/td-agent.sock");
+    $logger = new FluentLogger("localhost","24224");
     $logger->post("fluentd.test.follow", array("from"=>"userA", "to"=>"userB"));
 
 Executing the script will send the logs to Fluentd.
