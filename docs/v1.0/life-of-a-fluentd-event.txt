@@ -98,7 +98,7 @@ A _Filter_ aims to behave like a rule to pass or reject an event. The following 
       @type stdout
     </match>
 
-As you can see, the new _Filter_ definition added will be a mandatory step before to pass the control to the _Match_ section. The _Filter_ basically will accept or reject the _Event_ based on it _type_ and rule defined. For our example we want to discard any user _logout_ action, we will care just about the _logins_. The way to accomplish this, is doing a _grep_ inside the _Filter_ that states that will exclude any message on which _action_ key have the _logout_ string.
+As you can see, the new _Filter_ definition added will be a mandatory step before to pass the control to the _Match_ section. The _Filter_ basically will accept or reject the _Event_ based on its _type_ and rule defined. For our example we want to discard any user _logout_ action, we will care just about the _logins_. The way to accomplish this, is doing a _grep_ inside the _Filter_ that states that will exclude any message on which _action_ key have the _logout_ string.
 
 From a _Terminal_, run the following two _Curl_ commands, please note that each one contains a different _action_ value:
 
@@ -178,7 +178,7 @@ In this example, we use `stdout` non-buffered output. But in production, you use
 Output plugin in buffered mode stores received events into buffers first and write out buffers to a destination by meeting flush conditions.
 So using buffered output, you don't see received events immediately unlike `stdout` non-buffered output.
 
-Buffer is an important for reliability and throughput. See [Output](output-plugin-overview) and [Buffer](buffer-plugin-overview) articles.
+Buffer is important for reliability and throughput. See [Output](output-plugin-overview) and [Buffer](buffer-plugin-overview) articles.
 
 ## Conclusion
 
