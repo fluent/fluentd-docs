@@ -1,6 +1,6 @@
 # Life of a Fluentd event
 
-The following article describe a global overview of how events are processed by [Fluentd](http://fluentd.org) using examples. It covers the complete cycle including _Setup_, _Inputs_, _Filters_, _Matches_ and _Labels_.
+The following article describes a global overview of how events are processed by [Fluentd](http://fluentd.org) using examples. It covers the complete cycle including _Setup_, _Inputs_, _Filters_, _Matches_ and _Labels_.
 
 ## Basic Setup
 
@@ -15,7 +15,7 @@ We will use the [in_http](in_http) and the [out_stdout](out_stdout) plugins as e
       bind 0.0.0.0
     </source>
 
-The definition specify that a HTTP server will be listening on TCP port 8888. Now lets define a _Matching_ rule and a desired output that will just print to the standard output the data that arrived on each incoming request:
+The definition specifies that a HTTP server will be listening on TCP port 8888. Now lets define a _Matching_ rule and a desired output that will just print to the standard output the data that arrived on each incoming request:
 
     :::text
     <match test.cycle>
