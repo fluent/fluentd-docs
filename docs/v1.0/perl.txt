@@ -38,7 +38,7 @@ Please restart your agent once these lines are in place.
     # for rpm/deb only
     $ sudo /etc/init.d/td-agent restart
     # or systemd
-    $ sudo systemctl start td-agent.service
+    $ sudo systemctl restart td-agent.service
 
 ## Using Fluent::Logger
 
