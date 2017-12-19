@@ -73,6 +73,28 @@ If you don't specify the `log_level` parameter, the plugin will use the global l
 
 NOTE: Some plugins haven't supported per-plugin logging yet. The <a href="plugin-development#logging">logging section of the Plugin Development article</a> explains how to update such plugins to support the new log level system.
 
+## Log format
+
+`text` and `json` are supported. The default is `text`. The format can be changed via `<log>` directive in `<system>`.
+
+    :::term
+    <system>
+      <log>
+        format json
+        time_format %Y-%m-%d
+      </log>
+    </system>
+
+With this setting:
+
+    :::term
+    2017-07-27 06:44:54 +0900 [info]: #0 fluentd worker is now running worker=0
+
+This `text` log line is changed to:
+
+    :::term
+    {"time":"2017-07-27","level":"info","message":"fluentd worker is now running worker=0","worker_id":0}
+
 ## Suppress repeated stacktrace
 
 Fluentd can suppress same stacktrace with `--suppress-repeated-stacktrace`.
