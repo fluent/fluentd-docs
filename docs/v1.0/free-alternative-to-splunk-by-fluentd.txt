@@ -126,7 +126,10 @@ In our final step, we'll forward the logs from your rsyslogd to Fluentd. Please 
 Please restart the rsyslog service once the modification is complete.
 
     :::text
+    # init
     $ sudo /etc/init.d/rsyslog restart
+    # or systemd
+    $ sudo systemctl restart rsyslog
 
 ## Store and Search Event Logs
 
