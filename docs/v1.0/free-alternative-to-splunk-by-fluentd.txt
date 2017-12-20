@@ -162,7 +162,7 @@ If you will be using these components in production, you may want to modify some
 
 ## Fluentd Enterprise for Splunk Users
 
-Treasure Data, the creator of Fluentd, offers Fluentd Enterprise. If you are looking to optimize your Splunk setup, [learn more here](https://fluentd.treasuredata.com/splunk-optimize/).
+Treasure Data, the creator of Fluentd, offers Fluentd Enterprise. If you are looking to optimize your Splunk setup, [learn more here](https://www.treasuredata.com/fluentd/splunk-optimize/).
 
 ## Learn More
 
