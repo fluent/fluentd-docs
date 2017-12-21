@@ -56,7 +56,7 @@ Once installation is complete, start Elasticsearch.
 ## Set Up Kibana
 
 To install Kibana, download it via the official webpage and extract it. Kibana is a HTML / CSS / JavaScript application.
-Dowload page is [here](https://www.elastic.co/downloads/kibana). In this article, we download Mac OS X binary.
+Download page is [here](https://www.elastic.co/downloads/kibana). In this article, we download Mac OS X binary.
 
     :::term
     $ curl -O https://artifacts.elastic.co/downloads/kibana/kibana-5.0.2-darwin-x86_64.tar.gz
@@ -155,7 +155,7 @@ If you will be using these components in production, you may want to modify some
 
 ## Fluentd Enterprise for Splunk Users
 
-Treasure Data, the creator of Fluentd, offers Fluentd Enterprise. If you are looking to optimize your Splunk setup, [learn more here](https://fluentd.treasuredata.com/splunk-optimize/).
+Treasure Data, the creator of Fluentd, offers Fluentd Enterprise. If you are looking to optimize your Splunk setup, [learn more here](https://www.treasuredata.com/fluentd/splunk-optimize/).
 
 ## Learn More
 

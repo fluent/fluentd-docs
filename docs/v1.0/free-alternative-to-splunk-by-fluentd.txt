@@ -59,6 +59,7 @@ Note: You can also install ElasticSearch (and Kibana) using RPM/DEB packages. Fo
 
 To install Kibana, download it via the official webpage and extract it. Kibana is a HTML / CSS / JavaScript application.
 Dowload page is [here](https://www.elastic.co/downloads/kibana). In this article, we use the binary for 64-bit Linux systems.
+Download page is [here](https://www.elastic.co/downloads/kibana). In this article, we download Mac OS X binary.
 
     :::term
     $ curl -O https://artifacts.elastic.co/downloads/kibana/kibana-6.1.0-linux-x86_64.tar.gz
@@ -128,7 +129,10 @@ In our final step, we'll forward the logs from your rsyslogd to Fluentd. Please 
 Please restart the rsyslog service once the modification is complete.
 
     :::text
+    # init
     $ sudo /etc/init.d/rsyslog restart
+    # or systemd
+    $ sudo systemctl restart rsyslog
 
 ## Store and Search Event Logs
 
@@ -164,7 +168,7 @@ If you will be using these components in production, you may want to modify some
 
 ## Fluentd Enterprise for Splunk Users
 
-Treasure Data, the creator of Fluentd, offers Fluentd Enterprise. If you are looking to optimize your Splunk setup, [learn more here](https://fluentd.treasuredata.com/splunk-optimize/).
+Treasure Data, the creator of Fluentd, offers Fluentd Enterprise. If you are looking to optimize your Splunk setup, [learn more here](https://www.treasuredata.com/fluentd/splunk-optimize/).
 
 ## Learn More
 
