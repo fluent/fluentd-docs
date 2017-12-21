@@ -1146,7 +1146,6 @@ del.differ, del.differ * {
 	-webkit-border-radius: 23px;
 	width:174px;
 	padding:4px 18px 4px 10px;
-	color:#fff;
 	text-transform:uppercase;
 	text-align:center;
 	box-shadow: 1px 1px 1px #fff;
@@ -1154,6 +1153,9 @@ del.differ, del.differ * {
 	-moz-box-shadow: 1px 1px 1px #fff;
 	background:#da4808 url(/images/arrow01.png) 90% 50% no-repeat;
 }
+.btn-look a {
+    color: #ffffff;
+}
 .btn-look a:visited {
-  color: #ffffff;
+    color: #ffffff;
 }
