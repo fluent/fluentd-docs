@@ -31,6 +31,8 @@ For high load environments consisting of many Fluentd instances, please add thes
     net.ipv4.tcp_tw_reuse = 1
     net.ipv4.ip_local_port_range = 10240    65535
 
+NOTE: <code>net.ipv4.tcp_tw_recycle</code> option is <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=4396e46187ca5070219b81773c4e65088dac50cc">removed</a> since Linux kernel v4.12 (typing <code>uname -r</code> shows your version). Even in previous versions, you should not change this option if source servers locate behind a NAT, in which case source IPs are unique for multiple sources.
+
 
 
 
