@@ -24,7 +24,7 @@ NOTE: If you need <b>Security Tested Binary</b> with a clear life cycle manageme
 
 ## Step2: Run td-agent from Command Prompt
 
-First, please prepare your config file located at `C:/opt/td-agent/conf/td-agent.conf`. The config below is the simplest example to output any incoming records to td-agent's log file.
+First, please prepare your config file located at `C:/opt/td-agent/etc/td-agent/td-agent.conf`. The config below is the simplest example to output any incoming records to td-agent's log file.
 
     :::xml
     <source>
