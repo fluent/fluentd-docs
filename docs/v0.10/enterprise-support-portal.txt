@@ -1,6 +1,6 @@
 # Fluentd Enterprise Support Portal
 
-This article describes the Enterprise support program provided by [Treasure Data](http://fluentd.treasuredata.com).
+This article describes the Enterprise support program provided by [Treasure Data](https://www.treasuredata.com/fluentd/).
 
 > If you are a Fluentd Service provider wanting to get listed here, please refer to the [ENTERPRISE PROVIDER](https://github.com/fluent/fluentd/blob/master/ENTERPRISE_PROVIDERS.md) guidelines
 

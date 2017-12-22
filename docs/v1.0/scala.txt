@@ -1,6 +1,6 @@
 # Centralize Logs from Scala Applications
 
-The '[fluent-logger-scala](http://github.com/oza/fluent-logger-scala)' library is used to post records from Scala applications to Fluentd.
+The '[fluent-logger-scala](https://github.com/fluent/fluent-logger-scala)' library is used to post records from Scala applications to Fluentd.
 
 This article explains how to use the fluent-logger-scala library.
 
@@ -43,7 +43,7 @@ Please restart your agent once these lines are in place.
 
 ## Using fluent-logger-scala
 
-First, please add the following lines to build.sbt. The logger's revision information can be found in the [ChangeLog](https://github.com/oza/fluent-logger-scala/blob/master/ChangeLog).
+First, please add the following lines to build.sbt. The logger's revision information can be found in [the release notes](https://github.com/fluent/fluent-logger-scala/blob/develop/RELEASE_NOTES.md).
 
     resolvers += "Apache Maven Central Repository" at "http://repo.maven.apache.org/maven2/"
 
@@ -56,7 +56,7 @@ or
     libraryDependencies += "org.fluentd" %% "fluent-logger-scala" % "(version)"
 
 
-Next, please insert the following lines into your application. Further information regarding the API can be found [here](https://github.com/oza/fluent-logger-scala).
+Next, please insert the following lines into your application. Further information regarding the API can be found [here](https://github.com/fluent/fluent-logger-scala).
 
     :::Scala
     import org.fluentd.logger.scala.FluentLoggerFactory

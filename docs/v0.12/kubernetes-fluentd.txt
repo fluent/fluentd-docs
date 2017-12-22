@@ -90,4 +90,4 @@ Any relevant change needs to be done to the Yaml file before to deploy it. Using
 
 ## Enterprise Support by Treasure Data
 
-Treasure Data, the original creator of Fluentd, [offers commercial support for Fluentd on Kubernetes](https://fluentd.treasuredata.com/kubernetes-logging/).
+Treasure Data, the original creator of Fluentd, [offers commercial support for Fluentd on Kubernetes](https://www.treasuredata.com/fluentd/kubernetes-logging/).

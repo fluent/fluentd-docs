@@ -184,9 +184,6 @@ section 'output-plugins', 'Output Plugins' do
   category 'out_copy', 'out_copy' do
     article 'out_copy', 'copy Output Plugin'
   end
-  # category 'out_geoip', 'out_geoip' do
-  #   article 'out_geoip', 'GeoIP Output Plugin'
-  # end
   category 'out_roundrobin', 'out_roundrobin' do
     article 'out_roundrobin', 'roundrobin Output Plugin'
   end
@@ -233,6 +230,9 @@ section 'filter-plugins', 'Filter Plugins' do
   end
   category 'filter_parser', 'filter_parser' do
     article 'filter_parser', 'parser Filter Plugin'
+  end
+  category 'filter_geoip', 'filter_geoip' do
+    article 'filter_geoip', 'GeoIP Filter Plugin'
   end
   category 'filter_stdout', 'filter_stdout' do
     article 'filter_stdout', 'stdout Filter Plugin'
