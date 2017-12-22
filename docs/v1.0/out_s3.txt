@@ -1,6 +1,6 @@
 # Amazon S3 Output Plugin
 
-The `out_s3` Output plugin writes records into the Amazon S3 cloud object storage service. By default, it creates files on an hourly basis. This means that when you first import records using the plugin, no file is created immediately. The file will be created when the `timekey` condition has been met. To change the output frequency, please modify the `timekey` value in buffer directive. In more detail, please refer to [the time chunk keys in bufferdocument](https://docs.fluentd.org/v0.14/articles/buffer-section#time).
+The `out_s3` Output plugin writes records into the Amazon S3 cloud object storage service. By default, it creates files on an hourly basis. This means that when you first import records using the plugin, no file is created immediately. The file will be created when the `timekey` condition has been met. To change the output frequency, please modify the `timekey` value in buffer directive. In more detail, please refer to [the time chunk keys in bufferdocument](https://docs.fluentd.org/articles/buffer-section#time).
 
 NOTE: This document doesn't describe all parameters. If you want to know full features, check the Further Reading section.
 

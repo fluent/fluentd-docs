@@ -24,7 +24,7 @@ The following slides can help the user understand how Fluentd works before they 
 
 (The slides are taken from <a href="//github.com/sonots">Naotoshi Seo's</a> <a href="//rubykaigi.org/2014/presentation/S-NaotoshiSeo">RubyKaigi 2014 talk</a>.)
 
-NOTE: This slide is based on Fluentd v0.12. There are many difference between v0.12 and v0.14, but it may help our understanding about Fluent's total design.
+NOTE: This slide is based on Fluentd v0.12. There are many difference between v0.12 and v0.14/v1.0, but it may help our understanding about Fluent's total design.
 
 ## Writing plugins
 

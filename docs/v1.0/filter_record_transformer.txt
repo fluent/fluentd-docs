@@ -197,8 +197,8 @@ A list of keys to delete.
 
 ### What are the differences between `${record["key"]}` and `${key}`?
 
-`${key}` is short-cut for `${record["key"]}`. This is error prone because `${tag}` is unclear for event tag or `record["tag"]`.
-So the `${key}` syntax is removed since v0.14.v0.12 still supports `${key}` but it is not recommended.
+`${key}` was short-cut for `${record["key"]}`. This is error prone because `${tag}` is unclear, event tag or `record["tag"]`.
+So the `${key}` syntax was removed since v0.14. v0.12 still supports `${key}` but it is not recommended.
 
 ### I got `unknown placeholder ${record['msg']} found` error, why?
 

@@ -4,13 +4,13 @@ Fluentd has 7 types of plugins: [Input](input-plugin-overview), [Parser](parser-
 
 ## Overview
 
-Fluentd v0.14 output plugins have 3 modes about buffering and flushing.
+Fluentd v1.0 output plugins have 3 modes about buffering and flushing.
 
 * *Non-Buffered* mode doesn't buffer data and write out results immediately.
 * *Synchronous Buffered* mode has "staged" buffer chunks (a chunk is a collection of events) and a queue of chunks, and its behavior can be controlled by `<buffer>` section (See the diagram below).
 * *Asynchronous Buffered* mode also has "stage" and "queue", but output plugin will not commit writing chunks in methods synchronously, but commit later.
 
-![Fluentd v0.14 Plugin API Overview](//docs.fluentd.org/images/fluentd-v0.14-plugin-api-overview.png)
+![Fluentd v1.0 Plugin API Overview](//docs.fluentd.org/images/fluentd-v0.14-plugin-api-overview.png)
 
 Output plugins can support all modes, but may support just one of these modes. Fluentd choose appropriate mode automatically if there are no `<buffer>` sections in configuration. If users specify `<buffer>` section for output plugins which doesn't support buffering, Fluentd will stop with configuration errors.
 
@@ -37,10 +37,10 @@ Please refer to this list of available plugins to find out about other Output pl
 
 * [others](http://fluentd.org/plugin/)
 
-## Difference between v0.14 and v0.12
+## Difference between v1.0 and v0.12
 
 Fluentd v0.12 uses only `<match>` section for both of configuration parameters of output plugin and buffer plugin.
-Fluentd v0.14 uses `<buffer>` subsection to write parameters for buffering, flushing and retrying. `<match>` sections are used only for output plugin itself.
+Fluentd v1.0 uses `<buffer>` subsection to write parameters for buffering, flushing and retrying. `<match>` sections are used only for output plugin itself.
 
 Example of v0.14 output plugin configuration:
 

@@ -1,12 +1,12 @@
-# Updating plugin for v0.14 from v0.12
+# Updating plugin for v1.0 from v0.12
 
 This guide is for plugin authors to show how to update input/output/filter plugins written for Fluentd v0.12 or earlier.
 
 There are something to be considered (see following "Updating Plugins Overview" section for details):
 
 * Plugins which uses v0.12 API will be supported between Fluentd v0.14 and v1 (will be obsoleted at v2).
-* Users can use new features of Fluentd v0.14 only with plugins using v0.14 API.
-* Plugins which uses v0.14 API don't work on Fluentd v0.12.x.
+* Users can use new features of Fluentd v0.14/v1.0 only with plugins using new API.
+* Plugins which uses new API don't work on Fluentd v0.12.x.
 
 Fluentd core team strongly recommend to use v0.14 API to make your plugins stable, consistent and easy to test.
 
@@ -22,7 +22,7 @@ These are steps to update your plugins safely.
 
 ### 1. release a latest version
 
-At first, you should make a git branch named as `fluentd-v0.12` (if you are using git for that plugin), and release a latest patch version from that branch without any changes, except for fixing dependency about `Fluentd ~> 0.12.0`.
+At first, you should make a git branch named as `v0.12` (if you are using git for that plugin), and release a latest patch version from that branch without any changes, except for fixing dependency about `Fluentd ~> 0.12.0`.
 This makes you possible to fix bugs and release newer versions for Fluentd v0.12 users without breaking anything.
 
 * make a branch for Fluentd v0.12 versions
@@ -35,7 +35,7 @@ This makes you possible to fix bugs and release newer versions for Fluentd v0.12
 Following updates are on master branch.
 You should update dependency in gemspec at first to depend on Fluentd v0.14.
 
-* fix dependency about `Fluentd` to `>= 0.14.0`
+* fix dependency about `Fluentd` to `[">= 0.14.0", "< 2"]`
 * execute `bundle install`
 
 Is it correct to use `>= 0.14.0` instead of `~> 0.14.0`? Yes. Fluentd v1 will be compatible with v0.14.0 (especially for plugin APIs), so you should use `>= 0.14.0`.
@@ -48,7 +48,7 @@ Recommended dependency in gemspec:
     Gem::Specification.new do |gem|
       gem.name = "fluent-plugin-my_awesome"
       # ...
-      gem.add_runtime_dependency "fluentd", ">= 0.14.0", "< 2"
+      gem.add_runtime_dependency "fluentd", [">= 0.14.0", "< 2"]
     end
 
 ### 3. update code and tests
@@ -60,11 +60,11 @@ There are many difference between plugin types about updating code and tests. Se
 
 ### 4. update CI environments
 
-If you have CI configurations like `.travis.yml` and `appvayor.yml`, these should be updated to support Fluentd v0.14.
-Fluentd v0.14 supports Ruby 2.1 or later. CI environments should not include Ruby 2.0 or earlier. It's good idea to add latest Ruby (2.3 at Jun 2016).
+If you have CI configurations like `.travis.yml` and `appvayor.yml`, these should be updated to support Fluentd v0.14/v1.0.
+Fluentd v0.14/v1.0 supports Ruby 2.1 or later. CI environments should not include Ruby 2.0 or earlier. It's good idea to add latest Ruby (2.4 at Nov 2017).
 
 * remove Ruby 2.0 or ealier from CI environments
-* add Ruby 2.3 (or other latest version) to CI environments
+* add Ruby 2.4 (or other latest version) to CI environments
 
 ### 5. add requirements section
 
@@ -84,7 +84,7 @@ This helps that plugin users can understand plugin requirements.
 
 This is last step. The new version should be major or minor version up, not patch version up.
 If the current major version of your gem is equal or larger than 1, you should bump major version up (e.g., from 1 to 2). If the current major version is 0, you should bump minor version up (e.g., from `0.4.2` to `0.5.0`).
-Then, you can publish a new release which is available with Fluentd v0.14.
+Then, you can publish a new release which is available with Fluentd v0.14/v1.0.
 
 * bump the version up
 * release it to rubygems.org

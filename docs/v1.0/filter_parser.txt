@@ -151,7 +151,7 @@ Emit invalid record to `@ERROR` label. Invalid cases are
 
 You can rescue unexpected format logs in `@ERROR` label.
 
-NOTE: In v0.14, <code>emit_invalid_record_to_error</code> is <code>true</code> by default unlike v0.12.
+NOTE: In v1.0, <code>emit_invalid_record_to_error</code> is <code>true</code> by default unlike v0.12.
 
 ## Learn More
 

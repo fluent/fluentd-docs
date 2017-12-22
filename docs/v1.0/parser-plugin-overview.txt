@@ -40,7 +40,7 @@ Here is an example with in_tail:
 
 * [grok](https://github.com/fluent/fluent-plugin-grok-parser)
 
-If you are familiar with grok patterns, grok-parser plugin is useful. Use `> 1.0.0` versions for fluentd v0.14.
+If you are familiar with grok patterns, grok-parser plugin is useful. Use `> 1.0.0` versions for fluentd v0.14/v1.0.
 
 ## List of Core Input Plugins with Parser support
 

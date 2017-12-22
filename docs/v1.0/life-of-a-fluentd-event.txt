@@ -188,3 +188,4 @@ Once the events are reported by the [Fluentd](http://fluend.org) engine on the _
 
 * [Fluentd v0.12 Blog Announcement](http://www.fluentd.org/blog/fluentd-v0.12-is-released)
 * [Fluentd v0.14 Blog Announcement](http://www.fluentd.org/blog/fluentd-v0.14.0-has-been-released)
+* [Fluentd v1.0 Blog Announcement](http://www.fluentd.org/blog/fluentd-v1.0)

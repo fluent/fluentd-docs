@@ -106,7 +106,7 @@ This mode is available when ``#try_write`` method is implemented.
 
 #### Standard format
 
-Fluentd v0.14 has "standard" format for buffer chunks. If output plugins don't implement ``#format`` method, Fluentd uses this standard format.
+Fluentd v1.0 has "standard" format for buffer chunks. If output plugins don't implement ``#format`` method, Fluentd uses this standard format.
 Buffer chunks with this format are iterable by ``chunk.each`` method to extract events from chunk body.
 
 Some tools will be provided with Fluentd core to read/extract buffer chunks formatted by standard format. If your plugin does iterate events from buffer chunks, it's the best to use standard format.
@@ -198,7 +198,7 @@ If user specifies ``flush_mode`` explicitly, the plugin works as specified.
 See [Buffer section](buffer-section) article for basic knowledge.
 
 Fluentd creates buffer chunks to store events. Each buffer chunks should be written at once, without any re-chunking in methods to write.
-In Fluentd v0.14, users can specify chunk keys by themselves using ``<buffer CHUNK_KEYS>`` section.
+In Fluentd v1.0, users can specify chunk keys by themselves using ``<buffer CHUNK_KEYS>`` section.
 
     :::text
     <buffer>         # Use pre-configured chunk keys by plugin

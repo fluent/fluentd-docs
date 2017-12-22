@@ -1,6 +1,6 @@
 # Compat Parameters Plugin Helper API
 
-`compat_parameters` helper convert parameters from v0.12 style to v0.14 style.
+`compat_parameters` helper convert parameters from v0.12 style to v1.0 style.
 
 Here is the code example with `compat_parameters` helper:
 

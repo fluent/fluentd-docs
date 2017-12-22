@@ -6,7 +6,7 @@ Fluentd v1.0 works on Ruby 2.1 or later. See LINK(v0.12):[v0.12 document](/artic
 
 ### When will td-agent be released with Fluentd v1.0?
 
-Use td-agent 3. It includes v1.0/v0.14 serise.
+Use td-agent 3. It includes v1.0.
 
 ## What is the differences between v1.0 or v0.14?
 
