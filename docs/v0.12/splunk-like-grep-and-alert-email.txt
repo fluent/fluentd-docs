@@ -112,6 +112,6 @@ Admittedly, this is a contrived example. In reality, you would set the threshold
 You can learn more about Fluentd and its plugins by
 
 - exploring other [plugins](http://fluentd.org/plugin/)
-- browsing [recipes](/categories/recipes)
+- browsing [recipes](/v0.12/categories/recipes)
 - asking questions on the [mailing list](https://groups.google.com/forum/#!forum/fluentd)
 - <a href="//www.fluentd.org/newsletter">signing up for our newsletters</a>
