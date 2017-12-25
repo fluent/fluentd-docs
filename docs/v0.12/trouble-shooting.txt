@@ -8,29 +8,19 @@ If things aren't happening as expected, please first look at your logs. For td-a
 
 You can get more information about the logs if verbose logging is turned on. Please follow the steps below.
 
-### rpm
+### rpm/deb
 
-1. edit `/etc/init.d/td-agent`
-2. add `-vv` to TD_AGENT_ARGS
-3. restart td-agent
-
-       :::text
-       # at /etc/init.d/td-agent
-       ...
-       TD_AGENT_ARGS="... -vv"
-       ...
-
-### deb
-
-1. edit `/etc/init.d/td-agent`
-2. add `-vv` to DAEMON_ARGS
-3. restart td-agent
+1. Open the service setting file for td-agent (see below for its file path).
+2. Add `-vv` to TD_AGENT_OPTIONS.
+3. Restart td-agent.
 
        :::text
-       # at /etc/init.d/td-agent
-       ...
-       DAEMON_ARGS="... -vv"
-       ...
+       # Add the following settings to:
+       # - /etc/sysconfig/td-agent (CentOS/RedHat)
+       # - /etc/default/td-agent (Debian/Ubuntu)
+       TD_AGENT_OPTIONS="-vv"
+
+Note: The environment variable TD_AGENT_OPTIONS has been introduced in td-agent v2.2.1. If you are using an older version of td-agent, you need to edit `/etc/init.d/td-agent` and insert `-vv` options to TD_AGENT_ARGS or DAEMON_ARGS manually.
 
 ### gem
 
