@@ -6,7 +6,7 @@ NOTE: This document doesn't describe all parameters. If you want to know full fe
 
 ## Prerequisites
 
-* The GeoIP library.
+The GeoIP library.
 
     :::term
     # for RHEL/CentOS
