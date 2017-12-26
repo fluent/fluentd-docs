@@ -69,6 +69,11 @@ The configuration shown below adds geolocation information to `apache.access`.
 
 NOTE: Please see the LINK:[fluent-plugin-geoip README](https://github.com/y-ken/fluent-plugin-geoip#readme) for further details.
 
+## Plugin helpers
+
+* [compat_parameters](api-plugin-helper-compat_parameters)
+* [inject](api-plugin-helper-inject)
+
 ## Parameters
 
 [Common Parameters](plugin-common-parameters)
