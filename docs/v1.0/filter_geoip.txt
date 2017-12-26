@@ -117,14 +117,6 @@ This is useful for elasticsearch.
 
 Set backend library.
 
-### include_tag_key
-
-| type | default | version |
-|:----:|:-------:|:-------:|
-| bool | false   | 1.0.0   |
-
-Set to `true` to include the original tag name in the record.
-
 ## Use cases
 
 #### Plot real time access statistics on a world map using Elasticsearch and Kibana
