@@ -6,7 +6,7 @@ NOTE: This document doesn't describe all parameters. If you want to know full fe
 
 ## Prerequisites
 
-* The GeoIP library.
+The GeoIP library.
 
     :::term
     # for RHEL/CentOS
@@ -69,6 +69,11 @@ The configuration shown below adds geolocation information to `apache.access`.
 
 NOTE: Please see the LINK:[fluent-plugin-geoip README](https://github.com/y-ken/fluent-plugin-geoip#readme) for further details.
 
+## Plugin helpers
+
+* [compat_parameters](api-plugin-helper-compat_parameters)
+* [inject](api-plugin-helper-inject)
+
 ## Parameters
 
 [Common Parameters](plugin-common-parameters)
@@ -116,14 +121,6 @@ This is useful for elasticsearch.
 | enum | geoip2_c | geoip, geoip2_compat, geoip2_c | 1.0.0   |
 
 Set backend library.
-
-### include_tag_key
-
-| type | default | version |
-|:----:|:-------:|:-------:|
-| bool | false   | 1.0.0   |
-
-Set to `true` to include the original tag name in the record.
 
 ## Use cases
 
