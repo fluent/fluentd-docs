@@ -62,6 +62,147 @@ There are useful Test Drivers for plugin testing. We can write test code for plu
 
 ## Test Driver Base API
 
+## Test helpers
+
+#### assert_equal_event_time(expected, actual, message = nil)
+
+Assert EventTime instance.
+
+- `expected`: expected EventTime instance
+- `actual`: actual EventTime instance
+- `message`: message that is displayed when assertion failure
+
+Code example:
+
+    :::ruby
+    parser = create_parser
+    parser.parse(text) do |time, record|
+      assert_equal_event_time(event_time("2017-12-27 09:43:50.123456789"), time)
+    end
+
+#### config_element(name = 'test', argument = '', params = {}, elements = [])
+
+Create `Fluent::Config::Element` instance.
+
+- `name`: element name such as "match", "filter", "source", "buffer", "inject", "format", "parse" and etc.
+- `argument`: argument for section defined by `config_argument`
+- `params`: parameters for section defined by `config_element`
+- `elements`: child elements of this element
+
+Code example:
+
+    :::ruby
+    conf = config_element('match', '**', {
+      'path' => "#{TMP_DIR}/prohibited/${tag}/file.%Y%m%d.log",
+    }, [
+         config_element('buffer', 'time,tag', {
+          'time_key' => 86400,
+          'timekey_zone' => '+0000'
+        })
+      ]
+    )
+    d = create_driver(conf)
+
+#### event_time(str = nil, format: nil)
+
+Create `Fluent::EventTime` instance.
+
+- `str`: time represented as string
+- `format`: parse `str` as time according to this format. See also [Time.strptime](https://docs.ruby-lang.org/en/trunk/Time.html#method-c-strptime)
+
+Code example:
+
+    :::ruby
+    time = event_time
+    time = event_time("2016-10-03 23:58:09 UTC)
+    time = event_time('2016-04-11 16:40:01 +0000')
+    time = event_time("2016-04-17 11:15:00 -0700")
+    time = event_time("2011-01-02 13:14:15")
+    time = event_time('Sep 11 00:00:00', format: '%b %d %H:%M:%S')
+    time = event_time('28/Feb/2013:12:00:00 +0900', format: '%d/%b/%Y:%H:%M:%S %z')
+    time = event_time("2017-02-06T13:14:15.003Z", format: '%Y-%m-%dT%H:%M:%S.%L%z')
+
+#### with_timezone(tz)
+
+Process given block with `tz`. This method overwrites `ENV['TZ']` while processing block.
+
+- `tz`: Timezone. This is set to `ENV['TZ']`.
+
+Code example:
+
+    :::ruby
+    time = with_timezone("UTC+02") do
+      parser = Fluent::TimeParser.new("%Y-%m-%d %H:%M:%S.%N", true)
+      parser.parse("2016-09-02 18:42:31.123456789")
+    end
+    assert_equal_event_time(time, event_time("2016-09-02 18:42:31.123456789 -02:00", format: '%Y-%m-%d %H:%M:%S.%N %z'))
+
+#### with_worker_config(root_dir: nil, workers: nil, worker_id: nil, &block)
+
+Process block with given parameters. This method overwrites system config while processing block.
+
+This is useful for testing Fluentd internal behavior related to multi workers.
+
+- `root_dir`: TODO
+- `workers`: TODO
+- `worker_id`: TODO
+
+Code example:
+
+    :::ruby
+    class Dummy < Fluent::Plugin::Output
+    end
+    d = Dummy.new
+    with_worker_config(workers: 2, worker_id: 1) do
+      d.configure(conf)
+    end
+    ...
+
+#### time2str(time, localtime: false, format: nil)
+
+Convert `time` to string.
+
+This is useful for testing formatter.
+
+- `time`: `Fluent::EventTime` instance. See also [Time.at](https://docs.ruby-lang.org/en/trunk/Time.html#method-c-at)
+- `localtime`: If `true`, process `time` as localtime. Otherwise UTC.
+- `format`: See also [Time#strftime](https://docs.ruby-lang.org/en/trunk/Time.html#method-i-strftime).
+
+    :::ruby
+    formatter = configure_formatter(conf)
+    formatted = formatter.format(tag, time, record)
+    assert_equal("#{time2str(time)}\t#{JSON.dump(record)}\n", formatted)
+
+#### msgpack(type)
+
+Shorthand for `Fluent::MessagePackFactory.factory`, `Fluent::MessagePackFactory.packer` and `Fluent::MessagePackFactory.unpacker`.
+
+- `type`: Available types are `:factory`, `:packer`, `:unpacker`.
+
+Code example:
+
+    :::ruby
+    events = []
+    factory = msgpack(:factory)
+    factory.unpacker.feed_each(binary) do |obj|
+      events << obj
+    end
+
+#### capture_stdout
+
+Capture stdout while processing given block.
+
+This is useful for testing Fluentd utility commands.
+
+Code example:
+
+    :::ruby
+    captured_string = capture_stdout do
+      # Print something to STDOUT
+      puts "Hello!"
+    end
+    assert_equal("Hello!\n", capture_stdout)
+
 
 ## Testing Input Plugins
 
