@@ -91,51 +91,102 @@ TODO
 
 #### end_if(&block)
 
-TODO
+Register conditions to stop running Test Driver accurately.
+
+All registered conditions must be true before stop Test Driver.
 
 #### break_if(&block)
 
-TODO
+Register conditions to stop running Test Driver.
+
+Test Driver should stop running if some of the breaking conditions are true.
 
 #### broken?
 
-TODO
+Return true when some of the breaking conditions are true. Otherwise false.
 
 #### run(timeout: nil, start: true, shutdown: true, &block)
 
-TODO
+Run Test Driver. Stop running Test Driver after evaluate block if block given.
+
+Otherwise, you must register conditions to stop running Test Driver.
+
+This method may overwrite in subclass.
+
+- `timeout`: timeout in seconds.
+- `start`: if true, start running Test Driver. Otherwise you should start running Test Driver like `d.instance_start`
+- `shutdown`: if true, shutdown running Test Driver.
+
+Code example:
+
+    :::ruby
+    # Run Test Driver and feed an event (output)
+    d = create_driver
+    d.run do
+      d.feed(time, record)
+    end
+
+    # emit multiple events (output)
+    d = create_driver
+    d.run(default_tag: 'test', expect_emits: 1, timeout: 10, start: true,  shutdown: false) { d.feed(time, { "k1" => 1 })}
+    d.run(default_tag: 'test', expect_emits: 1, timeout: 10, start: false, shutdown: false) { d.feed(time, { "k1" => 2 })}
+    d.run(default_tag: 'test', expect_emits: 1, timeout: 10, start: true,  shutdown: true ) { d.feed(time, { "k1" => 3 })}
 
 #### stop?
 
+Return true when all of the stopping conditions are true. Otherwise false.
+
 #### logs
 
-TODO
+Returns logs managed by this Test Driver.
 
 #### instance
 
-TODO
+Returns the plugin instance managed by this Test Driver.
 
 ## Test Driver Base Owner API
 
-#### events(tag: nil)
+#### run(expect_emits: nil, expect_records: nil, timeout: nil, start: true, shutdown: true, &block)
 
 TODO
+
+#### events(tag: nil)
+
+Returns the events filtered by given tag.
+
+- `tag`: filter by this tag. Returns all events when omit this parameter.
 
 #### event_streams(tag: nil)
 
-TODO
+Returns the event streams filtered by given tag.
+
+- `tag`: filter by this tag. Returns all event streams when omit this parameter.
 
 #### emit_count
 
-TODO
+Returns the number of invoking `router.emit`.
+
+If you want to wait stopping Test Driver until events are emitted as many as you expected, you can use `d.run(expected_emits: n)` instead.
+
+Code example:
+
+    :::ruby
+    d.run do
+      d.feed("test", record)
+    end
+    assert_equal(1, d.emit_count)
 
 #### record_count
 
-TODO
+Returns the number of records.
+
+If you want to wait stopping Test Driver until records are emitted as many as you expected, you can use `d.run(expected_records: n)` instead.
 
 #### error_events(tag: nil)
 
-TODO
+Returns error events filtered by given tag.
+
+- `tag`: filter by this tag. Returns all error events when omit this parameter.
 
 ## Test Driver Event Feeder API
 
