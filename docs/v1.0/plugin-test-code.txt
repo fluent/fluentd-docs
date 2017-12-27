@@ -59,6 +59,21 @@ There are useful Test Drivers for plugin testing. We can write test code for plu
 
 ## Testing Utility Methods
 
+You can get your plugin instance when you call Test Driver instance's ``#instance`` method.
+If utility methods are private, you can use ``__send__``.
+
+    :::ruby
+    # ...
+    class FileOutputTest < Test::Unit::TestCase
+      # ...
+      # Group by utility method
+      sub_test_case '#compression_suffix' do
+        test 'returns empty string for nil (no compression method specified)' do
+          d = create_driver
+          assert_equal('', d.instance.compression_suffix(nil))
+        end
+      end
+    end
 
 ## Test Driver Base API
 
