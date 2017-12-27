@@ -215,8 +215,76 @@ Code example:
 
 ## Testing Parser Plugins
 
+You must test parser plugins' ``#parse`` method.
+
+You can write parser plugins test like below.
+
+Code example:
+
+    :::ruby
+    require 'fluent/test'
+    require 'fluent/test/driver/parser'
+    require 'fluent/test/helpers'
+    require 'fluent/plugin/parser_my'
+
+    class MyParserTest < Test::Unit::TestCase
+      include Fluent::Test::Helpers
+      
+      setup do
+        Fluent::Test.setup
+      end
+      
+      def create_driver(conf={})
+        Fluent::Test::Driver::Parser.new(Fluent::Plugin::MyParser).configure(conf)
+      end
+      
+      def create_parser(conf)
+        create_driver(conf).instance
+      end
+
+      test "parse" do
+        parser = create_parser(conf)
+        parser.parse(text) do |time, record|
+          assert_equal(event_time("2017-12-26 11:56:50.1234567879"), time)
+          assert_equal({ "message" => "Hello, Fluentd!!" }, record)
+        end
+      end
+    end
 
 ## Testing Formatter Plugins
 
+You must test formatter plugins' ``#parse`` method.
+
+You can write formatter plugins test like below.
+
+Code example:
+
+    :::ruby
+    require 'fluent/test'
+    require 'fluent/test/driver/formatter'
+    require 'fluent/test/helpers'
+    require 'fluent/plugin/formatter_my'
+
+    class MyFormatterTest < Test::Unit::TestCase
+      include Fluent::Test::Helpers
+      
+      setup do
+        Fluent::Test.setup
+      end
+      
+      def create_driver(conf={})
+        Fluent::Test::Driver::Formatter.new(Fluent::Plugin::MyFormatter).configure(conf)
+      end
+      
+      def create_formatter(conf)
+        create_driver(conf).instance
+      end
+
+      test "format" do
+        formatter = create_formatter(conf)
+        formatted = formatter.format(tag, time, record)
+        assert_equal("message:awesome\tgreeting:hello", formatted)
+      end
+    end
 
 ## Tests for logs
