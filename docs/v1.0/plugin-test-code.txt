@@ -83,11 +83,52 @@ If utility methods are private, you can use ``__send__``.
 
 #### initiazlie(klass, opts: {}, &block)
 
-TODO
+Initialize Test Driver instance.
+
+- `klass`: A class of Fluentd plugin
+- `opts`: Overwrite system config. This parameter is useful for testing multi workers.
+- `block`: Customize plugin behavior. We can overwrite plugin code in this block.
+
+Code example:
+
+    :::ruby
+    def create_driver(conf={})
+      d = Fluent::Test::Driver::Output.new(Fluent::Plugin::MyOutput) do
+        attr_accessor :exceptions
+        # almost same as reopen plugin class
+        def prefer_buffered_processing
+          false
+        end
+        def process(tag, es)
+          # drop events
+        end
+      end
+      d.configure(conf)
+    end
+
 
 #### configure(conf, syntax: :v1)
 
-TODO
+Configure plugin instance managed by this Test Driver.
+
+- `conf`: `Fluent::Config::Element` or string
+- `syntax`: Available syntax are `:v1`, `:v0`, `:ruby`. But `:v0` is obsoleted.
+
+Code example:
+
+    :::ruby
+    def create_driver(conf={})
+      Fluent::Test::Driver::Output.new(Fluent::Plugin::MyOutput).configure(conf)
+    end
+    
+    def test_process
+      conf = %[
+        path /path/to/something
+        host localhost
+        port 24229
+      ]
+      d = create_driver(conf)
+    end
 
 #### end_if(&block)
 
