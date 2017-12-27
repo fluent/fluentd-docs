@@ -288,3 +288,19 @@ Code example:
     end
 
 ## Tests for logs
+
+Testing log is very easy.
+
+Code example:
+
+    :::ruby
+    # d is a Test Driver instance
+    assert_equal(1, d.logs.size)
+    logs = d.logs
+    assert do
+      logs.any? {|log| log.include?(expected_log) }
+    end
+    assert do
+      logs.last.match?(/This is last log/)
+    end
+
