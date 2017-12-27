@@ -77,6 +77,99 @@ If utility methods are private, you can use ``__send__``.
 
 ## Test Driver Base API
 
+#### initiazlie(klass, opts: {}, &block)
+
+TODO
+
+#### configure(conf, syntax: :v1)
+
+TODO
+
+#### end_if(&block)
+
+TODO
+
+#### break_if(&block)
+
+TODO
+
+#### broken?
+
+TODO
+
+#### run(timeout: nil, start: true, shutdown: true, &block)
+
+TODO
+
+#### stop?
+
+#### logs
+
+TODO
+
+#### instance
+
+TODO
+
+## Test Driver Base Owner API
+
+#### events(tag: nil)
+
+TODO
+
+#### event_streams(tag: nil)
+
+TODO
+
+#### emit_count
+
+TODO
+
+#### record_count
+
+TODO
+
+#### error_events(tag: nil)
+
+TODO
+
+## Test Driver Event Feeder API
+
+#### feed(*args)
+
+TODO
+
+Code example:
+
+    :::ruby
+    d.run do
+      d.feed('tag', time, { 'key1' => 'value1', 'key2' => 'value2' })
+      d.feed('tag', [ [time, {record1}], [time, {record}], ... ])
+      d.feed('tag', es)
+    end
+    d.run(default_tag: 'tag') do
+      d.feed({record})
+      d.feed(time, {record})
+      d.feed([ [time, {record}], [time, {record}], ... ])
+      d.feed(es)
+    end
+
+## Test Driver Filter API
+
+#### filtered_records
+
+TODO
+
+## Test Driver Output API
+
+#### formatted
+
+TODO
+
+#### flush
+
+TODO
+
 ## Test helpers
 
 #### assert_equal_event_time(expected, actual, message = nil)
