@@ -13,10 +13,14 @@ Fluentd provides useful Test Drivers according to plugin type. We can write main
 There are useful Test Drivers for plugin testing. We can write test code for plugins as following:
 
     :::ruby
-    require 'fluent/test'                 # Load the module that defines common initialization method (Required)
-    require 'fluent/test/helpers'         # Load the module that defines helper methods for testing (Required)
-    require 'fluent/test/driver/output'   # Load the test driver (Required)
-    require 'fluent/plugin/out_file'      # Load the plugin (Required)
+    # Load the module that defines common initialization method (Required)
+    require 'fluent/test'
+    # Load the module that defines helper methods for testing (Required)
+    require 'fluent/test/helpers'
+    # Load the test driver (Required)
+    require 'fluent/test/driver/output'
+    # Load the plugin (Required)
+    require 'fluent/plugin/out_file'
 
     class FileOutputTest < Test::Unit::TestCase
       include Fluent::Test::Helpers
