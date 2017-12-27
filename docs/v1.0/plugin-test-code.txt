@@ -135,22 +135,114 @@ TODO
 
 ## Test Driver Event Feeder API
 
-#### feed(*args)
+#### feed(tag, time, record)
 
-TODO
+Feed an event to plugin instance.
+
+- `tag`: the tag of the event
+- `time`: event timestamp
+- `record`: event record
 
 Code example:
 
     :::ruby
     d.run do
-      d.feed('tag', time, { 'key1' => 'value1', 'key2' => 'value2' })
-      d.feed('tag', [ [time, {record1}], [time, {record}], ... ])
-      d.feed('tag', es)
+      d.feed("test", event_time, { "message" => "Hello, Fluentd!!" })
     end
-    d.run(default_tag: 'tag') do
-      d.feed({record})
-      d.feed(time, {record})
-      d.feed([ [time, {record}], [time, {record}], ... ])
+
+
+#### feed(tag, array_event_stream)
+
+Feed an array of event stream to plugin instance.
+
+- `tag`: the tag of the event
+- `array_event_stream`: array of `[time, record]`
+  - `time`: event timestamp
+  - `record`: event record
+
+Code example:
+
+    :::ruby
+    d.run do
+      d.feed("test", [
+        [event_time, { "message" => "Hello, user1!!" }],
+        [event_time, { "message" => "Hello, user2!!" }]
+      ])
+    end
+
+#### feed(tag, es)
+
+Feed an event stream to plugin instance.
+
+- `tag`: the tag of the event
+- `es`: event stream object
+
+Code example:
+
+    :::ruby
+    es = Fluent::OneEventStream.new(event_time, { "message" => "Hello, Fluentd!!" })
+    d.run do
+      d.feed("test", es)
+    end
+
+#### feed(record)
+
+Feed an event with default tag to plugin instance.
+
+- `record`: event record
+
+Code example:
+
+    :::ruby
+    d.run(default_tag: "test") do
+      d.feed({ "message" => "Hello, Fluentd!!" })
+      # Above is same as below
+      d.feed(event_time, { "message" => "Hello, Fluentd!!" })
+    end
+
+#### feed(time, record)
+
+Feed an event with default tag to plugin instance.
+
+- `time`: event timestamp
+- `record`: event record
+
+Code example:
+
+    :::ruby
+    d.run(default_tag: "test") do
+      d.feed(event_time, { "message" => "Hello, Fluentd!!" })
+    end
+
+#### feed(array_event_stream)
+
+Feed an array of event stream with default tag to plugin instance.
+
+- `array_event_stream`: array of `[time, record]`
+  - `time`: event timestamp
+  - `record`: event record
+
+Code example:
+
+    :::ruby
+    d.run(default_tag: "test") do
+      d.feed([
+        [event_time, { "message" => "Hello, user1!!" }],
+        [event_time, { "message" => "Hello, user2!!" }]
+      ])
+    end
+
+#### feed(es)
+
+Feed an event stream with default tag to plugin instance.
+
+- `es`: event stream object
+
+Code example:
+
+    :::ruby
+    es = Fluent::OneEventStream.new(event_time, { "message" => "Hello, Fluentd!!" })
+    d.run(default_tag: "test") do
       d.feed(es)
     end
 
