@@ -668,7 +668,41 @@ Code example:
 
 ## Testing Output Plugins
 
-TODO
+You must test output plugins' ``#process`` or ``#write`` or ``#try_write`` method.
+But you don't have to test this method explicitly.
+This testing code pattern is encapsulated with Output Test Driver.
+
+You can write output plugins test like below.
+
+Code example:
+
+    :::ruby
+    require 'fluent/test'
+    require 'fluent/test/driver/output'
+    require 'fluent/test/helpers'
+    require 'fluent/plugin/output_my'
+
+    class MyInputTest < Test::Unit::TestCase
+      include Fluent::Test::Helpers
+
+      setup do
+        Fluent::Test.setup
+      end
+
+      def create_driver(conf={})
+        Fluent::Test::Driver::Output.new(Fluent::Plugin::MyOutput).configure(conf)
+      end
+
+      test 'emit' do
+        d = create_driver(config)
+        time = event_time
+        d.run do
+          d.feed("output.test", time, {'foo' => 'bar', 'message' => msg})
+        end
+
+        assert_equal(1, d.events.size)
+      end
+    end
 
 ## Testing Parser Plugins
 
