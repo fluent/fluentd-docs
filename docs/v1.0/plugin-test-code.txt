@@ -590,7 +590,42 @@ Code example:
 
 ## Testing Input Plugins
 
-TODO
+You must test input plugins' ``router#emit`` method.
+But you don't have to test this method explicitly.
+This testing code pattern is encapsulated with Input Test Driver.
+
+You can write input plugins test like below.
+
+Code example:
+
+    :::ruby
+    require 'fluent/test'
+    require 'fluent/test/driver/input'
+    require 'fluent/test/helpers'
+    require 'fluent/plugin/input_my'
+
+    class MyInputTest < Test::Unit::TestCase
+      include Fluent::Test::Helpers
+
+      setup do
+        Fluent::Test.setup
+      end
+
+      def create_driver(conf={})
+        Fluent::Test::Driver::Input.new(Fluent::Plugin::MyInput).configure(conf)
+      end
+
+      test 'emit' do
+        d = create_driver(config)
+        d.run(timeout: 0.5)
+
+        d.events.each do |tag, time, record|
+          assert_equal("input.test", tag)
+          assert_equal({"foo"=>"bar"}, record)
+          assert(time.is_a?(Fluent::EventTime))
+        end
+      end
+    end
 
 
 ## Testing Filter Plugins
