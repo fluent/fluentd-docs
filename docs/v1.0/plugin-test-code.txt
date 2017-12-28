@@ -223,7 +223,32 @@ filter, output, multi_output
 
 #### run(expect_emits: nil, expect_records: nil, timeout: nil, start: true, shutdown: true, &block)
 
-TODO
+Run Test Driver. Stop running Test Driver after evaluate block if block given.
+
+Otherwise, you must register conditions to stop running Test Driver.
+
+This method may overwrite in subclass.
+
+- `expect_emits`: Set the number of expected emits.
+- `expect_records`: Set the number of expected records.
+- `timeout`: timeout in seconds.
+- `start`: if true, start running Test Driver. Otherwise you should start running Test Driver like `d.instance_start`
+- `shutdown`: if true, shutdown running Test Driver.
+
+Code example:
+
+    :::ruby
+    # Run Test Driver and feed an event (owner plugin)
+    d = create_driver
+    d.run do
+      d.feed(time, record)
+    end
+
+    # emit multiple events (owner plugin)
+    d = create_driver
+    d.run(default_tag: 'test', expect_emits: 1, timeout: 10, start: true,  shutdown: false) { d.feed(time, { "k1" => 1 })}
+    d.run(default_tag: 'test', expect_emits: 1, timeout: 10, start: false, shutdown: false) { d.feed(time, { "k1" => 2 })}
+    d.run(default_tag: 'test', expect_emits: 1, timeout: 10, start: true,  shutdown: true ) { d.feed(time, { "k1" => 3 })}
 
 #### events(tag: nil)
 
