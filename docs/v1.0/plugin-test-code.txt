@@ -6,9 +6,37 @@ NOTE: You can write test code with any other testing framework such as RSpec, mi
 
 ## Basics of Plugin Testing
 
-Fluentd provides useful Test Drivers according to plugin type. We can write maintainable test code for plugins using them.
+Fluentd provides useful Test Drivers according to plugin type. We can write maintainable test code for plugins using them. We can write helper.rb for output plugin as follows:
 
-TODO: write helper.rb and recommended directory structure
+    :::ruby
+    $LOAD_PATH.unshift(File.expand_path("../../", __FILE__))
+    require "test-unit"
+    require "fluent/test"
+    require "fluent/test/driver/output"
+    require "fluent/test/helpers"
+
+    Test::Unit::TestCase.include(Fluent::Test::Helpers)
+    Test::Unit::TestCase.extend(Fluent::Test::Helpers)
+
+Note that Fluentd provides useful Test Drivers for input, output, filter, parser, and formatter.
+
+The recommended fluentd plugin project structure is:
+
+    :::text
+    .
+    ├── Gemfile
+    ├── LICENSE
+    ├── README.md
+    ├── Rakefile
+    ├── fluent-plugin-<your_fluentd_plugin_name>.gemspec
+    ├── lib
+    │   └── fluent
+    │       └── plugin
+    │           └── <plugin_type>_<your_fluentd_plugin_name>.rb
+    └── test
+        ├── helper.rb
+        └── plugin
+            └── test_<plugin_type>_<your_fluentd_plugin_name>.rb
 
 ## Plugin Test Driver Overview
 
