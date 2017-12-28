@@ -272,7 +272,7 @@ These parameters below are to configure buffer plugins and its chunks.
 These parameters are to configure how to flush chunks to optimize performance (latency and throughput).
 
 * ``flush_at_shutdown`` [bool]
-  * Default: false (, but true for file buffer plugin)
+  * Default: false for persistent buffers (e.g. buf_file), true for non-persistent buffers (e.g. buf_memory).
   * The value to specify to flush/write all buffer chunks at shutdown, or not
 * ``flush_mode`` [enum: default/lazy/interval/immediate]
   * Default: default (equals to ``lazy`` if ``time`` is specified as chunk key, ``interval`` otherwise)
