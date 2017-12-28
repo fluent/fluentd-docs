@@ -395,7 +395,14 @@ Code example:
 
 #### filtered_records
 
-TODO
+Collect filtered records.
+
+    ::::ruby
+    d = create_driver(config)
+    d.run do
+      d.feed("filter.test", event_time, {'foo' => 'bar', 'message' => msg})
+    end
+    d.filtered_records
 
 ## Test Driver Output API
 
