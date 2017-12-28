@@ -641,7 +641,7 @@ Code example:
 
 ## Testing Formatter Plugins
 
-You must test formatter plugins' ``#parse`` method.
+You must test formatter plugins' ``#format`` method.
 
 You can write formatter plugins test like below.
 
