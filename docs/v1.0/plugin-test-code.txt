@@ -630,7 +630,41 @@ Code example:
 
 ## Testing Filter Plugins
 
-TODO
+You must test filter plugins' ``#filter`` method.
+But you don't have to test this method explicitly.
+This testing code pattern is encapsulated with Filter Test Driver.
+
+You can write filter plugins test like below.
+
+Code example:
+
+    :::ruby
+    require 'fluent/test'
+    require 'fluent/test/driver/filter'
+    require 'fluent/test/helpers'
+    require 'fluent/plugin/filter_my'
+
+    class MyInputTest < Test::Unit::TestCase
+      include Fluent::Test::Helpers
+
+      setup do
+        Fluent::Test.setup
+      end
+
+      def create_driver(conf={})
+        Fluent::Test::Driver::Filter.new(Fluent::Plugin::MyFilter).configure(conf)
+      end
+
+      test 'filter' do
+        d = create_driver(config)
+        time = event_time
+        d.run do
+          d.feed("filter.test", time, {'foo' => 'bar', 'message' => msg})
+        end
+
+        assert_equal(1, d.filtered_records.size)
+      end
+    end
 
 ## Testing Output Plugins
 
