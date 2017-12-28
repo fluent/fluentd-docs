@@ -463,7 +463,7 @@ Code example:
 
     :::ruby
     time = event_time
-    time = event_time("2016-10-03 23:58:09 UTC)
+    time = event_time("2016-10-03 23:58:09 UTC")
     time = event_time('2016-04-11 16:40:01 +0000')
     time = event_time("2016-04-17 11:15:00 -0700")
     time = event_time("2011-01-02 13:14:15")
