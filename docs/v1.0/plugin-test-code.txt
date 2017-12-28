@@ -113,7 +113,7 @@ If utility methods are private, you can use ``__send__``.
 
 The methods in this section are available for all Test Driver.
 
-#### initiazlie(klass, opts: {}, &block)
+#### initialize(klass, opts: {}, &block)
 
 Initialize Test Driver instance.
 
