@@ -278,7 +278,16 @@ filter, output, multi_output
 
 #### run(default_tag: nil, **kwargs, &block)
 
-TODO
+Run EventFeeder.
+
+- `default_tag`: the default tag of the event
+
+Code example:
+
+    :::ruby
+    d.run(default_tag: "test") do
+      d.feed(event_time, { "message" => "Hello, Fluentd!!" })
+    end
 
 #### feed(tag, time, record)
 
