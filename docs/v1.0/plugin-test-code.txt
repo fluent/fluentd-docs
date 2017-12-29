@@ -561,9 +561,9 @@ Process block with given parameters. This method overwrites system config while 
 
 This is useful for testing Fluentd internal behavior related to multi workers.
 
-- `root_dir`: TODO
-- `workers`: TODO
-- `worker_id`: TODO
+- `root_dir`: Root directory.
+- `workers`: Number of workers.
+- `worker_id`: Id of workers.
 
 Code example:
 
