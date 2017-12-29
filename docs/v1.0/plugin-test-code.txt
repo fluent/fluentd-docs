@@ -442,6 +442,10 @@ Collect filtered records.
 
 #### run(flush: true, wait_flush_completion: true, force_flush_retry: false, **kwargs, &block)
 
+- `flush`: flush forcibly.
+- `wait_flush_completion`: if true, waiting for flush completion.
+- `force_flush_retry`: if true, retrying flush forcibly.
+
 Run Test Driver. Stop running Test Driver after evaluate block if block given.
 
 Otherwise, you must register conditions to stop running Test Driver.
