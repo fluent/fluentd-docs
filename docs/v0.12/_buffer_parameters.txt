@@ -14,7 +14,9 @@ The interval between data flushes. The default is 60s. The suffixes “s” (sec
 If set to true, Fluentd waits for the buffer to flush at shutdown. By default, it is set to true for Memory Buffer and false for File Buffer.
 
 ### retry_wait, max_retry_wait
-The initial and maximum intervals between write retries.  The default values are 1.0 seconds and unset (no limit).  The interval doubles (with +/-12.5% randomness) every retry until `max_retry_wait` is reached.  In the default configuration the last retry waits for approximately 131072 sec, roughly 36 hours.
+The initial and maximum intervals between write retries.  The default values are 1.0 seconds and unset (no limit).  The interval doubles (with +/-12.5% randomness) every retry until `max_retry_wait` is reached.
+
+Since td-agent will retry 17 times before giving up by default (see the `retry_limit` parameter for details), the sleep interval can be up to approximately 131072 seconds (roughly 36 hours) in the default configurations.
 
 ### retry_limit, disable_retry_limit
 The limit on the number of retries before buffered data is discarded, and an
