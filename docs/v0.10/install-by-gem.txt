@@ -17,8 +17,6 @@ Fetch and install the `fluentd` Ruby gem using the `gem` command. The official r
     :::term
     $ gem install fluentd -v "~> 0.10.0" --no-ri --no-rdoc
 
-NOTE: If you need <b>Security Tested Binary</b> with a clear life cycle management, please check the <a href="http://www.fluentd.org/enterprise">Enterprise Offering</a>.
-
 ## Step3: Run
 
 Run the following commands to confirm that Fluentd was installed successfully:

@@ -1,6 +1,6 @@
 # Quickstart Guide
 
-Let's get started with **Fluentd**! **Fluentd** is a fully free and fully open-source log collector that instantly enables you to have a '**Log Everything**' architecture with <a href="http://fluentd.org/plugin/">600+ types of systems</a>. If you need a secure, stable, and enterprise grade version <a href="https://www.fluentd.org/enterprise"> Fluentd Enterprise </a> is available.
+Let's get started with **Fluentd**! **Fluentd** is a fully free and fully open-source log collector that instantly enables you to have a '**Log Everything**' architecture with <a href="http://fluentd.org/plugin/">600+ types of systems</a>.
 
 <center>
 <img src="/images/fluentd-architecture.png" width="450px"/><br /><br />

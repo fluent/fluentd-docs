@@ -393,8 +393,3 @@ section 'developer', 'Developer' do
     article 'logo', 'Logo'
   end
 end
-section 'enterprise-edition', 'Enterprise Edition' do
-  category 'enterprise-support-portal', 'Support Portal' do
-    article 'enterprise-support-portal', 'Support Portal'
-  end
-end

@@ -12,8 +12,6 @@ Please follow the [Preinstallation Guide](before-install) to configure your OS p
 
 It's HIGHLY recommended that you set up <b>ntpd</b> on the node to prevent invalid timestamps in your logs. Please check the [Preinstallation Guide](before-install).
 
-NOTE: If you need <b>Security Tested Binary</b> with a clear life cycle management, please check the <a href="http://www.fluentd.org/enterprise">Enterprise Offering</a>.
-
 ### Redhat / CentOS
 
 CentOS and RHEL 6, 7 64bit are currently supported.

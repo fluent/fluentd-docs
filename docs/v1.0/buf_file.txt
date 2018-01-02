@@ -61,10 +61,6 @@ Here is the correct version to avoid prefix problem.
       </buffer>
     </match>
 
-## Security
-
-By default, buffer file is located on the disk as a [MessagePack format](http://www.msgpack.org/). If you need an additional encryption for the buffer, please check the <a href="http://www.fluentd.org/enterprise">Enterprise Offering</a>.
-
 ## Limitation
 
 Caution, `file` buffer implementation depends on the characteristics of local file system. Don't use `file` buffer on remote file system, e.g. NFS, GlusterFS, HDFS and etc. We observed major data loss by using remote file system.

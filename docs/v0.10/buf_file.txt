@@ -61,10 +61,6 @@ If true, queued chunks are flushed at shutdown process. The default is `false`.
 #### retry_wait
 The interval between retries. The suffixes “s” (seconds), “m” (minutes), and “h” (hours) can be used.
 
-## Security
-
-By default, buffer file is located on the disk as a [MessagePack format](http://www.msgpack.org/). If you need an additional encryption for the buffer, please check the <a href="http://www.fluentd.org/enterprise">Enterprise Offering</a>.
-
 Limitation
 
 ## Caution
