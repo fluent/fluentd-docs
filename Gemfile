@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # https://devcenter.heroku.com/articles/ruby-versions
-ruby '2.4.0'
+ruby '2.5.0'
 
 gem 'sinatra', '1.3.6'
 gem 'sinatra-assetpack', '0.3.5', :require => 'sinatra/assetpack'
@@ -23,8 +23,7 @@ gem 'unicorn', '~> 5.2.0'
 gem 'unicorn-worker-killer', '~> 0.4.4'
 
 # Addons
-gem 'newrelic_rpm', '~> 3.4.1'
-gem 'indextank', '~> 1.0.12'
+gem 'newrelic_rpm', '~> 3.18.1'
 gem 'airbrake', '~> 3.1.5'
 
 # Dev
