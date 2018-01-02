@@ -1,6 +1,6 @@
 test:
-  post:
-    - echo 'none'
+  override:
+    - echo "test"
 
 deployment:
   production:
