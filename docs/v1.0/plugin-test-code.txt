@@ -180,11 +180,11 @@ Return true when some of the breaking conditions are true. Otherwise false.
 
 #### run(timeout: nil, start: true, shutdown: true, &block)
 
-Run Test Driver. Stop running Test Driver after evaluate block if block given.
+Run Test Driver. This Test Driver will be stop running immediately after evaluating block if block given.
 
 Otherwise, you must register conditions to stop running Test Driver.
 
-This method may overwrite in subclass.
+This method may be overridden in subclasses.
 
 - `timeout`: timeout in seconds.
 - `start`: if true, start running Test Driver. Otherwise you should start running Test Driver like `d.instance_start`
@@ -223,11 +223,11 @@ filter, output, multi_output
 
 #### run(expect_emits: nil, expect_records: nil, timeout: nil, start: true, shutdown: true, &block)
 
-Run Test Driver. Stop running Test Driver after evaluate block if block given.
+Run Test Driver. This Test Driver will be stop running immediately after evaluating block if block given.
 
 Otherwise, you must register conditions to stop running Test Driver.
 
-This method may overwrite in subclass.
+This method may be overridden in subclasses.
 
 - `expect_emits`: Set the number of expected emits.
 - `expect_records`: Set the number of expected records.
@@ -254,7 +254,7 @@ Code example:
 
 Returns the events filtered by given tag.
 
-- `tag`: filter by this tag. Returns all events when omit this parameter.
+- `tag`: filter by this tag. Returns all events when this parameter is omitted.
 
 #### event_streams(tag: nil)
 
@@ -446,7 +446,7 @@ Collect filtered records.
 - `wait_flush_completion`: if true, waiting for flush completion.
 - `force_flush_retry`: if true, retrying flush forcibly.
 
-Run Test Driver. Stop running Test Driver after evaluate block if block given.
+Run Test Driver. This Test Driver will be stop running immediately after evaluating block if block given.
 
 Otherwise, you must register conditions to stop running Test Driver.
 
