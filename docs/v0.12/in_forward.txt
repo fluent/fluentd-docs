@@ -74,6 +74,10 @@ Multiple messages may be sent in the same connection.
       ["myapp.access", 1308466941, {"a":1}]["myapp.messages", 1308466942, {"b":2}]
       ["myapp.access", [[1308466941, {"a":1}], [1308466942, {"b":2}]]]
 
+### Communication with v1.0
+
+v0.12 `in_forward` can't accept data from v1.0 `out_forward` because time format is different.
+If you want to forward data from v1.0 to v0.12, set `time_as_integer` in v1.0 `out_forward`.
 
 ## FAQ
 
@@ -89,4 +93,4 @@ See Docker logging driver usecase: [Docker Logging](http://www.fluentd.org/guide
 ### I got MessagePack::UnknownExtTypeError error. Why?
 
 This error happens when forwarder's fluentd is v0.14 and receiver's fluentd is 0.12.
-To avoid this problem, set `time_as_integer` to `out_forward` setting in v0.14 fluentd.
+To avoid this problem, set `time_as_integer` to `out_forward` setting in v0.14/v1.0 fluentd.
