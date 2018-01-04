@@ -92,5 +92,6 @@ See Docker logging driver usecase: [Docker Logging](http://www.fluentd.org/guide
 
 ### I got MessagePack::UnknownExtTypeError error. Why?
 
-This error happens when forwarder's fluentd is v0.14 and receiver's fluentd is 0.12.
+This error happens when forwarder's fluentd is v0.14/v1.0 and receiver's fluentd is 0.12.
 To avoid this problem, set `time_as_integer` to `out_forward` setting in v0.14/v1.0 fluentd.
+See "Communication with v1.0".
