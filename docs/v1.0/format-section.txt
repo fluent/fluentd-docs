@@ -14,7 +14,7 @@ Format section can be in ``<match>`` or ``<filter>`` sections.
       </format>
     </match>
 
-## format plugin type
+## formatter plugin type
 
 ``<format>`` section requires ``@type`` parameter to specify the type of formatter plugin.
 Fluentd core bundles [some useful formatter plugins](formatter-plugin-overview). 3rd party plugins are also available when installed.
@@ -22,6 +22,16 @@ Fluentd core bundles [some useful formatter plugins](formatter-plugin-overview).
     <format>
       @type json
     </format>
+
+These are the list of built-in formatter plugins.
+
+* [out_file](formatter_out_file)
+* [json](formatter_json)
+* [ltsv](formatter_ltsv)
+* [csv](formatter_csv)
+* [msgpack](formatter_msgpack)
+* [hash](formatter_hash)
+* [single_value](formatter_single_value)
 
 For more details, see plugins documentation.
 

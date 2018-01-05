@@ -69,20 +69,20 @@ section 'configuration', 'Configuration' do
   category 'routing-examples', 'Routing Examples' do
     article 'routing-examples', 'Routing Examples'
   end
-  category 'plugin-common-parameters', 'Plugin: Common Parameters' do
-    article 'plugin-common-parameters', 'Plugin: Common Parameters'
+  category 'plugin-common-parameters', 'Config: Common Parameters' do
+    article 'plugin-common-parameters', 'Common Parameters'
   end
-  category 'plugin-parse-section', 'Plugin: Parse Section' do
+  category 'plugin-parse-section', 'Config: Parse Section' do
     article 'parse-section', 'Parse section'
   end
-  category 'plugin-buffer-section', 'Plugin: Buffer Section' do
+  category 'plugin-buffer-section', 'Config: Buffer Section' do
     article 'buffer-section', 'Buffer section'
   end
-  category 'plugin-format-section', 'Plugin: Format Section' do
+  category 'plugin-format-section', 'Config: Format Section' do
     article 'format-section', 'Format section'
   end
 
-  category 'plugin-advanced-sections', 'Plugin: Advanced Sections' do
+  category 'plugin-advanced-sections', 'Config: Advanced Sections' do
     article 'inject-section', 'Inject section'
     article 'extract-section', 'Extract section'
     article 'storage-section', 'Storage section'

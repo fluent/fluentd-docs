@@ -20,13 +20,20 @@ Buffer section must be in ``<match>`` sections. It's enabled for output plugins 
 
 ## buffer plugin type
 
-``<buffer>`` section accepts ``@type`` parameter to specify the type of buffer plugin. Fluentd core bundles ``memory`` and ``file`` plugins. 3rd party plugins are also available when installed.
+``<buffer>`` section accepts ``@type`` parameter to specify the type of buffer plugin.
 
     <buffer>
       @type file
     </buffer>
 
+Fluentd core bundles ``memory`` and ``file`` plugins. 3rd party plugins are also available when installed.
+
+* [buf_file Plugin](buf_file)
+* [buf_memory Plugin](buf_memory)
+
 ``@type`` can be omitted. When ``@type`` parameter is not configured, the default buffer plugin specified by output plugin will be used (if possible), or ``memory`` buffer plugin in default.
+
+NOTE: For the majority of the workload, we always recommend to use the file buffer which gives you more durability.
 
 ## Chunk keys
 

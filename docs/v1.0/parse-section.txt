@@ -36,6 +36,20 @@ For more details, see plugins documentation.
       # ...
     </parse>
 
+These parsers are built-in by default.
+
+* [regexp](parser_regexp)
+* [apache2](parser_apache2)
+* [apache_error](parser_apache_error)
+* [nginx](parser_nginx)
+* [syslog](parser_syslog)
+* [csv](parser_csv)
+* [tsv](parser_tsv)
+* [ltsv](parser_ltsv)
+* [json](parser_json)
+* [multiline](parser_multiline)
+* [none](parser_none)
+
 ### Parse parameters
 
 These parameters default value will be overwritten by individual parser plugins.
