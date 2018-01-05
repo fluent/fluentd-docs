@@ -19,7 +19,7 @@ The `in_udp` Input plugin enables Fluentd to accept UDP payload.
       message_length_limit 1MB # optional. 4096 bytes by default
     </source>
 
-NOTE: Please see the LINK:[Config File](config-file) article for the basic structure and syntax of the configuration file.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file. For &lt;parse&gt; section, please check <a href="parse-section">Parse section cofiguration</a>.
 
 ## Plugin helpers
 

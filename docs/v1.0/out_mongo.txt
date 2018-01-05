@@ -53,7 +53,7 @@ For more details, see [Plugin Management](plugin-management).
 
 Please see the [Store Apache Logs into MongoDB](apache-to-mongodb) article for real-world use cases.
 
-NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file. For &lt;buffer&gt; section, please check <a href="buffer-section">Buffer section cofiguration</a>.
 
 ## Parameters
 
@@ -161,9 +161,12 @@ This option will allow out_mongo to use Fluentd's tag to determine the destinati
 
 This option is useful for flexible log collection.
 
-## Common Buffer / Output parameters
-See [Buffer Plugin Overview](buffer-plugin-overview) and [Output Plugin Overview](output-plugin-overview)
+## Common Output / Buffer parameters
 
+For common output / buffer parameters, please check the following articles.
+
+* [Output Plugin Overview](output-plugin-overview)
+* [Buffer Section Configuration](buffer-section)
 
 ## Further Reading
 - [fluent-plugin-mongo repository](https://github.com/fluent/fluent-plugin-mongo)

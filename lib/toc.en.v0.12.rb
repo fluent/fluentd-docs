@@ -139,11 +139,8 @@ section 'plugin', 'Input Plugins' do
   category 'input-plugin-overview', 'Overview' do
     article 'input-plugin-overview', 'Input Plugin Overview'
   end
-  category 'in_udp', 'in_udp' do
-    article 'in_udp', 'UDP Input Plugin'
-  end
-  category 'in_tcp', 'in_tcp' do
-    article 'in_tcp', 'TCP Input Plugin'
+  category 'in_tail', 'in_tail' do
+    article 'in_tail', 'tail Input Plugin'
   end
   category 'in_forward', 'in_forward' do
     article 'in_forward', 'forward Input Plugin'
@@ -151,20 +148,23 @@ section 'plugin', 'Input Plugins' do
   category 'in_secure_forward', 'in_secure_forward' do
     article 'in_secure_forward', 'secure_forward Intput Plugin', ['SSL', 'authentication']
   end
+  category 'in_udp', 'in_udp' do
+    article 'in_udp', 'UDP Input Plugin'
+  end
+  category 'in_tcp', 'in_tcp' do
+    article 'in_tcp', 'TCP Input Plugin'
+  end
   category 'in_http', 'in_http' do
     article 'in_http', 'http Input Plugin'
   end
   category 'in_unix', 'in_unix' do
     article 'in_unix', 'UDS Input Plugin'
   end
-  category 'in_tail', 'in_tail' do
-    article 'in_tail', 'tail Input Plugin'
+  category 'in_syslog', 'in_syslog' do
+    article 'in_syslog', 'syslog Input Plugin', ['Syslog']
   end
   category 'in_exec', 'in_exec' do
     article 'in_exec', 'exec Input Plugin'
-  end
-  category 'in_syslog', 'in_syslog' do
-    article 'in_syslog', 'syslog Input Plugin', ['Syslog']
   end
   category 'in_scribe', 'in_scribe' do
     article 'in_scribe', 'scribe Input Plugin', ['Scribe', 'Facebook']
@@ -185,6 +185,12 @@ section 'output-plugins', 'Output Plugins' do
   end
   category 'out_file', 'out_file' do
     article 'out_file', 'file Output Plugin'
+  end
+  category 'out_s3', 'out_s3' do
+    article 'out_s3', 'S3 Output Plugin', ['Amazon S3', 'AWS', 'Simple Storage Service']
+  end
+  category 'out_kafka', 'out_kafka' do
+    article 'out_kafka', 'Kafka Output Plugin'
   end
   category 'out_forward', 'out_forward' do
     article 'out_forward', 'forward Output Plugin'
@@ -213,14 +219,11 @@ section 'output-plugins', 'Output Plugins' do
   category 'out_null', 'out_null' do
     article 'out_null', 'null Output Plugin'
   end
-  category 'out_s3', 'out_s3' do
-    article 'out_s3', 'S3 Output Plugin', ['Amazon S3', 'AWS', 'Simple Storage Service']
+  category 'out_webhdfs', 'out_webhdfs' do
+    article 'out_webhdfs', 'WebHDFS Output Plugin', ['Hadoop', 'HDFS']
   end
-   category 'out_splunk', 'out_splunk' do
+  category 'out_splunk', 'out_splunk' do
     article 'out_splunk', 'Splunk Output Plugin Overview'
-  end
-  category 'out_kafka', 'out_kafka' do
-    article 'out_kafka', 'Kafka Output Plugin'
   end
   category 'out_mongo', 'out_mongo' do
     article 'out_mongo', 'MongoDB Output Plugin', ['MongoDB']
@@ -233,9 +236,6 @@ section 'output-plugins', 'Output Plugins' do
   end
   category 'out_rewrite_tag_filter', 'out_rewrite_tag_filter' do
     article 'out_rewrite_tag_filter', 'rewrite_tag_filter Output Plugin'
-  end
-  category 'out_webhdfs', 'out_webhdfs' do
-    article 'out_webhdfs', 'WebHDFS Output Plugin', ['Hadoop', 'HDFS']
   end
   category 'out_others', 'Others' do
     article 'out_others', 'Other Output Plugins'

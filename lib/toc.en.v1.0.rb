@@ -4,9 +4,6 @@ section 'overview', 'Overview' do
   category 'getting-started', 'Getting Started' do
     article 'quickstart', 'Getting Started with Fluentd'
   end
-  category 'life-of-a-fluentd-event', 'Life of a Fluentd event' do
-    article 'life-of-a-fluentd-event', 'Life of a Fluentd event'
-  end
   category 'installation', 'Installation' do
     article 'before-install', 'Before Installing Fluentd'
     article 'install-by-rpm', 'Installing Fluentd using RPM Package (Redhat Linux)'
@@ -18,6 +15,9 @@ section 'overview', 'Overview' do
     article 'install-from-source', 'Installing Fluentd from Source'
     # article 'install-on-heroku', 'Installing Fluentd on Heroku'
     # article 'install-on-beanstalk', 'Installing Fluentd on AWS Elastic Beanstalk'
+  end
+  category 'life-of-a-fluentd-event', 'Life of a Fluentd event' do
+    article 'life-of-a-fluentd-event', 'Life of a Fluentd event'
   end
   category 'support', 'Support' do
     article 'support', 'Support'
@@ -69,19 +69,26 @@ section 'configuration', 'Configuration' do
   category 'routing-examples', 'Routing Examples' do
     article 'routing-examples', 'Routing Examples'
   end
-#   category 'recipes', 'Recipes' do
-#     article "common-log-formats", "Parsing Common Log Formats"
-#     for recipe in Dir.entries("#{settings.root}/docs/v0.14").grep(/^recipe-/)
-#       recipe.chomp!(".txt")
-#       article recipe, (recipe.split("-").map {|w|
-#         if /json|csv|tsv/.match(w)
-#           w.upcase
-#         else
-#           w.capitalize
-#         end
-#       }).join(" ")
-#     end
-#   end
+  category 'plugin-common-parameters', 'Plugin: Common Parameters' do
+    article 'plugin-common-parameters', 'Plugin: Common Parameters'
+  end
+  category 'plugin-parse-section', 'Plugin: Parse Section' do
+    article 'parse-section', 'Parse section'
+  end
+  category 'plugin-buffer-section', 'Plugin: Buffer Section' do
+    article 'buffer-section', 'Buffer section'
+  end
+  category 'plugin-format-section', 'Plugin: Format Section' do
+    article 'format-section', 'Format section'
+  end
+
+  category 'plugin-advanced-sections', 'Plugin: Advanced Sections' do
+    article 'inject-section', 'Inject section'
+    article 'extract-section', 'Extract section'
+    article 'storage-section', 'Storage section'
+    article 'transport-section', 'Transport section'
+  end
+
 end
 section 'deployment', 'Deployment' do
   category 'system-config', 'System Configuration' do
@@ -106,7 +113,8 @@ section 'deployment', 'Deployment' do
     article 'failure-scenarios', 'Failure Scenarios'
   end
   category 'performance-tuning', 'Performance Tuning' do
-    article 'performance-tuning', 'Performance Tuning'
+    article 'performance-tuning-single-process', 'Performance Tuning (Single Process)'
+    article 'performance-tuning-multi-process', 'Performance Tuning (Multi Process)'
   end
   category 'plugin-management', 'Plugin Management' do
     article 'plugin-management', 'Plugin Management'
@@ -128,8 +136,11 @@ section 'plugin', 'Input Plugins' do
   category 'input-plugin-overview', 'Overview' do
     article 'input-plugin-overview', 'Input Plugin Overview'
   end
-  category 'in_windows_eventlog', 'in_windows_eventlog' do
-    article 'in_windows_eventlog', 'Windows Event Log Input Plugin'
+  category 'in_tail', 'in_tail' do
+    article 'in_tail', 'tail Input Plugin'
+  end
+  category 'in_forward', 'in_forward' do
+    article 'in_forward', 'forward Input Plugin'
   end
   category 'in_udp', 'in_udp' do
     article 'in_udp', 'UDP Input Plugin'
@@ -137,23 +148,17 @@ section 'plugin', 'Input Plugins' do
   category 'in_tcp', 'in_tcp' do
     article 'in_tcp', 'TCP Input Plugin'
   end
-  category 'in_forward', 'in_forward' do
-    article 'in_forward', 'forward Input Plugin'
-  end
   category 'in_http', 'in_http' do
     article 'in_http', 'http Input Plugin'
+  end
+  category 'in_syslog', 'in_syslog' do
+    article 'in_syslog', 'syslog Input Plugin', ['Syslog']
   end
   # category 'in_unix', 'in_unix' do
   #   article 'in_unix', 'UDS Input Plugin'
   # end
-  category 'in_tail', 'in_tail' do
-    article 'in_tail', 'tail Input Plugin'
-  end
   category 'in_exec', 'in_exec' do
     article 'in_exec', 'exec Input Plugin'
-  end
-  category 'in_syslog', 'in_syslog' do
-    article 'in_syslog', 'syslog Input Plugin', ['Syslog']
   end
   category 'in_dummy', 'in_dummy' do
     article 'in_dummy', 'Dummy Input Plugin'
@@ -161,6 +166,9 @@ section 'plugin', 'Input Plugins' do
   # category 'in_others', 'Others' do
   #   article 'in_others', 'Other Input Plugins'
   # end
+  category 'in_windows_eventlog', 'in_windows_eventlog' do
+    article 'in_windows_eventlog', 'Windows Event Log Input Plugin'
+  end
 end
 section 'output-plugins', 'Output Plugins' do
   category 'output-plugin-overview', 'Overview' do
@@ -168,6 +176,12 @@ section 'output-plugins', 'Output Plugins' do
   end
   category 'out_file', 'out_file' do
     article 'out_file', 'file Output Plugin'
+  end
+  category 'out_s3', 'out_s3' do
+    article 'out_s3', 'S3 Output Plugin', ['Amazon S3', 'AWS', 'Simple Storage Service']
+  end
+  category 'out_elasticsearch', 'out_elasticsearch' do
+    article 'out_elasticsearch', 'Elasticsearch Output Plugin', ['Elasticsearch']
   end
   category 'out_forward', 'out_forward' do
     article 'out_forward', 'forward Output Plugin'
@@ -193,9 +207,6 @@ section 'output-plugins', 'Output Plugins' do
   category 'out_null', 'out_null' do
     article 'out_null', 'null Output Plugin'
   end
-  category 'out_s3', 'out_s3' do
-    article 'out_s3', 'S3 Output Plugin', ['Amazon S3', 'AWS', 'Simple Storage Service']
-  end
   category 'out_mongo', 'out_mongo' do
      article 'out_mongo', 'MongoDB Output Plugin', ['MongoDB']
   end
@@ -210,9 +221,6 @@ section 'output-plugins', 'Output Plugins' do
   end
   category 'out_webhdfs', 'out_webhdfs' do
     article 'out_webhdfs', 'WebHDFS Output Plugin', ['Hadoop', 'HDFS']
-  end
-  category 'out_elasticsearch', 'out_elasticsearch' do
-    article 'out_elasticsearch', 'Elasticsearch Output Plugin', ['Elasticsearch']
   end
   # category 'out_others', 'Others' do
   #   article 'out_others', 'Other Output Plugins'
@@ -238,21 +246,6 @@ section 'filter-plugins', 'Filter Plugins' do
     article 'filter_stdout', 'stdout Filter Plugin'
   end
 end
-section 'common-sections', 'Common Sections' do
-  category 'plugin-common-parameters', 'Common Parameters' do
-    article 'plugin-common-parameters', 'Common Parameters'
-  end
-  category 'plugin-helper-sections', 'Sections' do
-    article 'buffer-section', 'Buffer section'
-    article 'parse-section', 'Parse section'
-    article 'format-section', 'Format section'
-    article 'inject-section', 'Inject section'
-    article 'extract-section', 'Extract section'
-    article 'storage-section', 'Storage section'
-    article 'transport-section', 'Transport section'
-  end
-end
-
 section 'parser-plugins', 'Parser Plugins' do
   category 'parser-plugin-overview', 'Overview' do
     article 'parser-plugin-overview', 'Parser Plugin Overview'

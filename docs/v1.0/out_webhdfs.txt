@@ -1,6 +1,8 @@
 # HDFS (WebHDFS) Output Plugin
 
-The `out_webhdfs` Output plugin writes records into HDFS (Hadoop Distributed File System). By default, it creates files on an hourly basis. This means that when you first import records using the plugin, no file is created immediately. The file will be created when the `timekey` condition has been met. To change the output frequency, please modify the `timekey` value.
+The `out_webhdfs` Output plugin writes records into HDFS (Hadoop Distributed File System). By default, it creates files on an hourly basis. This means that when you first import records using the plugin, no file is created immediately.
+
+The file will be created when the `timekey` condition has been met. To change the output frequency, please modify the `timekey` value.
 
 NOTE: This document doesn't describe all parameters. If you want to know full features, check the Further Reading section.
 
@@ -45,7 +47,7 @@ Append operations are not enabled by default on CDH. Please put these configurat
 
 Please see the [Fluentd + HDFS: Instant Big Data Collection](http-to-hdfs) article for real-world use cases.
 
-NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file. For &lt;buffer&gt; section, please check <a href="buffer-section">Buffer section cofiguration</a>.
 
 ## Plugin helpers
 
@@ -115,8 +117,12 @@ The number of threads to flush the buffer. This option can be used to paralleliz
 
 INCLUDE: _log_level_params
 
-## Common Buffer / Output parameters
-See [Buffer Plugin Overview](buffer-plugin-overview) and [Output Plugin Overview](output-plugin-overview)
+## Common Output / Buffer parameters
+
+For common output / buffer parameters, please check the following articles.
+
+* [Output Plugin Overview](output-plugin-overview)
+* [Buffer Section Configuration](buffer-section)
 
 ## Further Reading
 - [fluent-plugin-webhdfs repository](https://github.com/fluent/fluent-plugin-webhdfs)

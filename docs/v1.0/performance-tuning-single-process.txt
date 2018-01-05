@@ -1,4 +1,12 @@
-# Performance Tuning
+# Performance Tuning (Single Process)
+
+This article describes how to optimize Fluentd's performance within single process. If your traffic is up to 5,000 messages/sec, the following techniques should be enough.
+
+With more traffic, Fluentd tends to be more CPU bound. In such case, please also visit [Performance Tuning (Multi-Process)](performance-tuning-multi-process) to utilize multiple CPU cores.
+
+## Check your OS configuration
+
+Please follow the [Preinstallation Guide](before-install) to configure your OS properly. This can drastically improve the performance, and prevent many unnecessary problems.
 
 ## Check top command
 

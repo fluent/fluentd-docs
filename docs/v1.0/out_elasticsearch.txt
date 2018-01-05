@@ -1,6 +1,8 @@
 # Elasticsearch Output Plugin
 
-The `out_elasticsearch` Output plugin writes records into Elasticsearch. By default, it creates records by bulk write operaion. This means that when you first import records using the plugin, no record is created immediately. The record will be created when the `chunk_keys` condition has been met. To change the output frequency, please specify the `time` in chunk_keys and specify `timekey` value in conf.
+The `out_elasticsearch` Output plugin writes records into Elasticsearch. By default, it creates records by bulk write operaion. This means that when you first import records using the plugin, no record is created immediately.
+
+The record will be created when the `chunk_keys` condition has been met. To change the output frequency, please specify the `time` in chunk_keys and specify `timekey` value in conf.
 
 NOTE: This document doesn't describe all parameters. If you want to know full features, check the Further Reading section.
 
@@ -24,7 +26,7 @@ Additional configurations are optional.
       type_name fluentd
     </match>
 
-Some of configuration values are described the following section.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file. For &lt;buffer&gt; section, please check <a href="buffer-section">Buffer section cofiguration</a>.
 
 ## Plugin helpers
 
@@ -103,8 +105,12 @@ But,
 
 are invalid configuration.
 
-## Common Buffer / Output parameters
-See [Buffer Plugin Overview](buffer-plugin-overview) and [Output Plugin Overview](output-plugin-overview)
+## Common Output / Buffer parameters
+
+For common output / buffer parameters, please check the following articles.
+
+* [Output Plugin Overview](output-plugin-overview)
+* [Buffer Section Configuration](buffer-section)
 
 ## Further Reading
 - [fluent-plugin-elasticsearch repository](https://github.com/uken/fluent-plugin-elasticsearch)

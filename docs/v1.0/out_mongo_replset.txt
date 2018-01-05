@@ -37,7 +37,7 @@ Fluentd enables your apps to insert records to MongoDB asynchronously with batch
 
 Please see the [Store Apache Logs into MongoDB](apache-to-mongodb) article for real-world use cases.
 
-NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file. For &lt;buffer&gt; section, please check <a href="buffer-section">Buffer section cofiguration</a>.
 
 ## Parameters
 
@@ -152,9 +152,12 @@ The ReplicaSet read preference (e.g. secondary, etc).
 
 The ReplicaSet failover threshold. The default threshold is 60. If the retry count reaches this threshold, the plugin raises an exception.
 
-## Common Buffer / Output parameters
-See [Buffer Plugin Overview](buffer-plugin-overview) and [Output Plugin Overview](output-plugin-overview)
+## Common Output / Buffer parameters
 
+For common output / buffer parameters, please check the following articles.
+
+* [Output Plugin Overview](output-plugin-overview)
+* [Buffer Section Configuration](buffer-section)
 
 ## Further Readings
 - [fluent-plugin-webhdfs mongo](https://github.com/fluent/fluent-plugin-mongo)

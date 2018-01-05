@@ -23,7 +23,7 @@ You can run a program periodically or permanently. To run periodically, please u
       run_interval 10s
     </source>
 
-NOTE: Please see the LINK:[Config File](config-file) article for the basic structure and syntax of the configuration file.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
 ## Plugin helpers
 

@@ -1,6 +1,8 @@
 # file Output Plugin
 
-The `out_file` Output plugin writes events to files. By default, it creates files on a daily basis (around 00:10). This means that when you first import records using the plugin, no file is created immediately. The file will be created when the `timekey` condition has been met. To change the output frequency, please modify the `timekey` value.
+The `out_file` Output plugin writes events to files. By default, it creates files on a daily basis (around 00:10). This means that when you first import records using the plugin, no file is created immediately.
+
+The file will be created when the `timekey` condition has been met. To change the output frequency, please modify the `timekey` value.
 
 ## Example Configuration
 
@@ -18,7 +20,7 @@ The `out_file` Output plugin writes events to files. By default, it creates file
       </buffer>
     </match>
 
-NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file. For &lt;buffer&gt; section, please check <a href="buffer-section">Buffer section cofiguration</a>.
 
 ## Plugin helpers
 
@@ -101,6 +103,9 @@ This is disabled on Windows.
 
 INCLUDE: _log_level_params
 
-## Common Buffer / Output parameters
+## Common Output / Buffer parameters
 
-See [Buffer Plugin Overview](buffer-plugin-overview) and [Output Plugin Overview](output-plugin-overview)
+For common output / buffer parameters, please check the following articles.
+
+* [Output Plugin Overview](output-plugin-overview)
+* [Buffer Section Configuration](buffer-section)
