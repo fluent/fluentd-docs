@@ -24,15 +24,18 @@ If your console shows `1024`, it is insufficient. Please add following lines to 
 
 ## Optimize Network Kernel Parameters
 
-For high load environments consisting of many Fluentd instances, please add these parameters to your `/etc/sysctl.conf` file. Please either type `sysctl -p` or reboot your node to have the changes take effect. If your environment doesn't have a problem with TCP_WAIT, then these changes are not needed.
+For high load environments consisting of many Fluentd instances, please add these parameters to your `/etc/sysctl.conf` file. Please either type `sysctl -p` or reboot your node to have the changes take effect.
 
     :::term
-    net.ipv4.tcp_tw_recycle = 1
+    net.core.somaxconn = 1024
+    net.core.netdev_max_backlog = 5000
+    net.core.rmem_max = 16777216
+    net.core.wmem_max = 16777216
+    net.ipv4.tcp_wmem = 4096 12582912 16777216
+    net.ipv4.tcp_rmem = 4096 12582912 16777216
+    net.ipv4.tcp_max_syn_backlog = 8096
+    net.ipv4.tcp_slow_start_after_idle = 0
     net.ipv4.tcp_tw_reuse = 1
-    net.ipv4.ip_local_port_range = 10240    65535
+    net.ipv4.ip_local_port_range = 10240 65535
 
-NOTE: <code>net.ipv4.tcp_tw_recycle</code> option is <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=4396e46187ca5070219b81773c4e65088dac50cc">removed</a> since Linux kernel v4.12 (typing <code>uname -r</code> shows your version). Even in previous versions, you should not change this option if source servers locate behind a NAT, in which case source IPs are unique for multiple sources.
-
-
-
-
+These kernel options were originally taken from the presentation "<a href="https://www.slideshare.net/brendangregg/how-netflix-tunes-ec2-instances-for-performance">How Netflix Tunes EC2 Instances for Performance</a>" by <a href="http://www.brendangregg.com/">Brendan Gregg</a>, Senior Performance Architect at AWS re:Invent 2017.
