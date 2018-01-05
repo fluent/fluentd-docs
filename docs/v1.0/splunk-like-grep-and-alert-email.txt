@@ -13,12 +13,14 @@ By the way, Splunk happens to be quite expensive. If you're interested in a free
 Please install `fluent-plugin-grepcounter` by running:
 
     :::term
-    $ gem install fluent-plugin-grepcounter
+    $ sudo /usr/sbin/td-agent-gem install fluent-plugin-grepcounter
 
 Next, please install `fluent-plugin-mail` by running:
 
     :::term
-    $ gem install fluent-plugin-mail
+    $ sudo /usr/sbin/td-agent-gem install fluent-plugin-mail
+
+Note: If you installed Fluentd using ruby gems, use `gem` command instead of `td-agent-gem`.
 
 ## Configuration
 
@@ -80,7 +82,9 @@ Here is an example configuration file. It's a bit long, but each part is well-co
       </store>
     </match>
 
-Save the above into your own configuration file (**We assume it's called `test.conf` for the rest of this page**). Make sure your SMTP is configured correctly (otherwise, you will get a warning when you run the program).
+Save your settings to `/etc/td-agent/td-agent.conf` (If you installed Fluentd without td-agent, save the content as 'alert-email.conf' instead).
+
+Please make sure your SMTP configuration is correct before continuing. Otherwise, you will get warnings when you try to run this example.
 
 ### What the Configuration File Does
 
@@ -94,12 +98,17 @@ We can do all this **without writing a single line of code or paying a dime!**
 
 ## Testing
 
-Just run
+After saving the configurations, restart the td-agent process:
 
     :::term
-    $ fluentd -c test.conf
+    # for init.d users
+    $ sudo /etc/init.d/td-agent restart
+    # for systemd users
+    $ sudo systemctl restart td-agent
 
-to start Fluentd.
+If you installed the standalone version of Fluentd, launch the fluentd process manually:
+
+    $ fluentd -c alart-email.conf
 
 To trigger the alert email, you can either manually append a 5xx error log line to your Apache log or visit (on the same server)
 
