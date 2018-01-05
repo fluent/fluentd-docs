@@ -58,7 +58,7 @@ These parameters default value will be overwritten by individual parser plugins.
   * Default: `nil`
   * string-based hash: `field1:type, field2:type, field3:type:option, field4:type:option`
   * JSON format:  `{"field1":"type", "field2":"type", "field3":"type:option", "field4":"type:option"}`
-* **time_key** (strint) (optional): Specify time field for event time.
+* **time_key** (strint) (optional): Specify time field for event time. If the event doesn't have this field, current time is used.
   * Default: `nil`
 * **null_value_pattern** (string) (optional): Specify null value pattern.
   * Default: `nil`

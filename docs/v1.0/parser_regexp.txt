@@ -1,6 +1,6 @@
 # regexp Parser Plugin
 
-The `regexp` parser plugin parses logs by given regexp pattern. The regexp must have at least one named capture (?&lt;NAME&gt;PATTERN). If the regexp has a capture named `time`, this is configurable, it is used as the time of the event. You can specify the time format using the time_format parameter.
+The `regexp` parser plugin parses logs by given regexp pattern. The regexp must have at least one named capture (?&lt;NAME&gt;PATTERN). If the regexp has a capture named `time`, this is configurable via `time_key` parameter, it is used as the time of the event. You can specify the time format using the time_format parameter.
 
     :::text
     <parse>
@@ -10,7 +10,7 @@ The `regexp` parser plugin parses logs by given regexp pattern. The regexp must 
 
 ## Parameters
 
-See [Parse section configurations](parse-section)
+See [Parse section configurations](parse-section) for common parameters.
 
 ### expression
 
