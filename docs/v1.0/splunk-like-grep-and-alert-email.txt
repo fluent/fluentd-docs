@@ -22,7 +22,8 @@ Next, please install `fluent-plugin-mail` by running:
 
 ## Configuration
 
-###Configuration File: Soup to Nuts
+### Configuration File: Soup to Nuts
+
 Here is an example configuration file. It's a bit long, but each part is well-commented, so don't be afraid.
 
     :::text
@@ -81,7 +82,7 @@ Here is an example configuration file. It's a bit long, but each part is well-co
 
 Save the above into your own configuration file (**We assume it's called `test.conf` for the rest of this page**). Make sure your SMTP is configured correctly (otherwise, you will get a warning when you run the program).
 
-###What the Configuration File Does
+### What the Configuration File Does
 
 The config above does three things:
 
@@ -91,7 +92,7 @@ The config above does three things:
 
 We can do all this **without writing a single line of code or paying a dime!**
 
-##Testing
+## Testing
 
 Just run
 
@@ -105,9 +106,9 @@ To trigger the alert email, you can either manually append a 5xx error log line 
     :::text
     http://localhost:8888/apache/access?json={"code":"500"}
 
-(This uses the in_http plugin). You should be receiving an alert email with the subject line "[URGENT] APACHE 5XX ERROR" in your inbox right about now!
+(This uses the [in_http](in_http) plugin). You should be receiving an alert email with the subject line "[URGENT] APACHE 5XX ERROR" in your inbox right about now!
 
-##What's Next?
+## What's Next?
 
 Admittedly, this is a contrived example. In reality, you would set the threshold higher. Also, you might be interested in tracking 4xx pages as well. In addition to Apache logs, Fluentd can handle Nginx logs, syslogs, or any single- or multi-lined logs.
 
@@ -115,4 +116,4 @@ You can learn more about Fluentd and its plugins by
 
 - exploring other [plugins](http://fluentd.org/plugin/)
 - asking questions on the [mailing list](https://groups.google.com/forum/#!forum/fluentd)
-- <a href="//www.fluentd.org/newsletter">signing up for our newsletters</a>
+- [signing up for our newsletters](https://www.fluentd.org/newsletter)
