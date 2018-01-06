@@ -22,7 +22,7 @@ The definition specifies that a HTTP server will be listening on TCP port 8888. 
       @type stdout
     </match>
 
-The _Match_ sets a rule where each _Incoming_ event that arrives with a __Tag__ equals to _test\_cycle_, will match and use the _Output_ plugin type called _stdout_. At this point we have an _Input_ type, a _Match_ and an _Output_. Let's test the setup using _Curl_:
+The _Match_ sets a rule where each _Incoming_ event that arrives with a __Tag__ equals to _test.cycle_, will match and use the _Output_ plugin type called _stdout_. At this point we have an _Input_ type, a _Match_ and an _Output_. Let's test the setup using _Curl_:
 
     :::text
     $ curl -i -X POST -d 'json={"action":"login","user":2}' http://localhost:8888/test.cycle
