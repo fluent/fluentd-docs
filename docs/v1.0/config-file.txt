@@ -72,7 +72,7 @@ Fluentd's input sources are enabled by selecting and configuring the desired inp
       port 9880
     </source>
 
-Each **source** directive must include a ``type`` parameter. The ``type`` parameter specifies which input plugin to use.
+Each **source** directive must include a ``@type`` parameter. The ``@type`` parameter specifies which input plugin to use.
 
 ####Interlude: Routing
 
@@ -117,7 +117,7 @@ The "match" directive looks for events with __match__ing tags and processes them
       path /var/log/fluent/access
     </match>
 
-Each **match** directive must include a match pattern and a ``type`` parameter. Only events with a **tag** matching the pattern will be sent to the output destination (in the above example, only the events with the tag "myapp.access" is matched). The ``type`` parameter specifies the output plugin to use.
+Each **match** directive must include a match pattern and a ``@type`` parameter. Only events with a **tag** matching the pattern will be sent to the output destination (in the above example, only the events with the tag "myapp.access" is matched). The ``@type`` parameter specifies the output plugin to use.
 
 Just like input sources, you can add new output destinations by writing your own plugins. For further information regarding Fluentd's output destinations, please refer to the [Output Plugin Overview](output-plugin-overview) article.
 
