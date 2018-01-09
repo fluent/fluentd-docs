@@ -53,7 +53,7 @@ To create a plugin as a ruby script (to put it on ``/etc/fluent/plugin``), just 
 
 See the LINK:[Plugin API details](/categories/plugin-apis) for what should be written / API details of each plugin types.
 
-Single ruby script is easy to write, but hard to test, to manage versions and to publish it. If you want to publish a plugin uder version control, you should use ``bundle gem`` to create the plugin source tree and init it as git repository (it requires ``bundler`` gem in your ruby environment): ``bundle gem fluent-plugin-my_awesome``. It generates source code directory tree under ``lib``, the simple ``fluent-plugin-my_awesome.gemspec`` file, ``README.md`` and some other files.
+Single ruby script is easy to write, but hard to test, to manage versions and to publish it. If you want to publish a plugin under version control, you should use ``bundle gem`` to create the plugin source tree and init it as git repository (it requires ``bundler`` gem in your ruby environment): ``bundle gem fluent-plugin-my_awesome``. It generates source code directory tree under ``lib``, the simple ``fluent-plugin-my_awesome.gemspec`` file, ``README.md`` and some other files.
 
 Fluentd plugin projects use a bit different code tree under ``lib`` from typical ruby projects. Take care about to keep ``lib/fluent/plugin/<TYPE>_<NAME>.rb`` paths.
 
