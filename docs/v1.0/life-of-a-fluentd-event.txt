@@ -91,7 +91,10 @@ A _Filter_ aims to behave like a rule to pass or reject an event. The following 
 
     <filter test.cycle>
       @type grep
-      exclude1 action logout
+      <exclude>
+        key action
+        pattern ^logout$
+      </exclude>
     </filter>
 
     <match test.cycle>
@@ -129,7 +132,10 @@ Now looking at the [Fluentd](http://fluentd.org) service output we can realize t
     </source>
     <filter test.cycle>
       @type grep
-      exclude1 action logout
+      <exclude>
+        key action
+        pattern ^logout$
+      </exclude>
     </filter>
     <match test.cycle>
       @type stdout
@@ -156,13 +162,19 @@ This new implementation called _Labels_, aims to solve the configuration file co
 
     <filter test.cycle>
       @type grep
-      exclude1 action login
+      <exclude>
+        key action
+        pattern ^login$
+      </exclude>
     </filter>
 
     <label @STAGING>
       <filter test.cycle>
         @type grep
-        exclude1 action logout
+        <exclude>
+          key action
+          pattern ^logout$
+        </exclude>
       </filter>
 
       <match test.cycle>
