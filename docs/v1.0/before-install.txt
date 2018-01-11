@@ -4,7 +4,9 @@ You MUST set up your environment according to the steps below before installing 
 
 ## Set Up NTP
 
-It's HIGHLY recommended that you set up *ntpd* on the node to prevent invalid timestamps in your logs.
+It's HIGHLY recommended that you set up NTP daemon (e.g. *<a href="https://chrony.tuxfamily.org/">chrony</a>*, *ntpd*, etc) on the node to have accurate current timestamp. This is crucial for the production-grade logging services.
+
+NOTE: For AWS (Amazon Web Services) users we recommend to use Amazon Time Sync Service, AWS hosted NTP server. Please check <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-time.html">AWS EC2: Setting the Time for Your Linux Instance</a>.
 
 ## Increase Max # of File Descriptors
 
