@@ -33,6 +33,8 @@ Parsed result like below:
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file. For &lt;parse&gt; section, please check <a href="parse-section">Parse section cofiguration</a>.
 
+NOTE: We've observed the drastic performance improvements on Linux, with proper kernel parameter settings. If you have high-volume TCP traffic, please make sure to follow the instruction described at <a href="before-install">Before Installing Fluentd</a>.
+
 ## Plugin helpers
 
 * [server](api-plugin-helper-server)

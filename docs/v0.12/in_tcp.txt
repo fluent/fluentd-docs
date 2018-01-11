@@ -20,6 +20,8 @@ Don't use this plugin for receiving logs from client libraries. Use `in_forward`
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
+NOTE: We've observed the drastic performance improvements on Linux, with proper kernel parameter settings. If you have high-volume TCP traffic, please make sure to follow the instruction described at <a href="before-install">Before Installing Fluentd</a>.
+
 ## Parameters
 
 ### @type (required)
