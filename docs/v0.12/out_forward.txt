@@ -17,8 +17,6 @@ NOTE: Do <b>NOT</b> use this plugin for inter-DC or public internet data transfe
       @type forward
       send_timeout 60s
       recover_wait 10s
-      heartbeat_interval 1s
-      phi_threshold 16
       hard_timeout 60s
       
       <server>
@@ -85,6 +83,8 @@ Use the "Phi accrual failure detector" to detect server failure. The default val
 
 ### phi_threshold
 The threshold parameter used to detect server faults. The default value is 16.
+
+NOTE: `phi_threshold` is deeply related to `heartbeat_interval`. If you are using longer `heartbeat_interval`, please use the larger `phi_threshold`. Otherwise you will see frequent detachments of destination servers. The default value 16 is tuned for `heartbeat_interval` 1s.
 
 ### hard_timeout
 The hard timeout used to detect server failure. The default value is equal to the send_timeout parameter.

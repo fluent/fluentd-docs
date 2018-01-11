@@ -15,8 +15,6 @@ The `out_forward` plugin supports at-most-once and at-least-once semantics. The 
       @type forward
       send_timeout 60s
       recover_wait 10s
-      heartbeat_interval 1s
-      phi_threshold 16
       hard_timeout 60s
       
       <server>
@@ -220,6 +218,8 @@ Use the "Phi accrual failure detector" to detect server failure.
 | integer | 16      | 0.14.0  |
 
 The threshold parameter used to detect server faults.
+
+NOTE: `phi_threshold` is deeply related to `heartbeat_interval`. If you are using longer `heartbeat_interval`, please use the larger `phi_threshold`. Otherwise you will see frequent detachments of destination servers. The default value 16 is tuned for `heartbeat_interval` 1s.
 
 ### hard_timeout
 
