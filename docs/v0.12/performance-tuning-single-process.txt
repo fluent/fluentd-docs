@@ -1,4 +1,8 @@
-# Performance Tuning
+# Performance Tuning (Single Process)
+
+This article describes how to optimize Fluentd's performance within single process. If your traffic is up to 5,000 messages/sec, the following techniques should be enough.
+
+With more traffic, Fluentd tends to be more CPU bound. In such case, please also visit [Performance Tuning (Multi-Process)](performance-tuning-multi-process) to utilize multiple CPU cores.
 
 ## Check top command
 
@@ -63,5 +67,5 @@ See [Ruby 2.1 Garbage Collection: ready for production](https://samsaffron.com/a
 
 The CPU is often the bottleneck for Fluentd instances that handle billions of incoming records. To utilize multiple CPU cores, we recommend using the `in_multiprocess` plugin.
 
-* [in_multiprocess](in_multiprocess)
+* [Performance Tuning (Multi Process)](performance-tuning-multi-process)
 

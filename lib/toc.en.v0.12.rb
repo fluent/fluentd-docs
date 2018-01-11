@@ -103,7 +103,8 @@ section 'deployment', 'Deployment' do
     article 'failure-scenarios', 'Failure Scenarios'
   end
   category 'performance-tuning', 'Performance Tuning' do
-    article 'performance-tuning', 'Performance Tuning'
+    article 'performance-tuning-single-process', 'Performance Tuning (Single Process)'
+    article 'performance-tuning-multi-process', 'Performance Tuning (Multi Process)'
   end
   category 'plugin-management', 'Plugin Management' do
     article 'plugin-management', 'Plugin Management'
