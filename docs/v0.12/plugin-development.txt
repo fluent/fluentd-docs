@@ -25,13 +25,12 @@ The following slides can help the user understand how Fluentd works before they 
 
 ### Fluentd version and Plugin API
 
-Fluentd now has two active versions, v0.12 and v0.14.
-v0.12 is stable and many users use this version on production.
-v0.14 is edge version and this version has brand-new Plugin API.
+Fluentd now has two active versions, v0.12 and v1.0.
+v0.12 is old stable and many people still use this version.
+v1.0 is current stable version and this version has brand-new Plugin API.
 
-Plugin for v0.12 works with v0.12 and v0.14, but
-new v0.14 Plugin API doesn't work with v0.12.
-So if you want to release new plugin, using v0.12 API is better for now.
+The important point is plugin for v0.12 works with v0.12 and v1.0, but
+new v1.0 API based Plugin doesn't work with v0.12.
 
 This document based on v0.12 Plugin API.
 

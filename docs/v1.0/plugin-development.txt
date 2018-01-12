@@ -24,7 +24,24 @@ The following slides can help the user understand how Fluentd works before they 
 
 (The slides are taken from <a href="//github.com/sonots">Naotoshi Seo's</a> <a href="//rubykaigi.org/2014/presentation/S-NaotoshiSeo">RubyKaigi 2014 talk</a>.)
 
-NOTE: This slide is based on Fluentd v0.12. There are many difference between v0.12 and v0.14/v1.0, but it may help our understanding about Fluent's total design.
+NOTE: This slide is based on Fluentd v0.12. There are many difference between v0.12 and v0.14/v1.0 API, but it may help our understanding about Fluent's total design.
+
+### Fluentd version and Plugin API
+
+Fluentd now has two active versions, v1.0 and v0.12.
+v1.0 is current stable and v1.0 has brand-new Plugin API.
+v0.12 is old stable and v0.12 has old Plugin API.
+
+The important point is v1.0 supports v1.0 and v0.12 APIs.
+It means the plugin for v0.12 works with v1.0.
+
+We recommend to use new v1.0 plugin API for new plugins.
+
+### Send a patch or fork?
+
+If you have a problem with existing plugins or new feature idea, sending a patch is better.
+If the plugin author is non-active, try to become new plugin maintainer first.
+Forking a plugin and release alternative plugin, e.g. fluent-plugin-xxx-alt, is final approach.
 
 ## Writing plugins
 
