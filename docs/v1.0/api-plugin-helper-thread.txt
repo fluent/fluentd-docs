@@ -12,7 +12,7 @@ Here is the code example with `thread` helper:
         Fluent::Plugin.register_output('example', self)
 
         # 1. load thread helper
-        helpers :threads
+        helpers :thread
 
         # omit configure, shutdown and other plugin API
 
