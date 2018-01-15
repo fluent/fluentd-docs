@@ -38,7 +38,6 @@ section 'usecases', 'Use Cases' do
   end
   category 'log-management-and-search', 'Log Management & Search' do
     article 'free-alternative-to-splunk-by-fluentd', 'Free Alternative to Splunk by Fluentd + Elasticsearch', ['Splunk', 'Free Alternative']
-    article 'filter-modify-apache', 'Filter and Modify Data (Apache example)'
     article 'splunk-like-grep-and-alert-email', 'Email Alerts like Splunk', ['Splunk', 'Alerting']
   end
   category 'data-analytics', 'Data Analytics' do
@@ -52,6 +51,7 @@ section 'usecases', 'Use Cases' do
     article 'collect-glusterfs-logs', 'Collecting GlusterFS Logs', ['GlusterFS']
   end
   category 'stream-processing', 'Stream Processing' do
+    article 'filter-modify-apache', 'Easy Data Stream Manipulation using Fluentd'
     article 'kinesis-stream', 'Stream Data Collection to Kinesis Stream', ['kinesis', 'amazon kinesis', 'aws kinesis']
     article 'cep-norikra', 'Fluentd and Norikra: Complex Event Processing', ['cep-norikra']
   end
