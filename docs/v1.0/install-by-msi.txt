@@ -39,7 +39,7 @@ After you've installed .msi package, you'll see the program called `Td-agent Com
 In the prompt, please execute the command below to launch td-agent process.
 
     :::command
-    > fluentd -c conf\td-agent.conf
+    > fluentd -c etc\td-agent\td-agent.conf
 
 Then, please launch another `Td-agent Command Prompt` and type the command below. This will send a record to td-agent process.
 
@@ -58,7 +58,7 @@ Next, let's register td-agent to Windows service to permanently run as a server 
 
     :::term
     > fluentd --reg-winsvc i
-    > fluentd --reg-winsvc-fluentdopt '-c C:/opt/td-agent/conf/td-agent.conf -o C:/opt/td-agent/td-agent.log'
+    > fluentd --reg-winsvc-fluentdopt '-c C:/opt/td-agent/etc/td-agent/td-agent.conf -o C:/opt/td-agent/td-agent.log'
 
 ## Step4: Run td-agent as Windows service
 
