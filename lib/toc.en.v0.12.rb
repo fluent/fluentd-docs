@@ -36,17 +36,17 @@ section 'usecases', 'Use Cases' do
     article 'nodejs', 'Centralize Logs from Node.js Applications'
     article 'scala',   'Centralize Logs from Scala Applications'
   end
-  category 'log-management-and-search', 'Log Management & Search' do
+  category 'monitoring-service-logs', 'Monitoring Service Logs' do
     article 'free-alternative-to-splunk-by-fluentd', 'Free Alternative to Splunk by Fluentd + Elasticsearch', ['Splunk', 'Free Alternative']
     article 'splunk-like-grep-and-alert-email', 'Email Alerts like Splunk', ['Splunk', 'Alerting']
   end
   category 'data-analytics', 'Data Analytics' do
     article 'http-to-td', 'Data Analytics with Treasure Data', ['Treasure Data', 'Hadoop', 'Hive']
     article 'http-to-hdfs', 'Data Collection to Hadoop (HDFS)', ['Hadoop', 'HDFS']
-    article 'apache-to-mongodb', 'Store Apache Logs into MongoDB', ['MongoDB']
   end
-  category 'data-archiving', 'Data Archiving' do
+  category 'data-archiving', 'Connecting to Data Storages' do
     article 'apache-to-s3', 'Store Apache Logs into Amazon S3', ['Amazon S3']
+    article 'apache-to-mongodb', 'Store Apache Logs into MongoDB', ['MongoDB']
     article 'apache-to-riak', 'Store Apache Logs into Riak', ['Riak']
     article 'collect-glusterfs-logs', 'Collecting GlusterFS Logs', ['GlusterFS']
   end
