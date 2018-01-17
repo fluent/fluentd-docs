@@ -1,0 +1,80 @@
+# Store Apache Logs into Minio
+
+
+This article explains how to use [Fluentd](http://fluentd.org/)'s  Amazon S3 Output plugin ([out_s3](http://docs.fluentd.org/articles/out_s3)) to aggregate semi-structured logs in real-time on [Minio](https://www.minio.io).
+
+## Prerequisites
+
+1. Linux machine
+2. [Fluentd](http://docs.fluentd.org/categories/installation) is installed
+3. [Minio Server](https://minio.io/download/) is installed
+4. Running Apache web server 
+
+## Installing the Fluentd Amazon S3 Output plugin 
+
+For simplicity, this article will describe how to set up an one-node configuration. Minio is compatible with AWS S3 and hence we are using fluent-plugin-s3.
+
+## Configuration
+
+Fluentd  config file is located at /etc/td-agent/td-agent.conf. 
+
+### Tail Input
+
+For the input source, we will set up Fluentd to track the recent Apache logs (typically found at /var/log/apache2/access_log) The Fluentd configuration file should look like this:
+
+    :::text
+    <source>
+      @type tail
+      format apache2
+      path /var/log/apache2/access.log
+      pos_file /var/log/td-agent/apache2.access.log.pos
+      tag s3.apache.access
+    </source>
+
+Let’s go through the configuration line by line.
+
+1. `type tail`: The tail Input plugin continuously tracks the log file. This handy plugin is included in Fluentd’s core.
+2. `format apache2`: Uses Fluentd’s built-in Apache log parser.
+3. `path /var/log/apache2/access_log`: The location of the Apache log. This may be different for your particular system.
+4. `tag s3.apache.access`: `s3.apache.access` is used as the tag to route the messages within Fluentd.
+
+### Amazon S3 Output plugin with Minio
+
+The output destination will be directed to Minio server and this is how it should look:
+
+    :::text
+    <match>
+      @type s3
+      aws_key_id  Minio_Server_access_key
+      aws_sec_key  Minio_Server_security_Key
+      s3_bucket fluentd
+      s3_endpoint  Minio_Server_endpont
+      path logs/
+      force_path_style true
+      buffer_path /var/log/td-agent/s3
+      time_slice_format %Y%m%d%H%M
+      time_slice_wait 10m
+      utc
+      buffer_chunk_limit 256m
+   </match>
+
+### Note
+
+1. Please replace `aws_key_id`,`aws_sec_key`,`s3_bucket`, `s3_endpoint` with your local Minio Server setup.
+2. Fleuntd should have access permission for your apache log file located at `/var/log/apache2/access.log`
+
+## Testing it all
+
+Using ab(Apache Bench) program lets ping the Apache server to test our configuration.
+
+    :::term
+    $ ab -n 100 -c 10 http://localhost/
+
+Then, log into your Minio Server and look at your bucket name `fluentd` for the stored logs.
+
+## Learn More
+
+- [Fluentd Architecture](http://www.fluentd.org/architecture)
+- [Minio Server Quickstart](https://docs.minio.io/docs/minio)
+- [Amazon S3 Output plugin](http://docs.fluentd.org/articles/out_s3)
+
