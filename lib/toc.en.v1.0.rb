@@ -47,6 +47,7 @@ section 'usecases', 'Use Cases' do
   end
   category 'data-archiving', 'Data Archiving' do
     article 'apache-to-s3', 'Store Apache Logs into Amazon S3', ['Amazon S3']
+    article 'apache-to-minio', 'Store Apache Logs into Minio', ['Minio']
 #     article 'apache-to-riak', 'Store Apache Logs into Riak', ['Riak']
 #     article 'collect-glusterfs-logs', 'Collecting GlusterFS Logs', ['GlusterFS']
   end
