@@ -10,7 +10,7 @@ Fluentd treats logs as JSON, a popular machine-readable format. It is written pr
 
 Fluentd's scalability has been proven in the field: its largest user currently collects logs from **50,000+ servers**.
 
-## Step1: Installing Fluentd
+## Step 1: Installing Fluentd
 
 Please follow the installation/quickstart guides below that matches your environment.
 
@@ -20,7 +20,7 @@ Please follow the installation/quickstart guides below that matches your environ
 * [Install Fluentd by Ruby Gem](install-by-gem)
 * [Install Fluentd from source](install-from-source)
 
-## Step2: Use Cases
+## Step 2: Use Cases
 
 The articles shown below cover the typical use cases of Fluentd. Please refer to the article(s) that suits your needs.
 
@@ -38,7 +38,7 @@ The articles shown below cover the typical use cases of Fluentd. Please refer to
   * Happy Users :)
     * [Users](users)
 
-## Step3: Learn More
+## Step 3: Learn More
 
 The articles shown below will provide detailed information for you to learn more about Fluentd.
 

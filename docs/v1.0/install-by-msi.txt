@@ -14,13 +14,13 @@ For Windows, we're using the OS native .msi Installer to distribute td-agent.
 
 NOTE: msi package now uses Ruby 2.3 due to windows related gem issues. Ruby will be updated to 2.4 after fixed issues.
 
-## Step1: Install td-agent
+## Step 1: Install td-agent
 
 Please download the `.msi` file from here, and install the software.
 
 - [Download](https://td-agent-package-browser.herokuapp.com/3/windows)
 
-## Step2: Run td-agent from Command Prompt
+## Step 2: Run td-agent from Command Prompt
 
 First, please prepare your config file located at `C:/opt/td-agent/etc/td-agent/td-agent.conf`. The config below is the simplest example to output any incoming records to td-agent's log file.
 
@@ -52,7 +52,7 @@ It's working properly if td-agent process outputs the message `test.event: {"k",
  <img src="/images/td-agent-windows-prompt.png" />
 </a>
 
-## Step3: Register td-agent to Windows service
+## Step 3: Register td-agent to Windows service
 
 Next, let's register td-agent to Windows service to permanently run as a server process. Please execute `Td-agent Command Prompt` again but with administrative privilege, and type the two commands below.
 
@@ -60,7 +60,7 @@ Next, let's register td-agent to Windows service to permanently run as a server 
     > fluentd --reg-winsvc i
     > fluentd --reg-winsvc-fluentdopt '-c C:/opt/td-agent/etc/td-agent/td-agent.conf -o C:/opt/td-agent/td-agent.log'
 
-## Step4: Run td-agent as Windows service
+## Step 4: Run td-agent as Windows service
 
 Please guide yourself to `Control Panel -> System and Security -> Administrative Tools -> Services`, and you'll see `Fluentd Windows Service` is listed.
 
@@ -68,7 +68,7 @@ Please double click `Fluentd Window Service`, and click `Start` button. Then the
 
 The log file will be located at `C:/opt/td-agent/td-agent.log` as we specified in Step 3.
 
-## Step5: Install Plugins
+## Step 5: Install Plugins
 
 Open `Td-agent Command Prompt` and use `fluent-gem` command.
 
