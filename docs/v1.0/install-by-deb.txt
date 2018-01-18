@@ -8,7 +8,7 @@ INCLUDE: _what_is_td_agent
 
 Please follow the [Preinstallation Guide](before-install) to configure your OS properly. This will prevent many unnecessary problems.
 
-## Step 1 : Install from Apt Repository
+## Step 1: Install from Apt Repository
 
 For Ubuntu, we currently support "Ubuntu 16.04 LTS / Xenial 64bit", "Ubuntu 14.04 LTS / Trusty 64bit".
 
@@ -26,7 +26,7 @@ For Trusty,
 
 It's HIGHLY recommended that you set up <b>ntpd</b> on the node to prevent invalid timestamps in your logs. Please check the [Preinstallation Guide](before-install).
 
-## Step2: Launch Daemon
+## Step 2: Launch Daemon
 
 ### systemd
 
@@ -67,7 +67,7 @@ The following commands are supported:
 
 Please make sure **your configuration file** is located at `/etc/td-agent/td-agent.conf`.
 
-## Step3: Post Sample Logs via HTTP
+## Step 3: Post Sample Logs via HTTP
 
 By default, `/etc/td-agent/td-agent.conf` is configured to take logs from HTTP and route them to stdout (`/var/log/td-agent/td-agent.log`). You can post sample log records using the curl command.
 
