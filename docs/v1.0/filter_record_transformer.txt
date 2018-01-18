@@ -189,6 +189,8 @@ NOTE: keep_keys has been supported since 0.14.0
 
 A list of keys to delete.
 
+This parameter supports nested field via [record_accessor syntax](api-plugin-helper-record_accessor#syntax) since v1.1.0.
+
 ## Need more performance?
 
 [filter_record_modifier](https://github.com/repeatedly/fluent-plugin-record-modifier) is light-weight and faster version of `filter_record_transformer`. `filter_record_modifier` doesn't provide several `filter_record_transformer` features, but it covers popular cases. If you need better performace for mutating records, consider `filter_record_modifier` instead.

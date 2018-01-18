@@ -427,6 +427,13 @@ This is useful for setting machine information like hostname.
     host_param "#{Socket.gethostname}" # host_param is actual hostname like `webserver1`.
     env_param "foo-#{ENV["FOO_BAR"]}" # NOTE that foo-"#{ENV["FOO_BAR"]}" doesn't work.
 
+Since v1.1.0, `hostname` and `worker_id` short-cut are available
+
+    host_param "#{hostname}"  # This is same with Socket.gethostname
+    @id "out_foo#{worker_id}" # This is same with ENV["SERVERENGINE_WORKER_ID"]
+
+`worker_id` short-cut is useful under multiple workers. For example, separate plugin id, add worker_id to stored path in s3 to avoid file conflict.
+
 NOTE: config-xxx mixins use "${}", not "#{}". These embedded configurations are two different things.
 
 ### In double quoted string literal, `\` is escape character
