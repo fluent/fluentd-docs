@@ -2,7 +2,7 @@
 
 Fluentd has 6 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Buffer Plugin.
 
-We will first explain how Buffer Plugin works in general. Then, we will explain the mechanism of Time Sliced Plugin, a subclass of Buffer Plugin used by several core plugins. 
+We will first explain how Buffer Plugin works in general. Then, we will explain the mechanism of Time Sliced Plugin, a subclass of Buffer Plugin used by several core plugins.
 
 ## Buffer Plugin Overview
 
@@ -32,7 +32,7 @@ When the top chunk exceeds the specified size or time limit (`buffer_chunk_limit
 
 If the bottom chunk fails to be written out, it will remain in the queue and Fluentd will retry after waiting several seconds (`retry_wait`). If the retry limit has not been disabled (`disable_retry_limit` is false) and the retry count exceeds the specified limit (`retry_limit`), the chunk is trashed. The retry wait time doubles each time (1.0sec, 2.0sec, 4.0sec, ...) until `max_retry_wait` is reached. If the queue length exceeds the specified limit (`buffer_queue_limit`), new events are rejected.
 
-NOTE: writing out the bottom chunk is considered to be a failure if "BufferedOutput#write" method throws an exception.
+### Parameters
 
 All buffered output plugins support the following parameters:
 
@@ -65,23 +65,29 @@ The suffixes "s" (seconds), "m" (minutes), and "h" (hours) can be used for `flus
 
 The suffixes "k" (KB), "m" (MB), and "g" (GB) can be used for `buffer_chunk_limit`.
 
-### buffer_queue_full_action
+### Handling queue overflow
 
-Control the buffer behaviour when the queue becomes full. 3 modes are supported:
+The `buffer_queue_full_action` option controls the behaviour when the queue becomes full. For now, three modes are supported:
 
-**1. exception**
+ 1. _exception_ (default)
+    * This mode raises a `BufferQueueLimitError` exception to the input plugin.
+    * This mode is suitable for data streaming.
+    * It's up to input plugins to decide how to handle raised exceptions. For examples, `in_tail` stops reading new lines, `in_forward` returns an error to forward output.
+ 2. _block_
+    * This mode stops input plugin thread until "buffer full" error is resolved.
+    * This mode is good for batch-like use-case.
+    * DO NOT use this option casually just for avoiding `BufferQueueLimitError` exceptions (see the below tips).
+ 3. _drop_oldest_chunk_
+    * This mode drops the oldest chunks.
+    * This mode is useful if the output destination is a monitoring system, since newer events are much more important than the older ones in this context.
 
-This is default mode. This mode raises `BufferQueueLimitError` exception to input plugin. How handle `BufferQueueLimitError` depends on input plugins, e.g. tail input stops reading new lines, forward input returns an error to forward output. This action fits for streaming manner.
+#### Deployment tips
 
-**2. block**
+If your Fluentd daemon experiences overflows frequently, it basically means that your destination is insufficient for your traffic. There are several measures you can take:
 
-This mode stops input plugin thread until buffer full is resolved. This action is good for batch-like use-case.
-
-We don't recommend to use `block` action to avoid `BufferQueueLimitError`. Please consider improving destination setting to resolve `BufferQueueLimitError` or use `@ERROR` label for routing overflowed events to another backup destination(or `secondary` with lower `retry_limit`). If you hit `BufferQueueLimitError` frequently, it means your destination capacity is insufficient for your traffic.
-
-**3. drop_oldest_chunk**
-
-This mode drops oldest chunks. This mode is useful for monitoring system destinations. For monitoring, newer events are important than older.
+ 1. Tune the destination node to provide enough data-processing capacity.
+ 2. Use the `@ERROR` label to route overflowed events to another backup destination.
+ 3. Use the `<secondary>` tag to route overflowed events to another backup destination.
 
 ## Time Sliced Plugin Overview
 
@@ -92,7 +98,7 @@ In addition, each chunk is keyed by time and flushed when that chunk's timestamp
  1. How do we specify the granularity of time chunks? This is done through the `time_slice_format` option, which is set to "%Y%m%d" (daily) by default. If you want your chunks to be hourly, "%Y%m%d%H" will do the job.
 
  2. What if new logs come after the time corresponding the current chunk? For example, what happens to an event, timestamped at 2013-01-01 02:59:45 UTC, comes in at 2013-01-01 03:00:15 UTC? Would it make into the 2013-01-01 02:00:00-02:59:59 chunk?
-  
+
   This issue is addressed by setting the `time_slice_wait` parameter. `time_slice_wait` sets, in seconds, how long fluentd waits to accept "late" events into the chunk *past the max time corresponding to that chunk*. The default value is 600, which means it waits for 10 minutes before moving on. So, in the current example, as long as the events come in before 2013-01-01 03:10:00, it will make it in to the 2013-01-01 02:00:00-02:59:59 chunk.
 
   Alternatively, you can also flush the chunks regularly using `flush_interval`. Note that `flush_interval` and `time_slice_wait` are mutually exclusive. If you set `flush_interval`, `time_slice_wait` will be ignored and fluentd would issue a warning.
