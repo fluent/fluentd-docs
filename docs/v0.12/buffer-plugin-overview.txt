@@ -6,11 +6,13 @@ We will first explain how Buffer Plugin works in general. Then, we will explain 
 
 ## Buffer Plugin Overview
 
-Buffer plugins are used by buffered output plugins, such as `out_file`, `out_forward`, etc. Users can choose the buffer plugin that best suits their performance and reliability needs.
+Buffer plugins are used in combination with the output plugins which support the buffering interface. For example, `out_file` uses file buffers by default for managing incoming data in chunks.
+
+Buffer plugins are, as you can tell by the name, *pluggable*. So you can choose a suitable strategy for buffering records based on your system requirements.
 
 ## Buffer Structure
 
-The buffer structure is a queue of chunks like the following:
+A buffer is essentially a queue of "chunks". A chunk is a collection of records concatenated into a single blob. Here is a diagram of how it works:
 
     :::text
     queue
