@@ -60,7 +60,7 @@ The port to listen to.
 
 | type | default | version |
 |:----:|:-------:|:-------:|
-| string | 0.0.0.0 (all addresses) | 0.14.0  |
+| string | 0.0.0.0 (all addresses) | 0.14.0 |
 
 The bind address to listen to.
 
@@ -68,7 +68,7 @@ The bind address to listen to.
 
 | type | default | available values |version |
 |:----:|:-------:|:----------------:|:-------:|
-| enum | udp | udp/tcp |0.14.0  |
+| enum | udp | udp/tcp | 0.14.0 |
 
 The transport protocol used to receive logs. "udp" and "tcp" are supported.
 
@@ -76,7 +76,7 @@ The transport protocol used to receive logs. "udp" and "tcp" are supported.
 
 | type | default | version |
 |:----:|:-------:|:-------:|
-| size | 2048 | 0.14.0  |
+| size | 2048 | 0.14.2 |
 
 The max bytes of syslog message. If you send larger message, change this parameter.
 
@@ -110,7 +110,7 @@ If the `<parse>/@type` parameter is missing, then the log data is assumed to hav
 
 | type | default | available values |version |
 |:----:|:-------:|:----------------::-------:|
-| enum | rfc3614 | rfc3614/rfc5424/auto |0.14.0  |
+| enum | rfc3614 | rfc3614/rfc5424/auto | 0.14.14 |
 
 This parameter is used inside `<parse>` directive. The default is `rfc3164`
 
@@ -175,7 +175,7 @@ The field name of the client's address. If set the value, the client's address w
 
 | type | default | version |
 |:----:|:-------:|:-------:|
-| string | nil (no assign) | 0.14.0  |
+| string | nil (no assign) | 0.14.10 |
 
 The field name of the priority. If set the value, the priority will be set to its key.
 
@@ -183,7 +183,7 @@ The field name of the priority. If set the value, the priority will be set to it
 
 | type | default | version |
 |:----:|:-------:|:-------:|
-| string | nil (no assign) | 0.14.0  |
+| string | nil (no assign) | 0.14.10 |
 
 The field name of the facility. If set the value, the facility will be set to its key.
 
