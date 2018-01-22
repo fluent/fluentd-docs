@@ -15,7 +15,7 @@ The `file` buffer plugin provides a persistent buffer implementation. It uses fi
 
 The path where buffer chunks are stored. The ‘*’ is replaced with random characters. This parameter is require
 
-This parameter must be unique to avoid race condition problem. For example, you can't use fixed buffer_path parameter in fluent-plugin-forest. `${tag}` or similar placeholder is needed. Of course, this parameter must also be unique between fluentd instances.
+This parameter must be unique to avoid race condition problem. For example, you can't use fixed path parameter in fluent-plugin-forest. `${tag}` or similar placeholder is needed. Of course, this parameter must also be unique between fluentd instances.
 
 In addition, `path` should not be an other `path` prefix. For example, the following conf doesn't work well. `/var/log/fluent/foo` resumes `/var/log/fluent/foo.bar`'s buffer files during start phase and it causes `No such file or directory` in `/var/log/fluent/foo.bar` side.
 
@@ -50,6 +50,8 @@ Here is the correct version to avoid prefix problem.
         path /var/log/fluent/foo.bar
       </buffer>
     </match>
+
+NOTE: Please make sure that you have <b>enough space in the path directory</b>. Running out of disk space is a problem frequently reported by users.
 
 ## Example
 

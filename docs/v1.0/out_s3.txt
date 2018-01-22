@@ -2,7 +2,7 @@
 
 The `out_s3` Output plugin writes records into the Amazon S3 cloud object storage service. By default, it creates files on an hourly basis. This means that when you first import records using the plugin, no file is created immediately.
 
-The file will be created when the `timekey` condition has been met. To change the output frequency, please modify the `timekey` value in buffer directive. In more detail, please refer to [the time chunk keys in bufferdocument](https://docs.fluentd.org/articles/buffer-section#time).
+The file will be created when the `timekey` condition has been met. To change the output frequency, please modify the `timekey` value in buffer section. In more detail, please refer to [the time chunk keys in bufferdocument](https://docs.fluentd.org/articles/buffer-section#time).
 
 NOTE: This document doesn't describe all parameters. If you want to know full features, check the Further Reading section.
 
@@ -35,9 +35,9 @@ NOTE: This document doesn't describe all parameters. If you want to know full fe
 
 Please see the [Store Apache Logs into Amazon S3](apache-to-s3) article for real-world use cases.
 
-NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file. For &lt;buffer&gt; section, please check <a href="buffer-section">Buffer section cofiguration</a>.
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
-NOTE: Please make sure that you have <b>enough space in the buffer_path directory</b>. Running out of disk space is a problem frequently reported by users.
+NOTE: For &lt;buffer&gt; section, please check <a href="buffer-section">Buffer section cofiguration</a>. This plugin uses file buffer by default.
 
 ## Parameters
 
