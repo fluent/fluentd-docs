@@ -38,7 +38,7 @@ Here is the code example with `compat_parameters` helper:
 - `kwargs`:
   - `default_chunk_key`: Set default chunk key. For more details, see [Buffer section configurations](buffer-section)
 
-The important point is you can't mix v1.0 and v0.12 styles. If you mix v1.0 and v0.12 styles, v1.0 style is used and v0.12 style is ignored. Here is an example:
+The important point is you can't mix v1.0 and v0.12 styles in one plugin directive. If you mix v1.0 and v0.12 styles, v1.0 style is used and v0.12 style is ignored. Here is an example:
 
     <match pattern>
       @type foo

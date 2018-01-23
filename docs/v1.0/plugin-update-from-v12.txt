@@ -5,10 +5,10 @@ This guide is for plugin authors to show how to update input/output/filter plugi
 There are something to be considered (see following "Updating Plugins Overview" section for details):
 
 * Plugins which uses v0.12 API will be supported between Fluentd v0.14 and v1 (will be obsoleted at v2).
-* Users can use new features of Fluentd v0.14/v1.0 only with plugins using new API.
+* Users can use new features of Fluentd v1.0 only with plugins using new API.
 * Plugins which uses new API don't work on Fluentd v0.12.x.
 
-Fluentd core team strongly recommend to use v0.14 API to make your plugins stable, consistent and easy to test.
+Fluentd core team strongly recommend to use v1.0 API to make your plugins stable, consistent and easy to test.
 
 ## Updating Plugins Overview
 
