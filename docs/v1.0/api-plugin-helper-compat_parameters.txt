@@ -38,6 +38,21 @@ Here is the code example with `compat_parameters` helper:
 - `kwargs`:
   - `default_chunk_key`: Set default chunk key. For more details, see [Buffer section configurations](buffer-section)
 
+The important point is you can't mix v1.0 and v0.12 styles. If you mix v1.0 and v0.12 styles, v1.0 style is used and v0.12 style is ignored. Here is an example:
+
+    <match pattern>
+      @type foo
+      # This flush_interval is ignored because <buffer> exist. Conversion doesn't happen.
+      flush_interval 30s
+      # This <buffer> parameters are used
+      <buffer>
+        @type file
+        path /path/to/buffer
+        retry_max_times 10
+        queue_limit_length 256
+      </buffer>
+    </match>
+
 #### buffer
 
 | old                         | new                         | note                         |
