@@ -37,7 +37,7 @@ Please see the [Store Apache Logs into Amazon S3](apache-to-s3) article for real
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
-NOTE: For &lt;buffer&gt; section, please check <a href="buffer-section">Buffer section cofiguration</a>. This plugin uses file buffer by default.
+NOTE: For &lt;buffer&gt; section, please check <a href="buffer-section">Buffer section cofiguration</a>. This plugin uses <a href="buf_file">file buffer</a> by default.
 
 ## Parameters
 
