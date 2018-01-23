@@ -19,8 +19,8 @@ section 'overview', 'Overview' do
   category 'life-of-a-fluentd-event', 'Life of a Fluentd event' do
     article 'life-of-a-fluentd-event', 'Life of a Fluentd event'
   end
-  category 'update-from-v0.12', 'Update for v1 from v0.12' do
-    article 'update-from-v0.12', 'Update for v1 from v0.12'
+  category 'update-from-v0.12', 'Update from v0.12 to v1' do
+    article 'update-from-v0.12', 'Update from v0.12 to v1'
   end
   category 'support', 'Support' do
     article 'support', 'Support'
@@ -340,7 +340,7 @@ section 'developer', 'Developer' do
   category 'plugin-development', 'Plugin Development' do
     article 'plugin-development', 'Plugin Development'
     article 'plugin-helper-overview', 'Plugin Helper Overview'
-    article 'plugin-update-from-v12', 'Updating plugins from v0.12 to v1.0'
+    article 'plugin-update-from-v0.12', 'Updating plugins from v0.12 to v1'
     article 'plugin-test-code', 'Writing Plugin Test Code'
   end
   category 'plugin-apis', 'Plugin API details' do
