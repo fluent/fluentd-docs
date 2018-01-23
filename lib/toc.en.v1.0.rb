@@ -19,6 +19,9 @@ section 'overview', 'Overview' do
   category 'life-of-a-fluentd-event', 'Life of a Fluentd event' do
     article 'life-of-a-fluentd-event', 'Life of a Fluentd event'
   end
+  category 'update-from-v0.12', 'Update for v1 from v0.12' do
+    article 'update-from-v0.12', 'Update for v1 from v0.12'
+  end
   category 'support', 'Support' do
     article 'support', 'Support'
   end
