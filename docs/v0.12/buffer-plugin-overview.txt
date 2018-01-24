@@ -1,69 +1,45 @@
 # Buffer Plugin Overview
 
-Fluentd has 6 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Buffer Plugin.
-
-We will first explain how Buffer Plugin works in general. Then, we will explain the mechanism of Time Sliced Plugin, a subclass of Buffer Plugin used by several core plugins.
+Fluentd has 6 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview) and [Buffer](buffer-plugin-overview). This article will provide a high-level overview of Buffer plugins.
 
 ## Buffer Plugin Overview
 
-Buffer plugins are used in combination with the output plugins which support the buffering interface. For example, `out_file` uses file buffers by default for managing incoming data in chunks.
+Buffer plugins are used by output plugins. For example, `out_s3` uses `buf_file` plugin by default to store incoming stream temporally before transmitting to S3.
 
-Buffer plugins are, as you can tell by the name, *pluggable*. So you can choose a suitable strategy for buffering records based on your system requirements.
+Buffer plugins are, as you can tell by the name, *pluggable*. So you can choose a suitable backend based on your system requirements.
 
 ## Buffer Structure
 
-A buffer is essentially a queue of "chunks". A chunk is a collection of records concatenated into a single blob. Here is a diagram of how it works:
+A buffer is essentially a set of "chunks". A chunk is a collection of records concatenated into a single blob. Chunks are periodically flushed to the output queue and then sent to the specified destination. Here is the diagram of how it works:
 
-    :::text
-    queue
-    +---------+
-    |         |
-    |  chunk <-- write events to the top chunk
-    |         |
-    |  chunk  |
-    |         |
-    |  chunk  |
-    |         |
-    |  chunk --> write out the bottom chunk
-    |         |
-    +---------+
+<div>
+  <a href="/images/buffer-internal-and-parameters.png">
+    <img style='width: 100%;' src="/images/buffer-internal-and-parameters.png"/>
+  </a>
+</div>
 
-When the top chunk exceeds the specified size or time limit (`buffer_chunk_limit` and `flush_interval`, respectively), a new empty chunk is pushed to the top of the queue. The bottom chunk is written out immediately when new chunk is pushed.
+### Common Parameters
 
-If the bottom chunk fails to be written out, it will remain in the queue and Fluentd will retry after waiting several seconds (`retry_wait`). If the retry limit has not been disabled (`disable_retry_limit` is false) and the retry count exceeds the specified limit (`retry_limit`), the chunk is trashed. The retry wait time doubles each time (1.0sec, 2.0sec, 4.0sec, ...) until `max_retry_wait` is reached. If the queue length exceeds the specified limit (`buffer_queue_limit`), new events are rejected.
+Buffer plugins allow fine-grained controls over the buffering behaviours through config options.
 
-### Parameters
+#### `buffer_type`
 
-All buffered output plugins support the following parameters:
+* This option specifies which plugin to use as the backend.
+* In default installations, supported values are `file` and `memory`.
 
-    :::text
-    <match pattern>
-      # omit the part about @type and other output parameters
+#### `buffer_chunk_limit`
 
-      buffer_type memory
-      buffer_chunk_limit 256m
-      buffer_queue_limit 128
-      flush_interval 60s
-      disable_retry_limit false
-      retry_limit 17
-      retry_wait 1s
-      max_retry_wait 10s # default is infinite
-    </match>
+* The maximum size of a chunk allowed (default: 8MB)
+* If a chunk grows more than the limit, it gets flushed to the output queue automatically.
 
-`buffer_type` specifies the buffer plugin to use. The `memory` Buffer plugin is used by default. You can also specify `file` as the buffer type alongside the `buffer_path` parameter as follows:
+#### `buffer_queue_limit`
 
-    :::text
-    <match pattern>
-      # omit the part about @type and other output parameters
+* The maximum length of the output queue (default: 256)
+* If the limit gets exceeded, Fluentd will invoke an error handling mechanism (See "Handling queue overflow" below for details).
 
-      buffer_type file
-      buffer_path /var/fluentd/buffer/ #make sure fluentd has write access to the directory!
-      ...
-    </match>
+#### `flush_interval`
 
-The suffixes "s" (seconds), "m" (minutes), and "h" (hours) can be used for `flush_interval` and `retry_wait`. `retry_wait` can also be a decimal value.
-
-The suffixes "k" (KB), "m" (MB), and "g" (GB) can be used for `buffer_chunk_limit`.
+* The interval in seconds to wait before invoking the next buffer flush (default: 60)
 
 ### Handling queue overflow
 
@@ -72,64 +48,72 @@ The `buffer_queue_full_action` option controls the behaviour when the queue beco
  1. _exception_ (default)
     * This mode raises a `BufferQueueLimitError` exception to the input plugin.
     * This mode is suitable for data streaming.
-    * It's up to input plugins to decide how to handle raised exceptions. For examples, `in_tail` stops reading new lines, `in_forward` returns an error to forward output.
+    * It's up to the input plugin to decide how to handle raised exceptions.
  2. _block_
-    * This mode stops input plugin thread until "buffer full" error is resolved.
+    * This mode blocks the thread until the free space is vacated.
     * This mode is good for batch-like use-case.
-    * DO NOT use this option casually just for avoiding `BufferQueueLimitError` exceptions (see the below tips).
+    * DO NOT use this option casually just for avoiding `BufferQueueLimitError` exceptions (see the deployment tips below).
  3. _drop_oldest_chunk_
     * This mode drops the oldest chunks.
-    * This mode is useful if the output destination is a monitoring system, since newer events are much more important than the older ones in this context.
+    * This mode might be useful for monitoring systems, since newer events are much more important than the older ones in this context.
 
 #### Deployment tips
 
-If your Fluentd daemon experiences overflows frequently, it basically means that your destination is insufficient for your traffic. There are several measures you can take:
+If your Fluentd daemon experiences overflows frequently, it means that your destination is insufficient for your traffic. There are several measures you can take:
 
- 1. Tune the destination node to provide enough data-processing capacity.
- 2. Use the `@ERROR` label to route overflowed events to another backup destination.
- 3. Use the `<secondary>` tag to route overflowed events to another backup destination.
+ 1. Upgrade the destination node to provide enough data-processing capacity.
+ 2. Use an `@ERROR` label to route overflowed events to another backup destination.
+ 3. Use a `<secondary>` tag to route overflowed events to another backup destination.
 
-## Time Sliced Plugin Overview
+### Handling write failures
 
-Time Sliced Plugin is a type of Buffer Plugin, so, it has the same basic buffer structure as Buffer Plugin.
+The chunks in the output queue are written out to the destination one by one. However, the problem is that there might occur an error while writing out a chunk. For such cases, buffer plugins are equipped with a "retry" mechanism that handles write failures gracefully.
 
-In addition, each chunk is keyed by time and flushed when that chunk's timestamp has passed. This is different from This immediately raises a couple of questions.
+Here is how it works. If Fluentd fails to write out a chunk, the chunk will not be purged from the queue, and then, after a certain interval, Fluentd will retry to write the chunk again. The intervals between retry attempts are determined by the exponential backoff algorithm, and we can control the behaviour finely through the following options:
 
- 1. How do we specify the granularity of time chunks? This is done through the `time_slice_format` option, which is set to "%Y%m%d" (daily) by default. If you want your chunks to be hourly, "%Y%m%d%H" will do the job.
+#### `retry_limit`
 
- 2. What if new logs come after the time corresponding the current chunk? For example, what happens to an event, timestamped at 2013-01-01 02:59:45 UTC, comes in at 2013-01-01 03:00:15 UTC? Would it make into the 2013-01-01 02:00:00-02:59:59 chunk?
+* The maximum number of retries for sending a chunk (default: 17)
+* If `retry_limit` is exceeded, Fluentd will discard the given chunk.
 
-  This issue is addressed by setting the `time_slice_wait` parameter. `time_slice_wait` sets, in seconds, how long fluentd waits to accept "late" events into the chunk *past the max time corresponding to that chunk*. The default value is 600, which means it waits for 10 minutes before moving on. So, in the current example, as long as the events come in before 2013-01-01 03:10:00, it will make it in to the 2013-01-01 02:00:00-02:59:59 chunk.
+#### `disable_retry_limit`
 
-  Alternatively, you can also flush the chunks regularly using `flush_interval`. Note that `flush_interval` and `time_slice_wait` are mutually exclusive. If you set `flush_interval`, `time_slice_wait` will be ignored and fluentd would issue a warning.
+* If set true, it disables `retry_limit` and make Fluentd retry indefinitely (default: false).
 
-Here is the diagram shows the relation between buffers and parameters.
+#### `retry_wait`
 
-<div>
-  <a href="/images/buffer-internal-and-parameters.png">
-    <img style='width: 100%;' src="/images/buffer-internal-and-parameters.png"/>
-  </a>
-</div>
+* The number of seconds the first retry will wait (default: 1.0)
+* This is the seed value used by the exponential backoff algorithm; The wait interval will be doubled on each retry.
 
-## Secondary output
+#### `max_retry_wait`
 
-The backup destination that is used when retry count exceeds `retry_limit`. Currently, primary plugin type or `file` plugin works.
+* The maximum interval seconds to wait between retries (default: unset)
+* If the wait interval reaches this limit, the exponentiation stops.
 
-    ::text
-    <match pattern>
-      @type forward
-      ...
-      <secondary>
-        @type file # or forward
-        path /var/log/fluent/forward-failed
-      </secondary>
-    </match>
 
-This is useful when primary destination or network condition is unstable.
+## Slicing Data by Time
 
-##Notes
+Buffer plugins support a special mode that groups the incoming data by time frames. For example, you can group the incoming access logs by date and save them to separate files. Under this mode, a buffer plugin will behave quite differently in a few key aspects:
 
-If you are curious which core output plugin use Buffered and which are Time Sliced, please see LINK:[the list here](/articles/output-plugin-overview#overview)
+ 1. It supports the additional `time_slice_*` options (See Q1/Q2 below for details)
+ 2. Chunks will be flushed "lazily" based on the settings of the `time_slice_format` option. See Q2 for the relationship of this option and `flush_interval`.
+ 3. The default value of `buffer_chunk_limit` becomes 256mb.
+
+Normally, the output plugin determines in which mode the buffer plugin operates. For example, `out_s3` and `out_file` will enable the time-slicing mode. For the list of output plugins which enable the time-slicing mode, see [this page](output-plugin-overview#list-of-time-sliced-output-plugins).
+
+### FAQ
+
+#### Q1. How do we specify the granularity of time chunks?
+
+This is done through the `time_slice_format` option, which is set to "%Y%m%d" (daily) by default. If you want your chunks to be hourly, "%Y%m%d%H" will do the job.
+
+#### Q2. What if new logs come after the time corresponding the current chunk?
+
+For example, what happens to an event, timestamped at 2013-01-01 02:59:45 UTC, comes in at 2013-01-01 03:00:15 UTC? Would it make into the 2013-01-01 02:00:00-02:59:59 chunk?
+
+This issue is addressed by setting the `time_slice_wait` parameter. `time_slice_wait` sets, in seconds, how long fluentd waits to accept "late" events into the chunk *past the max time corresponding to that chunk*. The default value is 600, which means it waits for 10 minutes before moving on. So, in the current example, as long as the events come in before 2013-01-01 03:10:00, it will make it in to the 2013-01-01 02:00:00-02:59:59 chunk.
+
+Alternatively, you can also flush the chunks regularly using `flush_interval`. Note that `flush_interval` and `time_slice_wait` are mutually exclusive. If you set `flush_interval`, `time_slice_wait` will be ignored and fluentd would issue a warning.
 
 ## List of Buffer Plugins
 
