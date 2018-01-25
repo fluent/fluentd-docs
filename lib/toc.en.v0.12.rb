@@ -88,7 +88,9 @@ section 'deployment', 'Deployment' do
     article 'logging', 'Logging'
   end
   category 'monitoring', 'Monitoring' do
-    article 'monitoring', 'Monitoring'
+    article 'monitoring', 'Monitoring Overview'
+    article 'monitoring-rest-api', 'Monitoring (REST API)'
+    article 'monitoring-prometheus', 'Monitoring (Prometheus)'
   end
   category 'signals', 'Signals' do
     article 'signals', 'Signal Handling', ['Signals']

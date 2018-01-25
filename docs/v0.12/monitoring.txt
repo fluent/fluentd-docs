@@ -1,63 +1,14 @@
 # Monitoring Fluentd
 
-This article explains how to monitor the `Fluentd` daemon.
+This article desribes how to monitor Fluentd.
 
-## Monitoring Agent
+## Fluentd Metrics Monitoring
 
-Fluentd has a monitoring agent to retrieve internal metrics in JSON via HTTP. Please add the following lines to your configuration file.
+Fluentd can expose internal metrics via REST API, and works with monitoring tools such as [Prometheus](https://prometheus.io/), [Datadog](https://www.datadoghq.com/), etc. Our recommendation is to use Prometheus, since we will be collaborating more in the future under the [CNCF (Cloud Native Computing Foundation)](https://www.cncf.io/).
 
-    :::text
-    <source>
-      @type monitor_agent
-      bind 0.0.0.0
-      port 24220
-    </source>
-
-Next, please restart the agent and get the metrics via HTTP.
-
-    :::term
-    $ curl http://host:24220/api/plugins.json
-    {
-      "plugins":[
-        {
-          "plugin_id":"object:3fec669d6ac4",
-          "type":"forward",
-          "output_plugin":false,
-          "config":{
-            "type":"forward"
-          }
-        },
-        {
-          "plugin_id":"object:3fec669dfa48",
-          "type":"monitor_agent",
-          "output_plugin":false,
-          "config":{
-            "type":"monitor_agent",
-            "port":"24220"
-          }
-        },
-        {
-          "plugin_id":"object:3fec66aead48",
-          "type":"forward",
-          "output_plugin":true,
-          "buffer_queue_length":0,
-          "buffer_total_queued_size":0,
-          "retry_count":0,
-          "config":{
-            "type":"forward",
-            "host":"192.168.0.11"
-          }
-        }
-      ]
-    }
-
-### Reuse plugins
-
-Since v0.12.17, `monitor_agent` plugin has `tag` parameter. If you set `tag monitor.metrics`, `monitor_agent` plugin emits internal metrics to `monitor.metrics` tag. Here is an example with `stdout` output.
-
-    :::term
-    2015-09-16 20:28:19 +0900 monitor.metrics: {"plugin_id":"object:3fc62f0e5d64","plugin_category":"input","type":"monitor_agent","output_plugin":false,"retry_count":null}
-    2015-09-16 20:28:19 +0900 monitor.metrics: {"plugin_id":"object:3fc62f0e9c84","plugin_category":"output","type":"stdout","output_plugin":true,"retry_count":null}
+* [Monitoring Fluentd (Prometheus)](monitoring-prometheus)
+* [Monitoring Fluentd (Datadog)](https://docs.datadoghq.com/integrations/fluentd/)
+* [Monitoring Fluentd (REST API)](monitoring-rest-api)
 
 ## Process Monitoring
 
@@ -81,7 +32,7 @@ Fluentd opens several ports according to the configuration file. We recommend ch
 * TCP 0.0.0.0 9880 (HTTP by default)
 * TCP 0.0.0.0 24224 (Forward by default)
 
-### Debug Port
+## Debug Port
 
 A debug port for local communication is recommended for trouble shooting. Please note that the configuration below will be required.
 
@@ -93,17 +44,3 @@ A debug port for local communication is recommended for trouble shooting. Please
     </source>
 
 You can attach the process using the `fluent-debug` command through dRuby.
-
-## Monitoring the event flow
-
-Use [flowcounter](https://github.com/tagomoris/fluent-plugin-flowcounter) or [flowcounter_simple](https://github.com/sonots/fluent-plugin-flowcounter-simple) plugin.
-
-## Datadog (dd-agent) Integration
-
-[Datadog](https://www.datadoghq.com/) is a cloud monitoring service, and its monitoring agent `dd-agent` has native integration with Fluentd.
-
-<img src="http://docs.datadoghq.com/static/images/snapshot-fluentd.png" />
-
-Please refer this documentation for more details.
-
-- [Datadog-Fluentd Integration](http://docs.datadoghq.com/integrations/fluentd/)
