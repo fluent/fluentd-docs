@@ -9,7 +9,7 @@ Since both Prometheus and Fluentd are under [CNCF (Cloud Native Computing Founda
 First of all, please install `fluent-plugin-prometheus` gem.
 
     :::term
-    $ /usr/sbin/td-agent-gem install fluent-plugin-prometheus --version=0.4.0
+    $ fluent-gem install fluent-plugin-prometheus --version=0.4.0
 
 ## Example Fluentd Configuration
 
@@ -98,7 +98,7 @@ Finally, please use `prometheus` input plugin to expose internal counter informa
 After you have done 3 changes, please restart fluentd.
 
     :::term
-    $ fluentd -c fluentd.c
+    $ fluentd -c fluentd.conf
 
 Let's send some records.
 
