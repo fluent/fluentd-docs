@@ -46,6 +46,27 @@ All chunks on stage are writable, and events will be appended into these chunks.
 
 Buffer plugins control size limits of each chunks, and size limits of whole buffer plugin. Output plugin referres these limits, and controls flushing and retrying.
 
+## Control Retry Behaviour
+
+A chunk can fail to be written out to the destination for a number of reasons. The network can go down, or the traffic volumes can exceed the capacity of the destination node. To handle such common failures gracefully, buffer plugins are equipped with a built-in retry mechanism.
+
+### How exponential backoff works
+
+By default, Fluentd increases the wait interval exponentially for each retry attempt. For example, assuming that the initial wait interval is set to 1 second and the exponential factor is 2, each attempt occurs at the following time points:
+
+    1 2   4       8               16
+    x-x---x-------x---------------x-------------------------
+    │ │   │       │               └─  4th retry (wait = 8s)
+    │ │   │       └─────────────────  3th retry (wait = 4s)
+    │ │   └─────────────────────────  2th retry (wait = 2s)
+    │ └─────────────────────────────  1th retry (wait = 1s)
+    └───────────────────────────────  FAIL
+
+In practice, Fluentd "flavours" this algorithm in a few aspects:
+
+ * Wait intervals are **randomized** by default. That is, Fluentd diversifies the wait interval by multiplying by a randomly-chosen number between 0.875 and 1.125. You can turn off this behaviour by setting `retry_randomize` to false.
+ * Wait intervals *can* be **capped** to a certain limit. For example, if you set `retry_max_interval` to 5 seconds in the example above, the 4th retry will wait for 5 seconds, instead of 8 seconds.
+
 ## Parameters
 
 * [Common Parameters](plugin-common-parameters)
