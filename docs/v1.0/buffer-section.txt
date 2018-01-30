@@ -140,6 +140,17 @@ When the other (non-time/tag) keys are specified, these are handled as field nam
                                                      |
     12:00:25 ssh.login  {"key1":"yay","key2":100}  --|
 
+#### Nested field support
+
+You can use [record_accessor syntax](api-plugin-helper-record_accessor) for using nested field. Here is an example:
+
+    <match tag.**>
+      # ...
+      <buffer $.nest.field> # access record['nest']['field']
+        # ...
+      </buffer>
+    </match>
+
 ### Combination of chunk keys
 
 Buffer chunk keys can be specified 2 or more keys - events will be separated into chunks by the combination of values of chunk keys.
@@ -206,6 +217,18 @@ Any keys specified in chunk keys are acceptable. If keys not in chunk keys were 
       @type file
       path  /data/${tag}/access.${key1}.log #=> "/data/log.map/access.yay.log"
       <buffer tag,key1>
+        # ...
+      </buffer>
+    </match>
+
+### Nested field support
+
+Same with chunk keys:
+
+    <match log.*>
+      @type file
+      path  /data/${tag}/access.${$.nest.field}.log #=> "/data/log.map/access.nested_yay.log"
+      <buffer tag,$.nest.field> # access record['nest']['field']
         # ...
       </buffer>
     </match>
