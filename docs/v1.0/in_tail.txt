@@ -227,7 +227,7 @@ The rotate_wait parameter accepts a single integer representing the number of se
 
 | type | default | version |
 |:----:|:-------:|:-------:|
-| bool | false   | 0.14.0  |
+| bool | true    | 0.14.0  |
 
 Enable the additional watch timer.  Setting this parameter to `false` will significantly reduce CPU and I/O consumption when tailing a large number of files on systems with inotify support.  The default is `true` which results in an additional 1 second timer being used.
 
