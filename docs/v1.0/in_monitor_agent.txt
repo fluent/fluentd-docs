@@ -1,0 +1,176 @@
+# Monitoring Agent Input Plugin
+
+The `in_monitor_agent` Input plugin enables Fluentd to export internal metrics by using HTTP API.
+
+## Example Configuration
+
+`in_monitor_agent` is included in Fluentd's core. No additional installation process is required.
+
+    :::text
+    <source>
+      @type monitor_agent
+      bind 0.0.0.0
+      port 24220
+    </source>
+
+This configuration launches HTTP server with 24220 port and get metrics like below:
+
+    $ curl http://host:24220/api/plugins.json
+
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+
+## Parameters
+
+[Common Parameters](plugin-common-parameters)
+
+### @type (required)
+The value must be `monitor_agent`.
+
+### port
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| integer | 24220   | 0.14.0  |
+
+The port to listen to.
+
+### bind
+
+| type   | default                 | version |
+|:------:|:-----------------------:|:-------:|
+| string | 0.0.0.0 (all addresses) | 0.14.0  |
+
+The bind address to listen to.
+
+### tag
+
+| type   | default                 | version |
+|:------:|:-----------------------:|:-------:|
+| string | nil | 0.14.0  |
+
+If you set this parameter, this plugin emits metrics as records. See "Reuse plugins" section.
+
+### emit_interval
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| integer | 60   | 0.14.0  |
+
+The interval time between event emits. This will be used when `tag` is configured.
+
+### include_config
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | true   | 0.14.0  |
+
+Remove `config` field from the response.
+
+## Output Example
+
+Show output example with following configuration:
+
+    :::term
+    <source>
+      @type monitor_agent
+      include_config false
+    </source>
+    
+    <source>
+      @type forward
+      @id out_forward
+    </source>
+    
+    <match test.**>
+      @type elasticsearch
+      @id out_es
+    </match>
+
+### Basic response
+
+Important point is `@id` parameter is used in `plugin_id`. If you want to track plugin metrics by other service, set `@id` parameter is needed. Otherwise use internal object id and it will be changed after restart.
+
+    :::term
+    {
+      "plugins": [
+        {
+          "plugin_id": "object:3fd0250b9110",
+          "plugin_category": "input",
+          "type": "monitor_agent",
+          "output_plugin": false,
+          "retry_count": null
+        },
+        {
+          "plugin_id": "in_forward",
+          "plugin_category": "input",
+          "type": "forward",
+          "output_plugin": false,
+          "retry_count": null
+        },
+        {
+          "plugin_id": "out_es",
+          "plugin_category": "output",
+          "type": "elasticsearch",
+          "output_plugin": true,
+          "buffer_queue_length": 0,
+          "buffer_total_queued_size": 0,
+          "retry_count": 0,
+          "retry": {}
+        }
+      ]
+    }
+
+If the plugin is an output with buffer setting, the metrics has buffer related fields. 
+
+### In retry
+
+If the output plugin is in retry status, additional fields are added to `retry`.
+For example, if the elasticsearch plugin fails to flush the buffer, response is below:
+
+    :::term
+    { 
+      "plugin_id": "out_es",
+      "plugin_category": "output",
+      "type": "elasticsearch",
+      "output_plugin": true,
+      "buffer_queue_length": 1,
+      "buffer_total_queued_size": 0,
+      "retry_count": 3,
+      "retry": {
+        "start": "2018-01-30 22:42:47 +0900",
+        "steps": 2,
+        "next_time": "2018-01-30 22:42:52 +0900"
+      }
+    }
+
+`steps` field in `retry` show the number of flush failure, so next is 3rd try.
+`retry_count` is the total number of flush failure. This value is cleared when fluentd restart, not retry succeeded.
+
+## Tips
+
+### Reuse plugins
+
+If you set `tag` parameter, this plugin emits internal metrics to fluentd pipeline. Here is an example with `tag test.foo` and `stdout` output.
+
+    :::term
+    2018-01-30 22:53:29.591560000 +0900 test.foo: { "plugin_id":"object:3ffd9988bea0","plugin_category":"input","type":"monitor_agent","output_plugin":false,"retry_count":null}
+    2018-01-30 22:53:29.591560000 +0900 test.foo: { "plugin_id":"in_forward","plugin_category":"input","type":"forward","output_plugin":false,"retry_count":null}
+    2018-01-30 22:53:29.591560000 +0900 test.foo: { "plugin_id":"out_out","plugin_category":"output","type":"stdout","output_plugin":true,"retry_count":0}
+
+You can process these values by exsiting plugins.
+
+### Multi-process environment
+
+If you use this plugin under multi-process environment, HTTP server will be launched in each worker. Port is assigned in sequential number. For example, with this configuration:
+
+    :::term
+    <system>
+      workers 3
+    </system>
+
+    <source>
+      @type monitor_agent
+      port 24230
+    </source>
+
+3 HTTP servers will be launched. Port 24230 for worker 0, port 24231 for worker 1 and port 24232 for worker 2. Note that you may need to set worker_id to `@id` parameter. See [config article](/articles/config-file#embedded-ruby-code)

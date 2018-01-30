@@ -169,6 +169,9 @@ section 'plugin', 'Input Plugins' do
   category 'in_dummy', 'in_dummy' do
     article 'in_dummy', 'Dummy Input Plugin'
   end
+  category 'in_monitor_agent', 'in_monitor_agent' do
+    article 'in_monitor_agent', 'Monitoring Agent Input Plugin'
+  end
   # category 'in_others', 'Others' do
   #   article 'in_others', 'Other Input Plugins'
   # end

@@ -51,14 +51,7 @@ Next, please restart the agent and get the metrics via HTTP.
       ]
     }
 
-### Reuse plugins
-
-Since v0.12.17, `monitor_agent` plugin has `tag` parameter. If you set `tag monitor.metrics`, `monitor_agent` plugin emits internal metrics to `monitor.metrics` tag. Here is an example with `stdout` output.
-
-    :::term
-    2015-09-16 20:28:19 +0900 monitor.metrics: {"plugin_id":"object:3fc62f0e5d64","plugin_category":"input","type":"monitor_agent","output_plugin":false,"retry_count":null}
-    2015-09-16 20:28:19 +0900 monitor.metrics: {"plugin_id":"object:3fc62f0e9c84","plugin_category":"output","type":"stdout","output_plugin":true,"retry_count":null}
-
+See [in_monitor_agent article](in_monitor_agent) for more detail.
 
 ## Monitoring the event flow
 
