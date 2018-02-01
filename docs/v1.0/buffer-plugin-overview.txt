@@ -62,10 +62,21 @@ By default, Fluentd increases the wait interval exponentially for each retry att
     │ └─────────────────────────────  1th retry (wait = 1s)
     └───────────────────────────────  FAIL
 
-In practice, Fluentd "flavours" this algorithm in a few aspects:
+Note that, in practice, Fluentd tweaks this algorithm in a few aspects:
 
  * Wait intervals are **randomized** by default. That is, Fluentd diversifies the wait interval by multiplying by a randomly-chosen number between 0.875 and 1.125. You can turn off this behaviour by setting `retry_randomize` to false.
  * Wait intervals *can* be **capped** to a certain limit. For example, if you set `retry_max_interval` to 5 seconds in the example above, the 4th retry will wait for 5 seconds, instead of 8 seconds.
+
+If you want to disable the exponential backoff, set the `retry_type` option to "periodic".
+
+### Handling successive failures
+
+By default, Fluentd will break a retry loop (except a successful write) on the following conditions:
+
+ 1. The number of retries exceeds `retry_max_times` (default: none)
+ 2. The seconds elapsed since the first retry exceeds `retry_timeout` (default: 72h)
+
+In these events, *all* chunks in the output queue are discarded. If you want to avoid this, you can enable `retry_forever` to make Fluentd retry indefinitely.
 
 ## Parameters
 
