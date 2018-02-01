@@ -78,6 +78,27 @@ By default, Fluentd will break a retry loop (except a successful write) on the f
 
 In these events, *all* chunks in the output queue are discarded. If you want to avoid this, you can enable `retry_forever` to make Fluentd retry indefinitely.
 
+
+### Configuration Example
+
+Below is a full configuration example which covers all the parameters controlling retry bahaviours.
+
+```
+<buffer>
+  retry_wait 1                      # The wait interval for the first retry.
+  retry_exponential_backoff_base 2  # Inclease the wait time by a factor of N.
+  retry_type exponential_backoff    # Set 'periodic' for constant intervals.
+  # retry_max_interval 1h           # Cap the wait interval. (see above)
+  retry_randomize true              # Apply randomization. (see above)
+  retry_timeout 72h                 # Maximum duration before giving up.
+  # retry_max_times 17              # Maximum retry count before giving up.
+  retry_forever false               # Set 'true' for infinite retry loops.
+  retry_secondary_threshold 0.8     # See the "Secondary Output" section in
+</buffer>                           # 'Output Plugins' > 'Overview'.
+```
+
+Normaly, you don't need to specify every option as in this example, because these options are, in fact, optional. As for the detail of each option, please read [this article](buffer-section#retries-parameters).
+
 ## Parameters
 
 * [Common Parameters](plugin-common-parameters)
