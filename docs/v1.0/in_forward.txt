@@ -295,6 +295,22 @@ Now you can test the settings with the following command:
 
 If you see a line containing `{"foo":"bar"}` in the log file, the encryption has been set up successfully.
 
+### Multi-process environment
+
+If you use this plugin under multi-process environment, port will be shared. 
+
+    :::term
+    <system>
+      workers 3
+    </system>
+
+    <source>
+      @type forward
+      port 24224
+    </source>
+
+With this configuration, 3 workers share 24224 port. No need additional port. Incoming data will be routed to 3 workers automatically.
+
 ## FAQ
 
 ### Why in_forward doesn't have tag parameter?
