@@ -246,6 +246,55 @@ Multiple messages may be sent in the same connection.
 
 For more details, see [Fluentd Forward Protocol Specification (v1)](https://github.com/fluent/fluentd/wiki/Forward-Protocol-Specification-v1).
 
+## Tips & Tricks
+
+### How to enable TLS/SSL encryption
+
+Since v0.14.12, Fluentd includes a built-in TLS/SSL support. Here we present a quick tutorial for setting up TLS/SSL encryption:
+
+First, generate a self-signed certificate using the following command:
+
+    :::term
+    $ openssl req -new -x509 -sha256 -days 1095 -newkey rsa:2048 \
+                  -keyout fluentd.key -out fluentd.crt
+    # Note that during the generation, you will be asked for:
+    #  - a password (to encrypt the private key), and
+    #  - subject information (to be included in the certificate)
+
+Move the generated certificate and private key to a safer place. For example:
+
+    :::term
+    # Move files into /etc/td-agent
+    $ sudo mkdir -p /etc/td-agent/certs
+    $ sudo mv fluentd.key fluentd.crt /etc/td-agent/certs
+
+    # Set strict permissions
+    $ sudo chown td-agent:td-agent -R /etc/td-agent/certs
+    $ sudo chmod 700 /etc/td-agent/certs/
+    $ sudo chmod 400 /etc/td-agent/certs/fluentd.key
+
+Then add the following settings to `td-agent.conf`, and then restart the service:
+
+    <source>
+      @type forward
+      <transport tls>
+        cert_path /etc/td-agent/certs/fluentd.crt
+        private_key_path /etc/td-agent/certs/fluentd.key
+        private_key_passphrase YOUR_PASSPHRASE
+      </transport>
+    </source>
+    <match debug.**>
+      @type stdout
+    </match>
+
+Now you can test the settings with the following command:
+
+    :::term
+    $ echo -e '\x93\xa9debug.tls\xceZr\xbc1\x81\xa3foo\xa3bar' | \
+      openssl s_client -connect localhost:24224
+
+If you see a line containing `{"foo":"bar"}` in the log file, the encryption has been set up successfully.
+
 ## FAQ
 
 ### Why in_forward doesn't have tag parameter?
