@@ -110,7 +110,7 @@ If the `<parse>/@type` parameter is missing, then the log data is assumed to hav
 
 | type | default | available values |version |
 |:----:|:-------:|:----------------::-------:|
-| enum | rfc3614 | rfc3614/rfc5424/auto | 0.14.14 |
+| enum | rfc3164 | rfc3164/rfc5424/auto | 0.14.14 |
 
 This parameter is used inside `<parse>` directive. The default is `rfc3164`
 
