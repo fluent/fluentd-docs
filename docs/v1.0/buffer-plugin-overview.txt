@@ -1,50 +1,28 @@
 # Buffer Plugin Overview
 
-NOTE: This page is simply copied from LINK(v0.12):[v0.12 documents](/articles/buffer-plugin-overview), and will be updated later.
-
 Fluentd has 7 types of plugins: [Input](input-plugin-overview), [Parser](parser-plugin-overview), [Filter](filter-plugin-overview), [Output](output-plugin-overview), [Formatter](formatter-plugin-overview), [Storage](storage-plugin-overview) and [Buffer](buffer-plugin-overview). This article gives an overview of Buffer Plugin.
 
-## Buffer Plugin Overview
+## Overview
 
-Buffer plugins are used by output plugins in buffered mode, typically by `file`, `forward`, etc. Users can choose the buffer plugin that best suits their performance and reliability needs.
+Buffer plugins are used by output plugins. For example, `out_s3` uses `buf_file` by default to store incoming stream temporally before transmitting to S3.
 
-## Buffer Structure
+Buffer plugins are, as you can tell by the name, *pluggable*. So you can choose a suitable backend based on your system requirements.
 
-The buffer plugins have 2 internal structures: stage and queue. Buffer plugins append events to the chunks in stage ("staged" chunks), and put chunks, which are full or expired, into queue ("queued" chunks). Queued chunks will be flushed by output plugins next to next (in FIFO way: first-in, first-out).
+## How Buffer Works
 
-![Fluentd v1.0 Plugin API Overview](/images/fluentd-v0.14-plugin-api-overview.png)
+A buffer is essentially a set of "chunks". A chunk is a collection of events concatenated into a single blob. Each chunk is managed one by one in the form of files ([buf_file](buf_file)) or continuous memory blocks ([buf_memory](buf_memory)).
 
-    :::text
-                                   stage
-                                   +---------+
-                                   |         |
-    write events to staged chunks --> chunk  |
-                                   |         |
-                           events --> chunk  |
-                                   |         |
-                           events --> chunk  |
-                                   |         |
-                           events --> chunk  |
-                                   |         |
-                                   +---------+
+### The Lifecycle of Chunks
 
-All chunks on stage are writable, and events will be appended into these chunks. Once chunk size reaches the limit of bytesize or records, or it exceeds time limit, that chunk will be removed from stage and pushed into queue.
+You can think of a chunk as a cargo box. A buffer plugin uses a chunk as a lightweight container, and fills it with events incoming from input sources. If a chunk becomes full, then it gets "shipped" to the destination.
 
-    :::text
-                  queue
-                 +---------+
-                 |         |
-    push chunk  --> chunk  |
-     from stage  |         |
-                 |  chunk  |
-                 |         |
-                 |  chunk  |
-                 |         |
-                 |  chunk --> write out the chunk
-                 |         |    queued at first
-                 +---------+
+Internally, a buffer plugin has two separated places to store its chunks: *"stage"* where chunks get filled with events, and *"queue"* where chunks wait before the transportation. Every newly-created chunk starts from *stage*, then proceeds to *queue* in time (and subsequently gets transferred to the destination).
 
-Buffer plugins control size limits of each chunks, and size limits of whole buffer plugin. Output plugin referres these limits, and controls flushing and retrying.
+<div>
+  <a target='_blank' href='/images/fluentd-v0.14-plugin-api-overview.png'>
+    <img style='width: 100%' src='/images/fluentd-v0.14-plugin-api-overview.png'>
+  </a>
+</div>
 
 ## Control Retry Behaviour
 
