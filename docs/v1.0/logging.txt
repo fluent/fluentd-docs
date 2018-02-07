@@ -54,9 +54,9 @@ You can also change the logging level with `<system>` section in the config file
 
 ## Per Plugin Log
 
-The `log_level` option sets different levels of logging for each plugin. It can be set in each plugin's configuration file.
+The `@log_level` option sets different levels of logging for each plugin. It can be set in each plugin's configuration file.
 
-For example, in order to debug [in_tail](in_tail) but suppress all but fatal log messages for [in_http](in_http), their respective `log_level` options should be set as follows:
+For example, in order to debug [in_tail](in_tail) but suppress all but fatal log messages for [in_http](in_http), their respective `@log_level` options should be set as follows:
 
     <source>
       @type tail
@@ -69,9 +69,7 @@ For example, in order to debug [in_tail](in_tail) but suppress all but fatal log
       @log_level fatal
     </source>
 
-If you don't specify the `log_level` parameter, the plugin will use the global log level.
-
-NOTE: Some plugins haven't supported per-plugin logging yet. The <a href="plugin-development#logging">logging section of the Plugin Development article</a> explains how to update such plugins to support the new log level system.
+If you don't specify the `@log_level` parameter, the plugin will use the global log level.
 
 ## Log format
 
@@ -95,34 +93,6 @@ This `text` log line is changed to:
     :::term
     {"time":"2017-07-27","level":"info","message":"fluentd worker is now running worker=0","worker_id":0}
 
-## Suppress repeated stacktrace
-
-Fluentd can suppress same stacktrace with `--suppress-repeated-stacktrace`.
-For example, if you pass `--suppress-repeated-stacktrace` to fluentd:
-
-    :::term
-    2013-12-04 15:05:53 +0900 [warn]: fluent/engine.rb:154:rescue in emit_stream: emit transaction failed  error_class = RuntimeError error = #<RuntimeError: syslog>
-      2013-12-04 15:05:53 +0900 [warn]: fluent/engine.rb:140:emit_stream: /Users/repeatedly/devel/fluent/fluentd/lib/fluent/plugin/out_stdout.rb:43:in `emit'
-      [snip]
-      2013-12-04 15:05:53 +0900 [warn]: fluent/engine.rb:140:emit_stream: /Users/repeatedly/devel/fluent/fluentd/lib/fluent/plugin/in_object_space.rb:63:in `run'
-    2013-12-04 15:05:53 +0900 [error]: plugin/in_object_space.rb:113:rescue in on_timer: object space failed to emit error = "foo.bar" error_class = "RuntimeError" tag = "foo" record = "{ ...}"
-    2013-12-04 15:05:55 +0900 [warn]: fluent/engine.rb:154:rescue in emit_stream: emit transaction failed  error_class = RuntimeError error = #<RuntimeError: syslog>
-      2013-12-04 15:05:53 +0900 [warn]: fluent/engine.rb:140:emit_stream: /Users/repeatedly/devel/fluent/fluentd/lib/fluent/plugin/o/2.0.0/gems/cool.io-1.1.1/lib/cool.io/loop.rb:96:in `run'
-      [snip]
-
-logs are changed to:
-
-    :::term
-    2013-12-04 15:05:53 +0900 [warn]: fluent/engine.rb:154:rescue in emit_stream: emit transaction failed  error_class = RuntimeError error = #<RuntimeError: syslog>
-      2013-12-04 15:05:53 +0900 [warn]: fluent/engine.rb:140:emit_stream: /Users/repeatedly/devel/fluent/fluentd/lib/fluent/plugin/o/2.0.0/gems/cool.io-1.1.1/lib/cool.io/loop.rb:96:in `run'
-      [snip]
-      2013-12-04 15:05:53 +0900 [warn]: fluent/engine.rb:140:emit_stream: /Users/repeatedly/devel/fluent/fluentd/lib/fluent/plugin/in_object_space.rb:63:in `run'
-    2013-12-04 15:05:53 +0900 [error]: plugin/in_object_space.rb:113:rescue in on_timer: object space failed to emit error = "foo.bar" error_class = "RuntimeError" tag = "foo" record = "{ ...}"
-    2013-12-04 15:05:55 +0900 [warn]: fluent/engine.rb:154:rescue in emit_stream: emit transaction failed  error_class = RuntimeError error = #<RuntimeError: syslog>
-      2013-12-04 15:05:55 +0900 [warn]: plugin/in_object_space.rb:111:on_timer: suppressed same stacktrace
-
-Same stacktrace is replaced with `suppressed same stacktrace` message until other stacktrace is received.
-
 ## Output to log file
 
 Fluentd outputs logs to `STDOUT` by default. To output to a file instead, please specify the `-o` option.
@@ -130,66 +100,112 @@ Fluentd outputs logs to `STDOUT` by default. To output to a file instead, please
     :::term
     $ fluentd -o /path/to/log_file
 
-NOTE: Fluentd doesn't support log rotation yet.
+### Log rotation setting
+
+Fluentd has two options for log rotation:
+
+* --log-rotate-age AGE
+
+Generations to keep rotated log files. AGE is integer or pre-defined `daily`, `weekly`, `monthly` string.
+
+* --log-rotate-size BYTES
+
+The byte size to rotate log files.
 
 ## Capture Fluentd logs
 
-Fluentd marks its own logs with the `fluent` tag. You can process Fluentd logs by using `<match fluent.**>`(Of course, `**` captures other logs). If you define `<match fluent.**>` in your configuration, then Fluentd will send its own logs to this match destination. This is useful for monitoring Fluentd logs.
+Fluentd marks its own logs with the `fluent` tag. You can process Fluentd logs by using `<match fluent.**>`(Of course, `**` captures other logs) in `<label @FLUENT_LOG>`. If you define `<label @FLUENT_LOG>` in your configuration, then Fluentd will send its own logs to this label. This is useful for monitoring Fluentd logs.
 
-For example, if you have the following `<match fluent.**>`:
+For example, if you have the following configuration:
 
     # omit other source / match
-    <match fluent.**>
-      @type stdout
-    </match>
+    <label @FLUENT_LOG>
+      <match fluent.*>
+        @type stdout
+      </match>
+    </label>
 
 then Fluentd outputs `fluent.info` logs to stdout like below:
 
     2014-02-27 00:00:00 +0900 [info]: shutting down fluentd
-    2014-02-27 00:00:01 +0900 fluent.info: { "message":"shutting down fluentd"} # by <match fluent.**>
+    2014-02-27 00:00:01 +0900 fluent.info: {"message":"shutting down fluentd"} # by <match fluent.*>
     2014-02-27 00:00:01 +0900 [info]: process finished code = 0
 
-In production, you can use [out_forward](out_forward) to send Fluentd logs to a monitoring server.
-The monitoring server can then filter and send the logs to your notification system: chat, irc, etc.
+### Case1: Send Fluentd logs to monitoring service
+
+You can send Fluentd logs to a monitoring service by plugins, e.g. datadog, sentry, irc, etc.
+
+    # Add hostname for identifying the server
+    <label @FLUENT_LOG>
+      <filter fluent.*>
+        @type record_transformer
+        <record>
+          host "#{Socket.gethostname}"
+        </record>
+      </match>
+
+      <match fluent.*>
+        @type monitoring_plugin
+        # parameters...
+      </match>
+    <label>
+
+### Case2: Use aggregation/monitoring server
+
+You can use [out_forward](out_forward) to send Fluentd logs to a monitoring server. The monitoring server can then filter and send the logs to your notification system: chat, irc, etc.
 
 Leaf server example:
 
     # Add hostname for identifying the server and tag to filter by log level
-    <match fluent.**>
-      @type record_modifier
-      tag internal.message
-      host ${hostname}
-      include_tag_key
-      tag_key original_tag
-    </match>
-
-    <match internal.message>
-      @type forward
-      <server>
-        # Monitoring server parameters
-      </server>
-    </match>
+    <label @FLUENT_LOG>
+      # If you want to capture only error events, use 'fluent.error' instead.
+      <match fluent.*>
+        @type record_transformer
+        <record>
+          host "#{Socket.gethostname}"
+          original_tag ${tag}
+        </record>
+      </match>
+      
+      <match fluent.*>
+        @type forward
+        <server>
+          # Monitoring server parameters
+        </server>
+      </match>
+    <label>
 
 Monitoring server example:
 
-    # Ignore trace, debug and info log
-    <match internal.message>
+    <source>
+      @type forward
+    </source>
+
+    # Ignore trace, debug and info log. Of course, you can use strict matching like `<filter fluent.{warn,error,fatal}>` without grep filter.
+    <filter fluent.*>
       @type grep
-      regexp1 original_tag fluent.(warn|error|fatal)
-      add_tag_prefix filtered
+      <regexp>
+        key original_tag
+        pattern fluent.(warn|error|fatal)
+      </regexp>
     </match>
 
-    <match filtered.internal.message>
-      # your notification setup. This example uses Slack plugin
-      @type slack
-      webhook_url https://hooks.slack.com/services/XXX/XXX/XXX
+    <match fluent.*>
+      # your notification setup. This example uses irc plugin
+      @type irc
+      host irc.domain
       channel notify
-      username fluentd
       message notice: %s [%s] @%s %s
-      message_keys original_tag,time,host,message
+      out_keys original_tag,time,host,message
     </match>
+
+    # Unlike v0.12, if `<label @FLUENT_LOG>` is defiend, `<match fluent.*>` in root is not used for log capturing.
+    <label @FLUENT_LOG>
+      # Monitoring server's internal log
+    </label>
 
 If an error occurs, you will get a notification message in your Slack `notify` channel.
 
     01:01  fluentd: [11:10:24] notice: fluent.warn [2014/02/27 01:00:00] @leaf.server.domain detached forwarding server 'server.name'
 
+You can still use LINK(v0.12):[v0.12 way](articles/logging#capture-fluentd-logs) without `<label @FLUENT_LOG>`.

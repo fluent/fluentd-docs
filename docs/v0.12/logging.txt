@@ -124,7 +124,7 @@ For example, if you have the following `<match fluent.**>`:
 then Fluentd outputs `fluent.info` logs to stdout like below:
 
     2014-02-27 00:00:00 +0900 [info]: shutting down fluentd
-    2014-02-27 00:00:01 +0900 fluent.info: { "message":"shutting down fluentd"} # by <match fluent.**>
+    2014-02-27 00:00:01 +0900 fluent.info: {"message":"shutting down fluentd"} # by <match fluent.**>
     2014-02-27 00:00:01 +0900 [info]: process finished code = 0
 
 ### Case1: Send Fluentd logs to monitoring service
