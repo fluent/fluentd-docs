@@ -175,9 +175,23 @@ Here is a simple bechmark result on MacBook Pro with ruby 2.3:
 
 Tested configuration and ruby script is [here](https://gist.github.com/repeatedly/672ac73abf7cbcb629aaec791838cf6d).
 
-## Learn More
+## Tips
 
-* [Input Plugin Overview](input-plugin-overview)
+### Multi-process environment
+
+If you use this plugin under multi-process environment, port will be shared.
+
+    :::term
+    <system>
+      workers 3
+    </system>
+
+    <source>
+      @type http
+      port 9880
+    </source>
+
+With this configuration, 3 workers share 9880 port. No need additional port. Incoming data will be routed to 3 workers automatically.
 
 ## FAQ
 
@@ -199,3 +213,8 @@ curl command example:
 
     # NG
     curl -X POST -F 'json={"message":"foo+bar"}' http://localhost:8888/test.tag.here
+
+## Learn More
+
+* [Input Plugin Overview](input-plugin-overview)
+
