@@ -110,7 +110,9 @@ The format of the HTTP body. The default `@type` is `in_http`.
 
 * in_http
 
-Accept records using `json=` / `msgpack=` style.
+Accept records using `json=` / `msgpack=` style. If `time` query parameter is missing, use current time.
+
+If you want to parse json body with parser plugin features, use `json` type instead.
 
 * regexp
 
@@ -151,13 +153,15 @@ If you want to pass the event time from your application, please use the `time` 
 
 ### Batch mode
 
-If you use `default` format, then you can send array type of json / msgpack to in_http.
+If you use default `in_http` format, then you can send array type of json / msgpack to in_http.
 
     :::term
     $ curl -X POST -d 'json=[{"action":"login","user":2,"time":1392021185},{"action":"logout","user":2,"time":1392027356}]'
       http://localhost:8888/test.tag.here;
 
-This improves the input performance by reducing HTTP access. Non `default` format doesn't support batch mode yet.
+You can use time query parameter instead of setting time field in each record.
+
+This improves the input performance by reducing HTTP access. Non `in_http` format doesn't support batch mode yet.
 Here is a simple bechmark result on MacBook Pro with ruby 2.3:
 
 <table>
