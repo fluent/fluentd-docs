@@ -21,7 +21,8 @@
 	text-indent:-9999px;
 	overflow:hidden;
 	background:url(../logo/Fluentd_horizontal_banner.png) no-repeat;
-	width:169px;
+	width:170px;
+	margin-left: 15px;
 	height:60px;
 }
 
