@@ -329,6 +329,40 @@ The backup destination that is used when all servers are unavailable.
 
 For more details, see [Secondary Output](output-plugin-overview#secondary-output).
 
+## Tips & Tricks
+
+### How to connect to a TLS/SSL enabled server
+
+If you've [set up TLS/SSL encryption in the receiving server](in_forward#how-to-enable-tls/ssl-encryption), you need to tell the output forwarder to use encryption by setting the `transport` paremter:
+
+```
+<match debug.**>
+  @type forward
+  transport tls
+  <server>
+    host 192.168.1.2
+    port 24224
+  </server>
+</match>
+```
+
+If you're using a self-singed certificate, copy the certificate file to the forwarding server, then add the following settings:
+
+```
+<match debug.**>
+  @type forward
+  transport tls
+  tls_cert_path /path/to/fluentd.crt # Set the path to the certificate file.
+  tls_verify_hostname true           # Set false to ignore cert hostname.
+  <server>
+    host 192.168.1.2
+    port 24224
+  </server>
+</match>
+```
+
+After updating the settings, please confirm that the forwarded data is being received by the destination node properly.
+
 ## Troubleshooting
 
 ### "no nodes are available"
