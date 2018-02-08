@@ -194,6 +194,24 @@ INCLUDE: _log_level_params
 This plugin assumes `\n` for delimiter character between syslog messages in one TCP connection. If you use syslog library in your application with `protocol_type tcp`, add `\n` to your syslog message.<br />
 See also [rfc6587](https://tools.ietf.org/html/rfc6587#section-3.4.2).
 
+## Tips
+
+### Multi-process environment
+
+If you use this plugin under multi-process environment, port will be shared.
+
+    :::term
+    <system>
+      workers 3
+    </system>
+
+    <source>
+      @type syslog
+      port 5140
+    </source>
+
+With this configuration, 3 workers share 5140 port. No need additional port. Incoming data will be routed to 3 workers automatically.
+
 ## Learn More
 
 * [Input Plugin Overview](input-plugin-overview)
