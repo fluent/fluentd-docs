@@ -1,6 +1,6 @@
 # Monitoring Fluentd (Prometheus)
 
-Thsi article describes how to monitor Fluentd via [Prometheus](https://prometheus.io/).
+This article describes how to monitor Fluentd via [Prometheus](https://prometheus.io/).
 
 Since both Prometheus and Fluentd are under [CNCF (Cloud Native Computing Foundation)](https://www.cncf.io/), Fluentd project is recommending to use Prometheus by default to monitor Fluentd.
 
@@ -9,21 +9,26 @@ Since both Prometheus and Fluentd are under [CNCF (Cloud Native Computing Founda
 First of all, please install `fluent-plugin-prometheus` gem.
 
     :::term
-    $ /usr/sbin/td-agent-gem install fluent-plugin-prometheus --version=0.4.0
+    $ fluent-gem install fluent-plugin-prometheus --version=0.4.0
 
-NOTE: <a href="https://github.com/kzk/fluentd-prometheus-config-example">This github repository</a> contains the fully working configuration for this article.
+If you are using td-agent, use `td-agent-gem` for installation.
+
+    :::term
+    $ sudo td-agent-gem install fluent-plugin-prometheus --version=0.4.0
+
+NOTE: <a href="https://github.com/kzk/fluentd-prometheus-config-example">This GitHub repository</a> contains the fully working configuration for this article.
 
 ## Example Fluentd Configuration
 
 To expose the Fluentd metrics to Prometheus, we need to configure 3 parts:
 
 - Step 1: Prometheus Filter Plugin to count Incoming Records
-- Step 2: Prometheus Output Plugih to count Outgoing Records
+- Step 2: Prometheus Output Plugin to count Outgoing Records
 - Step 3: Prometheus Input Plugin to expose metrics via HTTP
 
 ### Step 1: Counting Incoming Records by Prometheus Filter Plugin
 
-First, please add the `<filter>` section like below, to count the incoming records per tag. With this configuraiton, `prometheus` filter starts adding the internal counter as the record comes in.
+First, please add the `<filter>` section like below, to count the incoming records per tag. With this configuration, `prometheus` filter starts adding the internal counter as the record comes in.
 
     # source
     <source>
@@ -48,7 +53,7 @@ First, please add the `<filter>` section like below, to count the incoming recor
 
 ### Step 2: Counting Outgoing Records by Prometheus Output Plugin
 
-Second, please use `copy` plugin with `prometheus` output plugin, to count the outgoing records per tag. With this configuraiton, `prometheus` output starts adding the internal counter as the record goes out.
+Second, please use `copy` plugin with `prometheus` output plugin, to count the outgoing records per tag. With this configuration, `prometheus` output starts adding the internal counter as the record goes out.
 
     # count number of outgoing records per tag
     <match company.*>
@@ -76,7 +81,7 @@ Second, please use `copy` plugin with `prometheus` output plugin, to count the o
       </store>
     </match>
 
-### Step 3: Expose Metrics by Prometheus Input Plugion via HTTP
+### Step 3: Expose Metrics by Prometheus Input Plugin via HTTP
 
 Finally, please use `prometheus` input plugin to expose internal counter information via HTTP.
 
@@ -100,7 +105,10 @@ Finally, please use `prometheus` input plugin to expose internal counter informa
 After you have done 3 changes, please restart fluentd.
 
     :::term
-    $ fluentd -c fluentd.c
+    # For stand-alone Fluentd installations
+    $ fluentd -c fluentd.conf
+    # For td-agent users
+    $ sudo systemctl restart td-agent
 
 Let's send some records.
 
