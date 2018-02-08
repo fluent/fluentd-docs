@@ -11,6 +11,11 @@ First of all, please install `fluent-plugin-prometheus` gem.
     :::term
     $ fluent-gem install fluent-plugin-prometheus --version=0.4.0
 
+If you are using td-agent, use `td-agent-gem` for installation.
+
+    :::term
+    $ sudo td-agent-gem install fluent-plugin-prometheus --version=0.4.0
+
 ## Example Fluentd Configuration
 
 To expose the Fluentd metrics to Prometheus, we need to configure 3 parts:
@@ -98,7 +103,10 @@ Finally, please use `prometheus` input plugin to expose internal counter informa
 After you have done 3 changes, please restart fluentd.
 
     :::term
+    # For stand-alone Fluentd installations
     $ fluentd -c fluentd.conf
+    # For td-agent users
+    $ sudo /etc/init.d/td-agent restart
 
 Let's send some records.
 
