@@ -363,6 +363,25 @@ If you're using a self-singed certificate, copy the certificate file to the forw
 
 After updating the settings, please confirm that the forwarded data is being received by the destination node properly.
 
+### How to enable gzip compression
+
+Since v0.14.7, Fluentd supports transparent data compression. You can use this feature to reduce the transferred payload size.
+
+To enable this feature, set the `compress` option as follows:
+
+```
+<match debug.**>
+  @type forward
+  compress gzip
+  <server>
+    host 192.168.1.2
+    port 24224
+  </server>
+</match>
+```
+
+You don't need any configuration in the receiving server. Data compression is auto-detected and handled transparently by the destination node.
+
 ## Troubleshooting
 
 ### "no nodes are available"
