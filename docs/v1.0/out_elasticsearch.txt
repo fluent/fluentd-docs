@@ -60,9 +60,9 @@ The nodename and its port pairs.
 
 are accepted.
 
-### user, password, path, scheme, ssl_verify (optional)
-
 If you specify this option, host and port options are ignored.
+
+### user, password, path, scheme, ssl_verify (optional)
 
     :::text
     user fluent
