@@ -100,12 +100,22 @@ Parameters inside `<record>` directives are considered to be new key-value pairs
 For NEW_FIELD and NEW_VALUE, a special syntax `${}` allows the user to generate a new field dynamically. Inside the curly braces, the following variables are available:
 
 - The incoming event's existing values can be referred by their field names. So, if the record is `{"total":100, "count":10}`, then `record["total"]=100` and `record["count"]=10`.
-- `tag_parts[N]` refers to the Nth part of the tag. It works like the usual zero-based array accessor.
-- `tag_prefix[N]` refers to the first N parts of the tag. It works like the usual zero-based array accessor.
-- `tag_suffix[N]` refers to the last N parts of the tag. It works like the usual zero-based array accessor.
 - `tag` refers to the whole tag.
 - `time` refers to stringanized event time.
 - `hostname` refers to machine's hostname. The actual value is result of [Socket.gethostname](https://docs.ruby-lang.org/en/trunk/Socket.html#method-c-gethostname).
+
+You can also access to a certain potion of a tag using the following notations:
+
+- `tag_parts[N]` refers to the Nth part of the tag.
+- `tag_prefix[N]` refers to the [0..N] part of the tag.
+- `tag_suffix[N]` refers to the [N..] part of the tag.
+
+All indices are zero-based. For example, if you have an incoming event tagged `debug.my.app`, then `tag_parts[1]` will represent "my". Also in this case, `tag_prefix[N]` and `tag_suffix[N]` will work as follows:
+
+    :::text
+    tag_prefix[0] = debug          tag_suffix[0] = debug.my.app
+    tag_prefix[1] = debug.my       tag_suffix[1] = my.app
+    tag_prefix[2] = debug.my.app   tag_suffix[2] = app
 
 ### enable_ruby
 
