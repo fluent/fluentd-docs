@@ -143,6 +143,28 @@ INCLUDE: _log_level_params
 
 ## Additional Features
 
+### Send data in MessagePack format
+
+You can post a record in MessagePack format by adding the `msgpack=` prefix.
+
+    :::term
+    # Send data in msgpack format
+    $ msgpack=`echo -e "\x81\xa3foo\xa3bar"`
+    $ curl -X POST -d "msgpack=$msgpack" http://localhost:8888/debug.log
+
+This reduces the overhead of parsing JSON, hence is relatively faster.
+
+### Leverage HTTP Content-Type header
+
+This plugin recognizes the 'Content-Type' header in a POST request. Using this header, you can send a JSON payload without adding the `json=` prefix.
+
+    :::term
+    # Post a raw JSON data using Content-Type
+    $ curl -X POST -d '{"foo":"bar"}' -H 'Content-Type: application/json' \
+      http://localhost:8888/test.tag
+
+To use MessagePack format, set the content type to `application/msgpack`.
+
 ### time query parameter
 
 If you want to pass the event time from your application, please use the `time` query parameter.
