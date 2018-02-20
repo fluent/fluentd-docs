@@ -32,6 +32,8 @@ By default, timestamps are assigned to each record on arrival. You can override 
     $ curl -X POST -d 'json={"foo":"bar"}' \
       http://localhost:8888/test.tag?time=1518756037.3137116
 
+For more advanced usage, please proceed to ["Tips & Tricks"](#tips-&-tricks).
+
 ## Parameters
 
 [Common Parameters](plugin-common-parameters)
@@ -110,7 +112,7 @@ If you set `["domain1", "domain2"]` to `cors_allow_origins`, `in_http` returns `
 Deprecated parameter. Use the `<parse>` directive [as explained below](#handle-various-formats-using-parser-plugins).
 
 
-## Additional Features
+## Tips & Tricks
 
 ### Send data in MessagePack format
 
@@ -119,7 +121,7 @@ You can post a record in MessagePack format by adding the `msgpack=` prefix.
     :::term
     # Send data in msgpack format
     $ msgpack=`echo -e "\x81\xa3foo\xa3bar"`
-    $ curl -X POST -d "msgpack=$msgpack" http://localhost:8888/debug.log
+    $ curl -X POST -d "msgpack=$msgpack" http://localhost:8888/app.log
 
 This reduces the overhead of parsing JSON, hence is relatively faster.
 
@@ -130,7 +132,7 @@ This plugin recognizes the 'Content-Type' header in a POST request. Using this h
     :::term
     # Post a raw JSON data using Content-Type
     $ curl -X POST -d '{"foo":"bar"}' -H 'Content-Type: application/json' \
-      http://localhost:8888/test.tag
+      http://localhost:8888/app.log
 
 To use MessagePack format, set the content type to `application/msgpack`.
 
@@ -156,23 +158,25 @@ Now you can post custom-format records as below:
 
 Other formats (e.g. csv and syslog) are also supported. For the full list of supported plugins, please read [this article](parser-plugin-overview).
 
+Note that most parser plugins do not support [the batch mode](#handle-large-data-with-batch-mode). So if you want to use bulk insertion for better performance, please consider using the default JSON/MessagePack format.
 
-### Batch mode
+## Enhance Performance
 
-If you use default `in_http` format, then you can send array type of json / msgpack to in_http.
+### Handle large data with batch mode
+
+You can post multiple records in a single request by packing data as a JSON/MessagePack array as below:
 
     :::term
-    $ curl -X POST -d 'json=[{"action":"login","user":2,"time":1392021185},{"action":"logout","user":2,"time":1392027356}]'
-      http://localhost:8888/test.tag.here;
+    # Send multiple events as a JSON array
+    $ curl -X POST -d "json=[{"foo":"bar"},{"abc":"xyz"}]" \
+      http://localhost:8888/app.log
 
-You can use time query parameter instead of setting time field in each record.
-
-This improves the input performance by reducing HTTP access. Non `in_http` format doesn't support batch mode yet.
-Here is a simple bechmark result on MacBook Pro with ruby 2.3:
+This significantly improves the throughput since we can reduce the number of HTTP requests.
+For example, here is a simple bechmark result on MacBook Pro with ruby 2.3:
 
 <table>
   <tr>
-    <td>json</td><td>msgpack</td><td>msgpack array(10 items)</td>
+    <th>json</th><th>msgpack</th><th>msgpack array(10 items)</th>
   </tr>
   <tr>
     <td>2100 events/sec</td><td>2400 events/sec</td><td>10000 events/sec</td>
@@ -180,8 +184,6 @@ Here is a simple bechmark result on MacBook Pro with ruby 2.3:
 </table>
 
 Tested configuration and ruby script is [here](https://gist.github.com/repeatedly/672ac73abf7cbcb629aaec791838cf6d).
-
-## Tips
 
 ### Multi-process environment
 
@@ -199,7 +201,7 @@ If you use this plugin under multi-process environment, port will be shared.
 
 With this configuration, 3 workers share 9880 port. No need additional port. Incoming data will be routed to 3 workers automatically.
 
-## FAQ
+## Troubleshooting
 
 ### Why in_http removes '+' from my log?
 
