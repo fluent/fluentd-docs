@@ -17,19 +17,20 @@ The `in_http` Input plugin enables Fluentd to retrieve records from HTTP POST. T
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
-### Example Usage
+## Basic Usage
 
-The example below posts a record using the `curl` command.
+Here is a simple example to post a record using `curl`.
 
     :::term
-    $ curl -X POST -d 'json={"action":"login","user":2}'
-      http://localhost:8888/test.tag.here;
+    # Post a record with the tag "app.log"
+    $ curl -X POST -d 'json={"foo":"bar"}' http://localhost:8888/app.log
 
-## Plugin helpers
+By default, timestamps are assigned to each record on arrival. You can override the timestamp using the `time` parameter.
 
-* [parser](api-plugin-helper-parser)
-* [compat_parameters](api-plugin-helper-compat_parameters)
-* [event_loop](api-plugin-helper-event_loop)
+    :::term
+    # Overwrite the timestamp to 2018-02-16 04:40:37.3137116
+    $ curl -X POST -d 'json={"foo":"bar"}' \
+      http://localhost:8888/test.tag?time=1518756037.3137116
 
 ## Parameters
 
@@ -104,42 +105,10 @@ White list domains for CORS.
 
 If you set `["domain1", "domain2"]` to `cors_allow_origins`, `in_http` returns `403` to access from othe domains.
 
-### &lt;parse&gt; directive
+### format (deprecated)
 
-The format of the HTTP body. The default `@type` is `in_http`.
+Deprecated parameter. Use the `<parse>` directive [as explained below](#handle-various-formats-using-parser-plugins).
 
-* in_http
-
-Accept records using `json=` / `msgpack=` style. If `time` query parameter is missing, use current time.
-
-If you want to parse json body with parser plugin features, use `json` type instead.
-
-* regexp
-
-Specify body format by regular expression.
-
-    :::text
-    <parse>
-      @type regexp
-      expression /^(?<field1>\d+):(?<field2>\w+)$/
-    </parse>
-
-If you execute following command:
-
-    :::term
-    $ curl -X POST -d '123456:awesome' "http://localhost:8888/test.tag.here"
-
-then got parsed result like below:
-
-    :::text
-    {"field1":"123456","field2":"awesome}
-
-`json`, `ltsv`, `tsv`, `csv` and `none` are also supported. Check [parser plugin overview](parser-plugin-overview) for more details.
-
-### format
-Deprecated parameter. Use `<parse>` instead.
-
-INCLUDE: _log_level_params
 
 ## Additional Features
 
@@ -165,13 +134,28 @@ This plugin recognizes the 'Content-Type' header in a POST request. Using this h
 
 To use MessagePack format, set the content type to `application/msgpack`.
 
-### time query parameter
+### Handle various formats using parser plugins
 
-If you want to pass the event time from your application, please use the `time` query parameter.
+You can handle various input formats (other than JSON and MessagePack) by using `<parser>` directive. For example, add the following configuration to the file:
+
+    :::text
+    <source>
+      @type http
+      port 8888
+      <parse>
+        @type regexp
+        expression /^(?<field1>\d+):(?<field2>\w+)$/
+      </parse>
+    </source>
+
+Now you can post custom-format records as below:
 
     :::term
-    $ curl -X POST -d 'json={"action":"login","user":2}'
-      "http://localhost:8888/test.tag.here?time=1392021185"
+    # This will be parsed into {"field1":"123456","field2":"awesome"}
+    $ curl -X POST -d '123456:awesome' http://localhost:8888/app.log
+
+Other formats (e.g. csv and syslog) are also supported. For the full list of supported plugins, please read [this article](parser-plugin-overview).
+
 
 ### Batch mode
 
