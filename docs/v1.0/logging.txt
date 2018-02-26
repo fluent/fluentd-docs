@@ -102,15 +102,18 @@ Fluentd outputs logs to `STDOUT` by default. To output to a file instead, please
 
 ### Log rotation setting
 
-Fluentd has two options for log rotation:
+Fluentd doesn't rotate logs by default. You can configure this behaviour by command line options:
 
 * --log-rotate-age AGE
 
-Generations to keep rotated log files. AGE is integer or pre-defined `daily`, `weekly`, `monthly` string.
+AGE is 2 types:
+
+- integer: Generations to keep rotated log files.
+- string: frequency of rotation. `daily`, `weekly` and `monthly` are supported
 
 * --log-rotate-size BYTES
 
-The byte size to rotate log files.
+The byte size to rotate log files. This is applied when `--log-rotate-age` is specified with integer.
 
 ## Capture Fluentd logs
 
