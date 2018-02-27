@@ -5,19 +5,19 @@
 [Treasure Data, Inc.](http://www.treasuredata.com) maintains stable packages for Fluentd and canonical plugins as Treasure Agent (the package is called `td-agent`). td-agent has v2 and v3. td-agent v2 for the production and v3 is the new stable version for working with ruby 2.4 and fluetnd v0.14/v1.0 series.
 
 <table>
-	<th>
-		<td>v2</td><td>v3</td>
-	</th>
-	<tr><td>RedHat/CentOS 5</td><td>&#10003;</td><td></td></tr>
-	<tr><td>RedHat/CentOS 6/7</td><td>&#10003;</td><td>&#10003;</td></tr>
-	<tr><td>Ubuntu Precise</td><td>&#10003;</td><td></td></tr>
-	<tr><td>Ubuntu Trusty</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <th>
+        <td>v2</td><td>v3</td>
+        </th>
+        <tr><td>RedHat/CentOS 5</td><td>&#10003;</td><td></td></tr>
+        <tr><td>RedHat/CentOS 6/7</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td>Ubuntu Precise</td><td>&#10003;</td><td></td></tr>
+        <tr><td>Ubuntu Trusty</td><td>&#10003;</td><td>&#10003;</td></tr>
         <tr><td>Ubuntu Xenial</td><td>&#10003;</td><td>&#10003;</td></tr>
-	<tr><td>Debian Wheezy</td><td>&#10003;</td><td></td></tr>
-		<tr><td>Debian Jessie</td><td>&#10003;</td><td>&#10003;</td></tr>
-	<tr><td>Debian Stretch</td><td>&#10003;</td><td>&#10003;</td></tr>
-	<tr><td>MacOSX</td><td>&#10003;</td><td>*</td></tr>
-       	<tr><td>Windows</td><td></td><td>&#10003;</td></tr>
+        <tr><td>Debian Wheezy</td><td>&#10003;</td><td></td></tr>
+        <tr><td>Debian Jessie</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td>Debian Stretch</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td>MacOSX</td><td>&#10003;</td><td>&#10003;</td></tr>
+        <tr><td>Windows</td><td></td><td>&#10003;</td></tr>
 </table>
 
 `*` means these distributions are supported but not released yet.
@@ -31,14 +31,16 @@ Major feature updates to td-agent v3 are as follows.
 - Updated for the core libraries, msgpack, Cool.io, etc.
 - Windows support
 - Drop older distributions and non-popular plugins
+- Remove fluentd-ui. This will be released as separated td-agent-ui package
 
 ## td-agent v3 is now stable version
 
 Fluentd v0.14/v1.0 is the new stable version.
-
 
 ##How to Install
 
 * [Ubuntu/Debian](install-by-deb)
 * [RedHat/CentOS](install-by-rpm)
 * [Windows](install-by-msi)
+* [Windows](install-by-dmg)
+* [Windows](install-by-gem)

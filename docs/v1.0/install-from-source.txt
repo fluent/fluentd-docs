@@ -14,7 +14,7 @@ Fetch the source code from github. The official repository is located [here](htt
     $ git clone https://github.com/fluent/fluentd.git
     $ cd fluentd
 
-"master" branch is now for v0.14 development.
+"master" branch is now for v1 development.
 
 ## Step-3: Build and Install
 

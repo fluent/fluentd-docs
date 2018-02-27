@@ -37,7 +37,7 @@ NOTE: It's HIGHLY recommended that you set up <b>ntpd</b> on the node to prevent
 
 NOTE: For large deployments, you must use <a href="http://www.canonware.com/jemalloc/">jemalloc</a> to avoid memory fragmentation. This is already included in the <a href="install-by-rpm">rpm</a> and <a href="install-by-deb">deb</a> packages.
 
-NOTE: The Fluentd gem doesn't come with /etc/init.d/ scripts. You should use process management tools such as <a href="http://cr.yp.to/daemontools.html">daemontools</a>, <a href="http://smarden.org/runit/">runit</a>, <a href="http://supervisord.org/">supervisord</a>, or <a href="http://upstart.ubuntu.com/">upstart</a>.
+NOTE: The Fluentd gem doesn't come with /etc/init.d/ scripts. You should use process management tools such as <a href="http://cr.yp.to/daemontools.html">daemontools</a>, <a href="http://smarden.org/runit/">runit</a>, <a href="http://supervisord.org/">supervisord</a>, <a href="http://upstart.ubuntu.com/">upstart</a>, or systemd.
 
 ## Next Steps
 
