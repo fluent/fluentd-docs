@@ -42,5 +42,5 @@ Fluentd v0.14/v1.0 is the new stable version.
 * [Ubuntu/Debian](install-by-deb)
 * [RedHat/CentOS](install-by-rpm)
 * [Windows](install-by-msi)
-* [Windows](install-by-dmg)
-* [Windows](install-by-gem)
+* [macOS](install-by-dmg)
+* [rubygems](install-by-gem)
