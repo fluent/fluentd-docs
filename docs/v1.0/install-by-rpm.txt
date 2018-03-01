@@ -29,6 +29,8 @@ Recent two versions 64bit are supported. This means if latest version is `2017.0
     # Amazon Linux 2
     $ curl -L https://toolbelt.treasuredata.com/sh/install-amazon2-td-agent3.sh | sh
 
+NOTE: We use $releasever for repository path and $releasever should be "2017.09" like version string. On AWS, some services modify $releasever to own format and it will cause installation failure. If your environment's $releasever is non-standard format, setup TD repository manually.
+
 ## Step 2: Launch Daemon
 
 td-agent provides 2 scripts:
