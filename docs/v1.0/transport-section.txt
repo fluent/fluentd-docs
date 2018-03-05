@@ -21,15 +21,21 @@ It's specifying transport protocol, its version, and certificates.
 
 ### Signed public CA parameters
 
+* ``ca_path``: [string]
+  * Default: nil
+  * Specify path to CA certificate file
 * ``cert_path``: [string]
   * Default: nil
-  * Specify public CA contained path
+  * Specify path to Certificate file
 * ``private_key_path``: [string]
   * Default: nil
-  * public CA private key contained path
+  * Specify path to private Key file
 * ``private_key_passphrase``: [string]
   * Default: nil
   * public CA private key passphrase contained path
+* ``client_cert_auth``: [bool]
+  * Default: false
+  * When this is set Fluentd will check all incoming HTTPS requests for a client certificate signed by the trusted CA, requests that don't supply a valid client certificate will fail.
 
 ### Generated and signed by private CA parameters
 

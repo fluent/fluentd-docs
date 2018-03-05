@@ -295,9 +295,19 @@ To test your encryption settings, execute the following command in your terminal
 
 If you can confirm TLS/SSL encryption has been set up correctly, please proceed to [the configuration of the out_forward server](out_forward#how-to-connect-to-a-tls/ssl-enabled-server).
 
+Additionally, since v1.1.1 it is allso possible to enable [Client Certificate Auth](https://en.wikipedia.org/wiki/Mutual_authentication) using `client_cert_auth` flag.
+When this is enabled Fluentd will check all incoming HTTPS requests for a client certificate signed by the trusted CA, requests that don't supply a valid client certificate will fail.
+In such cases you also want to provide a Certificate Auhority certificate using `ca_path` parameter.
+
+    :::term
+    $ openssl s_client -connect localhost:24224 \
+      -key path/to/client.key \
+      -cert path/to/client.crt \
+      -CAfile path/to/ca.crt
+
 ### Multi-process environment
 
-If you use this plugin under multi-process environment, port will be shared. 
+If you use this plugin under multi-process environment, port will be shared.
 
     :::term
     <system>
@@ -321,4 +331,3 @@ With this configuration, 3 workers share 24224 port. No need additional port. In
 
 `in_forward` doesn't provide parsing mechanism unlike `in_tail` or `in_tcp` because `in_forward` is mainly for efficient log transfer. If you want to parse incoming event, use [parser filter](https://github.com/tagomoris/fluent-plugin-parser) in your pipeline.<br />
 See Docker logging driver usecase: [Docker Logging](http://www.fluentd.org/guides/recipes/docker-logging)
-
