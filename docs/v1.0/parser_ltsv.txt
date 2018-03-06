@@ -14,6 +14,15 @@ See [Parse section configurations](parse-section)
 
 The delimiter character (or string) of TSV values
 
+### delimiter_pattern
+
+| type   | default  | version |
+|:------:|:--------:|:-------:|
+| string | nil      | 1.1.0   |
+
+The delimiter pattern of TSV values.
+This paramter overwrites `delimiter` paramter if specified.
+
 ### label_delimiter
 
 | type   | default  | version |
@@ -22,7 +31,7 @@ The delimiter character (or string) of TSV values
 
 The delimiter character between field name and value
 
-## Example
+## Example for LTSV
 
     :::text
     time:2013/02/28 12:00:00\thost:192.168.0.1\treq_id:111\tuser:-
@@ -41,3 +50,31 @@ This incoming event is parsed as:
     }
 
 If you set `null_value_pattern '-'` in the configuration, `user` field becomes `nil` instead of `"-"`.
+
+## Example with delimiter_pattern
+
+Incoming event:
+
+    :::text
+    timestamp=1362020400 host=192.168.0.1  req_id=111 user=-
+
+Configuration to parse above incoming event:
+
+    :::text
+    <parse>
+      @type ltsv
+      delimiter_pattern /\s+/
+      label_delimiter =
+    </parse>
+
+The incoming event is parsed as:
+
+    :::text
+    record:
+    {
+      "timestamp": "1362020400",
+      "host"     : "192.168.0.1",
+      "req_id"   : "111",
+      "user"     : "-"
+    }
+
