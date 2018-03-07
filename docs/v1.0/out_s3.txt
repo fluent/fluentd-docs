@@ -110,15 +110,22 @@ The Amazon S3 enpoint name. Please select the appropriate endpoint name from the
 
 The most recent versions of the endpoints can be found [here](http://docs.aws.amazon.com/general/latest/gr/rande.html#s3_region).
 
-### format
+### &lt;format&gt; directive
 
-| type   | default    | version |
-|:------:|:----------:|:-------:|
-| string | `out_file` | 1.0.0   |
+The format of the object content. The default is `out_file`.
 
-The format of the S3 object.
+Here is json example:
+
+    :::text
+    <format>
+      @type json
+    </format>
 
 See [formatter article](formatter-plugin-overview) for more detail.
+
+### format
+
+Deprecated parameter. Use `<format>` instead.
 
 ### time_slice_format
 
