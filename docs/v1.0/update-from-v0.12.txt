@@ -57,3 +57,15 @@ Fluentd v1 supports old v0.12 plugin API so you can use older plugins with v1 wi
 ## Treasure Agent(td-agent)
 
 td-agent 3 includes Fluentd v1 serise. If you want to use fluentd v1 with td-agent package, use td-agent 3 instead of td-agent 2.
+
+You can upgrade td-agent 2 to 3 by executing install script for td-agent 3 when you use deb/rpm package.
+
+For more details about install script see following articles:
+
+* [Installing Fluentd using RPM Package (Redhat Linux)](install-by-rpm)
+* [Installing Fluentd using DEB Package (Debian / Ubuntu Linux)](install-by-deb)
+
+And then you must reinstall gem packages that you've ever used with td-agent 2.
+
+You should update your td-agent.conf to use Fluentd v1 configuration as soon as possible.
+For more details see [Configuration style](#configuration-style).
