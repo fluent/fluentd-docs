@@ -64,7 +64,7 @@ def build_tocs
 
   tocs = {}
   toc_vers.each { |ver|
-    tocs[ver] = TOC.new($DEFAULT_LANGUAGE, ver)
+    tocs[ver] = TOC.new(settings.root, $DEFAULT_LANGUAGE, ver)
   }
   tocs
 end
