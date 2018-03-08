@@ -19,7 +19,7 @@ gem 'minitest'
 gem 'yui-compressor', :require => 'yui/compressor'
 
 # Webserver
-gem 'unicorn', '~> 5.2.0'
+gem 'unicorn', '~> 5.4.0'
 gem 'unicorn-worker-killer', '~> 0.4.4'
 
 # Addons
