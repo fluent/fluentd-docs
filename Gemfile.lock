@@ -5,7 +5,7 @@ GEM
       builder
       multi_json
     builder (3.2.3)
-    coderay (1.1.1)
+    coderay (1.1.2)
     crass (1.0.2)
     dalli (2.1.0)
     get_process_mem (0.2.1)
@@ -17,12 +17,12 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mini_portile2 (2.1.0)
+    mini_portile2 (2.3.0)
     minitest (5.10.1)
     multi_json (1.12.1)
     newrelic_rpm (3.18.1.330)
-    nokogiri (1.7.0.1)
-      mini_portile2 (~> 2.1.0)
+    nokogiri (1.8.2)
+      mini_portile2 (~> 2.3.0)
     nokogumbo (1.4.10)
       nokogiri
     rack (1.6.9)
