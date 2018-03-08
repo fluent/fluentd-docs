@@ -26,7 +26,7 @@ GEM
     nokogumbo (1.4.10)
       nokogiri
     rack (1.6.9)
-    rack-cache (1.7.0)
+    rack-cache (1.7.1)
       rack (>= 0.4)
     rack-codehighlighter (0.5.1)
       nokogiri (>= 1.4.1)
