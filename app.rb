@@ -64,7 +64,7 @@ def build_tocs
 
   tocs = {}
   toc_vers.each { |ver|
-    tocs[ver] = TOC.new($DEFAULT_LANGUAGE, ver)
+    tocs[ver] = TOC.new(settings.root, $DEFAULT_LANGUAGE, ver)
   }
   tocs
 end
@@ -251,7 +251,7 @@ helpers do
   end
 
   def cache_long
-    response['Cache-Control'] = "public, max-age=#{60 * 60 * 6}" unless development?
+    response['Cache-Control'] = "public, max-age=#{60 * 60 * 6}" unless self.class.development?
   end
 
   def slugify(title)
