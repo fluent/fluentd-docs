@@ -11,7 +11,7 @@ GEM
     get_process_mem (0.2.1)
     haml (4.0.7)
       tilt
-    jemalloc (0.1.9)
+    jemalloc (1.0.1)
     jsmin (1.0.1)
     kgio (2.11.2)
     mime-types (3.1)
@@ -73,7 +73,7 @@ DEPENDENCIES
   coderay
   dalli (~> 2.1.0)
   haml
-  jemalloc (~> 0.1.8)
+  jemalloc (~> 1.0.1)
   minitest
   newrelic_rpm (~> 3.18.1)
   rack-cache

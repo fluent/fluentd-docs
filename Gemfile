@@ -12,7 +12,7 @@ gem 'haml'
 gem 'coderay'
 gem 'rack-codehighlighter'
 gem 'sanitize'
-gem 'jemalloc', '~> 0.1.8'
+gem 'jemalloc', '~> 1.0.1'
 gem 'minitest'
 
 # Compressor
