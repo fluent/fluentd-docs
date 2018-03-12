@@ -20,6 +20,8 @@ Executing [install-redhat-td-agent3.sh](https://toolbelt.treasuredata.com/sh/ins
 
     $ curl -L https://toolbelt.treasuredata.com/sh/install-redhat-td-agent3.sh | sh
 
+NOTE: We use $releasever for repository path in the script and $releasever should be only major version like "7". If your environment uses other format like "7.2", change it to only major version or setup TD repository manually.
+
 ### Amazon Linux
 
 Recent two versions 64bit are supported. This means if latest version is `2017.09`, rpm is provided for `2017.03` and `2017.09`.
@@ -29,7 +31,7 @@ Recent two versions 64bit are supported. This means if latest version is `2017.0
     # Amazon Linux 2
     $ curl -L https://toolbelt.treasuredata.com/sh/install-amazon2-td-agent3.sh | sh
 
-NOTE: We use $releasever for repository path and $releasever should be "2017.09" like version string. On AWS, some services modify $releasever to own format and it will cause installation failure. If your environment's $releasever is non-standard format, setup TD repository manually.
+NOTE: We use $releasever for repository path in the script and $releasever should be "year.month" format like "2017.09". On AWS, some services modify $releasever to own format and it will cause installation failure. If your environment's $releasever is non-"year.month" format, change it to "year.month" format or setup TD repository manually.
 
 ## Step 2: Launch Daemon
 
