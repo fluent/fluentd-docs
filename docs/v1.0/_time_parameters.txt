@@ -19,7 +19,7 @@
 * **timezone** (string) (optional): use specified timezone. one can parse/format the time value in the specified timezone.
   * Default: `nil`
   * Available time zone format:
-    1. [+-]HH:MM (e.g. "+09:00")
+    1. [+-]HH:MM (e.g. "+09:00") **(recommended)**
     2. [+-]HHMM (e.g. "+0900")
     3. [+-]HH (e.g. "+09")
     4. Region/Zone (e.g. "Asia/Tokyo")
