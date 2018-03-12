@@ -10,8 +10,6 @@ That's why [Treasure Data, Inc](http://www.treasuredata.com/) is providing **the
 
 For Windows, we're using the OS native .msi Installer to distribute td-agent.
 
-NOTE: msi package now uses Ruby 2.3 due to windows related gem issues. Ruby will be updated to 2.4 after fixed issues.
-
 ## Step 1: Install td-agent
 
 Please download the `.msi` file from here, and install the software.
