@@ -272,6 +272,10 @@ INCLUDE: _log_level_params
 
 `in_tail` follows `tail -F` command behaviour by default, so `in_tail` reads only newer logs. If you want to read existing lines for batch use case, set `read_from_head true`.
 
+### in_tail shows '/path/to/file unreadable' log message. Why?
+
+If you see "/path/to/file unreadable. It is excluded and would be examined next time." message in the log, it means fluentd doesn't have read permission for `/path/to/file`. Check your fluentd and target files permission.
+
 ### logrotate setting
 
 `logrotate` has `nocreate` parameter and it doesn't create new file after triggered log rotation. It means `in_tail` can't find new file to tail.
