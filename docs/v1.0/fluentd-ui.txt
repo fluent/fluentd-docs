@@ -7,6 +7,8 @@
 * Configure Fluentd settings such as config file content, pid file path, etc
 * View Fluentd log with simple error viewer
 
+NOTE: fluentd-ui dosen't work with fluentd v1 and td-agent 3 doesn't include it. This content is for v0.12 for now.
+
 ## Getting Started
 
 If you've installed td-agent, you can start it by `td-agent-ui start` as below:
