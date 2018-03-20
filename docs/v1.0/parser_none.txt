@@ -2,6 +2,8 @@
 
 The `none` parser plugin parses the line as-is with single field. This format is to defer parsing/structuring the data.
 
+This parser is often used in conjunction with [single_value format](formatter_single_value) in output plugin.
+
 ## Parameters
 
 See [Parse section configurations](parse-section)
