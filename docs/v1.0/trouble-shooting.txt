@@ -8,29 +8,31 @@ If things aren't happening as expected, please first look at your logs. For td-a
 
 You can get more information about the logs if verbose logging is turned on. Please follow the steps below.
 
-### rpm
+### Use <system> directive in configuration file
+
+Set `log_level trace`. See also [logging article](logging#by-config-file).
+
+### td-agent systemd with user's unit file
+
+Put your unit file into `/etc/systemd/system/td-agent`. This overwrites existing behaviour of `/usr/lib/systemd/system/td-agent`.
+
+    :::text
+    [Service]
+    ExecStart=...existing options... -vv
+
+### td-agent init.d with environment variable
 
 1. edit `/etc/init.d/td-agent`
-2. add `-vv` to TD_AGENT_ARGS
+2. add `-vv` to TD_AGENT_OPTIONS
 3. restart td-agent
 
        :::text
        # at /etc/init.d/td-agent
        ...
-       TD_AGENT_ARGS="... -vv"
+       TD_AGENT_OPTIONS="... -vv"
        ...
 
-### deb
-
-1. edit `/etc/init.d/td-agent`
-2. add `-vv` to DAEMON_ARGS
-3. restart td-agent
-
-       :::text
-       # at /etc/init.d/td-agent
-       ...
-       DAEMON_ARGS="... -vv"
-       ...
+NOTE: This approach doesn't work on systemd environment because systemd hooks init.d's start routine and ignore options.
 
 ### gem
 
