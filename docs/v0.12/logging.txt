@@ -137,7 +137,7 @@ You can send Fluentd logs to a monitoring service by plugins, e.g. datadog, sent
       <record>
         host "#{Socket.gethostname}"
       </record>
-    </match>
+    </filter>
 
     <match fluent.**>
       @type monitoring_plugin
@@ -158,7 +158,7 @@ Leaf server example:
         host "#{Socket.gethostname}"
         original_tag ${tag}
       </record>
-    </match>
+    </filter>
 
     <match fluent.**>
       @type forward
@@ -179,7 +179,7 @@ Monitoring server example:
       <filter fluent.**>
         @type grep
         regexp1 original_tag fluent.(warn|error|fatal)
-      </match>
+      </filter>
 
       <match fluent.**>
         # your notification setup. This example uses irc plugin
