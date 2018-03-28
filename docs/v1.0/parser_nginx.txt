@@ -11,15 +11,15 @@ See [Parse section configurations](parse-section)
 This is regexp and time format patterns of this plugin:
 
     :::text
-    expression /^(?<remote>[^ ]*) (?<host>[^ ]*) (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^\"]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")?$/
+    expression /^(?<remote>[^ ]*) (?<host>[^ ]*) (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^\"]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)" (?<http_x_forwarded_for>[^ ]*))?$/
     time_format %d/%b/%Y:%H:%M:%S %z
 
-`remote`, `user`, `method`, `path`, `code`, `size`, `referer` and `agent` are included in the event record. `time` is used for the event time.
+`remote`, `user`, `method`, `path`, `code`, `size`, `referer`, 'agent' and `http_x_forwarded_for` are included in the event record. `time` is used for the event time.
 
 ## Example
 
     :::text
-    127.0.0.1 192.168.0.1 - [28/Feb/2013:12:00:00 +0900] "GET / HTTP/1.1" 200 777 "-" "Opera/12.0"
+    127.0.0.1 192.168.0.1 - [28/Feb/2013:12:00:00 +0900] "GET / HTTP/1.1" 200 777 "-" "Opera/12.0" -
 
 This incoming event is parsed as:
 
@@ -29,13 +29,14 @@ This incoming event is parsed as:
 
     record:
     {
-      "remote" : "127.0.0.1",
-      "host"   : "192.168.0.1",
-      "user"   : "-",
-      "method" : "GET",
-      "path"   : "/",
-      "code"   : "200",
-      "size"   : "777",
-      "referer": "-",
-      "agent"  : "Opera/12.0"
+      "remote"              : "127.0.0.1",
+      "host"                : "192.168.0.1",
+      "user"                : "-",
+      "method"              : "GET",
+      "path"                : "/",
+      "code"                : "200",
+      "size"                : "777",
+      "referer"             : "-",
+      "agent"               : "Opera/12.0"
+      "http_x_forwarded_for": "-"
     }
