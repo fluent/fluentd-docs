@@ -235,6 +235,16 @@ Enable the additional watch timer.  Setting this parameter to `false` will signi
 
 Early testing demonstrates that modern Cool.io and `in_tail` work properly without the additional watch timer.  At some point in the future, depending on feedback and testing, the additional watch timer may be disabled by default.
 
+### enable_stat_watcher
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | true    | 1.0.1   |
+
+Enable the additional inotify based watcher. Setting this parameter to `false` will disable inotify events and use only timer watcher for file tailing.
+
+This option is mainly for avoiding stuck issue with inotify.
+
 ### open_on_every_update
 
 | type | default | version |
@@ -285,3 +295,7 @@ This parameter doesn't fit typical application log cases, so check your `logrota
 ### What happens when in_tail receives BufferOverflowError?
 
 in_tail stops reading new lines and pos file update until BufferOverflowError is resolved. After resolved BufferOverflowError, restart emitting new lines and pos file update.
+
+### in_tail is sometimes stopped when monitor lots of files. How to avoid it?
+
+Try to set `enable_stat_watcher false` in `in_tail` setting. We got several reports in_tail is stopped when use `*` included `path`, and the problem is resolved by disabling inotify events.
