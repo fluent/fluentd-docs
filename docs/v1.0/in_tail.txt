@@ -90,7 +90,7 @@ The paths to exclude the files from watcher list. For example, if you want to re
 |:----:|:-------:|:-------:|
 | time | 60 (seconds) | 0.14.0  |
 
-The interval of refreshing the list of watch file. Default is 60 seconds.
+The interval of refreshing the list of watch file. This is used when path includes `*`.
 
 ### limit_recently_modified
 
