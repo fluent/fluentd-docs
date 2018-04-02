@@ -194,6 +194,8 @@ Here are several examples:
       expression ^(?<name>[^ ]*) (?<user>[^ ]*) (?<age>\d*)$
     </parse>
 
+If `@type` contains `multiline`, in_tail works as multiline mode.
+
 ### format
 Deprecated parameter. Use `<parse>` instead.
 
