@@ -126,7 +126,15 @@ The value must be `exec`.
 |:------:|:-------:|:-------:|
 | string | Nothing | 0.14.0  |
 
-The command (program) to execute. The exec plugin passes the path of a TSV file as the last argument.
+The command (program) to execute. The exec plugin passes the path of flushed buffer chunk as the last argument.
+
+If you set `command` parameter like below:
+
+    command cmd arg arg
+
+actual command execution is:
+
+    cmd arg arg /path/to/file
 
 ### command_timeout
 
