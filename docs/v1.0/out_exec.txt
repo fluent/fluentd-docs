@@ -54,11 +54,11 @@ Then, configure Fluentd as follows
 
     :::text
     <source>
-	  @type forward
-	</source>
+      @type forward
+    </source>
     <match fizzbuzz>
-	  @type exec
-	  command python /path/to/fizzbuzz.py
+      @type exec
+      command python /path/to/fizzbuzz.py
       <buffer>
         @type file
         path /path/to/buffer_path
@@ -68,9 +68,9 @@ Then, configure Fluentd as follows
         @type tsv
         keys fizzbuzz
       </format>
-	</match>
+    </match>
 
-The "format tsv" and "keys fizzbuzz" tells Fluentd to extract the "fizzbuzz" field and output it as TSV. This simple example has a single key, but you can of course extract multiple fields and use "format json" to output newline-delimited JSONs.
+The "@type tsv" and "keys fizzbuzz" in `<format>` tells Fluentd to extract the "fizzbuzz" field and output it as TSV. This simple example has a single key, but you can of course extract multiple fields and use "format json" to output newline-delimited JSONs.
 
 The intermediary TSV is at `/path/to/buffer_path`, and the command `python /path/to/fizzbuzz.py /path/to/buffer_path` is run. This is why in `fizzbuzz.py`, it's reading the file at `sys.argv[-1]`.
 
@@ -82,8 +82,8 @@ If you start Fluentd and run
 Then, after 5 seconds, you get a file named `foobar.out`.
 
     :::term
-	$ cat foobar.out
-	1
+    $ cat foobar.out
+    1
     2
     fizz
     4
@@ -135,6 +135,8 @@ If you set `command` parameter like below:
 actual command execution is:
 
     cmd arg arg /path/to/file
+
+NOTE: If "cmd" doesn't exist in PATH, you need to specify absolute path, e.g. "/path/to/cmd".
 
 ### command_timeout
 
