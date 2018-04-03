@@ -41,6 +41,8 @@ Code example:
     begin
       # do something
     rescue => error
+      # Route event to @ERROR label or
+      # log error message when @ERROR label is not defined in configuration
       router.emit_error_event(tag, time, record, error)
     end
 
