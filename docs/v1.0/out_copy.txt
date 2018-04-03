@@ -80,7 +80,7 @@ The value must be `copy`.
 
 `out_copy` shares a record between `store` plugins by default.
 
-When `deep_copy` is true, `out_copy` passes different record to each `store` plugin.
+When `deep_copy` is true, `out_copy` passes dupped record to each `store` plugin.
 
 ### &lt;store&gt; section
 
@@ -88,9 +88,30 @@ Specifies the storage destinations. The format is the same as the &lt;match&gt; 
 
 This section is required at least once.
 
-## FAQ
+#### ignore_error argument
 
-### How to ignore each error in \<store\>?
+If one `store` raises an error, it affects other `<store>`. For example,
 
-If one `store` raises an error, it affects other `<store>`. If you want to ignore an exception from less important `<store>`,
-you can use 3rd party [out_copy_ex](https://github.com/sonots/fluent-plugin-copy_ex) instead.
+    <match app.**>
+      @type copy
+      <store>
+        @type plugin1
+      </store>
+      <store>
+        @type plugin2
+      </store>
+    </match>
+
+if plugin1's emit/format raises an error, plugin2 is not executed.
+If you want to ignore an error from less important `<store>`,
+you can specify `ignore_error` in `<store>`.
+
+    <match app.**>
+      @type copy
+      <store ignore_error>
+        @type plugin1
+      </store>
+      <store>
+        @type plugin2
+      </store>
+    </match>
