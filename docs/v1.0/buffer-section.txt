@@ -292,6 +292,10 @@ These parameters below are to configure buffer plugins and its chunks.
   * Default: 0.95
   * The percentage of chunk size threshold for flushing
   * output plugin will flush the chunk when actual size reaches ``chunk_limit_size * chunk_full_threshold (== 8MB * 0.95 in default)``
+* ``queued_chunks_limit_size`` [integer] (since v1.1.3)
+  * Default: nil (No limit)
+  * Limit the number of queued chunks.
+  * If you set smaller flush_interval, e.g. 1s, there are lots of small queued chunks in buffer. This is not good with file buffer because it consumes lots of fd resources when output destination has a problem. This parameter mitigates such situations.
 * ``compress`` [enum: text/gzip]
   * Default: text
   * The option to specify compression of each chunks, during events are buffered
