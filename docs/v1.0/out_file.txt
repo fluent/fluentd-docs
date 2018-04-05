@@ -109,3 +109,26 @@ For common output / buffer parameters, please check the following articles.
 
 * [Output Plugin Overview](output-plugin-overview)
 * [Buffer Section Configuration](buffer-section)
+
+## FAQ
+
+### I can see files but placeholders are not replaced, why?
+
+You see intermediate buffer file, not output result. The placeholders are replaced during flush buffers.
+For example, if you have this setting:
+
+    :::text
+    path /path/to/file.${tag}.%Y%m%d
+
+You see following buffer files first:
+
+    :::text
+    /path/to/file.${tag}.%Y%m%d/buffer.b5692238db04045286097f56f361028db.log
+    /path/to/file.${tag}.%Y%m%d/buffer.b5692238db04045286097f56f361028db.log.meta
+
+After flushed, you see actual output result
+
+    :::text
+    /path/to/file.test.20180405.log_0 # tag is 'test'
+
+See also note in `path` parameter.
