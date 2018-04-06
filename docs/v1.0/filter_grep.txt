@@ -67,16 +67,18 @@ This parameter supports nested field access via [record_accessor syntax](api-plu
 
 | type   | default            | version  |
 |:------:|:------------------:|:--------:|
-| string | required parameter | 0.14.19  |
+| regexp | required parameter | 1.2.0    |
 
 The regular expression.
+
+The pattern parameter is string type before 1.2.0.
 
 For example, the following filters out events unless the field "price" is a positive integer.
 
     :::text
     <regexp>
       key price
-      pattern [1-9]\d*
+      pattern /[1-9]\d*/
     </regexp>
 
 The grep filter filters out UNLESS all `<regexp>`s are matched. Hence, if you have
@@ -84,11 +86,11 @@ The grep filter filters out UNLESS all `<regexp>`s are matched. Hence, if you ha
     :::text
     <regexp>
       key price
-      pattern [1-9]\d*
+      pattern /[1-9]\d*/
     </regexp>
     <regexp>
       key item_name
-      pattern ^book_
+      pattern /^book_/
     </regexp>
 
 unless the event's "item_name" field starts with "book_" and the "price" field is an integer, it is filtered out.
