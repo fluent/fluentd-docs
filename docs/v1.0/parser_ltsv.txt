@@ -18,10 +18,12 @@ The delimiter character (or string) of TSV values
 
 | type   | default  | version |
 |:------:|:--------:|:-------:|
-| string | nil      | 1.1.0   |
+| regexp | nil      | 1.2.0   |
 
 The delimiter pattern of TSV values.
 This paramter overwrites `delimiter` paramter if specified.
+
+delimiter_pattern is string type before 1.2.0.
 
 ### label_delimiter
 
