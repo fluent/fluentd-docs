@@ -50,6 +50,92 @@ whereas the following examples are filtered out:
 
 [Common Parameters](plugin-common-parameters)
 
+### &lt;and&gt; directive
+
+Specify filtering rule. This directive contains either &lt;regexp&gt; or &lt;exclude&gt; directive.
+This directive has been added since 1.2.0.
+
+    :::text
+    <and>
+      <regexp>
+        key price
+        pattern /[1-9]\d*/
+      </regexp>
+      <regexp>
+        key item_name
+        pattern /^book_/
+      </regexp>
+    </and>
+
+This is same as below:
+
+    :::text
+    <regexp>
+      key price
+      pattern /[1-9]\d*/
+    </regexp>
+    <regexp>
+      key item_name
+      pattern /^book_/
+    </regexp>
+
+We can also use &lt;and&gt; directive with &lt;exclude&gt; directive:
+
+    :::text
+    <and>
+      <exclude>
+        key container_name
+        pattern /^app\d{2}/
+      </exclude>
+      <exclude>
+        key log_level
+        pattern /^(?:debug|trace)$/
+      </exclude>
+    </and>
+
+### &lt;or&gt; directive
+
+Specify filtering rule. This directive contains either &lt;regexp&gt; or &lt;exclude&gt; directive.
+This directive has been added since 1.2.0.
+
+    :::text
+    <or>
+      <exclude>
+        key status_code
+        pattern ^5\d\d$
+      </exclude>
+      <exclude>
+        key url
+        pattern \.css$
+      </exclude>
+    </or>
+
+This is same as below:
+
+    :::text
+    <exclude>
+      key status_code
+      pattern ^5\d\d$
+    </exclude>
+    <exclude>
+      key url
+      pattern \.css$
+    </exclude>
+
+We can also use &lt;or&gt; directive with &lt;regexp&gt; directive:
+
+    :::text
+    <or>
+      <regexp>
+        key container_name
+        pattern /^db\d{2}/
+      </regexp>
+      <regexp>
+        key log_level
+        pattern /^(?:warn|error)$/
+      </regexp>
+    </or>
+
 ### &lt;regexp&gt; directive
 Specify filtering rule. This directive contains two parameters.
 
@@ -140,9 +226,11 @@ This parameter supports nested field access via [record_accessor syntax](api-plu
 
 | type   | default            | version  |
 |:------:|:------------------:|:--------:|
-| string | required parameter | 0.14.19  |
+| regexp | required parameter | 1.2.0    |
 
 The regular expression.
+
+The pattern parameter is string type before 1.2.0.
 
 For example, the following filters out events whose "status_code" field is 5xx.
 
