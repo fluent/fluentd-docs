@@ -8,9 +8,9 @@ Format section can be in ``<match>`` or ``<filter>`` sections.
 
     <match tag.*>
       @type file
-      # paramters for output plugin
+      # parameters for output plugin
       <format>
-        # format section paramters
+        # format section parameters
       </format>
     </match>
 

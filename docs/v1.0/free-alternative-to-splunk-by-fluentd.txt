@@ -139,7 +139,7 @@ For starters, let's access to `http://localhost:5601` and click the "Set up inde
 
 <center><img src="/images/kibana6-screenshot-topmenu.png" width="90%"/></center><br/>
 
-Kibana will starts a wizard that will guide you through configuring data sets to visualize. If you want a quick start, use `logstash-*` as the index pattern, and select `@timestamp` as the time-filter field.
+Kibana will start a wizard that guides you through configuring the data sets to visualize. If you want a quick start, use `logstash-*` as the index pattern, and select `@timestamp` as the time-filter field.
 
 After setting up an index pattern, you can view the system logs as they flow in:
 

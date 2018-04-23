@@ -1,6 +1,6 @@
 # Monitoring Fluentd (REST API)
 
-Thsi article describes how to get the internal Fluentd metrics via REST API.
+This article describes how to get the internal Fluentd metrics via REST API.
 
 ## Monitoring Agent
 
