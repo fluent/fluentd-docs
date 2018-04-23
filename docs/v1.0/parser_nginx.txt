@@ -14,7 +14,7 @@ This is regexp and time format patterns of this plugin:
     expression /^(?<remote>[^ ]*) (?<host>[^ ]*) (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^\"]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)" (?<http_x_forwarded_for>[^ ]*))?$/
     time_format %d/%b/%Y:%H:%M:%S %z
 
-`remote`, `user`, `method`, `path`, `code`, `size`, `referer`, 'agent' and `http_x_forwarded_for` are included in the event record. `time` is used for the event time.
+`remote`, `user`, `method`, `path`, `code`, `size`, `referer`, `agent` and `http_x_forwarded_for` are included in the event record. `time` is used for the event time.
 
 ## Example
 
