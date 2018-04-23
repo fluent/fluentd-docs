@@ -9,12 +9,12 @@ Since both Prometheus and Fluentd are under [CNCF (Cloud Native Computing Founda
 First of all, please install `fluent-plugin-prometheus` gem.
 
     :::term
-    $ fluent-gem install fluent-plugin-prometheus --version=0.4.0
+    $ fluent-gem install fluent-plugin-prometheus --version='~>1.0.0'
 
 If you are using td-agent, use `td-agent-gem` for installation.
 
     :::term
-    $ sudo td-agent-gem install fluent-plugin-prometheus --version=0.4.0
+    $ sudo td-agent-gem install fluent-plugin-prometheus --version='~>1.0.0'
 
 NOTE: <a href="https://github.com/kzk/fluentd-prometheus-config-example">This GitHub repository</a> contains the fully working configuration for this article.
 
