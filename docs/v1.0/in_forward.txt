@@ -277,7 +277,7 @@ Then add the following settings to `td-agent.conf`, and then restart the service
 
     <source>
       @type forward
-      <transport tls>
+      <transport>
         cert_path /etc/td-agent/certs/fluentd.crt
         private_key_path /etc/td-agent/certs/fluentd.key
         private_key_passphrase YOUR_PASSPHRASE
