@@ -95,7 +95,7 @@ The format of the log. This option is used to parse non-standard syslog formats 
       </parse>
     </source>
 
-NOTE: Your `<parse>` regexp should not consider the 'priority' prefix of the log.
+Your `<parse>` regexp should not consider the 'priority' prefix of the log.
 For example, if in_syslog receives the log below:
 
      <1>Feb 20 00:00:00 192.168.0.1 fluentd[11111]: [error] hogehoge
