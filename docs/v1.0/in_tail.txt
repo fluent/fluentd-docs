@@ -261,7 +261,9 @@ Open and close the file on every update instead of leaving it open until it gets
 |:----:|:-------:|:-------:|
 | bool | false   | 0.14.12 |
 
-Emit unmatched lines with configured pattern.
+Emit unmatched lines when `<parse>` format is not matched for incoming logs.
+
+Emitted record is `{"unmatched_line" : incoming line}`, e.g. `{"unmatched_line" : "Non JSON format!"}`.
 
 ### ignore_repeated_permission_error
 
@@ -285,6 +287,8 @@ INCLUDE: _log_level_params
 `in_tail` prints warning message. For example, if you specify `@type json` in `<parse>` and your log line is `123,456,str,true`, then you will see following message in fluentd log.
 
     2018-04-19 02:23:44 +0900 [warn]: #0 pattern not match: "123,456,str,true"
+
+See also `emit_unmatched_lines` parameter.
 
 ### in_tail doesn't start to read log file, why?
 
