@@ -16,9 +16,11 @@ See [Parse section configurations](parse-section) for common parameters.
 
 | type   | default            | version |
 |:------:|:------------------:|:-------:|
-| string | required parameter | 0.14.2  |
+| regexp | required parameter | 1.2.0   |
 
 Regular expression for matching logs.
+
+expression is string type before 1.2.0.
 
 ### ignorecase
 
@@ -27,6 +29,9 @@ Regular expression for matching logs.
 | bool | false   | 0.14.2  |
 
 Ignore case in matching.
+Use `i` option with expression.
+
+Deprecated since 1.2.0. Use `expression /pattern/i` instead.
 
 ### multiline
 
@@ -35,6 +40,9 @@ Ignore case in matching.
 | bool | false   | 0.14.2  |
 
 Build regular expression as a multline mode. `.` matches newline. See [Ruby's Regexp document](https://ruby-doc.org/core-2.4.1/Regexp.html#class-Regexp-label-Options)
+Use `m` option with expression.
+
+Deprecated since 1.2.0. Use `expression /pattern/m` instead.
 
 ## Example
 
