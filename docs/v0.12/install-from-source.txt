@@ -15,7 +15,7 @@ Fetch the source code from github. The official repository is located [here](htt
     $ cd fluentd
     $ git checkout -b v0.12 origin/v0.12
 
-master branch is now for v0.14 development so you need to checkout v0.12 branch.
+master branch is now for v1.x development so you need to checkout v0.12 branch.
 
 ## Step-3: Build and Install
 

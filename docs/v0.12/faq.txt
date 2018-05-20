@@ -2,7 +2,7 @@
 
 ## What version of Ruby does fluentd support?
 
-Fluentd v0.12 works on 1.9.3 or later. Since v0.14, 2.1 or later.
+Fluentd v0.12 works on 1.9.3 or later. Since v1.x, 2.1 or later.
 
 ## Known Issue
 
@@ -24,9 +24,9 @@ Using td-agent is another way to avoid this problem because td-agent includes ow
 
 In v0.12 or earlier, fluentd's event time is second unit. It means fluentd converts millisecond/nanosecond timestamp into second timestamp.
 
-Since v0.14, event tims has nanosecond resolution, so fluentd can handle millisecond/nanosecond timestamp properly.
+Since v1.x, event tims has nanosecond resolution, so fluentd can handle millisecond/nanosecond timestamp properly.
 
-Visit [v0.14 document](https://docs.fluentd.org/v0.14/articles/quickstart)
+Visit [v1.x document](https://docs.fluentd.org/v1.0/articles/quickstart)
 
 ### I have a weird timestamp value, what happened?
 
@@ -58,9 +58,9 @@ to your `~/.bash_profile`.
 
 If you would like to find out more about plugin management, please take a look at the [Plugin Management](/articles/plugin-management) article.
 
-### I installed the plugin and it updates fluentd from v0.12 to v0.14. Why?
+### I installed the plugin and it updates fluentd from v0.12 to v1.x. Why?
 
-You installed v0.14 based plugin. See [Plugin Management](/articles/plugin-management#plugin-version-management).
+You installed v1.0 based plugin. See [Plugin Management](/articles/plugin-management#plugin-version-management).
 
 ### How can I match (send) an event to multiple outputs?
 
