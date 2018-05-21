@@ -39,7 +39,7 @@ Use `"#{ENV['YOUR_ENV_VARIABLE']}"`. For example,
 
 (Note that it must be double quotes and not single quotes)
 
-### Fluentd raises an error for `host:port`. Why?
+### Fluentd raises an error for host:port. Why?
 
 There are several reasons:
 
