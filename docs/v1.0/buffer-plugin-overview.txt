@@ -28,7 +28,7 @@ Internally, a buffer plugin has two separated places to store its chunks: *"stag
 
 A chunk can fail to be written out to the destination for a number of reasons. The network can go down, or the traffic volumes can exceed the capacity of the destination node. To handle such common failures gracefully, buffer plugins are equipped with a built-in retry mechanism.
 
-### How exponential backoff works
+### How Exponential Backoff Works
 
 By default, Fluentd increases the wait interval exponentially for each retry attempt. For example, assuming that the initial wait interval is set to 1 second and the exponential factor is 2, each attempt occurs at the following time points:
 
@@ -47,21 +47,41 @@ Note that, in practice, Fluentd tweaks this algorithm in a few aspects:
 
 If you want to disable the exponential backoff, set the `retry_type` option to "periodic".
 
-### Handling successive failures
+### Handling Successive Failures
 
-By default, Fluentd will break a retry loop (except a successful write) on the following conditions:
+Fluentd will abort the attempt to transfer the failing chunks on the following conditions:
 
  1. The number of retries exceeds `retry_max_times` (default: none)
  2. The seconds elapsed since the first retry exceeds `retry_timeout` (default: 72h)
 
-In these events, *all* chunks in the output queue are discarded. If you want to avoid this, you can enable `retry_forever` to make Fluentd retry indefinitely.
+In these events, **all chunks in the queue are discarded.** If you want to avoid this, you can enable `retry_forever` to make Fluentd retry indefinitely.
 
+### Handling Unrecoverable Errors
+
+Not all errors are recoverable in nature. For example, if the content of a chunk file gets corrupted, you obviously cannot fix anything just by redoing the write operation. Rather, a blind retry attempt will just make the situation worse.
+
+Since v1.2.0, Fluentd can detect these non-recoverable failures. If these kinds of fatal errors occur, Fluentd will abort the chunk immediately and move it into the backup directory. The exact location of the backup directory is determined by the parameter `root_dir` in `<system>`:
+
+    ${root_dir}/backup/worker${worker_id}/${plugin_id}/{chunk_id}.log
+
+The following is the current list of exceptions considered "unrecoverable":
+
+ Exception                   |  The typical cause of this error
+---------------------------- | ---------------------------------------------------------------------------------
+`Fluent::UnrecoverableError` | Output plugin can use this exception to suppress further retry attempts.
+`TypeError`                  | Occurs when an event has unexpected type in its target field.
+`ArgumentError`              | Occurs when the plugin uses the library wrongly.
+`NoMethodError`              | Occurs when events and configuration are mismatched.
 
 ### Configuration Example
 
 Below is a full configuration example which covers all the parameters controlling retry bahaviours.
 
 ```
+<system>
+  root_dir /var/log/fluentd         # For handling unrecoverable chunks
+</system>
+
 <buffer>
   retry_wait 1                      # The wait interval for the first retry.
   retry_exponential_backoff_base 2  # Inclease the wait time by a factor of N.
@@ -75,7 +95,7 @@ Below is a full configuration example which covers all the parameters controllin
 </buffer>                           # 'Output Plugins' > 'Overview'.
 ```
 
-Normaly, you don't need to specify every option as in this example, because these options are, in fact, optional. As for the detail of each option, please read [this article](buffer-section#retries-parameters).
+Normally, you don't need to specify every option as in this example, because these options are, in fact, optional. As for the detail of each option, please read [this article](buffer-section#retries-parameters).
 
 ## Parameters
 
