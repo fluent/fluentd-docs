@@ -56,11 +56,32 @@ Fluentd will abort the attempt to transfer the failing chunks on the following c
 
 In these events, **all chunks in the queue are discarded.** If you want to avoid this, you can enable `retry_forever` to make Fluentd retry indefinitely.
 
+### Handling Unrecoverable Errors
+
+Not all errors are recoverable in nature. For example, if the content of a chunk file gets corrupted, you obviously cannot fix anything just by redoing the write operation. Rather, a blind retry attempt will just make the situation worse.
+
+Since v1.2.0, Fluentd can detect these non-recoverable failures. If these kinds of fatal errors occur, Fluentd will abort the chunk immediately and move it into the backup directory. The exact location of the backup directory is determined by the parameter `root_dir` in `<system>`:
+
+    ${root_dir}/backup/worker${worker_id}/${plugin_id}/{chunk_id}.log
+
+The following is the current list of exceptions considered "unrecoverable":
+
+ Exception                   |  The typical cause of this error
+---------------------------- | ---------------------------------------------------------------------------------
+`Fluent::UnrecoverableError` | Output plugin can use this exception to suppress further retry attempts.
+`TypeError`                  | Occurs when an event has unexpected type in its target field.
+`ArgumentError`              | Occurs when the plugin uses the library wrongly.
+`NoMethodError`              | Occurs when events and configuration are mismatched.
+
 ### Configuration Example
 
 Below is a full configuration example which covers all the parameters controlling retry bahaviours.
 
 ```
+<system>
+  root_dir /var/log/fluentd         # For handling unrecoverable chunks
+</system>
+
 <buffer>
   retry_wait 1                      # The wait interval for the first retry.
   retry_exponential_backoff_base 2  # Inclease the wait time by a factor of N.
