@@ -28,7 +28,7 @@ Internally, a buffer plugin has two separated places to store its chunks: *"stag
 
 A chunk can fail to be written out to the destination for a number of reasons. The network can go down, or the traffic volumes can exceed the capacity of the destination node. To handle such common failures gracefully, buffer plugins are equipped with a built-in retry mechanism.
 
-### How exponential backoff works
+### How Exponential Backoff Works
 
 By default, Fluentd increases the wait interval exponentially for each retry attempt. For example, assuming that the initial wait interval is set to 1 second and the exponential factor is 2, each attempt occurs at the following time points:
 
@@ -47,15 +47,14 @@ Note that, in practice, Fluentd tweaks this algorithm in a few aspects:
 
 If you want to disable the exponential backoff, set the `retry_type` option to "periodic".
 
-### Handling successive failures
+### Handling Successive Failures
 
-By default, Fluentd will break a retry loop (except a successful write) on the following conditions:
+Fluentd will abort the attempt to transfer the failing chunks on the following conditions:
 
  1. The number of retries exceeds `retry_max_times` (default: none)
  2. The seconds elapsed since the first retry exceeds `retry_timeout` (default: 72h)
 
-In these events, *all* chunks in the output queue are discarded. If you want to avoid this, you can enable `retry_forever` to make Fluentd retry indefinitely.
-
+In these events, **all chunks in the queue are discarded.** If you want to avoid this, you can enable `retry_forever` to make Fluentd retry indefinitely.
 
 ### Configuration Example
 
@@ -75,7 +74,7 @@ Below is a full configuration example which covers all the parameters controllin
 </buffer>                           # 'Output Plugins' > 'Overview'.
 ```
 
-Normaly, you don't need to specify every option as in this example, because these options are, in fact, optional. As for the detail of each option, please read [this article](buffer-section#retries-parameters).
+Normally, you don't need to specify every option as in this example, because these options are, in fact, optional. As for the detail of each option, please read [this article](buffer-section#retries-parameters).
 
 ## Parameters
 
