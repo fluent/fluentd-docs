@@ -133,6 +133,8 @@ Filtered events:
 
     2016-04-13 14:45:55 +0900 docker.28cf38e21204: {"container_id":"28cf38e212042225f5f80a56fac08f34c8f0b235e738900c4e0abcf39253a702","container_name":"/romantic_dubinsky","source":"stdout","log":"-e:2:in `/'\n-e:2:in `do_division_by_zero'\n-e:4:in `<main>'"}
 
+If the logs are typical stacktraces, consider [detect-exceptions plugin](https://github.com/GoogleCloudPlatform/fluent-plugin-detect-exceptions) instead.
+
 ## Driver options
 
 The [Fluentd logging driver](https://docs.docker.com/engine/admin/logging/fluentd/) support more options through the _--log-opt_ Docker command line argument:
