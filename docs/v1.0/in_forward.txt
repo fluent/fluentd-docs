@@ -248,9 +248,9 @@ For more details, see [Fluentd Forward Protocol Specification (v1)](https://gith
 
 ## Tips & Tricks
 
-### How to enable TLS/SSL encryption
+### How to Enable TLS Encryption
 
-Since v0.14.12, Fluentd includes a built-in TLS/SSL support. Here we present a quick tutorial for setting up TLS/SSL encryption:
+Since v0.14.12, Fluentd includes a built-in TLS support. Here we present a quick tutorial for setting up TLS encryption:
 
 First, generate a self-signed certificate using the following command:
 
@@ -293,17 +293,32 @@ To test your encryption settings, execute the following command in your terminal
     $ echo -e '\x93\xa9debug.tls\xceZr\xbc1\x81\xa3foo\xa3bar' | \
       openssl s_client -connect localhost:24224
 
-If you can confirm TLS/SSL encryption has been set up correctly, please proceed to [the configuration of the out_forward server](out_forward#how-to-connect-to-a-tls/ssl-enabled-server).
+If you can confirm TLS encryption has been set up correctly, please proceed to [the configuration of the out_forward server](out_forward#how-to-connect-to-a-tls/ssl-enabled-server).
 
-Additionally, since v1.1.1 it is allso possible to enable [Client Certificate Auth](https://en.wikipedia.org/wiki/Mutual_authentication) using `client_cert_auth` flag.
-When this is enabled Fluentd will check all incoming HTTPS requests for a client certificate signed by the trusted CA, requests that don't supply a valid client certificate will fail.
-In such cases you also want to provide a Certificate Auhority certificate using `ca_path` parameter.
+### How to Enable TLS Mutual Authentication
+
+Since v1.1.1, Fluentd supports [TLS mutual authentication](https://en.wikipedia.org/wiki/Mutual_authentication) (a.k.a. client certificate auth). If you want to use this feature, please set the `client_cert_auth` and `ca_path` options as follows.
+
+    <source>
+      @type forward
+      <transport tls>
+        ...
+        client_cert_auth true
+        ca_path /path/to/ca/cert
+      </transport>
+    </source>
+
+When this feature is enabled, Fluentd will check all incoming requests for a client certificate signed by the trusted CA. Requests that don't supply a valid client certificate will fail.
+
+To check if mutual authentication is working properly, issue the following command:
 
     :::term
     $ openssl s_client -connect localhost:24224 \
       -key path/to/client.key \
       -cert path/to/client.crt \
       -CAfile path/to/ca.crt
+
+If the connection gets established successfully, your setup is working fine.
 
 ### Multi-process environment
 
