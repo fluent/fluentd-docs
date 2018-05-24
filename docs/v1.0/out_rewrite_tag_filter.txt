@@ -1,6 +1,6 @@
 # rewrite_tag_filter Output Plugin
 
-The `out_rewrite_tag_filter` Output plugin has designed to rewrite tag like mod_rewrite. Re-emit a record with rewrited tag when a value matches/unmatches with the regular expression.  Also you can change a tag from apache log by domain, status-code(ex. 500 error), user-agent, request-uri, regex-backreference and so on with regular expression. 
+The `out_rewrite_tag_filter` Output plugin has designed to rewrite tag like mod_rewrite. Re-emit a record with rewritten tag when a value matches/unmatches with the regular expression.  Also you can change a tag from apache log by domain, status-code(ex. 500 error), user-agent, request-uri, regex-backreference and so on with regular expression. 
 
 ## How it works
 
@@ -20,7 +20,7 @@ It is a sample to arrange the tags by the regexp matched value of 'message'.
 Rewrite tag example:
 
     +----------------------------------------+        +----------------------------------------------+
-    | original record                        |        | rewrited tag record                          |
+    | original record                        |        | rewritten tag record                          |
     |----------------------------------------|        |----------------------------------------------|
     | app.message {"message":"[info]: ..."}  | +----> | info.app.message {"message":"[info]: ..."}   |
     | app.message {"message":"[warn]: ..."}  | +----> | warn.app.message {"message":"[warn]: ..."}   |
