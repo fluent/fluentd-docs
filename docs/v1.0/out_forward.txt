@@ -333,7 +333,7 @@ For more details, see [Secondary Output](output-plugin-overview#secondary-output
 
 ### How to connect to a TLS/SSL enabled server
 
-If you've [set up TLS/SSL encryption in the receiving server](in_forward#how-to-enable-tls/ssl-encryption), you need to tell the output forwarder to use encryption by setting the `transport` paremter:
+If you've [set up TLS/SSL encryption in the receiving server](in_forward#how-to-enable-tls/ssl-encryption), you need to tell the output forwarder to use encryption by setting the `transport` parameter:
 
 ```
 <match debug.**>
@@ -362,6 +362,24 @@ If you're using a self-singed certificate, copy the certificate file to the forw
 ```
 
 After updating the settings, please confirm that the forwarded data is being received by the destination node properly.
+
+### How to Enable Password Authentication
+
+If you want to connect to [a server that requires password authentication](in_forward#how-to-enable-password-authentication), you need to set your credentials in the configuration file.
+
+    <match debug.**>
+      @type forward
+      <server>
+        host 192.168.1.2
+        port 24224
+      </server>
+      <security>
+        self_hostname HOSTNAME
+        shared_key secret
+      </security>
+    </match>
+
+Note that, as to the option `self_hostname`, you need to set the name of the server on which your `out_forward` instance is running. In the current implementation, it is considered invalid if your `in_forward` and `out_forward` shares the same hostname.
 
 ### How to enable gzip compression
 
