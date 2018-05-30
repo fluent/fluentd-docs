@@ -29,7 +29,7 @@ If you want to make td-agent more verbose, read the article ["Trouble Shooting"]
 
 In Fluentd, the most important part of data input/output is managed by plugins. Each plugin knows how to interface with a external endpoint and is responsible for managing a pipeline to convey data streams.
 
-Plugins are named with a certain convention. For example, if it receives data and interfacing with Elasticsearch, it's called `in_elasticsearch`. In the same way, if it publishes data and connects to MongoDB, it's called `out_mongo`.
+Plugins are named with a certain convention. For example, if it receives data and interfacing with Aapche Kafka, it's called `in_kafka`. In the same way, if it publishes data and connects to MongoDB, it's called `out_mongo`.
 
 The following snippet is an example configuration, which uses `in_forward` plugin as an input source and `out_file` plugin as an output endpoint.
 
@@ -51,7 +51,7 @@ Fluentd manages plugins as Ruby gems, but stores these gems in a separate direct
 
 This is why you need to use a special program `td-agent-gem` to manage Fluentd plugins. For example, the following command allows you to install the plugin to connect S3 (which contains both `in_s3` and `out_s3`)
 
-     $ sudo td-agent-gem install fluent-plugin-s3
+     $ sudo /usr/sbin/td-agent-gem install fluent-plugin-s3
 
 ### Available Plugins
 
