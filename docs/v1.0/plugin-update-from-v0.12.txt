@@ -4,9 +4,9 @@ This guide is for plugin authors to show how to update input/output/filter plugi
 
 There are something to be considered (see following "Updating Plugins Overview" section for details):
 
-* Plugins which uses v0.12 API will be supported between Fluentd v0.14 and v1 (will be obsoleted at v2).
+* Plugins which use v0.12 API will be supported between Fluentd v0.14 and v1 (will be obsoleted at v2).
 * Users can use new features of Fluentd v1.0 only with plugins using new API.
-* Plugins which uses new API don't work on Fluentd v0.12.x.
+* Plugins which use new API don't work on Fluentd v0.12.x.
 
 Fluentd core team strongly recommend to use v1.0 API to make your plugins stable, consistent and easy to test.
 
@@ -17,7 +17,7 @@ These are steps to update your plugins safely.
 1. release a latest version for Fluentd v0.12.x
 2. update dependency
 3. update code and tests
-4. upate CI environments
+4. update CI environments
 5. release the newer version for Fluentd v0.14.x and later
 
 ### 1. release a latest version
@@ -63,7 +63,7 @@ There are many difference between plugin types about updating code and tests. Se
 If you have CI configurations like `.travis.yml` and `appvayor.yml`, these should be updated to support Fluentd v0.14/v1.0.
 Fluentd v0.14/v1.0 supports Ruby 2.1 or later. CI environments should not include Ruby 2.0 or earlier. It's good idea to add latest Ruby (2.4 at Nov 2017).
 
-* remove Ruby 2.0 or ealier from CI environments
+* remove Ruby 2.0 or earlier from CI environments
 * add Ruby 2.4 (or other latest version) to CI environments
 
 ### 5. add requirements section
@@ -111,7 +111,7 @@ For input plugins, points to be fixed are:
 
 Plugins will work well only with changes above.
 
-Moreover, most input plugins create threads, timers, network serevers and/or parsers. It's better to use plugin helpers to simplify code and to make tests stable.
+Moreover, most input plugins create threads, timers, network servers and/or parsers. It's better to use plugin helpers to simplify code and to make tests stable.
 For more details, see LINK:[Plugin Helper Overview](plugin-helper-overview).
 
 ### Filter plugins
