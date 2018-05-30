@@ -243,9 +243,17 @@ Set TTL to expire DNS cache in seconds. Set 0 not to use DNS Cache.
 |:----:|:-------:|:-------:|
 | bool | false   | 0.14.0  |
 
-Enable client-side DNS round robin. Uniform randomly pick an IP address to send data when a hostname has serveral IP addresses.
+Enable client-side DNS round robin. Uniform randomly pick an IP address to send data when a hostname has several IP addresses.
 
 NOTE: `heartbeat_type udp` is not available with `dns_round_robin true`. Use `heartbeat_type tcp` or `heartbeat_type none`. 
+
+### ignore_network_errors_at_startup
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 0.14.12 |
+
+Ignore DNS resolution and errors at startup time.
 
 ### tls_version
 
