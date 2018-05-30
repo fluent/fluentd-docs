@@ -1,0 +1,100 @@
+# Post Installation Guide
+
+The goal of this article is to provide a concise post-installation guide to new Fluentd users.
+It is assumed that you've installed Fluentd through td-agent package.
+
+## System Administration
+
+### Configuration File
+
+A clean installation leaves you a td-agent instance running on a sample configuration file. You can edit the configuration file located at:
+
+    /etc/td-agent/td-agent.conf
+
+After editing this file, you need to restart td-agent using `systemctl`:
+
+    $ sudo systemctl restart td-agent
+
+### Logging
+
+By default, td-agent writes its operation logs to the following file:
+
+    /var/log/td-agent/td-agent.log
+
+If you want to make td-agent more verbose, read the article ["Trouble Shooting"](trouble-shooting).
+
+## Connect to Other Services
+
+### How It Works
+
+In Fluentd, the most important part of data input/output is managed by plugins. Each plugin knows how to interface with a external endpoint and is responsible for managing a pipeline to convey data streams.
+
+Plugins are named with a certain convention. For example, if it receives data and interfacing with Elasticsearch, it's called `in_elasticsearch`. In the same way, if it publishes data and connects to MongoDB, it's called `out_mongo`.
+
+The following snippet is an example configuration, which uses `in_forward` plugin as an input source and `out_file` plugin as an output endpoint.
+
+```
+<source>
+  @type forward
+  port 9999
+</source>
+<match app.**>
+  @type file
+  path /var/log/app/data.log
+  compress gzip
+</match>
+```
+
+### Plugin Management
+
+Fluentd manages plugins as Ruby gems, but stores these gems in a separate directory from where normal Ruby gems reside.
+
+This is why you need to use a special program `td-agent-gem` to manage Fluentd plugins. For example, the following command allows you to install the plugin to connect S3 (which contains both `in_s3` and `out_s3`)
+
+     $ sudo td-agent-gem install fluent-plugin-s3
+
+### Available Plugins
+
+See [List Of All Plugins](https://www.fluentd.org/plugins) to explore available third-party plugins.
+
+Note that a number of plugins are already included in the standard distribution of td-agent, so you may not need to install them manually.
+
+## Configuration Syntax
+
+### Data Source
+
+A configuration file consists of a number of setting blocks (like `<source>`). Each block contains a set of options for a specific data endpoint.
+
+For example, if you want to create an endpoint to receive data from [syslog](in_syslog), you need to add a `<source>` block and set up its settings as follows.
+
+```
+<source>
+  @type syslog
+  port 5140
+  tag system
+</source>
+```
+
+The option `@type`  determines which plugin to use. You do not need prepend type prefix in this option (so `@type syslog`, not `@type in_syslog`).
+
+### Output Endpoint
+
+To add an output endpoint for data stream, you need to define a `<match>` block. Syntactically, `<match>` is slightly different from `<source>` in the sense that it requires a filter expression as an argument.
+
+For example, If you want to output events tagged with `debug.log`, you need to write as below:
+
+```
+<match debug.log>
+  @type syslog
+  port 5140
+  tag system
+</source>
+```
+
+You can use a wildcard character `*` in the filter expression. For example, `debug.*` matches `debug.log` and `debug.foo` etc.
+
+If you want to catch all descendent tags, use double asterisks `**`. For example, `debug.**` matches not only `debug.log`, but also `debug.log.bar` or `debug.log.level.critical` etc.
+
+### Further Reading
+
+Read [Configuration File Syntax](config-file) for the full configuration syntax.

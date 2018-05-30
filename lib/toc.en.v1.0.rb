@@ -16,6 +16,9 @@ section 'overview', 'Overview' do
     # article 'install-on-heroku', 'Installing Fluentd on Heroku'
     # article 'install-on-beanstalk', 'Installing Fluentd on AWS Elastic Beanstalk'
   end
+  category 'post-installation-guide', 'Post Installation Guide' do
+    article 'post-installation-guide', 'Post Installation Guide'
+  end
   category 'life-of-a-fluentd-event', 'Life of a Fluentd event' do
     article 'life-of-a-fluentd-event', 'Life of a Fluentd event'
   end
