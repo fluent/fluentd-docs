@@ -102,6 +102,18 @@ Normally, you don't need to specify every option as in this example, because the
 * [Common Parameters](plugin-common-parameters)
 * [Buffer section configurations](buffer-section)
 
+## FAQ
+
+### Buffer's chunk size and output's payload size are sometimes different, why?
+
+Because the format of buffer chunk is different from output's payload.
+Let's use elasticsearch output plugin, `out_elasticsearch`, for the detailed explanation.
+
+`out_elasticsearch` uses MessagePack for buffer's serialization(NOTE that this depends on plugin). On the other hand, [Elasticsearch's bulk API](https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html) requires json based payload. It means one MessagePack-ed record is converted into 2 json lines. So the payload size is larger than buffer's chunk size.
+
+This sometimes causes the problem when output destination has the payload size limitation.
+If you have a problem with payload size issue, check chunk size configuration and API spec.
+
 ## List of Buffer Plugins
 
 * [buf_memory](buf_memory)
