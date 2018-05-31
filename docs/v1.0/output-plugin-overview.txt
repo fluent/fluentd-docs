@@ -42,7 +42,7 @@ Please refer to this list of available plugins to find out about other Output pl
 Fluentd v0.12 uses only `<match>` section for both of configuration parameters of output plugin and buffer plugin.
 Fluentd v1.0 uses `<buffer>` subsection to write parameters for buffering, flushing and retrying. `<match>` sections are used only for output plugin itself.
 
-Example of v0.14 output plugin configuration:
+Example of v1.0 output plugin configuration:
 
     :::text
     <match myservice_name>
@@ -67,6 +67,8 @@ For Fluentd v0.12, configuration parameters for buffer plugins were written in s
       time_slice_format %Y-%m-%d.%H%M
       time_slice_wait   1m
     </source>
+
+See buffer section in [Compat Parameters Plugin Helper API](https://docs.fluentd.org/v1.0/articles/api-plugin-helper-compat_parameters#compat_parameters_convert(conf,-*types,-**kwargs)) for parameter name changes between v1 and v0.12.
 
 ## Buffering/Retrying Parameters
 
