@@ -117,64 +117,9 @@ The "match" directive looks for events with __match__ing tags and processes them
       path /var/log/fluent/access
     </match>
 
-Each **match** directive must include a match pattern and a ``@type`` parameter. Only events with a **tag** matching the pattern will be sent to the output destination (in the above example, only the events with the tag "myapp.access" is matched). The ``@type`` parameter specifies the output plugin to use.
+Each **match** directive must include a match pattern and a ``@type`` parameter. Only events with a **tag** matching the pattern will be sent to the output destination (in the above example, only the events with the tag "myapp.access" is matched. See [the section below for more advanced usage](#how-match-patterns-work)). The ``@type`` parameter specifies the output plugin to use.
 
 Just like input sources, you can add new output destinations by writing your own plugins. For further information regarding Fluentd's output destinations, please refer to the [Output Plugin Overview](output-plugin-overview) article.
-
-###Match Pattern: how you control the event flow inside fluentd
-
-The following match patterns can be used for the `<match>` tag.
-
-* ``*`` matches a single tag part.
-
-  * For example, the pattern ``a.*`` matches ``a.b``, but does not match ``a`` or ``a.b.c``
-
-* ``**`` matches zero or more tag parts.
-
-  * For example, the pattern ``a.**`` matches ``a``, ``a.b`` and ``a.b.c``
-
-* ``{X,Y,Z}`` matches X, Y, or Z, where X, Y, and Z are match patterns.
-
-  * For example, the pattern ``{a,b}`` matches ``a`` and ``b``, but does not match ``c``
-
-  * This can be used in combination with the ``*`` or ``**`` patterns. Examples include ``a.{b,c}.*`` and ``a.{b,c.**}``
-
-* When multiple patterns are listed inside one `<match>` tag (delimited by one or more whitespaces), it matches any of the listed patterns. For example:
-
-  * The patterns ``<match a b>`` match ``a`` and ``b``.
-
-  * The patterns ``<match a.** b.*>`` match ``a``, ``a.b``, ``a.b.c`` (from the first pattern) and ``b.d`` (from the second pattern).
-
-### Match Order
-
-Fluentd tries to match tags in the order that they appear in the config file.
-So if you have the following configuration:
-
-    # ** matches all tags. Bad :(
-    <match **>
-      @type blackhole_plugin
-    </match>
-
-    <match myapp.access>
-      @type file
-      path /var/log/fluent/access
-    </match>
-
-then `myapp.access` is never matched. Wider match patterns should be defined after tight match patterns.
-
-    <match myapp.access>
-      @type file
-      path /var/log/fluent/access
-    </match>
-
-    # Capture all unmatched tags. Good :)
-    <match **>
-      @type blackhole_plugin
-    </match>
-
-Of course, if you use two same patterns, second `match` is never matched.
-
-If you want to send events to multiple outputs, consider [out_copy](out_copy) plugin.
 
 ## (3) "filter": Event processing pipeline
 
@@ -208,8 +153,6 @@ Received event, `{"event":"data"}`, goes to `record_transformer` filter first.
 filtered event, `{"event":"data","host_param":"webserver1"}`, goes to `file` output.
 
 You can also add new filters by writing your own plugins. For further information regarding Fluentd's filter destinations, please refer to the [Filter Plugin Overview](filter-plugin-overview) article.
-
-NOTE: Filter's match order is same as Output and we should put &lt;filter&gt; before &lt;match&gt;.
 
 ## (4) Set system wide configuration: the "system" directive
 
@@ -330,6 +273,77 @@ But you should not write the configuration depends on this order. It is so error
     @include a.conf
     @include config.d/*.conf
     @include z.conf
+
+## How match patterns work
+
+As described above, Fluentd allows you to route events based on their tags. Although you can just specify the exact tag to be matched (like `<filter app.log>`), there are a number of techniques you can use to manage the data flow more efficiently.
+
+### Wildcards and Expansions
+
+The following match patterns can be used in `<match>` and `<filter>` tags.
+
+* ``*`` matches a single tag part.
+
+  * For example, the pattern ``a.*`` matches ``a.b``, but does not match ``a`` or ``a.b.c``
+
+* ``**`` matches zero or more tag parts.
+
+  * For example, the pattern ``a.**`` matches ``a``, ``a.b`` and ``a.b.c``
+
+* ``{X,Y,Z}`` matches X, Y, or Z, where X, Y, and Z are match patterns.
+
+  * For example, the pattern ``{a,b}`` matches ``a`` and ``b``, but does not match ``c``
+
+  * This can be used in combination with the ``*`` or ``**`` patterns. Examples include ``a.{b,c}.*`` and ``a.{b,c.**}``
+
+* When multiple patterns are listed inside a single tag (delimited by one or more whitespaces), it matches any of the listed patterns. For example:
+
+  * The patterns ``<match a b>`` match ``a`` and ``b``.
+
+  * The patterns ``<match a.** b.*>`` match ``a``, ``a.b``, ``a.b.c`` (from the first pattern) and ``b.d`` (from the second pattern).
+
+### Note on Match Order
+
+Fluentd tries to match tags in the order that they appear in the config file.
+So if you have the following configuration:
+
+    # ** matches all tags. Bad :(
+    <match **>
+      @type blackhole_plugin
+    </match>
+
+    <match myapp.access>
+      @type file
+      path /var/log/fluent/access
+    </match>
+
+then `myapp.access` is never matched. Wider match patterns should be defined after tight match patterns.
+
+    <match myapp.access>
+      @type file
+      path /var/log/fluent/access
+    </match>
+
+    # Capture all unmatched tags. Good :)
+    <match **>
+      @type blackhole_plugin
+    </match>
+
+Of course, if you use two same patterns, second `match` is never matched. If you want to send events to multiple outputs, consider [out_copy](out_copy) plugin.
+
+The common pitfall is when you put a `<filter>` block after `<match>`. It will never work as supposed, since events never go through the filter for the reason explained above.
+
+    # You should NOT put this <filter> block after the <match> block below.
+    # If you do, Fluentd will just emit events without applying the filter.
+    <filter myapp.access>
+      @type record_transformer
+      ...
+    </filter>
+
+    <match myapp.access>
+      @type file
+      path /var/log/fluent/access
+    </match>
 
 ## Supported Data Types for Values
 
