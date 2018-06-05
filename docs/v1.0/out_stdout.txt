@@ -22,9 +22,6 @@ A sample output is as follows:
 where the first part shows the output time, the second part shows the tag,
 and the third part shows the record.
 
-NOTE: The first part shows the <strong>output</strong> time, not the time attribute
-of message event structure as <code>out_stdout</code> does.
-
 ## Supported modes
 
 * Non-Buffered
