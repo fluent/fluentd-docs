@@ -324,7 +324,7 @@ If the connection gets established successfully, your setup is working fine.
 
 Fluentd is equipped with a password-based authentication mechanism, which allows you to verify the identity of each client using a shared secret key.
 
-To enable this feature, you need to add a `<secrity>` section to your configuration file as below.
+To enable this feature, you need to add a `<security>` section to your configuration file as below.
 
     <source>
       @type forward
