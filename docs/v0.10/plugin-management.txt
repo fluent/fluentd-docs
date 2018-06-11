@@ -80,7 +80,7 @@ This is unexpected result for fluentd v0.12 users.
 
 You should specify target version with `-v` option.
 
-- `gem install fluentd -v 0.12.34`
+- `gem install fluentd -v 0.12.43`
 - `gem install fluent-plugin-elasticsearch -v 1.9.3`
 
 `/usr/sbin/td-agent-gem` is also same because `/usr/sbin/td-agent-gem` uses `gem` command internally.
@@ -94,7 +94,7 @@ For example, if you have following Gemfile at /etc/fluent/Gemfile:
     :::text
     source 'https://rubygems.org'
 
-    gem 'fluentd', '0.12.34'
+    gem 'fluentd', '0.12.43'
     gem 'fluent-plugin-elasticsearch', '1.9.3'
 
 You can pass this Gemfile to Fluentd via the `--gemfile` option.
