@@ -75,8 +75,8 @@ Fluentd plugins are rubygems and rubygems installs latest version by default. So
 
 You should specify target version with `-v` option.
 
-- `gem install fluentd -v 1.0.2`
-- `gem install fluent-plugin-elasitcsearch -v 2.4.1`
+- `gem install fluentd -v 1.2.1`
+- `gem install fluent-plugin-elasticsearch -v 2.10.3`
 
 ## "--gemfile" option
 
@@ -87,8 +87,8 @@ For example, if you have following Gemfile at /etc/fluent/Gemfile:
     :::text
     source 'https://rubygems.org'
 
-    gem 'fluentd', '1.0.2'
-    gem 'fluent-plugin-elasticsearch', '2.4.1'
+    gem 'fluentd', '1.2.1'
+    gem 'fluent-plugin-elasticsearch', '2.10.3'
 
 You can pass this Gemfile to Fluentd via the `--gemfile` option.
 
@@ -123,7 +123,7 @@ And then add /etc/td-agent/Gemfile:
     :::ruby
     source "https://rubygems.org"
     # You can use fixed version of Fluentd and its plugins
-    gem "fluentd", "1.1.1"
+    gem "fluentd", "1.2.1"
     gem "fluent-plugin-elasticsearch", "2.4.0"
     gem "fluent-plugin-kafka", "0.6.5"
     gem "fluent-plugin-rewrite-tag-filter", "2.0.1"
