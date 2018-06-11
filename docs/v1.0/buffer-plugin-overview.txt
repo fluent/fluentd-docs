@@ -60,7 +60,7 @@ In these events, **all chunks in the queue are discarded.** If you want to avoid
 
 Not all errors are recoverable in nature. For example, if the content of a chunk file gets corrupted, you obviously cannot fix anything just by redoing the write operation. Rather, a blind retry attempt will just make the situation worse.
 
-Since v1.2.0, Fluentd can detect these non-recoverable failures. If these kinds of fatal errors occur, Fluentd will abort the chunk immediately and move it into the backup directory. The exact location of the backup directory is determined by the parameter `root_dir` in `<system>`:
+Since v1.2.0, Fluentd can detect these non-recoverable failures. If these kinds of fatal errors occur, Fluentd will abort the chunk immediately and move it into `secondary` or the backup directory. The exact location of the backup directory is determined by the parameter `root_dir` in `<system>`:
 
     ${root_dir}/backup/worker${worker_id}/${plugin_id}/{chunk_id}.log
 
@@ -68,10 +68,16 @@ The following is the current list of exceptions considered "unrecoverable":
 
  Exception                   |  The typical cause of this error
 ---------------------------- | ---------------------------------------------------------------------------------
-`Fluent::UnrecoverableError` | Output plugin can use this exception to suppress further retry attempts.
+`Fluent::UnrecoverableError` | Output plugin can use this exception to suppress further retry attempts for plugin specific unrecoverable error.
 `TypeError`                  | Occurs when an event has unexpected type in its target field.
 `ArgumentError`              | Occurs when the plugin uses the library wrongly.
 `NoMethodError`              | Occurs when events and configuration are mismatched.
+
+Here are the patterns when unrecoverable error happens:
+
+  * If the plugin doesn't have `secondary`, the chunk is moved to backup directory.
+  * If the plugin has `secondary` which is different type from primary, the chunk is moved to `secondary`.
+  * If the unrecoverable error happens inside `secondary`, the chunk is moved to backup directory.
 
 ### Configuration Example
 
