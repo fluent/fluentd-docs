@@ -10,10 +10,15 @@ Please follow the [Preinstallation Guide](before-install) to configure your OS p
 
 ## Step 1: Install from Apt Repository
 
-For Ubuntu, we currently support "Ubuntu 16.04 LTS / Xenial 64bit", "Ubuntu 14.04 LTS / Trusty 64bit".
+For Ubuntu, we currently support "Ubuntu 18.04 LTS / Bionic 64bit", "Ubuntu 16.04 LTS / Xenial 64bit", "Ubuntu 14.04 LTS / Trusty 64bit".
 For Debian, we currently support "Debian 9 Stretch 64bit", "Debian 8 Jessie 64bit".
 
 A shell script is provided to automate the installation process for each version. The shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
+
+For Ubuntu Bionic,
+
+    :::term
+    curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-bionic-td-agent3.sh | sh
 
 For Ubuntu Xenial,
 
