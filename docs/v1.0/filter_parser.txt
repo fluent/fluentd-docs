@@ -82,6 +82,30 @@ Without `reserve_data`, result is below
     # input data:  {"key":"value","log":"{\"user\":1,\"num\":2}"}
     # output data: {"user":1,"num":2}
 
+### remove_key_name_field
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 1.2.2   |
+
+Remove `key_name` field when parsing is succeeded.
+
+    :::text
+    <filter foo.bar>
+      @type parser
+      key_name log
+      reserve_data true
+      remove_key_name_field true
+      <parse>
+        @type json
+      </parse>
+    </filter>
+
+With above configuration, result is below:
+
+    # input data:  {"key":"value","log":"{\"user\":1,\"num\":2}"}
+    # output data: {"key":"value","user":1,"num":2}
+
 ### replace_invalid_sequence
 
 | type | default | version |
