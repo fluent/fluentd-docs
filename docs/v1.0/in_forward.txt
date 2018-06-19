@@ -330,7 +330,7 @@ To enable this feature, you need to add a `<security>` section to your configura
       @type forward
       <security>
         self_hostname YOUR_SERVER_NAME
-        secret_key PASSWORD
+        shared_key PASSWORD
       </security>
     </source>
 
