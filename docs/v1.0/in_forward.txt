@@ -114,6 +114,20 @@ The field name of the client's hostname. If set the value, the client's hostname
 
 This iterates incoming events. So if you sends larger chunks to `in_forward`, it needs additional processing time.
 
+### &lt;transport&gt; section
+
+This section is for using SSL transport.
+
+    :::text
+    <transport tls>
+      cert_path /path/to/fluentd.crt
+      # other parameters
+    </transport>
+
+See "How to Enable TLS Encryption" section for how to use and see ["Configuration example" in "Server Plugin Helper" article](/articles/api-plugin-helper-server#configuration-example) for supported parameters
+
+Without `<transport tls>`, in_forward uses raw TCP.
+
 ### &lt;security&gt; section
 
 | required | multi | version |

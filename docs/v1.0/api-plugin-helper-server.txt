@@ -142,6 +142,42 @@ Code example:
       # conn is Fluent::PluginHelper::Server::TLSCallbackSocket
     end
 
+## Configuration example
+
+Here is TLS configuration example with server helper used plugin.
+
+    :::text
+    <source>
+      @type forward
+      # other plugin parameters
+      <transport tls>
+        version TLSv1_2
+        ciphers ALL:!aNULL:!eNULL:!SSLv2
+        insecure false
+
+        # For Cert signed by public CA
+        ca_path /path/to/ca_file
+        cert_path /path/to/cert_path
+        private_key_path /path/to/priv_key
+        private_key_passphrase "passphrase"
+        client_cert_auth false
+
+        # For Cert generated and signed by private CA Certificate
+        ca_cert_path /path/to/ca_cert
+        ca_private_key_path /path/to/ca_priv_key
+        ca_private_key_passphrase "ca_passphrase"
+
+        # For generating certs by private CA certs or self-signed
+        generate_private_key_length 2048
+        generate_cert_country US
+        generate_cert_state CA
+        generate_cert_locality Mountain View
+        generate_cert_common_name "Common Name"
+        generate_cert_expiration "#{10 * 365 * 86400}"
+        generate_cert_digest sha256
+      <transport>
+    <source>
+
 ## server used plugins
 
 - [Forward input](in_forward)
