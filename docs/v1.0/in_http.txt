@@ -107,6 +107,14 @@ White list domains for CORS.
 
 If you set `["domain1", "domain2"]` to `cors_allow_origins`, `in_http` returns `403` to access from othe domains.
 
+### respond_with_empty_img
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 0.12.0  |
+
+Respond with an empty gif image of 1x1 pixel (rather than an emtpy string).
+
 ### format (deprecated)
 
 Deprecated parameter. Use the `<parse>` directive [as explained below](#handle-various-formats-using-parser-plugins) instead.
