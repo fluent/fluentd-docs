@@ -62,9 +62,17 @@ The interval time between event emits. This will be used when `tag` is configure
 
 | type | default | version |
 |:----:|:-------:|:-------:|
-| bool | true   | 0.14.0  |
+| bool | true    | 0.14.0  |
 
-Remove `config` field from the response.
+You can set this option to false to remove `config` field from the response.
+
+### include_retry
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | true    | 0.14.11 |
+
+You can set this option to false to remove `retry` field from the response.
 
 ## Output Example
 
