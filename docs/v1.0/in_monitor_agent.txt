@@ -156,6 +156,25 @@ For example, if the elasticsearch plugin fails to flush the buffer, response is 
 
 ## Tips
 
+### Use query parameters to tune outputs
+
+This plugin supports a number of query parameters with which you can customize the output format of HTTP responses.
+For example, you can append `debug=1` to the request URL to get the verbose internal metrics.
+
+    $ curl http://localhost:24220/api/plugins.json?debug=1
+
+The following list shows the available query parameters.
+
+ Parameter     |  Value           |  Explanation
+-------------- | ---------------- | -------------------------------------
+ `debug`       |  Constant        | Expose additional internal metrics
+ `with_ivars`  |  Variable names  | Expose the specified instance variables of each plugin
+ `with_config` |  Boolean         | Override the configuration option with_config
+ `with_retry`  |  Boolean         | Override the configuration option with_retry
+ `tag`         |  Event tag       | Only show plugins that matches the specified tag
+ `@id`         |  Plugin id       | Filter plugins by plugin id
+ `@type`       |  Plugin type     | Filter plugins by plugin type
+
 ### Reuse plugins
 
 If you set `tag` parameter, this plugin emits internal metrics to fluentd pipeline. Here is an example with `tag test.foo` and `stdout` output.
