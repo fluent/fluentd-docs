@@ -131,7 +131,29 @@ See [Extract section configurations](extract-section)
 
 Overwrite default value in this plugin.
 
-## Real World Use Case: using in_exec to scrape Hacker News Top Page
+## Use Cases
+
+### Monitor Load Averages
+
+Here is a simple example to fetch load average stats on Linux systems. This configuration instructs Fluentd to read `/proc/loadavg` once per minute and emit the file content as events.
+
+    <source>
+      @type exec
+      tag system.loadavg
+      command cat /proc/loadavg | cut -d ' ' -f 1,2,3
+      run_interval 1m
+      <parse>
+        @type tsv
+        keys avg1,avg5,avg15
+        delimiter " "
+      </parse>
+    </source>
+
+This configuration emits events like below:
+
+    2018-06-29 17:27:35.115878527 +0900 system.loadavg: {"avg1":"0.30","avg5":"0.20","avg15":"0.05"}
+
+### Real World Example: Scrape Hacker News Top Page
 
 If you already have a script that runs periodically (say, via `cron`) that you wish to store the output to multiple backend systems (HDFS, AWS, Elasticsearch, etc.), in_exec is a great choice.
 
