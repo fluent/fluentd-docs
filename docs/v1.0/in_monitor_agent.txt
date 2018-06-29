@@ -17,6 +17,10 @@ This configuration launches HTTP server with 24220 port and get metrics like bel
 
     $ curl http://host:24220/api/plugins.json
 
+Also you can fetch the same data in LTSV format:
+
+    $ curl http://host:24220/api/plugins
+
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
 ## Parameters
