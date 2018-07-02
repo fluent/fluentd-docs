@@ -55,7 +55,7 @@ The important point is you can't mix v1.0 and v0.12 styles in one plugin directi
 
 #### buffer
 
-| old                         | new                         | note                         |
+| old (v0.12)                 | new (v1)                    | note                         |
 |-----------------------------|-----------------------------|------------------------------|
 | buffer_type                 | @type                       |                              |
 | buffer_path                 | path                        |                              |
@@ -98,7 +98,7 @@ For more details, see [Buffer section configuration](buffer-section)
 
 #### inject
 
-| old              | new         | note                     |
+| old (v0.12)      | new (v1)    | note                     |
 |------------------|-------------|--------------------------|
 | include_time_key | time_key    | if true, set time_key    |
 | time_key         | time_key    |                          |
@@ -126,7 +126,7 @@ For more details, see [Inject Plugin Helper API](api-plugin-helper-inject)
 
 #### extract
 
-| old         | new         | note                     |
+| old (v0.12) | new (v1)    | note                     |
 |-------------|-------------|--------------------------|
 | time_key    | time_key    |                          |
 | time_format | time_format |                          |
@@ -152,7 +152,7 @@ For more details, see [Extract Plugin Helper API](api-plugin-helper-extract)
 
 #### parser
 
-| old                   | new                 | note                     | plugin                                  |
+| old (v0.12)           | new (v1)            | note                     | plugin                                  |
 |-----------------------|---------------------|--------------------------|-----------------------------------------|
 | format                | @type               |                          |                                         |
 | types                 | types               | converted to JSON format |                                         |
@@ -196,7 +196,7 @@ For more details, see [Parser Plugin Overview](parser-plugin-overview) and [Writ
 
 #### formatter
 
-| old             | new             | note                     | plugin               |
+| old (v0.12)     | new (v1)        | note                     | plugin               |
 |-----------------|-----------------|--------------------------|----------------------|
 | format          | @type           |                          |                      |
 | delimiter       | delimiter       |                          |                      |
