@@ -1,29 +1,26 @@
-# Fluentd's HTTP RPC
+# HTTP RPC
 
-This article explains how `Fluentd` handles HTTP RPC.
+HTTP RPC enables you to manage your Fluentd instance through HTTP endpoints. You can use this feature as a replacement of [Unix signals](signals).
 
-## Overview
-
-HTTP RPC is one way of managing fluentd instance. Several provided RPCs are replacement of [signals](signals). The response body is JSON format.
-
-On signal unsupported environment, e.g. Windows, you can use RPC instead of signals.
+It's especially useful for environments where signals are not supported well (e.g. Windows).
 
 ## Configuration
 
-RPC is off by default. If you want to enable RPC, set `rpc_endpoint` in `<system>` section.
+HTTP RPC is not enabled by default. To use this feature, set the `rpc_endpoint` option as follows.
 
-    :::text
     <system>
       rpc_endpoint 127.0.0.1:24444
     </system>
 
-After that, you can access to RPC like below.
+Now you can manage your Fluentd instance using a HTTP client:
 
-    :::text
+    :::term
     $ curl http://127.0.0.1:24444/api/plugins.flushBuffers
     {"ok":true}
 
-## RPCs
+As shown in the above example, each endpoint returns a JSON object as its response.
+
+## HTTP endpoints
 
 ### /api/processes.interruptWorkers
 
