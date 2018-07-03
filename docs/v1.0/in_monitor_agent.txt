@@ -78,19 +78,19 @@ You can set this option to false to remove `config` field from the response.
 
 You can set this option to false to remove `retry` field from the response.
 
-## Output Example
+## Configuration Example
 
-Show output example with following configuration:
+Here is a configuration example that uses `in_monitor_agent`.
 
-    :::term
     <source>
       @type monitor_agent
+      @id in_monitor_agent
       include_config false
     </source>
-    
+
     <source>
       @type forward
-      @id out_forward
+      @id in_forward
     </source>
     
     <match test.**>
@@ -98,15 +98,20 @@ Show output example with following configuration:
       @id out_es
     </match>
 
-### Basic response
+When using this plugin, we strongly recommend to set `@id` on *each* plugin in use. This makes
+the task to identify which record corresponds to which plugin much easier (Without `@id`,
+Fluentd uses `object_id` as unique identifier, so you cannot identify a record just by looking
+at its `plugin_id` field)
 
-Important point is `@id` parameter is used in `plugin_id`. If you want to track plugin metrics by other service, set `@id` parameter is needed. Otherwise use internal object id and it will be changed after restart.
+## Output Example
+
+Here is how the output looks like (in JSON format):
 
     :::term
     {
       "plugins": [
         {
-          "plugin_id": "object:3fd0250b9110",
+          "plugin_id": "in_monitor_agent",
           "plugin_category": "input",
           "type": "monitor_agent",
           "output_plugin": false,
