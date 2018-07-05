@@ -8,7 +8,7 @@ Fluentd is written in Ruby for flexibility, with performance sensitive parts wri
 
 That's why [Treasure Data, Inc](http://www.treasuredata.com/) is providing **the stable community distribution of Fluentd**, called `td-agent`. The differences between Fluentd and td-agent can be found <a href="//www.fluentd.org/faqs">here</a>.
 
-NOTE: This installation guide is for td-agent v2, the current stable version. See <a href="td-agent-v1-vs-v2">this page</a> for the comparison between v1 and v2. <a href="install-by-deb-v1">Here</a> is the deb installation guide for v1.
+Currently, td-agent 2 deb has two versions, td-agent 2.5 / td-agent 2.3. The different point is bundled ruby version. td-agent 2.5 or later uses ruby 2.5 and td-agent 2.3 or earlier uses ruby 2.1. ruby 2.1 is EOL so we recommend to use td-agent 2.5 for new deployment. td-agent 2.5 and td-agent 2.3 use fluentd v0.12 serise so the behaviour is same.
 
 ## Step 0: Before Installation
 
@@ -16,7 +16,7 @@ Please follow the [Preinstallation Guide](before-install) to configure your OS p
 
 ## Step 1 : Install from Apt Repository
 
-For Ubuntu, we currently support "Ubuntu 16.04 LTS / Xenial 64bit", "Ubuntu 14.04 LTS / Trusty 64bit/32bit", "Ubuntu 12.04 LTS / Precise 64bit/32bit", "Ubuntu 10.04 LTS / Lucid 64bit/32bit".
+For Ubuntu, we currently support "Ubuntu 18.04 LTS / Bionic 64bit", "Ubuntu 16.04 LTS / Xenial 64bit", "Ubuntu 14.04 LTS / Trusty 64bit/32bit", "Ubuntu 12.04 LTS / Precise 64bit/32bit", "Ubuntu 10.04 LTS / Lucid 64bit/32bit".
 
 For Debian, we currently support Jessie, Wheezy and Squeeze. There is no 32bit packages for Debian.
 
@@ -24,14 +24,25 @@ NOTE: We might not provide td-agent for older distributions. For example, we don
 
 A shell script is provided to automate the installation process for each version. The shell script registers a new apt repository at `/etc/apt/sources.list.d/treasure-data.list` and installs the `td-agent` deb package.
 
+For Bionic,
+
+    :::term
+    curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-bionic-td-agent2.5.sh | sh
+
 For Xenial,
 
     :::term
+    # td-agent 2.5 or later
+    curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-xenial-td-agent2.5.sh | sh
+    # td-agent 2.3 or earlier
     curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-xenial-td-agent2.sh | sh
 
 For Trusty,
 
     :::term
+    # td-agent 2.5 or later
+    curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent2.5.sh | sh
+    # td-agent 2.3 or earlier
     curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent2.sh | sh
 
 For Precise,

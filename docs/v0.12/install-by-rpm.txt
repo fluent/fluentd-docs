@@ -8,7 +8,7 @@ Fluentd is written in Ruby for flexibility, with performance sensitive parts wri
 
 That's why [Treasure Data, Inc](http://www.treasuredata.com/) is providing **the stable community distribution of Fluentd**, called `td-agent`. The differences between Fluentd and td-agent can be found <a href="//www.fluentd.org/faqs">here</a>.
 
-NOTE: This installation guide is for td-agent v2, the current stable version. See <a href="td-agent-v1-vs-v2">this page</a> for the comparison between v1 and v2. <a href="install-by-rpm-v1">Here</a> is the rpm installation guide for v1.
+Currently, td-agent 2 rpm has two versions, td-agent 2.5 / td-agent 2.3. The different point is bundled ruby version. td-agent 2.5 or later uses ruby 2.5 and td-agent 2.3 or earlier uses ruby 2.1. ruby 2.1 is EOL so we recommend to use td-agent 2.5 for new deployment. td-agent 2.5 and td-agent 2.3 use fluentd v0.12 serise so the behaviour is same.
 
 ## Step 0: Before Installation
 
@@ -20,6 +20,9 @@ CentOS and RHEL 5, 6, 7 and Amazon Linux are currently supported.
 
 Executing [install-redhat-td-agent2.sh](https://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh) will automatically install td-agent on your machine. This shell script registers a new rpm repository at `/etc/yum.repos.d/td.repo` and installs the `td-agent` rpm package.
 
+    # td-agent 2.5 or later. Only CentOS/RHEL 6 and 7 for now.
+    $ curl -L https://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.5.sh | sh
+    # td-agent 2.3 or earlier
     $ curl -L https://toolbelt.treasuredata.com/sh/install-redhat-td-agent2.sh | sh
 
 It's HIGHLY recommended that you set up <b>ntpd</b> on the node to prevent invalid timestamps in your logs. Please check the [Preinstallation Guide](before-install).
