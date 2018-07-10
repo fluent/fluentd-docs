@@ -298,8 +298,9 @@ These parameters below are to configure buffer plugins and its chunks.
   * If you set smaller flush_interval, e.g. 1s, there are lots of small queued chunks in buffer. This is not good with file buffer because it consumes lots of fd resources when output destination has a problem. This parameter mitigates such situations.
 * ``compress`` [enum: text/gzip]
   * Default: text
-  * The option to specify compression of each chunks, during events are buffered
-  * ``text`` means no compression, and ``gzip`` compression for it
+  * If you set this option to ``gzip``, you can get Fluentd to compress data records before writing to buffer chunks.
+  * Fluentd will decompress these compressed chunks automatically before passing them to the output plugin (The exceptional case is when the output plugin can transfer data in compressed form. In this case, the data will be passed to the plugin as is).
+  * The default value is ``text`` which means no compression applied.
 
 ### Flushing parameters
 
