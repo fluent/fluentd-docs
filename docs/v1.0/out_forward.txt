@@ -408,6 +408,20 @@ To enable this feature, set the `compress` option as follows:
 
 You don't need any configuration in the receiving server. Data compression is auto-detected and handled transparently by the destination node.
 
+### What is a Phi accrual failure detector?
+
+Fluentd implements an adaptive failure detection mechanism called "Phi accrual failure detector". Here is how it works:
+
+ 1. Each `in_forward` node sends heartbeat packets to its `out_foward` server at a regular interval.
+ 2. The `out_forward` server records the arrival time of heartbeat packets sent by each node.
+ 3. If the server does not receive a heartbeat from one of its nodes for "a long time", it assumes the node is down.
+
+But how long should the server wait before detaching a node? The phi accrual failure detector answers this question by computing the probability of a node being down based on the assumption that heartbeat intervals follow normal distribution. Internally it represent the confidence of a node being down by a continuous function *&phi;(t)* which grows as the time from the last packet increases.
+
+For example, suppose that the historical average interval is 1 seconds and the standard deviation is 1, it's not likely that the node is still being active when its heartbeat does not arrive for the last 10 seconds.
+
+For details, please read the original paper: [Hayashibara, Naohiro, et al. "The &phi; accrual failure detector." IEEE, 2004.](https://scholar.google.com/scholar?cluster=12946656837229314866)
+
 ## Troubleshooting
 
 ### "no nodes are available"
