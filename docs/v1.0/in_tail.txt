@@ -68,9 +68,14 @@ The paths to read. Multiple paths can be specified, separated by ‘,’.
     :::text
     path /path/to/%Y/%m/%d/*
 
+For multiple paths:
+
+    ::::text
+    path /path/to/a/*,/path/to/b/c.log
+
 If the date is 20140401, Fluentd starts to watch the files in /path/to/2014/04/01 directory. See also `read_from_head` parameter.
 
-NOTE: You should not use '*' with log rotation because it may cause the log duplication. In such case, you should separate in_tail plugin configuration.
+NOTE: You should not use '*' with log rotation because it may cause the log duplication. In such case, you should separate in_tail plugin configuration. 
 
 ### exclude_path
 
@@ -83,6 +88,8 @@ The paths to exclude the files from watcher list. For example, if you want to re
     :::text
     path /path/to/*
     exclude_path ["/path/to/*.gz", "/path/to/*.zip"]
+
+NOTE: `exclude_path` takes its input as an array, unlike `path` which takes it as a string.
 
 ### refresh_interval
 
