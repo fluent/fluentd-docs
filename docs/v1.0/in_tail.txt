@@ -70,7 +70,7 @@ The paths to read. Multiple paths can be specified, separated by ‘,’.
 
 For multiple paths:
 
-    ::::text
+    :::text
     path /path/to/a/*,/path/to/b/c.log
 
 If the date is 20140401, Fluentd starts to watch the files in /path/to/2014/04/01 directory. See also `read_from_head` parameter.
