@@ -196,6 +196,18 @@ This significantly improves the throughput since it reduces the number of HTTP r
 
 Tested configuration and ruby script is [here](https://gist.github.com/repeatedly/672ac73abf7cbcb629aaec791838cf6d).
 
+### Use compression to reduce bandwidth overhead
+
+Since v1.2.3, Fluentd can handle gzip-compressed payloads. To enable this feature, you need to add a 'Content-Encoding' header to your requests.
+
+    :::term
+    # Send gzip-compressed payload
+    $ echo 'json={"foo":"bar"}' | gzip > json.gz
+    $ curl --data-binary @json.gz -H "Content-Encoding: gzip" \
+      http://localhost:9880/app.log
+
+This feature should be useful especially when you need to send a large amount of data though HTTP.
+
 ### Multi-process environment
 
 If you use this plugin under multi-process environment, port will be shared.
