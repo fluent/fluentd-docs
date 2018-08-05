@@ -43,7 +43,7 @@ Configuration style is same but Fluentd v1 adds several sections for core featur
       flush_interval 10s
     </match>
 
-This separates configuration parameters into fluetnd core features and plugin-specific features. See "Configuration" panel in the left menu for each section details.
+This separates configuration parameters into fluentd core features and plugin-specific features. See "Configuration" panel in the left menu for each section details.
 
 Note that Fluentd v1 automatically converts v0.12 style into v1.0 style during startup phase, so you can reuse v0.12 configuration with v1. See [compat_parameters article](api-plugin-helper-compat_parameters) for correspondence table between v1 and v0.12 parameters.<br />
 Of course, v1 configuration is better for using full v1 API features.
