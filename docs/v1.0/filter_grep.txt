@@ -191,6 +191,14 @@ For OR condition, you can use `|` operator of regular expressions. For example, 
 
 unless the event's "item_name" field starts with "book_" or "article_", it is filtered out.
 
+Note that if you want to use a match pattern with a leading slash (a typical case is a file path), you need to escape the leading slash. Otherwise, the pattern will not be recognized as expected. Here is a simple example:
+
+    :::text
+    <regexp>
+      key filepath
+      pattern \/spool/
+    </regexp>
+
 Learn regular expressions for more patterns.
 
 ### regexpN
