@@ -132,7 +132,7 @@ NOTE: When this is true, in_tail tries to read a file during start up phase. If 
 
 | type | default | version |
 |:----:|:-------:|:-------:|
-| string | nil (string eoncoding is `ASCII-8BIT`) | 0.14.0 |
+| string | nil (string encoding is `ASCII-8BIT`) | 0.14.0 |
 
 Specify the encoding of reading lines.
 
