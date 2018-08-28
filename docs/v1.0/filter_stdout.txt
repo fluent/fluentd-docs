@@ -1,7 +1,5 @@
 # stdout Filter Plugin
 
-NOTE: This page is simply copied from LINK(v0.12):[v0.12 documents](/articles/filter_stdout), and will be updated later.
-
 The `filter_stdout` filter plugin prints events to stdout (or logs if launched
 with daemon mode). This filter plugin is useful for debugging purposes.
 
@@ -22,9 +20,6 @@ A sample output is as follows:
 
 where the first part shows the output time, the second part shows the tag,
 and the third part shows the record.
-
-NOTE: The first part shows the <strong>output</strong> time, not the time attribute
-of message event structure as <code>out_stdout</code> does.
 
 ## Plugin helpers
 
