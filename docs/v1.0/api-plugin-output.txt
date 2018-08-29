@@ -1,41 +1,50 @@
-# Writing Buffered Output Plugins
+# Writing Output Plugins
 
-NOTE: This page is simply copied from LINK(v0.12):[v0.12 documents](plugin-development), and will be updated later.
+To create an output plugin, you need to define a class inheriting **Fluent::Plugin::Output** and implement a set of methods on it.
 
-Extend the **Fluent::Plugin::Output** class and implement the following methods. See LINK:[Plugin Base Class API](api-plugin-base) to show details of common API for all plugin types.
-
-This example implements all methods for all output modes. In most cases, output plugins should implement one or some of these methods, not all.
+The exact set of methods to be implemented is dependent on the design of your plugin. The following is a general template for writing a custom output plugin.
 
     :::ruby
     require 'fluent/plugin/output'
 
     module Fluent::Plugin
       class SomeOutput < Output
+
+        # Register the name of your plugin (Choose a name which
+        # is not used by any other output plugins).
         Fluent::Plugin.register_output('some', self)
   
-        helpers :thread  # for try_write
+        # Enable threads if you are writing an async buffered plugin
+        helpers :thread
 
+        # Define parameters for your plugin
         config_param :path, :string
   
-        # method for non-buffered output mode
+        #### Non-Buffered Output #############################
+        # Implement process() if your plugin is unbeffered.
+        # Read "Non-Buffered output" for details.
+        ######################################################
         def process(tag, es)
           es.each do |time, record|
             # output events to ...
           end
         end
 
-        # method for sync buffered output mode
+        #### Sync Buffered Output ##############################
+        # Implement write() if your plugin uses a normal buffer.
+        # Read "Sync Buffered Output" for details.
+        ########################################################
         def write(chunk)
           real_path = extract_placeholders(@path, chunk)
 
           log.debug "writing data to file", chunk_id: dump_unique_id_hex(chunk.unique_id)
 
-          # for standard chunk format (without #format method)
+          # For standard chunk format (without #format() method)
           chunk.each do |time, record|
             # output events to ...
           end
 
-          ## for custom format (when #format implemented by itself)
+          # For custom format (when #format() implemented)
           # File.open(real_path, 'w+')
 
           ## or #write_to(io) is available
@@ -44,7 +53,10 @@ This example implements all methods for all output modes. In most cases, output 
           # end
         end
 
-        # method for async buffered output mode
+        #### Async Buffered Output #############################
+        # Implement try_write() if you want to defer commit of
+        # chunks. Read "Async Buffered Output" for how it works.
+        ########################################################
         def try_write(chunk)
           real_path = extract_placeholders(@path, chunk)
 
@@ -54,7 +66,7 @@ This example implements all methods for all output modes. In most cases, output 
           
           chunk_id = chunk.unique_id
 
-          # create a thread and check whether data is successfully sent or not
+          # Create a thread for defered commit.
           thread_create(:check_send_result) do
             while thread_current_running?
               sleep SENDDATA_CHECK_INTERVAL # == 5
@@ -68,7 +80,7 @@ This example implements all methods for all output modes. In most cases, output 
           end
         end
 
-        # method for custom format
+        # Define this method for buffered outputs.
         def format(tag, time, record)
           [tag, time, record].to_json
         end
