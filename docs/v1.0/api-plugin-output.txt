@@ -80,7 +80,9 @@ The exact set of methods to be implemented is dependent on the design of your pl
           end
         end
 
-        # Define this method for buffered outputs.
+        # Override #format if you want to customize how Fluentd stores
+        # events. Read the section "How to Customize the Serialization
+        # Format for Chunks" for how it works.
         def format(tag, time, record)
           [tag, time, record].to_json
         end
@@ -137,23 +139,6 @@ When plugin does buffering:
 
 It's an important point that methods to decide modes will be called in ``#start`` methods, which is called after ``#configure``. So plugins can decide the default behavior with configured parameter values by overriding these methods (``#prefer_buffer_processing`` and ``#prefer_delayed_commit``).
 
-## Formatting modes
-
-For a buffering output plugin, you can customize how it serializes events.
-
-### Standard format
-
-Fluentd v1.0 has "standard" format for buffer chunks. If output plugins don't implement ``#format`` method, Fluentd uses this standard format. Buffer chunks with this format are iterable by ``chunk.each`` method to extract events from chunk body.
-
-Some tools will be provided with Fluentd core to read/extract buffer chunks formatted by standard format. If your plugin does iterate events from buffer chunks, it's the best to use standard format.
-
-### Custom format
-
-Fluentd uses custom format if plugins implement ``#format`` method. That method should return a String as representation of an event.
-Fluentd appends it into buffer chunk body.
-
-Custom format is useful when output plugins write data into plain text file on local disks or distributed file systems.
-
 ## Development Guide
 
 ### How To Use Asynchronous Buffered Mode and Delayed Commit
@@ -206,6 +191,16 @@ Buffer configuration has a parameter to control these mode, named ``flush_mode``
 
 Default is "lazy" if ``time`` is specified as chunk key. Otherwise, interval.
 If user specifies ``flush_mode`` explicitly, the plugin works as specified.
+
+### How to Customize the Serialization Format for Chunks
+
+You can customize the serialization format with which Fluentd stores events into the buffer by overriding the method `#format`.
+
+Generally you do not need to do this. Fluentd is equipped with a standard formatting function and there are many benefits to just leave the task to Fluentd (for example, it transparently allows you to iterate through records via `chunk.each`).
+
+An exceptional case is when you can deliver chunks to the destination without any further processing. For example, `out_file` overrides `#format` so that it can produce chunk files that exactly look like final outputs. In this way, `out_file` can flush data just by moving chunk files to the destination path.
+
+For further details, please also read the interface definition of `#format` below.
 
 ### Understanding Chunking and Metadata
 
