@@ -89,7 +89,7 @@ The exact set of methods to be implemented is dependent on the design of your pl
       end
     end
 
-## Modes of Output Plugins
+## Three Modes of Output Plugins
 
 Output plugins have three operation modes. Each mode has a set of interfaces to be implemented. Any output plugin must support (at least) one of these three modes.
 
@@ -195,7 +195,7 @@ Buffer configuration has a parameter to control these mode, named ``flush_mode``
 Default is "lazy" if ``time`` is specified as chunk key. Otherwise, interval.
 If user specifies ``flush_mode`` explicitly, the plugin works as specified.
 
-### Changing Parameter Defaults of Buffer Plugins
+### How to Change the Default Values for Parameters
 
 There are many configuration parameters in ``fluent/plugin/output.rb``, and some others in ``fluent/plugin/buffer.rb``. Almost parameters are designed to work well for many use cases, but we want to overwrite default values of some parameters in plugins.
 
@@ -256,7 +256,7 @@ An exceptional case is when you can deliver chunks to the destination without an
 
 For further details, please also read the interface definition of `#format` below.
 
-## Methods
+## List of Interface Methods
 
 Some methods should be overridden / implemented by plugins.
 On the other hand, plugins MUST NOT override methods without any metions about it.
