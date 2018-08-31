@@ -259,7 +259,7 @@ This default value overriding is valid only for your plugin, and doesn't have an
 Some methods should be overridden / implemented by plugins.
 On the other hand, plugins MUST NOT override methods without any metions about it.
 
-#### #process(tag, es)
+### #process(tag, es)
 
 The method for non-buffered output mode. The plugin which supports non-buffered output must implement this method.
 
@@ -268,7 +268,7 @@ The method for non-buffered output mode. The plugin which supports non-buffered 
 
 Return values will be ignored.
 
-#### #write(chunk)
+### #write(chunk)
 
 The method for sync buffered output mode. The plugin which supports sync buffered output must implement this method.
 
@@ -276,7 +276,7 @@ The method for sync buffered output mode. The plugin which supports sync buffere
 
 Return values will be ignored.
 
-#### #try_write(chunk)
+### #try_write(chunk)
 
 The method for async buffered output mode. The plugin which supports async buffered output must implement this method.
 
@@ -284,7 +284,7 @@ The method for async buffered output mode. The plugin which supports async buffe
 
 Return values will be ignored.
 
-#### #format(tag, time, record)
+### #format(tag, time, record)
 
 The method for custom format of buffer chunks. The plugin which uses custom format to format buffer chunks must implement this method.
 
@@ -294,19 +294,19 @@ The method for custom format of buffer chunks. The plugin which uses custom form
 
 Return value must be a String.
 
-#### #prefer_buffered_processing
+### #prefer_buffered_processing
 
 The method to specify whether to use buffered or non-buffered output mode in default when both methods are implemented. True means buffered output.
 
 Return value must be ``true`` or ``false``.
 
-#### #prefer_delayed_commit
+### #prefer_delayed_commit
 
 The method to specify whether to use asynchronous or synchronous output mode when both methods are implemented. True means asynchronous buffered output.
 
 Return value must be ``true`` or ``false``.
 
-#### #extract_placeholders(str, chunk)
+### #extract_placeholders(str, chunk)
 
 This method extract placeholders in given string, using values in chunk.
 
@@ -315,7 +315,7 @@ This method extract placeholders in given string, using values in chunk.
 
 Return value is a String.
 
-#### #commit_write(chunk_id)
+### #commit_write(chunk_id)
 
 This method is to tell Fluentd that specified chunk should be committed. That chunk will be purged after this method call.
 
@@ -323,13 +323,13 @@ This method is to tell Fluentd that specified chunk should be committed. That ch
 
 This method has some other optional arguments, but these are for internal use.
 
-#### #rollback_write(chunk_id)
+### #rollback_write(chunk_id)
 
 This method is to tell Fluentd that Fluentd should retry writing buffer chunk specified in argument. Plugins can call this method explicitly to retry writing chunks, or plugins also can leave that chunk id until timeout without calling this method.
 
 * ``chunk_id``: a String, brought by ``chunk.unique_id``
 
-#### #dump_unique_id_hex(chunk_id)
+### #dump_unique_id_hex(chunk_id)
 
 This method is to dump buffer chunk ids. Buffer chunk id is a String, but the value includes non-printable characters. This method is to format chunk ids into printable strings, and be used for logging chunk ids.
 
@@ -337,11 +337,11 @@ This method is to dump buffer chunk ids. Buffer chunk id is a String, but the va
 
 Return value is a String.
 
-#### es.size
+### es.size
 
 ``EventStream#size`` returns an Integer, which represents the number of events in the event stream.
 
-#### es.each(&block)
+### es.each(&block)
 
 ``EventStream#each`` receives a block argument, and call that block for each events (time and record).
 
@@ -353,13 +353,13 @@ Return value is a String.
 * ``time``: a Fluent::EventTime object, or an Integer which represents unix timestamp (seconds from Epoch)
 * ``record``: a Hash with String keys
 
-#### chunk.unique_id
+### chunk.unique_id
 
 ``Chunk#unique_id`` returns a String which represents unique id of buffer chunks.
 
 Return value is a String. It includes non-printable characters, so use ``#dump_unique_id_hex`` method to print it in logs or other purposes.
 
-#### chunk.metadata
+### chunk.metadata
 
 ``Chunk#metadata`` returns a Fluent::Plugin::Buffer::Metadata object which contains values for chunking.
 
@@ -371,17 +371,17 @@ Available fields of metadata are:
 
 For example, ``chunk.metadata.timekey`` returns an Integer. ``chunk.metadata.variables[:name]`` returns an Object if ``name`` is specified as a chunk key.
 
-#### chunk.size
+### chunk.size
 
 ``Chunk#size`` returns an Integer, represents the bytesize of chunks.
 
-#### chunk.read
+### chunk.read
 
 ``Chunk#read`` reads all content of the chunk, and return it as a String.
 
 NOTE: this method doesn't get any arguments, unlinke Ruby's IO object.
 
-#### chunk.open(&block)
+### chunk.open(&block)
 
 ``Chunk#open`` receives a block, and call it with an IO argument which provides reade operations.
 
@@ -394,13 +394,13 @@ NOTE: this method doesn't get any arguments, unlinke Ruby's IO object.
 
 * ``io``: a readable IO object
 
-#### chunk.write_to(io)
+### chunk.write_to(io)
 
 ``Chunk#write_to`` writes entire data into an IO object.
 
 * ``io``: a writable IO object
 
-#### chunk.each(&block)
+### chunk.each(&block)
 
 This method is available only for standard format buffer chunks, and to provide iteration for events in buffer chunks.
 
