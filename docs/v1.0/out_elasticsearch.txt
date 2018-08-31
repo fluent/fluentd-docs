@@ -125,5 +125,21 @@ For common output / buffer parameters, please check the following articles.
 * [Output Plugin Overview](output-plugin-overview)
 * [Buffer Section Configuration](buffer-section)
 
+## Troubleshooting
+
+### Cannot send events to Elasticsearch
+
+A common cause of failure is that you are trying to connect to an Elasticsearch instance with an incompatible version.
+
+For example, td-agent currently bundles the 6.x series of the [elasticsearch-ruby](https://github.com/elastic/elasticsearch-ruby) library. This means that your Elasticsearch server also needs to be 6.x. You can check the actual version of the client library installed on your system by executing the following command.
+
+    :::term
+    # For td-agent users
+    $ /usr/sbin/td-agent-gem list elasticsearch
+    # For standalone Fluentd users
+    $ fluent-gem list elasticsearch
+
+For further details of the version compatibility issue, please read [the official manual](https://github.com/elastic/elasticsearch-ruby#compatibility).
+
 ## Further Reading
 - [fluent-plugin-elasticsearch repository](https://github.com/uken/fluent-plugin-elasticsearch)
