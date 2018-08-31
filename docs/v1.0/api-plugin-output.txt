@@ -139,68 +139,7 @@ When plugin does buffering:
 
 It's an important point that methods to decide modes will be called in ``#start`` methods, which is called after ``#configure``. So plugins can decide the default behavior with configured parameter values by overriding these methods (``#prefer_buffer_processing`` and ``#prefer_delayed_commit``).
 
-## Development Guide
-
-### How To Use Asynchronous Buffered Mode and Delayed Commit
-
-Plugins must call ``#commit_write`` method by itself in async buffered mode. It will be done after some checks or wait for completion in destination side, so ``#try_write`` should NOT block processing for it. The best practice is to create a thread or timer to do it when the plugin starts.
-
-    :::ruby
-    class MyAwesomeOutput < Output
-      helpers :timer
-
-      def start
-        @waiting_ids_mutex = Mutex.new
-        @waiting_ids = []
-
-        timer_create(:awesome_delayed_checker, 5) do
-          @waiting_ids_mutex.synchronize{ @waiting_ids.dup }.each do |chunk_id|
-            if check_it_succeeded(chunk_id)
-              commit_write(chunk_id)
-              @waiting_ids_mutex.synchronize{ @waiting_ids.delete(chunk_id) }
-            end
-          end
-        end
-      end
-
-      def try_write(chunk)
-        chunk_id = chunk.unique_id
-        send_to_destination(chunk)
-        @waiting_ids.synchronize{ @waiting_ids << chunk_id }
-      end
-    end
-
-The plugin can perform writing data and checking/commiting completion in parallel, and can use CPU resources more effeciently.
-
-NOTE: If you are sure that writing data succeeded right after writing/sending data, you should use sync buffered output instead of async mode. Async mode is for destinations that we cannot check immediately whether operation succeeded or not.
-
-### How To Control Buffering
-
-Buffer chunks will be flushed by some reason. Here's the complete list:
-
-1. its size reaches to the limit of bytesize or number of records
-2. its ``timekey`` is expired and ``timekey_wait`` passes
-3. it lives longer than ``flush_interval``
-4. it is appended any data and ``flush_mode`` is ``immediate``
-
-Buffer configuration has a parameter to control these mode, named ``flush_mode``, which has 3 modes and default behavior.
-
-* lazy: 1 and 2 are enabled
-* interval: 1, 2 and 3 are enabled
-* immediate: 4 is enabled
-
-Default is "lazy" if ``time`` is specified as chunk key. Otherwise, interval.
-If user specifies ``flush_mode`` explicitly, the plugin works as specified.
-
-### How to Customize the Serialization Format for Chunks
-
-You can customize the serialization format with which Fluentd stores events into the buffer by overriding the method `#format`.
-
-Generally you do not need to do this. Fluentd is equipped with a standard formatting function and there are many benefits to just leave the task to Fluentd (for example, it transparently allows you to iterate through records via `chunk.each`).
-
-An exceptional case is when you can deliver chunks to the destination without any further processing. For example, `out_file` overrides `#format` so that it can produce chunk files that exactly look like final outputs. In this way, `out_file` can flush data just by moving chunk files to the destination path.
-
-For further details, please also read the interface definition of `#format` below.
+## How Buffers Work
 
 ### Understanding Chunking and Metadata
 
@@ -238,6 +177,24 @@ In most cases, plugin authors don't need to consider these values. If you want t
 
 This method call should be done by code of plugins, so plugins which supports this feature should explain which configuration parameter accepts placeholders in documents.
 
+### How To Control Buffering
+
+Buffer chunks will be flushed by some reason. Here's the complete list:
+
+1. its size reaches to the limit of bytesize or number of records
+2. its ``timekey`` is expired and ``timekey_wait`` passes
+3. it lives longer than ``flush_interval``
+4. it is appended any data and ``flush_mode`` is ``immediate``
+
+Buffer configuration has a parameter to control these mode, named ``flush_mode``, which has 3 modes and default behavior.
+
+* lazy: 1 and 2 are enabled
+* interval: 1, 2 and 3 are enabled
+* immediate: 4 is enabled
+
+Default is "lazy" if ``time`` is specified as chunk key. Otherwise, interval.
+If user specifies ``flush_mode`` explicitly, the plugin works as specified.
+
 ### Changing Parameter Defaults of Buffer Plugins
 
 There are many configuration parameters in ``fluent/plugin/output.rb``, and some others in ``fluent/plugin/buffer.rb``. Almost parameters are designed to work well for many use cases, but we want to overwrite default values of some parameters in plugins.
@@ -253,6 +210,51 @@ If you want to change the default chunk keys and the limit of buffer chunk bytes
     end
 
 This default value overriding is valid only for your plugin, and doesn't have any effect for others.
+
+## Development Guide
+
+### How To Use Asynchronous Buffered Mode and Delayed Commit
+
+Plugins must call ``#commit_write`` method by itself in async buffered mode. It will be done after some checks or wait for completion in destination side, so ``#try_write`` should NOT block processing for it. The best practice is to create a thread or timer to do it when the plugin starts.
+
+    :::ruby
+    class MyAwesomeOutput < Output
+      helpers :timer
+
+      def start
+        @waiting_ids_mutex = Mutex.new
+        @waiting_ids = []
+
+        timer_create(:awesome_delayed_checker, 5) do
+          @waiting_ids_mutex.synchronize{ @waiting_ids.dup }.each do |chunk_id|
+            if check_it_succeeded(chunk_id)
+              commit_write(chunk_id)
+              @waiting_ids_mutex.synchronize{ @waiting_ids.delete(chunk_id) }
+            end
+          end
+        end
+      end
+
+      def try_write(chunk)
+        chunk_id = chunk.unique_id
+        send_to_destination(chunk)
+        @waiting_ids.synchronize{ @waiting_ids << chunk_id }
+      end
+    end
+
+The plugin can perform writing data and checking/commiting completion in parallel, and can use CPU resources more effeciently.
+
+NOTE: If you are sure that writing data succeeded right after writing/sending data, you should use sync buffered output instead of async mode. Async mode is for destinations that we cannot check immediately whether operation succeeded or not.
+
+### How to Customize the Serialization Format for Chunks
+
+You can customize the serialization format with which Fluentd stores events into the buffer by overriding the method `#format`.
+
+Generally you do not need to do this. Fluentd is equipped with a standard formatting function and there are many benefits to just leave the task to Fluentd (for example, it transparently allows you to iterate through records via `chunk.each`).
+
+An exceptional case is when you can deliver chunks to the destination without any further processing. For example, `out_file` overrides `#format` so that it can produce chunk files that exactly look like final outputs. In this way, `out_file` can flush data just by moving chunk files to the destination path.
+
+For further details, please also read the interface definition of `#format` below.
 
 ## Methods
 
