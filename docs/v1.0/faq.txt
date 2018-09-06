@@ -14,7 +14,10 @@ No differences. v1.0 is built on top of v0.14. Use v1.0 for newer installation. 
 
 ## Known Issue
 
-(To be added after reported)
+### Zlib::DataError happens when output plugin uses gzip compression
+
+This is caused by thread handling mismatch between output thread and gzip library.
+We will fix this problem in fluentd v1.3
 
 ## Operations
 
