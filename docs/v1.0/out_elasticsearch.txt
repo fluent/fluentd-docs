@@ -139,7 +139,7 @@ For example, td-agent currently bundles the 6.x series of the [elasticsearch-rub
     # For standalone Fluentd users
     $ fluent-gem list elasticsearch
 
-Or, fluent-plugin-elasticsearch v2.11.8 or later, users can inspect version incompatibility with the `validate_client_version` option:
+Or, fluent-plugin-elasticsearch v2.11.7 or later, users can inspect version incompatibility with the `validate_client_version` option:
 
     :::text
     validate_client_version true
