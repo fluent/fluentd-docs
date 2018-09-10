@@ -4,6 +4,13 @@ Ultrasimple CMS and content for Fluentd documentation. The production site is [h
 
 If you'd like to propose an edit to the Fluentd docs, please fork this repo and send us a pull request.
 
+**NOTE** As policy, we require each commit to be signed off by the author. When writing a patch, please sign your commit using the `-s` option.
+
+```bash
+# Append `--amend` to sign the previous commit
+$ git commit -s
+```
+
 # Install
 
     $ gem install bundler
