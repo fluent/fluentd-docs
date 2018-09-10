@@ -1,12 +1,5 @@
 # Splunk Enterprise and Splunk Cloud output plugin 
 
-The `out_splunk` Buffered Output plugin allows you to send data to a Splunk HTTP Event Collector or send data to Splunk Enterprise via TCP. The out_splunk plugin supports the following versions
+The `out_splunk` Buffered Output plugin allows you to send data to a Splunk HTTP Event Collector or send data to Splunk Enterprise via TCP.
 
-* 6.0.X
-* 6.1.X
-* 6.2.X
-* 6.3.X
-* 6.4.X
-* 6.5.X
-
-The Splunk Enterprise and Splunk Cloud output plugin are available as part of a Fluentd Enterprise subscription - for more information see <a href="https://www.fluentd.org/enterprise"> Fluentd Enterprise </a>.
+Visit https://github.com/fluent/fluent-plugin-splunk for details.
