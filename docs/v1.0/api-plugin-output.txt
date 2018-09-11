@@ -429,13 +429,13 @@ To write a test suite, you need to define a class inheriting `Test::Unit::TestCa
     require 'fluent/plugin/out_stdout'
 
     class MyOutputTest < Test::Unit::TestCase
-        def setup
-            Fluent::Test.setup
-        end
+      def setup
+        Fluent::Test.setup
+      end
 
-        test 'output a sample event' do
-            # ...
-        end
+      test 'output a sample event' do
+        # ...
+      end
     end
 
 Please take notice of `Fluent::Test.setup` in the setup function. This function sets up a number of dummy proxies which are very convenient for many testing scenarios. So do not forget to call it!
