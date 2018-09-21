@@ -1,14 +1,26 @@
 # rewrite_tag_filter Output Plugin
 
-The `out_rewrite_tag_filter` Output plugin has designed to rewrite tag like mod_rewrite. Re-emit a record with rewritten tag when a value matches/unmatches with the regular expression.  Also you can change a tag from apache log by domain, status-code(ex. 500 error), user-agent, request-uri, regex-backreference and so on with regular expression. 
+The `out_rewrite_tag_filter` Output plugin provides a rule-based mechanism for
+rewriting tags.
 
 ## How it works
 
-It is a sample to arrange the tags by the regexp matched value of 'message'.
+The plugin is configured by defining a list of rules containing conditional
+statements and information on how to rewrite matching tags.
+
+When a message is handled by the plugin, the rules are tested one by one in
+order and if a matching rule is found the message tag will be rewritten
+according to the definition in the rule.
+
+### Example
+
+This in an example on how to use this plugin to re-write tags. In the example,
+records tagged with 'app.component' will have their tag prefixed with the value
+of the key 'message':
 
     :::text
     # Configuration
-    <match app.message>
+    <match app.component>
       @type rewrite_tag_filter
       <rule>
         key message
@@ -17,18 +29,18 @@ It is a sample to arrange the tags by the regexp matched value of 'message'.
       </rule>
     </match>
 
-Rewrite tag example:
+Sample data:
 
-    +----------------------------------------+        +----------------------------------------------+
-    | original record                        |        | rewritten tag record                          |
-    |----------------------------------------|        |----------------------------------------------|
-    | app.message {"message":"[info]: ..."}  | +----> | info.app.message {"message":"[info]: ..."}   |
-    | app.message {"message":"[warn]: ..."}  | +----> | warn.app.message {"message":"[warn]: ..."}   |
-    | app.message {"message":"[crit]: ..."}  | +----> | crit.app.message {"message":"[crit]: ..."}   |
-    | app.message {"message":"[alert]: ..."} | +----> | alert.app.message {"message":"[alert]: ..."} |
-    +----------------------------------------+        +----------------------------------------------+
+    +------------------------------------------+        +------------------------------------------------+
+    | original record                          |        | rewritten tag record                           |
+    |------------------------------------------|        |------------------------------------------------|
+    | app.component {"message":"[info]: ..."}  | +----> | info.app.component {"message":"[info]: ..."}   |
+    | app.component {"message":"[warn]: ..."}  | +----> | warn.app.component {"message":"[warn]: ..."}   |
+    | app.component {"message":"[crit]: ..."}  | +----> | crit.app.component {"message":"[crit]: ..."}   |
+    | app.component {"message":"[alert]: ..."} | +----> | alert.app.component {"message":"[alert]: ..."} |
+    +------------------------------------------+        +------------------------------------------------+
 
-## Install
+## Installation
 
 `out_rewrite_tag_filter` is included in td-agent by default (v3.0.1 or later). Fluentd gem users will have to install the fluent-plugin-rewrite-tag-filter gem using the following command.
 
@@ -37,9 +49,15 @@ Rewrite tag example:
 
 For more details, see [Plugin Management](plugin-management).
 
-## Example Configuration
+## Configuration example
 
 Configuration design is dropping some pattern record first, then re-emit other matched record as new tag name.
+The example configuration shown below gives an example on how the plugin can
+be used to define a number of rules that examines values from different keys
+and sets the tag depending on the regular expression configured in each rule.
+
+The tag value is later used to decide whether the log event shall be dropped
+or not.
 
     :::text
     <match apache.access>
@@ -131,7 +149,7 @@ The field name to which the regular expression is applied
 |:------:|:------------------:|:-------:|
 | string | required parameter | 2.0.0   |
 
-The regular expression
+The regular expression which is applied on the field value
 
 #### tag
 
@@ -151,7 +169,7 @@ If true, rewrite tag when unmatch pattern
 
 ## Placeholders
 
-It is supported these placeholder for new_tag (rewrited tag). See more details at [README.md](https://github.com/fluent/fluent-plugin-rewrite-tag-filter#tag-placeholder).
+The following variable can be used when specifying the name of the rewritten tag. See more details at [README.md](https://github.com/fluent/fluent-plugin-rewrite-tag-filter#tag-placeholder).
 
 * ${tag}
 * \__TAG__
