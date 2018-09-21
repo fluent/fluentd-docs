@@ -14,7 +14,11 @@ The `in_syslog` Input plugin enables Fluentd to retrieve records via the syslog 
       tag system
     </source>
 
-NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+This tells Fluentd to create a socket listening on port 5140. You need to set up your syslog daemon to send messages to the socket. For example, if you're using rsyslogd, add the following lines to `/etc/rsyslog.conf`.
+
+    :::text
+    # Send log messages to Fluentd
+    *.* @127.0.0.1:5140
 
 ### Example Usage
 
