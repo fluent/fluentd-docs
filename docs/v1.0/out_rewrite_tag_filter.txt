@@ -9,8 +9,9 @@ The plugin is configured by defining a list of rules containing conditional
 statements and information on how to rewrite matching tags.
 
 When a message is handled by the plugin, the rules are tested one by one in
-order and if a matching rule is found the message tag will be rewritten
-according to the definition in the rule.
+order. If a matching rule is found, the message tag will be rewritten according
+to the definition in the rule and the message will be emitted again with the
+new tag.
 
 ### Example
 
