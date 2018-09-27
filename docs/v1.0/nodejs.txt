@@ -35,10 +35,10 @@ Next, please configure Fluentd to use the [forward Input plugin](in_forward) as 
 Please restart your agent once these lines are in place.
 
     :::term
-    # for rpm/deb only
-    $ sudo /etc/init.d/td-agent restart
-    # or systemd
+    # for systemd
     $ sudo systemctl restart td-agent.service
+    # for init.d
+    $ sudo /etc/init.d/td-agent restart
 
 ## Using fluent-logger-node
 
