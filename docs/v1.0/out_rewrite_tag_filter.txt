@@ -25,7 +25,7 @@ of the key 'message':
       @type rewrite_tag_filter
       <rule>
         key message
-        pattern ^\[(\w+)\] $1.${tag}
+        pattern /^\[(\w+)\]/
         tag $1.${tag}
       </rule>
     </match>
@@ -66,40 +66,40 @@ or not.
       capitalize_regex_backreference yes
       <rule>
         key     path
-        pattern \.(gif|jpe?g|png|pdf|zip)$
+        pattern /\.(gif|jpe?g|png|pdf|zip)$/
         tag     clear
       </rule>
       <rule>
         key     status
-        pattern ^200$
+        pattern /^200$/
         tag     clear
         invert  true
       </rule>
       <rule>
         key     domain
-        pattern ^.+\.com$
+        pattern /^.+\.com$/
         tag     clear
         invert  true
       </rule>
       <rule>
         key     domain
-        pattern ^maps\.example\.com$
+        pattern /^maps\.example\.com$/
         tag     site.ExampleMaps
       </rule>
       <rule>
         key     domain
-        pattern ^news\.example\.com$
+        pattern /^news\.example\.com$/
         tag     site.ExampleNews
       </rule>
       # it is also supported regexp back reference.
       <rule>
         key     domain
-        pattern ^(mail)\.(example)\.com$
+        pattern /^(mail)\.(example)\.com$/
         tag     site.$2$1
       </rule>
       <rule>
         key     domain
-        pattern .+
+        pattern /.+/
         tag     site.unmatched
       </rule>
     </match>
@@ -148,9 +148,11 @@ The field name to which the regular expression is applied
 
 | type   | default            | version |
 |:------:|:------------------:|:-------:|
-| string | required parameter | 2.0.0   |
+| regexp | required parameter | 2.1.0   |
 
 The regular expression which is applied on the field value
+
+The type of pattern is string before 2.1.0.
 
 #### tag
 
@@ -232,13 +234,13 @@ Note: These plugins are required to be installed.
       @type rewrite_tag_filter
       <rule>
         key     status
-        pattern ^(?!404)$
+        pattern /^(?!404)$/
         tag     clear
       </rule>
       <rule>
-        key      path
-        pattern .+
-        tag      mongo.apache.access.error404
+        key     path
+        pattern /.+/
+        tag     mongo.apache.access.error404
       </rule>
     </match>
 
@@ -314,12 +316,12 @@ Note: These plugins are required to be installed.
         # drop static image record and redirect as 'count.apache.access'
         <rule>
           key     path
-          pattern ^/(img|css|js|static|assets)/
+          pattern /^\/(img|css|js|static|assets)\//
           tag     clear
         </rule>
         <rule>
           key     path
-          pattern .+
+          pattern /.+/
           tag     count.apache.access
         </rule>
       </store>
@@ -327,7 +329,7 @@ Note: These plugins are required to be installed.
         @type rewrite_tag_filter
         <rule>
           key     code
-          pattern ^5\d\d$
+          pattern /^5\d\d$/
           tag     mongo.apache.access.error5xx
         </rule>
       </store>
@@ -418,7 +420,7 @@ If you have following configuration, it doesn't work:
       @type rewrite_tag_filter
       <rule>
         key     level
-        pattern (.+)
+        pattern /(.+)/
         tag     app.$1
       </rule>
     <match>
@@ -435,7 +437,7 @@ So you need to change tag like below:
       @type rewrite_tag_filter
       <rule>
         key     level
-        pattern (.+)
+        pattern /(.+)/
         tag     level.app.$1
       </rule>
     <match>
