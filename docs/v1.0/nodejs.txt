@@ -8,7 +8,7 @@ This article explains how to use the fluent-logger-node library.
 
   * Basic knowledge of Node.js and NPM
   * Basic knowledge of Fluentd
-  * Node.js 5.0 or higher
+  * Node.js 6.0 or higher
 
 ## Installing Fluentd
 
