@@ -77,6 +77,14 @@ There are several approaches to avoid this problem.
   - Use `record_modifier` filter to change the encoding. See [fluent-plugin-record-modifier README](https://github.com/repeatedly/fluent-plugin-record-modifier#char_encoding)
 - Use `yajl` instead of `json` when error happens inside `JSON.parse/JSON.dump`
 
+### Fluentd warns "Oj is not installed, and failing back to Yajl for json parser"
+
+If you are using Alpine Linux, you need to install `ruby-bigdecimal` to use Oj
+as the JSON parser. Please Execute the following command and see if the warning
+still shows up.
+
+    # apk add --update ruby-bigdecimal
+
 ## Plugin Development
 
 ### How do I develop a custom plugin?
