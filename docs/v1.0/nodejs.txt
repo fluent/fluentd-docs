@@ -8,7 +8,7 @@ This article explains how to use the fluent-logger-node library.
 
   * Basic knowledge of Node.js and NPM
   * Basic knowledge of Fluentd
-  * Node.js 5.0 or higher
+  * Node.js 6.0 or higher
 
 ## Installing Fluentd
 
@@ -35,10 +35,10 @@ Next, please configure Fluentd to use the [forward Input plugin](in_forward) as 
 Please restart your agent once these lines are in place.
 
     :::term
-    # for rpm/deb only
-    $ sudo /etc/init.d/td-agent restart
-    # or systemd
+    # for systemd
     $ sudo systemctl restart td-agent.service
+    # for init.d
+    $ sudo /etc/init.d/td-agent restart
 
 ## Using fluent-logger-node
 
@@ -57,8 +57,8 @@ A sample [Express](http://expressjs.com/) app using fluent-logger-node is shown 
       "name": "node-example",
       "version": "0.0.1",
       "dependencies": {
-        "express": "^4.15.3",
-        "fluent-logger": "^2.6.0"
+        "express": "^4.16.0",
+        "fluent-logger": "^3.2.0"
       }
     }
 
@@ -72,9 +72,9 @@ Now use *npm* to install your dependencies locally:
 This is the simplest web app.
 
     :::js
-    var express = require('express');
-    var logger = require('fluent-logger');
-    var app = express();
+    const express = require('express');
+    const logger = require('fluent-logger');
+    const app = express();
 
     // The 2nd argument can be omitted. Here is a default value for options.
     logger.configure('fluentd.test', {
@@ -88,7 +88,7 @@ This is the simplest web app.
       logger.emit('follow', {from: 'userA', to: 'userB'});
       response.send('Hello World!');
     });
-    var port = process.env.PORT || 3000;
+    const port = process.env.PORT || 3000;
     app.listen(port, function() {
       console.log("Listening on " + port);
     });
