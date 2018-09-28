@@ -11,15 +11,15 @@ The `filter_grep` filter plugin "greps" events by the values of specified fields
       @type grep
       <regexp>
         key message
-        pattern cool
+        pattern /cool/
       </regexp>
       <regexp>
         key hostname
-        pattern ^web\d+\.example\.com$
+        pattern /^web\d+\.example\.com$/
       </regexp>
       <exclude>
         key message
-        pattern uncool
+        pattern /uncool/
       </exclude>
     </filter>
 
@@ -102,11 +102,11 @@ This directive has been added since 1.2.0.
     <or>
       <exclude>
         key status_code
-        pattern ^5\d\d$
+        pattern /^5\d\d$/
       </exclude>
       <exclude>
         key url
-        pattern \.css$
+        pattern /\.css$/
       </exclude>
     </or>
 
@@ -115,11 +115,11 @@ This is same as below:
     :::text
     <exclude>
       key status_code
-      pattern ^5\d\d$
+      pattern /^5\d\d$/
     </exclude>
     <exclude>
       key url
-      pattern \.css$
+      pattern /\.css$/
     </exclude>
 
 We can also use &lt;or&gt; directive with &lt;regexp&gt; directive:
@@ -186,7 +186,7 @@ For OR condition, you can use `|` operator of regular expressions. For example, 
     :::text
     <regexp>
       key item_name
-      pattern (^book_|^article)
+      pattern /(^book_|^article)/
     </regexp>
 
 unless the event's "item_name" field starts with "book_" or "article_", it is filtered out.
@@ -197,6 +197,14 @@ Note that if you want to use a match pattern with a leading slash (a typical cas
     <regexp>
       key filepath
       pattern \/spool/
+    </regexp>
+
+You can also write the pattern like below:
+
+    :::text
+    <regexp>
+      key filepath
+      pattern /\/spool\//
     </regexp>
 
 Learn regular expressions for more patterns.
@@ -245,7 +253,7 @@ For example, the following filters out events whose "status_code" field is 5xx.
     :::text
     <exclude>
       key status_code
-      pattern ^5\d\d$
+      pattern /^5\d\d$/
     </exclude>
 
 The grep filter filters out if any `<exclude>` is matched. Hence, if you have
@@ -253,11 +261,11 @@ The grep filter filters out if any `<exclude>` is matched. Hence, if you have
     :::text
     <exclude>
       key status_code
-      pattern ^5\d\d$
+      pattern /^5\d\d$/
     </exclude>
     <exclude>
       key url
-      pattern \.css$
+      pattern /\.css$/
     </exclude>
 
 Then, any event whose "status_code" is 5xx OR "url" ends with ".css" is filtered out.
