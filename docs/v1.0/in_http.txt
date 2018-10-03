@@ -1,6 +1,7 @@
 # HTTP Input Plugin
 
-The `in_http` Input plugin allows clients to send data in the form of HTTP requests. This is a very handy plugin since you can talk to a Fluentd server in much the same way as to a REST API endpoint.
+The `in_http` Input plugin allows you to send events through HTTP requests.
+Using this plugin, you can trivially launch a REST endpoint to gather data.
 
 ## Configuration
 
@@ -25,12 +26,23 @@ Here is a simple example to post a record using `curl`.
     # Post a record with the tag "app.log"
     $ curl -X POST -d 'json={"foo":"bar"}' http://localhost:9880/app.log
 
-By default, timestamps are assigned to each record on arrival. You can override the timestamp using the `time` parameter.
+By default, timestamps are assigned to each record on arrival. You can override
+the timestamp using the `time` parameter.
 
     :::term
     # Overwrite the timestamp to 2018-02-16 04:40:37.3137116
     $ curl -X POST -d 'json={"foo":"bar"}' \
       http://localhost:9880/test.tag?time=1518756037.3137116
+
+Here is another example in JavaScript.
+
+    // Post a record using XMLHttpRequest
+    var form = new FormData();
+    form.set('json', JSON.stringify({"foo": "bar"}));
+
+    var req = new XMLHttpRequest();
+    req.open('POST', 'http://localhost:9880/debug.log');
+    req.send(form);
 
 For more advanced usage, please read [the "Tips & Tricks" section](#tips-&-tricks).
 
