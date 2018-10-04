@@ -64,6 +64,8 @@ Since v1.2.0, Fluentd can detect these non-recoverable failures. If these kinds 
 
     ${root_dir}/backup/worker${worker_id}/${plugin_id}/{chunk_id}.log
 
+If you don't need to back up chunks, you can enable `disable_chunk_backup` (available since v1.2.6) in the `<buffer>` section.
+
 The following is the current list of exceptions considered "unrecoverable":
 
  Exception                   |  The typical cause of this error
