@@ -29,6 +29,9 @@ Fluentd enables your apps to insert records to MongoDB asynchronously with batch
       collection test
       nodes localhost:27017,localhost:27018,localhost:27019
 
+      # The name of the replica set
+      replica_set myapp
+
       <buffer>
         # flush
         flush_interval 10s
@@ -128,13 +131,13 @@ For example, if you generate records with tags 'mongo.foo', the records will be 
       collection misc
     </match>
 
-### name
+### replica_set
 
-| type   | default  | version |
-|:------:|:--------:|:-------:|
-| string | optional | 1.0.0   |
+| type   | default            | version |
+|:------:|:------------------:|:-------:|
+| string | required parameter | 1.0.0   |
 
-The ReplicaSet name.
+The name of the replica set.
 
 ### read
 
