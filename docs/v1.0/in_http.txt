@@ -117,7 +117,13 @@ If send above multiple headers, `REMOTE_ADDR` value is `host1`.
 
 White list domains for CORS.
 
-If you set `["domain1", "domain2"]` to `cors_allow_origins`, `in_http` returns `403` to access from othe domains.
+If you set `["domain1", "domain2"]` to `cors_allow_origins`, `in_http` returns `403` to access from other domains. Since Fluentd v1.2.6, you can use a wildcard character `*` to allow requests from any origins (see the following example).
+
+    <source>
+      @type http
+      port 9880
+      cors_allow_origins ["*"]
+    </source>
 
 ### respond_with_empty_img
 
