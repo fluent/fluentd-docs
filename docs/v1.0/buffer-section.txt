@@ -365,6 +365,10 @@ These parameters are to configure how to flush chunks to optimize performance (l
 * ``retry_randomize`` [bool]
   * Default: true
   * If true, output plugin will retry after randomized interval not to do burst retries
+* ``disable_chunk_backup`` [bool]
+  * Default: false
+  * Instead of storing unrecoverable chunks in the backup directory, just discard them.
+    This option is new in Fluentd v1.2.6.
 
 With exponential backoff, retry wait interval will be calculated as below:
 
