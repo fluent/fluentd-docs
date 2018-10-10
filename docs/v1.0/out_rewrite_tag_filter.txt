@@ -176,7 +176,7 @@ The following variable can be used when specifying the name of the rewritten tag
 
 * ${tag}
 * \__TAG__
-* {$tag_parts[n]}
+* ${tag_parts[n]}
 * \__TAG_PARTS[n]__
 * ${hostname}
 * \__HOSTNAME__
