@@ -29,7 +29,7 @@ The timestamps of Fluentd and its logger libraries depend on your system's clock
 
 ### I installed td-agent and want to add custom plugins. How do I do it?
 
-td-agent has own Ruby so you should install gems into td-agent's Ruby, not system Ruby.
+Use td-agent bundled gem. See [this section](/articles/plugin-management#if-using-td-agent,-use-/usr/sbin/td-agent-gem) for more information.
 
 ### How can I match (send) an event to multiple outputs?
 
