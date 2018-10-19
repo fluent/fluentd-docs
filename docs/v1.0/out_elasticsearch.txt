@@ -89,6 +89,14 @@ Here is a more practical example which partitions the Elasticsearch index by tag
     :::text
     index_name fluentd.${tag}.%Y%m%d
 
+Time placeholder needs to set up tag and time in chunk_keys.
+Also it needs to specify timekey for time slice of chunk:
+
+    :::text
+    <buffer tag, time>
+      timekey 1h # chunks per hours ("3600" also available)
+    </buffer>
+
 ### logstash_format (optional)
 
 With this option set `true`, Fluentd uses the conventional index name format `logstash-%Y.%m.%d` (default: `false`). This option supersedes the `index_name` option.
