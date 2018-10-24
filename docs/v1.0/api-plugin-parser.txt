@@ -167,7 +167,7 @@ Lifecycle of plugins and test drivers is:
 3. Run test code
 4. Assert results of tests by data provided from driver
 
-Test drivers instantiate the plugin. See LINK:[Testing API for plugins](api-plugin-test) for details.
+Test drivers instantiate the plugin. See LINK:[Testing API for plugins](plugin-test-code) for details.
 
 For configuration tests, repeat 1-2. For full feature tests, repeat 1-4. Test drivers and helper methods will support it.
 

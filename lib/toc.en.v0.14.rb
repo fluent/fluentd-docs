@@ -356,7 +356,6 @@ section 'developer', 'Developer' do
     article 'api-plugin-buffer', 'Writing Buffer Plugins'
     article 'api-plugin-base', 'Plugin Base Class API'
     article 'api-config-types', 'Types of Configuration Parameters'
-    # article 'api-plugin-test', 'Testing API for plugins'
   end
   category 'plugin-helpers', 'Plugin Helper APIs' do
     article 'api-plugin-helper-child_process', 'ChildProcess Plugin Helper API'
