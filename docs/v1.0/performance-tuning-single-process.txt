@@ -85,6 +85,4 @@ The CPU is often the bottleneck for Fluentd instances that handle billions of in
       workers 8
     </system>
 
-For the details of this feature, please read [this release note](https://www.fluentd.org/blog/fluentd-v0.14.15-has-been-released).
-
-* [multi workers](system-config#workers)
+For the details of this feature, please read [multi process workers](multi-process-workers) article.
