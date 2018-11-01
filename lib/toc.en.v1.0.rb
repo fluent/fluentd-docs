@@ -124,7 +124,7 @@ section 'deployment', 'Deployment' do
   end
   category 'performance-tuning', 'Performance Tuning' do
     article 'performance-tuning-single-process', 'Performance Tuning (Single Process)'
-    # article 'performance-tuning-multi-process', 'Performance Tuning (Multi Process)'
+    article 'multi-process-workers', 'Multi Process Workers'
   end
   category 'plugin-management', 'Plugin Management' do
     article 'plugin-management', 'Plugin Management'
