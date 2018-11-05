@@ -313,17 +313,17 @@ This section contains parameters related to authentication.
 
 #### self_hostname
 
-| type | default | version |
-|:----:|:-------:|:-------:|
-| bool | false   | 0.14.5  |
+| type   | default            | version |
+|:------:|:------------------:|:-------:|
+| string | required parameter | 0.14.5  |
 
 The hostname.
 
 #### shared_key
 
-| type | default | version |
-|:----:|:-------:|:-------:|
-| bool | false   | 0.14.5  |
+| type   | default            | version |
+|:------:|:------------------:|:-------:|
+| string | required parameter | 0.14.5  |
 
 Shared key for authentication.
 
