@@ -21,7 +21,7 @@ Multi process workers feature launches multiple workers in 1 instance and use 1 
     :::text
     <system>
       workers 4
-    </match>
+    </system>
 
 With this configuration, fluentd launches 4 workers.
 
@@ -32,7 +32,7 @@ Some plugins don't work on multi process worker, e.g. `in_tail`. For such plugin
     :::text
     <system>
       workers 4
-    <system>
+    </system>
     # work on multi process workers. worker0 - worker3 run in_forward
     <source>
       @type forward
@@ -101,7 +101,7 @@ Server plugin helper based plugin can share port between workers. For example, `
     :::text
     <system>
       workers 4
-    </match>
+    </system>
 
     <source>
       @type forward
@@ -115,7 +115,7 @@ Non server plugin helper based plugin setup socket/server in each worker. For ex
     :::text
     <system>
       workers 4
-    </match>
+    </system>
 
     <source>
       @type monitor_agent
