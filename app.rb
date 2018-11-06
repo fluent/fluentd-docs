@@ -1,6 +1,5 @@
 require 'rubygems'
 require 'sinatra'
-require 'sinatra/assetpack'
 require 'haml'
 require 'sass'
 require 'coderay'
@@ -82,28 +81,16 @@ not_found do
   erb :not_found
 end
 
-#
-# Static Assets
-# @see http://ricostacruz.com/sinatra-assetpack/
-#
 set :root, File.dirname(__FILE__)
 
+# sinatra-asset-pipeline
 unless ENV['RACK_ENV'] == 'test'
-  Sinatra.register Sinatra::AssetPack
-  assets {
-    serve '/js',  from: 'app/js'  # Optional
-    serve '/css', from: 'app/css' # Optional
-    js :app, '/js/app.js', [
-      '/js/*.js'
-    ]
-    css :application, '/css/application.css', [
-      '/css/*.css'
-    ]
-    js_compression :yui
-    css_compression :yui
-    prebuild true # only on production
-    expires 24*3600*7, :public
-  }
+  require 'sinatra/asset_pipeline'
+  set :assets_precompile, %w(application.js application.css *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2)
+  set :assets_paths, %w(/app/js/ /app/css/)
+  set :assets_css_compressor, :yui
+  set :assets_js_compressor, :yui
+  register Sinatra::AssetPipeline
 end
 
 #

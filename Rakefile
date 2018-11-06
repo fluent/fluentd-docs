@@ -6,6 +6,10 @@ $LOAD_PATH << File.dirname(__FILE__) + '/lib'
 require 'article'
 require 'rake/testtask'
 
+require 'sinatra/asset_pipeline/task'
+require_relative './app'
+Sinatra::AssetPipeline::Task.define! Sinatra::Application
+
 desc 'start a development server'
 task :server do
   if which('shotgun')
