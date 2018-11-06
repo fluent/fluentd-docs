@@ -4,6 +4,10 @@ class FluentdDocsTest < MiniTest::Unit::TestCase
 
   include Rack::Test::Methods
 
+  def setup
+    $stdout = StringIO.new("")
+  end
+
   def app
     Sinatra::Application
   end

@@ -206,7 +206,7 @@ helpers do
   def render_article(article, ver)
     @default_url = "/#{$DEFAULT_VERSION}/articles/#{article}"
     @filepath = article_file(article, ver)
-    @has_default_version = File.exists?(article_file(article, $DEFAULT_VERSION))
+    @has_default_version = File.exist?(article_file(article, $DEFAULT_VERSION))
 
     begin
       unless $IO_CACHE.has_key? @filepath
@@ -247,7 +247,7 @@ helpers do
   end
 
   def article_file_exists?(article, ver)
-    File.exists?(article_file(article, ver))
+    File.exist?(article_file(article, ver))
   end
 
   def cache_long
