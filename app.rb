@@ -84,14 +84,14 @@ end
 set :root, File.dirname(__FILE__)
 
 # sinatra-asset-pipeline
-unless ENV['RACK_ENV'] == 'test'
+#unless ENV['RACK_ENV'] == 'test'
   require 'sinatra/asset_pipeline'
   set :assets_precompile, %w(application.js application.css *.png *.jpg *.svg *.eot *.ttf *.woff *.woff2)
   set :assets_paths, %w(/app/js/ /app/css/)
   set :assets_css_compressor, :yui
   set :assets_js_compressor, :yui
   register Sinatra::AssetPipeline
-end
+#end
 
 #
 # PATHS

@@ -38,6 +38,8 @@ GEM
       rack (>= 1.0.0)
     rack-protection (1.5.5)
       rack
+    rack-test (0.6.3)
+      rack (>= 1.0)
     raindrops (0.19.0)
     rake (11.3.0)
     rdiscount (2.2.0.1)
@@ -88,6 +90,7 @@ DEPENDENCIES
   newrelic_rpm (~> 3.18.1)
   rack-cache
   rack-codehighlighter
+  rack-test
   rake
   rdiscount (~> 2.2.0)
   rest-client (= 1.2.0)
