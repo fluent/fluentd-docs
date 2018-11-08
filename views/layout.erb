@@ -13,8 +13,8 @@
   <link rel="canonical" href="https://docs.fluentd.org<%= request.fullpath %>" />
   <link href="/favicon.ico" rel="icon" type="image/x-icon">
   <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
-  <%= css :application, :media => 'screen' %>
-  <%= js  :app %>
+  <%= stylesheet_tag "application", media: :screen %>
+  <%= javascript_tag "application" %>
   <script type="text/javascript">
   $("#stack-compare tr").click(function(){
     window.location=$(this).find("a").attr("href");

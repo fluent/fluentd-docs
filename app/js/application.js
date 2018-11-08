@@ -1,3 +1,4 @@
+//= require_tree .
 $(function() {
   if($('#quicksearch').searchField !== undefined){
     $("#quicksearch").searchField();

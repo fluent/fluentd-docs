@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 ruby '2.4.1'
 
 gem 'sinatra', '1.4.8'
-gem 'sinatra-assetpack', '0.3.5', :require => 'sinatra/assetpack'
+gem 'sinatra-asset-pipeline', '~> 1.0'
 gem 'rdiscount', '~> 2.2.0'
 gem 'rest-client', '1.2.0'
 gem 'sass'
