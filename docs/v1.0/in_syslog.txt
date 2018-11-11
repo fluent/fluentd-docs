@@ -76,6 +76,28 @@ The bind address to listen to.
 
 The transport protocol used to receive logs. "udp" and "tcp" are supported.
 
+### frame_type
+
+| type | default | available values |version |
+|:----:|:-------:|:----------------::-------:|
+| enum | traditional | traditional/octet_count | 1.3.0 |
+
+Specify framing type in TCP protocol. 
+
+- traditional
+
+Messages are delimited by newline(`\n`)
+
+    <6>Sep 10 00:00:00 localhost logger: hello!\n
+
+- octet_count
+
+Message has message size prefix to delimite
+
+    44 <6>Sep 10 00:00:00 localhost logger: hello!
+
+See also [rfc6587](https://tools.ietf.org/html/rfc6587#section-3.4).
+
 ### message_length_limit
 
 | type | default | version |
@@ -195,8 +217,7 @@ INCLUDE: _log_level_params
 
 ## TCP protocol and message delimiter
 
-This plugin assumes `\n` for delimiter character between syslog messages in one TCP connection. If you use syslog library in your application with `protocol_type tcp`, add `\n` to your syslog message.<br />
-See also [rfc6587](https://tools.ietf.org/html/rfc6587#section-3.4.2).
+This plugin supports two framing type for TCP connection. See `frame_type` parameter for more details.
 
 ## Tips
 
