@@ -47,7 +47,7 @@ The value must be `tail`.
 
 The tag of the event.
 
-`*` can be used as a placeholder that expands to the actual file path, replacing '/' with '.'. For example, if you have the following configuration
+`*` can be used as a placeholder that expands to the actual file path, replacing `/` with `.`. For example, if you have the following configuration
 
     :::text
     path /path/to/file
@@ -61,7 +61,7 @@ in_tail emits the parsed events with the 'foo.path.to.file' tag.
 |:-------:|:-------:|:-------:|
 | string | required parameter | 0.14.0  |
 
-The paths to read. Multiple paths can be specified, separated by ‘,’.
+The paths to read. Multiple paths can be specified, separated by `,`.
 
 `*` and strftime format can be included to add/remove watch file dynamically. At interval of `refresh_interval`, Fluentd refreshes the list of watch file.
 
