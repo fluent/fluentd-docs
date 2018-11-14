@@ -18,6 +18,8 @@ Default is `nil` and it means time field value is a second integer like `1497915
 
 See [Time#strptime](http://ruby-doc.org/stdlib-2.4.1/libdoc/time/rdoc/Time.html#method-c-strptime) for additional format information.
 
+For iso8601 timestamps a special format "%iso8601" is available.
+
 ### keep_time_key
 
 If you want to keep time field in the record, set `true`. Default is `false`.
