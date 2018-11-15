@@ -1,215 +1,127 @@
-# Fluentd and Graylog2 for End-to-End Log Analysis
+# Fluentd and Graylog for End-to-End Log Analysis
 
-This article shows how to set up Fluentd with [Graylog2](http://www.graylog2.org). Graylog2 is a popular log analysis framework powered by Elasticsearch and MongoDB. Fluentd can output data to Graylog2 in the GELF format to take advantage of Graylog2's analytics and visualization features.
+This article explains how to set up Fluentd with [Graylog](https://www.graylog.org).
+Graylog is a popular log management server powered by Elasticsearch and MongoDB.
+You can combine Fluentd and Graylog to create a scalable log analytics pipline.
 
 ## Prerequisites
 
-- A basic understanding of Fluentd
-- Ubuntu/Debian Linux
-- sudo/root access
+ - Basic understanding of Fluentd
+ - Linux server (The following article is tested with Ubuntu 18.04 LTS)
 
-## Setup
+## How to Setup Graylog + Fluentd
 
 ### Dependencies
 
 Install the dependencies with the following command.
 
-```
-sudo apt-get update
-sudo apt-get install mongodb-server openjdk-7-jre-headless uuid-runtime adduser --yes
-```
+    $ sudo apt install mongodb-server openjdk-8-jre-headless uuid-runtime
 
 ### Elasticsearch
 
-**Latest Graylog2 requires Elasticsearch 1.7 or later**, which can be installed with the following commands.
+Graylog requires Elasticsearch, which can be instantly launched using
+the following commands.
 
-NOTE: Graylog2 doesn't support Elasticsearch 2.0 yet.
-
-```
-wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.7.1.deb
-dpkg -i elasticsearch-1.7.1.deb
-```
-
-Then, open `/etc/elasticsearch/elasticsearch.yml`, find the line that says
-
-```
-cluster.name: elasticsearch
-```
-
-Uncomment and update it to `cluster.name: graylog2`.
-
-Also, for better security, disable dynamic scripting for Elasticsearch by adding the following line to `/etc/elasticsearch/elastcisearch.yml`.
-
-```
-script.disable_dynamic: true
-```
+    # Note that Graylog 2.4 doesn't support Elasticsearch 6.X.
+    $ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.13.tar.gz
+    $ tar -xzf elasticsearch-5.6.13.tar.gz
+    $ cd elasticsearch-5.6.13
 
 Elasticsearch is ready. Start it with
 
-```
-sudo /etc/init.d/elasticsearch restart
-```
+    $ ./bin/elasticsearch
 
-### Graylog2
+### Graylog
 
-In this article, we use Graylog2 1.2.
+In this article, we will use Graylog 2.4.
 
-Get the GPG key.
+    $ wget https://packages.graylog2.org/repo/packages/graylog-2.4-repository_latest.deb
+    $ sudo dpkg -i graylog-2.4-repository_latest.deb
 
-```
-wget -qO - https://raw.githubusercontent.com/Graylog2/graylog2-puppet/master/files/RPM-GPG-KEY-graylog2 | apt-key add -
-```
+Update the package cache and install `graylog-server`.
 
-Update the package list.
+    $ sudo apt update
+    $ sudo apt install graylog-server
 
-```
-echo 'deb http://packages.graylog2.org/repo/debian/ trusty 1.2' > /etc/apt/sources.list.d/graylog2.list
-```
+Open `/etc/graylog/server/server.conf` and configure the following parameters:
 
-Finally, install Graylog's components.
+ 1. `password_secret`
+ 2. `root_password_sha2`.
+ 3. `web_enable`
 
-```
-sudo apt-get update
-sudo apt-get install graylog-server graylog-web graylog2-stream-dashboard --yes
-```
+For `root_password_sha2`, run `echo -n ROOT_PASSWORD | sha256sum` and set the hash.
+Also you need to set `web_enable` to true to access the web interface.
 
-Edit `/etc/default/graylog-server` and `/etc/default/graylog-web` and update `RUN=no` to `RUN=yes`.
+Now let's start Graylog!
 
-Edit `/etc/graylog/server/server.conf` and cocnfigure the following parameters:
+    $ sudo systemctl start graylog-server
 
-- password_secret
-- root\_password\_sha2
+### Prepare Graylog for Fluentd
 
-For `root_password_sha2`, run `echo -n YOUR_PASSWORD | shasum -a 256` and copy and paste the output string. This "YOUR_PASSWORD" will be used later to log into Graylog2's web interface.
+Go to [http://localhost:9000](http://localhost:9000) and login into the web interface.
 
-Edit `/etc/graylog/web/web.conf` and configure the following parameters:
+To log in, use "admin" as the username and "YOUR_PASSWORD" as the password (the
+one you've set up for `root_password_sha2`).
 
-- graylog2-server.uris="http://127.0.0.1:12900/" 
-- application.secret
+Once logged in, click on "System" in the top nav. Next, click on "Inputs" from
+the left nav. (Or, you can just go to [http://localhost:9000/system/inputs](http://localhost:9000/system/inputs).
 
-Finally, start Graylog2!
-
-```
-sudo /etc/init.d/graylog-server restart
-sudo /etc/init.d/graylog-web restart
-```
-
-### Nginx (Optional)
-
-If you are sharing access to Graylog2's web interface outside of your network, You need to set up a proxy server. Nginx is recommended.
-
-First, install Nginx.
-
-```
-sudo apt-get install nginx --yes
-```
-
-Edit `/etc/nginx/sites-available/default` so that it looks exactly like this:
-
-```
-server {
-  listen 80;
-  location / {
-    proxy_pass http://localhost:9000/;
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_connect_timeout 150;
-    proxy_send_timeout 100;
-    proxy_read_timeout 100;
-    proxy_buffers 4 32k;
-    client_max_body_size 8m;
-    client_body_buffer_size 128k;
-  }
-}
-```
-
-Then, restart nginx.
-
-```
-sudo /etc/init.d/nginx restart
-```
-
-### Graylog2 GELF input
-
-Go to <YOUR GRAYLOG2 URL>. If Nginx was configured in the previous section, it should be served from port 80. Otherwise, it should be at port 9000.
-
-To log in, use "admin" as the username and "YOUR_PASSWORD" from the Graylog2 server setup as your password.
-
-Once logged in, click on "System" in the top nav. Next, click on "Inputs" from the left nav. (Or, you can just go to `<YOUR_ GRAYLOG2 URL>/system/inputs`).
-
-Then, from the dropdown, choose "GELF UDP" and click on "Launch new input", which should pop up a modal dialogue, Since the default values are good, fill the "Title" and just click "Launch".
+Then, from the dropdown, choose "GELF UDP" and click on "Launch new input",
+which should pop up a modal dialogue, Select the "Node" and fill the "Title".
+Then, click "Save".
 
 <img src="/images/graylog2-inputs.png" style="display:block"/>
 
-Now, Graylog2 is ready to accept messages from Fluentd over UDP. It's time to configure Fluentd.
+Now, Graylog2 is ready to accept messages from Fluentd over UDP. It's time to
+configure Fluentd.
 
 ### Fluentd
 
-See [here](/download) for all the download options. Here, we are using the Trusty deb package.
+See [the download page](https://www.fluentd.org/download) for all the options.
+Here, we are using the deb package.
 
-```
-curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent2.sh | sh
-```
+    $ wget http://packages.treasuredata.com.s3.amazonaws.com/3/ubuntu/bionic/pool/contrib/t/td-agent/td-agent_3.2.1-0_amd64.deb
+    $ sudo dpkg -i td-agent_3.2.1-0_amd64.deb
 
-Then, install the `out_gelf` plugin to send data to Graylog2. Currently, the GELF plugin is not published to Rubygems, so we download the plugin file and place it in `/etc/td-agent/plugin`. We also need to gem-install GELF's Ruby client.
+Then, install the `out_gelf` plugin to send data to Graylog. Currently, the
+GELF plugin is not available on Rubygems, so we need to download the plugin
+file and place it in `/etc/td-agent/plugin`.
 
-```
-/usr/sbin/td-agent-gem install gelf
-cd /etc/td-agent/plugin
-sudo wget https://raw.githubusercontent.com/emsearcy/fluent-plugin-gelf/master/lib/fluent/plugin/out_gelf.rb
-```
+    $ wget https://raw.githubusercontent.com/emsearcy/fluent-plugin-gelf/master/lib/fluent/plugin/out_gelf.rb
+    $ sudo mv out_gelf.rb /etc/td-agent/plugin
 
-Finally, edit `/etc/td-agent/td-agent.conf` as follows.
+We also need to gem-install GELF's Ruby client.
 
-```
-<source>
-  type syslog
-  tag graylog2
-</source>
-<source>
-  type tail
-  format nginx
-  path /var/log/nginx/access.log
-  tag graylog2.nginx
-</source>
-<match graylog2.**>
-  type copy
-  <store>
-    type gelf
-    host 0.0.0.0
-    port 12201
-    flush_interval 5s
-  </store>
-  <store>
-    type stdout
-  </store>
-</match>
-```
+    $ sudo /usr/sbin/td-agent-gem install gelf
 
-That configuration listens to two data sources:
+Configure `/etc/td-agent/td-agent.conf` as follows.
 
-1. Nginx access log of Graylog2 web app itself. Admittedly, this is a toy example, but it showcases the [in_tail](http://docs.fluentd.org/articles/in_tail) plugin.
-2. It listens to syslog input. Fluentd automatically parses common fields such as `ident`.
+    <source>
+      type syslog
+      tag graylog2
+    </source>
 
-We need to make a couple of tweaks to successfully ingest Nginx access logs and syslogs.
+    <match graylog2.**>
+      type gelf
+      host 0.0.0.0
+      port 12201
+      <buffer>
+        flush_interval 5s
+      </buffer>
+    </match>
 
-1. Run `sudo chown -R td-agent:td-agent /var/log/nginx` so that Fluentd can read Nginx access logs.
-2. Open `/etc/rsyslog.conf` and add the following line to the beginning of the file:
-    ```
+Open `/etc/rsyslog.conf` and add the following line to the file:
+
     *.* @127.0.0.1:5140
-    ```
-    Then, restart rsyslogd by running `sudo /etc/init.d/rsyslog restart`.
 
-Finally, start Fluentd with the following command.
+Finally, restart rsyslog and Fluentd with the following command.
 
-```
-sudo /etc/init.d/td-agent restart
-```
+    $ sudo systemctl restart rsyslog
+    $ sudo systemctl restart td-agent
 
-## Confirming the setup inside Graylog2's UI
+## Visualize the data stream
 
-When you log back into Graylog2, you should be seeing a graph like this (wait for events to flow in)
+When you log back into Graylog, you should be seeing a graph like this
+(wait for events to flow in)
 
 <img src="/images/graylog2-graph.png" style="display:block;"/>
-
