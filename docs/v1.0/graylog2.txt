@@ -70,7 +70,9 @@ Then, from the dropdown, choose "GELF UDP" and click on "Launch new input",
 which should pop up a modal dialogue, Select the "Node" and fill the "Title".
 Then, click "Save".
 
-<img src="/images/graylog2-inputs.png" style="display:block"/>
+<a target='_blank' href='/images/graylog2-input.png'>
+  <img src="/images/graylog2-input.png" style="margin: 0 auto;"/>
+</a>
 
 Now, Graylog2 is ready to accept messages from Fluentd over UDP. It's time to
 configure Fluentd.
@@ -124,4 +126,6 @@ Finally, restart rsyslog and Fluentd with the following command.
 When you log back into Graylog, you should be seeing a graph like this
 (wait for events to flow in)
 
-<img src="/images/graylog2-graph.png" style="display:block;"/>
+<a target='_blank' href='/images/graylog2-graph.png'>
+  <img src="/images/graylog2-graph.png" style="margin: 0 auto;"/>
+</a>
