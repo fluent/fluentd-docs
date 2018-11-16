@@ -43,6 +43,7 @@ section 'usecases', 'Use Cases' do
     article 'scala',   'Centralize Logs from Scala Applications'
   end
   category 'monitoring-service-logs', 'Monitoring Service Logs' do
+    article 'graylog2', 'Fluentd and Graylog for End-to-End Log Analysis'
     article 'free-alternative-to-splunk-by-fluentd', 'Free Alternative to Splunk by Fluentd + Elasticsearch', ['Splunk', 'Free Alternative']
     article 'splunk-like-grep-and-alert-email', 'Email Alerts like Splunk', ['Splunk', 'Alerting']
     article 'parse-syslog', 'Parse Syslog Messages Robustly'
