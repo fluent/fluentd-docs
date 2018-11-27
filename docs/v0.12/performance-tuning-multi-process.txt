@@ -1,6 +1,6 @@
 # Performance Tuning (Multi Process)
 
-This article desdrivbes how to optimize Fluentd's performance with [in_multiprocess](in_multiprocess) plugin. With high traffic, Fluentd tends to be more CPU bound.
+This article describes how to optimize Fluentd's performance with [in_multiprocess](in_multiprocess) plugin. With high traffic, Fluentd tends to be more CPU bound.
 
 However with Ruby MRI's GVL (<a href="https://en.wikipedia.org/wiki/Global_interpreter_lock">Global VM Lock</a>) limitation, Fluentd can use only single CPU core. With in_multiprocessm Fluentd can fully utilize multiple CPU cores to handle more requests.
 
@@ -27,7 +27,7 @@ The output processes are shared across all input processes, by out_forward's loa
 
 ### Reasons behind this Design
 
-There are coupole of reasons why we recommend this design.
+There are couple of reasons why we recommend this design.
 
 #### Focus
 
