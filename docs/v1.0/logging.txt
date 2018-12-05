@@ -1,0 +1,219 @@
+# Logging of Fluentd
+
+This article describes Fluentd's logging mechanism.
+
+Fluentd has two log layers: global and per plugin. Different log levels can be set for global logging and plugin level logging.
+
+## Log Level
+
+Shown below is the list of supported values, in increasing order of verbosity:
+
+* `fatal`
+* `error`
+* `warn`
+* `info`
+* `debug`
+* `trace`
+
+The default log level is `info`, and Fluentd outputs `info`, `warn`, `error` and `fatal` logs by default.
+
+## Global Logs
+
+Global logging is used by Fluentd core and plugins that don't set their own log levels.
+The global log level can be adjusted up or down.
+
+### By Command Line Option
+
+#### Increase Verbosity Level
+
+The `-v` option sets the verbosity to `debug` while the `-vv` option sets the verbosity to `trace`.
+
+    :::term
+    $ fluentd -v  ... # debug level
+    $ fluentd -vv ... # trace level
+
+These options are useful for debugging purposes.
+
+#### Decrease Verbosity Level
+
+The `-q` option sets the verbosity to `warn` while the `-qq` option sets the verbosity to `error`.
+
+    :::term
+    $ fluentd -q  ... # warn level
+    $ fluentd -qq ... # error level
+
+### By Config File
+
+You can also change the logging level with `<system>` section in the config file like below.
+
+    :::term
+    <system>
+      # equal to -qq option
+      log_level error
+    </system>
+
+## Per Plugin Log
+
+The `@log_level` option sets different levels of logging for each plugin. It can be set in each plugin's configuration file.
+
+For example, in order to debug [in_tail](in_tail) but suppress all but fatal log messages for [in_http](in_http), their respective `@log_level` options should be set as follows:
+
+    <source>
+      @type tail
+      @log_level debug
+      path /var/log/data.log
+      ...
+    </source>
+    <source>
+      @type http
+      @log_level fatal
+    </source>
+
+If you don't specify the `@log_level` parameter, the plugin will use the global log level.
+
+## Log format
+
+`text` and `json` are supported. The default is `text`. The format can be changed via `<log>` directive in `<system>`.
+
+    :::term
+    <system>
+      <log>
+        format json
+        time_format %Y-%m-%d
+      </log>
+    </system>
+
+With this setting:
+
+    :::term
+    2017-07-27 06:44:54 +0900 [info]: #0 fluentd worker is now running worker=0
+
+This `text` log line is changed to:
+
+    :::term
+    {"time":"2017-07-27","level":"info","message":"fluentd worker is now running worker=0","worker_id":0}
+
+## Output to log file
+
+Fluentd outputs logs to `STDOUT` by default. To output to a file instead, please specify the `-o` option.
+
+    :::term
+    $ fluentd -o /path/to/log_file
+
+### Log rotation setting
+
+Fluentd doesn't rotate logs by default. You can configure this behaviour via command line options:
+
+#### --log-rotate-age AGE
+
+AGE is integer or string:
+
+  * integer: Generations to keep rotated log files.
+  * string: frequency of rotation. `daily`, `weekly` and `monthly` are supported
+
+#### --log-rotate-size BYTES
+
+The byte size to rotate log files. This is applied when `--log-rotate-age` is specified with integer.
+
+Here is an example:
+
+    :::term
+    $ fluentd -c fluent.conf --log-rotate-age 5 --log-rotate-size 104857600
+
+## Capture Fluentd logs
+
+Fluentd marks its own logs with the `fluent` tag. You can process Fluentd logs by using `<match fluent.**>`(Of course, `**` captures other logs) in `<label @FLUENT_LOG>`. If you define `<label @FLUENT_LOG>` in your configuration, then Fluentd will send its own logs to this label. This is useful for monitoring Fluentd logs.
+
+For example, if you have the following configuration:
+
+    # omit other source / match
+    <label @FLUENT_LOG>
+      <match fluent.*>
+        @type stdout
+      </match>
+    </label>
+
+then Fluentd outputs `fluent.info` logs to stdout like below:
+
+    2014-02-27 00:00:00 +0900 [info]: shutting down fluentd
+    2014-02-27 00:00:01 +0900 fluent.info: {"message":"shutting down fluentd"} # by <match fluent.*>
+    2014-02-27 00:00:01 +0900 [info]: process finished code = 0
+
+### Case1: Send Fluentd logs to monitoring service
+
+You can send Fluentd logs to a monitoring service by plugins, e.g. datadog, sentry, irc, etc.
+
+    # Add hostname for identifying the server
+    <label @FLUENT_LOG>
+      <filter fluent.*>
+        @type record_transformer
+        <record>
+          host "#{Socket.gethostname}"
+        </record>
+      </filter>
+
+      <match fluent.*>
+        @type monitoring_plugin
+        # parameters...
+      </match>
+    <label>
+
+### Case2: Use aggregation/monitoring server
+
+You can use [out_forward](out_forward) to send Fluentd logs to a monitoring server. The monitoring server can then filter and send the logs to your notification system: chat, irc, etc.
+
+Leaf server example:
+
+    # Add hostname for identifying the server and tag to filter by log level
+    <label @FLUENT_LOG>
+      # If you want to capture only error events, use 'fluent.error' instead.
+      <filter fluent.*>
+        @type record_transformer
+        <record>
+          host "#{Socket.gethostname}"
+          original_tag ${tag}
+        </record>
+      </filter>
+      
+      <match fluent.*>
+        @type forward
+        <server>
+          # Monitoring server parameters
+        </server>
+      </match>
+    <label>
+
+Monitoring server example:
+
+    <source>
+      @type forward
+    </source>
+
+    # Ignore trace, debug and info log. Of course, you can use strict matching like `<filter fluent.{warn,error,fatal}>` without grep filter.
+    <filter fluent.*>
+      @type grep
+      <regexp>
+        key original_tag
+        pattern fluent.(warn|error|fatal)
+      </regexp>
+    </filter>
+
+    <match fluent.*>
+      # your notification setup. This example uses irc plugin
+      @type irc
+      host irc.domain
+      channel notify
+      message notice: %s [%s] @%s %s
+      out_keys original_tag,time,host,message
+    </match>
+
+    # Unlike v0.12, if `<label @FLUENT_LOG>` is defiend, `<match fluent.*>` in root is not used for log capturing.
+    <label @FLUENT_LOG>
+      # Monitoring server's internal log
+    </label>
+
+If an error occurs, you will get a notification message in your Slack `notify` channel.
+
+    01:01  fluentd: [11:10:24] notice: fluent.warn [2014/02/27 01:00:00] @leaf.server.domain detached forwarding server 'server.name'
+
+You can still use LINK(v0.12):[v0.12 way](articles/logging#capture-fluentd-logs) without `<label @FLUENT_LOG>`.

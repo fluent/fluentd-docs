@@ -1,0 +1,91 @@
+# stdout Output Plugin
+
+The `stdout` output plugin prints events to stdout (or logs if launched with daemon mode). This output plugin is useful for debugging purposes.
+
+## Example Configuration
+
+`out_stdout` is included in Fluentd's core. No additional installation process is required.
+
+    :::text
+    <match pattern>
+      @type stdout
+    </match>
+
+NOTE: Please see the LINK:[Config File](config-file) article for the basic structure and syntax of the configuration file.
+
+A sample output is as follows:
+
+```
+2017-11-28 11:43:13.814351757 +0900 tag: {"field1":"value1","field2":"value2"}
+```
+
+where the first part shows the output time, the second part shows the tag,
+and the third part shows the record.
+
+## Supported modes
+
+* Non-Buffered
+* Synchronous
+
+## Plugin helpers
+
+* [inject](api-plugin-helper-inject)
+* [formatter](api-plugin-helper-formatter)
+* [compat_parameters](api-plugin-helper-compat_parameters)
+
+## Parameters
+
+[Common Parameters](plugin-common-parameters)
+
+### @type
+
+The value must be `stdout`.
+
+### &lt;buffer&gt; section
+
+See [Buffer section configurations](buffer-section) for more details.
+
+#### chunk_keys
+
+| type  | default | version |
+|:-----:|:-------:|:-------:|
+| array | tag     | 0.14.5  |
+
+Overwrite default value in this plugin.
+
+#### flush_at_shutdown
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | true    | 0.14.5  |
+
+Overwrite default value in this plugin.
+
+#### chunk_limit_size
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| size | 10240   | 0.14.5  |
+
+Overwrite default value in this plugin.
+
+### &lt;format&gt; section
+
+See [Format section configurations](format-section) for more details.
+
+#### @type
+
+| type   | default  | version |
+|:------:|:--------:|:-------:|
+| string | stdout   | 0.14.5  |
+
+The format of output.
+
+#### output_type
+
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | json    | 0.14.5  |
+
+This is the option of `stdout` format. Configure the format of record (third
+part). Any formatter plugins can be specified.

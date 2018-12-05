@@ -1,0 +1,50 @@
+# Format section configurations
+
+Some of Fluentd's plugins support the ``<format>`` section to specify how to format record.
+
+## Format section overview
+
+Format section can be in ``<match>`` or ``<filter>`` sections.
+
+    <match tag.*>
+      @type file
+      # parameters for output plugin
+      <format>
+        # format section parameters
+      </format>
+    </match>
+
+## formatter plugin type
+
+``<format>`` section requires ``@type`` parameter to specify the type of formatter plugin.
+Fluentd core bundles [some useful formatter plugins](formatter-plugin-overview). 3rd party plugins are also available when installed.
+
+    <format>
+      @type json
+    </format>
+
+These are the list of built-in formatter plugins.
+
+* [out_file](formatter_out_file)
+* [json](formatter_json)
+* [ltsv](formatter_ltsv)
+* [csv](formatter_csv)
+* [msgpack](formatter_msgpack)
+* [hash](formatter_hash)
+* [single_value](formatter_single_value)
+
+For more details, see plugins documentation.
+
+## Parameters
+
+### @type
+
+``@type`` key is to specify the type of formatter plugin.
+
+    <format>
+      @type csv
+      # ...
+    </format>
+
+INCLUDE: _time_parameters
+

@@ -71,12 +71,12 @@ section 'usecases', 'Use Cases' do
   end
 end
 section 'configuration', 'Configuration' do
-  category 'config-file', 'Config File' do
-    article 'config-file', 'Config File'
+  category 'config-file', 'Config File Syntax' do
+    article 'config-file', 'Config File Syntax'
   end
   category 'recipes', 'Recipes' do
     article "common-log-formats", "Parsing Common Log Formats"
-    for recipe in Dir.entries("#{settings.root}/docs").grep(/^recipe-/)
+    for recipe in Dir.entries("#{base_directory}/docs").grep(/^recipe-/)
       recipe.chomp!(".txt")
       article recipe, (recipe.split("-").map {|w|
         if /json|csv|tsv/.match(w)
@@ -194,6 +194,9 @@ section 'output-plugins', 'Output Plugins' do
   end
   category 'out_s3', 'out_s3' do
     article 'out_s3', 'S3 Output Plugin', ['Amazon S3', 'AWS', 'Simple Storage Service']
+  end
+   category 'out_splunk', 'out_splunk' do
+    article 'out_splunk', 'Splunk Output Plugin Overview'
   end
   category 'out_mongo', 'out_mongo' do
     article 'out_mongo', 'MongoDB Output Plugin', ['MongoDB']

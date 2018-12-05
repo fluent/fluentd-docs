@@ -1,0 +1,33 @@
+# json Parser Plugin
+
+The `json` parser plugin parses JSON logs. One JSON map per line.
+
+## Parameters
+
+See [Parse section configurations](parse-section)
+
+### json_parser
+
+| type | default | available      | version |
+|:----:|:-------:|:--------------:|:-------:|
+| enum | oj      | oj, yajl, json | 0.14.0  |
+
+Set JSON parser.
+
+## Example
+
+    :::text
+    {"time":1362020400,"host":"192.168.0.1","size":777,"method":"PUT"}
+
+This incoming event is parsed as:
+
+    :::text
+    time:
+    1362020400 (2013-02-28 12:00:00 +0900)
+
+    record:
+    {
+      "host"  : "192.168.0.1",
+      "size"  : 777,
+      "method": "PUT",
+    }

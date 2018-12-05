@@ -2,7 +2,7 @@
 
 The `in_http` Input plugin enables Fluentd to retrieve records from HTTP POST. The URL path becomes the `tag` of the Fluentd event log and the POSTed body element becomes the record itself.
 
-### Example Configuration
+## Example Configuration
 
 `in_http` is included in Fluentd's core. No additional installation process is required.
 
@@ -17,7 +17,7 @@ The `in_http` Input plugin enables Fluentd to retrieve records from HTTP POST. T
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
-#### Example Usage
+### Example Usage
 
 The example below posts a record using the `curl` command.
 
@@ -25,27 +25,43 @@ The example below posts a record using the `curl` command.
     $ curl -X POST -d 'json={"action":"login","user":2}'
       http://localhost:8888/test.tag.here;
 
-### Parameters
+## Parameters
 
-#### type (required)
+### @type (required)
 The value must be `http`.
 
-#### port
+### port
 The port to listen to. Default Value = 9880
 
-#### bind
+### bind
 The bind address to listen to. Default Value = 0.0.0.0 (all addresses)
 
-#### body_size_limit
+### body_size_limit
 The size limit of the POSTed element. Default Value = 32MB
 
-#### keepalive_timeout
+### keepalive_timeout
 The timeout limit for keeping the connection alive. Default Value = 10 seconds
 
-#### add_http_headers
+### add_http_headers
 Add `HTTP_` prefix headers to the record. The default is `false`
 
-#### format
+### add_remote_addr
+Add `REMOTE_ADDR` field to the record. The value of `REMOTE_ADDR` is the client's address. The default is `false`
+
+If your system set multiple `X-Forwarded-For` headers in the request, `in_http` uses first one. For example:
+
+    :::text
+    X-Forwarded-For: host1, host2
+    X-Forwarded-For: host3
+
+If send above multiple headers, `REMOTE_ADDR` value is `host1`.
+
+### cors_allow_origins
+White list domains for CORS. Default is no check.
+
+If you set `["domain1", "domain2"]` to `cors_allow_origins`, `in_http` returns `403` to access from othe domains.
+
+### format
 The format of the HTTP body. The default is `default`.
 
 * default
@@ -69,11 +85,11 @@ then got parsed result like below:
     :::text
     {"field1":"123456","field2":"awesome}
 
-`json`, `ltsv`, `tsv`, `csv` and `none` are also supported.
-
+`json`, `ltsv`, `tsv`, `csv` and `none` are also supported. Check [parser plugin overview](parser-plugin-overview) for more details.
 
 INCLUDE: _log_level_params
 
+## Additional Features
 
 ### time query parameter
 
@@ -91,4 +107,37 @@ If you use `default` format, then you can send array type of json / msgpack to i
     $ curl -X POST -d 'json=[{"action":"login","user":2,"time":1392021185},{"action":"logout","user":2,"time":1392027356}]'
       http://localhost:8888/test.tag.here;
 
-Non `default` format doesn't support batch mode yet.
+This improves the input performance by reducing HTTP access. Non `default` format doesn't support batch mode yet.
+Here is a simple bechmark result on MacBook Pro with ruby 2.3:
+
+<table>
+  <tr>
+    <td>json</td><td>msgpack</td><td>msgpack array(10 items)</td>
+  </tr>
+  <tr>
+    <td>2100 events/sec</td><td>2400 events/sec</td><td>10000 events/sec</td>
+  </tr>
+</table>
+
+Tested configuration and ruby script is [here](https://gist.github.com/repeatedly/672ac73abf7cbcb629aaec791838cf6d).
+
+## FAQ
+
+### Why in_http removes '+' from my log?
+
+This is HTTP spec, not fluentd problem. You need to encode your payload properly or use multipart request.
+Here is ruby example:
+
+    # OK
+    URI.encode_www_form({json: {"message" => "foo+bar"}.to_json})
+
+    # NG
+    "json=#{{"message" => "foo+bar"}.to_json}"
+
+curl command example:
+
+    # OK
+    curl -X POST -H 'Content-Type: multipart/form-data' -F 'json={"message":"foo+bar"}' http://localhost:8888/test.tag.here
+
+    # NG
+    curl -X POST -F 'json={"message":"foo+bar"}' http://localhost:8888/test.tag.here

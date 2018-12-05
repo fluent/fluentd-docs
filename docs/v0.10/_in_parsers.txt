@@ -1,0 +1,160 @@
+* regexp
+
+The regexp for the format parameter can be specified. If the parameter value starts and ends with "/", it is considered to be a regexp. The regexp must have at least one named capture (?&lt;NAME&gt;PATTERN). If the regexp has a capture named 'time', it is used as the time of the event. You can specify the time format using the time_format parameter.
+
+[fluentd-ui's in_tail editor](/articles/fluentd-ui#intail-setting) helps your regexp testing. Another way, [Fluentular](http://fluentular.herokuapp.com/) is a great website to test your regexp for Fluentd configuration.
+
+NOTE: You may hit Application Error at Fluentular due to <a href="https://www.heroku.com/pricing">heroku free plan limitation</a>. Retry a few hours later or use fluentd-ui instead.
+
+* `apache2`
+
+Reads apache’s log file for the following fields: host, user, time, method, path, code, size, referer and agent. This template is analogous to the following configuration:
+
+    :::text
+    format /^(?<host>[^ ]*) [^ ]* (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^ ]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")?$/
+    time_format %d/%b/%Y:%H:%M:%S %z
+
+* `apache_error`
+
+Reads apache’s error log file for the following fields:  time, level, pid, client and (error) message. This template is analogous to the following configuration:
+
+    :::text
+    format /^\[[^ ]* (?<time>[^\]]*)\] \[(?<level>[^\]]*)\](?: \[pid (?<pid>[^\]]*)\])? \[client (?<client>[^\]]*)\] (?<message>.*)$/
+
+* `nginx`
+
+Reads Nginx’s log file for the following fields: remote, user, time, method, path, code, size, referer and agent. This template is analogous to the following configuration:
+
+    :::text
+    format /^(?<remote>[^ ]*) (?<host>[^ ]*) (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^\"]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)(?: "(?<referer>[^\"]*)" "(?<agent>[^\"]*)")?$/
+    time_format %d/%b/%Y:%H:%M:%S %z
+
+* `syslog`
+
+Reads syslog’s output file (e.g. /var/log/syslog) for the following fields: time, host, ident, and message. This template is analogous to the following configuration:
+
+    :::text
+    format /^(?<time>[^ ]*\s*[^ ]* [^ ]*) (?<host>[^ ]*) (?<ident>[a-zA-Z0-9_\/\.\-]*)(?:\[(?<pid>[0-9]+)\])?(?:[^\:]*\:)? *(?<message>.*)$/
+    time_format %b %d %H:%M:%S
+
+* `tsv` or `csv`
+
+If you use tsv or csv format, please also specify the `keys` parameter.
+
+    :::text
+    format tsv
+    keys key1,key2,key3
+    time_key key2
+
+If you specify the `time_key` parameter, it will be used to identify the timestamp of the record. The timestamp when Fluentd reads the record is used by default.
+
+    :::text
+    format csv
+    keys key1,key2,key3
+    time_key key3
+
+NOTE: keys parameter is ',' separated value and you should not add spaces between `,`. keys parameter keeps any characters. For example, "key1,key2" are parsed as ["key1", "key2"] but "key1, key2" are parsed as ["key1", " key2"]. We will support json array based parameter to avoid this problem.
+
+* `ltsv`
+
+ltsv (Labeled Tab-Separated Value) is a tab-delimited key-value pair format. You can learn more about it on [its webpage](http://ltsv.org).
+
+    :::text
+    format ltsv
+    delimiter =               # Optional. ':' is used by default
+    time_key time_field_name
+
+If you specify the `time_key` parameter, it will be used to identify the timestamp of the record. The timestamp when Fluentd reads the record is used by default.
+
+* `json`
+
+One JSON map, per line. This is the most straight forward format :).
+
+    :::text
+    format json
+
+The `time_key` parameter can also be specified. The default is 'time' and if there is no time field in the record, `json` parser uses current time as an event time.
+
+    :::text
+    format json
+    time_key key3
+
+Without `time_format`, `json` parser assumes time field is a second integer.
+
+* `none`
+
+You can use the `none` format to defer parsing/structuring the data. This will parse the line as-is with the key name "message". For example, if you had a line
+
+    :::text
+    hello world. I am a line of log!
+
+It will be parsed as
+
+    :::text
+    {"message":"hello world. I am a line of log!"}
+
+The key field is "message" by default, but you can specify a different value using the `message_key` parameter as shown below:
+
+    :::text
+    format none
+    message_key my_message
+
+* `multiline`
+
+Read multiline log with `formatN` and `format_firstline` parameters. 
+`format_firstline` is for detecting start line of multiline log.
+`formatN`, N's range is 1..20, is the list of Regexp format for multiline log.
+Here is Rails log example:
+
+    :::text
+    format multiline
+    format_firstline /^Started/
+    format1 /Started (?<method>[^ ]+) "(?<path>[^"]+)" for (?<host>[^ ]+) at (?<time>[^ ]+ [^ ]+ [^ ]+)\n/
+    format2 /Processing by (?<controller>[^\u0023]+)\u0023(?<controller_method>[^ ]+) as (?<format>[^ ]+?)\n/
+    format3 /(  Parameters: (?<parameters>[^ ]+)\n)?/
+    format4 /  Rendered (?<template>[^ ]+) within (?<layout>.+) \([\d\.]+ms\)\n/
+    format5 /Completed (?<code>[^ ]+) [^ ]+ in (?<runtime>[\d\.]+)ms \(Views: (?<view_runtime>[\d\.]+)ms \| ActiveRecord: (?<ar_runtime>[\d\.]+)ms\)/
+
+If you have a multiline log
+
+    :::text
+    Started GET "/users/123/" for 127.0.0.1 at 2013-06-14 12:00:11 +0900
+    Processing by UsersController#show as HTML
+      Parameters: {"user_id"=>"123"}
+      Rendered users/show.html.erb within layouts/application (0.3ms)
+    Completed 200 OK in 4ms (Views: 3.2ms | ActiveRecord: 0.0ms)
+
+It will be parsed as
+
+    :::text
+    {"method":"GET","path":"/users/123/","host":"127.0.0.1","controller":"UsersController","controller_method":"show","format":"HTML","parameters":"{ \"user_id\" = >\"123\"}", ...}
+
+One more example, you can parse Java like stacktrace logs with `multiline`. Here is a configuration example.
+
+    :::text
+    format multiline
+    format_firstline /\d{4}-\d{1,2}-\d{1,2}/
+    format1 /^(?<time>\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}) \[(?<thread>.*)\] (?<level>[^\s]+)(?<message>.*)/
+
+If you have a following log:
+
+    :::text
+    2013-3-03 14:27:33 [main] INFO  Main - Start
+    2013-3-03 14:27:33 [main] ERROR Main - Exception
+    javax.management.RuntimeErrorException: null
+        at Main.main(Main.java:16) ~[bin/:na]
+    2013-3-03 14:27:33 [main] INFO  Main - End
+
+It will be parsed as:
+
+    2013-03-03 14:27:33 +0900 zimbra.mailbox: {"thread":"main","level":"INFO","message":"  Main - Start"}
+    2013-03-03 14:27:33 +0900 zimbra.mailbox: {"thread":"main","level":"ERROR","message":" Main - Exception\njavax.management.RuntimeErrorException: null\n    at Main.main(Main.java:16) ~[bin/:na]"}
+    2013-03-03 14:27:33 +0900 zimbra.mailbox: {"thread":"main","level":"INFO","message":"  Main - End"}
+
+NOTE: With `format_firstline`, in_tail delays record emit until next `format_firstline` matched because in_tail can't judge multiline logs are ended or not without `format_firstline` trigger. If your regexps represent log pattern correctly like above Rails example, you may remove `format_firstline` for emitting records immediately.
+
+NOTE: `multiline` works with only in_tail plugin.
+
+#### keep_time_key
+
+Parser removes time field from event record by default. If you want to keep time field in record, set `true` to `keep_time_key`. Default is `false`.

@@ -1,0 +1,71 @@
+# Performance Tuning (Single Process)
+
+This article describes how to optimize Fluentd's performance within single process. If your traffic is up to 5,000 messages/sec, the following techniques should be enough.
+
+With more traffic, Fluentd tends to be more CPU bound. In such case, please also visit [Performance Tuning (Multi-Process)](performance-tuning-multi-process) to utilize multiple CPU cores.
+
+## Check top command
+
+If Fluentd doesn't perform as well as you had expected, please check the `top` command first. You need to identify which part of your system is the bottleneck (CPU? Memory? Disk I/O? etc).
+
+## Avoid extra computations
+
+This is more like a general recommendation, but it’s always better **NOT TO HAVE** extra computation inside Fluentd. Fluentd is flexible to do quite a bit internally, but adding too much logic to Fluentd’s configuration file makes it difficult to read and maintain, while making it also less robust. The configuration file should be as simple as possible.
+
+## Use num_threads parameter
+
+If the destination for your logs is a remote storage or service, adding a `num_threads` option will parallelize your outputs (the default is 1). Using multiple threads can hide the IO/network latency. This parameter is available for all output plugins.
+
+    :::text
+    <match test>
+      @type output_plugin
+      num_threads 8
+      ...
+    </match>
+
+The important point is this option doesn't improve the processing performance, e.g. numerical computation, mutating record, etc.
+
+## Use external gzip command for S3/TD
+
+Ruby has GIL (Global Interpreter Lock), which allows only one thread to execute at a time. While I/O tasks can be multiplexed, CPU-intensive tasks will block other jobs. One of the CPU-intensive tasks in Fluentd is compression.
+
+The new version of S3/Treasure Data plugin allows compression outside of the Fluentd process, using gzip. This frees up the Ruby interpreter while allowing Fluentd to process other tasks.
+
+    :::text
+    # S3
+    <match ...>
+      @type s3
+      store_as gzip_command
+      num_threads 8
+      ...
+    </match>
+
+    # Treasure Data
+    <match ...>
+      @type tdlog
+      use_gzip_command
+      num_threads 8
+      ...
+    </match>
+
+While not a perfect solution to leverage multiple CPU cores, this can be effective for most Fluentd deployments. As before, you can run this with `num_threads` option as well.
+
+## Reduce memory usage
+
+Ruby has several GC parameters to tune GC performance and you can configure these parameters via environment variable([Parameter list is here](https://github.com/ruby/ruby/blob/61701ae1675f790ee3f59207283642dbe64c2d37/gc.c#L7417)). To reduce memory usage, set `RUBY_GC_HEAP_OLDOBJECT_LIMIT_FACTOR` to lower value. `RUBY_GC_HEAP_OLDOBJECT_LIMIT_FACTOR` is used for full GC trigger and the default is `2.0`. Quote from documentation.
+
+    :::text
+    Do full GC when the number of old objects is more than R * N
+      where R is this factor and
+      N is the number of old objects just after last full GC.
+
+So default GC behaviour doesn't call full GC until the number of old objects reaches `2.0 * before old objects`. This improves the throughput but it grows the total memory usage. This setting is not good for low resource environment, e.g. small container. For such cases, try `RUBY_GC_HEAP_OLDOBJECT_LIMIT_FACTOR=0.9` or `RUBY_GC_HEAP_OLDOBJECT_LIMIT_FACTOR=1.2`.
+
+See [Ruby 2.1 Garbage Collection: ready for production](https://samsaffron.com/archive/2014/04/08/ruby-2-1-garbage-collection-ready-for-production) and [Watching and Understanding the Ruby 2.1 Garbage Collector at Work](https://thorstenball.com/blog/2014/03/12/watching-understanding-ruby-2.1-garbage-collector/) article for more detail.
+
+## Multi-process plugin
+
+The CPU is often the bottleneck for Fluentd instances that handle billions of incoming records. To utilize multiple CPU cores, we recommend using the `in_multiprocess` plugin.
+
+* [Performance Tuning (Multi Process)](performance-tuning-multi-process)
+

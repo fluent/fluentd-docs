@@ -24,7 +24,7 @@ and the third part shows the record.
 NOTE: The first part shows the **output** time, not the time attribute
 of message event structure as `out_stdout` does.
 
-### Parameters
+## Parameters
 
 #### type (required)
 The value must be `stdout`.

@@ -1,0 +1,50 @@
+# Fluentd Logos
+
+Feel free to use these logos on your slides, blog posts, etc.!
+
+## Square
+
+<center>
+  <div>
+    <a href="https://raw.githubusercontent.com/fluent/fluentd-docs/master/public/logo/Fluentd_square.png" target="_blank">
+      <img src="https://raw.githubusercontent.com/fluent/fluentd-docs/master/public/logo/Fluentd_square.png" width="200px" />
+    </a>
+  </div>
+  <div>
+    <a href="https://raw.githubusercontent.com/fluent/fluentd-docs/master/public/logo/Fluentd_square.png" target="_blank">[PNG]</a>
+    <a href="https://raw.githubusercontent.com/fluent/fluentd-docs/master/public/logo/Fluentd_square.svg" target="_blank">[SVG]</a>
+  </div>
+</center>
+
+## Horizontal
+
+<center>
+  <div>
+    <a href="https://raw.githubusercontent.com/fluent/fluentd-docs/master/public/logo/Fluentd_horizontal.png" target="_blank">
+      <img src="https://raw.githubusercontent.com/fluent/fluentd-docs/master/public/logo/Fluentd_horizontal.png" width="400px" />
+    </a>
+  </div>
+  <div>
+    <a href="https://raw.githubusercontent.com/fluent/fluentd-docs/master/public/logo/Fluentd_horizontal.png" target="_blank">[PNG]</a>
+    <a href="https://raw.githubusercontent.com/fluent/fluentd-docs/master/public/logo/Fluentd_horizontal.svg" target="_blank">[SVG]</a>
+  </div>
+</center>
+
+## Icon
+
+<center>
+  <div>
+    <a href="https://raw.githubusercontent.com/fluent/fluentd-docs/master/public/logo/Fluentd_icon.png" target="_blank">
+      <img src="https://raw.githubusercontent.com/fluent/fluentd-docs/master/public/logo/Fluentd_icon.png" width="200px" />
+    </a>
+  </div>
+  <div>
+    <a href="https://raw.githubusercontent.com/fluent/fluentd-docs/master/public/logo/Fluentd_icon.png" target="_blank">[PNG]</a>
+    <a href="https://raw.githubusercontent.com/fluent/fluentd-docs/master/public/logo/Fluentd_icon.svg" target="_blank">[SVG]</a>
+  </div>
+</center>
+
+## Links
+
+* <a href="https://raw.githubusercontent.com/fluent/fluentd-docs/master/public/logo/Fluentd.ai">Fluentd.ai</a>
+* <a href="https://github.com/fluent/fluentd-docs/tree/master/public/logo" target="_blank">Full list of files</a>

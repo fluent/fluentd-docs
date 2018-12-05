@@ -393,9 +393,6 @@ object {
 
       #search form p input[type='text'] {
         background-color: #fafafa;
-        background-image: url('/images/search_glyph.png');
-        background-position: left 6px;
-        background-repeat: no-repeat;
         border: 1px solid #aeb3b8;
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
@@ -412,7 +409,6 @@ object {
       }
 
       #search form p input[type='text']:focus {
-        background-position: left -35px;
         border: 1px solid #74a9de;
         -moz-box-shadow: 0 0 4px rgba(111, 177, 243, .5), 0 1px 4px rgba(0, 0, 0, .1) inset;
         -webkit-box-shadow: 0 0 4px rgba(111, 177, 243, .5), 0 1px 4px rgba(0, 0, 0, .1) inset;
@@ -420,8 +416,6 @@ object {
       }
 
       #search form p input[type='text']:focus:valid {
-        background-image: url('/images/search_glyph.png'), url('/images/search_return.png');
-        background-position: left -35px, right 10px;
         padding: 8px 29px 8px 34px;
         width: 139px;
       }
@@ -1152,7 +1146,6 @@ del.differ, del.differ * {
 	-webkit-border-radius: 23px;
 	width:174px;
 	padding:4px 18px 4px 10px;
-	color:#fff;
 	text-transform:uppercase;
 	text-align:center;
 	box-shadow: 1px 1px 1px #fff;
@@ -1160,6 +1153,9 @@ del.differ, del.differ * {
 	-moz-box-shadow: 1px 1px 1px #fff;
 	background:#da4808 url(/images/arrow01.png) 90% 50% no-repeat;
 }
+.btn-look a {
+    color: #ffffff;
+}
 .btn-look a:visited {
-  color: #ffffff;
+    color: #ffffff;
 }

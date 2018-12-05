@@ -1,6 +1,6 @@
 # Quickstart Guide
 
-Let's get started with **Fluentd**! **Fluentd** is a fully free and fully open-source log collector that instantly enables you to have a '**Log Everything**' architecture with <a href="http://fluentd.org/plugin/">125+ types of systems</a>.
+Let's get started with **Fluentd**! **Fluentd** is a fully free and fully open-source log collector that instantly enables you to have a '**Log Everything**' architecture with <a href="http://fluentd.org/plugin/">600+ types of systems</a>.
 
 <center>
 <img src="/images/fluentd-architecture.png" width="450px"/><br /><br />
@@ -8,7 +8,7 @@ Let's get started with **Fluentd**! **Fluentd** is a fully free and fully open-s
 
 Fluentd treats logs as JSON, a popular machine-readable format. It is written primarily in C with a thin-Ruby wrapper that gives users flexibility.
 
-Fluentd's performance has been proven in the field: its largest user currently collects logs from **5000+ servers**, 5 TB of daily data, handling 50,000 msgs/sec at peak time.
+Fluentd's scalability has been proven in the field: its largest user currently collects logs from **500,000+ servers**.
 
 ## Step1: Installing Fluentd
 
@@ -21,7 +21,7 @@ Please follow the installation/quickstart guides below that matches your environ
 * [Install Fluentd by Chef](install-by-chef)
 * [Install Fluentd from source](install-from-source)
 
-NOTE: Fluentd is currently not supported on Windows. Please see <a href="/articles/windows">Collecting Log Data from Windows</a> for details.
+NOTE: Fluentd v0.12 doesn't support Windows environment. Please see LINK:[Collecting Log Data from Windows](windows) for details. Fluentd v1.x supports Windows.
 
 ## Step2: Use Cases
 

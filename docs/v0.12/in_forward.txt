@@ -21,28 +21,39 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 
 ## Parameters
 
-#### type (required)
+### @type (required)
 The value must be `forward`.
 
-#### port
+### port
 The port to listen to. Default Value = 24224
 
-#### bind
+### bind
 The bind address to listen to. Default Value = 0.0.0.0 (all addresses)
 
-#### linger_timeout
+### linger_timeout
 The timeout time used to set linger option. The default is 0
 
-#### chunk_size_limit
+### chunk_size_limit
 The size limit of the the received chunk. If the chunk size is larger than this value, then the received chunk is dropped. The default is nil (no limit).
 
-#### chunk_size_warn_limit
+### chunk_size_warn_limit
 The warning size limit of the received chunk. If the chunk size is larger than this value, a warning message will be sent. The default is nil (no warning).
+
+### skip_invalid_event (v0.12.20 or later)
+Skip an event if incoming event is invalid. The default is false.
+
+This option is useful at forwarder, not aggragator. v0.12.20 or later.
+
+### source_hostname_key (v0.12.28 or later)
+The field name of the client's hostname. If set the value, the client's hostname will be set to its key. The default is nil (no adding hostname).
+
+This iterates incoming events. So if you sends larger chunks to `in_forward`, it needs additional processing time.
+
 
 INCLUDE: _log_level_params
 
 
-### Protocol
+## Protocol
 
 This plugin accepts both JSON or [MessagePack](http://msgpack.org/) messages and automatically detects which is used.  Internally, Fluent uses MessagePack as it is more efficient than JSON.
 
@@ -62,3 +73,25 @@ Multiple messages may be sent in the same connection.
     example:
       ["myapp.access", 1308466941, {"a":1}]["myapp.messages", 1308466942, {"b":2}]
       ["myapp.access", [[1308466941, {"a":1}], [1308466942, {"b":2}]]]
+
+### Communication with v1.0
+
+v0.12 `in_forward` can't accept data from v1.0 `out_forward` because time format is different.
+If you want to forward data from v1.0 to v0.12, set `time_as_integer` in v1.0 `out_forward`.
+
+## FAQ
+
+### Why in_forward doesn't have tag parameter?
+
+`in_forward` uses `tag` of incoming events so no fixed `tag` parameter. See above "Protocol" section.
+
+### How to parse incoming events?
+
+`in_forward` doesn't provide parsing mechanism unlike `in_tail` or `in_tcp` because `in_forward` is mainly for efficient log transfer. If you want to parse incoming event, use [parser filter](https://github.com/tagomoris/fluent-plugin-parser) in your pipeline.<br />
+See Docker logging driver usecase: [Docker Logging](http://www.fluentd.org/guides/recipes/docker-logging)
+
+### I got MessagePack::UnknownExtTypeError error. Why?
+
+This error happens when forwarder's fluentd is v0.14/v1.0 and receiver's fluentd is 0.12.
+To avoid this problem, set `time_as_integer` to `out_forward` setting in v0.14/v1.0 fluentd.
+See "Communication with v1.0".

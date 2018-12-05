@@ -1,0 +1,71 @@
+# Centralize Logs from PHP Applications
+
+The '[fluent-logger-php](http://github.com/fluent/fluent-logger-php)' library is used to post records from PHP applications to Fluentd.
+
+This article explains how to use the fluent-logger-php library.
+
+## Prerequisites
+
+  * Basic knowledge of PHP
+  * Basic knowledge of Fluentd
+  * PHP 5.3 or higher
+
+## Installing Fluentd
+
+Please refer to the following documents to install fluentd.
+
+* [Install Fluentd with rpm Package](install-by-rpm)
+* [Install Fluentd with deb Package](install-by-deb)
+* [Install Fluentd with Ruby Gem](install-by-gem)
+* [Install Fluentd from source](install-from-source)
+
+## Modifying the Config File
+
+Next, please configure Fluentd to use the [forward Input plugin](in_forward) as its data source.
+
+    :::text
+    <source>
+      @type forward
+      port 24224
+    </source>
+    <match fluentd.test.**>
+      @type stdout
+    </match>
+
+Please restart your agent once these lines are in place.
+
+    :::term
+    # for rpm/deb only
+    $ sudo /etc/init.d/td-agent restart
+    # or systemd
+    $ sudo systemctl restart td-agent.service
+
+## Using fluent-logger-php
+
+First, add the 'fluent/logger' package to your composer.json.
+
+    :::json
+    {
+        "require": {
+            "fluent/logger": "1.0.*"
+        }
+    }
+
+Next, create a php file containing the following code:
+
+    :::php
+    <?php
+    require_once __DIR__.'/vendor/autoload.php';
+    use Fluent\Logger\FluentLogger;
+    $logger = new FluentLogger("localhost","24224");
+    $logger->post("fluentd.test.follow", array("from"=>"userA", "to"=>"userB"));
+
+Executing the script will send the logs to Fluentd.
+
+    :::term
+    $ php test.php
+
+The logs should be output to `/var/log/td-agent/td-agent.log` or stdout of the Fluentd process via the [stdout Output plugin](out_stdout).
+
+INCLUDE: _production_deployments
+

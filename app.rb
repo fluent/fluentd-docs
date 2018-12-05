@@ -4,7 +4,6 @@ require 'sinatra/assetpack'
 require 'haml'
 require 'sass'
 require 'coderay'
-require 'indextank'
 require 'rack/codehighlighter'
 require 'json'
 require 'time'
@@ -47,30 +46,11 @@ configure :production do
   end
 end
 
-#
-# For i18n
-#
-def build_available_languages
-  articles = Dir.glob("#{settings.root}/docs/*.txt").map { |a|
-    a["#{settings.root}/docs/".size..-(1 + ".txt".size)]
-  }
-
-  languages = {}
-  articles.each { |article|
-    langs = ['en']
-    Dir.glob("#{settings.root}/docs/*/#{article}.txt").each { |a|
-      # skipping versions
-      unless /^v\d+/.match(a.split("/")[-2])
-        langs << a["#{settings.root}/docs/".size..-(1 + 1 + "#{article}.txt".size)]
-      end
-    }
-    languages[article] = langs.sort
-  }
-  languages
-end
-$AVAILABLE_LANGUAGES = build_available_languages
 $DEFAULT_LANGUAGE = 'en'
-$DEFAULT_VERSION = 'v0.12'
+$DEFAULT_VERSION = 'v1.0'
+$DEPRECATED_VERSIONS = ['v0.10']
+$ALL_VERSIONS = ['v1.0', 'v0.14', 'v0.12']
+$TD_AGENT_VERSIONS = {'v1.0' => 'td-agent3', 'v0.12' => 'td-agent2'}
 
 #
 # For table-of-content
@@ -84,7 +64,7 @@ def build_tocs
 
   tocs = {}
   toc_vers.each { |ver|
-    tocs[ver] = TOC.new($DEFAULT_LANGUAGE, ver)
+    tocs[ver] = TOC.new(settings.root, $DEFAULT_LANGUAGE, ver)
   }
   tocs
 end
@@ -94,11 +74,6 @@ $TOCS = build_tocs
 # Last update list for each article
 #
 $LAST_UPDATED = JSON.parse(File.read("#{settings.root}/config/last_updated.json"))
-
-#
-# Outdated span for translated articles
-#
-$OUTDATED_SPAN = 30 * 24 * 60 * 60
 
 #
 # NOT FOUND
@@ -132,21 +107,6 @@ unless ENV['RACK_ENV'] == 'test'
 end
 
 #
-# OLD URL REDIRECTS
-#
-get '/articles/architecture' do
-  redirect 'http://www.fluentd.org/architecture', 301
-end
-
-get '/articles/users' do
-  redirect 'http://www.fluentd.org/testimonials', 301
-end
-
-get '/articles/slides' do
-  redirect 'http://www.fluentd.org/slides', 301
-end
-
-#
 # PATHS
 #
 get '/' do
@@ -160,76 +120,63 @@ end
 
 get '/sitemap.xml' do
   @article_names = []
-  $TOCS[$DEFAULT_VERSION].sections.each { |_, _, categories|
-    categories.each { |_, _, articles|
-      articles.each { |name, _, _|
-        @article_names << name
+  $ALL_VERSIONS.each { |version|
+    $TOCS[version].sections.each { |_, _, categories|
+      categories.each { |_, _, articles|
+        articles.each { |name, _, _|
+          @article_names << [version, name]
+        }
       }
     }
   }
-
   content_type 'text/xml'
   erb :sitemap, :layout => false
 end
 
-get '/search' do
-  page = params[:page].to_i
-  search, prev_page, next_page = search_for(params[:q], page)
-  erb :search, :locals => {:search => search, :query => params[:q], :prev_page => prev_page, :next_page => next_page}
-end
-
 get '/categories/:category' do
-  redirect "/#{$DEFAULT_VERSION}/categories/#{params[:category]}", 301
+  @category_name = params[:category]
+  redirect "/#{$DEFAULT_VERSION}/categories/#{@category_name}", 301
 end
 
-get '/v0.10/categories/:category' do
+get %r{/(v\d+\.\d+)/categories/(\S+)} do |version, category|
+  @version_num = @article_name = @category_name = @query_string = nil
+  @version_num = version
+  @version_num = 'v1.0' if version == 'v0.14'
+  @category_name = category
   cache_long
-  render_category params[:category], 'v0.10'
-end
-
-get '/v0.12/categories/:category' do
-  cache_long
-  render_category params[:category], 'v0.12'
-end
-
-get '/recipe/apache/:data_sink' do
-  redirect "/recipe/apache-logs/#{params[:data_sink]}", 301
-end
-
-get '/recipe/:data_source/:data_sink' do
-  params[:article] = "recipe-#{params[:data_source]}-to-#{params[:data_sink]}"
-  puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
-  redirect "/articles/#{params[:article]}", 301
+  render_category category, version
 end
 
 get '/articles/:article' do
-  puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
-  cache_long
-  render_article params[:article], params[:congrats]
+  @article_name = params[:article]
+  redirect "/#{$DEFAULT_VERSION}/articles/#{@article_name}", 301
 end
 
-# ver needs to come before /:lang/article/:article
-# otherwise, lang matches first.
-
-get '/v0.10/articles/:article' do
-  puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
-  cache_long
-  render_article params[:article], params[:congrats], ver: 'v0.10'
-end
-
-get '/v0.12/articles/:article' do
-  puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
-  cache_long
-  render_article params[:article], params[:congrats], ver: 'v0.12'
-end
-
-get '/:lang/articles/:article' do
-  puts "@[#{ENV['RACK_ENV']}.articles] #{{ :name => params[:article] }.to_json}"
-  redirect "/articles/#{params[:article]}", 301
+get %r{/(v\d+\.\d+)/articles/(\S+)} do |version, article|
+  case article
+  when 'users'
+    redirect 'https://www.fluentd.org/testimonials'
+  when 'architecture'
+    redirect 'https://www.fluentd.org/architecture'
+  else
+    @version_num = @article_name = @category_name = @query_string = nil
+    @version_num = version
+    @version_num = 'v1.0' if version == 'v0.14'
+    @article_name = article
+    puts "@[#{ENV['RACK_ENV']}.articles] #{{ name: article }.to_json}"
+    cache_long
+    render_article article, version
+  end
 end
 
 helpers do
-  def render_category(category, ver = $DEFAULT_VERSION)
+  def link_to(page)
+    "/#{@article_version}" + page
+  end
+
+  def render_category(category, ver)
+    @article_version = ver
+
     @articles = []
     @desc = ''
     sections(ver).each { |_, _, categories|
@@ -245,14 +192,7 @@ helpers do
 
     if @articles.length == 1
       article_name = @articles.first.first
-      redirect_path = if /^recipe-/.match(article_name)
-                        article_name.split("-", 3).join("/")	
-                      elsif ver == $DEFAULT_VERSION
-                        "/articles/#{article_name}"
-                      else
-                        "/#{ver}/articles/#{article_name}"
-                      end
-      redirect redirect_path, 301
+      redirect "/#{ver}/articles/#{article_name}", 301
     elsif !@articles.empty?
       @articles
       erb :category
@@ -263,75 +203,62 @@ helpers do
     status 404
   end
 
-  def render_article(article, congrats, lang: $DEFAULT_LANGUAGE, ver: $DEFAULT_VERSION)
-    @filepath = article_file(article, lang, ver)
-    @has_default_version = File.exists?(article_file(article, lang, $DEFAULT_VERSION))
+  def render_article(article, ver)
+    @default_url = "/#{$DEFAULT_VERSION}/articles/#{article}"
+    @filepath = article_file(article, ver)
+    @has_default_version = File.exists?(article_file(article, $DEFAULT_VERSION))
 
-    unless $IO_CACHE.has_key? @filepath
-      $IO_CACHE[@filepath] = File.read(@filepath)
+    begin
+      unless $IO_CACHE.has_key? @filepath
+        $IO_CACHE[@filepath] = File.read(@filepath)
+      end
+    rescue Errno::ENOENT
+      if ver != $DEFAULT_VERSION && @has_default_version
+        return redirect(@default_url, 301)
+      else
+        return status(404)
+      end
     end
 
     doc_path = File.dirname(@filepath)
 
-    @article = Article.load(article, $IO_CACHE[@filepath], doc_path)
+    @article = Article.load(article, $IO_CACHE[@filepath], doc_path, ver)
     @title   = @article.title
     @desc    = @article.desc
     @content = @article.content
     @intro   = @article.intro
     @toc     = @article.toc
     @body    = @article.body
-    @congrats = congrats ? true : false
+    @available_versions = $ALL_VERSIONS
     @current_version = $DEFAULT_VERSION
     @article_version = ver
-    @default_url = "/articles/#{article}"
-    @last_updated = $LAST_UPDATED[lang][article]
-    @available_langs = $AVAILABLE_LANGUAGES[article] || ['en'] # to support  new experimental articles
+    @deprecated_article_version = $DEPRECATED_VERSIONS.include?(@article_version)
+    @last_updated = ($LAST_UPDATED[ver] || {})[article] || Time.now.to_s
 
     erb :article
   end
 
-  def article_file(article, lang, ver)
+  def article_file(article, ver)
     if article.include?('/')
       article
     else
-      path_prefix = "#{settings.root}/docs/"
-
-      if ver != 'v0.10'
-        path_prefix += "#{ver}/"
-      end
-
-      if lang != 'en'
-        path_prefix += "#{lang}/"
-      end
-
-      path_prefix + article + ".txt"
+      "#{settings.root}/docs/#{ver}/#{article}.txt"
     end
   end
 
-  def prefix
-    # currently, v0.12 docs only exists for English.
-    # So, the prefix is either
-    # 1. version/
-    # 2. lang/
-    @article_version ? "#{@article_version}/" : "" 
-  end
-
-  def avaiable_language?(article, lang)
-    return true if lang == $DEFAULT_LANGUAGE
-    return false unless $AVAILABLE_LANGUAGES.has_key?(article)
-
-    $AVAILABLE_LANGUAGES[article].include?(lang)
+  def article_file_exists?(article, ver)
+    File.exists?(article_file(article, ver))
   end
 
   def cache_long
-    response['Cache-Control'] = "public, max-age=#{60 * 60 * 6}" unless development?
+    response['Cache-Control'] = "public, max-age=#{60 * 60 * 6}" unless self.class.development?
   end
 
   def slugify(title)
-    title.downcase.gsub(/[^a-z0-9 -]/, '').gsub(/ /, '-')
+    title.downcase.gsub(/[^a-z0-9 -_]/, '').gsub(/ /, '-')
   end
 
-  def find_category(article, ver = $DEFAULT_VERSION)
+  def find_category(article, ver)
     return nil if article.nil?
     sections(ver).each { |_, _, categories|
       categories.each { |category_name, _, articles|
@@ -343,43 +270,12 @@ helpers do
     nil
   end
 
-  def find_keywords(article, category, ver = $DEFAULT_VERSION)
-    default = ['Fluentd', 'log collector']
-    sections(ver).each { |_, _, categories|
-      categories.each { |category_name, _, articles|
-        return default + [category_name] if category_name == category
-        articles.each { |article_name, title, keywords|
-          if article_name == article
-            return default + [title] + keywords
-          end
-        }
-      }
-    }
-    default
-  end
-
   def sections(ver)
-    v = ver.nil? ? $DEFAULT_VERSION : ver
-    $TOCS[v].sections
+    $TOCS[ver].sections
   end
 
   def next_section(current_slug, root=sections($DEFAULT_VERSION))
     nil
-  end
-
-  def search_for(query, page = 0)
-    client = IndexTank::Client.new(ENV['SEARCHIFY_API_URL'])
-    index = client.indexes('td-docs')
-    search = index.search(query, :start => page * 10, :len => 10, :fetch => 'title', :snippet => 'text')
-    next_page =
-        if search['matches'] > (page + 1) * 10
-          page + 1
-        end
-    prev_page =
-        if page > 0
-          page - 1
-        end
-    [search, prev_page, next_page]
   end
 
   alias_method :h, :escape_html

@@ -23,11 +23,40 @@ The following slides can help the user understand how Fluentd works before they 
 
 (The slides are taken from <a href="//github.com/sonots">Naotoshi Seo's</a> <a href="//rubykaigi.org/2014/presentation/S-NaotoshiSeo">RubyKaigi 2014 talk</a>.)
 
+### Fluentd version and Plugin API
+
+Fluentd now has two active versions, v0.12 and v1.0.
+v0.12 is old stable and many people still use this version.
+v1.0 is current stable version and this version has brand-new Plugin API.
+
+The important point is plugin for v0.12 works with v0.12 and v1.0, but
+new v1.0 API based Plugin doesn't work with v0.12.
+
+This document based on v0.12 Plugin API.
+
+### Send a patch or fork?
+
+If you have a problem with existing plugins or new feature idea, sending a patch is better.
+If the plugin author is non-active, try to become new plugin maintainer first.
+Forking a plugin and release alternative plugin, e.g. fluent-plugin-xxx-alt, is final approach.
+
+## Plugin versioning policy
+
+If you don't have a your policy, following semantic versioning is better.
+
+[Semantic Versioning 2.0.0 - Semantic Versioning](http://semver.org/)
+
+The important thing is if your plugin breaks the backward compatibiliy, update major version to avoid user troubles.
+For example, new v0.14 API based plugin doesn't work with fluentd v0.12. So if you release your existing plugin with new v0.14 API,
+please update major version, `0.5.0` -> `1.0.0`, `1.2.0` -> `2.0.0`.
+
 ## Writing Input Plugins
 
-Extend the **Fluent::Input** class and implement the following methods.
+Extend the **Fluent::Input** class and implement the following methods. In `initialize`, `configure` and `start`, `super` should be called to call Input plugin default behaviour.
 
     :::ruby
+    require 'fluent/input'
+
     module Fluent
       class SomeInput < Input
         # First, register the plugin. NAME is the name of this plugin
@@ -59,6 +88,7 @@ Extend the **Fluent::Input** class and implement the following methods.
         # This method is called when shutting down.
         # Shutdown the thread and close sockets or files here.
         def shutdown
+          super
           ...
         end
       end
@@ -92,9 +122,11 @@ If you emit a symbol keyed record, it may cause a problem.
 
 ## Writing Buffered Output Plugins
 
-Extend the **Fluent::BufferedOutput** class and implement the following methods.
+Extend the **Fluent::BufferedOutput** class and implement the following methods. In `initialize`, `configure` and `start`, `super` should be called to call BufferedOutput plugin default behaviour.
 
     :::ruby
+    require 'fluent/output'
+
     module Fluent
       class SomeOutput < BufferedOutput
         # First, register the plugin. NAME is the name of this plugin
@@ -168,6 +200,8 @@ Note that Time Sliced Output plugins use file buffer by default. Thus the ``buff
 To implement a Time Sliced Output plugin, extend the **Fluent::TimeSlicedOutput** class and implement the following methods.
 
     :::ruby
+    require 'fluent/output'
+
     module Fluent
       class SomeOutput < TimeSlicedOutput
         # configure(conf), start(), shutdown() and format(tag, time, record) are
@@ -181,13 +215,16 @@ To implement a Time Sliced Output plugin, extend the **Fluent::TimeSlicedOutput*
           ...
         end
       end
+    end
 
 
 ## Writing Non-buffered Output Plugins
 
-Extend the **Fluent::Output** class and implement the following methods. **Output** plugin is often used for implementing filter like plugin.
+Extend the **Fluent::Output** class and implement the following methods. **Output** plugin is often used for implementing filter like plugin. In `initialize`, `configure` and `start`, `super` should be called to call non-buffered Output plugin default behaviour.
 
     :::ruby
+    require 'fluent/output'
+
     module Fluent
       class SomeOutput < Output
         # First, register the plugin. NAME is the name of this plugin
@@ -222,7 +259,7 @@ Extend the **Fluent::Output** class and implement the following methods. **Outpu
         def emit(tag, es, chain)
           chain.next
           es.each {|time,record|
-            $stderr.puts "OK!"
+            log.info "OK!"
           }
         end
       end
@@ -235,6 +272,8 @@ This section shows how to write custom filters in addition to [the core filter p
 Here is the implementation of the most basic filter that passes through all events as-is:
 
     :::ruby
+    require 'fluent/filter'
+
     module Fluent
       class PassThruFilter < Filter
         # Register this filter as "passthru"
@@ -272,6 +311,9 @@ Here is the implementation of the most basic filter that passes through all even
       end
     end
 
+In `initialize`, `configure`, `start` and `shutdown`, `super` should be called to call Filter plugin default behaviour.
+
+See [Writing Input plugins](/articles/plugin-development#writing-input-plugins) section for the details of `tag`, `time` and `record`.
 
 ### filter_stream method
 
@@ -311,9 +353,11 @@ e.g., something like this
 
 While it is not hard to write a regular expression to match this format, it is tricky to extract and save key names.
 
-Here is the code to parse this custom format (let's call it `time_key_value`). It takes one optional parameter called `delimiter`, which is the delimiter for key-value pairs. It also takes `time_format` to parse the time string.
+Here is the code to parse this custom format (let's call it `time_key_value`). It takes one optional parameter called `delimiter`, which is the delimiter for key-value pairs. It also takes `time_format` to parse the time string. In `initialize`, `configure` and `start`, `super` should be called to call Parser plugin default behaviour.
 
     :::ruby
+    require 'fluent/parser'
+
     module Fluent
       class TextParser
         class TimeKeyValueParser < Parser
@@ -322,8 +366,11 @@ Here is the code to parse this custom format (let's call it `time_key_value`). I
 
           config_param :delimiter, :string, :default => " " # delimiter is configurable with " " as default
           config_param :time_format, :string, :default => nil # time_format is configurable
+
           # This method is called after config_params have read configuration parameters
           def configure(conf)
+            super
+
             if @delimiter.length != 1
               raise ConfigError, "delimiter must be a single character. #{@delimiter} is not."
             end
@@ -357,7 +404,7 @@ Then, save this code in `parser_time_key_value.rb` in a loadable plugin path. Th
     <source>
       @type tail
       path /path/to/input/file
-      format time_key_parser
+      format time_key_value
     </source>
 
 Then, the log line like `2014-01-01T00:00:00 k=v a=b` is parsed as `2013-01-01 00:00:00 +0000 test: {"k":"v","a":"b"}`.
@@ -376,9 +423,11 @@ Current `Parser#parse` API is called with block. We will remove `Parser#parse` w
 
 Fluentd supports [pluggable, customizable formats for output plugins](formatter-plugin-overview). The plugin files whose names start with "formatter_" are registered as Formatter Plugins.
 
-Here is an example of a custom formatter that outputs events as CSVs. It takes a required parameter called "csv_fields" and outputs the fields. It assumes that the values of the fields are already valid CSV fields.
+Here is an example of a custom formatter that outputs events as CSVs. It takes a required parameter called "csv_fields" and outputs the fields. It assumes that the values of the fields are already valid CSV fields. In `initialize`, `configure` and `start`, `super` should be called to call Formatter plugin default behaviour.
 
     :::ruby
+    require 'fluent/formatter'
+
     module Fluent
       module TextFormatter
         class MyCSVFormatter < Formatter
@@ -386,19 +435,18 @@ Here is an example of a custom formatter that outputs events as CSVs. It takes a
           Plugin.register_formatter("my_csv", self)
 
           include HandleTagAndTimeMixin # If you wish to use tag_key, time_key, etc.          
-          config_param :csv_fields, :string
-          
+          config_param :csv_fields, :array, value_type: :string
+
           # This method does further processing. Configuration parameters can be
           # accessed either via "conf" hash or member variables.
           def configure(conf)
             super
-            @csv_fields = conf['csv_fields'].split(",")
           end
-          
+
           # This is the method that formats the data output.
           def format(tag, time, record)
             values = []
-            
+
             # Look up each required field and collect them from the record
             @csv_fields.each do |field|
               v = record[field]
@@ -407,7 +455,7 @@ Here is an example of a custom formatter that outputs events as CSVs. It takes a
               end
               values << v
             end
-            
+
             # Output by joining the fields with a comma
             values.join(",")
           end
@@ -427,6 +475,88 @@ Then, save this code in `formatter_my_csv.rb` in a loadable plugin path. Then, i
     </match>
 
 and if the record `{"k1": 100, "k2": 200}` is matched, the output file should look like `100,200`
+
+## Error stream
+
+`router` has `emit_error_event` API to rescue invalid events.
+Emitted events via `emit_error_event` are routed to `@ERROR` label.
+
+There are several use cases:
+
+- Rescue invalid event which hard to apply filter routine, e.g. don't have geoip target field.
+- Rescue invalid event which hard to serialize in the output, e.g. can't convert a record into BSON.
+
+### API
+
+     :::text
+     router.emit_error_event(tag, time, record, error)
+
+- tag: String: recommend to use incoming event tag
+- time: Integer: recommend to use incoming event time
+- record: Hash: recommend to use incoming event record
+- error: Exception: use a raised exception
+
+## config_param
+
+`config_param` helper defines plugin parameter. You don't need to parse parameters manually.
+`config_param` syntax is `config_param :name, :type, options`. Here is simple example:
+
+    :::text
+    config_param :param1, :string
+    config_param :param2, :integer, default: 10
+
+In this example, `param1` is required string parameter. If a user doesn't specify `param1`, fluentd raises an `ConfigError`.<br />
+On the other hand, `param2` is optional integer parameter. If a user doesn't specify `param2`, fluentd set `10` to `param2` automatically.
+If a user sets "5" to `param2` parameter, fluentd converts it into integer type automatically.
+
+### Access parameter value
+
+`config_param` sets parsed result to `:name` instance variable after `configure` call. See example below:
+
+    :::text
+    config_param :param, :string
+    
+    def configure(conf)
+      super # This super is needed to parse conf by config_param
+      
+      p @param # You can access parsed result via instance variable. :param is used for variable name
+    end
+
+### Supported types
+
+Fluentd supports following built-in types for plugin parameter:
+
+    :::text
+    # hello, /path/to/file, etc
+    config_param :str_param, :string
+    # -1, 100, 100000, etc
+    config_param :int_param, :integer
+    # 0.1, 999.9, etc
+    config_param :float_param, :float
+    # true: yes / true, false: no / false
+    config_param :bool_param, :bool
+    # json object: {"k":"v"}, {"k", 10}
+    config_param :hash_param, :hash
+    # json array: [1, 10], ["foo", "bar"]
+    config_param :array_param, :array, value_type: :integer
+    # integer with size unit: 1k, 2m, 3g, 4t
+    config_param :size_param, :size
+    # integer with time unit: 1s, 2m, 3h, 4d
+    config_param :time_param, :time
+    # fixed list with `list` option: [:text, :gzip]
+    config_param :enum_param, :enum, list: [:tcp, :udp]
+
+### Supported options
+
+- `default`: Specified parameter becomes optional. `type` value or `nil` are available: `default: 10`, `default: nil`.
+- `secret`: Specified parameter is masked when dump a configuration, e.g. start logs, in_monitor_agent result: `secret: true`
+- `deprecated`: Specified parameter is showed in warning log. Need deprecated message for value: `deprecated: "Use xxx instead"`
+- `obsoleted`: Specified parameter is showed in error log with configuration error. Need obsoleted message for value: `obsoleted: "Use xxx instead"`
+
+These options can be combined.
+
+    :::text
+    config_param :param, :array, default: [1, 2], secret: true, deprecated: "Use new_param instead"
 
 ## Debugging plugins
 
@@ -502,6 +632,19 @@ Fluentd provides unit test frameworks for plugins:
       Test driver for non-buffered output plugins.
 
 Please see Fluentd's source code for details.
+
+### Run test
+
+Fluentd test follows standard gem way and uses test-unit library. Use rake command.
+
+    :::text
+    $ bundle install --path vendor/bundle # Install related libraries.
+    $ bundle exec rake test
+
+If you want to run only one file, use `TEST` environment variable:
+
+    :::text
+    $ bundle exec rake test TEST=test/plugin/test_out_foo.rb
 
 ## Further Reading
 

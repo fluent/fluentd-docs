@@ -1,4 +1,4 @@
-# Data Import from Ruby Applications
+# Centralize Logs from Ruby Applications
 
 The '[fluent-logger-ruby](http://github.com/fluent/fluent-logger-ruby)' library is used to post records from Ruby applications to Fluentd.
 
@@ -8,7 +8,7 @@ This article explains how to use the fluent-logger-ruby library.
 
   * Basic knowledge of Ruby
   * Basic knowledge of Fluentd
-  * Ruby 1.8 or later
+  * Ruby 1.9 or later
 
 ## Installing Fluentd
 

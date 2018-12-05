@@ -1,0 +1,61 @@
+# stdout Filter Plugin
+
+The `filter_stdout` filter plugin prints events to stdout (or logs if launched
+with daemon mode). This filter plugin is useful for debugging purposes.
+
+## Example Configurations
+
+`filter_stdout` is included in Fluentd's core. No installation required.
+
+    :::text
+    <filter pattern>
+      @type stdout
+    </filter>
+
+A sample output is as follows:
+
+```
+2017-11-28 11:43:13.814351757 +0900 tag: {"field1":"value1","field2":"value2"}
+```
+
+where the first part shows the output time, the second part shows the tag,
+and the third part shows the record.
+
+## Plugin helpers
+
+* [formatter](api-plugin-helper-formatter)
+* [compat_parameters](api-plugin-helper-compat_parameters)
+* [inject](api-plugin-helper-inject)
+
+## Parameters
+
+[Common Parameters](plugin-common-parameters)
+
+### @type (required)
+
+The value must be `stdout`.
+
+### &lt;format&gt; section
+
+See [Format section configurations](format-section) for more details.
+
+#### @type
+
+| type   | default  | version |
+|:------:|:--------:|:-------:|
+| string | stdout   | 0.14.5  |
+
+The format of output.
+
+#### output_type
+
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | json    | 0.14.5  |
+
+This is the option of `stdout` format. Configure the format of record (third
+part). Any formatter plugins can be specified.
+
+## Learn More
+
+- [Filter Plugin Overview](filter-plugin-overview)

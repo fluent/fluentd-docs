@@ -1,6 +1,10 @@
 # Fluentd command line option
 
-Here is supported options:
+This article describes built-in commands and its options
+
+## fluentd
+
+Invoke fluentd. Here is supported options:
 
     :::text
     Usage: fluentd [options]
@@ -30,31 +34,59 @@ Here is supported options:
         -g, --gemfile GEMFILE            Gemfile path
         -G, --gem-path GEM_INSTALL_PATH  Gemfile install path (default: $(dirname $gemfile)/vendor/bundle)
 
-## Important options
+### Important options
 
-### --suppress-config-dump
+#### --suppress-config-dump
 
 Fluentd starts without configuration dump. If you don't want to show configuration in fluentd logs,
 e.g. don't show private keys, this options is useful.
 
-### --suppress-repeated-stacktrace
+#### --suppress-repeated-stacktrace
 
 If set true, suppress stacktrace in fluentd logs. Since v0.12, this option is true by default.
 
-### --without-source
+#### --without-source
 
 Fluentd starts without input plugins. This option is useful for flushing buffers with no new incoming events.
 
-### -i, --inline-config
+#### -i, --inline-config
 
 If you use fluentd on XaaS which doesn't support persistent disks, this option is useful.
 
-### --no-supervisor
+#### --no-supervisor
 
 If you want to use your supervisor tools, this option avoids double supervisor.
 
-
-## Set via configuration file
+### Set via configuration file
 
 Several options could be set via `<system>` directive configuration file.
-See [configuration file article](http://docs.fluentd.org/articles/config-file#4-set-system-wide-configuration-the-ldquosystemrdquo-directive).
+See LINK:[configuration file article](/articles/config-file#4-set-system-wide-configuration-the-ldquosystemrdquo-directive).
+
+
+## fluent-cat
+
+Send event to fluentd's `in_forward`/`in_unix` plugin. This is useful for testing.
+
+    :::text
+    Usage: fluent-cat [options] <tag>
+        -p, --port PORT                  fluent tcp port (default: 24224)
+        -h, --host HOST                  fluent host (default: 127.0.0.1)
+        -u, --unix                       use unix socket instead of tcp
+        -s, --socket PATH                unix socket path (default: /var/run/fluent/fluent.sock)
+        -f, --format FORMAT              input format (default: json)
+            --json                       same as: -f json
+            --msgpack                    same as: -f msgpack
+            --none                       same as: -f none
+            --message-key KEY            key field for none format (default: message)
+
+### example
+
+Send json message with `debug.log` tag to local fluentd:
+
+    :::text
+    % echo '{"message":"hello"}' | fluent-cat debug.log
+
+Send to other machine:
+
+    :::text
+    % echo '{"message":"hello"}' | fluent-cat debug.log --host testserver --port 24225

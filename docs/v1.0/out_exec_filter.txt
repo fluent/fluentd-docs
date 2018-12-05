@@ -1,0 +1,270 @@
+# exec_filter Output Plugin
+
+The `out_exec_filter` Buffered Output plugin (1) executes an external program using an event as input and (2) reads a new event from the program output. It passes tab-separated values (TSV) to stdin and reads TSV from stdout by default.
+
+## Example Configuration
+
+`out_exec_filter` is included in Fluentd's core. No additional installation process is required.
+
+    :::text
+    <match pattern>
+      @type exec_filter
+      command cmd arg arg
+      <format>
+        @type tsv
+        keys k1,k2,k3
+      </format>
+      <parse>
+        @type tsv
+        keys k1,k2,k3,k4
+      </parse>
+      <inject>
+        tag_key k1
+        time_key k2
+        time_format %Y-%m-%d %H:%M:%S
+      </inject>
+    </match>
+
+NOTE: Please see the LINK:[Config File](config-file) article for the basic structure and syntax of the configuration file.
+
+NOTE: When using the json format in &lt;parse&gt; section, this plugin uses the Yajl library to parse the program output. Yajl buffers data internally so the output isn't always instantaneous.
+
+## Supported modes
+
+* Synchronous
+
+* See also: [Output Plugin Overview](output-plugin-overview)
+
+## Plugin helpers
+
+* [compat_parameters](api-plugin-helper-compat_parameters)
+* [inject](api-plugin-helper-inject)
+* [formatter](api-plugin-helper-formatter)
+* [parser](api-plugin-helper-parser)
+* [extract](api-plugin-helper-extract)
+* [child_process](api-plugin-helper-child_process)
+* [event_emitter](api-plugin-helper-event_emitter)
+  
+## Parameters
+
+### @type
+
+The value must be `exec_filter`.
+
+### command
+
+| type   | default            | version |
+|:------:|:------------------:|:-------:|
+| string | required parameter | 0.14.0  |
+
+The command (program) to execute. The `out_exec_filter` plugin passes the incoming event to the program input and receives the filtered event from the program output.
+
+### num_children
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| integer | 1       | 0.14.0  |
+
+The number of spawned process for `command`.
+
+If the number is larger than 2, fluentd uses spawned processes by round robin fashion.
+
+### child_respawn
+
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | nil     | 0.14.0  |
+
+Respawn command when command exit. Default is disabled.
+
+If you specify a positive number, try to respawn until specified times.
+If you specify `inf` or `-1`, try to respawn forever.
+
+### tag
+
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | nil     | 0.14.0  |
+
+The tag of the event.
+
+### read_block_size
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| size | 10240   | 0.14.9  |
+
+The default block size to read if parser requires partial read.
+
+### num_children
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| integer | 1       | 0.14.0  |
+
+The number of spawned process for command.
+
+### suppress_error_log_interval
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| time | 0       | 0.14.0  |
+
+Suppress error logs during this interval.
+
+Output logs for all of messages to emit by default.
+
+### in_format
+
+**This parameter is deprecated.** Use `<format>` section.
+
+The format used to map the incoming event to the program input.
+
+### out_format
+
+**This parameter is deprecated.** Use `<format>` section.
+
+The format used to process the program output.
+
+### &lt;format&gt; section
+
+The format used to map the incoming events to the program input.
+
+See [Format section configurations](format-section) for more details.
+
+#### @type
+
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | tsv     | 0.14.9  |
+
+Overwrite default value in this plugin.
+
+### &lt;parse&gt; section
+
+The format used to process the program output.
+
+See [Parse section configurations](parse-section) for more details.
+
+#### @type
+
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | tsv     | 0.14.9  |
+
+Overwrite default value in this plugin.
+
+#### time_key
+
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | nil     | 0.14.9  |
+
+Overwrite default value in this plugin.
+
+#### time_format
+
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | nil     | 0.14.9  |
+
+Overwrite default value in this plugin.
+
+#### localtime
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 0.14.9  |
+
+Overwrite default value in this plugin.
+
+### &lt;inject&gt; section
+
+See [Inject section configurations](inject-section) for more details.
+
+#### time_type
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| enum | float   | 0.14.9  |
+
+Overwrite default value in this plugin.
+
+### &lt;extract&gt; section
+
+See [Extract section configurations](extract-section) for more details.
+
+#### time_type
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| enum | float   | 0.14.9  |
+
+Overwrite default value in this plugin.
+
+### &lt;buffer&gt; section
+
+See [Buffer section configurations](buffer-section) for more details.
+
+#### flush_mode
+
+| type | default  | version |
+|:----:|:--------:|:-------:|
+| enum | interval | 0.14.9  |
+
+Overwrite default value in this plugin.
+
+#### flush_interval
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| integer | 1       | 0.14.9  |
+
+Overwrite default value in this plugin.
+
+## Script example
+
+Here is an example writtein in ruby.
+
+    :::ruby
+    require 'json'
+    require 'msgpack'
+
+    begin
+      while line = STDIN.gets # continue to read a event from stdin
+        line.chomp!
+
+        # Input format depends on exec_filter's in_format setting
+        json = JSON.parse(line)
+
+        # main processing. You can do anything, mutate record, access to database and etc.
+        json['new_field'] = "Hey from exec_filter script!"
+
+        # Write data to stdout. Output format depends on exec_filter's out_format setting
+        STDOUT.print MessagePack.pack(json)
+
+        # Call flush to avoid buffering events
+        STDOUT.flush
+      end
+    rescue Interrupt # Ignore Interrupt exception because it happens during exec_filter shutdown
+    end
+
+Corresponding configuration is below:
+
+    :::text
+    <match test.**>
+      @type exec_filter
+      command ruby /path/to/ruby_script.rb
+      tag filtered.exec
+      <format>
+        @type json
+      </format>
+      <parse>
+        @type msgpack
+      </parse>
+      <buffer>
+        flush_interval 10s
+      </buffer>
+    </match>
+
+If you want to use other language, translate above script example into your language.

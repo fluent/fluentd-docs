@@ -1,0 +1,182 @@
+# parser Filter Plugin
+
+The `filter_parser` filter plugin "parses" string field in event records and mutates its event record with parsed result.
+
+## Example Configurations
+
+`filter_parser` is included in Fluentd's core. No installation required.
+
+    :::text
+    <filter foo.bar>
+      @type parser
+      key_name message
+      <parse>
+        @type regexp
+        expression /^(?<host>[^ ]*) [^ ]* (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^ ]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)$/
+        time_format %d/%b/%Y:%H:%M:%S %z
+      </parse>
+    </filter>
+
+`filter_parser` uses built-in parser plugins and your own customized parser plugin, so you can re-use pre-defined format like `apache`, `json` and etc.
+See document page for more details: [Parser Plugin Overview](/articles/parser-plugin-overview)
+
+## Plugin helpers
+
+* [parser](api-plugin-helper-parser)
+* [record_accessor](api-plugin-helper-record_accessor)
+* [compat_parameters](api-plugin-helper-compat_parameters)
+
+## Parameters
+
+[Common Parameters](plugin-common-parameters)
+
+### &lt;parse&gt; section
+
+This is required sub section. Specify parser type and related parameter.
+
+For more details, see [Parse section configurations](parse-section).
+
+### key_name
+
+| type   | default            | version |
+|:------:|:------------------:|:-------:|
+| string | required parameter | 0.14.9  |
+
+Specify field name in the record to parse.
+
+This parameter supports nested field access via [record_accessor syntax](api-plugin-helper-record_accessor#syntax).
+
+### reserve_time
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 0.14.9  |
+
+Keep original event time in parsed result.
+
+### reserve_data
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 0.14.9  |
+
+Keep original key-value pair in parsed result.
+
+    :::text
+    <filter foo.bar>
+      @type parser
+      key_name log
+      reserve_data true
+      <parse>
+        @type json
+      </parse>
+    </filter>
+
+With above configuration, result is below:
+
+    # input data:  {"key":"value","log":"{\"user\":1,\"num\":2}"}
+    # output data: {"key":"value","log":"{\"user\":1,\"num\":2}","user":1,"num":2}
+
+Without `reserve_data`, result is below
+
+    # input data:  {"key":"value","log":"{\"user\":1,\"num\":2}"}
+    # output data: {"user":1,"num":2}
+
+### remove_key_name_field
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 1.2.2   |
+
+Remove `key_name` field when parsing is succeeded.
+
+    :::text
+    <filter foo.bar>
+      @type parser
+      key_name log
+      reserve_data true
+      remove_key_name_field true
+      <parse>
+        @type json
+      </parse>
+    </filter>
+
+With above configuration, result is below:
+
+    # input data:  {"key":"value","log":"{\"user\":1,\"num\":2}"}
+    # output data: {"key":"value","user":1,"num":2}
+
+### replace_invalid_sequence
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 0.14.9  |
+
+If `true`, invalid string is replaced with safe characters and re-parse it.
+
+### inject_key_prefix
+
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | false   | 0.14.9  |
+
+Store parsed values with specified key name prefix.
+
+    :::text
+    <filter foo.bar>
+      @type parser
+      key_name log
+      reserve_data true
+      inject_key_prefix data.
+      <parse>
+        @type json
+      </parse>
+    </filter>
+
+With above configuration, result is below:
+
+    # input data:  {"log": "{\"user\":1,\"num\":2}"}
+    # output data: {"log":"{\"user\":1,\"num\":2}","data.user":1, "data.num":2}
+
+### hash_value_field
+
+| type   | default | version |
+|:------:|:-------:|:-------:|
+| string | false   | 0.14.9  |
+
+Store parsed values as a hash value in a field.
+
+    :::text
+    <filter foo.bar>
+      @type parser
+      key_name log
+      hash_value_field parsed
+      <parse>
+        @type json
+      </parse>
+    </filter>
+
+With above configuration, result is below:
+
+    # input data:  {"log": "{\"user\":1,\"num\":2}"}
+    # output data: {"parsed":{"user":1,"num":2}}
+
+### emit_invalid_record_to_error
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | true    | 0.14.0  |
+
+Emit invalid record to `@ERROR` label. Invalid cases are
+
+- key not exist
+- format is not matched
+- unexpected error
+
+You can rescue unexpected format logs in `@ERROR` label.
+
+NOTE: In v1.0, <code>emit_invalid_record_to_error</code> is <code>true</code> by default unlike v0.12.
+
+## Learn More
+
+- [Filter Plugin Overview](filter-plugin-overview)

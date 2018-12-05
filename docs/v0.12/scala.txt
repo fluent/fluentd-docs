@@ -1,4 +1,4 @@
-# Data Import from Scala Applications
+# Centralize Logs from Scala Applications
 
 The '[fluent-logger-scala](http://github.com/oza/fluent-logger-scala)' library is used to post records from Scala applications to Fluentd.
 

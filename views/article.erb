@@ -1,13 +1,11 @@
 <div id="page">
 <div class="topic_content">
-<% if @current_version != @article_version and @has_default_version %>
-  <h2 style="color:#FF3333;font-style:bold">
-    This page is for <%=@article_version%>, not the latest stable version <%=@current_version%>.
-    For the latest stable version of this article, click <a href="<%=@default_url%>">here</a>.
-  </h2>
-<% end %>
 <article>
-  <!-- <%= erb :languages %> -->
+
+  <div style="text-align:right">
+    <%= erb :versions %>
+  </div>
+
   <hr size="1" style="margin-top: 10px; margin-bottom: 10px; color: rgba(0, 0, 0, .15);">
 
   <hgroup>
@@ -36,30 +34,13 @@
   </div>
   <hr size="1" style="margin-top: 10px; margin-bottom: 10px; color: rgba(0, 0, 0, .15);">
 
-  <%= erb :languages %>
+  <%= erb :versions %>
 
   <hr size="1" style="margin-top: 10px; margin-bottom: 10px; color: rgba(0, 0, 0, .15);">
 
   <p>
-    If this article is incorrect or outdated, or omits critical information, please <a href="https://github.com/fluent/fluentd-docs/issues?state=open">let us know</a>.
+    If this article is incorrect or outdated, or omits critical information, please <a href="https://github.com/fluent/fluentd-docs/issues?state=open">let us know</a>. <a href="http://www.fluentd.org/">Fluentd</a> is a  open source project under <a href="https://cncf.io/">Cloud Native Computing Foundation (CNCF)</a>. All components are available under the Apache 2 License.
   </p>
-
-  <!--
-  <div id="disqus_thread"></div>
-  <script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = 'fluentd-docs'; // required: replace example with your forum shortname
-
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function() {
-      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-  </script>
-  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
-  --> 
 </article>
 
 </div><!-- /#topic_content -->

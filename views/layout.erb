@@ -5,13 +5,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta charset="utf-8">
   <title><%=@title%> | Fluentd</title>
-  <meta name="keywords" content="<%= find_keywords(params[:article], params[:category]).join(',') %>">
   <meta name="description" content="<%= @desc %>">
   <meta name="google-site-verification" content="y_tydIQd6TZaoY-qR9geJSDX95h10_w4CXL6NznjgdI" />
   <meta name="msvalidate.01" content="FA8C6A3FF6ADEE726950F238947D5295" />
   <meta property="fb:admins" content="588883490,100000237607356,741094668" />
-  <meta property="og:image" content="http://fluentd.org/logos/fluentd.png" />
-  <link rel="canonical" href="http://docs.fluentd.org<%= request.fullpath %>" />
+  <meta property="og:image" content="https://docs.fluentd.org/logo/Fluentd_square.png" />
+  <link rel="canonical" href="https://docs.fluentd.org<%= request.fullpath %>" />
   <link href="/favicon.ico" rel="icon" type="image/x-icon">
   <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <%= css :application, :media => 'screen' %>
@@ -36,10 +35,14 @@
   });
   var activeNav = false;
   </script>
-  <script src="//cdn.optimizely.com/js/75134705.js"></script>
-  <!-- Treasure Data -->
+
+  <!-- Swiftype -->
   <script type="text/javascript">
-    !function(t,e){if(void 0===e[t]){e[t]=function(){e[t].clients.push(this),this._init=[Array.prototype.slice.call(arguments)]},e[t].clients=[];for(var r=function(t){return function(){return this["_"+t]=this["_"+t]||[],this["_"+t].push(Array.prototype.slice.call(arguments)),this}},s=["addRecord","set","trackEvent","trackPageview","ready"],n=0;n<s.length;n++){var i=s[n];e[t].prototype[i]=r(i)}var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=("https:"===document.location.protocol?"https:":"http:")+"//s3.amazonaws.com/td-cdn/sdk/td-1.2.0.js";var c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(a,c)}}("Treasure",this);
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+  _st('install','ByEiskaip9Hbrt-jAdTA','2.0.0');
   </script>
 </head>
 <body>
@@ -55,21 +58,16 @@
 
   <div id="wrapper">
     <header id="header">
-      <span class="logo"><a href="http://fluentd.org/">Fluentd</a></span>
-      <div style="float: left; border: solid 0px; padding-left: 5px;
-        padding-top: 25px;">invented by<a
-          href="http://www.fluentd.org/treasuredata"><img
-          src="/images/treasure-data-logo-color.svg" height="30px" /></a></div>
+      <span class="logo"><a href="https://www.fluentd.org/">Fluentd</a></span>
       <div class="top-holder">
         <ul>
-          <li><a href="http://www.fluentd.org/architecture">What is Fluentd?</a></li>
-          <li><a href="http://www.fluentd.org/community">Community</a></li>
-          <li><a href="http://www.fluentd.org/plugins">Plugins</a></li>
-          <li><a href="http://www.treasuredata.com/fluentd_enterprise">Support</a></li>
-          <li><a href="http://www.fluentd.org/download">Download</a></li>
+          <li><a href="https://www.fluentd.org/architecture">What is Fluentd?</a></li>
+          <li><a href="https://www.fluentd.org/community">Community</a></li>
+          <li><a href="https://www.fluentd.org/plugins/all">Plugins</a></li>
+          <li><a href="https://www.fluentd.org/download">Download</a></li>
           <li>
             <span class="social-buttons" style="margin-left:25px;">
-            <iframe src="http://ghbtns.com/github-btn.html?user=fluent&repo=fluentd&type=watch&count=true"
+            <iframe src="https://ghbtns.com/github-btn.html?user=fluent&repo=fluentd&type=watch&count=true"
             allowtransparency="true" frameborder="0" scrolling="0" width="110px"
             height="20px"></iframe>
             </span>
@@ -80,27 +78,15 @@
   </div>
   <div id="sheet">
     <div class="wrapper">
-      <div class="pie-clearfix" id=<% if params.include?("category")%>"<%='category'%>"<% else %>"<%='article'%>"<% end %>>
+      <div class="pie-clearfix" id="<%= @category_name.nil? ? 'article' : 'category' %>">
         <aside id="sidebar">
           <section class="pie-clearfix pie-clearfix-ie" id="search">
             <div id="search">
               <form>
                 <p>
-                  <input id="st-search-input" name="q" placeholder="search" required="required" type="text" style="background-color: white; color: black;" value="<%=h params[:q] || '' %>" />
+                  <input class="st-default-search-input" name="q" type="text" value="<%=h @query_string || '' %>" />
                 </p>
               </form>
-<script type="text/javascript">
-var Swiftype = window.Swiftype || {};
-  (function() {
-    Swiftype.key = 'fxqyKZ6ijDifm8yjw2an';
-
-    /** DO NOT EDIT BELOW THIS LINE **/
-    var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
-    script.src = "//s.swiftypecdn.com/embed.js";
-    var entry = document.getElementsByTagName('script')[0];
-    entry.parentNode.insertBefore(script, entry);
-  }());
-</script>
             </div>
           </section>
           <select id="quicknav">
@@ -108,7 +94,7 @@ var Swiftype = window.Swiftype || {};
             <% sections(@article_version).each do |slug, title, categories| %>
             <optgroup label="<%=title %>">
               <% categories.each do |slug, title, _| %>
-              <option value="/<%=prefix %>categories/<%= slug %>"><%=h title %></option>
+              <option value="<%= link_to "/categories/#{slug}" %>"><%=h title %></option>
               <% end %>
             </optgroup>
             <% end %>
@@ -119,10 +105,10 @@ var Swiftype = window.Swiftype || {};
               <a class="category" href="#"><%= title %></a>
               <ul class="tags">
                 <% categories.each do |slug, title, _| %>
-                <% if (params[:category] == slug) || (find_category(params[:article], @current_lang) == slug) %>
-                <li class="active"><a href="/<%=prefix %>categories/<%= slug %>"><%=h title %></a></li>
+                <% if (@category_name == slug) || (find_category(@article_name, @article_version) == slug) %>
+                <li class="active"><a href="<%= link_to "/categories/#{slug}" %>"><%=h title %></a></li>
                 <% else %>
-                <li><a href="/<%=prefix %>categories/<%= slug %>"><%=h title %></a></li>
+                <li><a href="<%= link_to "/categories/#{slug}" %>"><%=h title %></a></li>
                 <% end %>
                 <% end %>
               </ul>
@@ -130,6 +116,7 @@ var Swiftype = window.Swiftype || {};
             <% end %>
           </ul>
 
+          <!-- Disable PDF link because it doesn't work now.
           <section class="pie-clearfix pie-clearfix-ie">
             <a href='#' target="_blank"><div class="pdf-download" id="pdf-download">Download Docs as PDF</div></a>
           </section>
@@ -141,8 +128,9 @@ var Swiftype = window.Swiftype || {};
               <script>MktoForms2.loadForm("//app-ab04.marketo.com", "714-XIJ-402", 1055);</script>
             </div>
           </div>
+          -->
           <section class="pie-clearfix pie-clearfix-ie">
-            <a href="//www.fluentd.org/newsletter_signup" target="_blank"><div id="newsletter-signup">Subscribe to Newsletters</div></a>
+            <a href="//www.fluentd.org/newsletter" target="_blank"><div id="newsletter-signup">Subscribe to Newsletters</div></a>
           </section>
 
         </aside><!-- /#sidebar -->
@@ -160,16 +148,16 @@ var Swiftype = window.Swiftype || {};
       </div><!-- /#category -->
     </div><!-- /.wrapper -->
     <div id="got-question"
-      style="opacity:0; position:fixed;top:0;left:0;width:280px;height:50px;background-color:#FFFFFF;border:1px solid #FF5F5F">
-      <a href="//www.fluentd.org/newsletter_signup">
+      style="display:none;position:fixed;top:0;left:0;width:280px;height:50px;background-color:#FFFFFF;border:1px solid #FF5F5F;z-index:2;">
+      <a href="//www.fluentd.org/newsletter">
       <div style="margin:8px auto; width:200px; text-align:center;font-size:14px;">
         <span style="color:#ff5f5f">Interested in the Fluentd Newsletters?</span>
       </a>
       </div>
     </div>
     <div id="anchored-stargazer-count"
-      style="opacity:0; position:fixed;top:52px;left:189px;width:110px;height:20px;">
-      <iframe src="http://ghbtns.com/github-btn.html?user=fluent&repo=fluentd&type=watch&count=true"
+      style="display:none;position:fixed;top:52px;left:189px;width:110px;height:20px;">
+      <iframe src="https://ghbtns.com/github-btn.html?user=fluent&repo=fluentd&type=watch&count=true"
             allowtransparency="true" frameborder="0" scrolling="0" width="110px"
             height="20px"></iframe>
     </div>
@@ -178,9 +166,10 @@ var Swiftype = window.Swiftype || {};
   <script>
     $(document).ready(function() {
         $(window).scroll(function() {
-          var link_opacity = window.pageYOffset > 700 ? 1.0 : 0;
-          $('#got-question').css('opacity', link_opacity);
+          var display = window.pageYOffset > 700 ? 'block' : 'none';
+          $('#got-question').css('display', display);
         });
+
         $('#got-question').hover(function(){
           $(this).css('background-color', '#FF5F5F');
           $('#got-question span').css('color', '#FFFFFF');
@@ -190,34 +179,10 @@ var Swiftype = window.Swiftype || {};
         });
 
         $(window).scroll(function() {
-          var link_opacity = window.pageYOffset > 700 ? 1.0 : 0;
-          $('#anchored-stargazer-count').css('opacity', link_opacity);
+          var display = window.pageYOffset > 700 ? 'block' : 'none';
+          $('#anchored-stargazer-count').css('display', display);
         });
     })
-  </script>
-  <script>
-    var td_client = new Treasure({
-      writeKey: "3867/9da79963a7a77270ae75eceb9f35893c56bd6073",
-      database: "fluentd_website"
-    });
-    $("a").click(function(ev) {
-      ev.preventDefault();
-      var node = ev.target;
-
-      while (!node.href && node !== document) {
-        node = node.parentNode;
-      }
-
-      if (!node || $(node).hasClass("search") || node.href === undefined ) return;
-      td_client.trackEvent('anchor_clicks_v1_2_0', {
-        current_host: window.location.hostname,
-        current_path: window.location.pathname,
-        clicked_link_host: node.hostname,
-        clicked_link_path: node.pathname,
-        clicked_link_href: node.href
-      }, function() { window.location = node.href }, function(err) { if (err) console.log(err) } );
-    })
-    td_client.trackPageview('views_docs_v1_2_0', function() {}, function(err) { if (err) console.log(err) });
   </script>
   <%= ::NewRelic::Agent.browser_timing_footer rescue "" %>
 </body>

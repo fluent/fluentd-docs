@@ -11,7 +11,7 @@ This article introduces how to transport sensor data from Raspberry Pi to the cl
 
 <center>
 <div class="btn-look" style="width: 300px;">
-<a href="http://docs.fluentd.org/articles/architecture">What is Fluentd?</a>
+LINK:[What is Fluentd?](/articles/architecture)
 </div>
 </center>
 <br/>
@@ -34,7 +34,7 @@ Next, we'll install Fluentd on Raspbian. Raspbian bundles Ruby 1.9.3 by default,
 We'll now install Fluentd and the necessary plugins.
 
     :::term
-    $ sudo gem install fluentd
+    $ sudo gem install fluentd -v "~> 0.12.0"
     $ sudo fluent-gem install fluent-plugin-td
 
 ## Configure and Launch Fluentd

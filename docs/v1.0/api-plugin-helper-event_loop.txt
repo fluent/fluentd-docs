@@ -1,0 +1,42 @@
+# EventLoop Plugin Helper API
+
+`event_loop` helper managers event loops.
+
+Here is the code example with `event_loop` helper:
+
+    :::ruby
+    require 'fluent/plugin/input'
+    
+    module Fluent::Plugin
+      class ExampleInput < Input
+        Fluent::Plugin.register_input('example', self)
+        
+        # 1. load event_loop_helper
+        helpers :event_loop
+        
+        # omit configure, shutdown and other plugin API
+        
+        def start
+          super
+          
+          # 2. attach watcher
+          watcher = Coolio::TCPServer.new(...)
+          event_loop_attach(watcher)
+        end
+      end
+    end
+
+Attached watcher is managed by the plugin. No need watcher detach code in plugin's `shutdown`. The plugin shutdowns attached watchers automatically.
+
+## Methods
+
+### event\_loop\_attach(watcher)
+
+This method attaches watcher to event loop
+
+- `watcher`: `Coolio::Watcher` instances
+
+## event_loop used plugins
+
+- [HTTP input](in_http)
+- [Tail input](in_tail)

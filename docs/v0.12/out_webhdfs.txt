@@ -37,7 +37,7 @@ Append operations are not enabled by default on CDH. Please put these configurat
       @type webhdfs
       host namenode.your.cluster.local
       port 50070
-      path /path/on/hdfs/access.log.%Y%m%d_%H.${hostname}.log
+      path "/path/on/hdfs/access.log.%Y%m%d_%H.#{Socket.gethostname}.log"
       flush_interval 10s
     </match>
 
@@ -47,7 +47,7 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 
 ## Parameters
 
-### type (required)
+### @type (required)
 The value must be `webhfds`.
 
 ### host (required)
@@ -57,7 +57,7 @@ The namenode hostname.
 The namenode port number.
 
 ### path (required)
-The path on HDFS. Please include ${hostname} in your path to avoid writing into the same HDFS file from multiple Fluentd instances. This conflict could result in data loss.
+The path on HDFS. Please include `"#{Socket.gethostname}"` in your path to avoid writing into the same HDFS file from multiple Fluentd instances. This conflict could result in data loss.
 
 Path value can contain time placeholders (see `time_slice_format` section). If path contains time placeholders, webhdfs output configures `time_slice_format` automatically with these placeholders.
 
@@ -94,7 +94,9 @@ The interval between data flushes. The default is unspecified, and buffer chunks
 The boolean value to specify whether to flush buffer chunks at shutdown time, or not. The default is true. Specify true if you use `memory` buffer type.
 
 ### retry_wait, max_retry_wait
-The initial and maximum intervals between write retries.  The default values are 1.0 and unset (no limit).  The interval doubles (with +/-12.5% randomness) every retry until `max_retry_wait` is reached.  In the default configuration the last retry waits for approximately 131072 sec, roughly 36 hours.
+The initial and maximum intervals between write retries.  The default values are 1.0 and unset (no limit).  The interval doubles (with +/-12.5% randomness) every retry until `max_retry_wait` is reached.
+
+Since td-agent will retry 17 times before giving up by default (see the `retry_limit` parameter for details), the sleep interval can be up to approximately 131072 seconds (roughly 36 hours) in the default configurations.
 
 ### retry_limit, disable_retry_limit
 The limit on the number of retries before buffered data is discarded, and an

@@ -1,0 +1,118 @@
+# multiline Parser Plugin
+
+The `multiline` parser plugin parses multiline logs. This plugin is multiline version of `regexp` parser.
+
+The `multiline` parser parses log with `formatN` and `format_firstline` parameters. 
+`format_firstline` is for detecting start line of multiline log.
+`formatN`, N's range is 1..20, is the list of Regexp format for multiline log.
+
+NOTE: Unlike other parser plugins, this plugin needs special code in input plugin, e.g. handle format_firstline. So currently, in_tail plugin works with `multiline` but other input plugins don't work with `multiline`.
+
+## Parameters
+
+See [Parse section configurations](parse-section)
+
+### format_firstline
+
+Specify regexp pattern for start line of multiple lines. Input plugin can skip the logs until `format_firstline` is matched. Default is `nil`.
+
+If `format_firstline` is not specified, input plugin should store unmatched new lines in temporary buffer and try to match buffered logs with each new line.
+
+### formatN
+
+| type   | default            | version |
+|:------:|:------------------:|:-------:|
+| string | required parameter | 0.14.0  |
+
+Specify regexp patterns. For readability, you can separate regexp patterns into multiple regexpN parameters, See "Rails log" example. These patterns are joined and constructs regexp pattern with multiline mode.
+
+## Example
+
+### Rails log
+
+    :::text
+    <parse>
+      @type multiline
+      format_firstline /^Started/
+      format1 /Started (?<method>[^ ]+) "(?<path>[^"]+)" for (?<host>[^ ]+) at (?<time>[^ ]+ [^ ]+ [^ ]+)\n/
+      format2 /Processing by (?<controller>[^\u0023]+)\u0023(?<controller_method>[^ ]+) as (?<format>[^ ]+?)\n/
+      format3 /(  Parameters: (?<parameters>[^ ]+)\n)?/
+      format4 /  Rendered (?<template>[^ ]+) within (?<layout>.+) \([\d\.]+ms\)\n/
+      format5 /Completed (?<code>[^ ]+) [^ ]+ in (?<runtime>[\d\.]+)ms \(Views: (?<view_runtime>[\d\.]+)ms \| ActiveRecord: (?<ar_runtime>[\d\.]+)ms\)/
+    </parse>
+
+With this configuration:
+
+    :::text
+    Started GET "/users/123/" for 127.0.0.1 at 2013-06-14 12:00:11 +0900
+    Processing by UsersController#show as HTML
+      Parameters: {"user_id"=>"123"}
+      Rendered users/show.html.erb within layouts/application (0.3ms)
+    Completed 200 OK in 4ms (Views: 3.2ms | ActiveRecord: 0.0ms)
+
+This incoming event is parsed as:
+
+    :::text
+    time:
+    1371178811 (2013-06-14 12:00:11 +0900)
+
+    record:
+    {
+      "method"           :"GET",
+      "path"             :"/users/123/",
+      "host"             :"127.0.0.1",
+      "controller"       :"UsersController",
+      "controller_method":"show",
+      "format"           :"HTML",
+      "parameters"       :"{ \"user_id\":\"123\"}",
+      ...
+    }
+
+
+### Java stacktrace log
+
+    :::text
+    <parse>
+      @type multiline
+      format_firstline /\d{4}-\d{1,2}-\d{1,2}/
+      format1 /^(?<time>\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}:\d{1,2}) \[(?<thread>.*)\] (?<level>[^\s]+)(?<message>.*)/
+    </parse>
+
+With this configuration:
+
+    :::text
+    2013-3-03 14:27:33 [main] INFO  Main - Start
+    2013-3-03 14:27:33 [main] ERROR Main - Exception
+    javax.management.RuntimeErrorException: null
+        at Main.main(Main.java:16) ~[bin/:na]
+    2013-3-03 14:27:33 [main] INFO  Main - End
+
+These incoming events are parsed as:
+
+    :::text
+    time:
+    2013-03-03 14:27:33 +0900
+    record:
+    {
+      "thread" :"main",
+      "level"  :"INFO",
+      "message":"  Main - Start"
+    }
+
+    time:
+    2013-03-03 14:27:33 +0900
+    record:
+    {
+      "thread" :"main",
+      "level"  :"ERROR",
+      "message":" Main - Exception\njavax.management.RuntimeErrorException: null\n    at Main.main(Main.java:16) ~[bin/:na]"
+    }
+
+    time:
+    2013-03-03 14:27:33 +0900
+    record:
+    {
+      "thread" :"main",
+      "level"  :"INFO",
+      "message":"  Main - End"
+    }

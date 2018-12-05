@@ -1,0 +1,50 @@
+# Before Installing Fluentd
+
+You MUST set up your environment according to the steps below before installing Fluentd. Failing to do so will be the cause of many unnecessary problems.
+
+## Set Up NTP
+
+It's HIGHLY recommended that you set up NTP daemon (e.g. *<a href="https://chrony.tuxfamily.org/">chrony</a>*, *ntpd*, etc) on the node to have accurate current timestamp. This is crucial for the production-grade logging services.
+
+NOTE: For AWS (Amazon Web Services) users we recommend to use Amazon Time Sync Service, AWS hosted NTP server. Please check <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/set-time.html">AWS EC2: Setting the Time for Your Linux Instance</a>.
+
+## Increase Max # of File Descriptors
+
+Please increase the maximum number of file descriptors. You can check the current number using the `ulimit -n` command.
+
+    :::term
+    $ ulimit -n
+    65535
+
+If your console shows `1024`, it is insufficient. Please add following lines to your `/etc/security/limits.conf` file and reboot your machine.
+
+    :::term
+    root soft nofile 65536
+    root hard nofile 65536
+    * soft nofile 65536
+    * hard nofile 65536
+
+This `65536` is safer value for large deployment. The required number of file descriptors depends on your fluentd plugins and setting. Here are the estimation examples:
+
+- in_tail: The number of watching files
+- in_forward: The number of incoming access
+- buf_file: The number of buffer chunks. It is configured via [buffer parameters](buffer-plugin-overview)
+- output: The used file descriptors are less than others. Temporary file for upload, connection pooling in the client library, etc
+
+## Optimize Network Kernel Parameters
+
+For high load environments consisting of many Fluentd instances, please add these parameters to your `/etc/sysctl.conf` file. Please either type `sysctl -p` or reboot your node to have the changes take effect.
+
+    :::term
+    net.core.somaxconn = 1024
+    net.core.netdev_max_backlog = 5000
+    net.core.rmem_max = 16777216
+    net.core.wmem_max = 16777216
+    net.ipv4.tcp_wmem = 4096 12582912 16777216
+    net.ipv4.tcp_rmem = 4096 12582912 16777216
+    net.ipv4.tcp_max_syn_backlog = 8096
+    net.ipv4.tcp_slow_start_after_idle = 0
+    net.ipv4.tcp_tw_reuse = 1
+    net.ipv4.ip_local_port_range = 10240 65535
+
+These kernel options were originally taken from the presentation "<a href="https://www.slideshare.net/brendangregg/how-netflix-tunes-ec2-instances-for-performance">How Netflix Tunes EC2 Instances for Performance</a>" by <a href="http://www.brendangregg.com/">Brendan Gregg</a>, Senior Performance Architect at AWS re:Invent 2017.

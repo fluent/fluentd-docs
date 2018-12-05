@@ -93,7 +93,7 @@ Then, after 5 seconds, you get a file named `foobar.out`.
 
 ## Parameters
 
-### type (required)
+### @type (required)
 The value must be `exec`.
 
 ### command (required)

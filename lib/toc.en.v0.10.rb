@@ -71,12 +71,12 @@ section 'usecases', 'Use Cases' do
   end
 end
 section 'configuration', 'Configuration' do
-  category 'config-file', 'Config File' do
-    article 'config-file', 'Config File'
+  category 'config-file', 'Config File Syntax' do
+    article 'config-file', 'Config File Syntax'
   end
   category 'recipes', 'Recipes' do
     article "common-log-formats", "Parsing Common Log Formats"
-    for recipe in Dir.entries("#{settings.root}/docs").grep(/^recipe-/)
+    for recipe in Dir.entries("#{base_directory}/docs/v0.10").grep(/^recipe-/)
       recipe.chomp!(".txt")
       article recipe, (recipe.split("-").map {|w|
         if /json|csv|tsv/.match(w)

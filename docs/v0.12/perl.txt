@@ -1,4 +1,4 @@
-# Data Import from Perl Applications
+# Centralize Logs from Perl Applications
 
 The '[Fluent::Logger](http://github.com/fluent/fluent-logger-perl)' library is used to post records from Perl applications to Fluentd.
 

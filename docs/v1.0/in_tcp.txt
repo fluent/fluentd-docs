@@ -1,0 +1,110 @@
+# TCP Input Plugin
+
+The `in_tcp` Input plugin enables Fluentd to accept TCP payload.
+
+Don't use this plugin for receiving logs from client libraries. Use `in_forward` for such cases.
+
+## Example Configuration
+
+`in_tcp` is included in Fluentd's core. No additional installation process is required.
+
+    :::text
+    <source>
+      @type tcp
+      tag tcp.events # required
+      <parse>
+        @type regexp
+        expression /^(?<field1>\d+):(?<field2>\w+)$/
+      </parse>
+      port 20001   # optional. 5170 by default
+      bind 0.0.0.0 # optional. 0.0.0.0 by default
+      delimiter \n # optional. \n (newline) by default
+    </source>
+
+Example input:
+
+    :::term
+    $ echo '123456:awesome' | netcat 0.0.0.0 5170
+
+Parsed result like below:
+
+    :::text
+    {"field1":"123456","field2":"awesome}
+
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file. For &lt;parse&gt; section, please check <a href="parse-section">Parse section cofiguration</a>.
+
+NOTE: We've observed the drastic performance improvements on Linux, with proper kernel parameter settings. If you have high-volume TCP traffic, please make sure to follow the instruction described at <a href="before-install">Before Installing Fluentd</a>.
+
+## Plugin helpers
+
+* [server](api-plugin-helper-server)
+* [parser](api-plugin-helper-parser)
+* [extract](api-plugin-helper-extract)
+* [compat_parameters](api-plugin-helper-compat_parameters)
+
+## Parameters
+
+[Common Parameters](plugin-common-parameters)
+
+### @type
+
+The value must be `tcp`.
+
+### tag
+
+| type   | default            | version |
+|:------:|:------------------:|:-------:|
+| string | required parameter | 0.14.0  |
+
+tag of output events.
+
+### port
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| integer | 5170    | 0.14.0  |
+
+The port to listen to.
+
+### bind
+
+| type   | default                 | version |
+|:------:|:-----------------------:|:-------:|
+| string | 0.0.0.0 (all addresses) | 0.14.0  |
+
+The bind address to listen to.
+
+### source_hostname_key
+
+| type   | default                  | version |
+|:------:|:------------------------:|:-------:|
+| string | nil (no adding hostname) | 0.14.10 |
+
+The field name of the client's hostname. If set the value, the client's hostname will be set to its key. The default is nil (no adding hostname).
+
+If you set following configuration:
+
+    :::text
+    source_hostname_key client_host
+
+then the client's hostname is set to `client_host` field.
+
+    :::text
+    {
+        ...
+        "foo": "bar",
+        "client_host": "client.hostname.org"
+    }
+
+### &lt;parse&gt; section
+
+| required | multi | version |
+|:--------:|:-----:|:-------:|
+| true     | false | 0.14.10 |
+
+`in_tcp` uses parser plugin to parse the payload.
+
+For more details about parser plugin, see followings:
+
+* [Parser Plugin Overview](parser-plugin-overview)
+* [Parse section configurations](parse-section)

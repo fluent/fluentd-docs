@@ -4,14 +4,14 @@ The `in_scribe` Input plugin enables Fluentd to retrieve records through the Scr
 
 Since Scribe hasn't been well maintained recently, this plugin is useful for existing Scribe users who want to use Fluentd with an existing Scribe infrastructure.
 
-### Install
+## Install
 
 `in_scribe` is included in td-agent by default. Fluentd gem users will need to install the fluent-plugin-scribe gem using the following command.
 
     :::term
     $ fluent-gem install fluent-plugin-scribe
 
-### Example Configuration
+## Example Configuration
 
     :::text
     <source>
@@ -24,13 +24,13 @@ Since Scribe hasn't been well maintained recently, this plugin is useful for exi
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
-#### Example Usage
+### Example Usage
 
 We assume that you're already familiar with the Scribe protocol. This [Ruby example code](https://github.com/fluent/fluent-plugin-scribe/blob/master/bin/fluent-scribe-remote) posts logs to `in_scribe`.
 
 Scribe's `category` field becomes the `tag` of the Fluentd event log and Scribe's `message` field becomes the record itself. The `msg_format` parameter specifies the format of the `message` field.
 
-### Parameters
+## Parameters
 
 #### type (required)
 The value must be `scribe`.

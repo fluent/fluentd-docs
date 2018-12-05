@@ -1,0 +1,67 @@
+# Thread Plugin Helper API
+
+`thread` helper manages threads and these threads are integrated with plugins. No need manual run / shutdown in the plugin.
+
+Here is the code example with `thread` helper:
+
+    :::ruby
+    require 'fluent/plugin/output'
+
+    module Fluent::Plugin
+      class ExampleOutput < Output
+        Fluent::Plugin.register_output('example', self)
+
+        # 1. load thread helper
+        helpers :thread
+
+        # omit configure, shutdown and other plugin API
+
+        def start
+          super
+
+          # 2. create and run thread with unique name.
+          thread_create(:example_thread_run, &method(:run))
+        end
+
+        def run
+          # ...
+        end
+      end
+    end
+
+Launched thread is managed by the plugin. No need thread shutdown code in plugin's `shutdown`. The plugin shutdowns launched threads automatically.
+
+## Methods
+
+### thread_create(title)
+
+This method creats thread and run thread with given routine. `title` must be unique.
+
+    :::ruby
+    # Pass block directly
+    thread_create(:example_plugin_main) {
+      # ...
+    }
+
+    # Pass method object with existing method
+    thread_create(:foo_plugin_body, &method(:run))
+    def run
+      # ...
+    end
+
+### thread_current_running?
+
+Check current thread is running or not. This method is available in running block.
+
+    :::ruby
+    thread_create(:example_plugin_main) {
+      while thread_current_running?
+        # ...
+      end
+    }
+
+## thread used plugins
+
+- [Forward output](out_forward)
+- [Monitor Agent input](in_monitor_agent)
+- [Dummy input](in_dummy)

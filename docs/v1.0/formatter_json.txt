@@ -1,0 +1,35 @@
+# json Formatter Plugin
+
+The `json` formatter plugin converts an event to json.
+
+By default, `json` formatter result doesn't contain `tag` and `time` field.
+
+## Parameters
+
+* [Common Parameters](plugin-common-parameters)
+* [Format section configurations](format-section)
+
+### add_newline
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | true    | 0.14.12 |
+
+Add `\n` to the result.
+
+## Example
+
+    :::text
+    tag:    app.event
+    time:   1362020400
+    record: {"host":"192.168.0.1","size":777,"method":"PUT"}
+
+This incoming event is formatted to:
+
+    :::text
+    {"host":"192.168.0.1","size":777,"method":"PUT"}
+
+With `include_tag_key true` and `tag_key event_tag`, result is:
+
+    :::text
+    {"host":"192.168.0.1","size":777,"method":"PUT","event_tag":"app.event"}

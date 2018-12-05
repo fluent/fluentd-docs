@@ -6,6 +6,7 @@ section 'overview', 'Overview' do
   end
   category 'installation', 'Installation' do
     article 'before-install', 'Before Installing Fluentd'
+    article 'install-by-docker', 'Installing Fluentd with Docker'
     article 'install-by-rpm', 'Installing Fluentd using RPM Package (Redhat Linux)'
     article 'install-by-deb', 'Installing Fluentd using DEB Package (Debian / Ubuntu Linux)'
     article 'install-by-dmg', 'Installing Fluentd using .dmg Package (MacOS X)'
@@ -14,6 +15,9 @@ section 'overview', 'Overview' do
     article 'install-from-source', 'Installing Fluentd from Source'
     article 'install-on-heroku', 'Installing Fluentd on Heroku'
     article 'install-on-beanstalk', 'Installing Fluentd on AWS Elastic Beanstalk'
+  end
+  category 'life-of-a-fluentd-event', 'Life of a Fluentd event' do
+    article 'life-of-a-fluentd-event', 'Life of a Fluentd event'
   end
   category 'support', 'Support' do
     article 'support', 'Support'
@@ -24,59 +28,50 @@ section 'overview', 'Overview' do
 end
 section 'usecases', 'Use Cases' do
   category 'logging-from-apps', 'Centralized App Logging' do
-    article 'ruby',   'Import Logs from Ruby Applications'
-    article 'python', 'Import Logs from Python Applications'
-    article 'php',    'Import Logs from PHP Applications'
-    article 'perl',   'Import Logs from Perl Applications'
-    article 'nodejs', 'Import Logs from Node.js Applications'
-    article 'java',   'Import Logs from Java Applications'
-    article 'scala',   'Import Logs from Scala Applications'
+    article 'java',   'Centralize Logs from Java Applications'
+    article 'ruby',   'Centralize Logs from Ruby Applications'
+    article 'python', 'Centralize Logs from Python Applications'
+    article 'php',    'Centralize Logs from PHP Applications'
+    article 'perl',   'Centralize Logs from Perl Applications'
+    article 'nodejs', 'Centralize Logs from Node.js Applications'
+    article 'scala',   'Centralize Logs from Scala Applications'
   end
-  category 'free-alternative-to-splunk-by-fluentd', 'Log Management & Search' do
-    article 'free-alternative-to-splunk-by-fluentd', 'Log Data Search', ['Splunk', 'Free Alternative']
-  end
-  category 'secure-log-forwarding', 'Secure Log Forwarding' do
-    article 'forwarding-over-ssl', 'SSL-Enabled Transport', ['Security', 'SSL']
-  end
-  category 'log-filtering-and-alerting', 'Log Filtering and Alerting' do
-    article 'filter-modify-apache', 'Filter and Modify Data (Apache example)'
+  category 'monitoring-service-logs', 'Monitoring Service Logs' do
+    article 'free-alternative-to-splunk-by-fluentd', 'Free Alternative to Splunk by Fluentd + Elasticsearch', ['Splunk', 'Free Alternative']
     article 'splunk-like-grep-and-alert-email', 'Email Alerts like Splunk', ['Splunk', 'Alerting']
   end
-  category 'http-to-td', 'Big Data Analytics' do
+  category 'data-analytics', 'Data Analytics' do
     article 'http-to-td', 'Data Analytics with Treasure Data', ['Treasure Data', 'Hadoop', 'Hive']
+    article 'http-to-hdfs', 'Data Collection to Hadoop (HDFS)', ['Hadoop', 'HDFS']
   end
-  category 'apache-to-s3', 'Data Archiving to S3' do
+  category 'data-archiving', 'Connecting to Data Storages' do
     article 'apache-to-s3', 'Store Apache Logs into Amazon S3', ['Amazon S3']
-  end
-  category 'apache-to-mongo', 'Data Collection to Mongo' do
     article 'apache-to-mongodb', 'Store Apache Logs into MongoDB', ['MongoDB']
-  end
-  category 'http-to-hdfs', 'Data Collection to HDFS' do
-    article 'http-to-hdfs', 'Data Collection to HDFS', ['Hadoop', 'HDFS']
-  end
-  category 'apache-to-riak', 'Data Collection to Riak' do
     article 'apache-to-riak', 'Store Apache Logs into Riak', ['Riak']
+    article 'collect-glusterfs-logs', 'Collecting GlusterFS Logs', ['GlusterFS']
+  end
+  category 'stream-processing', 'Stream Processing' do
+    article 'filter-modify-apache', 'Easy Data Stream Manipulation using Fluentd'
+    article 'kinesis-stream', 'Stream Data Collection to Kinesis Stream', ['kinesis', 'amazon kinesis', 'aws kinesis']
+    article 'cep-norikra', 'Fluentd and Norikra: Complex Event Processing', ['cep-norikra']
   end
   category 'windows', 'Windows Event Collection' do
     article 'windows', 'Windows Event Collection'
   end
-  category 'cloud-data-logger', 'RapsberryPi Data Logger' do
+  category 'iot', 'IoT Data Logger' do
     article 'raspberrypi-cloud-data-logger', 'Raspberry Pi Cloud Data Logger', ['Raspberry Pi', 'Data Logger', 'Data Acquisition']
-  end
-  category 'GlusterFS', 'GlusterFS' do
-    article 'collect-glusterfs-logs', 'Collecting GlusterFS Logs', ['GlusterFS']
-  end
-  category 'cep-norikra', 'Fluentd and Norikra' do
-    article 'cep-norikra', 'Fluentd and Norikra: Complex Event Processing', ['cep-norikra']
   end
 end
 section 'configuration', 'Configuration' do
-  category 'config-file', 'Config File' do
-    article 'config-file', 'Config File'
+  category 'config-file', 'Config File Syntax' do
+    article 'config-file', 'Config File Syntax'
+  end
+  category 'routing-examples', 'Routing Examples' do
+    article 'routing-examples', 'Routing Examples'
   end
   category 'recipes', 'Recipes' do
     article "common-log-formats", "Parsing Common Log Formats"
-    for recipe in Dir.entries("#{settings.root}/docs").grep(/^recipe-/)
+    for recipe in Dir.entries("#{base_directory}/docs/v0.12").grep(/^recipe-/)
       recipe.chomp!(".txt")
       article recipe, (recipe.split("-").map {|w|
         if /json|csv|tsv/.match(w)
@@ -93,7 +88,9 @@ section 'deployment', 'Deployment' do
     article 'logging', 'Logging'
   end
   category 'monitoring', 'Monitoring' do
-    article 'monitoring', 'Monitoring'
+    article 'monitoring', 'Monitoring Overview'
+    article 'monitoring-prometheus', 'Monitoring (Prometheus)'
+    article 'monitoring-rest-api', 'Monitoring (REST API)'
   end
   category 'signals', 'Signals' do
     article 'signals', 'Signal Handling', ['Signals']
@@ -108,7 +105,8 @@ section 'deployment', 'Deployment' do
     article 'failure-scenarios', 'Failure Scenarios'
   end
   category 'performance-tuning', 'Performance Tuning' do
-    article 'performance-tuning', 'Performance Tuning'
+    article 'performance-tuning-single-process', 'Performance Tuning (Single Process)'
+    article 'performance-tuning-multi-process', 'Performance Tuning (Multi Process)'
   end
   category 'plugin-management', 'Plugin Management' do
     article 'plugin-management', 'Plugin Management'
@@ -116,22 +114,36 @@ section 'deployment', 'Deployment' do
   category 'trouble-shooting', 'Trouble Shooting' do
     article 'trouble-shooting', 'Trouble Shooting'
   end
+  category 'secure-forwarder', 'Secure Forwarding' do
+    article 'forwarding-over-ssl', 'SSL-Enabled Transport', ['Security', 'SSL']
+  end
   category 'fluentd-ui', 'Fluentd UI' do
     article 'fluentd-ui', 'Fluentd UI'
   end
   category 'command-line-option', 'Command Line Option' do
-    article 'command-line-option', 'Fluentd command line option'
+    article 'command-line-option', 'Fluentd commands and options'
+  end
+end
+section 'continer-deployment', 'Container Deployment' do
+  category 'install-by-docker', 'Docker Image' do
+    article 'install-by-docker', 'Installing Fluentd with Docker'
+  end
+  category 'docker-logging-driver', 'Docker Logging Driver' do
+    article 'docker-logging', 'Docker Logging Driver and Fluentd'
+  end
+  category 'docker-compose', 'Docker Compose' do
+    article 'docker-logging-efk-compose', 'Collect Docker Logs via EFK (Elasticsearch + Fluentd + Kibana) with Docker Compose'
+  end
+  category 'kubernetes', 'Kubernetes' do
+    article 'kubernetes-fluentd', 'Kubernetes Logging with Fluentd'
   end
 end
 section 'plugin', 'Input Plugins' do
   category 'input-plugin-overview', 'Overview' do
     article 'input-plugin-overview', 'Input Plugin Overview'
   end
-  category 'in_udp', 'in_udp' do
-    article 'in_udp', 'UDP Input Plugin'
-  end
-  category 'in_tcp', 'in_tcp' do
-    article 'in_tcp', 'TCP Input Plugin'
+  category 'in_tail', 'in_tail' do
+    article 'in_tail', 'tail Input Plugin'
   end
   category 'in_forward', 'in_forward' do
     article 'in_forward', 'forward Input Plugin'
@@ -139,20 +151,23 @@ section 'plugin', 'Input Plugins' do
   category 'in_secure_forward', 'in_secure_forward' do
     article 'in_secure_forward', 'secure_forward Intput Plugin', ['SSL', 'authentication']
   end
+  category 'in_udp', 'in_udp' do
+    article 'in_udp', 'UDP Input Plugin'
+  end
+  category 'in_tcp', 'in_tcp' do
+    article 'in_tcp', 'TCP Input Plugin'
+  end
   category 'in_http', 'in_http' do
     article 'in_http', 'http Input Plugin'
   end
   category 'in_unix', 'in_unix' do
     article 'in_unix', 'UDS Input Plugin'
   end
-  category 'in_tail', 'in_tail' do
-    article 'in_tail', 'tail Input Plugin'
+  category 'in_syslog', 'in_syslog' do
+    article 'in_syslog', 'syslog Input Plugin', ['Syslog']
   end
   category 'in_exec', 'in_exec' do
     article 'in_exec', 'exec Input Plugin'
-  end
-  category 'in_syslog', 'in_syslog' do
-    article 'in_syslog', 'syslog Input Plugin', ['Syslog']
   end
   category 'in_scribe', 'in_scribe' do
     article 'in_scribe', 'scribe Input Plugin', ['Scribe', 'Facebook']
@@ -173,6 +188,12 @@ section 'output-plugins', 'Output Plugins' do
   end
   category 'out_file', 'out_file' do
     article 'out_file', 'file Output Plugin'
+  end
+  category 'out_s3', 'out_s3' do
+    article 'out_s3', 'S3 Output Plugin', ['Amazon S3', 'AWS', 'Simple Storage Service']
+  end
+  category 'out_kafka', 'out_kafka' do
+    article 'out_kafka', 'Kafka Output Plugin'
   end
   category 'out_forward', 'out_forward' do
     article 'out_forward', 'forward Output Plugin'
@@ -201,8 +222,11 @@ section 'output-plugins', 'Output Plugins' do
   category 'out_null', 'out_null' do
     article 'out_null', 'null Output Plugin'
   end
-  category 'out_s3', 'out_s3' do
-    article 'out_s3', 'S3 Output Plugin', ['Amazon S3', 'AWS', 'Simple Storage Service']
+  category 'out_webhdfs', 'out_webhdfs' do
+    article 'out_webhdfs', 'WebHDFS Output Plugin', ['Hadoop', 'HDFS']
+  end
+  category 'out_splunk', 'out_splunk' do
+    article 'out_splunk', 'Splunk Output Plugin Overview'
   end
   category 'out_mongo', 'out_mongo' do
     article 'out_mongo', 'MongoDB Output Plugin', ['MongoDB']
@@ -215,9 +239,6 @@ section 'output-plugins', 'Output Plugins' do
   end
   category 'out_rewrite_tag_filter', 'out_rewrite_tag_filter' do
     article 'out_rewrite_tag_filter', 'rewrite_tag_filter Output Plugin'
-  end
-  category 'out_webhdfs', 'out_webhdfs' do
-    article 'out_webhdfs', 'WebHDFS Output Plugin', ['Hadoop', 'HDFS']
   end
   category 'out_others', 'Others' do
     article 'out_others', 'Other Output Plugins'
@@ -244,6 +265,9 @@ section 'filter-plugins', 'Filter Plugins' do
   category 'filter_grep', 'filter_grep' do
     article 'filter_grep', 'grep Filter Plugin'
   end
+  category 'filter_parser', 'filter_parser' do
+    article 'filter_parser', 'parser Filter Plugin'
+  end
   category 'filter_stdout', 'filter_stdout' do
     article 'filter_stdout', 'stdout Filter Plugin'
   end
@@ -252,18 +276,70 @@ section 'parser-plugins', 'Parser Plugins' do
   category 'parser-plugin-overview', 'Overview' do
     article 'parser-plugin-overview', 'Parser Plugin Overview'
   end
+  category 'parser_regexp', 'parser_regexp' do
+    article 'parser_regexp', 'regexp Parser Plugin'
+  end
+  category 'parser_apache2', 'parser_apache2' do
+    article 'parser_apache2', 'apache2 Parser Plugin'
+  end
+  category 'parser_apache_error', 'parser_apache_error' do
+    article 'parser_apache_error', 'apache_error Parser Plugin'
+  end
+  category 'parser_nginx', 'parser_nginx' do
+    article 'parser_nginx', 'nginx Parser Plugin'
+  end
+  category 'parser_syslog', 'parser_syslog' do
+    article 'parser_syslog', 'syslog Parser Plugin'
+  end
+  category 'parser_ltsv', 'parser_ltsv' do
+    article 'parser_ltsv', 'LTSV Parser Plugin'
+  end
+  category 'parser_csv', 'parser_csv' do
+    article 'parser_csv', 'CSV Parser Plugin'
+  end
+  category 'parser_tsv', 'parser_tsv' do
+    article 'parser_tsv', 'TSV Parser Plugin'
+  end
+  category 'parser_json', 'parser_json' do
+    article 'parser_json', 'json Parser Plugin'
+  end
+  category 'parser_multiline', 'parser_multiline' do
+    article 'parser_multiline', 'multiline Parser Plugin'
+  end
+  category 'parser_none', 'parser_none' do
+    article 'parser_none', 'none Parser Plugin'
+  end
+
 end
 section 'formatter-plugins', 'Formatter Plugins' do
   category 'formatter-plugin-overview', 'Overview' do
     article 'formatter-plugin-overview', 'Formatter Plugin Overview'
   end
+  category 'formatter_out_file', 'formatter_out_file' do
+    article 'formatter_out_file', 'out_file Formatter Plugin'
+  end
+  category 'formatter_json', 'formatter_json' do
+    article 'formatter_json', 'json Formatter Plugin'
+  end
+  category 'formatter_ltsv', 'formatter_ltsv' do
+    article 'formatter_ltsv', 'ltsv Formatter Plugin'
+  end
+  category 'formatter_csv', 'formatter_csv' do
+    article 'formatter_csv', 'csv Formatter Plugin'
+  end
+  category 'formatter_msgpack', 'formatter_msgpack' do
+    article 'formatter_msgpack', 'msgpack Formatter Plugin'
+  end
+  category 'formatter_hash', 'formatter_hash' do
+    article 'formatter_hash', 'hash Formatter Plugin'
+  end
+  category 'formatter_single_value', 'formatter_single_value' do
+    article 'formatter_single_value', 'single_value Formatter Plugin'
+  end
 end
 section 'developer', 'Developer' do
   category 'plugin-development', 'Plugin Development' do
     article 'plugin-development', 'Plugin Development'
-  end
-  category 'life-of-a-fluentd-event', 'Life of a Fluentd Event' do
-    article 'life-of-a-fluentd-event', 'Life of a Fluentd Event'
   end
   category 'community', 'Community' do
     article 'community', 'Community'

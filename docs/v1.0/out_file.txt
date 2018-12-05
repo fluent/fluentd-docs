@@ -1,0 +1,160 @@
+# file Output Plugin
+
+The `out_file` Output plugin writes events to files. By default, it creates files on a daily basis (around 00:10). This means that when you first import records using the plugin, no file is created immediately.
+
+The file will be created when the `timekey` condition has been met. To change the output frequency, please modify the `timekey` value.
+
+## Example Configuration
+
+`out_file` is included in Fluentd's core. No additional installation process is required.
+
+    :::text
+    <match pattern>
+      @type file
+      path /var/log/fluent/myapp
+      compress gzip
+      <buffer>
+        timekey 1d
+        timekey_use_utc true
+        timekey_wait 10m
+      </buffer>
+    </match>
+
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file. For &lt;buffer&gt; section, please check <a href="buffer-section">Buffer section cofiguration</a>.
+
+## Plugin helpers
+
+* [formatter](api-plugin-helper-formatter)
+* [inject](api-plugin-helper-inject)
+* [compat_parameters](api-plugin-helper-compat_parameters)
+
+## Parameters
+
+[Common Parameters](plugin-common-parameters)
+
+### @type (required)
+The value must be `file`.
+
+### path
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| string | required parameter | 0.14.0  |
+
+The Path of the file. The actual path is path + time + ".log" by default.<br />
+The `path` parameter supports placeholders, so you can embed time, tag and record fields in the path. Here is an example:
+
+    :::text
+    path /path/to/${tag}/${key1}/file.%Y%m%d
+    <buffer tag,time,key1>
+      # buffer parameters
+    </buffer>
+
+See [Buffer section configurations](http://docs.fluentd.org/v0.14/articles/buffer-section) for more detail.
+
+The `path` parameter is used as `<buffer>`'s `path` in this plugin.
+
+NOTE: Initially, you may see a file which looks like "/path/to/file.%Y%m%d/buffer.b5692238db04045286097f56f361028db.log". This is an intermediate buffer file ("b5692238db04045286097f56f361028db" identifies the buffer). Once the content of the buffer has been completely <a href="buf_file">flushed</a>, you will see the output file without the trailing identifier.
+
+### append
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| bool | false | 0.14.0  |
+
+The flushed chunk is appended to existence file or not. The default is not appended.
+By default, out_file flushes each chunk to different path.
+
+    :::text
+    # append false
+    file.20140608.log_0
+    file.20140608.log_1
+    file.20140609.log_0
+    file.20140609.log_1
+
+This makes parallel file processing easy. But if you want to disable this behaviour,
+you can disable it by setting `append true`.
+
+    :::text
+    # append true
+    file.20140608.log
+    file.20140609.log
+
+### &lt;format&gt; directive
+The format of the file content. The default `@type` is `out_file`.
+
+Here is json example:
+
+    :::text
+    <format>
+      @type json
+    </format>
+
+See [formatter article](formatter-plugin-overview) for more detail.
+
+### format
+Deprecated parameter. Use `<format>` instead.
+
+### utc
+Deprecated parameter. Use `timekey_use_utc` in `<buffer>` instead.
+
+### add_path_suffix
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | true | 0.14.9 |
+
+Add path suffix or not. See also `path_suffix` parameter.
+
+### path_suffix
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| string | ".log" | 0.14.9 |
+
+The suffix of output result.
+
+### compress
+Compresses flushed files using `gzip`. No compression is performed by default.
+
+### recompress
+Execute compression again even when buffer chunk is already compressed. Default is `false`
+
+### symlink_path
+
+Create symlink to temporary buffered file when `buffer_type` is `file`. No symlink is created by default.
+This is useful for tailing file content to check logs.
+
+This is disabled on Windows.
+
+INCLUDE: _log_level_params
+
+## Common Output / Buffer parameters
+
+For common output / buffer parameters, please check the following articles.
+
+* [Output Plugin Overview](output-plugin-overview)
+* [Buffer Section Configuration](buffer-section)
+
+## FAQ
+
+### I can see files but placeholders are not replaced, why?
+
+You see intermediate buffer file, not output result. The placeholders are replaced during flush buffers.
+For example, if you have this setting:
+
+    :::text
+    path /path/to/file.${tag}.%Y%m%d
+
+You see following buffer files first:
+
+    :::text
+    /path/to/file.${tag}.%Y%m%d/buffer.b5692238db04045286097f56f361028db.log
+    /path/to/file.${tag}.%Y%m%d/buffer.b5692238db04045286097f56f361028db.log.meta
+
+After flushed, you see actual output result
+
+    :::text
+    /path/to/file.test.20180405.log_0 # tag is 'test'
+
+See also note in `path` parameter.

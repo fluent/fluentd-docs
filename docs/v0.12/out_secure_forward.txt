@@ -29,12 +29,12 @@ At first, generate private CA file on side of input plugin by `secure-forward-ca
       </server>
     </match>
 
-NOTE: Without hostname ACL (not yet implemented), `self_hostname` is not checked in any state. The `${hostname}` placeholder is available for such cases.
+NOTE: Without hostname ACL (not yet implemented), `self_hostname` is not checked in any state. The `"#{Socket.gethostname}"` placeholder is available for such cases.
 
     <match secret.data.**>
       @type secure_forward
       shared_key secret_string
-      self_hostname ${hostname}
+      self_hostname "#{Socket.gethostname}"
       secure true
       ca_cert_path /path/to/certificate/ca_cert.pem
       
@@ -317,43 +317,43 @@ Example to send and receive several different kinds of logs (format is set to no
 
 ## Parameters
 
-#### type
+### @type
 This parameter is required. Its value must be `secure_forward`.
 
-#### port (integer)
+### port (integer)
 The default value is 24284.
 
-#### bind (string)
+### bind (string)
 The default value is 0.0.0.0.
 
-#### secure (bool)
+### secure (bool)
 Indicate published connection is secure or not. Specify `yes` (or `true`) if secure encryption needed.
 
-#### ca_cert_path (string)
+### ca_cert_path (string)
 The file path of private CA certificate file. This file must be shared with input plugin. The default is blank, but this parameter must be specified except for the case to use certificates signed by public CA.
 
-#### self_hostname (string)
+### self_hostname (string)
 Default value of the auto-generated certificate common name (CN).
 
-#### shared_key (string)
-Optional shared key.
+### shared_key (string)
+Shared key between nodes..
 
-#### keepalive (time)
+### keepalive (time)
 The duration for keepalive. If this parameter is not specified, keepalive is disabled.
 
-#### send_timeout (time)
+### send_timeout (time)
 The send timeout value for sockets. The default value is 60 seconds.
 
-#### reconnect_interval (time)
+### reconnect_interval (time)
 The interval between SSL reconnects. The default value is 5 seconds.
 
-#### read_length (integer)
+### read_length (integer)
 The number of bytes read per nonblocking read. The default value is 8MB=8*1024*1024 bytes.
 
-#### read_interval_msec (integer)
+### read_interval_msec (integer)
 The interval between the non-blocking reads, in milliseconds. The default value is 50.
 
-#### socket_interval_msec (integer)
+### socket_interval_msec (integer)
 The interval between SSL reconnects in milliseconds. The default value is 200.
 
 

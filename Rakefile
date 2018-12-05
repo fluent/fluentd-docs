@@ -4,7 +4,6 @@ Bundler.setup
 
 $LOAD_PATH << File.dirname(__FILE__) + '/lib'
 require 'article'
-require 'indextank'
 require 'rake/testtask'
 
 desc 'start a development server'
@@ -33,26 +32,6 @@ task :test do
   end
 end
 
-desc 'index documentation'
-task :index do
-  puts "indexing now:"
-  client = IndexTank::Client.new(ENV['SEARCHIFY_API_URL'])
-  index = client.indexes('td-docs')
-  index.add unless index.exists?
-
-  docs = FileList['docs/*.txt']
-  docs.each do |doc|
-    name = File.basename(doc, '.txt')
-    puts "...indexing #{name}"
-    source = File.read(doc)
-    topic = Article.load(name, source)
-    topic.text_only
-    result = indextank_document = index.document(name).add(:title => topic.title, :text => topic.body)
-    puts "=> #{result}"
-  end
-  puts "finished indexing"
-end
-
 def parse_docs_path(file)
   lang, name = file['docs/'.size..-1].split('/', 2)
   if name.nil?
@@ -70,15 +49,10 @@ task :last_updated do
 
   last_updates = {}
   `git ls-files docs`.split("\n").each { |file|
-    lang, name = file['docs/'.size..-1].split('/', 2)
-    if name.nil?
-      name = lang
-      lang = 'en'
-    end
-
+    ver, name = file['docs/'.size..-1].split('/', 2)
     path = Pathname.new(file).realpath.to_s
-    last_updates[lang] ||= {}
-    last_updates[lang][File.basename(name, ".txt")] = Time.at((`git log --pretty=%ct --max-count=1 #{path}`.strip).to_i).utc
+    last_updates[ver] ||= {}
+    last_updates[ver][File.basename(name, ".txt")] = Time.at((`git log --pretty=%ct --max-count=1 #{path}`.strip).to_i).utc
   }
 
   File.write("./config/last_updated.json", JSON.pretty_generate(last_updates))

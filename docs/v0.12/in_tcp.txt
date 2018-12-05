@@ -2,7 +2,9 @@
 
 The `in_tcp` Input plugin enables Fluentd to accept TCP payload.
 
-### Example Configuration
+Don't use this plugin for receiving logs from client libraries. Use `in_forward` for such cases.
+
+## Example Configuration
 
 `in_tcp` is included in Fluentd's core. No additional installation process is required.
 
@@ -18,32 +20,45 @@ The `in_tcp` Input plugin enables Fluentd to accept TCP payload.
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
-### Parameters
+NOTE: We've observed the drastic performance improvements on Linux, with proper kernel parameter settings. If you have high-volume TCP traffic, please make sure to follow the instruction described at <a href="before-install">Before Installing Fluentd</a>.
 
-#### type (required)
+## Parameters
+
+### @type (required)
 The value must be `tcp`.
 
-#### tag (required)
+### tag (required)
 tag of output events.
 
-#### port
+### port
 The port to listen to. Default Value = 5170
 
-#### bind
+### bind
 The bind address to listen to. Default Value = 0.0.0.0
 
-#### delimiter
+### delimiter
 The payload is read up to this character. By default, it is "\n".
 
-#### format (required)
-The format of the TCP payload.
+### source_hostname_key
 
-INCLUDE: _in_parsers
+The field name of the client's hostname. If set the value, the client's hostname will be set to its key. The default is nil (no adding hostname).
 
+If you set following configuration:
 
-* regexp
+    :::text
+    source_hostname_key client_host
 
-Specify body format by regular expression.
+then the client's hostname is set to `client_host` field.
+
+    :::text
+    {
+        ...
+        "foo": "bar",
+        "client_host": "client.hostname.org"
+    }
+
+### format (required)
+The format of the TCP payload. Here is the example by regular expression.
 
     :::text
     format /^(?<field1>\d+):(?<field2>\w+)$/
@@ -58,26 +73,7 @@ then got parsed result like below:
     :::text
     {"field1":"123456","field2":"awesome}
 
-`ltsv`, `tsv`, `csv`, `json` and `none` are also supported.
-
-#### source_host_key
-
-The field name of the client's hostname. If set the value, the client's hostname will be set to its key. The default is nil (no adding hostname).
-
-If you set following configuration:
-
-    :::text
-    source_host_key client_host
-
-then the client's hostname is set to `client_host` field.
-
-    :::text
-    {
-        ...
-        "foo": "bar",
-        "client_host": "client.hostname.org"
-    }
-
+`in_tcp` uses parser plugin to parse the payload. See [parser article](parser-plugin-overview) for more detail.
 
 INCLUDE: _log_level_params
 

@@ -21,7 +21,7 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 
 ## Parameters
 
-### type (required)
+### @type (required)
 The value must be `exec_filter`.
 
 ### command (required)
@@ -84,3 +84,43 @@ INCLUDE: _buffer_parameters
 
 INCLUDE: _log_level_params
 
+## Script example
+
+Here is an example writtein in ruby.
+
+    :::ruby
+    require 'json'
+    require 'msgpack'
+
+    begin
+      while line = STDIN.gets # continue to read a event from stdin
+        line.chomp!
+
+        # Input format depends on exec_filter's in_format setting
+        json = JSON.parse(line)
+
+        # main processing. You can do anything, mutate record, access to database and etc.
+        json['new_field'] = "Hey from exec_filter script!"
+
+        # Write data to stdout. Output format depends on exec_filter's out_format setting
+        STDOUT.print MessagePack.pack(json)
+
+        # Call flush to avoid buffering events
+        STDOUT.flush
+      end
+    rescue Interrupt # Ignore Interrupt exception because it happens during exec_filter shutdown
+    end
+
+Corresponding configuration is below:
+
+    :::text
+    <match test.**>
+      @type exec_filter
+      command ruby /path/to/ruby_script.rb
+      in_format json
+      out_format msgpack
+      flush_interval 10s
+      tag filtered.exec
+    </match>
+
+If you want to use other language, translate above script example into your language.

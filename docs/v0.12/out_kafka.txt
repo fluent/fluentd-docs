@@ -1,0 +1,83 @@
+# Apache Kafka Output Plugin
+
+The `out_kafka` Output plugin writes records into [Apache Kafka](https://kafka.apache.org/).
+
+NOTE: This document doesn't describe all parameters. If you want to know full features, check the Further Reading section.
+
+## Installation
+
+`out_kafka` is included in td-agent2 after v2.3.3. Fluentd gem users will need to install the fluent-plugin-kafka gem using the following command.
+
+    :::term
+    $ fluent-gem install fluent-plugin-kafka
+
+## Example Configuration
+
+    :::text
+    <match pattern>
+      @type kafka_buffered
+
+      # list of seed brokers
+      brokers <broker1_host>:<broker1_port>,<broker2_host>:<broker2_port>
+
+      # buffer settings
+      buffer_type file
+      buffer_path /var/log/td-agent/buffer/td
+      flush_interval 3s
+
+      # topic settings
+      default_topic messages
+
+      # data type settings
+      output_data_type json
+      compression_codec gzip
+
+      # producer settings
+      max_send_retries 1
+      required_acks -1
+    </match>
+
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
+
+NOTE: Please make sure that you have <b>enough space in the buffer_path directory</b>. Running out of disk space is a problem frequently reported by users.
+
+## Parameters
+
+### @type (required)
+The value must be `kafka_buffered`.
+
+### brokers (required/optional)
+The list of all seed brokers, with their host and port information.
+
+### default_topic
+The name of default topic (default: nil).
+
+### default_partition_key
+The name of default partition key (default: nil).
+
+### default_message_key
+The name of default message key (default: nil).
+
+### output_data_type
+The format of each message. The available options are `json`, `ltsv`, `msgpack`, `attr:<record name>`, `<formatter name>`. `msgpack` is recommended since it's more compact and faster.
+
+### max_send_retries
+The number of times to retry sending of messages to a leader (default: 1).
+
+### required_acks
+The number of acks required per request (default: -1).
+
+### ack_timeout
+How long the producer waits for acks. The unit is seconds (default: nil => Use default of ruby-kafka library)
+
+### compression_codec
+ The codec the producer uses to compress messages (default: nil). The available options are `gzip` and `snappy`. When you use `snappy`, you need to install `snappy` gem by `td-agent-gem` command.
+
+INCLUDE: _buffer_parameters
+
+INCLUDE: _log_level_params
+
+## Further Reading
+This page doesn't describe all the possible configurations. If you want to know about other configurations, please check the link below.
+
+- [fluent-plugin-kafka repository](https://github.com/fluent/fluent-plugin-kafka)

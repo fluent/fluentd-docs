@@ -1,0 +1,27 @@
+# single_value Formatter Plugin
+
+The `single_value` formatter plugin output the value of a single field instead of the whole record.
+
+This formatter is often used in conjunction with [in_tail](in_tail)'s `format none`.
+
+## Parameters
+
+### add_newline (Boolean, Optional, defaults to true)
+
+Add `\n` to the result. If there is a trailing "\n" already, set it "false"
+
+### message_key (String, Optional, defaults to "message")
+
+The value of this field is outputted.
+
+## Example
+
+    :::text
+    tag:    app.event
+    time:   1362020400
+    record: {"message":"Hello from Fluentd!"}
+
+This incoming event is formatted to:
+
+    :::text
+    Hello from Fluentd!\n

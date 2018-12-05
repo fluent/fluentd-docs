@@ -1,0 +1,49 @@
+# csv Formatter Plugin
+
+The `csv` formatter plugin output an event as CSV.
+
+    :::text
+    "value1"[delimiter]"value2"[delimiter]"value3"\n
+
+## Parameters
+
+### fields (Array of String, Required. defaults to "\t"(TAB))
+
+Specify output fields
+
+### delimiter (String, Optional. defaults to ",")
+
+Delimiter for values.
+
+### force_quotes (Boolean, Optional, defaults to true)
+
+If false, value won't be framed by quotes.
+
+### add_newline (Boolean, Optional, defaults to true)
+
+Add `\n` to the result.
+
+INCLUDE: _formatter_plugin_common_parameters
+
+## Example
+
+    :::text
+    format csv
+    fields host,method
+
+With this configuration:
+
+    :::text
+    tag:    app.event
+    time:   1362020400
+    record: {"host":"192.168.0.1","size":777,"method":"PUT"}
+
+This incoming event is formatted to:
+
+    :::text
+    "192.168.0.1","PUT"\n
+
+With `force_quotes false`, the result is:
+
+    :::text
+    192.168.0.1,PUT\n

@@ -10,7 +10,11 @@ It is a sample to arrange the tags by the regexp matched value of 'message'.
     # Configuration
     <match app.message>
       @type rewrite_tag_filter
-      rewriterule1 message ^\[(\w+)\] $1.${tag}
+      <rule>
+        key message
+        pattern ^\[(\w+)\] $1.${tag}
+        tag $1.${tag}
+      </rule>
     </match>
 
     :::text
@@ -38,14 +42,44 @@ Configuration design is dropping some pattern record first, then re-emit other m
     <match apache.access>
       @type rewrite_tag_filter
       capitalize_regex_backreference yes
-      rewriterule1 path   \.(gif|jpe?g|png|pdf|zip)$  clear
-      rewriterule2 status !^200$                      clear
-      rewriterule3 domain !^.+\.com$                  clear
-      rewriterule4 domain ^maps\.example\.com$        site.ExampleMaps
-      rewriterule5 domain ^news\.example\.com$        site.ExampleNews
+      <rule>
+        key     path
+        pattern \.(gif|jpe?g|png|pdf|zip)$
+        tag     clear
+      </rule>
+      <rule>
+        key     status
+        pattern ^200$
+        tag     clear
+        invert  true
+      </rule>
+      <rule>
+        key     domain
+        pattern ^.+\.com$
+        tag     clear
+        invert  true
+      </rule>
+      <rule>
+        key     domain
+        pattern ^maps\.example\.com$
+        tag     site.ExampleMaps
+      </rule>
+      <rule>
+        key     domain
+        pattern ^news\.example\.com$
+        tag     site.ExampleNews
+      </rule>
       # it is also supported regexp back reference.
-      rewriterule6 domain ^(mail)\.(example)\.com$    site.$2$1
-      rewriterule7 domain .+                          site.unmatched
+      <rule>
+        key     domain
+        pattern ^(mail)\.(example)\.com$
+        tag     site.$2$1
+      </rule>
+      <rule>
+        key     domain
+        pattern .+
+        tag     site.unmatched
+      </rule>
     </match>
 
     <match clear>
@@ -57,6 +91,8 @@ NOTE: Please see the <a href="https://github.com/fluent/fluent-plugin-rewrite-ta
 ## Parameters
 
 ### rewriteruleN (required at least one)
+
+This is deprecated since 1.6.0. Use &lt;rule&gt; section.
 
 `rewriterule<num> <key> <regex_pattern> <new_tag>`
 
@@ -70,17 +106,26 @@ Override hostname command for placeholder. (default setting is long hostname)
 
 INCLUDE: _log_level_params
 
+### &lt;rule&gt; section (optional) (multiple)
+
+* **key** (string) (required): The field name to which the regular expression is applied
+* **pattern** (regexp) (required): The regular expression
+* **tag** (string) (required): New tag
+* **invert** (bool) (optional): If true, rewrite tag when unmatch pattern
+  * Default value: `false`
+
+It works with the order of appearance, regexp matching `rule/pattern` for the values of `rule/key` from each record, re-emit with `rule/tag`.
 
 ## Placeholders
 
 It is supported these placeholder for new_tag (rewrited tag). See more details at <a href="https://github.com/fluent/fluent-plugin-rewrite-tag-filter#tag-placeholder">README.md</a>
 
 * ${tag}
-* __TAG__
+* \__TAG__
 * {$tag_parts[n]}
-* __TAG_PARTS[n]__
+* \__TAG_PARTS[n]__
 * ${hostname}
-* __HOSTNAME__
+* \__HOSTNAME__
 
 ## Use cases
 
@@ -131,8 +176,16 @@ Note: These plugins are required to be installed.
     # Filter record like mod_rewrite with fluent-plugin-rewrite-tag-filter
     <match apache.access>
       @type rewrite_tag_filter
-      rewriterule1 status ^(?!404)$ clear
-      rewriterule2 path .+ mongo.apache.access.error404
+      <rule>
+        key     status
+        pattern ^(?!404)$
+        tag     clear
+      </rule>
+      <rule>
+        key      path
+        pattern .+
+        tag      mongo.apache.access.error404
+      </rule>
     </match>
 
     # Store deadlinks log into mongoDB
@@ -201,14 +254,26 @@ Note: These plugins are required to be installed.
     <match apache.access>
       @type copy
       <store>
-      @type rewrite_tag_filter
-      # drop static image record and redirect as 'count.apache.access'
-      rewriterule1 path ^/(img|css|js|static|assets)/ clear
-      rewriterule2 path .+ count.apache.access
+        @type rewrite_tag_filter
+        # drop static image record and redirect as 'count.apache.access'
+        <rule>
+          key     path
+          pattern ^/(img|css|js|static|assets)/
+          tag     clear
+        </rule>
+        <rule>
+          key     path
+          pattern .+
+          tag     count.apache.access
+        </rule>
       </store>
       <store>
-      @type rewrite_tag_filter
-      rewriterule1 code ^5\d\d$ mongo.apache.access.error5xx
+        @type rewrite_tag_filter
+        <rule>
+          key     code
+          pattern ^5\d\d$
+          tag     mongo.apache.access.error5xx
+        </rule>
       </store>
     </match>
 
@@ -285,4 +350,41 @@ Note: These plugins are required to be installed.
     # Clear tag
     <match clear>
       @type null
+    </match>
+
+## FAQ
+
+### With rewrite-tag-filter, logs are not forwarded. Why?
+
+If you have following configuration, it doesn't work:
+
+    <match app.**>
+      @type rewrite_tag_filter
+      <rule>
+        key     level
+        pattern (.+)
+        tag     app.$1
+      </rule>
+    <match>
+
+    <match app.**>
+      @type forward
+      # ...
+    </match>
+
+In this case, `rewrite_tag_filter` causes infinite loop because fluentd's routing is executed from top to bottom.
+So you need to change tag like below:
+
+    <match app.**>
+      @type rewrite_tag_filter
+      <rule>
+        key     level
+        pattern (.+)
+        tag     level.app.$1
+      </rule>
+    <match>
+
+    <match level.app.**>
+      @type forward
+      # ...
     </match>

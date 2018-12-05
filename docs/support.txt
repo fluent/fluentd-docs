@@ -1,5 +1,0 @@
-# Support
-
-Treasure Data, the original inventor of Fluentd, offers the enterprise edition of Fluentd, with 24/7 support. Please visit the link below.
-
-- [Fluentd Enterprise Edition](http://www.treasuredata.com/fluentd_enterprise)

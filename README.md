@@ -1,8 +1,13 @@
 # Fluentd Docs App
 
-Ultrasimple CMS and content for Fluentd documentation. The production site is [here](http://docs.fluentd.org/).
+Ultrasimple CMS and content for Fluentd documentation. The production site is [here](https://docs.fluentd.org/).
 
 If you'd like to propose an edit to the Fluentd docs, please fork this repo and send us a pull request.
+
+Note that we require each commit to be signed off by the author as policy. Thus, when writing a patch, please sign your commit using the `-s` option.
+
+    # Append `--amend` to sign the previous commit
+    $ git commit -s
 
 # Install
 
@@ -13,7 +18,7 @@ If you'd like to propose an edit to the Fluentd docs, please fork this repo and 
 
 # Test
 
-    $ bundle exec rake test 
+    $ bundle exec rake test
 
 # Build Search Index
 
@@ -21,8 +26,8 @@ If you'd like to propose an edit to the Fluentd docs, please fork this repo and 
 
 # Deploy
 
-We delopy fluentd-docs by Circle-CI automatically.
-If you want to delopy it manually, run following command.
+We deploy fluentd-docs by Circle-CI automatically.
+If you want to deploy it manually, run following command.
 
     $ git push heroku master
 
@@ -49,10 +54,10 @@ You can use the "INCLUDE pragma" to avoid copy-and-pasting the same content or u
 The syntax is as follows:
 
     INCLUDE: <filename without extension>
-    
+
     ... the rest of the document.
 
-Please remember to include a blank line between "INCLUDE..." and the rest of the document. 
+Please remember to include a blank line between "INCLUDE..." and the rest of the document.
 The docs app will search for \<filename\>.txt in the `docs` directory and insert its contents into the current document.
 
 For example, if you write

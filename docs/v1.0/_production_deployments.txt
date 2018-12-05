@@ -1,0 +1,25 @@
+## Production Deployments
+
+### Output Plugins
+Various [output plugins](output-plugin-overview) are available for writing records to other destinations:
+
+* Examples
+  * [Store Apache Logs into Amazon S3](apache-to-s3)
+  * [Store Apache Logs into MongoDB](apache-to-mongodb)
+  * [Data Collection into HDFS](http-to-hdfs)
+* List of Plugin References
+  * [Output to Another Fluentd](out_forward)
+  * [Output to MongoDB](out_mongo) or [MongoDB ReplicaSet](out_mongo_replset)
+  * [Output to Hadoop](out_webhdfs)
+  * [Output to File](out_file)
+  * [etc...](http://fluentd.org/plugin/)
+
+### High-Availability Configurations of Fluentd
+For high-traffic websites (more than 5 application nodes), we recommend using a high availability configuration of td-agent. This will improve data transfer reliability and query performance.
+
+* [High-Availability Configurations of Fluentd](high-availability)
+
+### Monitoring
+Monitoring Fluentd itself is also important. The article below describes general monitoring methods for td-agent.
+
+* [Monitoring Fluentd](monitoring)

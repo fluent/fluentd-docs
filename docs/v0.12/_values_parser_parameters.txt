@@ -1,0 +1,17 @@
+### time_format
+
+If time field value is formatted string, e.g. "28/Feb/2013:12:00:00 +0900", you need to specify this parameter to parse it.
+
+Default is `nil` and it uses `Time.parse` method to parse the field.
+
+See [Time#strptime](http://ruby-doc.org/stdlib-2.4.1/libdoc/time/rdoc/Time.html#method-c-strptime) for additional format information.
+
+### null_value_pattern
+
+Specify null value pattern. Default is `nil`.
+
+If given field value is matched with this pattern, the field value is replaced with `nil`.
+
+### null_empty_string
+
+If `true`, empty string field is replaced with `nil`. Default is `false`.

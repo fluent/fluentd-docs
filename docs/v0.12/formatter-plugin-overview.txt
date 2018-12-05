@@ -35,7 +35,13 @@ See [this section](plugin-development#text-formatter-plugins) to learn how to de
 
 ## List of Built-in Formatters
 
-INCLUDE: _formatter_parameters
+* [out_file](formatter_out_file)
+* [json](formatter_json)
+* [ltsv](formatter_ltsv)
+* [csv](formatter_csv)
+* [msgpack](formatter_msgpack)
+* [hash](formatter_hash)
+* [single_value](formatter_single_value)
 
 ## List of Output Plugins with Text Formatter Support
 

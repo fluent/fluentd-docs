@@ -1,0 +1,29 @@
+# Extract section configurations
+
+## Extract section overview
+
+Extract section can be in ``<match>``, ``<source>``, or ``<filter>`` sections. It's enabled for plugins which support extracting values from the event record.
+
+    <source>
+      @type exec
+      # parameters for input plugin
+      <extract>
+        # extract section parameters
+      </extract>
+    </source>
+
+## extract section parameter
+
+### Extract parameters
+
+* **tag_key** (string) (optional): the field name to extract tag
+  * Default: `nil`
+* **keep_tag_key** (bool) (optional): if true keep the field in the record after extract value
+  * Default: `false`
+* **time_key**  (string) (optional): the field name to extract time
+  * Default: `nil`
+* **keep_time_key** (bool) (optional): if true keep the field in the record after extract value
+  * Default: `false`
+
+INCLUDE: _time_parameters
+

@@ -1,0 +1,164 @@
+# Elasticsearch Output Plugin
+
+The `out_elasticsearch` Output plugin writes records into Elasticsearch. By default, it creates records by bulk write operation. This means that when you first import records using the plugin, no record is created immediately.
+
+The record will be created when the `chunk_keys` condition has been met. To change the output frequency, please specify the `time` in chunk_keys and specify `timekey` value in conf.
+
+NOTE: This document doesn't describe all parameters. If you want to know full features, check the Further Reading section.
+
+## Installation
+
+Since `out_elasticsearch` has been included in the standard distribution of td-agent since v3.0.1, td-agent users do not need to install it manually.
+
+If you have installed Fluentd without td-agent, please install this plugin using `fluent-gem`.
+
+    :::term
+    $ fluent-gem install fluent-plugin-elasticsearch
+
+## Example Configuration
+
+The following is a simple working configuration. This should serve as a good starting point for most users.
+
+    :::text
+    <match my.logs>
+      @type elasticsearch
+      host localhost
+      port 9200
+      logstash_format true
+    </match>
+
+For more details on each option, read [the section on Parameters](#parameters).
+
+## Plugin helpers
+
+* [event_emitter](api-plugin-helper-event_emitter)
+* [compat_parameters](api-plugin-helper-compat_parameters)
+
+## Parameters
+
+### @type (required)
+
+This option must be always `elasticsearch`.
+
+### host (optional)
+
+The hostname of your Elasticsearch node (default: `localhost`).
+
+### port (optional)
+
+The port number of your Elasticsearch node (default: `9200`).
+
+### hosts (optional)
+
+If you want to connect to more than one Elasticsearch nodes, specify this option in the following format:
+
+    :::text
+    hosts host1:port1,host2:port2,host3:port3
+    # or
+    hosts https://customhost.com:443/path,https://username:password@host-failover.com:443
+
+If you use this option, the `host` and `port` options are ignored.
+
+### user, password (optional)
+
+The login credentials to connect to the Elasticsearch node (default: `nil`)
+
+    :::text
+    user fluent
+    password mysecret
+
+### scheme (optional)
+
+Specify `https` if your Elasticsearch endpoint supports SSL (default: `http`)
+
+### path (optional)
+
+The REST API endpoint of Elasticsearch to post write requests (default: `nil`)
+
+### index_name (optional)
+
+The index name to write events to (default: `fluentd`).
+
+This option supports the placeholder syntax of Fluentd plugin API. For example, if you want to partition the index by tags, you can specify as below:
+
+    :::text
+    index_name fluentd.${tag}
+
+Here is a more practical example which partitions the Elasticsearch index by tags and timestamps:
+
+    :::text
+    index_name fluentd.${tag}.%Y%m%d
+
+Time placeholder needs to set up tag and time in chunk_keys.
+Also it needs to specify timekey for time slice of chunk:
+
+    :::text
+    <buffer tag, time>
+      timekey 1h # chunks per hours ("3600" also available)
+    </buffer>
+
+### logstash_format (optional)
+
+With this option set `true`, Fluentd uses the conventional index name format `logstash-%Y.%m.%d` (default: `false`). This option supersedes the `index_name` option.
+
+INCLUDE: _log_level_params
+
+## Miscellaneous
+
+You can use `%{}` style placeholders to escape for URL encoding needed characters.
+
+    :::text
+    user %{demo+}
+    password %{@secret}
+
+are valid configuration.
+
+    :::text
+    hosts https://%{j+hn}:%{passw@rd}@host1:443/elastic/,http://host2
+
+are also valid configuration.
+
+But,
+
+    :::text
+    user demo+
+    password @secret
+
+are invalid configuration.
+
+## Common Output / Buffer parameters
+
+For common output / buffer parameters, please check the following articles.
+
+* [Output Plugin Overview](output-plugin-overview)
+* [Buffer Section Configuration](buffer-section)
+
+## Troubleshooting
+
+### Cannot send events to Elasticsearch
+
+A common cause of failure is that you are trying to connect to an Elasticsearch instance with an incompatible version.
+
+For example, td-agent currently bundles the 6.x series of the [elasticsearch-ruby](https://github.com/elastic/elasticsearch-ruby) library. This means that your Elasticsearch server also needs to be 6.x. You can check the actual version of the client library installed on your system by executing the following command.
+
+    :::term
+    # For td-agent users
+    $ /usr/sbin/td-agent-gem list elasticsearch
+    # For standalone Fluentd users
+    $ fluent-gem list elasticsearch
+
+Or, fluent-plugin-elasticsearch v2.11.7 or later, users can inspect version incompatibility with the `validate_client_version` option:
+
+    :::text
+    validate_client_version true
+
+If you get the following error message, please consider to install compatibile elasticsearch client gems:
+
+    :::text
+    Detected ES 5 but you use ES client 6.1.0.
+    Please consider to use 5.x series ES client.
+
+For further details of the version compatibility issue, please read [the official manual](https://github.com/elastic/elasticsearch-ruby#compatibility).
+
+## Further Reading
+- [fluent-plugin-elasticsearch repository](https://github.com/uken/fluent-plugin-elasticsearch)

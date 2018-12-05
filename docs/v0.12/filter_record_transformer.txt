@@ -11,10 +11,11 @@ The `filter_record_transformer` filter plugin mutates/transforms incoming event 
       @type record_transformer
       <record>
         hostname "#{Socket.gethostname}"
+        tag ${tag}
       </record>
     </filter>
 
-The above filter adds the new field "hostname" with the server's hostname as its value (It is taking advantage of Ruby's string interpolation). So, an input like
+The above filter adds the new field "hostname" with the server's hostname as its value (It is taking advantage of Ruby's string interpolation) and the new field "tag" with tag value. So, an input like
 
     :::text
     {"message":"hello world!"}
@@ -22,7 +23,7 @@ The above filter adds the new field "hostname" with the server's hostname as its
 is transformed into
 
     :::text
-    {"message":"hello world!", "hostname":"db001.internal.example.com"}
+    {"message":"hello world!", "hostname":"db001.internal.example.com", "tag":"foo.bar"}
 
 Here is another example where the field "total" is divided by the field "count" to create a new field "avg":
 
@@ -31,9 +32,9 @@ Here is another example where the field "total" is divided by the field "count" 
       @type record_transformer
       enable_ruby
       <record>
-        avg ${total/count}
+        avg ${record["total"] / record["count"]}
       </record>
-    </filter>        
+    </filter>
 
 It transforms an event like
 
@@ -45,7 +46,27 @@ into
     :::text
     {"total":100, "count":10, "avg":"10"}
 
-With the `enable_ruby` option, an arbitrary Ruby expression can be used inside `${...}`. Note that the "avg" field is typed as string. Currently, `${...}` always returns strings.
+With the `enable_ruby` option, an arbitrary Ruby expression can be used inside `${...}`. Note that the "avg" field is typed as string in this example. You may use `auto_typecast true` option to treat the field as a float.
+
+You can also use this plugin to modify your existing fields as
+
+    :::text
+    <filter foo.bar>
+      @type record_transformer
+      <record>
+        message yay, ${record["message"]}
+      </record>
+    </filter>
+
+An input like
+
+    :::text
+    {"message":"hello world!"}
+
+is transformed into
+
+    :::text
+    {"message":"yay, hello world!"}
 
 Finally, this configuration embeds the value of the second part of the tag in the field "service_name". It might come in handy when aggregating data across many services.
 
@@ -61,7 +82,7 @@ So, if an event with the tag "web.auth" and record `{"user_id":1, "status":"ok"}
 
 ## Parameters
 
-### <record> directive
+### &lt;record&gt; directive
 
 Parameters inside `<record>` directives are considered to be new key-value pairs:
 
@@ -70,17 +91,64 @@ Parameters inside `<record>` directives are considered to be new key-value pairs
       NEW_FIELD NEW_VALUE
     </record>
 
-For NEW_VALUE, a special syntax `${}` allows the user to generate a new field dynamically. Inside the curly braces, the following variables are available:
+For NEW_FIELD and NEW_VALUE, a special syntax `${}` allows the user to generate a new field dynamically. Inside the curly braces, the following variables are available:
 
-- The incoming event's existing values can be referred by their field names. So, if the record is `{"total":100, "count":10}`, then `total=10` and `count=10`.
-- `tag_parts[N]` refers to the Nth part of the tag. It works like the usual zero-based array accessor.
-- `tag_prefix[N]` refers to the first N parts of the tag. It works like the usual zero-based array accessor.
-- `tag_suffix[N]` refers to the last N parts of the tag. It works like the usual zero-based array accessor.
+- The incoming event's existing values can be referred by their field names. So, if the record is `{"total":100, "count":10}`, then `record["total"]=100` and `record["count"]=10`.
 - `tag` refers to the whole tag.
+- `time` refers to stringanized event time.
+- `hostname` refers to machine's hostname. The actual value is result of [Socket.gethostname](https://docs.ruby-lang.org/en/trunk/Socket.html#method-c-gethostname).
+
+You can also access to a certain potion of a tag using the following notations:
+
+- `tag_parts[N]` refers to the Nth part of the tag.
+- `tag_prefix[N]` refers to the [0..N] part of the tag.
+- `tag_suffix[N]` refers to the [N..] part of the tag.
+
+All indices are zero-based. For example, if you have an incoming event tagged `debug.my.app`, then `tag_parts[1]` will represent "my". Also in this case, `tag_prefix[N]` and `tag_suffix[N]` will work as follows:
+
+    :::text
+    tag_prefix[0] = debug          tag_suffix[0] = debug.my.app
+    tag_prefix[1] = debug.my       tag_suffix[1] = my.app
+    tag_prefix[2] = debug.my.app   tag_suffix[2] = app
 
 ### enable_ruby (optional)
 
 When set to true, the full Ruby syntax is enabled in the `${...}` expression. The default value is false.
+
+With `true`, additional variables could be used inside `${}`.
+
+- `record` refers to the whole record.
+- `time` refers to event time as Time object, not stringanized event time.
+
+Here is the examples:
+
+    :::text
+    jsonized_record ${record.to_json}
+    avg ${record["total"] / record["count"]}
+    formatted_time ${time.strftime('%Y-%m-%dT%H:%M:%S%z')}
+    escaped_tag ${tag.gsub('.', '-')}
+    last_tag ${tag_parts.last}
+    foo_${record["key"]} bar_${record["value"]}
+
+### auto_typecast (optional)
+
+Automatically cast the field types. Default is false.
+
+LIMITATION: This option is effective only for field values comprised of a single placeholder.
+
+Effective Examples:
+
+    :::text
+    foo ${record["foo"]}
+
+Non-Effective Examples:
+
+    :::text
+    foo ${record["foo"]}${record["bar"]}
+    foo ${record["foo"]}bar
+    foo 1
+
+Internally, this keeps the original value type only when a single placeholder is used.
 
 ### renew_record (optional)
 
@@ -90,13 +158,26 @@ By default, the record transformer filter mutates the incoming data. However, if
 
 `renew_time_key foo` overwrites the time of events with a value of the record field `foo` if exists. The value of `foo` must be a unix time.
 
-### keep_keys (optional, string type)
+### keep_keys (optional, array type)
 
-A comma-delimited list of keys to keep. Only relevant if `renew_record` is set to true.
+A list of keys to keep. Only relevant if `renew_record` is set to true.
 
-### remove_keys (optional, string type)
+### remove_keys (optional, array type)
 
-A comma-delimited list of keys to delete.
+A list of keys to delete.
+
+## Need more performance?
+
+[filter_record_modifier](https://github.com/repeatedly/fluent-plugin-record-modifier) is light-weight and faster version of `filter_record_transformer`. `filter_record_modifier` doesn't provide several `filter_record_transformer` features, but it covers popular cases. If you need better performace for mutating records, consider `filter_record_modifier` instead.
+
+## FAQ
+
+### What are the differences between `${record["key"]}` and `${key}`?
+
+`${key}` is short-cut for `${record["key"]}`. This is error prone because `${tag}` is unclear for event tag or `record["tag"]`.
+So the `${key}` syntax is now deprecated for avoiding this problem. Don't use `${key}` short-cut syntax on the production.
+
+Since v0.14, `${key}` short-cut syntax is removed.
 
 ## Learn More
 

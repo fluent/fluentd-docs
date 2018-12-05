@@ -1,0 +1,156 @@
+# Writing Formatter Plugins
+
+Fluentd supports [pluggable, customizable formats for output plugins](formatter-plugin-overview). The plugin files whose names start with "formatter_" are registered as Formatter Plugins. See LINK:[Plugin Base Class API](api-plugin-base) to show details of common API for all plugin types.
+
+Here is an example of a custom formatter that outputs events as CSVs. It takes a required parameter called "csv_fields" and outputs the fields. It assumes that the values of the fields are already valid CSV fields.
+
+    :::ruby
+    require 'fluent/plugin/formatter'
+
+    module Fluent::Plugin
+      class MyCSVFormatter < Formatter
+        # Register MyCSVFormatter as "my_csv".
+        Fluent::Plugin.register_formatter("my_csv", self)
+
+        config_param :csv_fields, :array, value_type: :string
+
+        # This method does further processing. Configuration parameters can be
+        # accessed either via "conf" hash or member variables.
+        def configure(conf)
+          super
+        end
+
+        # This is the method that formats the data output.
+        def format(tag, time, record)
+          values = []
+
+          # Look up each required field and collect them from the record
+          @csv_fields.each do |field|
+            v = record[field]
+            unless v
+              log.error "#{field} is missing."
+            end
+            values << v.to_s
+          end
+
+          # Output by joining the fields with a comma
+          values.join(",")
+        end
+      end
+    end
+
+Then, save this code in `formatter_my_csv.rb` in a loadable plugin path. Then, if out_file is configured as
+
+    :::text
+    # Other lines...
+    <match test>
+      @type file
+      path /path/to/output/file
+      <format>
+        @type my_csv
+        csv_fields k1,k2
+      </format>
+    </match>
+
+and if the record `{"k1": 100, "k2": 200}` is matched, the output file should look like `100,200`
+
+## How To Use Formatters From Plugins
+
+Formatter plugins are designed to be used from other plugins, like Input, Filter and Output.
+There is a Formatter plugin helper for that purpose (v0.14.1 or later):
+
+    :::ruby
+    # in class definition
+    helpers :formatter
+
+    # in #configure
+    @formatter = formatter_create(type: 'json')
+
+    # in #filter, #format or ...
+    es.each do |time, record|
+      row = @formatter.format(@tag, time, record)
+      # ...
+    end
+
+See LINK:[Formatter Plugin Helper API](api-plugin-helper-formatter) for details.
+
+## Methods
+
+Formatter plugins have a method to format input record (Hash) into a String object.
+
+#### #format(tag, time, record)
+
+``Formatter#format`` gets an event represented with tag (String), time (Fluent::EventTime or Integer) and record (Hash with String keys), and should return a String object, the result of formatting.
+
+Formatter plugins must implement this method.
+
+## Writing Tests
+
+Fluentd formatter plugin has just one or some points to be tested. Others (parsing configurations, controlling buffers, retries, flushes and many others) are controlled by Fluentd core.
+
+Fluentd also provides test driver for plugins. You can write tests of your own plugins very easily:
+
+    ::ruby
+    # test/plugin/test_formatter_your_own.rb
+
+    require 'test/unit'
+    require 'fluent/test/driver/formatter'
+    
+    # your own plugin
+    require 'fluent/plugin/formatter_your_own'
+    
+    class FormatterYourOwnTest < Test::Unit::TestCase
+      def setup
+        # common setup
+      end
+      
+      COPNFIG = %[
+        fields a,b,c
+      ]
+      
+      def create_driver(conf = CONF)
+        Fluent::Test::Driver::Formatter.new(Fluent::Plugin::YourOwnFormatter).configure(conf)
+      end
+      
+      sub_test_case 'configured with invalid configurations' do
+        test 'empty' do
+          assert_raise(Fluent::ConfigError) do
+            create_driver('')
+          end
+        end
+        # ...
+      end
+      
+      sub_test_case 'plugin will format record' do
+        test 'record has a field' do
+          d = create_driver(CONFIG)
+          tag = "test"
+          time = event_time
+          record = { "message" => "This is message" }
+          formatted = d.instance.format(tag, time, record)
+          expected = "..."
+          assert_equal(expected, formatted)
+        end
+      end
+    end
+
+### Overview of Tests
+
+Testing for formatter plugins are mainly for:
+
+* Configuration/Validation checks for invalid configurations (about ``#configure``)
+* Checks for formatted by formatter plugins
+
+Plugin test driver provides logger and feature to override system configurations, and configuration parser and others to make it easy to test configuration errors or others.
+
+Lifecycle of plugins and test drivers is:
+
+1. Instantiate plugin driver (and it instantiates plugin)
+2. Configure plugin
+3. Run test code
+4. Assert results of tests by data provided from driver
+
+Test drivers instantiate the plugin. See LINK:[Testing API for plugins](plugin-test-code) for details.
+
+For configuration tests, repeat 1-2. For full feature tests, repeat 1-4. Test drivers and helper methods will support it.
+

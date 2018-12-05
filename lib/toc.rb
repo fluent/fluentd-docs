@@ -1,5 +1,9 @@
 class TOC
-  def initialize(lang, ver)
+
+  attr_reader :base_directory
+  
+  def initialize(base_directory, lang, ver)
+    @base_directory = base_directory
     file = "#{File.dirname(__FILE__)}/toc.#{lang}.#{ver}.rb"
     eval(File.read(file), binding, file)
   end

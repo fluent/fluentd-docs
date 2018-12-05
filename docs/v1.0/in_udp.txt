@@ -1,0 +1,125 @@
+# UDP Input Plugin
+
+The `in_udp` Input plugin enables Fluentd to accept UDP payload.
+
+## Example Configuration
+
+`in_udp` is included in Fluentd's core. No additional installation process is required.
+
+    :::text
+    <source>
+      @type udp
+      tag mytag # required
+      <parse>
+        @type regexp
+        expression /^(?<field1>\d+):(?<field2>\w+)$/
+      </parse>
+      port 20001               # optional. 5160 by default
+      bind 0.0.0.0             # optional. 0.0.0.0 by default
+      message_length_limit 1MB # optional. 4096 bytes by default
+    </source>
+
+NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file. For &lt;parse&gt; section, please check <a href="parse-section">Parse section cofiguration</a>.
+
+NOTE: We've observed the drastic performance improvements on Linux, with proper kernel parameter settings (e.g. `net.core.rmem_max` parameter). If you have high-volume UDP traffic, please make sure to follow the instruction described at <a href="before-install">Before Installing Fluentd</a>.
+
+## Plugin helpers
+
+* [server](api-plugin-helper-server)
+* [parser](api-plugin-helper-parser)
+* [extract](api-plugin-helper-extract)
+* [compat_parameters](api-plugin-helper-compat_parameters)
+
+## Parameters
+
+[Common Parameters](plugin-common-parameters)
+
+### @type
+
+The value must be `udp`.
+
+### tag
+
+| type   | default            | version |
+|:------:|:------------------:|:-------:|
+| string | required parameter | 0.14.0  |
+
+tag of output events.
+
+### port
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| integer | 5160    | 0.14.0  |
+
+The port to listen to. Default Value = 5160
+
+### bind
+
+| type   | default                 | version |
+|:------:|:-----------------------:|:-------:|
+| string | 0.0.0.0 (all addresses) | 0.14.0  |
+
+The bind address to listen to.
+
+### source_hostname_key
+
+| type   | default                  | version |
+|:------:|:------------------------:|:-------:|
+| string | nil (no adding hostname) | 0.14.10 |
+
+The field name of the client's hostname. If set the value, the client's hostname will be set to its key.
+
+If you set following configuration:
+
+    :::text
+    source_hostname_key client_host
+
+then the client's hostname is set to `client_host` field.
+
+    :::text
+    {
+        ...
+        "foo": "bar",
+        "client_host": "client.hostname.org"
+    }
+
+### message_length_limit
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| size | 4096    | 0.14.14 |
+
+The max bytes of message
+
+### remove_newline
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | true    | 0.14.23 |
+
+Remove newline from the end of incoming payload
+
+### &lt;parse&gt; section
+
+| required | multi | version |
+|:--------:|:-----:|:-------:|
+| true     | false | 0.14.10 |
+
+`in_tcp` uses parser plugin to parse the payload.
+
+For more details about parser plugin, see followings:
+
+* [Parser Plugin Overview](parser-plugin-overview)
+* [Parse section configurations](parse-section)
+
+## FAQ
+
+### How to prevent request drop?
+
+If in_udp gots lots of packets within 1 sec, some packets are dropped.
+For example, you can see bigger RcvbufErrors number via `netstat -su`.
+
+This means in_udp with one process can't handle such traffic.
+Try [multi workers](performance-tuning#multi-workers).
+

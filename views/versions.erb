@@ -1,0 +1,11 @@
+<div style="text-align:right">
+Versions <% @available_versions.each { |ver| %>
+  <% if article_file_exists?(@article.topic, ver) %>
+    <% if @article_version == ver %>
+    | <b><i><%= ver %></i> (<%= $TD_AGENT_VERSIONS[ver] %>)<b>
+    <% else %>
+    | <a href="<%= "/#{ver}/articles/#{@article.topic}" %>"><%= ver %> (<%= $TD_AGENT_VERSIONS[ver] %>)</a>
+    <% end %>
+  <% end %>
+<% } %>
+</div>

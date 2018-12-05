@@ -22,7 +22,9 @@ The default log level is `info`, and Fluentd outputs `info`, `warn`, `error` and
 Global logging is used by Fluentd core and plugins that don't set their own log levels.
 The global log level can be adjusted up or down.
 
-### Increase Verbosity Level
+### By Command Line Option
+
+#### Increase Verbosity Level
 
 The `-v` option sets the verbosity to `debug` while the `-vv` option sets the verbosity to `trace`.
 
@@ -32,13 +34,23 @@ The `-v` option sets the verbosity to `debug` while the `-vv` option sets the ve
 
 These options are useful for debugging purposes.
 
-### Decrease Verbosity Level
+#### Decrease Verbosity Level
 
 The `-q` option sets the verbosity to `warn` while the `-qq` option sets the verbosity to `error`.
 
     :::term
     $ fluentd -q  ... # warn level
     $ fluentd -qq ... # error level
+
+### By Config File
+
+You can also change the logging level with `<system>` section in the config file like below.
+
+    :::term
+    <system>
+      # equal to -qq option
+      log_level error
+    </system>
 
 ## Per Plugin Log
 
@@ -100,7 +112,7 @@ NOTE: Fluentd doesn't support log rotation yet.
 
 ## Capture Fluentd logs
 
-Fluentd marks its own logs with the `fluent` tag. You can process Fluentd logs by using `<match fluent.**>`. If you define `<match fluent.**>` in your configuration, then Fluentd will send its own logs to this match destination. This is useful for monitoring Fluentd logs.
+Fluentd marks its own logs with the `fluent` tag. You can process Fluentd logs by using `<match fluent.**>` or `<match **>`(Of course, `**` captures other logs). If you define `<match fluent.**>` in your configuration, then Fluentd will send its own logs to this match destination. This is useful for monitoring Fluentd logs.
 
 For example, if you have the following `<match fluent.**>`:
 
@@ -112,24 +124,43 @@ For example, if you have the following `<match fluent.**>`:
 then Fluentd outputs `fluent.info` logs to stdout like below:
 
     2014-02-27 00:00:00 +0900 [info]: shutting down fluentd
-    2014-02-27 00:00:01 +0900 fluent.info: { "message":"shutting down fluentd"} # by <match fluent.**>
+    2014-02-27 00:00:01 +0900 fluent.info: {"message":"shutting down fluentd"} # by <match fluent.**>
     2014-02-27 00:00:01 +0900 [info]: process finished code = 0
 
-In production, you can use [out_forward](out_forward) to send Fluentd logs to a monitoring server.
+### Case1: Send Fluentd logs to monitoring service
+
+You can send Fluentd logs to a monitoring service by plugins, e.g. datadog, sentry, irc, etc.
+
+    # Add hostname for identifying the server
+    <filter fluent.**>
+      @type record_transformer
+      <record>
+        host "#{Socket.gethostname}"
+      </record>
+    </filter>
+
+    <match fluent.**>
+      @type monitoring_plugin
+      # parameters...
+    </match>
+
+### Case2: Use aggregation/monitoring server
+
+You can use [out_forward](out_forward) to send Fluentd logs to a monitoring server.
 The monitoring server can then filter and send the logs to your notification system: chat, irc, etc.
 
 Leaf server example:
 
     # Add hostname for identifying the server and tag to filter by log level
-    <match fluent.**>
-      @type record_modifier
-      tag internal.message
-      host ${hostname}
-      include_tag_key
-      tag_key original_tag
-    </match>
+    <filter fluent.**>
+      @type record_transformer
+      <record>
+        host "#{Socket.gethostname}"
+        original_tag ${tag}
+      </record>
+    </filter>
 
-    <match internal.message>
+    <match fluent.**>
       @type forward
       <server>
         # Monitoring server parameters
@@ -138,23 +169,28 @@ Leaf server example:
 
 Monitoring server example:
 
-    # Ignore trace, debug and info log
-    <match internal.message>
-      @type grep
-      regexp1 original_tag fluent.(warn|error|fatal)
-      add_tag_prefix filtered
-    </match>
+    <source>
+      @type forward
+      label @FLUENTD_INTERNAL_LOG
+    </source>
 
-    <match filtered.internal.message>
-      # your notification setup. This example uses irc plugin
-      @type irc
-      host irc.domain
-      channel notify
-      message notice: %s [%s] @%s %s
-      out_keys original_tag,time,host,message
-    </match>
+    <label @FLUENTD_INTERNAL_LOG>
+      # Ignore trace, debug and info log
+      <filter fluent.**>
+        @type grep
+        regexp1 original_tag fluent.(warn|error|fatal)
+      </filter>
+
+      <match fluent.**>
+        # your notification setup. This example uses irc plugin
+        @type irc
+        host irc.domain
+        channel notify
+        message notice: %s [%s] @%s %s
+        out_keys original_tag,time,host,message
+      </match>
+    </label>
 
 If an error occurs, you will get a notification message in your irc `notify` channel.
 
     01:01  fluentd: [11:10:24] notice: fluent.warn [2014/02/27 01:00:00] @leaf.server.domain detached forwarding server 'server.name'
-

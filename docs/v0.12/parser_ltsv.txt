@@ -1,0 +1,43 @@
+# LTSV Parser Plugin
+
+The `ltsv` parser plugin parses [LTSV](http://ltsv.org/) format.
+
+## Parameters
+
+### delimiter
+
+Specify field delimiter. Default is `\t`.
+
+### label_delimiter
+
+Specify key-value delimiter. Default is `:`.
+
+### time_key
+
+Specify time field for event time. Default is `time`.
+
+If there is no time field in the record, this parser uses current time as an event time.
+
+INCLUDE: _values_parser_parameters
+
+INCLUDE: _types_parameters
+
+## Example
+
+    :::text
+    time:2013/02/28 12:00:00\thost:192.168.0.1\treq_id:111\tuser:-
+
+This incoming event is parsed as:
+
+    :::text
+    time:
+    1362020400 (2013/02/28/ 12:00:00)
+
+    record:
+    {
+      "host"   : "192.168.0.1",
+      "req_id" : "111",
+      "user"   : "-"
+    }
+
+If you set `null_value_pattern '-'` in the configuration, `user` field becomes `nil` instead of `"-"`.

@@ -21,7 +21,7 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 
 ## Parameters
 
-### type (required)
+### @type (required)
 The value must be `file`.
 
 ### path (required)
@@ -54,7 +54,7 @@ you can disable it by setting `append true`.
 ### format
 The format of the file content. The default is `out_file`.
 
-INCLUDE: _formatter_parameters
+See [formatter article](formatter-plugin-overview) for more detail.
 
 ### time_format
 The format of the time written in files. The default format is ISO-8601.

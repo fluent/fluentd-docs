@@ -2,7 +2,7 @@
 
 By default, Fluentd only uses a single CPU core on the system. The `in_multiprocess` Input plugin enables Fluentd to use multiple CPU cores by spawning multiple child processes. One Fluentd user is using this plugin to handle 10+ billion records / day.
 
-### Install
+## Install
 
 `in_multiprocess` is NOT included in td-agent by default. td-agent users must install fluent-plugin-multiprocess manually.
 
@@ -10,7 +10,7 @@ By default, Fluentd only uses a single CPU core on the system. The `in_multiproc
 * td-agent v2: `/usr/sbin/td-agent-gem install fluent-plugin-multiprocess`
 * td-agent v1: `/usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-multiprocess`
 
-### Example Configuration
+## Example Configuration
 
     :::text
     <source>
@@ -37,30 +37,30 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 
 NOTE: Especially for daemonized fluentd (ex: td-agent), `--log` option MUST be specified to put logs of child processes.
 
-### Parameters
+## Parameters
 
-#### type (required)
+### @type (required)
 The value must be `multiprocess`.
 
-#### graceful_kill_interval
+### graceful_kill_interval
 The interval to send the signal to gracefully shut down the process (default: 2sec).
 
-#### graceful_kill_interval_increment
+### graceful_kill_interval_increment
 The increment time, when graceful shutdown fails (default: 3sec).
 
-#### graceful_kill_timeout
+### graceful_kill_timeout
 The timeout, to identify the failure of graceful shutdown (default: 60sec).
 
-#### process (required)
+### process (required)
 The `process` section sets the command line arguments of a child process. This plugin creates one child process for each <process> section.
 
-#### cmdline (required)
+### cmdline (required)
 The `cmdline` option is required in a <process> section
 
-#### sleep_before_start
+### sleep_before_start
 This parameter sets the wait time before starting the process (default: 0sec).
 
-#### sleep_before_shutdown
+### sleep_before_shutdown
 This parameter sets the wait time before shutting down the process (default: 0sec).
 
 INCLUDE: _log_level_params

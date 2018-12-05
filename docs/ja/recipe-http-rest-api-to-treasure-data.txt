@@ -1,1 +1,0 @@
-../recipe-http-rest-api-to-treasure-data.txt

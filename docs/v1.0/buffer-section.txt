@@ -1,0 +1,380 @@
+# Buffer section configurations
+
+Fluentd's output plugins support the ``<buffer>`` section to specify how to buffer events (handled by Fluentd core), and other parameters for buffer plugins.
+
+## Buffer section overview
+
+Buffer section must be in ``<match>`` sections. It's enabled for output plugins which supports buffered output features.
+
+    <match tag.*>
+      @type file
+      
+      # ... parameters for output plugin
+      
+      <buffer>
+        # buffer section parameters ...
+      </buffer>
+      
+      # <buffer> section can be configured just once
+    </match>
+
+## buffer plugin type
+
+``<buffer>`` section accepts ``@type`` parameter to specify the type of buffer plugin.
+
+    <buffer>
+      @type file
+    </buffer>
+
+Fluentd core bundles ``memory`` and ``file`` plugins. 3rd party plugins are also available when installed.
+
+* [buf_file Plugin](buf_file)
+* [buf_memory Plugin](buf_memory)
+
+``@type`` can be omitted. When ``@type`` parameter is not configured, the default buffer plugin specified by output plugin will be used (if possible), or ``memory`` buffer plugin in default.
+
+NOTE: For the majority of the workload, we always recommend to use the file buffer which gives you more durability.
+
+## Chunk keys
+
+Output plugins create buffer chunks by gathering events. Chunk keys, specified as argument of ``<buffer>`` section, controls how to gather events into chunks.
+
+    <buffer ARGUMENT_CHUNK_KEYS>
+      # ...
+    </buffer>
+
+The valid value of argument chunk keys is comma-separated strings, or blank.
+
+### Blank chunk keys
+
+When the blank chunk keys is specified (and output plugin doesn't specify default chunk keys), output plugin writes all matched events into a chunk, until its size becomes full.
+
+    <match tag.**>
+      # ...
+      <buffer>
+        # ...
+      </buffer>
+    </match>
+    
+    # No chunk keys: All events will be appended into the same chunk.
+    
+    11:59:30 web.access {"key1":"yay","key2":100}  --|
+                                                     |
+    12:00:01 web.access {"key1":"foo","key2":200}  --|---> CHUNK_A
+                                                     |
+    12:00:25 ssh.login  {"key1":"yay","key2":100}  --|
+
+### Tag
+
+When ``tag`` is specified as buffer chunk key, output plugin writes events into chunks separately per tags. Events with different tags will be written in different chunks.
+
+    <match tag.**>
+      # ...
+      <buffer tag>
+        # ...
+      </buffer>
+    </match>
+    
+    # Tag chunk key: events will be separated per tags
+    
+    11:59:30 web.access {"key1":"yay","key2":100}  --|
+                                                     |---> CHUNK_A
+    12:00:01 web.access {"key1":"foo","key2":200}  --|
+    
+    12:00:25 ssh.login  {"key1":"yay","key2":100}  ------> CHUNK_B
+
+### Time
+
+When ``time`` and ``timekey`` in buffer section(required) are specified, output plugin writes events into chunks separately per time key. Time key is calculated as ``time(unix time) / timekey(seconds)``.
+
+For example:
+
+* timekey   60: ``["12:00:00", ..., "12:00:59"]``, ``["12:01:00", ..., "12:01:59"]``, ...
+* timekey  180: ``["12:00:00", ..., "12:02:59"]``, ``["12:03:00", ..., "12:05:59"]``, ...
+* timekey 3600: ``["12:00:00", ..., "12:59:59"]``, ``["13:00:00", ..., "13:59:59"]``, ...
+
+So the events will be separated into chunks by time range, and will be flushed (to be written) by output plugin after expiration for the time key range.
+
+    <match tag.**>
+      # ...
+      <buffer time>
+        timekey      1h # chunks per hours ("3600" also available)
+        timekey_wait 5m # 5mins delay for flush ("300" also available)
+      </buffer>
+    </match>
+    
+    # Time chunk key: events will be separated for hours (by timekey 3600)
+    
+    11:59:30 web.access {"key1":"yay","key2":100}  ------> CHUNK_A
+                                                     
+    12:00:01 web.access {"key1":"foo","key2":200}  --|
+                                                     |---> CHUNK_B
+    12:00:25 ssh.login  {"key1":"yay","key2":100}  --|
+
+``timekey_wait`` is to determine when the chunks will be flushed. The event time is normally delayed time from current timestamp, so Fluentd will wait to flushing buffer chunks for delayed events. Delay is configured via ``timekey_wait``.
+For example, the figure below shows when the chunks (timekey: 3600) will be flushed actually, for some ``timekey_wait`` values. The default value of ``timekey_wait`` is 600 (10minutes).
+
+     timekey: 3600
+     -------------------------------------------------------
+     time range for chunk | timekey_wait | actual flush time
+      12:00:00 - 12:59:59 |           0s |          13:00:00
+      12:00:00 - 12:59:59 |     60s (1m) |          13:01:00
+      12:00:00 - 12:59:59 |   600s (10m) |          13:10:00
+
+### Other keys
+
+When the other (non-time/tag) keys are specified, these are handled as field names of records. The output plugin will separate events into chunks by the value of these fields.
+
+    <match tag.**>
+      # ...
+      <buffer key1>
+        # ...
+      </buffer>
+    </match>
+    
+    # Chunk keys: events will be separated by values of "key1"
+    
+    11:59:30 web.access {"key1":"yay","key2":100}  --|---> CHUNK_A
+                                                     |
+    12:00:01 web.access {"key1":"foo","key2":200}  -)|(--> CHUNK_B
+                                                     |
+    12:00:25 ssh.login  {"key1":"yay","key2":100}  --|
+
+#### Nested field support
+
+You can use [record_accessor syntax](api-plugin-helper-record_accessor) for using nested field. Here is an example:
+
+    <match tag.**>
+      # ...
+      <buffer $.nest.field> # access record['nest']['field']
+        # ...
+      </buffer>
+    </match>
+
+### Combination of chunk keys
+
+Buffer chunk keys can be specified 2 or more keys - events will be separated into chunks by the combination of values of chunk keys.
+
+    # <buffer tag,time>
+    
+    11:58:01 ssh.login  {"key1":"yay","key2":100}  ------> CHUNK_A
+                                                 
+    11:59:13 web.access {"key1":"yay","key2":100}  --|
+                                                     |---> CHUNK_B
+    11:59:30 web.access {"key1":"yay","key2":100}  --|
+                                                 
+    12:00:01 web.access {"key1":"foo","key2":200}  ------> CHUNK_C
+                                                  
+    12:00:25 ssh.login  {"key1":"yay","key2":100}  ------> CHUNK_D
+
+There are no solid limitation about the number of chunk keys, but too many chunk keys may degrade the I/O performance and/or increase the total resource usage.
+
+### Empty keys
+
+Buffer chunk keys can be empy by specifying `[]` in `buffer` section.
+
+    <match tag.**>
+      # ...
+      <buffer []>
+        # ...
+      </buffer>
+    </match>
+
+This is useful when output plugin has default chunk keys and disable it.
+
+## Placeholders
+
+When the chunk keys are specified, these values can be extracted in configuration parameter values. It depends on whether the plugin applies a method (``extract_placeholders``) on configuration values or not.
+
+This example is about ``file`` output plugin (file output plugin applies ``extract_placeholders`` on ``path``).
+
+    # chunk_key: tag
+    # ${tag} will be replaced with actual tag string
+    <match log.*>
+      @type file
+      path  /data/${tag}/access.log  #=> "/data/log.map/access.log"
+      <buffer tag>
+        # ...
+      </buffer>
+    </match>
+
+For timekey in buffer chunk keys, that time value can be extracted using ``strptime`` placeholders. The extracted time value is the first second of the timekey range.
+
+    # chunk_key: tag and time
+    # ${tag[1]} will be replaced with 2nd part of tag ("map" of "log.map"), zero-origin index
+    # %Y, %m, %d, %H, %M, %S: strptime placeholder are available when "time" chunk key specified
+    <match log.*>
+      @type file
+      path  /data/${tag[1]}/access.%Y-%m-%d.%H%M.log #=> "/data/map/access.2017-02-28.20:48.log"
+      <buffer tag,time>
+        timekey 1m
+      </buffer>
+    </match>
+
+Any keys specified in chunk keys are acceptable. If keys not in chunk keys were specified, Fluentd raises configuration errors for it.
+
+    <match log.*>
+      @type file
+      path  /data/${tag}/access.${key1}.log #=> "/data/log.map/access.yay.log"
+      <buffer tag,key1>
+        # ...
+      </buffer>
+    </match>
+
+### Nested field support
+
+Same with chunk keys:
+
+    <match log.*>
+      @type file
+      path  /data/${tag}/access.${$.nest.field}.log #=> "/data/log.map/access.nested_yay.log"
+      <buffer tag,$.nest.field> # access record['nest']['field']
+        # ...
+      </buffer>
+    </match>
+
+## Parameters
+
+### Argument
+
+Argument is an array of chunk keys, comma-separated strings. Blank is also available.
+
+    <buffer>
+      # ...
+    </buffer>
+    
+    <buffer tag, time, key1>
+      # ...
+    </buffer>
+
+``tag`` and ``time`` are of tag and time, not field names of records. Others are to refer fields of records.
+
+When ``time`` is specified, parameters below are available:
+
+* ``timekey`` [time]
+  * Required (no default value)
+  * Output plugin will flush chunks per specified time (enabled when ``time`` is specified in chunk keys)
+* ``timekey_wait`` [time]
+  * Default: 600 (10m)
+  * Output plugin writes chunks after ``timekey_wait`` seconds later after ``timekey`` expiration
+  * If an user configures ``timekey 60m``, output plugin will wait delayed events for flushed timekey, and write the chunk at 10 minutes of each hour
+* ``timekey_use_utc`` [bool]
+  * Default: false (to use local timezone)
+  * Output plugin decides to use UTC or not to format placeholders using timekey
+* ``timekey_zone`` [string]
+  * Default: local timezone
+  * The timezone (``-0700`` or ``Asia/Tokyo``) string for formatting timekey placeholders
+
+### @type
+
+``@type`` key is to specify the type of buffer plugin. The default type is ``memory`` of bare output plugin, but it may be overwritten by output plugin implementations. For example: the default buffer plugin is ``file`` buffer plugin for ``file`` output plugin.
+
+    <buffer>
+      @type file
+      # ...
+    </buffer>
+
+### Buffering parameters
+
+These parameters below are to configure buffer plugins and its chunks.
+
+* ``chunk_limit_size`` [size]
+  * Default: 8MB (memory) / 256MB (file)
+  * The max size of each chunks: events will be written into chunks until the size of chunks become this size
+* ``chunk_limit_records`` [integer]
+  * Optional
+  * The max number of events that each chunks can store in it
+* ``total_limit_size`` [size]
+  * Default: 512MB (memory) / 64GB (file)
+  * The size limitation of this buffer plugin instance
+  * Once the total size of stored buffer reached this threshold, all append operations will fail with error (and data will be lost)
+* ``chunk_full_threshold`` [float]
+  * Default: 0.95
+  * The percentage of chunk size threshold for flushing
+  * output plugin will flush the chunk when actual size reaches ``chunk_limit_size * chunk_full_threshold (== 8MB * 0.95 in default)``
+* ``queued_chunks_limit_size`` [integer] (since v1.1.3)
+  * Default: nil (No limit)
+  * Limit the number of queued chunks.
+  * If you set smaller flush_interval, e.g. 1s, there are lots of small queued chunks in buffer. This is not good with file buffer because it consumes lots of fd resources when output destination has a problem. This parameter mitigates such situations.
+* ``compress`` [enum: text/gzip]
+  * Default: text
+  * If you set this option to ``gzip``, you can get Fluentd to compress data records before writing to buffer chunks.
+  * Fluentd will decompress these compressed chunks automatically before passing them to the output plugin (The exceptional case is when the output plugin can transfer data in compressed form. In this case, the data will be passed to the plugin as is).
+  * The default value is ``text`` which means no compression applied.
+
+### Flushing parameters
+
+These parameters are to configure how to flush chunks to optimize performance (latency and throughput).
+
+* ``flush_at_shutdown`` [bool]
+  * Default: false for persistent buffers (e.g. buf_file), true for non-persistent buffers (e.g. buf_memory).
+  * The value to specify to flush/write all buffer chunks at shutdown, or not
+* ``flush_mode`` [enum: default/lazy/interval/immediate]
+  * Default: default (equals to ``lazy`` if ``time`` is specified as chunk key, ``interval`` otherwise)
+  * ``lazy``: flush/write chunks once per timekey
+  * ``interval``: flush/write chunks per specified time via ``flush_interval``
+  * ``immediate``: flush/write chunks immediately after events are appended into chunks
+* ``flush_interval`` [time]
+  * Default: 60s
+* ``flush_thread_count`` [integer]
+  * Default: 1
+  * The number of threads of output plugins, which is used to write chunks in parallel
+* ``flush_thread_interval`` [float]
+  * Default: 1.0
+  * The sleep interval seconds of threads to wait next flush trial (when no chunks are waiting)
+* ``flush_thread_burst_interval`` [float]
+  * Default: 1.0
+  * The sleep interval seconds of threads between flushes when output plugin flushes waiting chunks next to next
+* ``delayed_commit_timeout`` [time]
+  * Default: 60
+  * The timeout seconds until output plugin decides that async write operation fails
+* ``overflow_action`` [enum: throw\_exception/block/drop\_oldest\_chunk]
+  * Default: throw\_exception
+  * How output plugin behaves when its buffer queue is full
+  * ``throw_exception``: raise exception to show this error in log
+  * ``block``: block processing of input plugin to emit events into that buffer
+  * ``drop_oldest_chunk``: drop/purge oldest chunk to accept newly incoming chunk
+
+### Retries parameters
+
+* ``retry_timeout`` [time]
+  * Default: 72h
+  * The maximum seconds to retry to flush while failing, until plugin discards buffer chunks
+* ``retry_forever`` [bool]
+  * Default: false
+  * If true, plugin will ignore retry\_timeout and retry\_max\_times options and retry flushing forever
+* ``retry_max_times`` [integer]
+  * Default: none
+  * The maximum number of times to retry to flush while failing
+* ``retry_secondary_threshold`` [float]
+  * Default: 0.8
+  * The ratio of retry\_timeout to switch to use secondary while failing (Maximum valid value is 1.0)
+* ``retry_type`` [enum: exponential\_backoff/periodic]
+  * Default: exponential\_backoff
+  * ``exponential_backoff``: wait seconds will become large exponentially per failures
+  * ``periodic``: output plugin will retry periodically with fixed intervals (configured via ``retry_wait``)
+* ``retry_wait`` [time]
+  * Default: 1s
+  * Seconds to wait before next retry to flush, or constant factor of exponential backoff
+* ``retry_exponential_backoff_base`` [float]
+  * Default: 2
+  * The base number of exponencial backoff for retries
+* ``retry_max_interval`` [time]
+  * Default: none
+  * The maximum interval seconds for exponencial backoff between retries while failing
+* ``retry_randomize`` [bool]
+  * Default: true
+  * If true, output plugin will retry after randomized interval not to do burst retries
+* ``disable_chunk_backup`` [bool]
+  * Default: false
+  * Instead of storing unrecoverable chunks in the backup directory, just discard them.
+    This option is new in Fluentd v1.2.6.
+
+With exponential backoff, retry wait interval will be calculated as below:
+
+* k is number of retry times
+* c: constant factor, ``@retry_wait``
+* b: base factor, ``@retry_exponential_backoff_base``
+* k: times
+* total retry time: ``c + c * b^1 + (...) + c*b^k = c*b^(k+1) - 1``
+

@@ -27,7 +27,7 @@ NOTE: Please see the <a href="config-file">Config File</a> article for the basic
 
 ## Parameters
 
-### type (required)
+### @type (required)
 The value must be `roundrobin`.
 
 ### &lt;store&gt; (required at least one)
