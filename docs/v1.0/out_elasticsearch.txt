@@ -100,6 +100,7 @@ Also it needs to specify timekey for time slice of chunk:
 ### logstash_format (optional)
 
 With this option set `true`, Fluentd uses the conventional index name format `logstash-%Y.%m.%d` (default: `false`). This option supersedes the `index_name` option.
+If you want to define index name after setting true; you can use logstash_prefix: `logstash_prefix {myname}` 
 
 INCLUDE: _log_level_params
 
