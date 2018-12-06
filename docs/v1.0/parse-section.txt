@@ -61,6 +61,7 @@ These parameters default value will be overwritten by individual parser plugins.
   * example: `types user_id:integer,paid:bool,paid_usd_amount:float`
 * **time_key** (string) (optional): Specify time field for event time. If the event doesn't have this field, current time is used.
   * Default: `nil`
+  * Note that [json](parser_json), [ltsv](parser_ltsv) and [regexp](parser_regexp) override the default value of this parameter and set it to `time` by default.
 * **null_value_pattern** (string) (optional): Specify null value pattern.
   * Default: `nil`
 * **null_empty_string** (bool) (optional): If `true`, empty string field is replaced with `nil`.
