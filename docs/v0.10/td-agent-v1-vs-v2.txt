@@ -24,7 +24,7 @@
 
 Major feature updates to td-agent v2 are as follows.
 
-- Ruby 2.1
+- Ruby 2.5(td-agent 2.5 or later) / Ruby 2.1(td-agent 2.3 or earlier)
 - Fluentd v0.12
 - Updated for the core libraries, msgpack, Cool.io, etc.
 - Changed the installation directory from `/usr/{lib,lib64}/fluent` to `/opt/td-agent`
