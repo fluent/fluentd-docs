@@ -71,6 +71,13 @@ With the YAML file below, you can create and start all the services (in this cas
 
 `logging` section (check [Docker Compose documentation](https://docs.docker.com/compose/compose-file/#/logging)) of `web` container specifies [Docker Fluentd Logging Driver](https://docs.docker.com/engine/admin/logging/fluentd/) as a default container logging driver. All of the logs from `web` container will be automatically forwarded to host:port specified by `fluentd-address`.
 
+NOTE: Elasticsearch and Kibana images do not support `latest` tag.
+
+Note that you must use same version tags for Elasticsearch and Kibana images. If you want to use the latest Elasticsearch and Kibana image, please search the latest versions from the following URLs:
+
+* [Elasticsearch image tags in DockerHub](https://hub.docker.com/_/elasticsearch?tab=tags)
+* [Kibana image tags in DockerHub](https://hub.docker.com/_/kibana?tab=tags)
+
 ## Step 1: Prepare Fluentd image with your Config + Plugin
 
 Then, please prepare `fluentd/Dockerfile` with the following content, to use Fluentd's [official Docker image](https://hub.docker.com/r/fluent/fluentd/) and additionally install Elasticsearch plugin.
