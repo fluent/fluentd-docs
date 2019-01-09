@@ -54,22 +54,29 @@ With the YAML file below, you can create and start all the services (in this cas
         ports:
           - "24224:24224"
           - "24224:24224/udp"
-    
+
       elasticsearch:
-        image: elasticsearch
+        image: elasticsearch:5.3.0
         expose:
           - 9200
         ports:
           - "9200:9200"
-    
+
       kibana:
-        image: kibana
+        image: kibana:5.3.0
         links:
           - "elasticsearch"
         ports:
           - "5601:5601"
 
 `logging` section (check [Docker Compose documentation](https://docs.docker.com/compose/compose-file/#/logging)) of `web` container specifies [Docker Fluentd Logging Driver](https://docs.docker.com/engine/admin/logging/fluentd/) as a default container logging driver. All of the logs from `web` container will be automatically forwarded to host:port specified by `fluentd-address`.
+
+NOTE: Elasticsearch and Kibana images do not support `latest` tag.
+
+Note that you must use same version tags for Elasticsearch and Kibana images. If you want to use the latest Elasticsearch and Kibana image, please search the latest versions from the following URLs:
+
+* [Elasticsearch image tags in DockerHub](https://hub.docker.com/_/elasticsearch?tab=tags)
+* [Kibana image tags in DockerHub](https://hub.docker.com/_/kibana?tab=tags)
 
 ## Step 1: Prepare Fluentd image with your Config + Plugin
 
@@ -78,7 +85,7 @@ Then, please prepare `fluentd/Dockerfile` with the following content, to use Flu
     :::docker
     # fluentd/Dockerfile
     FROM fluent/fluentd:v0.12-debian
-    RUN ["gem", "install", "fluent-plugin-elasticsearch", "--no-rdoc", "--no-ri", "--version", "1.9.2"]
+    RUN ["gem", "install", "fluent-plugin-elasticsearch", "--no-rdoc", "--no-ri", "--version", "1.9.7"]
 
 Then, please prepare Fluentd's configuration file `fluentd/conf/fluent.conf`. [in_forward](in_forward) plugin is used for receive logs from Docker logging driver, and out_elasticsearch is for forwarding logs to Elasticsearch.
 
@@ -119,11 +126,11 @@ You can check to see if 4 containers are running by `docker ps` command.
 
     :::term
     $ docker ps
-    CONTAINER ID        IMAGE                      COMMAND                  CREATED             STATUS              PORTS                                                          NAMES
-    2d28323d77a3        httpd                      "httpd-foreground"       About an hour ago   Up 43 seconds       0.0.0.0:80->80/tcp                                             dockercomposeefk_web_1
-    a1b15a7210f6        dockercomposeefk_fluentd   "/bin/sh -c 'exec ..."   About an hour ago   Up 45 seconds       5140/tcp, 0.0.0.0:24224->24224/tcp, 0.0.0.0:24224->24224/udp   dockercomposeefk_fluentd_1
-    01e43b191cc1        kibana                     "/docker-entrypoin..."   About an hour ago   Up 45 seconds       0.0.0.0:5601->5601/tcp                                         dockercomposeefk_kibana_1
-    b7b439415898        elasticsearch              "/docker-entrypoin..."   About an hour ago   Up 50 seconds       0.0.0.0:9200->9200/tcp, 9300/tcp                               dockercomposeefk_elasticsearch_1
+    CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                                                          NAMES
+    2c801e3f9236        httpd                 "httpd-foreground"       4 seconds ago       Up 3 seconds        0.0.0.0:80->80/tcp                                             efk-docker_web_1
+    9efd16da8995        efk-docker_fluentd    "tini -- /bin/entryp…"   5 seconds ago       Up 4 seconds        5140/tcp, 0.0.0.0:24224->24224/tcp, 0.0.0.0:24224->24224/udp   efk-docker_fluentd_1
+    3ee55d331195        kibana:5.3.0          "/docker-entrypoint.…"   5 seconds ago       Up 4 seconds        0.0.0.0:5601->5601/tcp                                         efk-docker_kibana_1
+    ab54d8609517        elasticsearch:5.3.0   "/docker-entrypoint.…"   5 seconds ago       Up 4 seconds        0.0.0.0:9200->9200/tcp, 9300/tcp                               efk-docker_elasticsearch_1
 
 ## Step 3: Generate httpd Access Logs
 
