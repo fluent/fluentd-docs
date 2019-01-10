@@ -2,15 +2,15 @@
 
 ![](/images/fluentd_kubernetes.png)
 
-[Kubernetes](http://kubernetes.io) provides two logging end-points for applications and cluster logs: Stackdriver Logging for use with Google Cloud Platform and Elasticsearch. Behind the scenes there is a logging agent that take cares of log collection, parsing and distribution: [Fluentd](http://www.fluentd.org).
+[Kubernetes](http://kubernetes.io) provides two logging end-points for applications and cluster logs: Stackdriver Logging for use with Google Cloud Platform and Elasticsearch. Behind the scenes there is a logging agent that takes care of log collection, parsing and distribution: [Fluentd](http://www.fluentd.org).
 
-The following document focus on how to deploy Fluentd in Kubernetes and extend the possibilities to have different destinations for your logs.
+The following document focuses on how to deploy Fluentd in Kubernetes and extend the possibilities to have different destinations for your logs.
 
 ## Getting Started
 
 The following document assumes that you have a Kubernetes cluster running or at least a local (single) node that can be used for testing purposes.
 
-Before to get started, make sure you understand or have a basic idea about the following concepts from Kubernetes:
+Before you get started, make sure you understand or have a basic idea about the following Kubernetes concepts:
 
 - [Node](https://kubernetes.io/docs/admin/node/)
 >A node is a worker machine in Kubernetes, previously known as a minion. A node may be a VM or physical machine, depending on the cluster. Each node has the services necessary to run pods and is managed by the master components...
@@ -19,15 +19,15 @@ Before to get started, make sure you understand or have a basic idea about the f
 - [DaemonSet](https://kubernetes.io/docs/admin/daemons/)
 >A DaemonSet ensures that all (or some) nodes run a copy of a pod. As nodes are added to the cluster, pods are added to them. As nodes are removed from the cluster, those pods are garbage collected. Deleting a DaemonSet will clean up the pods it created...
 
-Since applications runs in Pods and multiple Pods might exists across multiple nodes, we need a specific Fluentd-Pod that takes care of log collection on each node: [Fluentd DaemonSet](fluentd_daemonset.md).
+Since applications run in Pods and multiple Pods might exist across multiple nodes, we need a specific Fluentd-Pod that takes care of log collection on each node: [Fluentd DaemonSet](fluentd_daemonset.md).
 
 ## Fluentd DaemonSet
 
 For [Kubernetes](https://kubernetes.io), a [DaemonSet](https://kubernetes.io/docs/admin/daemons/) ensures that all (or some) nodes run a copy of a _pod_. In order to solve log collection we are going to implement a Fluentd DaemonSet.
 
-Fluentd is flexible enough and have the proper plugins to distribute logs to different third party applications like databases or cloud services, so the principal question is to know: _where the logs will be stored ?_. Once we got that question answered, we can move forward configuring our DaemonSet.
+Fluentd is flexible enough and has the proper plugins to distribute logs to different third party applications like databases or cloud services, so the principal question is to know: _where will the logs be stored ?_. Once we got that question answered, we can move forward configuring our DaemonSet.
 
-The below steps will focus on sending the logs to a Elasticsearch Pod.
+The below steps will focus on sending the logs to an Elasticsearch Pod.
 
 ### Get Fluentd DaemonSet sources
 
@@ -79,11 +79,11 @@ spec:
         ...
 ```
 
-The Yaml file have two relevant environment variables that are used by Fluentd when the container starts:
+The Yaml file has two relevant environment variables that are used by Fluentd when the container starts:
 
 | Environment Variable           | Description | Default              |
 |--------------------------------|-------------|----------------------|
 | FLUENT\_ELASTICSEARCH\_HOST    | Specify the host name or IP address.|elasticsearch-logging |
 | FLUENT\_ELASTICSEARCH\_PORT    | Elasticsearch TCP port             | 9200                 |
 
-Any relevant change needs to be done to the Yaml file before to deploy it. Using the default values assumes that at least an Elasticsearch Pod __elasticsearch-logging__ exists in the cluster.
+The relevant changes need to be done to the Yaml file before deployment. Using the default values assumes that at least an Elasticsearch Pod __elasticsearch-logging__ exists in the cluster.
