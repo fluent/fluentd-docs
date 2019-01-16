@@ -89,3 +89,7 @@ The format of output.
 
 This is the option of `stdout` format. Configure the format of record (third
 part). Any formatter plugins can be specified.
+
+### &lt;inject&gt; section
+
+See [Inject section configurations](inject-section) for more details.
