@@ -17,9 +17,4 @@ The `msgpack` formatter plugin converts an event to msgpack binary.
 This incoming event is formatted to:
 
     :::text
-    {"host":"192.168.0.1","size":777,"method":"PUT"}
-
-With `include_tag_key true` and `tag_key event_tag`, result is:
-
-    :::text
     \x83\xA4host\xAB192.168.0.1\xA4size\xCD\x03\t\xA6method\xA3PUT
