@@ -103,6 +103,10 @@ With this option set `true`, Fluentd uses the conventional index name format `lo
 
 INCLUDE: _log_level_params
 
+### logstash_prefix (optional)
+
+The logstash prefix index name to write events when specifying logstash_format as true (default: `logstash`).
+
 ## Miscellaneous
 
 You can use `%{}` style placeholders to escape for URL encoding needed characters.
