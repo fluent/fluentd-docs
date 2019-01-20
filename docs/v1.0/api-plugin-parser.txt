@@ -22,7 +22,7 @@ Here is the code to parse this custom format (let's call it `time_key_value`). I
     module Fluent::Plugin
       class TimeKeyValueParser < Parser
         # Register this parser as "time_key_value"
-        Plugin.register_parser("time_key_value", self)
+        Fluent::Plugin.register_parser("time_key_value", self)
 
         config_param :delimiter, :string, default: " "   # delimiter is configurable with " " as default
         config_param :time_format, :string, default: nil # time_format is configurable
