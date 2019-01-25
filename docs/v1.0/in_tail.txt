@@ -318,3 +318,12 @@ in_tail stops reading new lines and pos file update until BufferOverflowError is
 ### in_tail is sometimes stopped when monitor lots of files. How to avoid it?
 
 Try to set `enable_stat_watcher false` in `in_tail` setting. We got several reports in_tail is stopped when use `*` included `path`, and the problem is resolved by disabling inotify events.
+
+### Wildcard pattern in path doesn't work on Windows, why?
+
+Backslash(`\`) with `*` doesn't work on Windows by internal limitation. To avoid this problm, use slash style instead.
+
+    # good
+    path C:/path/to/*/foo.log
+    # bad
+    path C:\\path\\to\\*\\foo.log
