@@ -139,6 +139,9 @@ We can also use &lt;or&gt; directive with &lt;regexp&gt; directive:
 ### &lt;regexp&gt; directive
 Specify filtering rule. This directive contains two parameters.
 
+- key
+- pattern
+
 #### key
 
 | type   | default            | version  |
@@ -227,6 +230,9 @@ Here is `regexpN` version of `<regexp>` example:
 
 ### &lt;exclude&gt; directive
 Specify filtering rule to reject events. This directive contains two parameters.
+
+- key
+- pattern
 
 #### key
 
