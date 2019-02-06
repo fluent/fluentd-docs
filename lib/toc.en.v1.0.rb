@@ -67,9 +67,9 @@ section 'usecases', 'Use Cases' do
 #   category 'windows', 'Windows Event Collection' do
 #     article 'windows', 'Windows Event Collection'
 #   end
-#   category 'iot', 'IoT Data Logger' do
-#     article 'raspberrypi-cloud-data-logger', 'Raspberry Pi Cloud Data Logger', ['Raspberry Pi', 'Data Logger', 'Data Acquisition']
-#   end
+  category 'iot', 'IoT Data Logger' do
+    article 'raspberrypi-cloud-data-logger', 'Raspberry Pi Cloud Data Logger', ['Raspberry Pi', 'Data Logger', 'Data Acquisition']
+  end
 end
 section 'configuration', 'Configuration' do
   category 'config-file', 'Config File Syntax' do
