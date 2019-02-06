@@ -48,6 +48,7 @@ section 'usecases', 'Use Cases' do
     article 'splunk-like-grep-and-alert-email', 'Email Alerts like Splunk', ['Splunk', 'Alerting']
     article 'parse-syslog', 'Parse Syslog Messages Robustly'
     article 'syslog-influxdb', 'Collect syslog data into InfluxDB'
+    article 'rsyslogd-aggregation', 'Aggregating Rsyslogd Output into a Central Fluentd'
   end
   category 'data-analytics', 'Data Analytics' do
     article 'http-to-td', 'Data Analytics with Treasure Data', ['Treasure Data', 'Hadoop', 'Hive']

@@ -1,0 +1,158 @@
+# Aggregating Rsyslogd Output into a Central Fluentd
+
+rsyslogd is a tried and true piece of middleware to collect and aggregate syslogs.
+
+Once aggregated into the central server (which is also running rsyslogd), the syslog data
+is periodically bulk loaded into various data backends like databases, search indexers
+and object storage systems.
+
+<img src="/images/before-fluentd-rsyslogd.png"/>
+
+The above architecture can be improved in a few ways:
+
+1. **Adding a new data consumer requires scripting**: each new data source requires a data load script
+that needs to be written and maintained. This means an engineering overhead that grows linearly with the
+number of data consumers.
+2. **Data is pulled, not pushed**: because data is pulled by data consumers and not
+pushed by the aggregator rsyslogd, the scripts need to run very frequently to get fresh data.
+A better alternative is to have the aggregator push data to each data consumer, but there is
+no out-of-the-box way to do this with rsyslogd.
+
+By replacing the central rsyslogd aggregator with Fluentd addresses both 1. and 2.
+
+<img src="/images/after-fluentd-rsyslogd.png"/>
+
+1. Fluentd supports many data consumers out of the box. By installing an appropriate output plugin,
+one can add a new data source with a few configuration changes.
+2. Fluentd pushes data to each consumer with tunable frequency and buffering settings.
+
+The rest of the article shows how to set up Fluentd as the central syslog aggregator to
+stream the aggregated logs into Elasticsearch.
+
+## Prerequisites
+
+- A basic understanding of Fluentd and rsyslogd
+- A running instance of Elasticsearch
+
+**In this guide, we assume we are running [td-agent](https://www.fluentd.org/download) on Ubuntu Xenial.**
+
+## Setup: rsyslogd
+
+If remote rsyslogd instances are already collecting data into the aggregator rsyslogd,
+the settings for rsyslog should remain unchanged. However, if this is a brandnew setup,
+start forward syslog output by adding the following line to `/etc/rsyslogd.conf`
+
+```
+*.* @182.39.20.2:42185
+```
+
+You should replace "182.39.20.2" with the IP address of your aggregator server. Also,
+there is nothing special about port 42185 (do make sure this port is open though).
+
+## Setup: Fluentd
+
+On your aggregator server, set up Fluentd. [See here](https://www.fluentd.org/download) for the details.
+
+```
+$ curl -L https://toolbelt.treasuredata.com/sh/install-ubuntu-xenial-td-agent3.sh | sh
+```
+
+The Elasticsearch Output plugin is included in the latest version of td-agent.
+
+Next, the elasticsearch-ruby, which is Elasticsearch output plugin dependent gem, needs to be installed correspond for Elasticsearch server. To confirm running Elasticsearch server version, run
+
+```
+$ curl localhost:9200
+{
+  "name" : "eycK1t_",
+  "cluster_name" : "elasticsearch_xxx",
+  "cluster_uuid" : "4UjvsSZRRvuSJisTu11LLQ",
+  "version" : {
+    "number" : "6.5.4",
+    "build_flavor" : "oss",
+    "...":"..."
+  },
+  "tagline" : "You Know, for Search"
+}
+```
+
+```
+$ td-agent-gem list | grep elasticsearch
+
+*** LOCAL GEMS ***
+
+elasticsearch (6.1.0)
+elasticsearch-api (6.1.0)
+elasticsearch-transport (6.1.0)
+...
+```
+
+Then, you need to install elasticsearch-ruby 6.x when it is not installed.
+
+elasticsearch-ruby's compatibility is listed on [elasticsearch-ruby#compatibility](https://github.com/elastic/elasticsearch-ruby#compatibility).
+
+If you are using vanilla Fluentd, run
+
+```
+fluent-gem install fluent-plugin-elasticsearch
+```
+
+You might need to `sudo` to install the plugin.
+
+Finally, configure `/etc/td-agent/td-agent.conf` as follows.
+
+```
+<source>
+  @type syslog
+  port 42185
+  tag  rsyslog
+</source>
+
+<match rsyslog.**>
+  @type copy
+  <store>
+    # for debug (see /var/log/td-agent.log)
+    @type stdout
+  </store>
+  <store>
+    @type elasticsearch
+    logstash_format true
+    <buffer>
+      @type memory
+      flush_interval 10s # for testing.
+      flush_thread_count 2
+    </buffer>
+    host YOUR_ES_HOST
+    port YOUR_ES_PORT
+  </store>
+</match>
+```
+
+## Restart and Confirm That Data Flow into Elasticsearch
+
+Restart td-agent with `sudo systemctl restart td-agent`. Then, run `tail` against /var/log/td-agent.log. You should see the following lines:
+
+```
+2014-06-01 19:41:28 +0000 rsyslog.kern.info: {"host":"xenial64","ident":"kernel","message":"[49851.032200] docker0: port 2(veth6091) entering disabled state"}
+```
+
+Then, query Elasticsearch to make sure the data is in there. For example, one can aggregate and filter data based on hostname.
+
+## What's Next?
+
+In production, you might want to remove writing output into stdout. So, use the following output configuration:
+
+```
+<match rsyslog.**>
+  @type elasticsearch
+  logstash_format true
+  host YOUR_ES_HOST
+  port YOUR_ES_PORT
+  <buffer>
+    @type memory
+    flush_thread_count 2 # or more number upto logical cpu cores.
+  </buffer>
+</match>
+```
+
+Do you wish to store rsyslogd logs into other systems? Check out other [monitoring service logs!](https://docs.fluentd.org/categories/monitoring-service-logs).
