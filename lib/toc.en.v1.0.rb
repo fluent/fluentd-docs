@@ -47,6 +47,7 @@ section 'usecases', 'Use Cases' do
     article 'free-alternative-to-splunk-by-fluentd', 'Free Alternative to Splunk by Fluentd + Elasticsearch', ['Splunk', 'Free Alternative']
     article 'splunk-like-grep-and-alert-email', 'Email Alerts like Splunk', ['Splunk', 'Alerting']
     article 'parse-syslog', 'Parse Syslog Messages Robustly'
+    article 'maillog-mongodb', 'Parse Postfix Maillogs and Store Them in MongoDB'
   end
   category 'data-analytics', 'Data Analytics' do
     article 'http-to-td', 'Data Analytics with Treasure Data', ['Treasure Data', 'Hadoop', 'Hive']
