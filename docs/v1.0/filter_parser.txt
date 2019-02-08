@@ -1,6 +1,6 @@
 # parser Filter Plugin
 
-The `filter_parser` filter plugin "parses" string field in event records and mutates its event record with parsed result.
+The `parser` filter plugin "parses" string field in event records and mutates its event record with parsed result.
 
 ## Example Configurations
 
@@ -9,7 +9,7 @@ The `filter_parser` filter plugin "parses" string field in event records and mut
     :::text
     <filter foo.bar>
       @type parser
-      key_name message
+      key_name log
       <parse>
         @type regexp
         expression /^(?<host>[^ ]*) [^ ]* (?<user>[^ ]*) \[(?<time>[^\]]*)\] "(?<method>\S+)(?: +(?<path>[^ ]*) +\S*)?" (?<code>[^ ]*) (?<size>[^ ]*)$/
@@ -17,8 +17,24 @@ The `filter_parser` filter plugin "parses" string field in event records and mut
       </parse>
     </filter>
 
-`filter_parser` uses built-in parser plugins and your own customized parser plugin, so you can re-use pre-defined format like `apache`, `json` and etc.
+`filter_parser` uses built-in parser plugins and your own customized parser plugin, so you can re-use pre-defined format like `apache2`, `json` and etc.
 See document page for more details: [Parser Plugin Overview](/articles/parser-plugin-overview)
+
+With this example, if you receive following event:
+
+    :::text
+    time:
+    injested time (depends on your input)
+    record:
+    {"log":"192.168.0.1 - - [05/Feb/2018:12:00:00 +0900] \"GET / HTTP/1.1\" 200 777"}
+
+parsed result is below:
+
+    :::text
+    time
+    05/Feb/2018:12:00:00 +0900
+    record:
+    {"host":"192.168.0.1","user":"-","method":"GET","path":"/","code":"200","size":"777"}
 
 ## Plugin helpers
 
