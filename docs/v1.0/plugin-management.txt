@@ -138,3 +138,16 @@ Finally, restart td-agent:
     $ sudo systemctl restart td-agent.service
 
 NOTE: In this approach, you will download all gems listed in Gemfile even if td-agent includes them at the first time.
+
+## FAQ
+
+### fluent-gem list shows multiple plugin versions. Which version is used?
+
+The latest version is used. If command shows following result:
+
+    :::term
+    $ fluent-gem list
+    ...skip...
+    fluent-plugin-record-modifier (2.0.1, 0.6.0, 0.5.0)
+
+`2.0.1` version is used.
