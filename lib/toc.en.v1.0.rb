@@ -166,9 +166,9 @@ section 'plugin', 'Input Plugins' do
   category 'in_syslog', 'in_syslog' do
     article 'in_syslog', 'syslog Input Plugin', ['Syslog']
   end
-  # category 'in_unix', 'in_unix' do
-  #   article 'in_unix', 'UDS Input Plugin'
-  # end
+  category 'in_unix', 'in_unix' do
+    article 'in_unix', 'UDS Input Plugin'
+  end
   category 'in_exec', 'in_exec' do
     article 'in_exec', 'exec Input Plugin'
   end
