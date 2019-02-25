@@ -113,6 +113,23 @@ For more details about parser plugin, see followings:
 * [Parser Plugin Overview](parser-plugin-overview)
 * [Parse section configurations](parse-section)
 
+## Code example
+
+Here is ruby example to send event to `in_udp`.
+
+```
+require 'socket'
+
+us = UDPSocket.open
+sa = Socket.pack_sockaddr_in(5160, '127.0.0.1')
+
+# This example uses json payload.
+# In in_udp configuration, need to configure "@type json" in "<parse>"
+us.send('{"k":"v1"}', 0, sa)
+us.send('{"k":"v2"}', 0, sa)
+us.close
+```
+
 ## FAQ
 
 ### How to prevent request drop?
