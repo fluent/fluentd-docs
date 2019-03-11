@@ -54,7 +54,7 @@ Example of v1.0 output plugin configuration:
         timekey     60m
         timekey_wait 1m
       </buffer>
-    </source>
+    </match>
 
 For Fluentd v0.12, configuration parameters for buffer plugins were written in same section:
 
@@ -66,7 +66,7 @@ For Fluentd v0.12, configuration parameters for buffer plugins were written in s
       buffer_path /my/buffer/myservice/access.myservice_name.*.log
       time_slice_format %Y-%m-%d.%H%M
       time_slice_wait   1m
-    </source>
+    </match>
 
 See buffer section in [Compat Parameters Plugin Helper API](https://docs.fluentd.org/v1.0/articles/api-plugin-helper-compat_parameters#compat_parameters_convert(conf,-*types,-**kwargs)) for parameter name changes between v1 and v0.12.
 
