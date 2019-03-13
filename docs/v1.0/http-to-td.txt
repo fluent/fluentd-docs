@@ -1,10 +1,10 @@
 # Cloud Big Data Analytics with Treasure Data
 
-This article explains how to use [Treasure Data](www.fluentd.org/treasuredata) with [Fluentd](http://fluentd.org/) to aggregate semi-structured logs into Treasure Data (TD), which offers Cloud Data Service.
+This article explains how to use [Treasure Data](http://www.fluentd.org/treasuredata) with [Fluentd](http://fluentd.org/) to aggregate semi-structured logs into Treasure Data (TD), which offers Cloud Data Service.
 
 ## Background
 
-[Fluentd](http://fluentd.org/) is an advanced open-source log collector originally developed at [Treasure Data, Inc](www.fluentd.org/treasuredata). Fluentd is specifically designed to solve the big-data log collection problem.
+[Fluentd](http://fluentd.org/) is an advanced open-source log collector originally developed at [Treasure Data, Inc](http://www.fluentd.org/treasuredata). Fluentd is specifically designed to solve the big-data log collection problem.
 
 [Treasure Data](http://www.fluentd.org/treasuredata) provides Cloud Data Service, which Fluentd users can use to easily store and analyze data on the cloud. Fluentd is designed to flexibly connect with many systems via plugins, but Treasure Data should be your top choice if you don't want to spend engineering resources maintaining your backend infrastructure.
 
