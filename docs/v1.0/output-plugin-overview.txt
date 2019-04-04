@@ -114,6 +114,14 @@ The default is 60.
 
 Seconds of timeout for buffer chunks to be committed by plugins later
 
+#### slow_flush_log_threshold
+
+The threshold for chunk flush performance check. The default value is `20.0` seconds. Note that parameter type is `float`, not `time`.
+
+If chunk flush takes longer time than this threshold, fluentd logs warning message like below:
+
+    2016-12-19 12:00:00 +0000 [warn]: buffer flush took longer time than slow_flush_log_threshold: elapsed_time=15.0031226690043695 slow_flush_log_threshold=10.0 plugin_id="foo"
+
 #### overflow_action
 
 Control the buffer behaviour when the queue becomes full. 3 modes are supported:
