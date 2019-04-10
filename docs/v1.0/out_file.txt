@@ -162,3 +162,39 @@ After flushed, you see actual output result
     /path/to/file.test.20180405.log_0 # tag is 'test'
 
 See also note in `path` parameter.
+
+### Can I use a placeholder in `symlink_path`?
+
+Since Fluentd v1.4.0, you can use the placeholder syntax in `symlink_path` parameter.
+For example, suppose you have the following configuration.
+
+    <source>
+      @type dummy
+      tag dummy1
+    </source>
+
+    <source>
+      @type dummy
+      tag dummy2
+    </source>
+
+    <match dummy*>
+      @type file
+      path /tmp/logs/${tag}
+      symlink_path /tmp/logs/current-${tag}
+      <buffer tag,time>
+        @type file
+      </buffer>
+    </match>
+
+This produces the following directory layout.
+
+    $ tree /tmp/logs/
+    /tmp/logs/
+    ├── ${tag}
+    │   ├── buffer.b57fb1dd96306dd0b308e094f7ec2228f.log
+    │   ├── buffer.b57fb1dd96306dd0b308e094f7ec2228f.log.meta
+    │   ├── buffer.b57fb1dd96339a870530991d4871cfe11.log
+    │   └── buffer.b57fb1dd96339a870530991d4871cfe11.log.meta
+    ├── current-dummy1 -> /tmp/logs/${tag}/buffer.b57fb1dd96339a870530991d4871cfe11.log
+    └── current-dummy2 -> /tmp/logs/${tag}/buffer.b57fb1dd96306dd0b308e094f7ec2228f.log

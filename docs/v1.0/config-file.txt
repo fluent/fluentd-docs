@@ -304,11 +304,14 @@ The following match patterns can be used in `<match>` and `<filter>` tags.
 
   * This can be used in combination with the ``*`` or ``**`` patterns. Examples include ``a.{b,c}.*`` and ``a.{b,c.**}``
 
+* ``#{...}`` evaluates the string inside brackets as a Ruby expression (See the section "Embedding Ruby Expressions" below)
+
 * When multiple patterns are listed inside a single tag (delimited by one or more whitespaces), it matches any of the listed patterns. For example:
 
   * The patterns ``<match a b>`` match ``a`` and ``b``.
 
   * The patterns ``<match a.** b.*>`` match ``a``, ``a.b``, ``a.b.c`` (from the first pattern) and ``b.d`` (from the second pattern).
+
 
 ### Note on Match Order
 
@@ -352,6 +355,16 @@ The common pitfall is when you put a `<filter>` block after `<match>`. It will n
       @type file
       path /var/log/fluent/access
     </match>
+
+### Embedding Ruby Expressions
+
+Since Fluentd v1.4.0, you can use `#{...}` to embed arbitrary Ruby code into match patterns. Here is an example.
+
+    <match "app.#{ENV['FLUENTD_TAG']}">
+      @type stdout
+    </match>
+
+If you set the environment variable `FLUENTD_TAG` to `dev`, this evaluates to `app.dev`.
 
 ## Supported Data Types for Values
 
