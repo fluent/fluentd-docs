@@ -96,6 +96,31 @@ then the client's hostname is set to `client_host` field.
         "client_host": "client.hostname.org"
     }
 
+### source_address_key
+
+| type   | default                        | version |
+|:------:|:------------------------------:|:-------:|
+| string | nil (no adding source address) | 1.4.2   |
+
+The field name for the client's IP address. If you set this option, Fluentd automatically adds the remote address to each data record.
+
+For example, if you have the following configuration:
+
+    <source>
+      @type tcp
+      source_address_key client_addr
+      ...
+    </source>
+
+you will get something like below:
+
+    :::text
+    {
+        ...
+        "client_addr": "192.168.10.10"
+        ...
+    }
+
 ### &lt;parse&gt; section
 
 | required | multi | version |
