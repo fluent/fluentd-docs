@@ -85,10 +85,10 @@ For example, If you want to output events tagged with `debug.log`, you need to w
 
 ```
 <match debug.log>
-  @type syslog
-  port 5140
-  tag system
-</source>
+  @type kafka2
+  brokers kafka-server:9092
+  # other parameters...
+</match>
 ```
 
 You can use a wildcard character `*` in the filter expression. For example, `debug.*` matches `debug.log` and `debug.foo` etc.
