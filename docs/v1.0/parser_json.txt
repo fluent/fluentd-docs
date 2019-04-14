@@ -14,6 +14,17 @@ See [Parse section configurations](parse-section)
 
 Set JSON parser.
 
+### stream_buffer_size
+
+| type    | default | version |
+|:-------:|:-------:|:-------:|
+| integer | 8192    | 1.4.3  |
+
+The amount of data, in bytes, that the Yajl parser will wait for before parsing and emitting JSON objects.
+See the [Yajl documentation](https://www.rubydoc.info/github/brianmario/yajl-ruby/Yajl%2FParser:parse) for further details.
+
+This will only take effect when the parser is being used to process an IO stream, e.g. in the context of the `out_exec_filter` or `in_exec` plugins.
+
 ## Example
 
     :::text
