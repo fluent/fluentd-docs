@@ -336,6 +336,22 @@ The client private key path for TLS.
 
 The client private key passphrase for TLS.
 
+### keepalive
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | fales    | 1.4.3  |
+
+Enable keepalive connection.
+
+### keepalive_timeout
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| time | nil     | 1.4.3  |
+
+Expired time of keepalive. Default value is nil, which means to keep connection as long as possible.
+
 ### &lt;security&gt; section
 
 | required | multi | version |
