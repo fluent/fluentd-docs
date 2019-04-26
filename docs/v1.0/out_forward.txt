@@ -373,6 +373,14 @@ The backup destination that is used when all servers are unavailable.
 
 For more details, see [Secondary Output](output-plugin-overview#secondary-output).
 
+### verify_connection_at_startup
+
+| type | default | version |
+|:----:|:-------:|:-------:|
+| bool | false   | 1.3.1   |
+
+Verify that a connection can be made with one of out_forward nodes at the time of startup.
+
 ## Tips & Tricks
 
 ### How to connect to a TLS/SSL enabled server
