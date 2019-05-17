@@ -1,5 +1,17 @@
 # Fluentd Docs App
 
+# Important Warnings
+
+**THE OFFICIAL DOCUMENTATION FOR FLUENTD HAS BEEN MOVED TO GITBOOK**
+
+This repository is kept as a historical archive. If you find something
+wrong on https://docs.fluentd.org, please submit issues or PRs to the new
+GitBook repository.
+
+https://github.com/fluent/fluentd-docs-gitbook
+
+# Overview
+
 Ultrasimple CMS and content for Fluentd documentation. The production site is [here](https://docs.fluentd.org/).
 
 If you'd like to propose an edit to the Fluentd docs, please fork this repo and send us a pull request.
