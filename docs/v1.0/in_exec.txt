@@ -25,6 +25,8 @@ You can run a program periodically or permanently. To run periodically, please u
 
 NOTE: Please see the <a href="config-file">Config File</a> article for the basic structure and syntax of the configuration file.
 
+NOTE: When using the json format in &lt;parse&gt; section, this plugin uses the Yajl library to parse the program output. Yajl buffers data internally so the output isn't always instantaneous. See the LINK:[parser_json](parser_json#stream_buffer_size) documentation to adjust this.
+
 ## Plugin helpers
 
 * [compat_parameters](api-plugin-helper-compat_parameters)
